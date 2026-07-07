@@ -1,5 +1,6 @@
-# external dataset — clone per README (not vendored)
+# external datasets — fetch per README (not vendored)
 loghub/
+bigfile/
 
 # generated per-run outputs (reference results live in bench/facts.json + bench/results.json)
 bench/out/

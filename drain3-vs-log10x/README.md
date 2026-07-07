@@ -1,7 +1,7 @@
 # log10x vs Drain3 — lossless log-reduction benchmark
 
-Reproducible harness behind the Log10x blog post *"Templates you can't reverse: log10x vs
-Drain3 on 16 real log datasets"*.
+Reproducible harness behind the Log10x blog post *"Templates you can't reverse: lossless
+log reduction measured on 16 real datasets"*.
 
 It feeds the **same raw log lines** to both tools and measures three things across the 16
 [loghub](https://github.com/logpai/loghub) 2k datasets (~32,000 lines):
@@ -57,6 +57,31 @@ python verify_lossless.py   # fresh byte-exact recheck of log10x + whitespace-ru
 python rederive.py          # recompute every aggregate from raw + outputs + a fresh Drain3
 ```
 
+## Full-dataset run (optional)
+
+The 2k samples measure losslessness and stability; `bench/bigfile.py` measures how the
+fixed template-dictionary cost amortizes at full scale, on one big loghub dataset,
+streaming and memory-bounded. The full datasets are hosted on
+[Zenodo (record 8196385)](https://zenodo.org/records/8196385):
+
+```bash
+cd drain3-vs-log10x
+mkdir -p bigfile && cd bigfile
+curl -L -o BGL.zip "https://zenodo.org/records/8196385/files/BGL.zip?download=1"   # ~57 MB zip
+unzip BGL.zip        # -> BGL.log (743,185,031 bytes, 4,747,963 lines, LF endings)
+cd ../bench
+python bigfile.py BGL ../bigfile/BGL.log
+```
+
+Reference results for BGL (measured 2026-07-07, engine 1.1.4, Drain3 0.9.11):
+
+- log10x: **4,747,963/4,747,963 lines lossless (100.000%)**, whole file byte-identical;
+  127,532 cold templates; representation (templates + encoded) **65% of the raw text**,
+  template dictionary **5.0%** of the representation (vs 30% on the 2k sample); engine
+  wall ~260 s.
+- Drain3: 842 templates; 100% lossless on the sampled first 200,000 lines (BGL has no
+  whitespace runs); mine ~194 s + match/extract ~478 s.
+
 ## What each script does
 
 | script | role |
@@ -67,6 +92,7 @@ python rederive.py          # recompute every aggregate from raw + outputs + a f
 | `analyze.py` | prints the aggregate table |
 | `verify_lossless.py` | independent byte-exact reconstruction check + per-dataset whitespace-run counts |
 | `rederive.py` | independent aggregate recomputation from raw files + log10x outputs + a fresh Drain3 run |
+| `bigfile.py` | full-dataset run (streaming): losslessness on every line + template-dictionary amortization + timings on a big loghub dataset |
 | `smoke_test.py` | self-contained check (no Docker/loghub) of the Drain3 whitespace-collapse mechanism; run in CI |
 
 ## The log10x pipeline configs
