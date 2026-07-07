@@ -1,7 +1,7 @@
 # log10x vs Drain3 — lossless log-reduction benchmark
 
-Reproducible harness behind the Log10x blog post *"Templates you can't reverse: lossless
-log reduction measured on 16 real datasets"*.
+Reproducible harness behind the Log10x blog post *"The pattern ID you can plot: stability
+and losslessness measured on 16 real datasets"*.
 
 It feeds the **same raw log lines** to both tools and measures three things across the 16
 [loghub](https://github.com/logpai/loghub) 2k datasets (~32,000 lines):
