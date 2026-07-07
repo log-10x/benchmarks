@@ -1,0 +1,664 @@
+{
+  "datasets": {
+    "Android": {
+      "gt": 166,
+      "n_lines": 2000,
+      "ws_lines": 1973,
+      "lx": {
+        "templates": 236,
+        "lossless": 100.0,
+        "exact": true,
+        "repr_gzip": 31385,
+        "encoded_bytes": 231569,
+        "orig_bytes": 277078,
+        "orig_gzip": 25576,
+        "engine_ms": 6715
+      },
+      "d3": {
+        "templates": 105,
+        "lossless": 1.35,
+        "repr_gzip": 21974,
+        "time_ms": 52.8
+      },
+      "d3_masked": {
+        "templates": 51,
+        "lossless": 1.35
+      },
+      "stability": {
+        "log10x": {
+          "order_pct": 100.0,
+          "ctxA_pct": 100.0,
+          "ctxB_pct": 100.0,
+          "set_stable": true
+        },
+        "drain3": {
+          "order_pct": 95.9,
+          "ctxA_pct": 95.2,
+          "ctxB_pct": 92.9,
+          "set_stable": false
+        }
+      }
+    },
+    "Apache": {
+      "gt": 6,
+      "n_lines": 2000,
+      "ws_lines": 0,
+      "lx": {
+        "templates": 8,
+        "lossless": 100.0,
+        "exact": true,
+        "repr_gzip": 9224,
+        "encoded_bytes": 81353,
+        "orig_bytes": 169241,
+        "orig_gzip": 9958,
+        "engine_ms": 6466
+      },
+      "d3": {
+        "templates": 12,
+        "lossless": 100.0,
+        "repr_gzip": 7486,
+        "time_ms": 20.6
+      },
+      "d3_masked": {
+        "templates": 10,
+        "lossless": 100.0
+      },
+      "stability": {
+        "log10x": {
+          "order_pct": 100.0,
+          "ctxA_pct": 100.0,
+          "ctxB_pct": 100.0,
+          "set_stable": true
+        },
+        "drain3": {
+          "order_pct": 100.0,
+          "ctxA_pct": 99.6,
+          "ctxB_pct": 100.0,
+          "set_stable": true
+        }
+      }
+    },
+    "BGL": {
+      "gt": 120,
+      "n_lines": 2000,
+      "ws_lines": 0,
+      "lx": {
+        "templates": 1278,
+        "lossless": 100.0,
+        "exact": true,
+        "repr_gzip": 90004,
+        "encoded_bytes": 195184,
+        "orig_bytes": 315152,
+        "orig_gzip": 57380,
+        "engine_ms": 6778
+      },
+      "d3": {
+        "templates": 95,
+        "lossless": 100.0,
+        "repr_gzip": 53180,
+        "time_ms": 53.3
+      },
+      "d3_masked": {
+        "templates": 61,
+        "lossless": 100.0
+      },
+      "stability": {
+        "log10x": {
+          "order_pct": 100.0,
+          "ctxA_pct": 100.0,
+          "ctxB_pct": 100.0,
+          "set_stable": true
+        },
+        "drain3": {
+          "order_pct": 100.0,
+          "ctxA_pct": 97.8,
+          "ctxB_pct": 99.3,
+          "set_stable": false
+        }
+      }
+    },
+    "HDFS": {
+      "gt": 14,
+      "n_lines": 2000,
+      "ws_lines": 5,
+      "lx": {
+        "templates": 55,
+        "lossless": 100.0,
+        "exact": true,
+        "repr_gzip": 53204,
+        "encoded_bytes": 203959,
+        "orig_bytes": 285848,
+        "orig_gzip": 55063,
+        "engine_ms": 6364
+      },
+      "d3": {
+        "templates": 17,
+        "lossless": 99.75,
+        "repr_gzip": 50091,
+        "time_ms": 29.7
+      },
+      "d3_masked": {
+        "templates": 14,
+        "lossless": 99.75
+      },
+      "stability": {
+        "log10x": {
+          "order_pct": 100.0,
+          "ctxA_pct": 100.0,
+          "ctxB_pct": 100.0,
+          "set_stable": true
+        },
+        "drain3": {
+          "order_pct": 100.0,
+          "ctxA_pct": 88.0,
+          "ctxB_pct": 99.9,
+          "set_stable": true
+        }
+      }
+    },
+    "HPC": {
+      "gt": 46,
+      "n_lines": 2000,
+      "ws_lines": 142,
+      "lx": {
+        "templates": 102,
+        "lossless": 100.0,
+        "exact": true,
+        "repr_gzip": 27223,
+        "encoded_bytes": 78114,
+        "orig_bytes": 149178,
+        "orig_gzip": 26676,
+        "engine_ms": 6972
+      },
+      "d3": {
+        "templates": 38,
+        "lossless": 92.9,
+        "repr_gzip": 24312,
+        "time_ms": 29.7
+      },
+      "d3_masked": {
+        "templates": 27,
+        "lossless": 92.9
+      },
+      "stability": {
+        "log10x": {
+          "order_pct": 100.0,
+          "ctxA_pct": 100.0,
+          "ctxB_pct": 100.0,
+          "set_stable": true
+        },
+        "drain3": {
+          "order_pct": 100.0,
+          "ctxA_pct": 99.8,
+          "ctxB_pct": 99.3,
+          "set_stable": true
+        }
+      }
+    },
+    "Hadoop": {
+      "gt": 114,
+      "n_lines": 2000,
+      "ws_lines": 335,
+      "lx": {
+        "templates": 188,
+        "lossless": 100.0,
+        "exact": true,
+        "repr_gzip": 22217,
+        "encoded_bytes": 171388,
+        "orig_bytes": 382950,
+        "orig_gzip": 19188,
+        "engine_ms": 6690
+      },
+      "d3": {
+        "templates": 82,
+        "lossless": 75.9,
+        "repr_gzip": 16826,
+        "time_ms": 47.8
+      },
+      "d3_masked": {
+        "templates": 67,
+        "lossless": 83.25
+      },
+      "stability": {
+        "log10x": {
+          "order_pct": 100.0,
+          "ctxA_pct": 100.0,
+          "ctxB_pct": 100.0,
+          "set_stable": true
+        },
+        "drain3": {
+          "order_pct": 85.4,
+          "ctxA_pct": 99.9,
+          "ctxB_pct": 83.4,
+          "set_stable": false
+        }
+      }
+    },
+    "HealthApp": {
+      "gt": 75,
+      "n_lines": 2000,
+      "ws_lines": 4,
+      "lx": {
+        "templates": 70,
+        "lossless": 100.0,
+        "exact": true,
+        "repr_gzip": 20500,
+        "encoded_bytes": 167649,
+        "orig_bytes": 185458,
+        "orig_gzip": 18147,
+        "engine_ms": 6429
+      },
+      "d3": {
+        "templates": 656,
+        "lossless": 99.7,
+        "repr_gzip": 23728,
+        "time_ms": 242.8
+      },
+      "d3_masked": {
+        "templates": 126,
+        "lossless": 99.7
+      },
+      "stability": {
+        "log10x": {
+          "order_pct": 100.0,
+          "ctxA_pct": 100.0,
+          "ctxB_pct": 100.0,
+          "set_stable": true
+        },
+        "drain3": {
+          "order_pct": 99.8,
+          "ctxA_pct": 99.7,
+          "ctxB_pct": 98.4,
+          "set_stable": true
+        }
+      }
+    },
+    "Linux": {
+      "gt": 118,
+      "n_lines": 2000,
+      "ws_lines": 789,
+      "lx": {
+        "templates": 158,
+        "lossless": 100.0,
+        "exact": true,
+        "repr_gzip": 18295,
+        "encoded_bytes": 114085,
+        "orig_bytes": 214487,
+        "orig_gzip": 16914,
+        "engine_ms": 6542
+      },
+      "d3": {
+        "templates": 61,
+        "lossless": 25.45,
+        "repr_gzip": 16953,
+        "time_ms": 41.2
+      },
+      "d3_masked": {
+        "templates": 38,
+        "lossless": 26.7
+      },
+      "stability": {
+        "log10x": {
+          "order_pct": 100.0,
+          "ctxA_pct": 100.0,
+          "ctxB_pct": 100.0,
+          "set_stable": true
+        },
+        "drain3": {
+          "order_pct": 100.0,
+          "ctxA_pct": 97.8,
+          "ctxB_pct": 79.4,
+          "set_stable": true
+        }
+      }
+    },
+    "Mac": {
+      "gt": 341,
+      "n_lines": 2000,
+      "ws_lines": 2000,
+      "lx": {
+        "templates": 309,
+        "lossless": 100.0,
+        "exact": true,
+        "repr_gzip": 62631,
+        "encoded_bytes": 191511,
+        "orig_bytes": 317416,
+        "orig_gzip": 55426,
+        "engine_ms": 7417
+      },
+      "d3": {
+        "templates": 308,
+        "lossless": 0.0,
+        "repr_gzip": 44120,
+        "time_ms": 113.9
+      },
+      "d3_masked": {
+        "templates": 175,
+        "lossless": 0.0
+      },
+      "stability": {
+        "log10x": {
+          "order_pct": 100.0,
+          "ctxA_pct": 100.0,
+          "ctxB_pct": 100.0,
+          "set_stable": true
+        },
+        "drain3": {
+          "order_pct": 87.6,
+          "ctxA_pct": 88.7,
+          "ctxB_pct": 87.9,
+          "set_stable": false
+        }
+      }
+    },
+    "OpenSSH": {
+      "gt": 27,
+      "n_lines": 2000,
+      "ws_lines": 389,
+      "lx": {
+        "templates": 163,
+        "lossless": 100.0,
+        "exact": true,
+        "repr_gzip": 18556,
+        "encoded_bytes": 115690,
+        "orig_bytes": 223218,
+        "orig_gzip": 16386,
+        "engine_ms": 6433
+      },
+      "d3": {
+        "templates": 131,
+        "lossless": 80.55,
+        "repr_gzip": 15615,
+        "time_ms": 81.4
+      },
+      "d3_masked": {
+        "templates": 17,
+        "lossless": 80.15
+      },
+      "stability": {
+        "log10x": {
+          "order_pct": 100.0,
+          "ctxA_pct": 100.0,
+          "ctxB_pct": 100.0,
+          "set_stable": true
+        },
+        "drain3": {
+          "order_pct": 99.8,
+          "ctxA_pct": 99.8,
+          "ctxB_pct": 40.3,
+          "set_stable": false
+        }
+      }
+    },
+    "OpenStack": {
+      "gt": 43,
+      "n_lines": 2000,
+      "ws_lines": 0,
+      "lx": {
+        "templates": 448,
+        "lossless": 100.0,
+        "exact": true,
+        "repr_gzip": 66833,
+        "encoded_bytes": 386856,
+        "orig_bytes": 593121,
+        "orig_gzip": 55669,
+        "engine_ms": 6898
+      },
+      "d3": {
+        "templates": 46,
+        "lossless": 100.0,
+        "repr_gzip": 51398,
+        "time_ms": 49.5
+      },
+      "d3_masked": {
+        "templates": 22,
+        "lossless": 100.0
+      },
+      "stability": {
+        "log10x": {
+          "order_pct": 100.0,
+          "ctxA_pct": 100.0,
+          "ctxB_pct": 100.0,
+          "set_stable": true
+        },
+        "drain3": {
+          "order_pct": 100.0,
+          "ctxA_pct": 100.0,
+          "ctxB_pct": 100.0,
+          "set_stable": true
+        }
+      }
+    },
+    "Proxifier": {
+      "gt": 8,
+      "n_lines": 2000,
+      "ws_lines": 0,
+      "lx": {
+        "templates": 126,
+        "lossless": 100.0,
+        "exact": true,
+        "repr_gzip": 26136,
+        "encoded_bytes": 81026,
+        "orig_bytes": 236963,
+        "orig_gzip": 22895,
+        "engine_ms": 6932
+      },
+      "d3": {
+        "templates": 22,
+        "lossless": 98.45,
+        "repr_gzip": 22087,
+        "time_ms": 29.5
+      },
+      "d3_masked": {
+        "templates": 20,
+        "lossless": 98.45
+      },
+      "stability": {
+        "log10x": {
+          "order_pct": 100.0,
+          "ctxA_pct": 100.0,
+          "ctxB_pct": 100.0,
+          "set_stable": true
+        },
+        "drain3": {
+          "order_pct": 94.6,
+          "ctxA_pct": 23.4,
+          "ctxB_pct": 95.2,
+          "set_stable": false
+        }
+      }
+    },
+    "Spark": {
+      "gt": 36,
+      "n_lines": 2000,
+      "ws_lines": 0,
+      "lx": {
+        "templates": 70,
+        "lossless": 100.0,
+        "exact": true,
+        "repr_gzip": 13456,
+        "encoded_bytes": 77200,
+        "orig_bytes": 194268,
+        "orig_gzip": 14291,
+        "engine_ms": 6441
+      },
+      "d3": {
+        "templates": 27,
+        "lossless": 100.0,
+        "repr_gzip": 11202,
+        "time_ms": 25.2
+      },
+      "d3_masked": {
+        "templates": 24,
+        "lossless": 100.0
+      },
+      "stability": {
+        "log10x": {
+          "order_pct": 100.0,
+          "ctxA_pct": 100.0,
+          "ctxB_pct": 100.0,
+          "set_stable": true
+        },
+        "drain3": {
+          "order_pct": 100.0,
+          "ctxA_pct": 99.5,
+          "ctxB_pct": 100.0,
+          "set_stable": true
+        }
+      }
+    },
+    "Thunderbird": {
+      "gt": 149,
+      "n_lines": 2000,
+      "ws_lines": 0,
+      "lx": {
+        "templates": 159,
+        "lossless": 100.0,
+        "exact": true,
+        "repr_gzip": 39953,
+        "encoded_bytes": 191593,
+        "orig_bytes": 323194,
+        "orig_gzip": 36652,
+        "engine_ms": 6925
+      },
+      "d3": {
+        "templates": 78,
+        "lossless": 100.0,
+        "repr_gzip": 32143,
+        "time_ms": 73.8
+      },
+      "d3_masked": {
+        "templates": 59,
+        "lossless": 100.0
+      },
+      "stability": {
+        "log10x": {
+          "order_pct": 100.0,
+          "ctxA_pct": 100.0,
+          "ctxB_pct": 100.0,
+          "set_stable": true
+        },
+        "drain3": {
+          "order_pct": 100.0,
+          "ctxA_pct": 52.9,
+          "ctxB_pct": 76.0,
+          "set_stable": true
+        }
+      }
+    },
+    "Windows": {
+      "gt": 50,
+      "n_lines": 2000,
+      "ws_lines": 2000,
+      "lx": {
+        "templates": 76,
+        "lossless": 100.0,
+        "exact": true,
+        "repr_gzip": 15562,
+        "encoded_bytes": 124484,
+        "orig_bytes": 283435,
+        "orig_gzip": 14520,
+        "engine_ms": 6541
+      },
+      "d3": {
+        "templates": 42,
+        "lossless": 0.0,
+        "repr_gzip": 13374,
+        "time_ms": 30.0
+      },
+      "d3_masked": {
+        "templates": 32,
+        "lossless": 0.0
+      },
+      "stability": {
+        "log10x": {
+          "order_pct": 100.0,
+          "ctxA_pct": 100.0,
+          "ctxB_pct": 100.0,
+          "set_stable": true
+        },
+        "drain3": {
+          "order_pct": 99.7,
+          "ctxA_pct": 71.6,
+          "ctxB_pct": 0.8,
+          "set_stable": false
+        }
+      }
+    },
+    "Zookeeper": {
+      "gt": 50,
+      "n_lines": 2000,
+      "ws_lines": 1987,
+      "lx": {
+        "templates": 63,
+        "lossless": 100.0,
+        "exact": true,
+        "repr_gzip": 21752,
+        "encoded_bytes": 151452,
+        "orig_bytes": 277893,
+        "orig_gzip": 21551,
+        "engine_ms": 6482
+      },
+      "d3": {
+        "templates": 41,
+        "lossless": 0.6,
+        "repr_gzip": 21825,
+        "time_ms": 38.2
+      },
+      "d3_masked": {
+        "templates": 26,
+        "lossless": 0.65
+      },
+      "stability": {
+        "log10x": {
+          "order_pct": 100.0,
+          "ctxA_pct": 100.0,
+          "ctxB_pct": 100.0,
+          "set_stable": true
+        },
+        "drain3": {
+          "order_pct": 83.4,
+          "ctxA_pct": 69.1,
+          "ctxB_pct": 87.3,
+          "set_stable": false
+        }
+      }
+    }
+  },
+  "versions": {
+    "drain3": "0.9.11",
+    "engine": "1.1.4",
+    "image": "log10x/pipeline-10x:latest",
+    "loghub": "logpai/loghub 2k samples (16 datasets)"
+  },
+  "aggregate": {
+    "n_datasets": 16,
+    "n_stability_datasets": 16,
+    "lx_lossless_mean": 100.0,
+    "lx_byte_exact": "16/16",
+    "d3_lossless_mean": 67.17,
+    "d3_fully_lossless": "5/16",
+    "d3_near_total_loss": [
+      "Android",
+      "Linux",
+      "Mac",
+      "Windows",
+      "Zookeeper"
+    ],
+    "gt_templates": 1363,
+    "lx_templates": 3509,
+    "d3_templates": 1761,
+    "lx_more_templates_than_d3": 14,
+    "orig_bytes": 4428900,
+    "gzip_orig": 466292,
+    "lx_repr_gzip": 536931,
+    "lx_repr_gzip_pct": 115.1,
+    "d3_repr_gzip": 426314,
+    "d3_repr_gzip_pct": 91.4,
+    "lx_raw_encoded_pct": 57.9,
+    "lx_stability_perfect_order": "16/16",
+    "lx_stability_perfect_ctx": "16/16",
+    "d3_worst_order_pct": 83.4,
+    "d3_worst_ctx_pct": 0.8
+  }
+}

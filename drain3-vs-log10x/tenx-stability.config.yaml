@@ -1,0 +1,26 @@
+# Stability-test config: no multi-line grouping, so each physical input
+# line maps to exactly one event / one encoded line (clean 1:1 alignment).
+# Emits the content-addressed template hash per line via encode().
+tenx: run
+runtimeName: $=TenXEnv.get("LOG10X_MCP_RUNTIME_NAME", "stability")
+
+include:
+  - apps/shared
+  - run/modules/input/file
+  - run/modules/output/event/file
+
+inputFile:
+  - name: stabInput
+    path: $=TenXEnv.get("LOG10X_MCP_INPUT_PATH")
+    printProgress: false
+    extractors: []
+    sourcePattern: null
+
+outputFile:
+  - path: $=TenXEnv.get("LOG10X_MCP_OUTPUT_DIR") + "/templates.json"
+    writeTemplates: true
+    append: false
+
+  - path: $=TenXEnv.get("LOG10X_MCP_OUTPUT_DIR") + "/encoded.log"
+    fields:
+      - encode()

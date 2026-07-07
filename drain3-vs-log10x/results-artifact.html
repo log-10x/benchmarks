@@ -1,0 +1,350 @@
+<title>log10x vs Drain3 — lossless log reduction benchmark</title>
+<style>
+  :root{
+    --plane:#f9f9f7; --surface:#fcfcfb; --panel:#ffffff;
+    --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+    --grid:#e1e0d9; --base:#c3c2b7; --hair:rgba(11,11,11,0.10);
+    --lx:#2a78d6; --lx-wash:rgba(42,120,214,0.10); --lx-track:rgba(42,120,214,0.14);
+    --d3:#eb6834; --d3-wash:rgba(235,104,52,0.12);
+    --good:#006300;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Code","JetBrains Mono",Menlo,Consolas,monospace;
+    --maxw:940px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --plane:#0d0d0d; --surface:#1a1a19; --panel:#161615;
+      --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+      --grid:#2c2c2a; --base:#383835; --hair:rgba(255,255,255,0.12);
+      --lx:#3987e5; --lx-wash:rgba(57,135,229,0.14); --lx-track:rgba(57,135,229,0.16);
+      --d3:#d95926; --d3-wash:rgba(217,89,38,0.16);
+      --good:#0ca30c;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--plane);color:var(--ink);font-family:var(--sans);
+    line-height:1.55;-webkit-font-smoothing:antialiased;font-size:16px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:clamp(28px,5vw,64px) clamp(18px,4vw,40px)}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);margin:0 0 14px}
+  h1{font-family:var(--mono);font-weight:650;font-size:clamp(27px,4.4vw,40px);line-height:1.08;
+    letter-spacing:-.01em;margin:0 0 18px;text-wrap:balance}
+  h1 .lx{color:var(--lx)} h1 .d3{color:var(--d3)}
+  .lede{font-size:clamp(16px,2vw,18.5px);color:var(--ink2);max-width:64ch;margin:0 0 6px}
+  .lede b{color:var(--ink);font-weight:600}
+  section{margin-top:clamp(40px,6vw,68px)}
+  h2{font-family:var(--mono);font-size:19px;font-weight:650;letter-spacing:-.005em;margin:0 0 4px;
+    display:flex;align-items:baseline;gap:12px}
+  h2 .n{color:var(--muted);font-size:13px;font-weight:500}
+  .sub{color:var(--ink2);max-width:66ch;margin:6px 0 22px;font-size:15.5px}
+  .panel{background:var(--panel);border:1px solid var(--hair);border-radius:10px;
+    padding:clamp(18px,3vw,26px)}
+
+  /* stat tiles */
+  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:30px}
+  @media(max-width:720px){.tiles{grid-template-columns:repeat(2,1fr)}}
+  .tile{background:var(--panel);border:1px solid var(--hair);border-radius:10px;padding:18px 18px 16px;
+    display:flex;flex-direction:column;gap:3px;position:relative;overflow:hidden}
+  .tile::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c,var(--muted))}
+  .tile .v{font-family:var(--mono);font-size:31px;font-weight:650;letter-spacing:-.02em;
+    font-variant-numeric:tabular-nums;line-height:1}
+  .tile .k{font-size:12.5px;color:var(--ink2);font-weight:600;margin-top:7px}
+  .tile .s{font-size:12px;color:var(--muted);font-family:var(--mono)}
+  .tile.lx{--c:var(--lx)} .tile.lx .v{color:var(--lx)}
+  .tile.d3{--c:var(--d3)} .tile.d3 .v{color:var(--d3)}
+
+  /* legend */
+  .legend{display:flex;gap:18px;align-items:center;font-size:12.5px;color:var(--ink2);
+    font-family:var(--mono);margin-bottom:16px;flex-wrap:wrap}
+  .legend .k{display:flex;align-items:center;gap:7px}
+  .sw{width:22px;height:10px;border-radius:2px;display:inline-block}
+  .sw.lx{background:var(--lx)} .sw.d3{background:var(--d3)}
+  .sw.track{background:var(--lx-track);border:1px solid var(--lx);box-sizing:border-box}
+
+  /* bar rows */
+  .bars{display:flex;flex-direction:column;gap:7px}
+  .row{display:grid;grid-template-columns:96px 1fr 62px;align-items:center;gap:12px}
+  .row .lab{font-family:var(--mono);font-size:12.5px;color:var(--ink2);text-align:right;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .track{position:relative;height:20px;background:var(--lx-track);border-radius:4px;
+    border-right:2px solid var(--lx)}
+  .fill{position:absolute;left:0;top:0;bottom:0;background:var(--d3);border-radius:4px 2px 2px 4px;
+    min-width:2px;transform-origin:left center;animation:grow .9s cubic-bezier(.2,.7,.2,1) both}
+  @keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  .row .val{font-family:var(--mono);font-size:12.5px;font-variant-numeric:tabular-nums;
+    color:var(--ink);text-align:right}
+  .row:hover .fill{filter:brightness(1.06)}
+  @media(prefers-reduced-motion:reduce){.fill{animation:none}}
+
+  /* scatter */
+  .scatter-wrap{overflow-x:auto}
+  svg{display:block;max-width:100%;height:auto}
+  .ax{stroke:var(--base);stroke-width:1}
+  .gl{stroke:var(--grid);stroke-width:1}
+  .diag{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:5 4;opacity:.7}
+  .pt{fill:var(--d3);stroke:var(--surface);stroke-width:2}
+  .axlab{fill:var(--muted);font-family:var(--mono);font-size:11px}
+  .ptlab{fill:var(--ink2);font-family:var(--mono);font-size:10px}
+
+  /* typed record */
+  .rec{font-family:var(--mono);font-size:13px;overflow-x:auto;white-space:nowrap;
+    padding-bottom:6px;color:var(--ink2)}
+  .rec .lbl{display:block;font-size:10px;color:var(--muted);letter-spacing:.05em;margin-bottom:3px}
+  .chips{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap}
+  .chip{font-family:var(--mono);font-size:12px;border:1px solid var(--hair);border-radius:6px;
+    padding:5px 9px;background:var(--surface)}
+  .chip b{color:var(--lx);font-weight:600}
+  .chip.h b{color:var(--d3)}
+  .hash{color:var(--d3);font-weight:600} .fld{color:var(--lx)}
+
+  /* data table */
+  .tbl-wrap{overflow-x:auto;border:1px solid var(--hair);border-radius:10px}
+  table{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+  th,td{padding:8px 12px;text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono);
+    border-bottom:1px solid var(--grid);white-space:nowrap}
+  th{color:var(--muted);font-weight:600;font-size:11px;letter-spacing:.04em;text-transform:uppercase;
+    position:sticky;top:0;background:var(--panel)}
+  td:first-child,th:first-child{text-align:left;color:var(--ink)}
+  tbody tr:hover{background:var(--lx-wash)}
+  .lxc{color:var(--lx)} .d3c{color:var(--d3)}
+
+  .meth{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:720px){.meth{grid-template-columns:1fr}}
+  .meth .card{background:var(--panel);border:1px solid var(--hair);border-radius:10px;padding:18px 20px}
+  .meth h3{font-family:var(--mono);font-size:13px;margin:0 0 8px;color:var(--ink)}
+  .meth code{font-family:var(--mono);font-size:12px;background:var(--surface);border:1px solid var(--hair);
+    border-radius:5px;padding:1px 5px;color:var(--ink2)}
+  .meth p{margin:6px 0;font-size:13.5px;color:var(--ink2)}
+  footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--hair);
+    font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .note{font-size:13px;color:var(--muted);margin-top:14px;font-family:var(--mono)}
+
+  /* tooltip */
+  #tip{position:fixed;pointer-events:none;opacity:0;transform:translateY(-4px);transition:opacity .12s;
+    background:var(--ink);color:var(--plane);font-family:var(--mono);font-size:12px;padding:7px 10px;
+    border-radius:6px;z-index:50;max-width:260px;line-height:1.4}
+  @media(prefers-reduced-motion:reduce){#tip{transition:none}}
+</style>
+
+<div class="wrap">
+  <p class="eyebrow">Benchmark · logpai/loghub 2k · 16 datasets · ~32,000 lines</p>
+  <h1>A log parser that keeps every byte:<br><span class="lx">log10x</span> vs <span class="d3">Drain3</span></h1>
+  <p class="lede">Both tools collapse repetitive log lines into templates. <b>Drain3 is a template miner</b> — it finds the shapes and discards the lines. <b>log10x is a lossless codec</b> — same template view, but it reconstructs the exact original stream. Identical raw input to both, no per-source configuration. Every number below is reproducible from the commands at the bottom.</p>
+
+  <div class="tiles">
+    <div class="tile lx"><span class="v">100%</span><span class="k">log10x lossless</span><span class="s">per-line byte-exact · 16/16</span></div>
+    <div class="tile d3"><span class="v">67%</span><span class="k">Drain3 lossless (mean)</span><span class="s">fully lossless on 5/16</span></div>
+    <div class="tile lx"><span class="v">100%</span><span class="k">log10x pattern stability</span><span class="s">order + context · 16/16</span></div>
+    <div class="tile d3"><span class="v">0.8%</span><span class="k">Drain3 worst-case stability</span><span class="s">Windows · context-invariance</span></div>
+  </div>
+
+  <!-- 1. LOSSLESS -->
+  <section>
+    <h2><span class="n">01</span> Losslessness</h2>
+    <p class="sub">Reduce the file, then rebuild it: what fraction of lines come back <b>byte-for-byte identical</b>? For log10x we also did a true round trip — kept only <code style="font-family:var(--mono)">templates.json&nbsp;+&nbsp;encoded.log</code>, deleted the rest, and decoded that file back to the exact original.</p>
+    <div class="panel">
+      <div class="legend">
+        <span class="k"><span class="sw track"></span>log10x = 100% (full track)</span>
+        <span class="k"><span class="sw d3"></span>Drain3 lossless %</span>
+        <span style="margin-left:auto;color:var(--muted)">sorted by Drain3 ·  hover for detail</span>
+      </div>
+      <div class="bars" id="loss-bars"></div>
+      <p class="note">Drain3's loss tracks whitespace: it splits on spaces and collapses runs of them, so <code style="font-family:var(--mono);background:var(--surface);border:1px solid var(--hair);border-radius:4px;padding:0 4px">Jul&nbsp;&nbsp;1</code> → <code style="font-family:var(--mono);background:var(--surface);border:1px solid var(--hair);border-radius:4px;padding:0 4px">Jul&nbsp;1</code>. Every Mac/Windows line has a whitespace run → 0% recoverable.</p>
+    </div>
+  </section>
+
+  <!-- mechanism scatter -->
+  <section>
+    <h2><span class="n">01·b</span> Why Drain3 loses data</h2>
+    <p class="sub">Drain3's data loss per dataset plotted against the share of lines containing a run of 2+ internal spaces. Points on the diagonal mean the loss is <b>entirely</b> whitespace collapse; a few datasets sit above it, losing extra to other tokenization edge cases.</p>
+    <div class="panel scatter-wrap" id="scatter"></div>
+  </section>
+
+  <!-- 2. STABLE -->
+  <section>
+    <h2><span class="n">02</span> Pattern stability</h2>
+    <p class="sub">Split each dataset into halves A and B; run each tool on <code style="font-family:var(--mono)">A</code>, <code style="font-family:var(--mono)">B</code>, <code style="font-family:var(--mono)">A+B</code>, <code style="font-family:var(--mono)">B+A</code>. Does a given line get the <b>same pattern ID</b> regardless of what else is in the file? Below: % of lines whose pattern is unchanged when its half is processed alongside other content (context-invariance, worst of the two directions).</p>
+    <div class="panel">
+      <div class="legend">
+        <span class="k"><span class="sw track"></span>log10x = 100% (content-addressed hash)</span>
+        <span class="k"><span class="sw d3"></span>Drain3 context-invariant %</span>
+        <span style="margin-left:auto;color:var(--muted)">hover for detail</span>
+      </div>
+      <div class="bars" id="stab-bars"></div>
+      <p class="note">log10x's template hash is a pure function of the line's structure — same line, same hash, any file, any order (100% on all 16). Drain3 is an online learner: its templates generalize as it consumes the stream, so identity depends on history.</p>
+    </div>
+  </section>
+
+  <!-- 3. TYPED -->
+  <section>
+    <h2><span class="n">03</span> Typed extraction</h2>
+    <p class="sub">The reason the round trip works: every variable is pulled into its own typed field. One HDFS line and its <code style="font-family:var(--mono)">encoded.log</code> record:</p>
+    <div class="panel">
+      <div class="rec"><span class="lbl">raw line</span>081109 203615 148 INFO dfs.DataNode$PacketResponder: PacketResponder 1 for block blk_38865049064139660 terminating</div>
+      <div class="rec" style="margin-top:16px"><span class="lbl">log10x encoded record</span><span class="hash">~9PzqOgnWcl</span>,<span class="fld">081109</span>,<span class="fld">203615</span>,<span class="fld">148</span>,<span class="fld">DataNode</span>,<span class="fld">PacketResponder</span>,<span class="fld">1</span>,<span class="fld">38865049064139660</span></div>
+      <div class="chips">
+        <span class="chip h"><b>~9PzqOgnWcl</b> template hash</span>
+        <span class="chip"><b>081109</b> date</span>
+        <span class="chip"><b>203615</b> time</span>
+        <span class="chip"><b>148</b> pid</span>
+        <span class="chip"><b>DataNode</b> component</span>
+        <span class="chip"><b>PacketResponder</b> subclass</span>
+        <span class="chip"><b>1</b> responder</span>
+        <span class="chip"><b>38865049064139660</b> block id</span>
+      </div>
+      <p class="note">Drain3's equivalent is the template string <code style="font-family:var(--mono);background:var(--surface);border:1px solid var(--hair);border-radius:4px;padding:0 4px">PacketResponder &lt;*&gt; for block blk_&lt;*&gt; terminating</code> with the values dropped. The hash is content-addressed; the fields are typed and queryable.</p>
+    </div>
+  </section>
+
+  <!-- DATA -->
+  <section>
+    <h2><span class="n">04</span> Full results</h2>
+    <p class="sub">All 16 datasets. <span class="lxc">log10x</span> is 100% lossless and 100% stable on every one; <span class="d3c">Drain3</span> figures vary. ws% = share of lines with a whitespace run.</p>
+    <div class="tbl-wrap">
+      <table id="data-tbl">
+        <thead><tr>
+          <th>dataset</th><th>ws %</th>
+          <th class="lxc">lx tmpl</th><th class="d3c">d3 tmpl</th>
+          <th class="lxc">lx loss</th><th class="d3c">d3 loss</th>
+          <th class="d3c">d3 order</th><th class="d3c">d3 ctx</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- METHOD -->
+  <section>
+    <h2><span class="n">05</span> How to reproduce</h2>
+    <div class="meth">
+      <div class="card">
+        <h3>Data</h3>
+        <p><code>git clone --depth 1 https://github.com/logpai/loghub.git</code></p>
+        <p>16 <code>*_2k.log</code> datasets, ~2,000 raw lines each. Normalize line endings to LF, then feed the <b>whole raw line</b> to both tools — no per-source header regex.</p>
+      </div>
+      <div class="card">
+        <h3>Drain3 <span style="color:var(--muted)">0.9.11</span></h3>
+        <p><code>pip install drain3==0.9.11</code>; default config. Mine templates, then (bolted on, since Drain3 doesn't) a per-line parameter store via <code>extract_parameters</code> to attempt reconstruction.</p>
+      </div>
+      <div class="card">
+        <h3>log10x <span style="color:var(--muted)">engine 1.1.4</span></h3>
+        <p><code>docker run … log10x/pipeline-10x:latest @tenx.config.yaml</code>. Reads a log file, writes <code>templates.json</code>, <code>encoded.log</code>, <code>reconstructed.log</code>. No API key for local file I/O.</p>
+      </div>
+      <div class="card">
+        <h3>Metrics</h3>
+        <p><b>Lossless %</b> = byte-exact reconstructed lines ÷ total. <b>Templates</b> = distinct patterns. <b>Stability</b> = % of lines keeping the same pattern across the A / B / A+B / B+A split.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>logpai/loghub 2k · Drain3 0.9.11 · log10x engine 1.1.4 (log10x/pipeline-10x:latest) · identical raw input, zero per-source configuration</footer>
+</div>
+
+<div id="tip"></div>
+
+<script>
+const DATA = [
+  {d:"Android",   ws:98.65, lxT:236, d3T:105, d3L:1.35,  d3O:95.9, d3C:92.9},
+  {d:"Apache",    ws:0.0,   lxT:8,   d3T:12,  d3L:100.0, d3O:100.0,d3C:99.6},
+  {d:"BGL",       ws:0.0,   lxT:1278,d3T:95,  d3L:100.0, d3O:100.0,d3C:97.8},
+  {d:"HDFS",      ws:0.25,  lxT:55,  d3T:17,  d3L:99.75, d3O:100.0,d3C:88.0},
+  {d:"HPC",       ws:7.1,   lxT:102, d3T:38,  d3L:92.9,  d3O:100.0,d3C:99.3},
+  {d:"Hadoop",    ws:16.75, lxT:188, d3T:82,  d3L:75.9,  d3O:85.4, d3C:83.4},
+  {d:"HealthApp", ws:0.2,   lxT:70,  d3T:656, d3L:99.7,  d3O:99.8, d3C:98.4},
+  {d:"Linux",     ws:39.45, lxT:158, d3T:61,  d3L:25.45, d3O:100.0,d3C:79.4},
+  {d:"Mac",       ws:100.0, lxT:309, d3T:308, d3L:0.0,   d3O:87.6, d3C:87.9},
+  {d:"OpenSSH",   ws:19.45, lxT:163, d3T:131, d3L:80.55, d3O:99.8, d3C:40.3},
+  {d:"OpenStack", ws:0.0,   lxT:448, d3T:46,  d3L:100.0, d3O:100.0,d3C:100.0},
+  {d:"Proxifier", ws:0.0,   lxT:126, d3T:22,  d3L:98.45, d3O:94.6, d3C:23.4},
+  {d:"Spark",     ws:0.0,   lxT:70,  d3T:27,  d3L:100.0, d3O:100.0,d3C:99.5},
+  {d:"Thunderbird",ws:0.0,  lxT:159, d3T:78,  d3L:100.0, d3O:100.0,d3C:52.9},
+  {d:"Windows",   ws:100.0, lxT:76,  d3T:42,  d3L:0.0,   d3O:99.7, d3C:0.8},
+  {d:"Zookeeper", ws:99.35, lxT:63,  d3T:41,  d3L:0.6,   d3O:83.4, d3C:69.1},
+];
+
+const tip=document.getElementById('tip');
+function showTip(html,e){tip.innerHTML=html;tip.style.opacity='1';moveTip(e);}
+function moveTip(e){const p=12;let x=e.clientX+p,y=e.clientY+p;
+  const r=tip.getBoundingClientRect();
+  if(x+r.width>innerWidth)x=e.clientX-r.width-p; if(y+r.height>innerHeight)y=e.clientY-r.height-p;
+  tip.style.left=x+'px';tip.style.top=y+'px';}
+function hideTip(){tip.style.opacity='0';}
+
+function barRow(o,val,tipHtml){
+  const row=document.createElement('div');row.className='row';
+  row.innerHTML=`<div class="lab">${o.d}</div>
+    <div class="track"><div class="fill" style="width:${Math.max(val,0.4)}%"></div></div>
+    <div class="val">${val.toFixed(val<10?2:1)}%</div>`;
+  const tk=row.querySelector('.track');
+  tk.addEventListener('mousemove',e=>showTip(tipHtml,e));
+  tk.addEventListener('mouseleave',hideTip);
+  return row;
+}
+
+// losslessness bars (sorted desc by d3L)
+const lossHost=document.getElementById('loss-bars');
+[...DATA].sort((a,b)=>b.d3L-a.d3L).forEach(o=>{
+  lossHost.appendChild(barRow(o,o.d3L,
+    `<b>${o.d}</b><br>log10x: 100% byte-exact<br>Drain3: ${o.d3L}% lossless<br>whitespace lines: ${o.ws}%`));
+});
+
+// stability bars (sorted desc by d3C)
+const stabHost=document.getElementById('stab-bars');
+[...DATA].sort((a,b)=>b.d3C-a.d3C).forEach(o=>{
+  stabHost.appendChild(barRow(o,o.d3C,
+    `<b>${o.d}</b><br>log10x context-invariance: 100%<br>Drain3 context-invariance: ${o.d3C}%<br>Drain3 order-invariance: ${o.d3O}%`));
+});
+
+// scatter: x=ws%, y=d3 loss% (=100-d3L)
+(function(){
+  const W=Math.min(900, Math.max(560, DATA.length*0)+640), H=440;
+  const m={l:56,r:24,t:20,b:52}, iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const sx=v=>m.l+v/100*iw, sy=v=>m.t+(1-v/100)*ih;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Drain3 data loss vs whitespace-line share">`;
+  // gridlines
+  for(let i=0;i<=100;i+=20){
+    s+=`<line class="gl" x1="${sx(i)}" y1="${m.t}" x2="${sx(i)}" y2="${m.t+ih}"/>`;
+    s+=`<line class="gl" x1="${m.l}" y1="${sy(i)}" x2="${m.l+iw}" y2="${sy(i)}"/>`;
+    s+=`<text class="axlab" x="${sx(i)}" y="${m.t+ih+18}" text-anchor="middle">${i}</text>`;
+    s+=`<text class="axlab" x="${m.l-10}" y="${sy(i)+4}" text-anchor="end">${i}</text>`;
+  }
+  // diagonal y=x (loss == whitespace)
+  s+=`<line class="diag" x1="${sx(0)}" y1="${sy(0)}" x2="${sx(100)}" y2="${sy(100)}"/>`;
+  s+=`<text class="axlab" x="${sx(72)-4}" y="${sy(72)-8}" text-anchor="end" style="fill:var(--muted)">loss = whitespace</text>`;
+  // axes
+  s+=`<line class="ax" x1="${m.l}" y1="${m.t+ih}" x2="${m.l+iw}" y2="${m.t+ih}"/>`;
+  s+=`<line class="ax" x1="${m.l}" y1="${m.t}" x2="${m.l}" y2="${m.t+ih}"/>`;
+  s+=`<text class="axlab" x="${m.l+iw/2}" y="${H-8}" text-anchor="middle">lines with a whitespace run (%)</text>`;
+  s+=`<text class="axlab" transform="translate(15,${m.t+ih/2}) rotate(-90)" text-anchor="middle">Drain3 data lost (%)</text>`;
+  // points — draw all 16; label only the mid-range ones (the two dense
+  // clusters at the corners get one annotation each, to avoid label pile-ups).
+  const LABELPOS={HPC:[8,14,'start'],Hadoop:[8,-8,'start'],OpenSSH:[-8,16,'end'],Linux:[8,-8,'start']};
+  DATA.forEach((o,i)=>{
+    const loss=+(100-o.d3L).toFixed(2);
+    s+=`<circle class="pt" cx="${sx(o.ws)}" cy="${sy(loss)}" r="5.5" data-i="${i}"/>`;
+    const lp=LABELPOS[o.d];
+    if(lp) s+=`<text class="ptlab" x="${sx(o.ws)+lp[0]}" y="${sy(loss)+lp[1]}" text-anchor="${lp[2]}">${o.d}</text>`;
+  });
+  // cluster annotations
+  s+=`<text class="ptlab" x="${sx(3)}" y="${sy(3)+18}" text-anchor="start" style="fill:var(--muted)">8 clean datasets ≈ (0, 0)</text>`;
+  s+=`<text class="ptlab" x="${sx(100)-10}" y="${sy(100)+18}" text-anchor="end" style="fill:var(--muted)">Android · Zookeeper · Mac · Windows</text>`;
+  s+=`</svg>`;
+  document.getElementById('scatter').innerHTML=s;
+  document.querySelectorAll('#scatter .pt').forEach(c=>{
+    const o=DATA[+c.dataset.i], loss=+(100-o.d3L).toFixed(2);
+    c.addEventListener('mousemove',e=>showTip(`<b>${o.d}</b><br>whitespace lines: ${o.ws}%<br>Drain3 lost: ${loss}%`,e));
+    c.addEventListener('mouseleave',hideTip);
+  });
+})();
+
+// data table
+const tb=document.querySelector('#data-tbl tbody');
+DATA.forEach(o=>{
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td>${o.d}</td><td>${o.ws}</td>
+    <td class="lxc">${o.lxT}</td><td class="d3c">${o.d3T}</td>
+    <td class="lxc">100%</td><td class="d3c">${o.d3L}%</td>
+    <td class="d3c">${o.d3O}%</td><td class="d3c">${o.d3C}%</td>`;
+  tb.appendChild(tr);
+});
+</script>

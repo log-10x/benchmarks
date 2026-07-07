@@ -1,0 +1,25 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  drain3-vs-log10x:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install -r drain3-vs-log10x/requirements.txt
+
+      - name: Syntax-check the harness
+        run: python -m py_compile drain3-vs-log10x/bench/*.py drain3-vs-log10x/smoke_test.py
+
+      - name: Smoke test (Drain3 mechanism, no Docker)
+        run: python drain3-vs-log10x/smoke_test.py
