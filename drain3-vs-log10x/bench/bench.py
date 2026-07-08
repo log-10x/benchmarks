@@ -19,7 +19,8 @@ import subprocess, os, glob, json, time, gzip, sys, re, io
 
 SCRATCH = os.environ.get("BENCH_DIR") or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOGHUB  = os.path.join(SCRATCH, "loghub")
-CFG     = os.path.join(SCRATCH, "tenx-verify.config.yaml")
+ENCODE_CFG = os.path.join(SCRATCH, "tenx-encode.config.yaml")
+DECODE_CFG = os.path.join(SCRATCH, "tenx-decode.config.yaml")
 IMAGE   = "log10x/pipeline-10x:latest"
 BENCH   = os.path.join(SCRATCH, "bench")
 OUTROOT = os.path.join(BENCH, "out")
@@ -165,31 +166,43 @@ def _fill(template, params, ph_re):
 
 # ----------------------------------------------------------------------------
 
+def _docker(cfg, cfgname, outdir, input_file, input_mounts):
+    args = ["docker","run","--rm",
+        "-e", "OUTPUT_DIR=/out", "-e", f"INPUT_FILE={input_file}",
+        "-v", f"{outdir}:/out",
+        "-v", f"{cfg}:/cfg/{cfgname}:ro"]
+    for hostp, contp in input_mounts:
+        args += ["-v", f"{hostp}:{contp}:ro"]
+    args += [IMAGE, f"@/cfg/{cfgname}"]
+    t0 = time.time()
+    r = subprocess.run(args, capture_output=True, text=True, encoding="utf-8", errors="replace")
+    return r, time.time() - t0
+
 def run_log10x(ds):
     log = logpath(ds)
     outdir = os.path.join(OUTROOT, ds, "log10x")
     os.makedirs(outdir, exist_ok=True)
-    # clean previous
-    for fn in ("templates.json","encoded.log","reconstructed.log"):
+    for fn in ("templates.json","encoded.log","compact.log","decoded.log"):
         p = os.path.join(outdir, fn)
         if os.path.exists(p): os.remove(p)
+    dsdir = os.path.dirname(log); inname = os.path.basename(log)
 
-    args = ["docker","run","--rm",
-        "-e", f"LOG10X_MCP_RUNTIME_NAME={ds}",
-        "-e", "LOG10X_MCP_OUTPUT_DIR=/mcp/output",
-        "-e", "LOG10X_MCP_INPUT_PATH=/mcp/input/events.log",
-        "-v", f"{outdir}:/mcp/output",
-        "-v", f"{CFG}:/mcp/config/tenx-verify.config.yaml:ro",
-        "-v", f"{log}:/mcp/input/events.log:ro",
-        IMAGE, "@/mcp/config/tenx-verify.config.yaml"]
-    t0 = time.time()
-    r = subprocess.run(args, capture_output=True, text=True, encoding="utf-8", errors="replace")
-    wall = time.time() - t0
-    if r.returncode != 0:
-        print(f"  !! {ds} docker exit {r.returncode}\n{r.stderr[-1500:]}")
-        return {"tool":"log10x","error":r.returncode,"stderr":r.stderr[-1500:]}
+    # run 1: encode -> templates.json + encoded.log
+    r1, w1 = _docker(ENCODE_CFG, "tenx-encode.config.yaml", outdir, f"/in/{inname}", [(dsdir, "/in")])
+    if r1.returncode != 0:
+        print(f"  !! {ds} encode exit {r1.returncode}\n{r1.stderr[-1500:]}")
+        return {"tool":"log10x","error":r1.returncode,"stderr":r1.stderr[-1500:]}
+    # run 2: decode the compact (templates + encoded) -> decoded.log
+    with open(os.path.join(outdir,"compact.log"),"wb") as out:
+        out.write(open(os.path.join(outdir,"templates.json"),"rb").read())
+        out.write(open(os.path.join(outdir,"encoded.log"),"rb").read())
+    r2, w2 = _docker(DECODE_CFG, "tenx-decode.config.yaml", outdir, "/out/compact.log", [])
+    if r2.returncode != 0:
+        print(f"  !! {ds} decode exit {r2.returncode}\n{r2.stderr[-1500:]}")
+        return {"tool":"log10x","error":r2.returncode,"stderr":r2.stderr[-1500:]}
+    wall = w1 + w2
 
-    m = re.search(r"completed in:\s*(\d+)ms", r.stderr + r.stdout)
+    m = re.search(r"completed in:\s*(\d+)ms", r1.stderr + r1.stdout)
     engine_ms = int(m.group(1)) if m else None
 
     lines = read_lines(logpath(ds))
@@ -198,7 +211,7 @@ def run_log10x(ds):
 
     templates_raw = open(os.path.join(outdir,"templates.json"), encoding="utf-8", errors="replace").read() if os.path.exists(os.path.join(outdir,"templates.json")) else ""
     encoded_raw   = open(os.path.join(outdir,"encoded.log"), encoding="utf-8", errors="replace").read() if os.path.exists(os.path.join(outdir,"encoded.log")) else ""
-    recon_path = os.path.join(outdir,"reconstructed.log")
+    recon_path = os.path.join(outdir,"decoded.log")
     recon_raw  = open(recon_path, "rb").read().decode("utf-8","replace") if os.path.exists(recon_path) else ""
 
     n_templates = sum(1 for ln in templates_raw.split("\n") if ln.strip())

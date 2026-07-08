@@ -17,7 +17,8 @@ Usage:  python bigfile.py <name> <path-to-.log>
 import subprocess, os, sys, re, gzip, io, time
 
 BASE = os.environ.get("BENCH_DIR") or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CFG   = os.path.join(BASE, "tenx-verify.config.yaml")   # templates + encoded + reconstructed
+ENCODE_CFG = os.path.join(BASE, "tenx-encode.config.yaml")
+DECODE_CFG = os.path.join(BASE, "tenx-decode.config.yaml")
 IMAGE = "log10x/pipeline-10x:latest"
 
 def gz_file(path, chunk=1 << 20):
@@ -40,28 +41,37 @@ def gz_file(path, chunk=1 << 20):
 
 def human(n): return f"{n/1024/1024:.1f} MB" if n >= 1024*1024 else f"{n/1024:.1f} KB"
 
+def _docker(cfg, cfgname, outdir, input_file, input_mount):
+    args = ["docker","run","--rm",
+        "-e","OUTPUT_DIR=/out","-e","INPUT_FILE="+input_file,
+        "-v",f"{outdir}:/out","-v",f"{cfg}:/cfg/{cfgname}:ro"]
+    if input_mount:
+        args += ["-v", f"{input_mount[0]}:{input_mount[1]}:ro"]
+    args += [IMAGE, f"@/cfg/{cfgname}"]
+    t = time.time()
+    r = subprocess.run(args, capture_output=True, text=True, encoding="utf-8", errors="replace")
+    if r.returncode != 0:
+        print("docker failed:\n", r.stderr[-2000:]); sys.exit(1)
+    return r, time.time() - t
+
 def run_log10x(name, logpath):
     outdir = os.path.join(BASE, "bigfile", name, "log10x")
     os.makedirs(outdir, exist_ok=True)
-    for fn in ("templates.json", "encoded.log", "reconstructed.log"):
+    for fn in ("templates.json", "encoded.log", "compact.log", "decoded.log"):
         p = os.path.join(outdir, fn)
         if os.path.exists(p): os.remove(p)
     indir = os.path.dirname(os.path.abspath(logpath)); inname = os.path.basename(logpath)
-    args = ["docker","run","--rm",
-        "-e","LOG10X_MCP_RUNTIME_NAME="+name,
-        "-e","LOG10X_MCP_OUTPUT_DIR=/mcp/output",
-        "-e","LOG10X_MCP_INPUT_PATH=/mcp/input/"+inname,
-        "-v",f"{outdir}:/mcp/output",
-        "-v",f"{CFG}:/mcp/config/tenx-verify.config.yaml:ro",
-        "-v",f"{indir}:/mcp/input:ro",
-        IMAGE,"@/mcp/config/tenx-verify.config.yaml"]
-    t = time.time()
-    r = subprocess.run(args, capture_output=True, text=True, encoding="utf-8", errors="replace")
-    dt = time.time() - t
-    if r.returncode != 0:
-        print("docker failed:\n", r.stderr[-2000:]); sys.exit(1)
-    m = re.search(r"completed in:\s*(\d+)ms", r.stderr + r.stdout)
-    return outdir, dt, (int(m.group(1)) if m else None)
+    # run 1: encode
+    r1, w1 = _docker(ENCODE_CFG, "tenx-encode.config.yaml", outdir, "/in/"+inname, (indir, "/in"))
+    # run 2: decode the compact stream (templates + encoded) back to text
+    compact = os.path.join(outdir, "compact.log")
+    with open(compact, "wb") as out, open(os.path.join(outdir,"templates.json"),"rb") as a, \
+         open(os.path.join(outdir,"encoded.log"),"rb") as b:
+        for chunk in iter(lambda: a.read(1<<20), b""): out.write(chunk)
+        for chunk in iter(lambda: b.read(1<<20), b""): out.write(chunk)
+    r2, w2 = _docker(DECODE_CFG, "tenx-decode.config.yaml", outdir, "/out/compact.log", None)
+    m = re.search(r"completed in:\s*(\d+)ms", r1.stderr + r1.stdout)
+    return outdir, w1 + w2, (int(m.group(1)) if m else None)
 
 def count_lines(path):
     n = 0
@@ -131,7 +141,7 @@ def main(name, logpath):
 
     print("[log10x] running engine (docker)...", flush=True)
     outdir, dt, ems = run_log10x(name, logpath)
-    tj = os.path.join(outdir, "templates.json"); en = os.path.join(outdir, "encoded.log"); rc = os.path.join(outdir, "reconstructed.log")
+    tj = os.path.join(outdir, "templates.json"); en = os.path.join(outdir, "encoded.log"); rc = os.path.join(outdir, "decoded.log")
     ntmpl = count_lines(tj)
     tj_raw, tj_gz = gz_file(tj); en_raw, en_gz = gz_file(en)
     repr_raw = tj_raw + en_raw

@@ -1,23 +1,17 @@
-# Decode-only config: read a compact file (template defs followed by
-# ~encoded instances), let the engine auto-load the templates and expand
-# the encoded instances back to their original text.
+# Decode: read a compact file (template defs followed by ~encoded records); the engine
+# auto-loads the templates, recognizes the encoded events, and writes their original text.
 tenx: run
-runtimeName: $=TenXEnv.get("LOG10X_MCP_RUNTIME_NAME", "decode")
-
+runtimeName: decode
 include:
   - apps/shared
   - run/modules/input/file
   - run/modules/output/event/file
-
 inputFile:
-  - name: decodeInput
-    path: $=TenXEnv.get("LOG10X_MCP_INPUT_PATH")
+  - name: input
+    path: $=TenXEnv.get("INPUT_FILE")
     printProgress: false
-    extractors: []
-    sourcePattern: null
-
 outputFile:
-  - path: $=TenXEnv.get("LOG10X_MCP_OUTPUT_DIR") + "/decoded.log"
+  - path: $=TenXEnv.get("OUTPUT_DIR") + "/decoded.log"
     filter: isEncoded
     fields:
       - text

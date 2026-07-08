@@ -77,8 +77,9 @@ Reference results for BGL (measured 2026-07-07, engine 1.1.4, Drain3 0.9.11):
 
 - log10x: **4,747,963/4,747,963 lines lossless (100.000%)**, whole file byte-identical;
   127,532 cold templates; representation (templates + encoded) **65% of the raw text**,
-  template dictionary **5.0%** of the representation (vs 30% on the 2k sample); engine
-  wall ~260 s.
+  template dictionary **5.0%** of the representation (vs 30% on the 2k sample); encode
+  ~46 s. (Decode is a separate pass and is slow here: loading 127,532 templates before
+  expanding 4.7M records is the cost of the cold, over-segmented dictionary.)
 - Drain3: 842 templates; 100% lossless on the sampled first 200,000 lines (BGL has no
   whitespace runs); mine ~194 s + match/extract ~478 s.
 
@@ -97,12 +98,17 @@ Reference results for BGL (measured 2026-07-07, engine 1.1.4, Drain3 0.9.11):
 
 ## The log10x pipeline configs
 
-- `tenx-verify.config.yaml` — encode a log file to `templates.json` + `encoded.log`, and
-  write the `text` reconstruction (`reconstructed.log`) in the same pass.
-- `tenx-decode.config.yaml` — decode-only: read a compact file (`cat templates.json
-  encoded.log`) and expand the encoded records back to the original text.
+The engine is a codec, run in two passes:
+
+- `tenx-encode.config.yaml` — **encode**: read a raw log file, write the template
+  dictionary (`templates.json`) and the encoded stream (`encoded.log`).
+- `tenx-decode.config.yaml` — **decode**: read a compact file (`cat templates.json
+  encoded.log > compact.log`); the engine auto-loads the templates, recognizes the
+  `~`-prefixed encoded records, and writes their original text (`decoded.log`).
 - `tenx-stability.config.yaml` — encode with multi-line grouping disabled (1:1 line↔event),
-  used for the stability test.
+  used by `stability.py` to read one content-addressed hash per line.
+
+`bench.py` runs both passes per dataset and diffs `decoded.log` against the input.
 
 `results-artifact.html` is a self-contained visual summary of the results.
 

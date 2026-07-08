@@ -36,13 +36,12 @@ def log10x_hashes(name, infile):
         p=os.path.join(outdir,fn)
         if os.path.exists(p): os.remove(p)
     args = ["docker","run","--rm",
-        "-e", f"LOG10X_MCP_RUNTIME_NAME=stab{name}",
-        "-e", "LOG10X_MCP_OUTPUT_DIR=/mcp/output",
-        "-e", "LOG10X_MCP_INPUT_PATH=/mcp/input/events.log",
-        "-v", f"{outdir}:/mcp/output",
-        "-v", f"{CFG}:/mcp/config/tenx-verify.config.yaml:ro",
-        "-v", f"{infile}:/mcp/input/events.log:ro",
-        IMAGE, "@/mcp/config/tenx-verify.config.yaml"]
+        "-e", "OUTPUT_DIR=/out",
+        "-e", "INPUT_FILE=/in/events.log",
+        "-v", f"{outdir}:/out",
+        "-v", f"{CFG}:/cfg/tenx-stability.config.yaml:ro",
+        "-v", f"{infile}:/in/events.log:ro",
+        IMAGE, "@/cfg/tenx-stability.config.yaml"]
     r = subprocess.run(args, capture_output=True, text=True, encoding="utf-8", errors="replace")
     if r.returncode != 0:
         print("  docker fail", name, r.stderr[-800:]); return None

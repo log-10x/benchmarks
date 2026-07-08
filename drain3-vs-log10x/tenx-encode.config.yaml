@@ -1,26 +1,30 @@
-# Stability-test config: no multi-line grouping, so each physical input
-# line maps to exactly one event / one encoded line (clean 1:1 alignment).
-# Emits the content-addressed template hash per line via encode().
+# Encode: read a raw log file, write the template dictionary and the encoded stream.
+# Same enrichment chain as the run pipeline; two outputs, no reconstruction (that is
+# the decode step's job).
 tenx: run
-runtimeName: stability
-
+runtimeName: encode
 include:
   - apps/shared
   - run/modules/input/file
+  - run/initialize/inputField
+  - run/initialize/level
+  - run/initialize/group
+  - run/initialize/message
+  - run/initialize/httpCode
+  - run/initialize/lookup
+  - run/initialize/custom
+  - run/initialize/k8s
   - run/modules/output/event/file
-
 inputFile:
   - name: input
     path: $=TenXEnv.get("INPUT_FILE")
     printProgress: false
     extractors: []
     sourcePattern: null
-
 outputFile:
   - path: $=TenXEnv.get("OUTPUT_DIR") + "/templates.json"
     writeTemplates: true
     append: false
-
   - path: $=TenXEnv.get("OUTPUT_DIR") + "/encoded.log"
     fields:
       - encode()
