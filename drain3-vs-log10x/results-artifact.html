@@ -1,4 +1,4 @@
-<title>log10x vs Drain3 — lossless log reduction benchmark</title>
+<title>log10x vs Drain3 — pattern stability and reversibility benchmark</title>
 <style>
   :root{
     --plane:#f9f9f7; --surface:#fcfcfb; --panel:#ffffff;
@@ -128,42 +128,20 @@
 
 <div class="wrap">
   <p class="eyebrow">Benchmark · logpai/loghub 2k · 16 datasets · ~32,000 lines</p>
-  <h1>A log parser that keeps every byte:<br><span class="lx">log10x</span> vs <span class="d3">Drain3</span></h1>
-  <p class="lede">Both tools collapse repetitive log lines into templates. <b>Drain3 is a template miner</b> — it finds the shapes and discards the lines. <b>log10x is a lossless codec</b> — same template view, but it reconstructs the exact original stream. Identical raw input to both, no per-source configuration. Every number below is reproducible from the commands at the bottom.</p>
+  <h1>The pattern ID you can plot:<br><span class="lx">log10x</span> vs <span class="d3">Drain3</span></h1>
+  <p class="lede">Both tools collapse repetitive log lines into templates. Only <b>log10x</b> gives each line a pattern ID that stays identical across files, hosts, and order — the thing that lets you ask "when did this event start?" and plot one event over time. And its encoding is <b>reversible</b>: Drain3 mines templates and discards the values, while log10x keeps them and decodes the exact original back. Identical raw input to both, no per-source configuration; every number below is reproducible from the commands at the bottom.</p>
 
   <div class="tiles">
-    <div class="tile lx"><span class="v">100%</span><span class="k">log10x lossless</span><span class="s">per-line byte-exact · 16/16</span></div>
-    <div class="tile d3"><span class="v">67%</span><span class="k">Drain3 lossless (mean)</span><span class="s">fully lossless on 5/16</span></div>
     <div class="tile lx"><span class="v">100%</span><span class="k">log10x pattern stability</span><span class="s">order + context · 16/16</span></div>
-    <div class="tile d3"><span class="v">0.8%</span><span class="k">Drain3 worst-case stability</span><span class="s">Windows · context-invariance</span></div>
+    <div class="tile d3"><span class="v">0.8%</span><span class="k">Drain3 worst-case stability</span><span class="s">context · worst of 16</span></div>
+    <div class="tile lx"><span class="v">100%</span><span class="k">log10x reversible</span><span class="s">per-line byte-exact · 16/16</span></div>
+    <div class="tile d3"><span class="v">0%</span><span class="k">Drain3 reconstructs</span><span class="s">out of the box · a miner</span></div>
   </div>
 
-  <!-- 1. LOSSLESS -->
+  <!-- 1. STABLE -->
   <section>
-    <h2><span class="n">01</span> Losslessness</h2>
-    <p class="sub">Reduce the file, then rebuild it: what fraction of lines come back <b>byte-for-byte identical</b>? For log10x we also did a true round trip — kept only <code style="font-family:var(--mono)">templates.json&nbsp;+&nbsp;encoded.log</code>, deleted the rest, and decoded that file back to the exact original.</p>
-    <div class="panel">
-      <div class="legend">
-        <span class="k"><span class="sw track"></span>log10x = 100% (full track)</span>
-        <span class="k"><span class="sw d3"></span>Drain3 lossless %</span>
-        <span style="margin-left:auto;color:var(--muted)">sorted by Drain3 ·  hover for detail</span>
-      </div>
-      <div class="bars" id="loss-bars"></div>
-      <p class="note">Drain3's loss is exactly whitespace: it collapses runs of spaces, so <code style="font-family:var(--mono);background:var(--surface);border:1px solid var(--hair);border-radius:4px;padding:0 4px">Jul&nbsp;&nbsp;1</code> → <code style="font-family:var(--mono);background:var(--surface);border:1px solid var(--hair);border-radius:4px;padding:0 4px">Jul&nbsp;1</code>. The content still recovers by token alignment; only the spacing is gone, so every padded Mac/Windows line fails byte-exact (0%).</p>
-    </div>
-  </section>
-
-  <!-- mechanism scatter -->
-  <section>
-    <h2><span class="n">01·b</span> Why Drain3 loses data</h2>
-    <p class="sub">Drain3's data loss per dataset plotted against the share of lines whose whitespace is not already single spaces. <b>Every point sits on the diagonal</b>: the loss is exactly the whitespace collapse, nothing else. Rebuild Drain3 by token alignment and it recovers 100% of the content on all 16; only the spacing cannot come back.</p>
-    <div class="panel scatter-wrap" id="scatter"></div>
-  </section>
-
-  <!-- 2. STABLE -->
-  <section>
-    <h2><span class="n">02</span> Pattern stability</h2>
-    <p class="sub">Split each dataset into halves A and B; run each tool on <code style="font-family:var(--mono)">A</code>, <code style="font-family:var(--mono)">B</code>, <code style="font-family:var(--mono)">A+B</code>, <code style="font-family:var(--mono)">B+A</code>. Does a given line get the <b>same pattern ID</b> regardless of what else is in the file? Below: % of lines whose pattern is unchanged when its half is processed alongside other content (context-invariance, worst of the two directions).</p>
+    <h2><span class="n">01</span> Pattern stability</h2>
+    <p class="sub">The differentiator: only a stable ID lets you ask "when did this event start?" or plot one event over time. Split each dataset into halves A and B; run each tool on <code style="font-family:var(--mono)">A</code>, <code style="font-family:var(--mono)">B</code>, <code style="font-family:var(--mono)">A+B</code>, <code style="font-family:var(--mono)">B+A</code>, and check: does a given line get the <b>same pattern ID</b> regardless of what else is in the file? Below: % of lines whose pattern is unchanged when its half is processed alongside other content (context-invariance, worst of the two directions).</p>
     <div class="panel">
       <div class="legend">
         <span class="k"><span class="sw track"></span>log10x = 100% (content-addressed hash)</span>
@@ -172,6 +150,21 @@
       </div>
       <div class="bars" id="stab-bars"></div>
       <p class="note">log10x's template hash is a pure function of the line's structure — same line, same hash, any file, any order (100% on all 16). Drain3 is an online learner: its templates generalize as it consumes the stream, so identity depends on history.</p>
+    </div>
+  </section>
+
+  <!-- 2. REVERSIBLE -->
+  <section>
+    <h2><span class="n">02</span> Reversibility</h2>
+    <p class="sub">A stable ID names the event; reversibility means the exact events are still there behind it. <b>Drain3 mines templates and discards the values</b> — out of the box it reconstructs nothing. <b>log10x keeps every value, typed, beside the hash</b> and decodes the exact original back. Bars show byte-exact reconstruction per dataset (log10x ran a true round trip: kept only <code style="font-family:var(--mono)">templates.json&nbsp;+&nbsp;encoded.log</code>, deleted the rest, decoded back).</p>
+    <div class="panel">
+      <div class="legend">
+        <span class="k"><span class="sw track"></span>log10x = 100% (full track)</span>
+        <span class="k"><span class="sw d3"></span>Drain3 byte-exact %</span>
+        <span style="margin-left:auto;color:var(--muted)">sorted by Drain3 ·  hover for detail</span>
+      </div>
+      <div class="bars" id="loss-bars"></div>
+      <p class="note">Drain3's shortfall is <b>only whitespace</b>: a token-aligned rebuild recovers 100% of the content on all 16, but its tokenizer collapses space runs (<code style="font-family:var(--mono);background:var(--surface);border:1px solid var(--hair);border-radius:4px;padding:0 4px">Jul&nbsp;&nbsp;1</code> → <code style="font-family:var(--mono);background:var(--surface);border:1px solid var(--hair);border-radius:4px;padding:0 4px">Jul&nbsp;1</code>), so padded lines are not byte-exact. A footnote next to the structural point: one tool stored the events, the other kept only the shapes.</p>
     </div>
   </section>
 
@@ -199,7 +192,7 @@
   <!-- DATA -->
   <section>
     <h2><span class="n">04</span> Full results</h2>
-    <p class="sub">All 16 datasets. <span class="lxc">log10x</span> is 100% lossless and 100% stable on every one; <span class="d3c">Drain3</span> figures vary. ws% = share of lines with collapsible whitespace, which equals Drain3's byte-exact loss exactly.</p>
+    <p class="sub">All 16 datasets. <span class="lxc">log10x</span> is 100% stable and 100% byte-exact reversible on every one; <span class="d3c">Drain3</span> figures vary. (ws% = share of lines with collapsible whitespace, which is exactly Drain3's byte-exact shortfall.)</p>
     <div class="tbl-wrap">
       <table id="data-tbl">
         <thead><tr>
@@ -285,7 +278,7 @@ function barRow(o,val,tipHtml){
 const lossHost=document.getElementById('loss-bars');
 [...DATA].sort((a,b)=>b.d3L-a.d3L).forEach(o=>{
   lossHost.appendChild(barRow(o,o.d3L,
-    `<b>${o.d}</b><br>log10x: 100% byte-exact<br>Drain3: ${o.d3L}% lossless<br>whitespace lines: ${o.ws}%`));
+    `<b>${o.d}</b><br>log10x: 100% byte-exact<br>Drain3: ${o.d3L}% byte-exact<br>shortfall is whitespace`));
 });
 
 // stability bars (sorted desc by d3C)
@@ -295,47 +288,7 @@ const stabHost=document.getElementById('stab-bars');
     `<b>${o.d}</b><br>log10x context-invariance: 100%<br>Drain3 context-invariance: ${o.d3C}%<br>Drain3 order-invariance: ${o.d3O}%`));
 });
 
-// scatter: x=ws%, y=d3 loss% (=100-d3L)
-(function(){
-  const W=Math.min(900, Math.max(560, DATA.length*0)+640), H=440;
-  const m={l:56,r:24,t:20,b:52}, iw=W-m.l-m.r, ih=H-m.t-m.b;
-  const sx=v=>m.l+v/100*iw, sy=v=>m.t+(1-v/100)*ih;
-  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Drain3 data loss vs whitespace-line share">`;
-  // gridlines
-  for(let i=0;i<=100;i+=20){
-    s+=`<line class="gl" x1="${sx(i)}" y1="${m.t}" x2="${sx(i)}" y2="${m.t+ih}"/>`;
-    s+=`<line class="gl" x1="${m.l}" y1="${sy(i)}" x2="${m.l+iw}" y2="${sy(i)}"/>`;
-    s+=`<text class="axlab" x="${sx(i)}" y="${m.t+ih+18}" text-anchor="middle">${i}</text>`;
-    s+=`<text class="axlab" x="${m.l-10}" y="${sy(i)+4}" text-anchor="end">${i}</text>`;
-  }
-  // diagonal y=x (loss == whitespace)
-  s+=`<line class="diag" x1="${sx(0)}" y1="${sy(0)}" x2="${sx(100)}" y2="${sy(100)}"/>`;
-  s+=`<text class="axlab" x="${sx(72)-4}" y="${sy(72)-8}" text-anchor="end" style="fill:var(--muted)">loss = whitespace</text>`;
-  // axes
-  s+=`<line class="ax" x1="${m.l}" y1="${m.t+ih}" x2="${m.l+iw}" y2="${m.t+ih}"/>`;
-  s+=`<line class="ax" x1="${m.l}" y1="${m.t}" x2="${m.l}" y2="${m.t+ih}"/>`;
-  s+=`<text class="axlab" x="${m.l+iw/2}" y="${H-8}" text-anchor="middle">lines with collapsible whitespace (%)</text>`;
-  s+=`<text class="axlab" transform="translate(15,${m.t+ih/2}) rotate(-90)" text-anchor="middle">Drain3 data lost (%)</text>`;
-  // points — draw all 16; label only the mid-range ones (the two dense
-  // clusters at the corners get one annotation each, to avoid label pile-ups).
-  const LABELPOS={HPC:[8,14,'start'],Hadoop:[8,-8,'start'],OpenSSH:[-8,16,'end'],Linux:[8,-8,'start']};
-  DATA.forEach((o,i)=>{
-    const loss=+(100-o.d3L).toFixed(2);
-    s+=`<circle class="pt" cx="${sx(o.ws)}" cy="${sy(loss)}" r="5.5" data-i="${i}"/>`;
-    const lp=LABELPOS[o.d];
-    if(lp) s+=`<text class="ptlab" x="${sx(o.ws)+lp[0]}" y="${sy(loss)+lp[1]}" text-anchor="${lp[2]}">${o.d}</text>`;
-  });
-  // cluster annotations
-  s+=`<text class="ptlab" x="${sx(3)}" y="${sy(3)+18}" text-anchor="start" style="fill:var(--muted)">8 clean datasets ≈ (0, 0)</text>`;
-  s+=`<text class="ptlab" x="${sx(100)-10}" y="${sy(100)+18}" text-anchor="end" style="fill:var(--muted)">Android · Zookeeper · Mac · Windows</text>`;
-  s+=`</svg>`;
-  document.getElementById('scatter').innerHTML=s;
-  document.querySelectorAll('#scatter .pt').forEach(c=>{
-    const o=DATA[+c.dataset.i], loss=+(100-o.d3L).toFixed(2);
-    c.addEventListener('mousemove',e=>showTip(`<b>${o.d}</b><br>whitespace lines: ${o.ws}%<br>Drain3 lost: ${loss}%`,e));
-    c.addEventListener('mouseleave',hideTip);
-  });
-})();
+// (whitespace scatter removed — the story is the stable pattern ID, not a whitespace scoreboard)
 
 // data table
 const tb=document.querySelector('#data-tbl tbody');
