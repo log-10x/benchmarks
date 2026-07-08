@@ -101,9 +101,11 @@ def run_drain3(logpath, sample_lossless=200000):
     t_mine = time.time() - t
     clusters = list(tm.drain.clusters); ntmpl = len(clusters)
     templates = "\n".join(sorted(c.get_template() for c in clusters))
-    # pass 2: stream encoded(+params) rows to a temp file for sizing; sample losslessness
+    # pass 2: stream encoded(+params) rows to a temp file for sizing; sample
+    # losslessness with token-aligned reconstruction — the fair rebuild. Drain
+    # clusters are length-homogeneous and <*> is a whole token, so each value is
+    # recoverable by position; joining with single spaces loses only whitespace.
     encp = os.path.join(os.path.dirname(logpath), "_d3_encoded.tmp")
-    ph = re.compile(r"<\*>")
     ok = tot = 0
     t = time.time()
     with open(logpath, encoding="utf-8", errors="replace") as f, open(encp, "w", encoding="utf-8") as out:
@@ -114,16 +116,17 @@ def run_drain3(logpath, sample_lossless=200000):
                 out.write("MISS" + US + ln + "\n")
                 if i < sample_lossless: tot += 1
                 continue
-            tmpl = m.get_template(); ps = tm.extract_parameters(tmpl, ln, exact_matching=True)
-            pv = [p.value for p in ps] if ps else None
+            tt = m.get_template().split(); lt = ln.split()
+            if len(tt) == len(lt):
+                pv = [lt[k] for k in range(len(tt)) if tt[k] == "<*>"]
+                recon = " ".join(lt[k] if tt[k] == "<*>" else tt[k] for k in range(len(tt)))
+            else:
+                pv, recon = None, None
             out.write((str(m.cluster_id) + US + (US.join(pv) if pv else "")) + "\n")
             if i < sample_lossless:
                 tot += 1
-                if pv is not None:
-                    parts = ph.split(tmpl)
-                    if len(parts) - 1 == len(pv):
-                        recon = "".join(seg + (pv[k] if k < len(pv) else "") for k, seg in enumerate(parts))
-                        ok += 1 if recon == ln else 0
+                if recon is not None and recon == ln:
+                    ok += 1
     t_match = time.time() - t
     tdict_raw = len(templates.encode("utf-8", "replace"))
     tdict_gz = len(gzip.compress(templates.encode("utf-8", "replace"), 6))
@@ -159,7 +162,7 @@ def main(name, logpath):
     print(f"   templates: {d['ntmpl']:,}  ({human(d['tdict_raw'])} raw / {human(d['tdict_gz'])} gz)")
     print(f"   encoded(+params): {human(d['enc_raw'])} raw / {human(d['enc_gz'])} gz")
     print(f"   lossless (sampled, first {d['loss_tot']:,} lines): {100*d['loss_ok']/max(d['loss_tot'],1):.2f}%")
-    print(f"   drain3 time: mine {d['t_mine']:.0f}s + match/extract {d['t_match']:.0f}s")
+    print(f"   drain3 time: mine {d['t_mine']:.0f}s + match/rebuild {d['t_match']:.0f}s")
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:

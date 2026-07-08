@@ -107,7 +107,14 @@ def run_drain3(ds, config="default"):
     n_templates = len(clusters)
     templates = sorted({c.get_template() for c in clusters})
 
-    # pass 2: assign + extract params + reconstruct against FINAL templates
+    # pass 2: assign each line to its final cluster, recover the variable values,
+    # and rebuild. Drain groups clusters by token count (its tree's first level is
+    # message length), so for the default config, where <*> is always a whole token,
+    # the values are recoverable by position: align the line's tokens against the
+    # template's — no regex, no failures. This is the fair reconstruction; drain3's
+    # own extract_parameters is a regex inverse that returns None on templates with
+    # many adjacent <*>, which understates what the tokens actually hold. The masked
+    # config can place a mask mid-token (blk_<NUM>), so it keeps extract_parameters.
     t0 = time.time()
     enc_rows = []       # per-line "clusterid<US>param<US>param"
     lossless_lines = 0
@@ -119,13 +126,11 @@ def run_drain3(ds, config="default"):
             enc_rows.append("MISS" + US + ln)  # would have to store raw line
             continue
         tmpl = m.get_template()
-        params = miner.extract_parameters(tmpl, ln, exact_matching=True)
-        if params is None:
+        recon, pvals = _align(tmpl, ln) if config == "default" else _extract(miner, tmpl, ln, ph_re)
+        if recon is None:
             unmatched += 1
             enc_rows.append("MISS" + US + ln)
             continue
-        pvals = [p.value for p in params]
-        recon = _fill(tmpl, pvals, ph_re)
         if recon == ln:
             lossless_lines += 1
         enc_rows.append(str(m.cluster_id) + US + US.join(pvals))
@@ -150,6 +155,29 @@ def run_drain3(ds, config="default"):
         "time_ms": round((t_mine + t_match)*1000, 1),
         "time_mine_ms": round(t_mine*1000, 1),
     }
+
+def _align(template, line):
+    """Default-config reconstruction. Drain clusters are length-homogeneous and
+    <*> is a whole token, so recover each variable by token position. The only
+    thing this cannot restore is whitespace: splitting the line collapses every
+    run of spaces, which is exactly what drain3's tokenizer discards on the way in.
+    So a line reconstructs byte-for-byte iff it held no collapsible whitespace."""
+    tt = template.split()
+    lt = line.split()
+    if len(tt) != len(lt):
+        return None, None
+    pvals = [lt[i] for i in range(len(tt)) if tt[i] == "<*>"]
+    recon = " ".join(lt[i] if tt[i] == "<*>" else tt[i] for i in range(len(tt)))
+    return recon, pvals
+
+def _extract(miner, template, line, ph_re):
+    """Masked-config reconstruction: masks can sit mid-token, so use drain3's own
+    regex-based parameter extraction and refill the template."""
+    params = miner.extract_parameters(template, line, exact_matching=True)
+    if params is None:
+        return None, None
+    pvals = [p.value for p in params]
+    return _fill(template, pvals, ph_re), pvals
 
 def _fill(template, params, ph_re):
     # split template into literal segments separated by placeholder tokens,

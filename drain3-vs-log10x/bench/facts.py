@@ -13,12 +13,15 @@ def gt(ds):
     p=os.path.join(LOGHUB,ds,f"{ds}_2k.log_templates.csv")
     return sum(1 for _ in open(p,encoding="utf-8",errors="replace"))-1 if os.path.exists(p) else None
 
-ws = re.compile(rb"\S  +\S")
 def wsinfo(ds):
     o=open(os.path.join(LOGHUB,ds,f"{ds}_2k.log"),"rb").read().replace(b"\r\n",b"\n").rstrip(b"\n")
-    r=open(os.path.join(BENCH,"out",ds,"log10x","reconstructed.log"),"rb").read().replace(b"\r\n",b"\n").rstrip(b"\n")
     lines=o.split(b"\n")
-    return dict(exact=(o==r), n_lines=len(lines), ws_lines=sum(1 for l in lines if ws.search(l)))
+    # a line drain3 cannot reproduce byte-for-byte == one whose whitespace is not
+    # already single inter-token spaces: a collapsible run, a tab, or leading/
+    # trailing space. Token-aligned reconstruction rebuilds every token but joins
+    # them with single spaces, so this count equals drain3's loss exactly.
+    ws_lines=sum(1 for l in lines if b" ".join(l.split()) != l)
+    return dict(n_lines=len(lines), ws_lines=ws_lines)
 
 res=json.load(open(os.path.join(BENCH,"results.json")))
 facts={"datasets":{}, "versions":{"drain3":"0.9.11","engine":"1.1.4","image":"log10x/pipeline-10x:latest",
@@ -35,7 +38,7 @@ for ds in DATASETS:
     entry=dict(
         gt=gt(ds), n_lines=w["n_lines"], ws_lines=w["ws_lines"],
         lx=dict(templates=lx.get("n_templates"), lossless=lx.get("lossless_pct"),
-                exact=w["exact"], repr_gzip=lx.get("repr_gzip"), encoded_bytes=lx.get("encoded_bytes"),
+                exact=lx.get("lossless_exact"), repr_gzip=lx.get("repr_gzip"), encoded_bytes=lx.get("encoded_bytes"),
                 orig_bytes=lx.get("orig_bytes"), orig_gzip=lx.get("orig_gzip"), engine_ms=lx.get("engine_ms")),
         d3=dict(templates=d3.get("n_templates"), lossless=d3.get("lossless_pct"),
                 repr_gzip=d3.get("repr_gzip"), time_ms=d3.get("time_ms")),
@@ -59,7 +62,7 @@ for ds in DATASETS:
     agg["lx_tmpl"]+=lx.get("n_templates",0); agg["d3_tmpl"]+=d3.get("n_templates",0); agg["gt_tmpl"]+=gt(ds) or 0
     agg["orig"]+=lx.get("orig_bytes",0); agg["orig_gz"]+=lx.get("orig_gzip",0)
     agg["lx_gz"]+=lx.get("repr_gzip",0); agg["d3_gz"]+=d3.get("repr_gzip",0); agg["lx_enc"]+=lx.get("encoded_bytes",0)
-    agg["lx_exact"]+=1 if w["exact"] else 0
+    agg["lx_exact"]+=1 if lx.get("lossless_exact") else 0
     agg["d3_100"]+=1 if d3.get("lossless_pct")==100.0 else 0
 
 n=len(DATASETS)

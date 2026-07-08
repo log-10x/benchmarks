@@ -19,10 +19,14 @@ def gz(b):
 def lines(p):
     d=open(p,"rb").read().replace(b"\r\n",b"\n").decode("utf-8","replace").split("\n")
     return d[:-1] if d and d[-1]=="" else d
-def fill(t,ps):
-    parts=t.split("<*>")
-    if len(parts)-1!=len(ps): return None
-    return "".join(seg+(ps[i] if i<len(ps) else "") for i,seg in enumerate(parts))
+def align(t,l):
+    # fair drain3 reconstruction: Drain clusters are length-homogeneous and <*> is
+    # a whole token, so recover each variable by position. Joining with single
+    # spaces means a collapsed whitespace run is the only thing lost.
+    tt,lt=t.split(),l.split()
+    if len(tt)!=len(lt): return None,None
+    pv=[lt[i] for i in range(len(tt)) if tt[i]=="<*>"]
+    return " ".join(lt[i] if tt[i]=="<*>" else tt[i] for i in range(len(tt))), pv
 
 tot=dict(orig=0,orig_gz=0,lxT=0,d3T=0,gt=0,lx_gz=0,d3_gz=0,lx_enc=0,lx_exact=0,d3_100=0)
 print(f"{'dataset':<12} {'lxT':>5} {'d3T':>5} {'gt':>4} {'d3loss':>7} {'lxExact':>7}")
@@ -36,7 +40,7 @@ for ds in DATASETS:
     od=os.path.join(OUT,ds,"log10x")
     tj=open(os.path.join(od,"templates.json"),encoding="utf-8",errors="replace").read()
     enc=open(os.path.join(od,"encoded.log"),encoding="utf-8",errors="replace").read()
-    rec=open(os.path.join(od,"reconstructed.log"),"rb").read().replace(b"\r\n",b"\n").decode("utf-8","replace")
+    rec=open(os.path.join(od,"decoded.log"),"rb").read().replace(b"\r\n",b"\n").decode("utf-8","replace")
     lxT=sum(1 for l in tj.split("\n") if l.strip())
     lx_exact=(orig_txt.rstrip("\n")==rec.rstrip("\n"))
     # fresh drain3
@@ -47,10 +51,9 @@ for ds in DATASETS:
     for l in raw:
         m=tm.match(l)
         if m:
-            ps=tm.extract_parameters(m.get_template(),l,exact_matching=True)
-            if ps is not None:
-                pv=[p.value for p in ps]
-                if fill(m.get_template(),pv)==l: d3ok+=1
+            recon,pv=align(m.get_template(),l)
+            if recon is not None:
+                if recon==l: d3ok+=1
                 d3rows.append(str(m.cluster_id)+US+US.join(pv)); continue
         d3rows.append("MISS"+US+l)
     d3loss=100*d3ok/len(raw)
@@ -68,5 +71,5 @@ print(f"  log10x byte-exact datasets: {tot['lx_exact']}/16   drain3 fully-lossle
 print(f"  raw original bytes: {tot['orig']:,}  ({tot['orig']/1e6:.2f} MB)   [draft: 4.43 MB]")
 print(f"  gzip(original): {tot['orig_gz']:,}  ({tot['orig_gz']/1024:.0f} KB)   [draft: 466 KB]")
 print(f"  log10x repr gzip: {tot['lx_gz']:,}  ({tot['lx_gz']/1024:.0f} KB, {100*tot['lx_gz']/tot['orig_gz']:.1f}%)   [draft: 537 KB, 115%]")
-print(f"  drain3 repr gzip: {tot['d3_gz']:,}  ({tot['d3_gz']/1024:.0f} KB, {100*tot['d3_gz']/tot['orig_gz']:.1f}%)   [draft: 426 KB, 91%]")
+print(f"  drain3 repr gzip: {tot['d3_gz']:,}  ({tot['d3_gz']/1024:.0f} KB, {100*tot['d3_gz']/tot['orig_gz']:.1f}%)   [facts.json: ~413 KB, 91%]")
 print(f"  log10x raw encoded % of raw orig: {100*tot['lx_enc']/tot['orig']:.1f}%   [draft: 58%]")

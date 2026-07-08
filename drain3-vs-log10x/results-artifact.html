@@ -149,14 +149,14 @@
         <span style="margin-left:auto;color:var(--muted)">sorted by Drain3 ·  hover for detail</span>
       </div>
       <div class="bars" id="loss-bars"></div>
-      <p class="note">Drain3's loss tracks whitespace: it splits on spaces and collapses runs of them, so <code style="font-family:var(--mono);background:var(--surface);border:1px solid var(--hair);border-radius:4px;padding:0 4px">Jul&nbsp;&nbsp;1</code> → <code style="font-family:var(--mono);background:var(--surface);border:1px solid var(--hair);border-radius:4px;padding:0 4px">Jul&nbsp;1</code>. Every Mac/Windows line has a whitespace run → 0% recoverable.</p>
+      <p class="note">Drain3's loss is exactly whitespace: it collapses runs of spaces, so <code style="font-family:var(--mono);background:var(--surface);border:1px solid var(--hair);border-radius:4px;padding:0 4px">Jul&nbsp;&nbsp;1</code> → <code style="font-family:var(--mono);background:var(--surface);border:1px solid var(--hair);border-radius:4px;padding:0 4px">Jul&nbsp;1</code>. The content still recovers by token alignment; only the spacing is gone, so every padded Mac/Windows line fails byte-exact (0%).</p>
     </div>
   </section>
 
   <!-- mechanism scatter -->
   <section>
     <h2><span class="n">01·b</span> Why Drain3 loses data</h2>
-    <p class="sub">Drain3's data loss per dataset plotted against the share of lines containing a run of 2+ internal spaces. Points on the diagonal mean the loss is <b>entirely</b> whitespace collapse; a few datasets sit above it, losing extra to other tokenization edge cases.</p>
+    <p class="sub">Drain3's data loss per dataset plotted against the share of lines whose whitespace is not already single spaces. <b>Every point sits on the diagonal</b>: the loss is exactly the whitespace collapse, nothing else. Rebuild Drain3 by token alignment and it recovers 100% of the content on all 16; only the spacing cannot come back.</p>
     <div class="panel scatter-wrap" id="scatter"></div>
   </section>
 
@@ -199,7 +199,7 @@
   <!-- DATA -->
   <section>
     <h2><span class="n">04</span> Full results</h2>
-    <p class="sub">All 16 datasets. <span class="lxc">log10x</span> is 100% lossless and 100% stable on every one; <span class="d3c">Drain3</span> figures vary. ws% = share of lines with a whitespace run.</p>
+    <p class="sub">All 16 datasets. <span class="lxc">log10x</span> is 100% lossless and 100% stable on every one; <span class="d3c">Drain3</span> figures vary. ws% = share of lines with collapsible whitespace, which equals Drain3's byte-exact loss exactly.</p>
     <div class="tbl-wrap">
       <table id="data-tbl">
         <thead><tr>
@@ -224,11 +224,11 @@
       </div>
       <div class="card">
         <h3>Drain3 <span style="color:var(--muted)">0.9.11</span></h3>
-        <p><code>pip install drain3==0.9.11</code>; default config. Mine templates, then (bolted on, since Drain3 doesn't) a per-line parameter store via <code>extract_parameters</code> to attempt reconstruction.</p>
+        <p><code>pip install drain3==0.9.11</code>; default config. Mine templates, then reconstruct by token alignment: Drain clusters are length-homogeneous, so each variable is recoverable by position (bolted on, since Drain3 doesn't reconstruct).</p>
       </div>
       <div class="card">
         <h3>log10x <span style="color:var(--muted)">engine 1.1.4</span></h3>
-        <p><code>docker run … log10x/pipeline-10x:latest @tenx.config.yaml</code>. Reads a log file, writes <code>templates.json</code>, <code>encoded.log</code>, <code>reconstructed.log</code>. No API key for local file I/O.</p>
+        <p><code>docker run … log10x/pipeline-10x:latest @tenx-encode.config.yaml</code> reads a log file and writes <code>templates.json</code> + <code>encoded.log</code>; a second decode pass turns those back into <code>decoded.log</code>. No API key for local file I/O.</p>
       </div>
       <div class="card">
         <h3>Metrics</h3>
@@ -249,17 +249,17 @@ const DATA = [
   {d:"BGL",       ws:0.0,   lxT:1278,d3T:95,  d3L:100.0, d3O:100.0,d3C:97.8},
   {d:"HDFS",      ws:0.25,  lxT:55,  d3T:17,  d3L:99.75, d3O:100.0,d3C:88.0},
   {d:"HPC",       ws:7.1,   lxT:102, d3T:38,  d3L:92.9,  d3O:100.0,d3C:99.3},
-  {d:"Hadoop",    ws:16.75, lxT:188, d3T:82,  d3L:75.9,  d3O:85.4, d3C:83.4},
-  {d:"HealthApp", ws:0.2,   lxT:70,  d3T:656, d3L:99.7,  d3O:99.8, d3C:98.4},
-  {d:"Linux",     ws:39.45, lxT:158, d3T:61,  d3L:25.45, d3O:100.0,d3C:79.4},
+  {d:"Hadoop",    ws:24.1,  lxT:188, d3T:82,  d3L:75.9,  d3O:85.4, d3C:83.4},
+  {d:"HealthApp", ws:0.3,   lxT:70,  d3T:656, d3L:99.7,  d3O:99.8, d3C:98.4},
+  {d:"Linux",     ws:79.55, lxT:158, d3T:61,  d3L:20.45, d3O:100.0,d3C:79.4},
   {d:"Mac",       ws:100.0, lxT:309, d3T:308, d3L:0.0,   d3O:87.6, d3C:87.9},
-  {d:"OpenSSH",   ws:19.45, lxT:163, d3T:131, d3L:80.55, d3O:99.8, d3C:40.3},
+  {d:"OpenSSH",   ws:25.35, lxT:163, d3T:131, d3L:74.65, d3O:99.8, d3C:40.3},
   {d:"OpenStack", ws:0.0,   lxT:448, d3T:46,  d3L:100.0, d3O:100.0,d3C:100.0},
-  {d:"Proxifier", ws:0.0,   lxT:126, d3T:22,  d3L:98.45, d3O:94.6, d3C:23.4},
+  {d:"Proxifier", ws:1.55,  lxT:126, d3T:22,  d3L:98.45, d3O:94.6, d3C:23.4},
   {d:"Spark",     ws:0.0,   lxT:70,  d3T:27,  d3L:100.0, d3O:100.0,d3C:99.5},
   {d:"Thunderbird",ws:0.0,  lxT:159, d3T:78,  d3L:100.0, d3O:100.0,d3C:52.9},
   {d:"Windows",   ws:100.0, lxT:76,  d3T:42,  d3L:0.0,   d3O:99.7, d3C:0.8},
-  {d:"Zookeeper", ws:99.35, lxT:63,  d3T:41,  d3L:0.6,   d3O:83.4, d3C:69.1},
+  {d:"Zookeeper", ws:99.4,  lxT:63,  d3T:41,  d3L:0.6,   d3O:83.4, d3C:69.1},
 ];
 
 const tip=document.getElementById('tip');
@@ -314,7 +314,7 @@ const stabHost=document.getElementById('stab-bars');
   // axes
   s+=`<line class="ax" x1="${m.l}" y1="${m.t+ih}" x2="${m.l+iw}" y2="${m.t+ih}"/>`;
   s+=`<line class="ax" x1="${m.l}" y1="${m.t}" x2="${m.l}" y2="${m.t+ih}"/>`;
-  s+=`<text class="axlab" x="${m.l+iw/2}" y="${H-8}" text-anchor="middle">lines with a whitespace run (%)</text>`;
+  s+=`<text class="axlab" x="${m.l+iw/2}" y="${H-8}" text-anchor="middle">lines with collapsible whitespace (%)</text>`;
   s+=`<text class="axlab" transform="translate(15,${m.t+ih/2}) rotate(-90)" text-anchor="middle">Drain3 data lost (%)</text>`;
   // points — draw all 16; label only the mid-range ones (the two dense
   // clusters at the corners get one annotation each, to avoid label pile-ups).

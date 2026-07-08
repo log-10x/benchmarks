@@ -81,17 +81,17 @@ Reference results for BGL (measured 2026-07-07, engine 1.1.4, Drain3 0.9.11):
   ~46 s. (Decode is a separate pass and is slow here: loading 127,532 templates before
   expanding 4.7M records is the cost of the cold, over-segmented dictionary.)
 - Drain3: 842 templates; 100% lossless on the sampled first 200,000 lines (BGL has no
-  whitespace runs); mine ~194 s + match/extract ~478 s.
+  collapsible whitespace, so token-aligned reconstruction is byte-exact); mine ~194 s.
 
 ## What each script does
 
 | script | role |
 |---|---|
-| `bench.py` | drives Drain3 (mine + reconstruct via bolted-on parameter store) and log10x (docker) on every dataset; writes `results.json` and the per-dataset log10x output tree under `bench/out/` |
+| `bench.py` | drives Drain3 (mine + reconstruct by token alignment) and log10x (docker) on every dataset; writes `results.json` and the per-dataset log10x output tree under `bench/out/` |
 | `stability.py` | splits a dataset in half and runs both tools on A, B, A+B, B+A; measures order- and context-invariance of pattern IDs (uses `tenx-stability.config.yaml`, grouping disabled for 1:1 line↔event) |
 | `facts.py` | rolls `results.json` + stability outputs into `facts.json` |
 | `analyze.py` | prints the aggregate table |
-| `verify_lossless.py` | independent byte-exact reconstruction check + per-dataset whitespace-run counts |
+| `verify_lossless.py` | independent byte-exact reconstruction check + per-dataset whitespace-line counts (the lines drain3 cannot reproduce byte-for-byte) |
 | `rederive.py` | independent aggregate recomputation from raw files + log10x outputs + a fresh Drain3 run |
 | `bigfile.py` | full-dataset run (streaming): losslessness on every line + template-dictionary amortization + timings on a big loghub dataset |
 | `smoke_test.py` | self-contained check (no Docker/loghub) of the Drain3 whitespace-collapse mechanism; run in CI |
