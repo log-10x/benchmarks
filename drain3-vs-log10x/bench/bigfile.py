@@ -19,7 +19,7 @@ import subprocess, os, sys, re, gzip, io, time
 BASE = os.environ.get("BENCH_DIR") or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ENCODE_CFG = os.path.join(BASE, "tenx-encode.config.yaml")
 DECODE_CFG = os.path.join(BASE, "tenx-decode.config.yaml")
-IMAGE = "log10x/pipeline-10x:latest"
+IMAGE = "log10x/pipeline-10x:1.1.5"
 
 def gz_file(path, chunk=1 << 20):
     """Streaming gzip size: return (raw_bytes, gzipped_bytes) without holding the file."""

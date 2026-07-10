@@ -627,8 +627,8 @@
   },
   "versions": {
     "drain3": "0.9.11",
-    "engine": "1.1.4",
-    "image": "log10x/pipeline-10x:latest",
+    "engine": "1.1.5",
+    "image": "log10x/pipeline-10x:1.1.5",
     "loghub": "logpai/loghub 2k samples (16 datasets)"
   },
   "aggregate": {

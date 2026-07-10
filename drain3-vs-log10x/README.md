@@ -20,7 +20,7 @@ and [`bench/results.json`](bench/results.json) (per-dataset). Rerunning should r
 ## Prerequisites
 
 - **Python 3.9+** with Drain3 pinned: `pip install -r requirements.txt` (Drain3 0.9.11).
-- **Docker**, to run the log10x engine image `log10x/pipeline-10x:latest` (engine 1.1.4).
+- **Docker**, to run the log10x engine image `log10x/pipeline-10x:1.1.5` (engine 1.1.5).
   No API key is needed — local file I/O runs under the image's built-in limited license.
 - The 16 loghub datasets (see Setup).
 
@@ -77,7 +77,7 @@ cd ../bench
 python bigfile.py BGL ../bigfile/BGL.log
 ```
 
-Reference results for BGL (measured 2026-07-07, engine 1.1.4, Drain3 0.9.11):
+Reference results for BGL (measured 2026-07-07, engine 1.1.5, Drain3 0.9.11):
 
 - log10x: **4,747,963/4,747,963 lines lossless (100.000%)**, whole file byte-identical;
   127,532 cold templates; representation (templates + encoded) **65% of the raw text**,
@@ -118,4 +118,4 @@ The engine is a codec, run in two passes:
 
 ## Versions
 
-Drain3 0.9.11 · log10x engine 1.1.4 (`log10x/pipeline-10x:latest`) · loghub 2k samples.
+Drain3 0.9.11 · log10x engine 1.1.5 (`log10x/pipeline-10x:1.1.5`) · loghub 2k samples.
