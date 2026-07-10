@@ -1,14 +1,18 @@
-# log10x vs Drain3 — lossless log-reduction benchmark
+# log10x vs Drain3 — pattern stability and lossless reduction benchmark
 
 Reproducible harness behind the Log10x blog post *"The pattern ID you can plot: stability
-and losslessness measured on 16 real datasets"*.
+and reversibility measured on 16 real datasets"*.
 
-It feeds the **same raw log lines** to both tools and measures three things across the 16
-[loghub](https://github.com/logpai/loghub) 2k datasets (~32,000 lines):
+It feeds the **same raw log lines** to both tools across the 16
+[loghub](https://github.com/logpai/loghub) 2k datasets (~32,000 lines). The post's two
+claims lead; size is reported for reference, not as a claim:
 
-1. **Losslessness** — can you reconstruct the exact original bytes from the reduced form?
-2. **Pattern stability** — does a line get the same pattern ID regardless of file / order?
-3. **Representation size** — bytes (raw + gzip) of each tool's reduced form.
+1. **Pattern stability** — does a line get the same pattern ID regardless of file / order?
+2. **Losslessness (reversibility)** — can you reconstruct the exact original bytes from the
+   reduced form?
+3. **Representation size** — bytes (raw + gzip) of each tool's reduced form. Auxiliary: the
+   post makes no size claim (log10x is smaller than the raw text but, gzipped, larger than
+   gzipped raw); size and cost reduction are a separate topic.
 
 Reference results are committed in [`bench/facts.json`](bench/facts.json) (canonical roll-up)
 and [`bench/results.json`](bench/results.json) (per-dataset). Rerunning should reproduce them.
