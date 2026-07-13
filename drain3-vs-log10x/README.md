@@ -1,14 +1,17 @@
-# log10x vs Drain3 — lossless log-reduction benchmark
+# log10x vs Drain3 — pattern stability and lossless reduction benchmark
 
 Reproducible harness behind the Log10x blog post *"The pattern ID you can plot: stability
-and losslessness measured on 16 real datasets"*.
+and reversibility measured on 16 real datasets"*.
 
-It feeds the **same raw log lines** to both tools and measures three things across the 16
-[loghub](https://github.com/logpai/loghub) 2k datasets (~32,000 lines):
+It feeds the **same raw log lines** to both tools across the 16
+[loghub](https://github.com/logpai/loghub) 2k datasets (~32,000 lines) and measures:
 
-1. **Losslessness** — can you reconstruct the exact original bytes from the reduced form?
-2. **Pattern stability** — does a line get the same pattern ID regardless of file / order?
-3. **Representation size** — bytes (raw + gzip) of each tool's reduced form.
+1. **Pattern stability** — does a line get the same pattern ID regardless of file / order?
+2. **Losslessness (reversibility)** — can you reconstruct the exact original bytes from the
+   reduced form?
+
+Representation size / compression is out of scope: this benchmark is about stability and
+reversibility, not storage cost.
 
 Reference results are committed in [`bench/facts.json`](bench/facts.json) (canonical roll-up)
 and [`bench/results.json`](bench/results.json) (per-dataset). Rerunning should reproduce them.
@@ -16,7 +19,7 @@ and [`bench/results.json`](bench/results.json) (per-dataset). Rerunning should r
 ## Prerequisites
 
 - **Python 3.9+** with Drain3 pinned: `pip install -r requirements.txt` (Drain3 0.9.11).
-- **Docker**, to run the log10x engine image `log10x/pipeline-10x:latest` (engine 1.1.4).
+- **Docker**, to run the log10x engine image `log10x/pipeline-10x:1.1.5` (engine 1.1.5).
   No API key is needed — local file I/O runs under the image's built-in limited license.
 - The 16 loghub datasets (see Setup).
 
@@ -73,13 +76,12 @@ cd ../bench
 python bigfile.py BGL ../bigfile/BGL.log
 ```
 
-Reference results for BGL (measured 2026-07-07, engine 1.1.4, Drain3 0.9.11):
+Reference results for BGL (measured 2026-07-07, engine 1.1.5, Drain3 0.9.11):
 
 - log10x: **4,747,963/4,747,963 lines lossless (100.000%)**, whole file byte-identical;
-  127,532 cold templates; representation (templates + encoded) **65% of the raw text**,
-  template dictionary **5.0%** of the representation (vs 30% on the 2k sample); encode
-  ~46 s. (Decode is a separate pass and is slow here: loading 127,532 templates before
-  expanding 4.7M records is the cost of the cold, over-segmented dictionary.)
+  127,532 cold templates; encode ~46 s. (Decode is a separate pass and is slow here:
+  loading 127,532 templates before expanding 4.7M records is the cost of the cold,
+  over-segmented dictionary.)
 - Drain3: 842 templates; 100% lossless on the sampled first 200,000 lines (BGL has no
   collapsible whitespace, so token-aligned reconstruction is byte-exact); mine ~194 s.
 
@@ -93,7 +95,7 @@ Reference results for BGL (measured 2026-07-07, engine 1.1.4, Drain3 0.9.11):
 | `analyze.py` | prints the aggregate table |
 | `verify_lossless.py` | independent byte-exact reconstruction check + per-dataset whitespace-line counts (the lines drain3 cannot reproduce byte-for-byte) |
 | `rederive.py` | independent aggregate recomputation from raw files + log10x outputs + a fresh Drain3 run |
-| `bigfile.py` | full-dataset run (streaming): losslessness on every line + template-dictionary amortization + timings on a big loghub dataset |
+| `bigfile.py` | full-dataset run (streaming): losslessness on every line + template count + timings on a big loghub dataset |
 | `smoke_test.py` | self-contained check (no Docker/loghub) of the Drain3 whitespace-collapse mechanism; run in CI |
 
 ## The log10x pipeline configs
@@ -114,4 +116,4 @@ The engine is a codec, run in two passes:
 
 ## Versions
 
-Drain3 0.9.11 · log10x engine 1.1.4 (`log10x/pipeline-10x:latest`) · loghub 2k samples.
+Drain3 0.9.11 · log10x engine 1.1.5 (`log10x/pipeline-10x:1.1.5`) · loghub 2k samples.

@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
-"""Full-dataset run: template-dictionary amortization + losslessness at scale.
+"""Full-dataset run: losslessness + template counts + timing at scale.
 
 Runs the log10x engine (docker) and Drain3 on one big log file, streaming and
 memory-bounded, and reports:
   - losslessness, checked on every line
-  - template counts and the template dictionary's share of the representation
-  - representation size relative to the raw text
+  - template counts
   - wall times for both tools
 
-The 2k samples measure losslessness and stability; this measures how the fixed
-template-dictionary cost amortizes as the file grows. See the README for the
+The 2k samples measure losslessness and stability; this checks that losslessness holds and
+shows how the template count behaves as the file grows. See the README for the
 BGL download (Zenodo) and the committed reference results.
 
 Usage:  python bigfile.py <name> <path-to-.log>
@@ -19,7 +18,7 @@ import subprocess, os, sys, re, gzip, io, time
 BASE = os.environ.get("BENCH_DIR") or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ENCODE_CFG = os.path.join(BASE, "tenx-encode.config.yaml")
 DECODE_CFG = os.path.join(BASE, "tenx-decode.config.yaml")
-IMAGE = "log10x/pipeline-10x:latest"
+IMAGE = "log10x/pipeline-10x:1.1.5"
 
 def gz_file(path, chunk=1 << 20):
     """Streaming gzip size: return (raw_bytes, gzipped_bytes) without holding the file."""
@@ -139,28 +138,19 @@ def main(name, logpath):
     print(f"### {name}: {logpath}")
     print(f"# lines: {count_lines(logpath):,}  raw size: {human(os.path.getsize(logpath))}\n")
 
-    orig_raw, orig_gz = gz_file(logpath)
-    print(f"[baseline] original raw {human(orig_raw)} / gzip {human(orig_gz)}\n")
-
     print("[log10x] running engine (docker)...", flush=True)
     outdir, dt, ems = run_log10x(name, logpath)
-    tj = os.path.join(outdir, "templates.json"); en = os.path.join(outdir, "encoded.log"); rc = os.path.join(outdir, "decoded.log")
+    tj = os.path.join(outdir, "templates.json"); rc = os.path.join(outdir, "decoded.log")
     ntmpl = count_lines(tj)
-    tj_raw, tj_gz = gz_file(tj); en_raw, en_gz = gz_file(en)
-    repr_raw = tj_raw + en_raw
-    print(f"   templates: {ntmpl:,}  ({human(tj_raw)} raw / {human(tj_gz)} gz)")
-    print(f"   encoded:   {human(en_raw)} raw / {human(en_gz)} gz")
+    print(f"   templates: {ntmpl:,}")
     print(f"   engine wall {dt:.1f}s (engine_ms={ems})")
     print("   verifying losslessness on every line (streaming)...", flush=True)
     ok, tot = lossless_stream(logpath, rc)
-    print(f"   lossless: {ok:,}/{tot:,} lines ({100*ok/tot:.3f}%)")
-    print(f"   representation (templates+encoded): {human(repr_raw)} raw = {100*repr_raw/orig_raw:.1f}% of raw original")
-    print(f"   template share of representation: {100*tj_raw/repr_raw:.2f}% raw / {100*tj_gz/(tj_gz+en_gz):.2f}% gz\n")
+    print(f"   lossless: {ok:,}/{tot:,} lines ({100*ok/tot:.3f}%)\n")
 
     print("[drain3] mining + reconstructing (streaming)...", flush=True)
     d = run_drain3(logpath)
-    print(f"   templates: {d['ntmpl']:,}  ({human(d['tdict_raw'])} raw / {human(d['tdict_gz'])} gz)")
-    print(f"   encoded(+params): {human(d['enc_raw'])} raw / {human(d['enc_gz'])} gz")
+    print(f"   templates: {d['ntmpl']:,}")
     print(f"   lossless (sampled, first {d['loss_tot']:,} lines): {100*d['loss_ok']/max(d['loss_tot'],1):.2f}%")
     print(f"   drain3 time: mine {d['t_mine']:.0f}s + match/rebuild {d['t_match']:.0f}s")
 

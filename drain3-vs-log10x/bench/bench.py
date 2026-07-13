@@ -21,7 +21,7 @@ SCRATCH = os.environ.get("BENCH_DIR") or os.path.dirname(os.path.dirname(os.path
 LOGHUB  = os.path.join(SCRATCH, "loghub")
 ENCODE_CFG = os.path.join(SCRATCH, "tenx-encode.config.yaml")
 DECODE_CFG = os.path.join(SCRATCH, "tenx-decode.config.yaml")
-IMAGE   = "log10x/pipeline-10x:latest"
+IMAGE   = "log10x/pipeline-10x:1.1.5"
 BENCH   = os.path.join(SCRATCH, "bench")
 OUTROOT = os.path.join(BENCH, "out")
 RESULTS = os.path.join(BENCH, "results.json")
@@ -44,12 +44,6 @@ def read_lines(path):
         lines = lines[:-1]
     return lines
 
-def gz_len(b):
-    if isinstance(b, str): b = b.encode("utf-8", "replace")
-    buf = io.BytesIO();
-    with gzip.GzipFile(fileobj=buf, mode="wb", compresslevel=6, mtime=0) as g:
-        g.write(b)
-    return len(buf.getvalue())
 
 def load_results():
     if os.path.exists(RESULTS):
@@ -142,16 +136,10 @@ def run_drain3(ds, config="default"):
     return {
         "tool": f"drain3-{config}",
         "n_lines": len(lines),
-        "orig_bytes": orig_bytes,
-        "orig_gzip": gz_len("\n".join(lines)),
         "n_templates": n_templates,
         "lossless_lines": lossless_lines,
         "lossless_pct": round(100.0*lossless_lines/len(lines), 3),
         "unmatched": unmatched,
-        "templates_bytes": len(templates_blob.encode("utf-8","replace")),
-        "encoded_bytes": len(encoded_blob.encode("utf-8","replace")),
-        "repr_bytes": len(templates_blob.encode("utf-8","replace")) + len(encoded_blob.encode("utf-8","replace")),
-        "repr_gzip": gz_len(templates_blob) + gz_len(encoded_blob),
         "time_ms": round((t_mine + t_match)*1000, 1),
         "time_mine_ms": round(t_mine*1000, 1),
     }
@@ -257,23 +245,14 @@ def run_log10x(ds):
         # counts differ (multi-line grouping) — fall back to blob equality
         lossless_lines = len(lines) if lossless_exact else 0
 
-    templates_bytes = len(templates_raw.encode("utf-8","replace"))
-    encoded_bytes   = len(encoded_raw.encode("utf-8","replace"))
-
     return {
         "tool": "log10x",
         "n_lines": len(lines),
-        "orig_bytes": orig_bytes,
-        "orig_gzip": gz_len(orig_text),
         "n_templates": n_templates,
         "n_recon_lines": len(recon_lines),
         "lossless_exact": lossless_exact,
         "lossless_lines": lossless_lines,
         "lossless_pct": round(100.0*lossless_lines/len(lines), 3),
-        "templates_bytes": templates_bytes,
-        "encoded_bytes": encoded_bytes,
-        "repr_bytes": templates_bytes + encoded_bytes,
-        "repr_gzip": gz_len(templates_raw) + gz_len(encoded_raw),
         "engine_ms": engine_ms,
         "wall_ms": round(wall*1000, 1),
     }
@@ -287,7 +266,7 @@ def cmd_drain3(dss):
             print(f"[drain3-{cfgname}] {ds} ...", flush=True)
             r = run_drain3(ds, cfgname)
             res.setdefault(ds, {})[f"drain3-{cfgname}"] = r
-            print(f"   templates={r['n_templates']} lossless={r['lossless_pct']}% repr_gzip={r['repr_gzip']}B t={r['time_ms']}ms")
+            print(f"   templates={r['n_templates']} lossless={r['lossless_pct']}% t={r['time_ms']}ms")
         save_results(res)
 
 def cmd_log10x(dss):
@@ -297,20 +276,19 @@ def cmd_log10x(dss):
         r = run_log10x(ds)
         res.setdefault(ds, {})["log10x"] = r
         if "error" not in r:
-            print(f"   templates={r['n_templates']} lossless_exact={r['lossless_exact']} ({r['lossless_pct']}%) repr_gzip={r['repr_gzip']}B engine={r['engine_ms']}ms")
+            print(f"   templates={r['n_templates']} lossless_exact={r['lossless_exact']} ({r['lossless_pct']}%) engine={r['engine_ms']}ms")
         save_results(res)
 
 def cmd_report():
     res = load_results()
-    hdr = f"{'dataset':<12} | {'lx_tmpl':>7} {'d3_tmpl':>7} {'d3m_tmpl':>8} | {'lx_loss%':>8} {'d3_loss%':>8} {'d3m_loss%':>9} | {'lx_gz':>7} {'d3_gz':>7} {'orig_gz':>7}"
+    hdr = f"{'dataset':<12} | {'lx_tmpl':>7} {'d3_tmpl':>7} {'d3m_tmpl':>8} | {'lx_loss%':>8} {'d3_loss%':>8} {'d3m_loss%':>9}"
     print(hdr); print("-"*len(hdr))
     agg = {}
     for ds in DATASETS:
         d = res.get(ds, {})
         lx = d.get("log10x",{}); d3 = d.get("drain3-default",{}); d3m = d.get("drain3-masked",{})
         print(f"{ds:<12} | {lx.get('n_templates','?'):>7} {d3.get('n_templates','?'):>7} {d3m.get('n_templates','?'):>8} | "
-              f"{lx.get('lossless_pct','?'):>8} {d3.get('lossless_pct','?'):>8} {d3m.get('lossless_pct','?'):>9} | "
-              f"{lx.get('repr_gzip','?'):>7} {d3.get('repr_gzip','?'):>7} {lx.get('orig_gzip','?'):>7}")
+              f"{lx.get('lossless_pct','?'):>8} {d3.get('lossless_pct','?'):>8} {d3m.get('lossless_pct','?'):>9}")
 
 # ----------------------------------------------------------------------------
 

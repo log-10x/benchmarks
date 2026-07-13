@@ -24,10 +24,10 @@ def wsinfo(ds):
     return dict(n_lines=len(lines), ws_lines=ws_lines)
 
 res=json.load(open(os.path.join(BENCH,"results.json")))
-facts={"datasets":{}, "versions":{"drain3":"0.9.11","engine":"1.1.4","image":"log10x/pipeline-10x:latest",
+facts={"datasets":{}, "versions":{"drain3":"0.9.11","engine":"1.1.5","image":"log10x/pipeline-10x:1.1.5",
         "loghub":"logpai/loghub 2k samples (16 datasets)"}}
 
-agg=dict(lx_loss=[],d3_loss=[],lx_tmpl=0,d3_tmpl=0,gt_tmpl=0,orig=0,orig_gz=0,lx_gz=0,d3_gz=0,lx_enc=0,
+agg=dict(lx_loss=[],d3_loss=[],lx_tmpl=0,d3_tmpl=0,gt_tmpl=0,
          lx_exact=0,d3_100=0,lx_stable_order=0,lx_stable_ctx=0,d3_min_order=100.0,d3_min_ctx=100.0)
 for ds in DATASETS:
     d=res.get(ds,{}); lx=d.get("log10x",{}); d3=d.get("drain3-default",{}); d3m=d.get("drain3-masked",{})
@@ -38,10 +38,9 @@ for ds in DATASETS:
     entry=dict(
         gt=gt(ds), n_lines=w["n_lines"], ws_lines=w["ws_lines"],
         lx=dict(templates=lx.get("n_templates"), lossless=lx.get("lossless_pct"),
-                exact=lx.get("lossless_exact"), repr_gzip=lx.get("repr_gzip"), encoded_bytes=lx.get("encoded_bytes"),
-                orig_bytes=lx.get("orig_bytes"), orig_gzip=lx.get("orig_gzip"), engine_ms=lx.get("engine_ms")),
+                exact=lx.get("lossless_exact"), engine_ms=lx.get("engine_ms")),
         d3=dict(templates=d3.get("n_templates"), lossless=d3.get("lossless_pct"),
-                repr_gzip=d3.get("repr_gzip"), time_ms=d3.get("time_ms")),
+                time_ms=d3.get("time_ms")),
         d3_masked=dict(templates=d3m.get("n_templates"), lossless=d3m.get("lossless_pct")),
     )
     if stab:
@@ -60,8 +59,6 @@ for ds in DATASETS:
     facts["datasets"][ds]=entry
     agg["lx_loss"].append(lx.get("lossless_pct",0)); agg["d3_loss"].append(d3.get("lossless_pct",0))
     agg["lx_tmpl"]+=lx.get("n_templates",0); agg["d3_tmpl"]+=d3.get("n_templates",0); agg["gt_tmpl"]+=gt(ds) or 0
-    agg["orig"]+=lx.get("orig_bytes",0); agg["orig_gz"]+=lx.get("orig_gzip",0)
-    agg["lx_gz"]+=lx.get("repr_gzip",0); agg["d3_gz"]+=d3.get("repr_gzip",0); agg["lx_enc"]+=lx.get("encoded_bytes",0)
     agg["lx_exact"]+=1 if lx.get("lossless_exact") else 0
     agg["d3_100"]+=1 if d3.get("lossless_pct")==100.0 else 0
 
@@ -75,10 +72,6 @@ facts["aggregate"]=dict(
     gt_templates=agg["gt_tmpl"], lx_templates=agg["lx_tmpl"], d3_templates=agg["d3_tmpl"],
     lx_more_templates_than_d3=sum(1 for ds in DATASETS
         if res[ds]["log10x"]["n_templates"]>res[ds]["drain3-default"]["n_templates"]),
-    orig_bytes=agg["orig"], gzip_orig=agg["orig_gz"],
-    lx_repr_gzip=agg["lx_gz"], lx_repr_gzip_pct=round(100*agg["lx_gz"]/agg["orig_gz"],1),
-    d3_repr_gzip=agg["d3_gz"], d3_repr_gzip_pct=round(100*agg["d3_gz"]/agg["orig_gz"],1),
-    lx_raw_encoded_pct=round(100*agg["lx_enc"]/agg["orig"],1),
     lx_stability_perfect_order=f"{agg['lx_stable_order']}/{n_stab}",
     lx_stability_perfect_ctx=f"{agg['lx_stable_ctx']}/{n_stab}",
     d3_worst_order_pct=round(agg["d3_min_order"],1), d3_worst_ctx_pct=round(agg["d3_min_ctx"],1),
