@@ -1,0 +1,33 @@
+{
+  "dataset": "Apache",
+  "log10x": {
+    "order": 1461,
+    "both": 1461,
+    "ctxA": 1000,
+    "ctxB": 1000,
+    "setstable": true,
+    "set_AB_minus_BA": 0,
+    "set_BA_minus_AB": 0,
+    "ntmpl": {
+      "A": 6,
+      "B": 8,
+      "AB": 8,
+      "BA": 8
+    }
+  },
+  "drain3": {
+    "order": 1461,
+    "both": 1461,
+    "ctxA": 996,
+    "ctxB": 1000,
+    "setstable": true,
+    "set_AB_minus_BA": 0,
+    "set_BA_minus_AB": 0,
+    "ntmpl": {
+      "A": 6,
+      "B": 11,
+      "AB": 12,
+      "BA": 12
+    }
+  }
+}

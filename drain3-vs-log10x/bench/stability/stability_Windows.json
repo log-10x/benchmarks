@@ -1,0 +1,33 @@
+{
+  "dataset": "Windows",
+  "log10x": {
+    "order": 1281,
+    "both": 1281,
+    "ctxA": 1000,
+    "ctxB": 1000,
+    "setstable": true,
+    "set_AB_minus_BA": 0,
+    "set_BA_minus_AB": 0,
+    "ntmpl": {
+      "A": 68,
+      "B": 29,
+      "AB": 76,
+      "BA": 76
+    }
+  },
+  "drain3": {
+    "order": 1277,
+    "both": 1281,
+    "ctxA": 716,
+    "ctxB": 8,
+    "setstable": false,
+    "set_AB_minus_BA": 2,
+    "set_BA_minus_AB": 2,
+    "ntmpl": {
+      "A": 41,
+      "B": 8,
+      "AB": 42,
+      "BA": 42
+    }
+  }
+}

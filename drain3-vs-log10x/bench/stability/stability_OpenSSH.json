@@ -1,0 +1,33 @@
+{
+  "dataset": "OpenSSH",
+  "log10x": {
+    "order": 2000,
+    "both": 2000,
+    "ctxA": 1000,
+    "ctxB": 1000,
+    "setstable": true,
+    "set_AB_minus_BA": 0,
+    "set_BA_minus_AB": 0,
+    "ntmpl": {
+      "A": 158,
+      "B": 56,
+      "AB": 163,
+      "BA": 163
+    }
+  },
+  "drain3": {
+    "order": 1996,
+    "both": 2000,
+    "ctxA": 998,
+    "ctxB": 403,
+    "setstable": false,
+    "set_AB_minus_BA": 1,
+    "set_BA_minus_AB": 1,
+    "ntmpl": {
+      "A": 105,
+      "B": 36,
+      "AB": 131,
+      "BA": 131
+    }
+  }
+}

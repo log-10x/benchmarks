@@ -45,13 +45,17 @@ for ds in DATASETS:
     )
     if stab:
         L,D=stab["log10x"],stab["drain3"]
-        entry["stability"]=dict(
-            log10x=dict(order_pct=round(100*L["order"]/L["both"],1),
-                        ctxA_pct=round(100*L["ctxA"]/1000,1), ctxB_pct=round(100*L["ctxB"]/1000,1),
-                        set_stable=L["setstable"]),
-            drain3=dict(order_pct=round(100*D["order"]/D["both"],1),
-                        ctxA_pct=round(100*D["ctxA"]/1000,1), ctxB_pct=round(100*D["ctxB"]/1000,1),
-                        set_stable=D["setstable"]))
+        def stab_entry(T):
+            # templates_AB / templates_BA: distinct patterns mined from the same 2000
+            # lines in the two orders. set_AB_minus_BA / set_BA_minus_AB: how many
+            # patterns exist in one order but not the other (0/0 <=> set_stable).
+            return dict(order_pct=round(100*T["order"]/T["both"],1),
+                        ctxA_pct=round(100*T["ctxA"]/1000,1), ctxB_pct=round(100*T["ctxB"]/1000,1),
+                        set_stable=T["setstable"],
+                        templates_AB=T["ntmpl"]["AB"], templates_BA=T["ntmpl"]["BA"],
+                        set_AB_minus_BA=T.get("set_AB_minus_BA"),
+                        set_BA_minus_AB=T.get("set_BA_minus_AB"))
+        entry["stability"]=dict(log10x=stab_entry(L), drain3=stab_entry(D))
         agg["lx_stable_order"]+=1 if L["order"]==L["both"] else 0
         agg["lx_stable_ctx"]+=1 if (L["ctxA"]==1000 and L["ctxB"]==1000) else 0
         agg["d3_min_order"]=min(agg["d3_min_order"], 100*D["order"]/D["both"])

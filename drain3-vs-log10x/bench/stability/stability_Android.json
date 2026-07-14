@@ -1,0 +1,33 @@
+{
+  "dataset": "Android",
+  "log10x": {
+    "order": 1988,
+    "both": 1988,
+    "ctxA": 1000,
+    "ctxB": 1000,
+    "setstable": true,
+    "set_AB_minus_BA": 0,
+    "set_BA_minus_AB": 0,
+    "ntmpl": {
+      "A": 163,
+      "B": 160,
+      "AB": 236,
+      "BA": 236
+    }
+  },
+  "drain3": {
+    "order": 1907,
+    "both": 1988,
+    "ctxA": 952,
+    "ctxB": 929,
+    "setstable": false,
+    "set_AB_minus_BA": 11,
+    "set_BA_minus_AB": 11,
+    "ntmpl": {
+      "A": 79,
+      "B": 75,
+      "AB": 105,
+      "BA": 105
+    }
+  }
+}

@@ -16,6 +16,26 @@ reversibility, not storage cost.
 Reference results are committed in [`bench/facts.json`](bench/facts.json) (canonical roll-up)
 and [`bench/results.json`](bench/results.json) (per-dataset). Rerunning should reproduce them.
 
+### Where the stability numbers live
+
+Every per-dataset stability figure is under `datasets.<Dataset>.stability` in
+[`bench/facts.json`](bench/facts.json), for both tools:
+
+| field | meaning |
+|---|---|
+| `order_pct` | % of lines given the same pattern ID in `A+B` and `B+A` |
+| `ctxA_pct` / `ctxB_pct` | % of lines given the same pattern ID alone (`A`) as in context (`A+B`) |
+| `templates_AB` / `templates_BA` | distinct patterns mined from the same 2,000 lines, in each order |
+| `set_stable` | whether the two orders produce the *same* set of patterns |
+| `set_AB_minus_BA` / `set_BA_minus_AB` | how many patterns exist in one order but not the other |
+
+The two set-difference fields are what "the two orders produce different template sets"
+means concretely. Mac, Drain3: `templates_AB` = 308, `templates_BA` = 311,
+`set_AB_minus_BA` = 37, `set_BA_minus_AB` = 40 — i.e. 37 patterns are mined only when A is
+read first and 40 only when B is read first, from the identical 2,000 lines. log10x is
+`0`/`0` on every dataset. These are stable run to run (Drain3's mining is deterministic for
+a fixed input order).
+
 ## Prerequisites
 
 - **Python 3.9+** with Drain3 pinned: `pip install -r requirements.txt` (Drain3 0.9.11).
@@ -47,8 +67,9 @@ under it).
 
 ```bash
 cd bench
-python bench.py       # runs Drain3 (default+masked) and log10x on all 16 -> results.json
-python stability.py   # A / B / A+B / B+A pattern-stability test (per dataset)
+python bench.py         # runs Drain3 (default+masked) and log10x on all 16 -> results.json
+python stability.py Mac # A / B / A+B / B+A pattern-stability test on one dataset
+python stability.py all # ... on all 16 -> bench/stability/stability_<Dataset>.json
 python facts.py       # consolidate -> facts.json (the canonical numbers)
 python analyze.py     # print the aggregate comparison table
 ```
@@ -90,8 +111,8 @@ Reference results for BGL (measured 2026-07-07, engine 1.1.5, Drain3 0.9.11):
 | script | role |
 |---|---|
 | `bench.py` | drives Drain3 (mine + reconstruct by token alignment) and log10x (docker) on every dataset; writes `results.json` and the per-dataset log10x output tree under `bench/out/` |
-| `stability.py` | splits a dataset in half and runs both tools on A, B, A+B, B+A; measures order- and context-invariance of pattern IDs (uses `tenx-stability.config.yaml`, grouping disabled for 1:1 line↔event) |
-| `facts.py` | rolls `results.json` + stability outputs into `facts.json` |
+| `stability.py` | splits a dataset in half and runs both tools on A, B, A+B, B+A; measures order- and context-invariance of pattern IDs, and the per-order template-set differences (uses `tenx-stability.config.yaml`, grouping disabled for 1:1 line↔event) |
+| `facts.py` | rolls `results.json` + stability outputs into `facts.json` (incl. the `stability` block above) |
 | `analyze.py` | prints the aggregate table |
 | `verify_lossless.py` | independent byte-exact reconstruction check + per-dataset whitespace-line counts (the lines drain3 cannot reproduce byte-for-byte) |
 | `rederive.py` | independent aggregate recomputation from raw files + log10x outputs + a fresh Drain3 run |

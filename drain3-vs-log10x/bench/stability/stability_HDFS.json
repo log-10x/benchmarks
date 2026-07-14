@@ -1,0 +1,33 @@
+{
+  "dataset": "HDFS",
+  "log10x": {
+    "order": 2000,
+    "both": 2000,
+    "ctxA": 1000,
+    "ctxB": 1000,
+    "setstable": true,
+    "set_AB_minus_BA": 0,
+    "set_BA_minus_AB": 0,
+    "ntmpl": {
+      "A": 39,
+      "B": 39,
+      "AB": 55,
+      "BA": 55
+    }
+  },
+  "drain3": {
+    "order": 2000,
+    "both": 2000,
+    "ctxA": 880,
+    "ctxB": 999,
+    "setstable": true,
+    "set_AB_minus_BA": 0,
+    "set_BA_minus_AB": 0,
+    "ntmpl": {
+      "A": 12,
+      "B": 16,
+      "AB": 17,
+      "BA": 17
+    }
+  }
+}

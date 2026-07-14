@@ -1,0 +1,33 @@
+{
+  "dataset": "Zookeeper",
+  "log10x": {
+    "order": 1999,
+    "both": 1999,
+    "ctxA": 1000,
+    "ctxB": 1000,
+    "setstable": true,
+    "set_AB_minus_BA": 0,
+    "set_BA_minus_AB": 0,
+    "ntmpl": {
+      "A": 42,
+      "B": 46,
+      "AB": 63,
+      "BA": 63
+    }
+  },
+  "drain3": {
+    "order": 1668,
+    "both": 1999,
+    "ctxA": 691,
+    "ctxB": 873,
+    "setstable": false,
+    "set_AB_minus_BA": 2,
+    "set_BA_minus_AB": 1,
+    "ntmpl": {
+      "A": 32,
+      "B": 30,
+      "AB": 41,
+      "BA": 40
+    }
+  }
+}

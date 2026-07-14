@@ -1,0 +1,33 @@
+{
+  "dataset": "Linux",
+  "log10x": {
+    "order": 2000,
+    "both": 2000,
+    "ctxA": 1000,
+    "ctxB": 1000,
+    "setstable": true,
+    "set_AB_minus_BA": 0,
+    "set_BA_minus_AB": 0,
+    "ntmpl": {
+      "A": 69,
+      "B": 120,
+      "AB": 174,
+      "BA": 174
+    }
+  },
+  "drain3": {
+    "order": 2000,
+    "both": 2000,
+    "ctxA": 978,
+    "ctxB": 794,
+    "setstable": true,
+    "set_AB_minus_BA": 0,
+    "set_BA_minus_AB": 0,
+    "ntmpl": {
+      "A": 27,
+      "B": 43,
+      "AB": 61,
+      "BA": 61
+    }
+  }
+}

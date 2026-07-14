@@ -1,0 +1,33 @@
+{
+  "dataset": "Hadoop",
+  "log10x": {
+    "order": 1985,
+    "both": 1985,
+    "ctxA": 1000,
+    "ctxB": 1000,
+    "setstable": true,
+    "set_AB_minus_BA": 0,
+    "set_BA_minus_AB": 0,
+    "ntmpl": {
+      "A": 167,
+      "B": 32,
+      "AB": 188,
+      "BA": 188
+    }
+  },
+  "drain3": {
+    "order": 1695,
+    "both": 1985,
+    "ctxA": 999,
+    "ctxB": 834,
+    "setstable": false,
+    "set_AB_minus_BA": 1,
+    "set_BA_minus_AB": 1,
+    "ntmpl": {
+      "A": 75,
+      "B": 20,
+      "AB": 82,
+      "BA": 82
+    }
+  }
+}

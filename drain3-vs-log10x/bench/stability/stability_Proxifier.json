@@ -1,0 +1,33 @@
+{
+  "dataset": "Proxifier",
+  "log10x": {
+    "order": 1704,
+    "both": 1704,
+    "ctxA": 1000,
+    "ctxB": 1000,
+    "setstable": true,
+    "set_AB_minus_BA": 0,
+    "set_BA_minus_AB": 0,
+    "ntmpl": {
+      "A": 151,
+      "B": 486,
+      "AB": 619,
+      "BA": 619
+    }
+  },
+  "drain3": {
+    "order": 1612,
+    "both": 1704,
+    "ctxA": 234,
+    "ctxB": 952,
+    "setstable": false,
+    "set_AB_minus_BA": 2,
+    "set_BA_minus_AB": 1,
+    "ntmpl": {
+      "A": 16,
+      "B": 20,
+      "AB": 22,
+      "BA": 21
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "dataset": "HPC",
+  "log10x": {
+    "order": 1999,
+    "both": 1999,
+    "ctxA": 1000,
+    "ctxB": 1000,
+    "setstable": true,
+    "set_AB_minus_BA": 0,
+    "set_BA_minus_AB": 0,
+    "ntmpl": {
+      "A": 88,
+      "B": 15,
+      "AB": 99,
+      "BA": 99
+    }
+  },
+  "drain3": {
+    "order": 1999,
+    "both": 1999,
+    "ctxA": 998,
+    "ctxB": 993,
+    "setstable": true,
+    "set_AB_minus_BA": 0,
+    "set_BA_minus_AB": 0,
+    "ntmpl": {
+      "A": 31,
+      "B": 10,
+      "AB": 38,
+      "BA": 38
+    }
+  }
+}
