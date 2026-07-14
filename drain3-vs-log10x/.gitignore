@@ -4,7 +4,9 @@ bigfile/
 
 # generated per-run outputs (reference results live in bench/facts.json + bench/results.json)
 bench/out/
-bench/stability/
+bench/stability/*
+# ... except the committed per-dataset stability results (small JSON)
+!bench/stability/stability_*.json
 
 # python
 __pycache__/

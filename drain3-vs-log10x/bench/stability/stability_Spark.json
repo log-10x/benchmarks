@@ -1,0 +1,33 @@
+{
+  "dataset": "Spark",
+  "log10x": {
+    "order": 1862,
+    "both": 1862,
+    "ctxA": 1000,
+    "ctxB": 1000,
+    "setstable": true,
+    "set_AB_minus_BA": 0,
+    "set_BA_minus_AB": 0,
+    "ntmpl": {
+      "A": 69,
+      "B": 26,
+      "AB": 70,
+      "BA": 70
+    }
+  },
+  "drain3": {
+    "order": 1862,
+    "both": 1862,
+    "ctxA": 995,
+    "ctxB": 1000,
+    "setstable": true,
+    "set_AB_minus_BA": 0,
+    "set_BA_minus_AB": 0,
+    "ntmpl": {
+      "A": 27,
+      "B": 13,
+      "AB": 27,
+      "BA": 27
+    }
+  }
+}

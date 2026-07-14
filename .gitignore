@@ -3,7 +3,9 @@
 
 # generated per-run outputs (committed reference results live in each bench/facts.json)
 **/bench/out/
-**/bench/stability/
+**/bench/stability/*
+# ... except the committed per-dataset stability results (small JSON)
+!**/bench/stability/stability_*.json
 
 # python
 __pycache__/

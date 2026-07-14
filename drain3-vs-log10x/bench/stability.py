@@ -109,12 +109,20 @@ def main(ds="HDFS"):
         print(f"  CONTEXT-invariant  B vs BA:       {ctxB}/{len(files['B'])}  ({100.0*ctxB/len(files['B']):.1f}%)")
         print()
         return dict(order=order_same, both=len(both), ctxA=ctxA, ctxB=ctxB,
-                    setstable=(setAB==setBA), ntmpl=ntmpl)
+                    setstable=(setAB==setBA),
+                    # how many distinct patterns exist in one order but not the other
+                    set_AB_minus_BA=len(setAB-setBA), set_BA_minus_AB=len(setBA-setAB),
+                    ntmpl=ntmpl)
 
     r_lx = stability_report("log10x", lx_map, lx_ntmpl)
     r_d3 = stability_report("drain3", d3_map, d3_ntmpl)
     json.dump({"dataset":ds,"log10x":r_lx,"drain3":r_d3},
               open(os.path.join(WORK, f"stability_{ds}.json"),"w"), indent=2)
 
+DATASETS = ["Android","Apache","BGL","HDFS","HPC","Hadoop","HealthApp","Linux",
+            "Mac","OpenSSH","OpenStack","Proxifier","Spark","Thunderbird","Windows","Zookeeper"]
+
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv)>1 else "HDFS")
+    arg = sys.argv[1] if len(sys.argv)>1 else "HDFS"
+    for ds in (DATASETS if arg == "all" else [arg]):
+        main(ds)

@@ -1,0 +1,33 @@
+{
+  "dataset": "Mac",
+  "log10x": {
+    "order": 1991,
+    "both": 1991,
+    "ctxA": 1000,
+    "ctxB": 1000,
+    "setstable": true,
+    "set_AB_minus_BA": 0,
+    "set_BA_minus_AB": 0,
+    "ntmpl": {
+      "A": 434,
+      "B": 432,
+      "AB": 680,
+      "BA": 680
+    }
+  },
+  "drain3": {
+    "order": 1744,
+    "both": 1991,
+    "ctxA": 887,
+    "ctxB": 879,
+    "setstable": false,
+    "set_AB_minus_BA": 37,
+    "set_BA_minus_AB": 40,
+    "ntmpl": {
+      "A": 197,
+      "B": 251,
+      "AB": 308,
+      "BA": 311
+    }
+  }
+}

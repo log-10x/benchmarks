@@ -1,0 +1,33 @@
+{
+  "dataset": "OpenStack",
+  "log10x": {
+    "order": 2000,
+    "both": 2000,
+    "ctxA": 1000,
+    "ctxB": 1000,
+    "setstable": true,
+    "set_AB_minus_BA": 0,
+    "set_BA_minus_AB": 0,
+    "ntmpl": {
+      "A": 269,
+      "B": 315,
+      "AB": 448,
+      "BA": 448
+    }
+  },
+  "drain3": {
+    "order": 2000,
+    "both": 2000,
+    "ctxA": 1000,
+    "ctxB": 1000,
+    "setstable": true,
+    "set_AB_minus_BA": 0,
+    "set_BA_minus_AB": 0,
+    "ntmpl": {
+      "A": 33,
+      "B": 33,
+      "AB": 46,
+      "BA": 46
+    }
+  }
+}

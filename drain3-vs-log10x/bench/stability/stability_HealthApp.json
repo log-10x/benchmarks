@@ -1,0 +1,33 @@
+{
+  "dataset": "HealthApp",
+  "log10x": {
+    "order": 2000,
+    "both": 2000,
+    "ctxA": 1000,
+    "ctxB": 1000,
+    "setstable": true,
+    "set_AB_minus_BA": 0,
+    "set_BA_minus_AB": 0,
+    "ntmpl": {
+      "A": 55,
+      "B": 61,
+      "AB": 92,
+      "BA": 92
+    }
+  },
+  "drain3": {
+    "order": 1995,
+    "both": 2000,
+    "ctxA": 997,
+    "ctxB": 984,
+    "setstable": true,
+    "set_AB_minus_BA": 0,
+    "set_BA_minus_AB": 0,
+    "ntmpl": {
+      "A": 469,
+      "B": 205,
+      "AB": 656,
+      "BA": 656
+    }
+  }
+}

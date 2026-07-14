@@ -1,0 +1,33 @@
+{
+  "dataset": "Thunderbird",
+  "log10x": {
+    "order": 1963,
+    "both": 1963,
+    "ctxA": 1000,
+    "ctxB": 1000,
+    "setstable": true,
+    "set_AB_minus_BA": 0,
+    "set_BA_minus_AB": 0,
+    "ntmpl": {
+      "A": 76,
+      "B": 312,
+      "AB": 339,
+      "BA": 339
+    }
+  },
+  "drain3": {
+    "order": 1963,
+    "both": 1963,
+    "ctxA": 529,
+    "ctxB": 760,
+    "setstable": true,
+    "set_AB_minus_BA": 0,
+    "set_BA_minus_AB": 0,
+    "ntmpl": {
+      "A": 21,
+      "B": 71,
+      "AB": 78,
+      "BA": 78
+    }
+  }
+}
