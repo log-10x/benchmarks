@@ -1,0 +1,91 @@
+{
+  "measured_at": "2026-07-14T02:49:08Z",
+  "host": {
+    "image": "clickhouse/clickhouse-server:25.8.28.1",
+    "clickhouse_version": "25.8.28.1",
+    "container_memory_limit": "8g",
+    "container_cpus": "8",
+    "cgroup_memory_max_bytes": 8589934592,
+    "ram_clickhouse_sees_bytes": 8219996160,
+    "max_server_memory_usage_bytes": 7397996544,
+    "max_server_memory_usage_gib": 6.89,
+    "max_server_memory_usage_to_ram_ratio": "0.9",
+    "default_max_memory_usage": "0",
+    "default_max_block_size": "65409",
+    "default_max_threads": "\\'auto(8)\\'"
+  },
+  "corpus": {
+    "rows": 137418,
+    "templates": 378,
+    "sha256": "f6ab19c686f0315386a3b9e97dbd00a2e796a7b6eec2b9e854b8247f1d3f7b02"
+  },
+  "figure_1_pruned_count": {
+    "query": "SELECT count() FROM tenx.events",
+    "ms": 18,
+    "read_rows": 1,
+    "read_bytes": 24,
+    "explain_decode_nodes": 0,
+    "explain_function_nodes_total": 0,
+    "explain_decode_nodes_forced_query": 5,
+    "explain_function_nodes_forced_prefix": 27,
+    "explain_function_nodes_forced_postfix": 25,
+    "explain_decode_nodes_forced_postfix": 8
+  },
+  "figure_2_prefix_forced_decode": {
+    "settings": "ClickHouse defaults",
+    "sum_length": {
+      "type": "ExceptionWhileProcessing",
+      "ms": 3676,
+      "peak_bytes": 7732494287,
+      "peak_gib": 7.2,
+      "exception": "Code: 241. DB::Exception: (total) memory limit exceeded: would use 7.49 GiB (attempt to allocate chunk of 4.00 GiB bytes), current RSS: 3.10 GiB, maximum: 6.89 "
+    },
+    "select_column": {
+      "type": "ExceptionWhileProcessing",
+      "ms": 2538,
+      "peak_bytes": 7731624086,
+      "peak_gib": 7.2,
+      "exception": "Code: 241. DB::Exception: (total) memory limit exceeded: would use 7.49 GiB (attempt to allocate chunk of 4.00 GiB bytes), current RSS: 3.14 GiB, maximum: 6.89 "
+    }
+  },
+  "figure_3_postfix_forced_decode": {
+    "settings": "ClickHouse defaults",
+    "sum_length": {
+      "ms": 568,
+      "peak_bytes": 43051681,
+      "peak_mib": 41.1,
+      "read_rows": 137418,
+      "read_bytes": 11112745
+    },
+    "select_column": {
+      "ms": 608,
+      "peak_bytes": 42855824,
+      "peak_mib": 40.9
+    },
+    "events_native_sum_length": {
+      "ms": 657,
+      "peak_bytes": 81737897,
+      "peak_mib": 78.0
+    }
+  },
+  "figure_4_byte_identity": {
+    "identical": true,
+    "rows": 137418,
+    "prefix_sha256": "97276fc3b4f0e77d606750bad769611ae6c227e33568518b3b6dcc352d3d6a0e",
+    "postfix_sha256": "97276fc3b4f0e77d606750bad769611ae6c227e33568518b3b6dcc352d3d6a0e",
+    "bytes": 29065810
+  },
+  "figure_5_quadratic_term": {
+    "necessary_elements": 800397,
+    "materialized_elements": 189949597,
+    "widest_template": {
+      "literals": 818,
+      "rows": 275,
+      "share_of_materialized_pct": 96.9
+    }
+  },
+  "view_inlining_trap": {
+    "old_body_still_in_view_after_function_replace": true,
+    "old_body_in_view_after_install_fixed": false
+  }
+}
