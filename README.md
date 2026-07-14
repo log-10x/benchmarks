@@ -21,6 +21,7 @@ can rerun it and check every figure a post cites.
 | Benchmark | Question | Post |
 |---|---|---|
 | [`drain3-vs-log10x/`](drain3-vs-log10x/) | Can a log parser reduce a file *losslessly*, and does it assign stable pattern IDs? log10x vs [Drain3](https://github.com/logpai/Drain3) on the [loghub](https://github.com/logpai/loghub) 2k datasets. | *Templates you can't reverse* (draft) |
+| [`clickhouse-inflate/`](clickhouse-inflate/) | What does it cost to expand compacted logs at query time in ClickHouse, and what did our own published benchmark actually measure? | [*We published a ClickHouse benchmark that measured nothing*](https://www.log10x.com/blog/) |
 
 ## Layout
 
