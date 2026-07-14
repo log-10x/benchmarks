@@ -211,6 +211,14 @@ IFS=$'\t' read -r B_TYPE B_MS B_MEM B_EXC < <(attempt pre_column "SELECT decoded
 fact prefix_column_type "$B_TYPE"; fact prefix_column_ms "$B_MS"
 fact prefix_column_peak_bytes "$B_MEM"; fact prefix_column_exception "${B_EXC:-}"
 echo "    -> $B_TYPE  ${B_MS} ms  peak=${B_MEM}  ${B_EXC:-}"
+
+echo "  probe C: the same forced decode with the blow-up BOUNDED, so it can finish."
+echo "           SETTINGS max_block_size = 64, max_threads = 4, max_memory_usage = 6000000000"
+IFS=$'\t' read -r BD_MS BD_MEM BD_RR BD_RB BD_OK < <(bench pre_bounded "SELECT sum(length(decoded_log)) FROM tenx.events SETTINGS max_block_size = 64, max_threads = 4, max_memory_usage = 6000000000")
+fact prefix_bounded_ms "$BD_MS"; fact prefix_bounded_peak_bytes "$BD_MEM"
+fact prefix_bounded_read_rows "$BD_RR"; fact prefix_bounded_read_bytes "$BD_RB"
+fact prefix_bounded_ok_runs "$BD_OK"
+echo "    -> ${BD_MS} ms  peak=${BD_MEM}  read_rows=${BD_RR}  read_bytes=${BD_RB}  completed_runs=${BD_OK}/${REPS}"
 fi
 
 # ---------------------------------------------------------------------------
@@ -390,6 +398,16 @@ out = {
       "peak_gib": gib(facts["prefix_column_peak_bytes"]),
       "exception": facts.get("prefix_column_exception", ""),
     },
+    "sum_length_bounded_settings": {
+      "settings": "max_block_size = 64, max_threads = 4, max_memory_usage = 6000000000",
+      "ms": num("prefix_bounded_ms"),
+      "peak_bytes": num("prefix_bounded_peak_bytes"),
+      "peak_gib": gib(facts.get("prefix_bounded_peak_bytes", "")),
+      "read_rows": num("prefix_bounded_read_rows"),
+      "read_bytes": num("prefix_bounded_read_bytes"),
+      "read_mib": mib(facts.get("prefix_bounded_read_bytes", "")),
+      "completed_runs": num("prefix_bounded_ok_runs"),
+    },
   },
   "figure_3_postfix_forced_decode": {
     "settings": "ClickHouse defaults",
@@ -442,6 +460,9 @@ print(f"  1  SELECT count()                    {f1['ms']} ms, read {f1['read_row
 print(f"     forced decode plan                {f1['explain_decode_nodes_forced_query']} decode nodes")
 print(f"  2  forced decode, PRE-fix            sum(length): {f2['sum_length']['type']} "
       f"@ {f2['sum_length']['peak_gib']} GiB")
+b = f2.get("sum_length_bounded_settings", {})
+print(f"     PRE-fix, bounded settings         {b.get('ms')} ms, {b.get('peak_gib')} GiB peak, "
+      f"read {b.get('read_mib')} MiB")
 print(f"                                       SELECT col : {f2['select_column']['type']} "
       f"@ {f2['select_column']['peak_gib']} GiB")
 print(f"  3  forced decode, POST-fix           sum(length): {f3['sum_length']['ms']} ms, "

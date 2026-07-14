@@ -41,6 +41,7 @@ Full detail in [`results.json`](results.json).
 | The pruned count | `SELECT count() FROM tenx.events` | 18 ms, **read_rows = 1, read_bytes = 24**, **0 function nodes in the plan** |
 | Forced decode, PRE-fix | `SELECT sum(length(decoded_log)) FROM tenx.events` | **aborts**, code 241, peak `memory_usage` **7.20 GiB** |
 | Forced decode, PRE-fix | `SELECT decoded_log FROM tenx.events FORMAT Null` | **aborts**, code 241, peak `memory_usage` **7.20 GiB** |
+| Forced decode, PRE-fix, bounded settings (below) | `SELECT sum(length(decoded_log)) FROM tenx.events` | completes: **4,290 ms, 2.86 GiB peak, 10.6 MiB read** (3 of 3 runs) |
 | Forced decode, POST-fix | `SELECT sum(length(decoded_log)) FROM tenx.events` | **568 ms, 41.1 MiB peak** |
 | Forced decode, POST-fix | `SELECT decoded_log FROM tenx.events FORMAT Null` | **608 ms, 40.9 MiB peak** |
 | Forced decode, POST-fix | same, `tenx.events_native` (format-preserving view) | 657 ms, 78.0 MiB peak |
@@ -54,6 +55,21 @@ Both pre-fix probes fail with:
 Code: 241. DB::Exception: (total) memory limit exceeded: would use 7.49 GiB
 (attempt to allocate chunk of 4.00 GiB bytes), current RSS: 3.10 GiB, maximum: 6.89 GiB
 ```
+
+### Making the pre-fix decode finish
+
+The buggy path only completes if the block size is small enough that no single block carries enough
+wide-template rows to blow the cap. These are the settings, and a reader has to paste them; there is
+no pre-fix full-table decode at ClickHouse defaults:
+
+```sql
+SELECT sum(length(decoded_log)) FROM tenx.events
+SETTINGS max_block_size = 64, max_threads = 4, max_memory_usage = 6000000000;
+-- 4,290 ms, 2.86 GiB peak, 137,418 rows / 11,112,745 bytes read
+```
+
+The same query post-fix reads the same 11,112,745 bytes and runs in 548 ms at 41 MiB, at defaults.
+The compact events a full decode reads are **10.6 MiB**, not 8.94 MiB.
 
 ### Read the abort threshold correctly
 
@@ -153,6 +169,8 @@ a view's stored AST at `CREATE VIEW` time), and the blow-up persists until the v
   builds, in full, and prints the sha256 of both outputs.
 - The post's "wider stress corpus" figures (86,606 rows, 74 slots per row, 6.15 GiB / 19.9 s before
   and 71.9 MiB / 1.5 s after) come from that same unpublished corpus and are not reproduced here.
-- The post reports 7,495 ms with a 3.65 GiB peak for the pre-fix `sum(length(decoded_log))`. On
-  this table at ClickHouse defaults that query does not complete at all; it aborts. A completed
-  pre-fix run of the full table needs a smaller `max_block_size` than the default.
+- The post reports 7,495 ms with a 3.65 GiB peak for the pre-fix `sum(length(decoded_log))`, and
+  8.94 MiB read. None of the three reproduce. At ClickHouse defaults that query does not complete
+  at all, it aborts. At the bounded settings where it does complete
+  (`max_block_size = 64, max_threads = 4, max_memory_usage = 6000000000`) it takes **4,290 ms** with
+  a **2.86 GiB** peak and reads **10.6 MiB**.

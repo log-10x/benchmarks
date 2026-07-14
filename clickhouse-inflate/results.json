@@ -1,5 +1,5 @@
 {
-  "measured_at": "2026-07-14T02:49:08Z",
+  "measured_at": "2026-07-14T02:56:43Z",
   "host": {
     "image": "clickhouse/clickhouse-server:25.8.28.1",
     "clickhouse_version": "25.8.28.1",
@@ -21,7 +21,7 @@
   },
   "figure_1_pruned_count": {
     "query": "SELECT count() FROM tenx.events",
-    "ms": 18,
+    "ms": 16,
     "read_rows": 1,
     "read_bytes": 24,
     "explain_decode_nodes": 0,
@@ -35,35 +35,45 @@
     "settings": "ClickHouse defaults",
     "sum_length": {
       "type": "ExceptionWhileProcessing",
-      "ms": 3676,
+      "ms": 1505,
       "peak_bytes": 7732494287,
       "peak_gib": 7.2,
-      "exception": "Code: 241. DB::Exception: (total) memory limit exceeded: would use 7.49 GiB (attempt to allocate chunk of 4.00 GiB bytes), current RSS: 3.10 GiB, maximum: 6.89 "
+      "exception": "Code: 241. DB::Exception: (total) memory limit exceeded: would use 7.30 GiB (attempt to allocate chunk of 4.00 GiB bytes), current RSS: 3.11 GiB, maximum: 6.89 "
     },
     "select_column": {
       "type": "ExceptionWhileProcessing",
-      "ms": 2538,
+      "ms": 2357,
       "peak_bytes": 7731624086,
       "peak_gib": 7.2,
-      "exception": "Code: 241. DB::Exception: (total) memory limit exceeded: would use 7.49 GiB (attempt to allocate chunk of 4.00 GiB bytes), current RSS: 3.14 GiB, maximum: 6.89 "
+      "exception": "Code: 241. DB::Exception: (total) memory limit exceeded: would use 7.30 GiB (attempt to allocate chunk of 4.00 GiB bytes), current RSS: 3.12 GiB, maximum: 6.89 "
+    },
+    "sum_length_bounded_settings": {
+      "settings": "max_block_size = 64, max_threads = 4, max_memory_usage = 6000000000",
+      "ms": 4290,
+      "peak_bytes": 3074247862,
+      "peak_gib": 2.86,
+      "read_rows": 137418,
+      "read_bytes": 11112745,
+      "read_mib": 10.6,
+      "completed_runs": 3
     }
   },
   "figure_3_postfix_forced_decode": {
     "settings": "ClickHouse defaults",
     "sum_length": {
-      "ms": 568,
-      "peak_bytes": 43051681,
+      "ms": 548,
+      "peak_bytes": 43049481,
       "peak_mib": 41.1,
       "read_rows": 137418,
       "read_bytes": 11112745
     },
     "select_column": {
-      "ms": 608,
+      "ms": 535,
       "peak_bytes": 42855824,
       "peak_mib": 40.9
     },
     "events_native_sum_length": {
-      "ms": 657,
+      "ms": 600,
       "peak_bytes": 81737897,
       "peak_mib": 78.0
     }
