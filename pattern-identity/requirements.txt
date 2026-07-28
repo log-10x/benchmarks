@@ -1,0 +1,13 @@
+# Verified on Python 3.13.11 (CPython). ./run.sh builds a virtualenv from
+# `python3` and installs exactly this file.
+#
+# drain3 pins its own runtime dependencies, so the resolved set is fixed:
+#   jsonpickle==1.5.1
+#   cachetools==4.2.1
+# Everything else the benchmark uses is standard library.
+#
+# Treat a drain3 upgrade as a re-run gate rather than a routine bump. bench/replay.py
+# asserts Drain3's change_type semantics and bench/identifier.py asserts the split
+# between template agreement and cluster_id agreement, so both fail loudly if the
+# library's behaviour moves.
+drain3==0.9.11

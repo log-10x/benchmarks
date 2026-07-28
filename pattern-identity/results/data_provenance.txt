@@ -1,0 +1,35 @@
+asset provenance
+source https://github.com/log-10x/config/releases/download/otel-sample-v1
+  otel-sample-200mb.log.gz          8,430,912 bytes  sha256 c118e55f1e431d9ff43fe1b3b62237d2fbd7c6e27821a8a9c4c57757786b0eb9
+  otel-sample-templates.json.gz       111,333 bytes  sha256 3b39f5bb7d207c9cbf46ee60eaace580268b95fac696f8dfa33230a49a054274
+  otel-sample-encoded.log.gz        3,305,996 bytes  sha256 d863d7992214d906efa80048c3cd5747fffef855c62635df803889bda9c0948d
+
+raw asset, as text
+  lines                                    197,430
+  records that failed to parse                   0
+  bytes                                215,039,161
+  bytes in the application message      40,354,325
+  message share of file bytes                18.8%
+  distinct Kubernetes containers                36
+  busiest container                  opentelemetry-collector  93,875 lines  (47.5%)
+
+scale, so a reader can calibrate what "seen once" means here
+  lines carrying an ISO timestamp          129,991
+  earliest timestamp quoted anywhere 2024-01-08T18:05:40
+  latest timestamp quoted anywhere   2025-10-02T06:35:34
+  1st percentile                     2025-10-01T20:12:26
+  99th percentile                    2025-10-02T06:29:05
+  window, 1st to 99th percentile             10.3 hours
+  mean rate over that window                  5.3 lines/sec
+
+A handful of messages quote dates from outside the capture, build stamps and
+the like, which is why the window is taken between percentiles rather than
+between the extremes. This is one small demo cluster over a few hours, not a
+log platform. A shape that occurs once here is a different population from a
+shape that occurs once at a hundred thousand lines a second, and the frequency
+strata in results/identity.md should be read against this scale.
+
+The message is the `log` field of each Fluentd/Kubernetes record. The rest
+is envelope, identical in shape on every line, so a miner fed whole lines
+spends most of its similarity budget on the envelope. Every script here
+feeds the extracted message.
