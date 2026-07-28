@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # One command. Builds an isolated environment, downloads the public sample if it
-# is not already cached, runs every experiment in this repository, and writes
+# is not already cached, runs every experiment in this directory, and writes
 # every artifact under results/.
 #
 #   ./run.sh              full run

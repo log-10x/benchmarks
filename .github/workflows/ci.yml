@@ -23,3 +23,25 @@ jobs:
 
       - name: Smoke test (Drain3 mechanism, no Docker)
         run: python drain3-vs-log10x/smoke_test.py
+
+  pattern-identity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # requirements.txt records verification on 3.13; keep CI on the same line.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install deps
+        run: pip install -r pattern-identity/requirements.txt
+
+      - name: Syntax-check the harness
+        run: python -m py_compile pattern-identity/bench/*.py
+
+      # The replay is the one experiment that needs no download and no Docker.
+      # Its asserts are the falsifier for the whole first section of the README,
+      # so a drain3 release that changes the mechanism fails here.
+      - name: Replay exhibit (Drain3 mechanism, no download, asserts live)
+        run: python pattern-identity/bench/replay.py
