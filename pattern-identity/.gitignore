@@ -1,0 +1,7 @@
+# public sample + LogHub sets — fetched by bench/data.py and bench/coverage.py, never vendored
+data/
+
+# python
+.venv/
+__pycache__/
+*.pyc

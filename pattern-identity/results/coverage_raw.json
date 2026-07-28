@@ -1,0 +1,50 @@
+{
+  "image": "log10x/pipeline-10x:1.1.5",
+  "image_digest": "log10x/pipeline-10x@sha256:aeb3784c8895bf990e9a88f49c68d59f5729f6738c44c6e8fd87a489f725d316",
+  "ledger": {
+    "Apache": {
+      "events": 52004,
+      "templates": 370
+    },
+    "Proxifier": {
+      "events": 4257,
+      "templates": 574
+    }
+  },
+  "loghub": [
+    {
+      "dataset": "Proxifier",
+      "events": 4257,
+      "ledger_events": 4257,
+      "ledger_templates": 574,
+      "median_literal_words": 31.0,
+      "pure_variable_templates": 0,
+      "raw_lines": 21329,
+      "source": "https://zenodo.org/records/3227177/files/Proxifier.tar.gz",
+      "tarball_sha256": "b56d93eb87188e1284b5b35e92cb6f4151aec22975d82c5387d8e81a52d2a96d",
+      "templates": 574
+    },
+    {
+      "dataset": "Apache",
+      "events": 52004,
+      "ledger_events": 52004,
+      "ledger_templates": 370,
+      "median_literal_words": 20.0,
+      "pure_variable_templates": 0,
+      "raw_lines": 56482,
+      "source": "https://zenodo.org/records/3227177/files/Apache.tar.gz",
+      "tarball_sha256": "f2cb5014453c8a0f71596838e1639a2131ff6d360839ad280409f621a6cac452",
+      "templates": 370
+    }
+  ],
+  "probe": {
+    "invented_pattern_hash": "70bbN1HY6Zk",
+    "invented_template": "$(yyyy-MM-dd HH:mm:ss) $ $ $ $ $",
+    "invented_template_hash": "-!U6uz0PgI#",
+    "known_pattern": "INFO_Connection_established_to_database",
+    "known_template": "$(yyyy-MM-dd HH:mm:ss) INFO Connection established to database",
+    "known_template_hash": "-7?eKtE#iLD",
+    "records": 5
+  },
+  "script": "bench/coverage.py"
+}
