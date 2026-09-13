@@ -85,6 +85,12 @@ so `ORDER BY` and `PARTITION BY` see the same data in each.
 
 ## The decode path
 
+The compact form itself is lossless: the engine's round trip on this capture
+returns all 215,039,161 bytes byte-identical, which
+[`../otel-denominators/`](../otel-denominators/) reproduces in one command. What
+is broken is the SQL that reads it back inside ClickHouse, which this benchmark
+measures and `reference_decode.py` diagnoses.
+
 The compact arm is read through the **corrected** inflate functions in
 [`../clickhouse-inflate/install-fixed.sql`](../clickhouse-inflate/install-fixed.sql),
 not the ones `log-10x/clickhouse-app` ships. The shipped `tenx_inflate_core`
@@ -114,6 +120,7 @@ has not been applied back to the product repo.
 | `build_arms.py` | the mapping into the ClickStack schema, and the alignment checks |
 | `schema.sql.tpl` | the ClickStack DDL with the codec substituted |
 | `report.py` | reads `system.parts`, `system.parts_columns`, `system.query_log` and writes `results/` |
+| `reference_decode.py` | decodes the same events with the four rules `install.sql` lacks, to tell a lost original from a misread one; `--self-test` runs in CI |
 | `results/` | `results.json` and the dated results file |
 
 [nginx]: https://clickhouse.com/blog/log-compression-170x
