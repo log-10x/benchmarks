@@ -1,0 +1,622 @@
+{
+  "rows": {
+    "compute_sampled_25": 49499,
+    "compute_bypattern_25": 47147,
+    "compute_sampled_50": 99038,
+    "compute_bypattern_50": 97367,
+    "compute_bypattern_75": 143832,
+    "compute_sampled_75": 148147,
+    "compute_full": 197430
+  },
+  "data": {
+    "full": {
+      "recent_tail": {
+        "cpu_us_fastest": 11281,
+        "cpu_us_median": 13072,
+        "read_bytes": 3832932,
+        "runs": [
+          11281,
+          11554,
+          11670,
+          11938,
+          12998,
+          13146,
+          13149,
+          13829,
+          13840,
+          14578
+        ]
+      },
+      "substring": {
+        "cpu_us_fastest": 6699,
+        "cpu_us_median": 7034,
+        "read_bytes": 41069495,
+        "runs": [
+          6699,
+          6705,
+          6842,
+          6900,
+          6953,
+          7116,
+          7285,
+          7305,
+          7423,
+          7796
+        ]
+      },
+      "word": {
+        "cpu_us_fastest": 5646,
+        "cpu_us_median": 5878,
+        "read_bytes": 32,
+        "runs": [
+          5646,
+          5683,
+          5688,
+          5736,
+          5781,
+          5975,
+          6035,
+          6122,
+          6254,
+          6827
+        ]
+      },
+      "top_services": {
+        "cpu_us_fastest": 6694,
+        "cpu_us_median": 8269,
+        "read_bytes": 197430,
+        "runs": [
+          6694,
+          7213,
+          7294,
+          7296,
+          8171,
+          8367,
+          8471,
+          8853,
+          9393,
+          32148
+        ]
+      },
+      "service_window": {
+        "cpu_us_fastest": 4982,
+        "cpu_us_median": 5492,
+        "read_bytes": 213814,
+        "runs": [
+          4982,
+          5121,
+          5180,
+          5183,
+          5220,
+          5764,
+          5793,
+          5794,
+          6052,
+          57219
+        ]
+      }
+    },
+    "bypattern_50": {
+      "word": {
+        "cpu_us_fastest": 5258,
+        "cpu_us_median": 5901,
+        "read_bytes": 32,
+        "runs": [
+          5258,
+          5348,
+          5482,
+          5727,
+          5852,
+          5950,
+          5987,
+          6054,
+          6061,
+          6409
+        ]
+      },
+      "substring": {
+        "cpu_us_fastest": 5410,
+        "cpu_us_median": 5903,
+        "read_bytes": 13823003,
+        "runs": [
+          5410,
+          5623,
+          5661,
+          5796,
+          5884,
+          5922,
+          6013,
+          6373,
+          6586,
+          6756
+        ]
+      },
+      "recent_tail": {
+        "cpu_us_fastest": 8710,
+        "cpu_us_median": 9293,
+        "read_bytes": 3192215,
+        "runs": [
+          8710,
+          8713,
+          8803,
+          8809,
+          9180,
+          9406,
+          10179,
+          10184,
+          10776,
+          10945
+        ]
+      },
+      "service_window": {
+        "cpu_us_fastest": 4780,
+        "cpu_us_median": 5247,
+        "read_bytes": 130135,
+        "runs": [
+          4780,
+          4989,
+          5130,
+          5135,
+          5234,
+          5261,
+          5274,
+          5284,
+          5718,
+          6759
+        ]
+      },
+      "top_services": {
+        "cpu_us_fastest": 6058,
+        "cpu_us_median": 7482,
+        "read_bytes": 97367,
+        "runs": [
+          6058,
+          6206,
+          7289,
+          7406,
+          7449,
+          7516,
+          8117,
+          8165,
+          10360,
+          10865
+        ]
+      }
+    },
+    "sampled_75": {
+      "substring": {
+        "cpu_us_fastest": 6287,
+        "cpu_us_median": 6802,
+        "read_bytes": 30789003,
+        "runs": [
+          6287,
+          6307,
+          6543,
+          6594,
+          6688,
+          6916,
+          7156,
+          7159,
+          7592,
+          8062
+        ]
+      },
+      "word": {
+        "cpu_us_fastest": 5178,
+        "cpu_us_median": 5955,
+        "read_bytes": 32,
+        "runs": [
+          5178,
+          5378,
+          5456,
+          5930,
+          5937,
+          5974,
+          6000,
+          6210,
+          6323,
+          6468
+        ]
+      },
+      "service_window": {
+        "cpu_us_fastest": 4888,
+        "cpu_us_median": 5284,
+        "read_bytes": 122219,
+        "runs": [
+          4888,
+          5011,
+          5037,
+          5220,
+          5234,
+          5335,
+          5378,
+          5403,
+          5614,
+          5869
+        ]
+      },
+      "top_services": {
+        "cpu_us_fastest": 6391,
+        "cpu_us_median": 6722,
+        "read_bytes": 148147,
+        "runs": [
+          6391,
+          6399,
+          6424,
+          6712,
+          6720,
+          6724,
+          6906,
+          7220,
+          7495,
+          9289
+        ]
+      },
+      "recent_tail": {
+        "cpu_us_fastest": 11149,
+        "cpu_us_median": 12107,
+        "read_bytes": 4016168,
+        "runs": [
+          11149,
+          11383,
+          11448,
+          11624,
+          11759,
+          12456,
+          13016,
+          13072,
+          19538,
+          21156
+        ]
+      }
+    },
+    "sampled_50": {
+      "top_services": {
+        "cpu_us_fastest": 6096,
+        "cpu_us_median": 6294,
+        "read_bytes": 99038,
+        "runs": [
+          6096,
+          6114,
+          6145,
+          6182,
+          6230,
+          6359,
+          6451,
+          6616,
+          6961,
+          9421
+        ]
+      },
+      "recent_tail": {
+        "cpu_us_fastest": 7882,
+        "cpu_us_median": 9406,
+        "read_bytes": 1921202,
+        "runs": [
+          7882,
+          8676,
+          8766,
+          8892,
+          9242,
+          9571,
+          9641,
+          10620,
+          10977,
+          16002
+        ]
+      },
+      "service_window": {
+        "cpu_us_fastest": 4941,
+        "cpu_us_median": 5354,
+        "read_bytes": 107214,
+        "runs": [
+          4941,
+          5029,
+          5140,
+          5273,
+          5305,
+          5403,
+          5609,
+          5815,
+          5917,
+          6345
+        ]
+      },
+      "word": {
+        "cpu_us_fastest": 5298,
+        "cpu_us_median": 5848,
+        "read_bytes": 32,
+        "runs": [
+          5298,
+          5454,
+          5682,
+          5766,
+          5829,
+          5867,
+          5877,
+          6020,
+          6590,
+          17723
+        ]
+      },
+      "substring": {
+        "cpu_us_fastest": 5937,
+        "cpu_us_median": 6374,
+        "read_bytes": 20554864,
+        "runs": [
+          5937,
+          5947,
+          5990,
+          6285,
+          6287,
+          6462,
+          6606,
+          7622,
+          7707,
+          7733
+        ]
+      }
+    },
+    "bypattern_75": {
+      "word": {
+        "cpu_us_fastest": 5167,
+        "cpu_us_median": 6067,
+        "read_bytes": 32,
+        "runs": [
+          5167,
+          5196,
+          5368,
+          5763,
+          6054,
+          6080,
+          6269,
+          6328,
+          6472,
+          6579
+        ]
+      },
+      "substring": {
+        "cpu_us_fastest": 6568,
+        "cpu_us_median": 7309,
+        "read_bytes": 24083906,
+        "runs": [
+          6568,
+          6796,
+          6862,
+          7108,
+          7291,
+          7327,
+          7417,
+          7499,
+          7663,
+          7689
+        ]
+      },
+      "top_services": {
+        "cpu_us_fastest": 6611,
+        "cpu_us_median": 7389,
+        "read_bytes": 143832,
+        "runs": [
+          6611,
+          6876,
+          7019,
+          7152,
+          7284,
+          7495,
+          7522,
+          7784,
+          8019,
+          10095
+        ]
+      },
+      "service_window": {
+        "cpu_us_fastest": 4873,
+        "cpu_us_median": 5165,
+        "read_bytes": 160216,
+        "runs": [
+          4873,
+          4953,
+          5081,
+          5139,
+          5159,
+          5171,
+          5172,
+          5199,
+          5212,
+          5472
+        ]
+      },
+      "recent_tail": {
+        "cpu_us_fastest": 8607,
+        "cpu_us_median": 9641,
+        "read_bytes": 2595972,
+        "runs": [
+          8607,
+          8763,
+          8860,
+          9228,
+          9611,
+          9672,
+          9716,
+          9736,
+          9958,
+          11839
+        ]
+      }
+    },
+    "sampled_25": {
+      "substring": {
+        "cpu_us_fastest": 5282,
+        "cpu_us_median": 5947,
+        "read_bytes": 10280670,
+        "runs": [
+          5282,
+          5319,
+          5347,
+          5474,
+          5880,
+          6015,
+          6188,
+          6269,
+          6466,
+          8569
+        ]
+      },
+      "word": {
+        "cpu_us_fastest": 5261,
+        "cpu_us_median": 5758,
+        "read_bytes": 32,
+        "runs": [
+          5261,
+          5381,
+          5546,
+          5568,
+          5741,
+          5775,
+          5881,
+          5929,
+          6120,
+          6221
+        ]
+      },
+      "top_services": {
+        "cpu_us_fastest": 5312,
+        "cpu_us_median": 6028,
+        "read_bytes": 49499,
+        "runs": [
+          5312,
+          5683,
+          5712,
+          5846,
+          5969,
+          6088,
+          6090,
+          6499,
+          6780,
+          7603
+        ]
+      },
+      "recent_tail": {
+        "cpu_us_fastest": 7061,
+        "cpu_us_median": 7904,
+        "read_bytes": 2090245,
+        "runs": [
+          7061,
+          7286,
+          7301,
+          7496,
+          7770,
+          8039,
+          8090,
+          8451,
+          8479,
+          10046
+        ]
+      },
+      "service_window": {
+        "cpu_us_fastest": 4835,
+        "cpu_us_median": 5449,
+        "read_bytes": 106843,
+        "runs": [
+          4835,
+          5012,
+          5086,
+          5229,
+          5439,
+          5460,
+          5656,
+          5794,
+          5825,
+          5860
+        ]
+      }
+    },
+    "bypattern_25": {
+      "service_window": {
+        "cpu_us_fastest": 5081,
+        "cpu_us_median": 5507,
+        "read_bytes": 69363,
+        "runs": [
+          5081,
+          5203,
+          5210,
+          5227,
+          5372,
+          5642,
+          5753,
+          6279,
+          8414,
+          14713
+        ]
+      },
+      "top_services": {
+        "cpu_us_fastest": 5378,
+        "cpu_us_median": 6941,
+        "read_bytes": 47147,
+        "runs": [
+          5378,
+          6063,
+          6535,
+          6657,
+          6892,
+          6990,
+          7793,
+          12975,
+          17409,
+          17413
+        ]
+      },
+      "word": {
+        "cpu_us_fastest": 5373,
+        "cpu_us_median": 5789,
+        "read_bytes": 32,
+        "runs": [
+          5373,
+          5434,
+          5436,
+          5708,
+          5728,
+          5851,
+          5994,
+          6040,
+          6627,
+          7772
+        ]
+      },
+      "substring": {
+        "cpu_us_fastest": 4986,
+        "cpu_us_median": 5529,
+        "read_bytes": 8832194,
+        "runs": [
+          4986,
+          5059,
+          5508,
+          5520,
+          5525,
+          5533,
+          5557,
+          5561,
+          5698,
+          6975
+        ]
+      },
+      "recent_tail": {
+        "cpu_us_fastest": 7085,
+        "cpu_us_median": 8473,
+        "read_bytes": 2216276,
+        "runs": [
+          7085,
+          7540,
+          7631,
+          7673,
+          7698,
+          9248,
+          9758,
+          10287,
+          18263,
+          21164
+        ]
+      }
+    }
+  }
+}

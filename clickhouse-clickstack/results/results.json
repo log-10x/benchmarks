@@ -1154,19 +1154,19 @@
     "native": {
       "result": "2316",
       "runs": 10,
-      "median_ms": 8,
+      "median_ms": 7,
       "fastest_ms": 6,
       "ms": [
         6,
         6,
         6,
+        6,
         7,
         7,
-        9,
-        10,
-        11,
-        12,
-        45
+        7,
+        7,
+        7,
+        14
       ],
       "read_rows": 32768,
       "read_bytes": 2737012,
@@ -1175,19 +1175,19 @@
     "native_folded": {
       "result": "2316",
       "runs": 10,
-      "median_ms": 8,
-      "fastest_ms": 6,
+      "median_ms": 7,
+      "fastest_ms": 7,
       "ms": [
-        6,
+        7,
+        7,
         7,
         7,
         7,
         8,
         8,
         8,
-        9,
-        10,
-        13
+        8,
+        8
       ],
       "read_rows": 16384,
       "read_bytes": 3724610,
@@ -1196,98 +1196,98 @@
     "compact_iso": {
       "result": "2316",
       "runs": 10,
-      "median_ms": 682,
-      "fastest_ms": 611,
+      "median_ms": 562,
+      "fastest_ms": 524,
       "ms": [
+        524,
+        535,
+        536,
+        540,
+        556,
+        569,
+        607,
         611,
-        613,
-        625,
-        665,
-        668,
-        697,
-        738,
-        761,
-        806,
-        982
+        686,
+        1276
       ],
       "read_rows": 159170,
       "read_bytes": 11612601,
-      "peak_memory_bytes": 33595187
+      "peak_memory_bytes": 35430580
     },
     "compact_native": {
       "result": "2316",
       "runs": 10,
-      "median_ms": 806,
-      "fastest_ms": 630,
+      "median_ms": 614,
+      "fastest_ms": 600,
       "ms": [
-        630,
-        654,
-        708,
-        729,
-        789,
-        823,
-        904,
-        964,
-        1012,
-        1423
+        600,
+        603,
+        604,
+        604,
+        606,
+        622,
+        635,
+        680,
+        720,
+        754
       ],
       "read_rows": 159170,
       "read_bytes": 11612601,
-      "peak_memory_bytes": 71229227
+      "peak_memory_bytes": 68947386
     }
   },
   "ingest": {
     "otel_logs_compact_lz4": {
-      "cpu_microseconds": 3132902,
-      "wall_ms": 4630,
+      "cpu_microseconds": 1643817,
+      "wall_ms": 2269,
       "written_rows": 159170,
       "written_bytes": 107433143
     },
     "otel_logs_compact_zstd1": {
-      "cpu_microseconds": 3403169,
-      "wall_ms": 6819,
+      "cpu_microseconds": 1764739,
+      "wall_ms": 2529,
       "written_rows": 159170,
       "written_bytes": 107433143
     },
     "otel_logs_compact_zstd3": {
-      "cpu_microseconds": 3468196,
-      "wall_ms": 4261,
+      "cpu_microseconds": 1787721,
+      "wall_ms": 2375,
       "written_rows": 159170,
       "written_bytes": 107433143
     },
     "otel_logs_native_folded_lz4": {
-      "cpu_microseconds": 4237670,
-      "wall_ms": 5917,
+      "cpu_microseconds": 2435916,
+      "wall_ms": 3350,
       "written_rows": 159170,
       "written_bytes": 136693825
     },
     "otel_logs_native_folded_zstd1": {
-      "cpu_microseconds": 3889725,
-      "wall_ms": 6415,
+      "cpu_microseconds": 4005203,
+      "wall_ms": 4647,
       "written_rows": 159170,
       "written_bytes": 136693825
     },
     "otel_logs_native_folded_zstd3": {
-      "cpu_microseconds": 3386051,
-      "wall_ms": 4101,
+      "cpu_microseconds": 3585554,
+      "wall_ms": 4388,
       "written_rows": 159170,
       "written_bytes": 136693825
     },
     "otel_logs_native_lz4": {
-      "cpu_microseconds": 2728104,
-      "wall_ms": 3602,
+      "cpu_microseconds": 2323353,
+      "wall_ms": 3059,
       "written_rows": 197430,
       "written_bytes": 158186513
     },
     "otel_logs_native_zstd1": {
-      "cpu_microseconds": 3782708,
-      "wall_ms": 6866,
+      "cpu_microseconds": 5636714,
+      "wall_ms": 7220,
       "written_rows": 197430,
       "written_bytes": 158186513
     },
     "otel_logs_native_zstd3": {
-      "cpu_microseconds": 3063255,
-      "wall_ms": 4124,
+      "cpu_microseconds": 2654000,
+      "wall_ms": 3394,
       "written_rows": 197430,
       "written_bytes": 158186513
     }

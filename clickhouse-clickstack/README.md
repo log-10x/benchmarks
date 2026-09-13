@@ -173,6 +173,30 @@ Two traps it surfaces for anyone writing these policies. A TTL move is decided
 for a whole part, so a table not partitioned by time moves nothing at all. And a
 column codec silently disables `TTL ... RECOMPRESS` against that column.
 
+## The shape being proposed: `run_labeled.sh`
+
+Everything above compares native text against compact text. The recommendation that
+fell out of it, keep the original text and add the message type as a column, was never
+loaded until this script. Three arms on the same 197,430 rows: the column added, the
+column inside ClickStack's sort key, and the table sorted by type first. Text index
+intact in all three, no decoder anywhere. Result in `results/labeled-layout-<date>.md`:
+the column alone costs 91 KB; inside the sort key it takes 13.1% off the table; sorted by
+type first, 21.6%. That is most of what compaction achieved, with none of its costs.
+
+## Query compute: `run_query_compute.sh`
+
+Five query shapes against the reduction arms. At this table size every query is a few
+milliseconds of fixed cost and the run cannot resolve the row-count effect; it says so
+in `results/query-compute-<date>.md` rather than reporting the 85% it measured as a
+finding. A table of tens of gigabytes would be needed.
+
+## Tier-down to object storage: `run_policy_s3.sh`
+
+`run_policy.sh` used a second directory as the cold volume. This one runs MinIO beside
+ClickHouse, declares the bucket as a disk of `type s3`, and repeats the per-type move.
+2,700 objects land in the bucket, the rows read back, the table stays whole. Result in
+`results/per-pattern-policy-s3-<date>.md`.
+
 ## What it does not measure
 
 - **Ingest over the wire.** Each arm is loaded from a JSONEachRow file, so the
@@ -201,6 +225,9 @@ column codec silently disables `TTL ... RECOMPRESS` against that column.
 | `build_reduction.py` | labels every captured line with its message type and builds the reduction arms |
 | `report_compute.py` | writes `results/compute-vs-rows-<date>.md` |
 | `run_policy.sh` | the four TTL levers driven per message type, on its own container |
+| `run_policy_s3.sh` | the per-type move again, to a MinIO bucket declared as an S3 disk |
+| `run_labeled.sh` | native text plus a message-type column, in and out of the sort key |
+| `run_query_compute.sh` | five query shapes against the reduction arms |
 | `reference_decode.py` | decodes the same events with the four rules `install.sql` lacks, to tell a lost original from a misread one; `--self-test` runs in CI |
 | `results/` | `results.json` and the dated results file |
 
