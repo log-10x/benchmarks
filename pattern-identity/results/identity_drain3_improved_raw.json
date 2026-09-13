@@ -1,0 +1,3651 @@
+{
+  "arm_order": [
+    "baseline",
+    "strong",
+    "shared"
+  ],
+  "arms": {
+    "baseline": {
+      "clusters_a_mean": 1035.6,
+      "clusters_b_mean": 1036.5,
+      "definition": {
+        "label": "baseline: typed-token masking, memory only, tree-only lookup",
+        "mask_prefix": "<",
+        "mask_suffix": ">",
+        "match_strategy": "never",
+        "persistence_restart": false,
+        "warm_start_b_from_a": false
+      },
+      "lines_a_mean": 98715,
+      "lines_b_mean": 98715,
+      "masking_patterns": [
+        "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}",
+        "\\d{4}-\\d{2}-\\d{2}[T ]\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z?",
+        "\\b(\\d{1,3}\\.){3}\\d{1,3}\\b",
+        "\\b[0-9a-fA-F]{16,}\\b",
+        "\\b\\d+\\b"
+      ],
+      "reference": {
+        "clusters": 1465,
+        "distinct_shapes": 1465,
+        "singleton_shapes": 949,
+        "unmatched_probes": 0
+      },
+      "summary": {
+        "101 to 1,000": {
+          "cluster_id_agreement": {
+            "mean": 0.004345962495216227,
+            "min": 0.0,
+            "stdev": 0.009170530581372436,
+            "trials": 10
+          },
+          "lookup_agreement_when_covered": {
+            "mean": 0.9779075230764827,
+            "min": 0.9710920770877944,
+            "stdev": 0.003626996082769932,
+            "trials": 10
+          },
+          "lookup_coverage": {
+            "mean": 0.9998930481283422,
+            "min": 0.9989304812834224,
+            "stdev": 0.00033821151445651953,
+            "trials": 10
+          },
+          "probes_per_trial": 951,
+          "template_agreement": {
+            "mean": 0.9798357485227834,
+            "min": 0.9745222929936306,
+            "stdev": 0.004596935948758254,
+            "trials": 10
+          }
+        },
+        "11 to 100": {
+          "cluster_id_agreement": {
+            "mean": 0.004058732909808061,
+            "min": 0.0,
+            "stdev": 0.006916799589514957,
+            "trials": 10
+          },
+          "lookup_agreement_when_covered": {
+            "mean": 0.9047135643904849,
+            "min": 0.8563636363636363,
+            "stdev": 0.021162828588809662,
+            "trials": 10
+          },
+          "lookup_coverage": {
+            "mean": 0.9968429182985821,
+            "min": 0.9946236559139785,
+            "stdev": 0.0016091120064085863,
+            "trials": 10
+          },
+          "probes_per_trial": 569,
+          "template_agreement": {
+            "mean": 0.9036350776873747,
+            "min": 0.8695652173913043,
+            "stdev": 0.018930832464052395,
+            "trials": 10
+          }
+        },
+        "2 to 10": {
+          "cluster_id_agreement": {
+            "mean": 0.0005617977528089887,
+            "min": 0.0,
+            "stdev": 0.0017765604832406625,
+            "trials": 10
+          },
+          "lookup_agreement_when_covered": {
+            "mean": 0.7820732538072509,
+            "min": 0.7,
+            "stdev": 0.0466375215653675,
+            "trials": 10
+          },
+          "lookup_coverage": {
+            "mean": 0.5651028696718154,
+            "min": 0.5077720207253886,
+            "stdev": 0.03945350589909001,
+            "trials": 10
+          },
+          "probes_per_trial": 184,
+          "template_agreement": {
+            "mean": 0.6500139859356698,
+            "min": 0.59375,
+            "stdev": 0.030348885913036448,
+            "trials": 10
+          }
+        },
+        "all events": {
+          "cluster_id_agreement": {
+            "mean": 0.06082666666666667,
+            "min": 0.0,
+            "stdev": 0.0889042817227718,
+            "trials": 10
+          },
+          "lookup_agreement_when_covered": {
+            "mean": 0.9967154388334422,
+            "min": 0.9957018132975151,
+            "stdev": 0.00041086239754237436,
+            "trials": 10
+          },
+          "lookup_coverage": {
+            "mean": 0.9925200000000001,
+            "min": 0.9920333333333333,
+            "stdev": 0.00031434823812902154,
+            "trials": 10
+          },
+          "probes_per_trial": 30000,
+          "template_agreement": {
+            "mean": 0.99531,
+            "min": 0.9946333333333334,
+            "stdev": 0.00035799510307706734,
+            "trials": 10
+          }
+        },
+        "over 1,000": {
+          "cluster_id_agreement": {
+            "mean": 0.06457722904132362,
+            "min": 0.0,
+            "stdev": 0.0945591929795813,
+            "trials": 10
+          },
+          "lookup_agreement_when_covered": {
+            "mean": 1.0,
+            "min": 1.0,
+            "stdev": 0.0,
+            "trials": 10
+          },
+          "lookup_coverage": {
+            "mean": 1.0,
+            "min": 1.0,
+            "stdev": 0.0,
+            "trials": 10
+          },
+          "probes_per_trial": 28152,
+          "template_agreement": {
+            "mean": 1.0,
+            "min": 1.0,
+            "stdev": 0.0,
+            "trials": 10
+          }
+        },
+        "seen once": {
+          "cluster_id_agreement": {
+            "mean": 0.0007751937984496124,
+            "min": 0.0,
+            "stdev": 0.0024513780311382783,
+            "trials": 10
+          },
+          "lookup_agreement_when_covered": {
+            "mean": 0.0,
+            "min": 0.0,
+            "stdev": 0.0,
+            "trials": 1
+          },
+          "lookup_coverage": {
+            "mean": 0.0007042253521126761,
+            "min": 0.0,
+            "stdev": 0.0022269560987101264,
+            "trials": 10
+          },
+          "probes_per_trial": 142,
+          "template_agreement": {
+            "mean": 0.9845066119709068,
+            "min": 0.9673202614379085,
+            "stdev": 0.01003499170528733,
+            "trials": 10
+          }
+        }
+      },
+      "trials": [
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.06526666666666667,
+            "id_agree": 1958,
+            "id_differ": 28042,
+            "lookup_agree": 29700,
+            "lookup_agreement_when_covered": 0.9968784613835465,
+            "lookup_coverage": 0.9931,
+            "lookup_differ": 93,
+            "n": 30000,
+            "one_blind": 207,
+            "template_agreement": 0.9954333333333333,
+            "tpl_agree": 29863,
+            "tpl_differ": 137
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 979,
+              "lookup_agree": 958,
+              "lookup_agreement_when_covered": 0.9785495403472931,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 21,
+              "n": 979,
+              "one_blind": 0,
+              "template_agreement": 0.9785495403472931,
+              "tpl_agree": 958,
+              "tpl_differ": 21
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 583,
+              "lookup_agree": 531,
+              "lookup_agreement_when_covered": 0.9155172413793103,
+              "lookup_coverage": 0.9948542024013722,
+              "lookup_differ": 49,
+              "n": 583,
+              "one_blind": 3,
+              "template_agreement": 0.9073756432246999,
+              "tpl_agree": 529,
+              "tpl_differ": 54
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 194,
+              "lookup_agree": 101,
+              "lookup_agreement_when_covered": 0.8145161290322581,
+              "lookup_coverage": 0.6391752577319587,
+              "lookup_differ": 23,
+              "n": 194,
+              "one_blind": 70,
+              "template_agreement": 0.6907216494845361,
+              "tpl_agree": 134,
+              "tpl_differ": 60
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0696549270722163,
+              "id_agree": 1958,
+              "id_differ": 26152,
+              "lookup_agree": 28110,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28110,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28110,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 134,
+              "lookup_agree": 0,
+              "lookup_agreement_when_covered": null,
+              "lookup_coverage": 0.0,
+              "lookup_differ": 0,
+              "n": 134,
+              "one_blind": 134,
+              "template_agreement": 0.9850746268656716,
+              "tpl_agree": 132,
+              "tpl_differ": 2
+            }
+          },
+          "clusters_a": 1053,
+          "clusters_b": 1014,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.24893333333333334,
+            "id_agree": 7468,
+            "id_differ": 22532,
+            "lookup_agree": 29674,
+            "lookup_agreement_when_covered": 0.9965744223535733,
+            "lookup_coverage": 0.9925333333333334,
+            "lookup_differ": 102,
+            "n": 30000,
+            "one_blind": 224,
+            "template_agreement": 0.9950333333333333,
+            "tpl_agree": 29851,
+            "tpl_differ": 149
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 913,
+              "lookup_agree": 897,
+              "lookup_agreement_when_covered": 0.9824753559693319,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 16,
+              "n": 913,
+              "one_blind": 0,
+              "template_agreement": 0.9824753559693319,
+              "tpl_agree": 897,
+              "tpl_differ": 16
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.005319148936170213,
+              "id_agree": 3,
+              "id_differ": 561,
+              "lookup_agree": 499,
+              "lookup_agreement_when_covered": 0.8847517730496454,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 65,
+              "n": 564,
+              "one_blind": 0,
+              "template_agreement": 0.8776595744680851,
+              "tpl_agree": 495,
+              "tpl_differ": 69
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 193,
+              "lookup_agree": 77,
+              "lookup_agreement_when_covered": 0.7857142857142857,
+              "lookup_coverage": 0.5077720207253886,
+              "lookup_differ": 21,
+              "n": 193,
+              "one_blind": 95,
+              "template_agreement": 0.6839378238341969,
+              "tpl_agree": 132,
+              "tpl_differ": 61
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.264671465550867,
+              "id_agree": 7464,
+              "id_differ": 20737,
+              "lookup_agree": 28201,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28201,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28201,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.007751937984496124,
+              "id_agree": 1,
+              "id_differ": 128,
+              "lookup_agree": 0,
+              "lookup_agreement_when_covered": null,
+              "lookup_coverage": 0.0,
+              "lookup_differ": 0,
+              "n": 129,
+              "one_blind": 129,
+              "template_agreement": 0.9767441860465116,
+              "tpl_agree": 126,
+              "tpl_differ": 3
+            }
+          },
+          "clusters_a": 992,
+          "clusters_b": 1055,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.0003,
+            "id_agree": 9,
+            "id_differ": 29991,
+            "lookup_agree": 29667,
+            "lookup_agreement_when_covered": 0.9965401410816258,
+            "lookup_coverage": 0.9923333333333333,
+            "lookup_differ": 103,
+            "n": 30000,
+            "one_blind": 230,
+            "template_agreement": 0.9957333333333334,
+            "tpl_agree": 29872,
+            "tpl_differ": 128
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 935,
+              "lookup_agree": 907,
+              "lookup_agreement_when_covered": 0.9710920770877944,
+              "lookup_coverage": 0.9989304812834224,
+              "lookup_differ": 27,
+              "n": 935,
+              "one_blind": 1,
+              "template_agreement": 0.9903743315508021,
+              "tpl_agree": 926,
+              "tpl_differ": 9
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.015228426395939087,
+              "id_agree": 9,
+              "id_differ": 582,
+              "lookup_agree": 525,
+              "lookup_agreement_when_covered": 0.8913412563667232,
+              "lookup_coverage": 0.9966159052453468,
+              "lookup_differ": 64,
+              "n": 591,
+              "one_blind": 2,
+              "template_agreement": 0.9035532994923858,
+              "tpl_agree": 534,
+              "tpl_differ": 57
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 183,
+              "lookup_agree": 82,
+              "lookup_agreement_when_covered": 0.8723404255319149,
+              "lookup_coverage": 0.5136612021857924,
+              "lookup_differ": 12,
+              "n": 183,
+              "one_blind": 89,
+              "template_agreement": 0.6666666666666666,
+              "tpl_agree": 122,
+              "tpl_differ": 61
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 28153,
+              "lookup_agree": 28153,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28153,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28153,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 138,
+              "lookup_agree": 0,
+              "lookup_agreement_when_covered": null,
+              "lookup_coverage": 0.0,
+              "lookup_differ": 0,
+              "n": 138,
+              "one_blind": 138,
+              "template_agreement": 0.9927536231884058,
+              "tpl_agree": 137,
+              "tpl_differ": 1
+            }
+          },
+          "clusters_a": 1008,
+          "clusters_b": 1070,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.0182,
+            "id_agree": 546,
+            "id_differ": 29454,
+            "lookup_agree": 29679,
+            "lookup_agreement_when_covered": 0.9967758186397985,
+            "lookup_coverage": 0.9925,
+            "lookup_differ": 96,
+            "n": 30000,
+            "one_blind": 225,
+            "template_agreement": 0.9954333333333333,
+            "tpl_agree": 29863,
+            "tpl_differ": 137
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 942,
+              "lookup_agree": 918,
+              "lookup_agreement_when_covered": 0.9745222929936306,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 24,
+              "n": 942,
+              "one_blind": 0,
+              "template_agreement": 0.9745222929936306,
+              "tpl_agree": 918,
+              "tpl_differ": 24
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0018248175182481751,
+              "id_agree": 1,
+              "id_differ": 547,
+              "lookup_agree": 498,
+              "lookup_agreement_when_covered": 0.9104204753199269,
+              "lookup_coverage": 0.9981751824817519,
+              "lookup_differ": 49,
+              "n": 548,
+              "one_blind": 1,
+              "template_agreement": 0.9087591240875912,
+              "tpl_agree": 498,
+              "tpl_differ": 50
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 182,
+              "lookup_agree": 85,
+              "lookup_agreement_when_covered": 0.7870370370370371,
+              "lookup_coverage": 0.5934065934065934,
+              "lookup_differ": 23,
+              "n": 182,
+              "one_blind": 74,
+              "template_agreement": 0.6593406593406593,
+              "tpl_agree": 120,
+              "tpl_differ": 62
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.019341330115693094,
+              "id_agree": 545,
+              "id_differ": 27633,
+              "lookup_agree": 28178,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28178,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28178,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 150,
+              "lookup_agree": 0,
+              "lookup_agreement_when_covered": null,
+              "lookup_coverage": 0.0,
+              "lookup_differ": 0,
+              "n": 150,
+              "one_blind": 150,
+              "template_agreement": 0.9933333333333333,
+              "tpl_agree": 149,
+              "tpl_differ": 1
+            }
+          },
+          "clusters_a": 1063,
+          "clusters_b": 1014,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.0,
+            "id_agree": 0,
+            "id_differ": 30000,
+            "lookup_agree": 29678,
+            "lookup_agreement_when_covered": 0.9971441050969324,
+            "lookup_coverage": 0.9921,
+            "lookup_differ": 85,
+            "n": 30000,
+            "one_blind": 237,
+            "template_agreement": 0.9955333333333334,
+            "tpl_agree": 29866,
+            "tpl_differ": 134
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 929,
+              "lookup_agree": 912,
+              "lookup_agreement_when_covered": 0.9817007534983854,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 17,
+              "n": 929,
+              "one_blind": 0,
+              "template_agreement": 0.9817007534983854,
+              "tpl_agree": 912,
+              "tpl_differ": 17
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 577,
+              "lookup_agree": 531,
+              "lookup_agreement_when_covered": 0.921875,
+              "lookup_coverage": 0.9982668977469671,
+              "lookup_differ": 45,
+              "n": 577,
+              "one_blind": 1,
+              "template_agreement": 0.9272097053726169,
+              "tpl_agree": 535,
+              "tpl_differ": 42
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 198,
+              "lookup_agree": 88,
+              "lookup_agreement_when_covered": 0.7927927927927928,
+              "lookup_coverage": 0.5606060606060606,
+              "lookup_differ": 23,
+              "n": 198,
+              "one_blind": 87,
+              "template_agreement": 0.6212121212121212,
+              "tpl_agree": 123,
+              "tpl_differ": 75
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 28147,
+              "lookup_agree": 28147,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28147,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28147,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 149,
+              "lookup_agree": 0,
+              "lookup_agreement_when_covered": null,
+              "lookup_coverage": 0.0,
+              "lookup_differ": 0,
+              "n": 149,
+              "one_blind": 149,
+              "template_agreement": 1.0,
+              "tpl_agree": 149,
+              "tpl_differ": 0
+            }
+          },
+          "clusters_a": 1039,
+          "clusters_b": 1047,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.0,
+            "id_agree": 0,
+            "id_differ": 30000,
+            "lookup_agree": 29690,
+            "lookup_agreement_when_covered": 0.9968774132894604,
+            "lookup_coverage": 0.9927666666666667,
+            "lookup_differ": 93,
+            "n": 30000,
+            "one_blind": 217,
+            "template_agreement": 0.9956333333333334,
+            "tpl_agree": 29869,
+            "tpl_differ": 131
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 989,
+              "lookup_agree": 968,
+              "lookup_agreement_when_covered": 0.9787664307381193,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 21,
+              "n": 989,
+              "one_blind": 0,
+              "template_agreement": 0.9787664307381193,
+              "tpl_agree": 968,
+              "tpl_differ": 21
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 558,
+              "lookup_agree": 513,
+              "lookup_agreement_when_covered": 0.9243243243243243,
+              "lookup_coverage": 0.9946236559139785,
+              "lookup_differ": 42,
+              "n": 558,
+              "one_blind": 3,
+              "template_agreement": 0.9175627240143369,
+              "tpl_agree": 512,
+              "tpl_differ": 46
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 167,
+              "lookup_agree": 70,
+              "lookup_agreement_when_covered": 0.7,
+              "lookup_coverage": 0.5988023952095808,
+              "lookup_differ": 30,
+              "n": 167,
+              "one_blind": 67,
+              "template_agreement": 0.6347305389221557,
+              "tpl_agree": 106,
+              "tpl_differ": 61
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 28139,
+              "lookup_agree": 28139,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28139,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28139,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 147,
+              "lookup_agree": 0,
+              "lookup_agreement_when_covered": null,
+              "lookup_coverage": 0.0,
+              "lookup_differ": 0,
+              "n": 147,
+              "one_blind": 147,
+              "template_agreement": 0.9795918367346939,
+              "tpl_agree": 144,
+              "tpl_differ": 3
+            }
+          },
+          "clusters_a": 1033,
+          "clusters_b": 1041,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.0007333333333333333,
+            "id_agree": 22,
+            "id_differ": 29978,
+            "lookup_agree": 29652,
+            "lookup_agreement_when_covered": 0.9957018132975151,
+            "lookup_coverage": 0.9926666666666667,
+            "lookup_differ": 128,
+            "n": 30000,
+            "one_blind": 220,
+            "template_agreement": 0.9946333333333334,
+            "tpl_agree": 29839,
+            "tpl_differ": 161
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.022564102564102566,
+              "id_agree": 22,
+              "id_differ": 953,
+              "lookup_agree": 952,
+              "lookup_agreement_when_covered": 0.9764102564102564,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 23,
+              "n": 975,
+              "one_blind": 0,
+              "template_agreement": 0.9764102564102564,
+              "tpl_agree": 952,
+              "tpl_differ": 23
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 552,
+              "lookup_agree": 471,
+              "lookup_agreement_when_covered": 0.8563636363636363,
+              "lookup_coverage": 0.9963768115942029,
+              "lookup_differ": 79,
+              "n": 552,
+              "one_blind": 2,
+              "template_agreement": 0.8695652173913043,
+              "tpl_agree": 480,
+              "tpl_differ": 72
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 173,
+              "lookup_agree": 71,
+              "lookup_agreement_when_covered": 0.7395833333333334,
+              "lookup_coverage": 0.5549132947976878,
+              "lookup_differ": 25,
+              "n": 173,
+              "one_blind": 77,
+              "template_agreement": 0.6358381502890174,
+              "tpl_agree": 110,
+              "tpl_differ": 63
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 28158,
+              "lookup_agree": 28158,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28158,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28158,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 142,
+              "lookup_agree": 0,
+              "lookup_agreement_when_covered": 0.0,
+              "lookup_coverage": 0.007042253521126761,
+              "lookup_differ": 1,
+              "n": 142,
+              "one_blind": 141,
+              "template_agreement": 0.9788732394366197,
+              "tpl_agree": 139,
+              "tpl_differ": 3
+            }
+          },
+          "clusters_a": 1037,
+          "clusters_b": 1035,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.19026666666666667,
+            "id_agree": 5708,
+            "id_differ": 24292,
+            "lookup_agree": 29683,
+            "lookup_agreement_when_covered": 0.9969101595298069,
+            "lookup_coverage": 0.9925,
+            "lookup_differ": 92,
+            "n": 30000,
+            "one_blind": 225,
+            "template_agreement": 0.9948333333333333,
+            "tpl_agree": 29845,
+            "tpl_differ": 155
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.020895522388059702,
+              "id_agree": 21,
+              "id_differ": 984,
+              "lookup_agree": 987,
+              "lookup_agreement_when_covered": 0.982089552238806,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 18,
+              "n": 1005,
+              "one_blind": 0,
+              "template_agreement": 0.982089552238806,
+              "tpl_agree": 987,
+              "tpl_differ": 18
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.018214936247723135,
+              "id_agree": 10,
+              "id_differ": 539,
+              "lookup_agree": 499,
+              "lookup_agreement_when_covered": 0.9122486288848263,
+              "lookup_coverage": 0.9963570127504554,
+              "lookup_differ": 48,
+              "n": 549,
+              "one_blind": 2,
+              "template_agreement": 0.8943533697632058,
+              "tpl_agree": 491,
+              "tpl_differ": 58
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 192,
+              "lookup_agree": 85,
+              "lookup_agreement_when_covered": 0.7657657657657657,
+              "lookup_coverage": 0.578125,
+              "lookup_differ": 26,
+              "n": 192,
+              "one_blind": 81,
+              "template_agreement": 0.59375,
+              "tpl_agree": 114,
+              "tpl_differ": 78
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.2019422310756972,
+              "id_agree": 5677,
+              "id_differ": 22435,
+              "lookup_agree": 28112,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28112,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28112,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 142,
+              "lookup_agree": 0,
+              "lookup_agreement_when_covered": null,
+              "lookup_coverage": 0.0,
+              "lookup_differ": 0,
+              "n": 142,
+              "one_blind": 142,
+              "template_agreement": 0.9929577464788732,
+              "tpl_agree": 141,
+              "tpl_differ": 1
+            }
+          },
+          "clusters_a": 1046,
+          "clusters_b": 1038,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.07226666666666667,
+            "id_agree": 2168,
+            "id_differ": 27832,
+            "lookup_agree": 29661,
+            "lookup_agreement_when_covered": 0.9966398978528948,
+            "lookup_coverage": 0.9920333333333333,
+            "lookup_differ": 100,
+            "n": 30000,
+            "one_blind": 239,
+            "template_agreement": 0.9953666666666666,
+            "tpl_agree": 29861,
+            "tpl_differ": 139
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 952,
+              "lookup_agree": 929,
+              "lookup_agreement_when_covered": 0.9758403361344538,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 23,
+              "n": 952,
+              "one_blind": 0,
+              "template_agreement": 0.9758403361344538,
+              "tpl_agree": 929,
+              "tpl_differ": 23
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 597,
+              "lookup_agree": 543,
+              "lookup_agreement_when_covered": 0.9126050420168067,
+              "lookup_coverage": 0.9966499162479062,
+              "lookup_differ": 52,
+              "n": 597,
+              "one_blind": 2,
+              "template_agreement": 0.9262981574539364,
+              "tpl_agree": 553,
+              "tpl_differ": 44
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 186,
+              "lookup_agree": 77,
+              "lookup_agreement_when_covered": 0.7549019607843137,
+              "lookup_coverage": 0.5483870967741935,
+              "lookup_differ": 25,
+              "n": 186,
+              "one_blind": 84,
+              "template_agreement": 0.6397849462365591,
+              "tpl_agree": 119,
+              "tpl_differ": 67
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.07712009106431417,
+              "id_agree": 2168,
+              "id_differ": 25944,
+              "lookup_agree": 28112,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28112,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28112,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 153,
+              "lookup_agree": 0,
+              "lookup_agreement_when_covered": null,
+              "lookup_coverage": 0.0,
+              "lookup_differ": 0,
+              "n": 153,
+              "one_blind": 153,
+              "template_agreement": 0.9673202614379085,
+              "tpl_agree": 148,
+              "tpl_differ": 5
+            }
+          },
+          "clusters_a": 1061,
+          "clusters_b": 1019,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.0123,
+            "id_agree": 369,
+            "id_differ": 29631,
+            "lookup_agree": 29694,
+            "lookup_agreement_when_covered": 0.9971121558092679,
+            "lookup_coverage": 0.9926666666666667,
+            "lookup_differ": 86,
+            "n": 30000,
+            "one_blind": 220,
+            "template_agreement": 0.9954666666666667,
+            "tpl_agree": 29864,
+            "tpl_differ": 136
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 894,
+              "lookup_agree": 874,
+              "lookup_agreement_when_covered": 0.9776286353467561,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 20,
+              "n": 894,
+              "one_blind": 0,
+              "template_agreement": 0.9776286353467561,
+              "tpl_agree": 874,
+              "tpl_differ": 20
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 573,
+              "lookup_agree": 524,
+              "lookup_agreement_when_covered": 0.9176882661996497,
+              "lookup_coverage": 0.9965095986038395,
+              "lookup_differ": 47,
+              "n": 573,
+              "one_blind": 2,
+              "template_agreement": 0.9040139616055847,
+              "tpl_agree": 518,
+              "tpl_differ": 55
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0056179775280898875,
+              "id_agree": 1,
+              "id_differ": 177,
+              "lookup_agree": 80,
+              "lookup_agreement_when_covered": 0.8080808080808081,
+              "lookup_coverage": 0.5561797752808989,
+              "lookup_differ": 19,
+              "n": 178,
+              "one_blind": 79,
+              "template_agreement": 0.6741573033707865,
+              "tpl_agree": 120,
+              "tpl_differ": 58
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.01304224553444854,
+              "id_agree": 368,
+              "id_differ": 27848,
+              "lookup_agree": 28216,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28216,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28216,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 139,
+              "lookup_agree": 0,
+              "lookup_agreement_when_covered": null,
+              "lookup_coverage": 0.0,
+              "lookup_differ": 0,
+              "n": 139,
+              "one_blind": 139,
+              "template_agreement": 0.9784172661870504,
+              "tpl_agree": 136,
+              "tpl_differ": 3
+            }
+          },
+          "clusters_a": 1024,
+          "clusters_b": 1032,
+          "lines_a": 98715,
+          "lines_b": 98715
+        }
+      ]
+    },
+    "shared": {
+      "clusters_a_mean": 1049.6,
+      "clusters_b_mean": 1493.4,
+      "definition": {
+        "label": "shared: strong, plus B warm-starts from A's final snapshot",
+        "mask_prefix": "<:",
+        "mask_suffix": ":>",
+        "match_strategy": "fallback",
+        "persistence_restart": true,
+        "warm_start_b_from_a": true
+      },
+      "lines_a_mean": 98715,
+      "lines_b_mean": 98715,
+      "masking_patterns": [
+        "((?<=[^A-Za-z0-9])|^)(([0-9a-f]{2,}:){3,}([0-9a-f]{2,}))((?=[^A-Za-z0-9])|$)",
+        "((?<=[^A-Za-z0-9])|^)(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})((?=[^A-Za-z0-9])|$)",
+        "((?<=[^A-Za-z0-9])|^)([0-9a-f]{6,} ?){3,}((?=[^A-Za-z0-9])|$)",
+        "((?<=[^A-Za-z0-9])|^)([0-9A-F]{4} ?){4,}((?=[^A-Za-z0-9])|$)",
+        "((?<=[^A-Za-z0-9])|^)(0x[a-f0-9A-F]+)((?=[^A-Za-z0-9])|$)",
+        "((?<=[^A-Za-z0-9])|^)([\\-\\+]?\\d+)((?=[^A-Za-z0-9])|$)",
+        "(?<=executed cmd )(\\\".+?\\\")"
+      ],
+      "reference": {
+        "clusters": 1481,
+        "distinct_shapes": 1481,
+        "singleton_shapes": 921,
+        "unmatched_probes": 0
+      },
+      "summary": {
+        "101 to 1,000": {
+          "cluster_id_agreement": {
+            "mean": 1.0,
+            "min": 1.0,
+            "stdev": 0.0,
+            "trials": 10
+          },
+          "lookup_agreement_when_covered": {
+            "mean": 0.9924969917097477,
+            "min": 0.9789029535864979,
+            "stdev": 0.009767903187032355,
+            "trials": 10
+          },
+          "lookup_coverage": {
+            "mean": 1.0,
+            "min": 1.0,
+            "stdev": 0.0,
+            "trials": 10
+          },
+          "probes_per_trial": 916,
+          "template_agreement": {
+            "mean": 0.9924969917097477,
+            "min": 0.9789029535864979,
+            "stdev": 0.009767903187032355,
+            "trials": 10
+          }
+        },
+        "11 to 100": {
+          "cluster_id_agreement": {
+            "mean": 0.997644044214099,
+            "min": 0.9930555555555556,
+            "stdev": 0.0030766850810988525,
+            "trials": 10
+          },
+          "lookup_agreement_when_covered": {
+            "mean": 0.9772168067887477,
+            "min": 0.9476439790575916,
+            "stdev": 0.015463890797903166,
+            "trials": 10
+          },
+          "lookup_coverage": {
+            "mean": 0.997447406019702,
+            "min": 0.9931389365351629,
+            "stdev": 0.002184665225947038,
+            "trials": 10
+          },
+          "probes_per_trial": 589,
+          "template_agreement": {
+            "mean": 0.9775201664477164,
+            "min": 0.9548611111111112,
+            "stdev": 0.011558157794344595,
+            "trials": 10
+          }
+        },
+        "2 to 10": {
+          "cluster_id_agreement": {
+            "mean": 0.8904318120348885,
+            "min": 0.865,
+            "stdev": 0.018823108508297354,
+            "trials": 10
+          },
+          "lookup_agreement_when_covered": {
+            "mean": 0.8500140166704222,
+            "min": 0.7884615384615384,
+            "stdev": 0.027577301945808864,
+            "trials": 10
+          },
+          "lookup_coverage": {
+            "mean": 0.7753824966007079,
+            "min": 0.7037037037037037,
+            "stdev": 0.032035562897220524,
+            "trials": 10
+          },
+          "probes_per_trial": 204,
+          "template_agreement": {
+            "mean": 0.811354087404863,
+            "min": 0.7611940298507462,
+            "stdev": 0.01944407905893407,
+            "trials": 10
+          }
+        },
+        "all events": {
+          "cluster_id_agreement": {
+            "mean": 0.99696,
+            "min": 0.9966,
+            "stdev": 0.0002810034927949216,
+            "trials": 10
+          },
+          "lookup_agreement_when_covered": {
+            "mean": 0.9985277109701366,
+            "min": 0.9977577724975737,
+            "stdev": 0.00047476830148105375,
+            "trials": 10
+          },
+          "lookup_coverage": {
+            "mean": 0.99617,
+            "min": 0.9957666666666667,
+            "stdev": 0.000286937856222109,
+            "trials": 10
+          },
+          "probes_per_trial": 30000,
+          "template_agreement": {
+            "mean": 0.99802,
+            "min": 0.9972666666666666,
+            "stdev": 0.0003645392830531323,
+            "trials": 10
+          }
+        },
+        "over 1,000": {
+          "cluster_id_agreement": {
+            "mean": 1.0,
+            "min": 1.0,
+            "stdev": 0.0,
+            "trials": 10
+          },
+          "lookup_agreement_when_covered": {
+            "mean": 1.0,
+            "min": 1.0,
+            "stdev": 0.0,
+            "trials": 10
+          },
+          "lookup_coverage": {
+            "mean": 1.0,
+            "min": 1.0,
+            "stdev": 0.0,
+            "trials": 10
+          },
+          "probes_per_trial": 28152,
+          "template_agreement": {
+            "mean": 1.0,
+            "min": 1.0,
+            "stdev": 0.0,
+            "trials": 10
+          }
+        },
+        "seen once": {
+          "cluster_id_agreement": {
+            "mean": 0.506680143252278,
+            "min": 0.45588235294117646,
+            "stdev": 0.038982563763275975,
+            "trials": 10
+          },
+          "lookup_agreement_when_covered": {
+            "mean": 0.9986301369863013,
+            "min": 0.9863013698630136,
+            "stdev": 0.0043318872057101256,
+            "trials": 10
+          },
+          "lookup_coverage": {
+            "mean": 0.5053298977530963,
+            "min": 0.45588235294117646,
+            "stdev": 0.03779420520255462,
+            "trials": 10
+          },
+          "probes_per_trial": 136,
+          "template_agreement": {
+            "mean": 0.994190777455926,
+            "min": 0.9779411764705882,
+            "stdev": 0.006749161824735348,
+            "trials": 10
+          }
+        }
+      },
+      "trials": [
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.9973666666666666,
+            "id_agree": 29921,
+            "id_differ": 79,
+            "lookup_agree": 29849,
+            "lookup_agreement_when_covered": 0.9982609277281697,
+            "lookup_coverage": 0.9967,
+            "lookup_differ": 52,
+            "n": 30000,
+            "one_blind": 99,
+            "template_agreement": 0.9978,
+            "tpl_agree": 29934,
+            "tpl_differ": 66
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 1.0,
+              "id_agree": 944,
+              "id_differ": 0,
+              "lookup_agree": 925,
+              "lookup_agreement_when_covered": 0.9798728813559322,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 19,
+              "n": 944,
+              "one_blind": 0,
+              "template_agreement": 0.9798728813559322,
+              "tpl_agree": 925,
+              "tpl_differ": 19
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 1.0,
+              "id_agree": 610,
+              "id_differ": 0,
+              "lookup_agree": 602,
+              "lookup_agreement_when_covered": 0.9868852459016394,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 8,
+              "n": 610,
+              "one_blind": 0,
+              "template_agreement": 0.9868852459016394,
+              "tpl_agree": 602,
+              "tpl_differ": 8
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.9166666666666666,
+              "id_agree": 198,
+              "id_differ": 18,
+              "lookup_agree": 153,
+              "lookup_agreement_when_covered": 0.8595505617977528,
+              "lookup_coverage": 0.8240740740740741,
+              "lookup_differ": 25,
+              "n": 216,
+              "one_blind": 38,
+              "template_agreement": 0.8194444444444444,
+              "tpl_agree": 177,
+              "tpl_differ": 39
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 1.0,
+              "id_agree": 28110,
+              "id_differ": 0,
+              "lookup_agree": 28110,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28110,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28110,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.49166666666666664,
+              "id_agree": 59,
+              "id_differ": 61,
+              "lookup_agree": 59,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 0.49166666666666664,
+              "lookup_differ": 0,
+              "n": 120,
+              "one_blind": 61,
+              "template_agreement": 1.0,
+              "tpl_agree": 120,
+              "tpl_differ": 0
+            }
+          },
+          "clusters_a": 1056,
+          "clusters_b": 1488,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.9968333333333333,
+            "id_agree": 29905,
+            "id_differ": 95,
+            "lookup_agree": 29814,
+            "lookup_agreement_when_covered": 0.9977577724975737,
+            "lookup_coverage": 0.9960333333333333,
+            "lookup_differ": 67,
+            "n": 30000,
+            "one_blind": 119,
+            "template_agreement": 0.9972666666666666,
+            "tpl_agree": 29918,
+            "tpl_differ": 82
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 1.0,
+              "id_agree": 879,
+              "id_differ": 0,
+              "lookup_agree": 864,
+              "lookup_agreement_when_covered": 0.9829351535836177,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 15,
+              "n": 879,
+              "one_blind": 0,
+              "template_agreement": 0.9829351535836177,
+              "tpl_agree": 864,
+              "tpl_differ": 15
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 1.0,
+              "id_agree": 576,
+              "id_differ": 0,
+              "lookup_agree": 543,
+              "lookup_agreement_when_covered": 0.9476439790575916,
+              "lookup_coverage": 0.9947916666666666,
+              "lookup_differ": 30,
+              "n": 576,
+              "one_blind": 3,
+              "template_agreement": 0.9548611111111112,
+              "tpl_agree": 550,
+              "tpl_differ": 26
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.8663594470046083,
+              "id_agree": 188,
+              "id_differ": 29,
+              "lookup_agree": 145,
+              "lookup_agreement_when_covered": 0.8682634730538922,
+              "lookup_coverage": 0.7695852534562212,
+              "lookup_differ": 22,
+              "n": 217,
+              "one_blind": 50,
+              "template_agreement": 0.815668202764977,
+              "tpl_agree": 177,
+              "tpl_differ": 40
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 1.0,
+              "id_agree": 28201,
+              "id_differ": 0,
+              "lookup_agree": 28201,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28201,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28201,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.48031496062992124,
+              "id_agree": 61,
+              "id_differ": 66,
+              "lookup_agree": 61,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 0.48031496062992124,
+              "lookup_differ": 0,
+              "n": 127,
+              "one_blind": 66,
+              "template_agreement": 0.9921259842519685,
+              "tpl_agree": 126,
+              "tpl_differ": 1
+            }
+          },
+          "clusters_a": 1009,
+          "clusters_b": 1497,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.9966333333333334,
+            "id_agree": 29899,
+            "id_differ": 101,
+            "lookup_agree": 29859,
+            "lookup_agreement_when_covered": 0.9992303058697544,
+            "lookup_coverage": 0.9960666666666667,
+            "lookup_differ": 23,
+            "n": 30000,
+            "one_blind": 118,
+            "template_agreement": 0.9985666666666667,
+            "tpl_agree": 29957,
+            "tpl_differ": 43
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 1.0,
+              "id_agree": 897,
+              "id_differ": 0,
+              "lookup_agree": 897,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 897,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 897,
+              "tpl_differ": 0
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.9935064935064936,
+              "id_agree": 612,
+              "id_differ": 4,
+              "lookup_agree": 614,
+              "lookup_agreement_when_covered": 0.9983739837398374,
+              "lookup_coverage": 0.9983766233766234,
+              "lookup_differ": 1,
+              "n": 616,
+              "one_blind": 1,
+              "template_agreement": 0.9935064935064936,
+              "tpl_agree": 612,
+              "tpl_differ": 4
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.865,
+              "id_agree": 173,
+              "id_differ": 27,
+              "lookup_agree": 131,
+              "lookup_agreement_when_covered": 0.8562091503267973,
+              "lookup_coverage": 0.765,
+              "lookup_differ": 22,
+              "n": 200,
+              "one_blind": 47,
+              "template_agreement": 0.81,
+              "tpl_agree": 162,
+              "tpl_differ": 38
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 1.0,
+              "id_agree": 28153,
+              "id_differ": 0,
+              "lookup_agree": 28153,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28153,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28153,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.47761194029850745,
+              "id_agree": 64,
+              "id_differ": 70,
+              "lookup_agree": 64,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 0.47761194029850745,
+              "lookup_differ": 0,
+              "n": 134,
+              "one_blind": 70,
+              "template_agreement": 0.9925373134328358,
+              "tpl_agree": 133,
+              "tpl_differ": 1
+            }
+          },
+          "clusters_a": 1022,
+          "clusters_b": 1493,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.9967,
+            "id_agree": 29901,
+            "id_differ": 99,
+            "lookup_agree": 29839,
+            "lookup_agreement_when_covered": 0.9986612671106797,
+            "lookup_coverage": 0.9959666666666667,
+            "lookup_differ": 40,
+            "n": 30000,
+            "one_blind": 121,
+            "template_agreement": 0.9981,
+            "tpl_agree": 29943,
+            "tpl_differ": 57
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 1.0,
+              "id_agree": 911,
+              "id_differ": 0,
+              "lookup_agree": 911,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 911,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 911,
+              "tpl_differ": 0
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 1.0,
+              "id_agree": 561,
+              "id_differ": 0,
+              "lookup_agree": 548,
+              "lookup_agreement_when_covered": 0.9768270944741533,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 13,
+              "n": 561,
+              "one_blind": 0,
+              "template_agreement": 0.9768270944741533,
+              "tpl_agree": 548,
+              "tpl_differ": 13
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.883177570093458,
+              "id_agree": 189,
+              "id_differ": 25,
+              "lookup_agree": 140,
+              "lookup_agreement_when_covered": 0.8383233532934131,
+              "lookup_coverage": 0.780373831775701,
+              "lookup_differ": 27,
+              "n": 214,
+              "one_blind": 47,
+              "template_agreement": 0.8084112149532711,
+              "tpl_agree": 173,
+              "tpl_differ": 41
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 1.0,
+              "id_agree": 28178,
+              "id_differ": 0,
+              "lookup_agree": 28178,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28178,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28178,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.45588235294117646,
+              "id_agree": 62,
+              "id_differ": 74,
+              "lookup_agree": 62,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 0.45588235294117646,
+              "lookup_differ": 0,
+              "n": 136,
+              "one_blind": 74,
+              "template_agreement": 0.9779411764705882,
+              "tpl_agree": 133,
+              "tpl_differ": 3
+            }
+          },
+          "clusters_a": 1076,
+          "clusters_b": 1492,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.9973,
+            "id_agree": 29919,
+            "id_differ": 81,
+            "lookup_agree": 29856,
+            "lookup_agreement_when_covered": 0.9985618248101943,
+            "lookup_coverage": 0.9966333333333334,
+            "lookup_differ": 43,
+            "n": 30000,
+            "one_blind": 101,
+            "template_agreement": 0.998,
+            "tpl_agree": 29940,
+            "tpl_differ": 60
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 1.0,
+              "id_agree": 896,
+              "id_differ": 0,
+              "lookup_agree": 881,
+              "lookup_agreement_when_covered": 0.9832589285714286,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 15,
+              "n": 896,
+              "one_blind": 0,
+              "template_agreement": 0.9832589285714286,
+              "tpl_agree": 881,
+              "tpl_differ": 15
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.9933444259567388,
+              "id_agree": 597,
+              "id_differ": 4,
+              "lookup_agree": 596,
+              "lookup_agreement_when_covered": 0.9933333333333333,
+              "lookup_coverage": 0.9983361064891847,
+              "lookup_differ": 4,
+              "n": 601,
+              "one_blind": 1,
+              "template_agreement": 0.9866888519134775,
+              "tpl_agree": 593,
+              "tpl_differ": 8
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.9162790697674419,
+              "id_agree": 197,
+              "id_differ": 18,
+              "lookup_agree": 151,
+              "lookup_agreement_when_covered": 0.8628571428571429,
+              "lookup_coverage": 0.813953488372093,
+              "lookup_differ": 24,
+              "n": 215,
+              "one_blind": 40,
+              "template_agreement": 0.827906976744186,
+              "tpl_agree": 178,
+              "tpl_differ": 37
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 1.0,
+              "id_agree": 28147,
+              "id_differ": 0,
+              "lookup_agree": 28147,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28147,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28147,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.5815602836879432,
+              "id_agree": 82,
+              "id_differ": 59,
+              "lookup_agree": 81,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 0.574468085106383,
+              "lookup_differ": 0,
+              "n": 141,
+              "one_blind": 60,
+              "template_agreement": 1.0,
+              "tpl_agree": 141,
+              "tpl_differ": 0
+            }
+          },
+          "clusters_a": 1054,
+          "clusters_b": 1498,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.9971333333333333,
+            "id_agree": 29914,
+            "id_differ": 86,
+            "lookup_agree": 29820,
+            "lookup_agreement_when_covered": 0.9978583857582652,
+            "lookup_coverage": 0.9961333333333333,
+            "lookup_differ": 64,
+            "n": 30000,
+            "one_blind": 116,
+            "template_agreement": 0.9977333333333334,
+            "tpl_agree": 29932,
+            "tpl_differ": 68
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 1.0,
+              "id_agree": 948,
+              "id_differ": 0,
+              "lookup_agree": 928,
+              "lookup_agreement_when_covered": 0.9789029535864979,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 20,
+              "n": 948,
+              "one_blind": 0,
+              "template_agreement": 0.9789029535864979,
+              "tpl_agree": 928,
+              "tpl_differ": 20
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 1.0,
+              "id_agree": 583,
+              "id_differ": 0,
+              "lookup_agree": 556,
+              "lookup_agreement_when_covered": 0.9602763385146805,
+              "lookup_coverage": 0.9931389365351629,
+              "lookup_differ": 23,
+              "n": 583,
+              "one_blind": 4,
+              "template_agreement": 0.9759862778730704,
+              "tpl_agree": 569,
+              "tpl_differ": 14
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.9047619047619048,
+              "id_agree": 171,
+              "id_differ": 18,
+              "lookup_agree": 125,
+              "lookup_agreement_when_covered": 0.8620689655172413,
+              "lookup_coverage": 0.7671957671957672,
+              "lookup_differ": 20,
+              "n": 189,
+              "one_blind": 44,
+              "template_agreement": 0.8253968253968254,
+              "tpl_agree": 156,
+              "tpl_differ": 33
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 1.0,
+              "id_agree": 28139,
+              "id_differ": 0,
+              "lookup_agree": 28139,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28139,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28139,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.5177304964539007,
+              "id_agree": 73,
+              "id_differ": 68,
+              "lookup_agree": 72,
+              "lookup_agreement_when_covered": 0.9863013698630136,
+              "lookup_coverage": 0.5177304964539007,
+              "lookup_differ": 1,
+              "n": 141,
+              "one_blind": 68,
+              "template_agreement": 0.9929078014184397,
+              "tpl_agree": 140,
+              "tpl_differ": 1
+            }
+          },
+          "clusters_a": 1054,
+          "clusters_b": 1492,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.9968,
+            "id_agree": 29904,
+            "id_differ": 96,
+            "lookup_agree": 29839,
+            "lookup_agreement_when_covered": 0.9984607662707043,
+            "lookup_coverage": 0.9961666666666666,
+            "lookup_differ": 46,
+            "n": 30000,
+            "one_blind": 115,
+            "template_agreement": 0.9980666666666667,
+            "tpl_agree": 29942,
+            "tpl_differ": 58
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 1.0,
+              "id_agree": 938,
+              "id_differ": 0,
+              "lookup_agree": 938,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 938,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 938,
+              "tpl_differ": 0
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.9930555555555556,
+              "id_agree": 572,
+              "id_differ": 4,
+              "lookup_agree": 555,
+              "lookup_agreement_when_covered": 0.9668989547038328,
+              "lookup_coverage": 0.9965277777777778,
+              "lookup_differ": 19,
+              "n": 576,
+              "one_blind": 2,
+              "template_agreement": 0.9635416666666666,
+              "tpl_agree": 555,
+              "tpl_differ": 21
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.8854166666666666,
+              "id_agree": 170,
+              "id_differ": 22,
+              "lookup_agree": 122,
+              "lookup_agreement_when_covered": 0.8187919463087249,
+              "lookup_coverage": 0.7760416666666666,
+              "lookup_differ": 27,
+              "n": 192,
+              "one_blind": 43,
+              "template_agreement": 0.8072916666666666,
+              "tpl_agree": 155,
+              "tpl_differ": 37
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 1.0,
+              "id_agree": 28158,
+              "id_differ": 0,
+              "lookup_agree": 28158,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28158,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28158,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.4852941176470588,
+              "id_agree": 66,
+              "id_differ": 70,
+              "lookup_agree": 66,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 0.4852941176470588,
+              "lookup_differ": 0,
+              "n": 136,
+              "one_blind": 70,
+              "template_agreement": 1.0,
+              "tpl_agree": 136,
+              "tpl_differ": 0
+            }
+          },
+          "clusters_a": 1049,
+          "clusters_b": 1493,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.9970666666666667,
+            "id_agree": 29912,
+            "id_differ": 88,
+            "lookup_agree": 29851,
+            "lookup_agreement_when_covered": 0.9988623055044337,
+            "lookup_coverage": 0.9961666666666666,
+            "lookup_differ": 34,
+            "n": 30000,
+            "one_blind": 115,
+            "template_agreement": 0.9982333333333333,
+            "tpl_agree": 29947,
+            "tpl_differ": 53
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 1.0,
+              "id_agree": 972,
+              "id_differ": 0,
+              "lookup_agree": 972,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 972,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 972,
+              "tpl_differ": 0
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.9982174688057041,
+              "id_agree": 560,
+              "id_differ": 1,
+              "lookup_agree": 546,
+              "lookup_agreement_when_covered": 0.975,
+              "lookup_coverage": 0.9982174688057041,
+              "lookup_differ": 14,
+              "n": 561,
+              "one_blind": 1,
+              "template_agreement": 0.9732620320855615,
+              "tpl_agree": 546,
+              "tpl_differ": 15
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.9027777777777778,
+              "id_agree": 195,
+              "id_differ": 21,
+              "lookup_agree": 148,
+              "lookup_agreement_when_covered": 0.8809523809523809,
+              "lookup_coverage": 0.7777777777777778,
+              "lookup_differ": 20,
+              "n": 216,
+              "one_blind": 48,
+              "template_agreement": 0.8287037037037037,
+              "tpl_agree": 179,
+              "tpl_differ": 37
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 1.0,
+              "id_agree": 28112,
+              "id_differ": 0,
+              "lookup_agree": 28112,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28112,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28112,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.5251798561151079,
+              "id_agree": 73,
+              "id_differ": 66,
+              "lookup_agree": 73,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 0.5251798561151079,
+              "lookup_differ": 0,
+              "n": 139,
+              "one_blind": 66,
+              "template_agreement": 0.9928057553956835,
+              "tpl_agree": 138,
+              "tpl_differ": 1
+            }
+          },
+          "clusters_a": 1069,
+          "clusters_b": 1495,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.9966,
+            "id_agree": 29898,
+            "id_differ": 102,
+            "lookup_agree": 29830,
+            "lookup_agreement_when_covered": 0.9985605730927594,
+            "lookup_coverage": 0.9957666666666667,
+            "lookup_differ": 43,
+            "n": 30000,
+            "one_blind": 127,
+            "template_agreement": 0.9980333333333333,
+            "tpl_agree": 29941,
+            "tpl_differ": 59
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 1.0,
+              "id_agree": 912,
+              "id_differ": 0,
+              "lookup_agree": 912,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 912,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 912,
+              "tpl_differ": 0
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 1.0,
+              "id_agree": 619,
+              "id_differ": 0,
+              "lookup_agree": 607,
+              "lookup_agreement_when_covered": 0.9837925445705025,
+              "lookup_coverage": 0.9967689822294022,
+              "lookup_differ": 10,
+              "n": 619,
+              "one_blind": 2,
+              "template_agreement": 0.9838449111470113,
+              "tpl_agree": 609,
+              "tpl_differ": 10
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.8855721393034826,
+              "id_agree": 178,
+              "id_differ": 23,
+              "lookup_agree": 123,
+              "lookup_agreement_when_covered": 0.7884615384615384,
+              "lookup_coverage": 0.7761194029850746,
+              "lookup_differ": 33,
+              "n": 201,
+              "one_blind": 45,
+              "template_agreement": 0.7611940298507462,
+              "tpl_agree": 153,
+              "tpl_differ": 48
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 1.0,
+              "id_agree": 28112,
+              "id_differ": 0,
+              "lookup_agree": 28112,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28112,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28112,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.4935897435897436,
+              "id_agree": 77,
+              "id_differ": 79,
+              "lookup_agree": 76,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 0.48717948717948717,
+              "lookup_differ": 0,
+              "n": 156,
+              "one_blind": 80,
+              "template_agreement": 0.9935897435897436,
+              "tpl_agree": 155,
+              "tpl_differ": 1
+            }
+          },
+          "clusters_a": 1070,
+          "clusters_b": 1491,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.9971666666666666,
+            "id_agree": 29915,
+            "id_differ": 85,
+            "lookup_agree": 29854,
+            "lookup_agreement_when_covered": 0.9990629810588314,
+            "lookup_coverage": 0.9960666666666667,
+            "lookup_differ": 28,
+            "n": 30000,
+            "one_blind": 118,
+            "template_agreement": 0.9984,
+            "tpl_agree": 29952,
+            "tpl_differ": 48
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 1.0,
+              "id_agree": 863,
+              "id_differ": 0,
+              "lookup_agree": 863,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 863,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 863,
+              "tpl_differ": 0
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.9983164983164983,
+              "id_agree": 593,
+              "id_differ": 1,
+              "lookup_agree": 583,
+              "lookup_agreement_when_covered": 0.9831365935919055,
+              "lookup_coverage": 0.9983164983164983,
+              "lookup_differ": 10,
+              "n": 594,
+              "one_blind": 1,
+              "template_agreement": 0.9797979797979798,
+              "tpl_agree": 582,
+              "tpl_differ": 12
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.8783068783068783,
+              "id_agree": 166,
+              "id_differ": 23,
+              "lookup_agree": 115,
+              "lookup_agreement_when_covered": 0.8646616541353384,
+              "lookup_coverage": 0.7037037037037037,
+              "lookup_differ": 18,
+              "n": 189,
+              "one_blind": 56,
+              "template_agreement": 0.8095238095238095,
+              "tpl_agree": 153,
+              "tpl_differ": 36
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 1.0,
+              "id_agree": 28216,
+              "id_differ": 0,
+              "lookup_agree": 28216,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28216,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28216,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.5579710144927537,
+              "id_agree": 77,
+              "id_differ": 61,
+              "lookup_agree": 77,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 0.5579710144927537,
+              "lookup_differ": 0,
+              "n": 138,
+              "one_blind": 61,
+              "template_agreement": 1.0,
+              "tpl_agree": 138,
+              "tpl_differ": 0
+            }
+          },
+          "clusters_a": 1037,
+          "clusters_b": 1495,
+          "lines_a": 98715,
+          "lines_b": 98715
+        }
+      ]
+    },
+    "strong": {
+      "clusters_a_mean": 1049.6,
+      "clusters_b_mean": 1058.7,
+      "definition": {
+        "label": "strong: drain3's examples/drain3.ini masking, FilePersistence across a mid-stream restart, fallback lookup. Drain3's strongest honest configuration",
+        "mask_prefix": "<:",
+        "mask_suffix": ":>",
+        "match_strategy": "fallback",
+        "persistence_restart": true,
+        "warm_start_b_from_a": false
+      },
+      "lines_a_mean": 98715,
+      "lines_b_mean": 98715,
+      "masking_patterns": [
+        "((?<=[^A-Za-z0-9])|^)(([0-9a-f]{2,}:){3,}([0-9a-f]{2,}))((?=[^A-Za-z0-9])|$)",
+        "((?<=[^A-Za-z0-9])|^)(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})((?=[^A-Za-z0-9])|$)",
+        "((?<=[^A-Za-z0-9])|^)([0-9a-f]{6,} ?){3,}((?=[^A-Za-z0-9])|$)",
+        "((?<=[^A-Za-z0-9])|^)([0-9A-F]{4} ?){4,}((?=[^A-Za-z0-9])|$)",
+        "((?<=[^A-Za-z0-9])|^)(0x[a-f0-9A-F]+)((?=[^A-Za-z0-9])|$)",
+        "((?<=[^A-Za-z0-9])|^)([\\-\\+]?\\d+)((?=[^A-Za-z0-9])|$)",
+        "(?<=executed cmd )(\\\".+?\\\")"
+      ],
+      "reference": {
+        "clusters": 1481,
+        "distinct_shapes": 1481,
+        "singleton_shapes": 921,
+        "unmatched_probes": 0
+      },
+      "summary": {
+        "101 to 1,000": {
+          "cluster_id_agreement": {
+            "mean": 0.007030607739330863,
+            "min": 0.0,
+            "stdev": 0.011352858132083437,
+            "trials": 10
+          },
+          "lookup_agreement_when_covered": {
+            "mean": 0.9768344049264448,
+            "min": 0.96875,
+            "stdev": 0.004030005475931746,
+            "trials": 10
+          },
+          "lookup_coverage": {
+            "mean": 0.9998885172798216,
+            "min": 0.9988851727982163,
+            "stdev": 0.00035253931551485753,
+            "trials": 10
+          },
+          "probes_per_trial": 916,
+          "template_agreement": {
+            "mean": 0.978844577724661,
+            "min": 0.973655323819978,
+            "stdev": 0.004531605073116295,
+            "trials": 10
+          }
+        },
+        "11 to 100": {
+          "cluster_id_agreement": {
+            "mean": 0.005077094439693601,
+            "min": 0.0,
+            "stdev": 0.01048655940765319,
+            "trials": 10
+          },
+          "lookup_agreement_when_covered": {
+            "mean": 0.9076269550917396,
+            "min": 0.8778359511343804,
+            "stdev": 0.01986964946330057,
+            "trials": 10
+          },
+          "lookup_coverage": {
+            "mean": 0.994053999589894,
+            "min": 0.9897084048027445,
+            "stdev": 0.002183935241243811,
+            "trials": 10
+          },
+          "probes_per_trial": 589,
+          "template_agreement": {
+            "mean": 0.9118149756109735,
+            "min": 0.8854166666666666,
+            "stdev": 0.01578354531088923,
+            "trials": 10
+          }
+        },
+        "2 to 10": {
+          "cluster_id_agreement": {
+            "mean": 0.0004629629629629629,
+            "min": 0.0,
+            "stdev": 0.0014640174352631384,
+            "trials": 10
+          },
+          "lookup_agreement_when_covered": {
+            "mean": 0.785354441650863,
+            "min": 0.7096774193548387,
+            "stdev": 0.04486769037096468,
+            "trials": 10
+          },
+          "lookup_coverage": {
+            "mean": 0.530672437050874,
+            "min": 0.4838709677419355,
+            "stdev": 0.04455383261537648,
+            "trials": 10
+          },
+          "probes_per_trial": 204,
+          "template_agreement": {
+            "mean": 0.6022399484712035,
+            "min": 0.5555555555555556,
+            "stdev": 0.02430678963457371,
+            "trials": 10
+          }
+        },
+        "all events": {
+          "cluster_id_agreement": {
+            "mean": 0.06092333333333333,
+            "min": 0.0,
+            "stdev": 0.08889954943017928,
+            "trials": 10
+          },
+          "lookup_agreement_when_covered": {
+            "mean": 0.9966938822726568,
+            "min": 0.9961666498537274,
+            "stdev": 0.000354695506112023,
+            "trials": 10
+          },
+          "lookup_coverage": {
+            "mean": 0.9921233333333334,
+            "min": 0.9913,
+            "stdev": 0.000459481726285304,
+            "trials": 10
+          },
+          "probes_per_trial": 30000,
+          "template_agreement": {
+            "mean": 0.99485,
+            "min": 0.9943666666666666,
+            "stdev": 0.00032020441002199865,
+            "trials": 10
+          }
+        },
+        "over 1,000": {
+          "cluster_id_agreement": {
+            "mean": 0.06457722904132362,
+            "min": 0.0,
+            "stdev": 0.0945591929795813,
+            "trials": 10
+          },
+          "lookup_agreement_when_covered": {
+            "mean": 1.0,
+            "min": 1.0,
+            "stdev": 0.0,
+            "trials": 10
+          },
+          "lookup_coverage": {
+            "mean": 1.0,
+            "min": 1.0,
+            "stdev": 0.0,
+            "trials": 10
+          },
+          "probes_per_trial": 28152,
+          "template_agreement": {
+            "mean": 1.0,
+            "min": 1.0,
+            "stdev": 0.0,
+            "trials": 10
+          }
+        },
+        "seen once": {
+          "cluster_id_agreement": {
+            "mean": 0.0007092198581560283,
+            "min": 0.0,
+            "stdev": 0.002242750113594595,
+            "trials": 10
+          },
+          "lookup_agreement_when_covered": null,
+          "lookup_coverage": {
+            "mean": 0.0,
+            "min": 0.0,
+            "stdev": 0.0,
+            "trials": 10
+          },
+          "probes_per_trial": 136,
+          "template_agreement": {
+            "mean": 0.9858825959055036,
+            "min": 0.975,
+            "stdev": 0.008546711946076539,
+            "trials": 10
+          }
+        }
+      },
+      "trials": [
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.06543333333333333,
+            "id_agree": 1963,
+            "id_differ": 28037,
+            "lookup_agree": 29707,
+            "lookup_agreement_when_covered": 0.9970464843094479,
+            "lookup_coverage": 0.9931666666666666,
+            "lookup_differ": 88,
+            "n": 30000,
+            "one_blind": 205,
+            "template_agreement": 0.995,
+            "tpl_agree": 29850,
+            "tpl_differ": 150
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 944,
+              "lookup_agree": 923,
+              "lookup_agreement_when_covered": 0.9777542372881356,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 21,
+              "n": 944,
+              "one_blind": 0,
+              "template_agreement": 0.9777542372881356,
+              "tpl_agree": 923,
+              "tpl_differ": 21
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.00819672131147541,
+              "id_agree": 5,
+              "id_differ": 605,
+              "lookup_agree": 566,
+              "lookup_agreement_when_covered": 0.933993399339934,
+              "lookup_coverage": 0.9934426229508196,
+              "lookup_differ": 40,
+              "n": 610,
+              "one_blind": 4,
+              "template_agreement": 0.9295081967213115,
+              "tpl_agree": 567,
+              "tpl_differ": 43
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 216,
+              "lookup_agree": 108,
+              "lookup_agreement_when_covered": 0.8,
+              "lookup_coverage": 0.625,
+              "lookup_differ": 27,
+              "n": 216,
+              "one_blind": 81,
+              "template_agreement": 0.6157407407407407,
+              "tpl_agree": 133,
+              "tpl_differ": 83
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0696549270722163,
+              "id_agree": 1958,
+              "id_differ": 26152,
+              "lookup_agree": 28110,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28110,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28110,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 120,
+              "lookup_agree": 0,
+              "lookup_agreement_when_covered": null,
+              "lookup_coverage": 0.0,
+              "lookup_differ": 0,
+              "n": 120,
+              "one_blind": 120,
+              "template_agreement": 0.975,
+              "tpl_agree": 117,
+              "tpl_differ": 3
+            }
+          },
+          "clusters_a": 1056,
+          "clusters_b": 1035,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.2488,
+            "id_agree": 7464,
+            "id_differ": 22536,
+            "lookup_agree": 29654,
+            "lookup_agreement_when_covered": 0.9965721199085898,
+            "lookup_coverage": 0.9918666666666667,
+            "lookup_differ": 102,
+            "n": 30000,
+            "one_blind": 244,
+            "template_agreement": 0.9943666666666666,
+            "tpl_agree": 29831,
+            "tpl_differ": 169
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 879,
+              "lookup_agree": 863,
+              "lookup_agreement_when_covered": 0.981797497155859,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 16,
+              "n": 879,
+              "one_blind": 0,
+              "template_agreement": 0.981797497155859,
+              "tpl_agree": 863,
+              "tpl_differ": 16
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 576,
+              "lookup_agree": 504,
+              "lookup_agreement_when_covered": 0.882661996497373,
+              "lookup_coverage": 0.9913194444444444,
+              "lookup_differ": 67,
+              "n": 576,
+              "one_blind": 5,
+              "template_agreement": 0.8854166666666666,
+              "tpl_agree": 510,
+              "tpl_differ": 66
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 217,
+              "lookup_agree": 86,
+              "lookup_agreement_when_covered": 0.819047619047619,
+              "lookup_coverage": 0.4838709677419355,
+              "lookup_differ": 19,
+              "n": 217,
+              "one_blind": 112,
+              "template_agreement": 0.6129032258064516,
+              "tpl_agree": 133,
+              "tpl_differ": 84
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.264671465550867,
+              "id_agree": 7464,
+              "id_differ": 20737,
+              "lookup_agree": 28201,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28201,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28201,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 127,
+              "lookup_agree": 0,
+              "lookup_agreement_when_covered": null,
+              "lookup_coverage": 0.0,
+              "lookup_differ": 0,
+              "n": 127,
+              "one_blind": 127,
+              "template_agreement": 0.9763779527559056,
+              "tpl_agree": 124,
+              "tpl_differ": 3
+            }
+          },
+          "clusters_a": 1009,
+          "clusters_b": 1076,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.0,
+            "id_agree": 0,
+            "id_differ": 30000,
+            "lookup_agree": 29668,
+            "lookup_agreement_when_covered": 0.9967746270662545,
+            "lookup_coverage": 0.9921333333333333,
+            "lookup_differ": 96,
+            "n": 30000,
+            "one_blind": 236,
+            "template_agreement": 0.9955,
+            "tpl_agree": 29865,
+            "tpl_differ": 135
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 897,
+              "lookup_agree": 868,
+              "lookup_agreement_when_covered": 0.96875,
+              "lookup_coverage": 0.9988851727982163,
+              "lookup_differ": 28,
+              "n": 897,
+              "one_blind": 1,
+              "template_agreement": 0.9888517279821628,
+              "tpl_agree": 887,
+              "tpl_differ": 10
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 616,
+              "lookup_agree": 561,
+              "lookup_agreement_when_covered": 0.9151712887438825,
+              "lookup_coverage": 0.9951298701298701,
+              "lookup_differ": 52,
+              "n": 616,
+              "one_blind": 3,
+              "template_agreement": 0.9253246753246753,
+              "tpl_agree": 570,
+              "tpl_differ": 46
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 200,
+              "lookup_agree": 86,
+              "lookup_agreement_when_covered": 0.8431372549019608,
+              "lookup_coverage": 0.51,
+              "lookup_differ": 16,
+              "n": 200,
+              "one_blind": 98,
+              "template_agreement": 0.61,
+              "tpl_agree": 122,
+              "tpl_differ": 78
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 28153,
+              "lookup_agree": 28153,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28153,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28153,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 134,
+              "lookup_agree": 0,
+              "lookup_agreement_when_covered": null,
+              "lookup_coverage": 0.0,
+              "lookup_differ": 0,
+              "n": 134,
+              "one_blind": 134,
+              "template_agreement": 0.9925373134328358,
+              "tpl_agree": 133,
+              "tpl_differ": 1
+            }
+          },
+          "clusters_a": 1022,
+          "clusters_b": 1091,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.018966666666666666,
+            "id_agree": 569,
+            "id_differ": 29431,
+            "lookup_agree": 29665,
+            "lookup_agreement_when_covered": 0.9965399086267133,
+            "lookup_coverage": 0.9922666666666666,
+            "lookup_differ": 103,
+            "n": 30000,
+            "one_blind": 232,
+            "template_agreement": 0.9947333333333334,
+            "tpl_agree": 29842,
+            "tpl_differ": 158
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.025246981339187707,
+              "id_agree": 23,
+              "id_differ": 888,
+              "lookup_agree": 887,
+              "lookup_agreement_when_covered": 0.973655323819978,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 24,
+              "n": 911,
+              "one_blind": 0,
+              "template_agreement": 0.973655323819978,
+              "tpl_agree": 887,
+              "tpl_differ": 24
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0017825311942959,
+              "id_agree": 1,
+              "id_differ": 560,
+              "lookup_agree": 509,
+              "lookup_agreement_when_covered": 0.9121863799283154,
+              "lookup_coverage": 0.9946524064171123,
+              "lookup_differ": 49,
+              "n": 561,
+              "one_blind": 3,
+              "template_agreement": 0.9090909090909091,
+              "tpl_agree": 510,
+              "tpl_differ": 51
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 214,
+              "lookup_agree": 91,
+              "lookup_agreement_when_covered": 0.7520661157024794,
+              "lookup_coverage": 0.5654205607476636,
+              "lookup_differ": 30,
+              "n": 214,
+              "one_blind": 93,
+              "template_agreement": 0.6214953271028038,
+              "tpl_agree": 133,
+              "tpl_differ": 81
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.019341330115693094,
+              "id_agree": 545,
+              "id_differ": 27633,
+              "lookup_agree": 28178,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28178,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28178,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 136,
+              "lookup_agree": 0,
+              "lookup_agreement_when_covered": null,
+              "lookup_coverage": 0.0,
+              "lookup_differ": 0,
+              "n": 136,
+              "one_blind": 136,
+              "template_agreement": 0.9852941176470589,
+              "tpl_agree": 134,
+              "tpl_differ": 2
+            }
+          },
+          "clusters_a": 1076,
+          "clusters_b": 1027,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 3.3333333333333335e-05,
+            "id_agree": 1,
+            "id_differ": 29999,
+            "lookup_agree": 29678,
+            "lookup_agreement_when_covered": 0.997077103981186,
+            "lookup_coverage": 0.9921666666666666,
+            "lookup_differ": 87,
+            "n": 30000,
+            "one_blind": 235,
+            "template_agreement": 0.9948666666666667,
+            "tpl_agree": 29846,
+            "tpl_differ": 154
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 896,
+              "lookup_agree": 879,
+              "lookup_agreement_when_covered": 0.9810267857142857,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 17,
+              "n": 896,
+              "one_blind": 0,
+              "template_agreement": 0.9810267857142857,
+              "tpl_agree": 879,
+              "tpl_differ": 17
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 601,
+              "lookup_agree": 552,
+              "lookup_agreement_when_covered": 0.9215358931552587,
+              "lookup_coverage": 0.9966722129783694,
+              "lookup_differ": 47,
+              "n": 601,
+              "one_blind": 2,
+              "template_agreement": 0.9184692179700499,
+              "tpl_agree": 552,
+              "tpl_differ": 49
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 215,
+              "lookup_agree": 100,
+              "lookup_agreement_when_covered": 0.8130081300813008,
+              "lookup_coverage": 0.5720930232558139,
+              "lookup_differ": 23,
+              "n": 215,
+              "one_blind": 92,
+              "template_agreement": 0.6046511627906976,
+              "tpl_agree": 130,
+              "tpl_differ": 85
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 28147,
+              "lookup_agree": 28147,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28147,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28147,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0070921985815602835,
+              "id_agree": 1,
+              "id_differ": 140,
+              "lookup_agree": 0,
+              "lookup_agreement_when_covered": null,
+              "lookup_coverage": 0.0,
+              "lookup_differ": 0,
+              "n": 141,
+              "one_blind": 141,
+              "template_agreement": 0.9787234042553191,
+              "tpl_agree": 138,
+              "tpl_differ": 3
+            }
+          },
+          "clusters_a": 1054,
+          "clusters_b": 1069,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 3.3333333333333335e-05,
+            "id_agree": 1,
+            "id_differ": 29999,
+            "lookup_agree": 29656,
+            "lookup_agreement_when_covered": 0.9964384113970836,
+            "lookup_coverage": 0.9920666666666667,
+            "lookup_differ": 106,
+            "n": 30000,
+            "one_blind": 238,
+            "template_agreement": 0.9949,
+            "tpl_agree": 29847,
+            "tpl_differ": 153
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 948,
+              "lookup_agree": 926,
+              "lookup_agreement_when_covered": 0.9767932489451476,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 22,
+              "n": 948,
+              "one_blind": 0,
+              "template_agreement": 0.9767932489451476,
+              "tpl_agree": 926,
+              "tpl_differ": 22
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0017152658662092624,
+              "id_agree": 1,
+              "id_differ": 582,
+              "lookup_agree": 518,
+              "lookup_agreement_when_covered": 0.8977469670710572,
+              "lookup_coverage": 0.9897084048027445,
+              "lookup_differ": 59,
+              "n": 583,
+              "one_blind": 6,
+              "template_agreement": 0.9039451114922813,
+              "tpl_agree": 527,
+              "tpl_differ": 56
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 189,
+              "lookup_agree": 73,
+              "lookup_agreement_when_covered": 0.7448979591836735,
+              "lookup_coverage": 0.5185185185185185,
+              "lookup_differ": 25,
+              "n": 189,
+              "one_blind": 91,
+              "template_agreement": 0.6031746031746031,
+              "tpl_agree": 114,
+              "tpl_differ": 75
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 28139,
+              "lookup_agree": 28139,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28139,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28139,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 141,
+              "lookup_agree": 0,
+              "lookup_agreement_when_covered": null,
+              "lookup_coverage": 0.0,
+              "lookup_differ": 0,
+              "n": 141,
+              "one_blind": 141,
+              "template_agreement": 1.0,
+              "tpl_agree": 141,
+              "tpl_differ": 0
+            }
+          },
+          "clusters_a": 1054,
+          "clusters_b": 1058,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.0008333333333333334,
+            "id_agree": 25,
+            "id_differ": 29975,
+            "lookup_agree": 29654,
+            "lookup_agreement_when_covered": 0.9962373177450783,
+            "lookup_coverage": 0.9922,
+            "lookup_differ": 112,
+            "n": 30000,
+            "one_blind": 234,
+            "template_agreement": 0.9948,
+            "tpl_agree": 29844,
+            "tpl_differ": 156
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.023454157782515993,
+              "id_agree": 22,
+              "id_differ": 916,
+              "lookup_agree": 915,
+              "lookup_agreement_when_covered": 0.9754797441364605,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 23,
+              "n": 938,
+              "one_blind": 0,
+              "template_agreement": 0.9754797441364605,
+              "tpl_agree": 915,
+              "tpl_differ": 23
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.005208333333333333,
+              "id_agree": 3,
+              "id_differ": 573,
+              "lookup_agree": 503,
+              "lookup_agreement_when_covered": 0.8778359511343804,
+              "lookup_coverage": 0.9947916666666666,
+              "lookup_differ": 70,
+              "n": 576,
+              "one_blind": 3,
+              "template_agreement": 0.8940972222222222,
+              "tpl_agree": 515,
+              "tpl_differ": 61
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 192,
+              "lookup_agree": 78,
+              "lookup_agreement_when_covered": 0.8041237113402062,
+              "lookup_coverage": 0.5052083333333334,
+              "lookup_differ": 19,
+              "n": 192,
+              "one_blind": 95,
+              "template_agreement": 0.6302083333333334,
+              "tpl_agree": 121,
+              "tpl_differ": 71
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 28158,
+              "lookup_agree": 28158,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28158,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28158,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 136,
+              "lookup_agree": 0,
+              "lookup_agreement_when_covered": null,
+              "lookup_coverage": 0.0,
+              "lookup_differ": 0,
+              "n": 136,
+              "one_blind": 136,
+              "template_agreement": 0.9926470588235294,
+              "tpl_agree": 135,
+              "tpl_differ": 1
+            }
+          },
+          "clusters_a": 1049,
+          "clusters_b": 1059,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.1906,
+            "id_agree": 5718,
+            "id_differ": 24282,
+            "lookup_agree": 29667,
+            "lookup_agreement_when_covered": 0.9969419987902413,
+            "lookup_coverage": 0.9919333333333333,
+            "lookup_differ": 91,
+            "n": 30000,
+            "one_blind": 242,
+            "template_agreement": 0.9947,
+            "tpl_agree": 29841,
+            "tpl_differ": 159
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.021604938271604937,
+              "id_agree": 21,
+              "id_differ": 951,
+              "lookup_agree": 954,
+              "lookup_agreement_when_covered": 0.9814814814814815,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 18,
+              "n": 972,
+              "one_blind": 0,
+              "template_agreement": 0.9814814814814815,
+              "tpl_agree": 954,
+              "tpl_differ": 18
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0338680926916221,
+              "id_agree": 19,
+              "id_differ": 542,
+              "lookup_agree": 505,
+              "lookup_agreement_when_covered": 0.9050179211469535,
+              "lookup_coverage": 0.9946524064171123,
+              "lookup_differ": 53,
+              "n": 561,
+              "one_blind": 3,
+              "template_agreement": 0.9019607843137255,
+              "tpl_agree": 506,
+              "tpl_differ": 55
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.004629629629629629,
+              "id_agree": 1,
+              "id_differ": 215,
+              "lookup_agree": 96,
+              "lookup_agreement_when_covered": 0.8275862068965517,
+              "lookup_coverage": 0.5370370370370371,
+              "lookup_differ": 20,
+              "n": 216,
+              "one_blind": 100,
+              "template_agreement": 0.6064814814814815,
+              "tpl_agree": 131,
+              "tpl_differ": 85
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.2019422310756972,
+              "id_agree": 5677,
+              "id_differ": 22435,
+              "lookup_agree": 28112,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28112,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28112,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 139,
+              "lookup_agree": 0,
+              "lookup_agreement_when_covered": null,
+              "lookup_coverage": 0.0,
+              "lookup_differ": 0,
+              "n": 139,
+              "one_blind": 139,
+              "template_agreement": 0.9928057553956835,
+              "tpl_agree": 138,
+              "tpl_differ": 1
+            }
+          },
+          "clusters_a": 1069,
+          "clusters_b": 1051,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.07226666666666667,
+            "id_agree": 2168,
+            "id_differ": 27832,
+            "lookup_agree": 29625,
+            "lookup_agreement_when_covered": 0.9961666498537274,
+            "lookup_coverage": 0.9913,
+            "lookup_differ": 114,
+            "n": 30000,
+            "one_blind": 261,
+            "template_agreement": 0.9945,
+            "tpl_agree": 29835,
+            "tpl_differ": 165
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 912,
+              "lookup_agree": 889,
+              "lookup_agreement_when_covered": 0.9747807017543859,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 23,
+              "n": 912,
+              "one_blind": 0,
+              "template_agreement": 0.9747807017543859,
+              "tpl_agree": 889,
+              "tpl_differ": 23
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 619,
+              "lookup_agree": 550,
+              "lookup_agreement_when_covered": 0.8943089430894309,
+              "lookup_coverage": 0.9935379644588045,
+              "lookup_differ": 65,
+              "n": 619,
+              "one_blind": 4,
+              "template_agreement": 0.9159935379644588,
+              "tpl_agree": 567,
+              "tpl_differ": 52
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 201,
+              "lookup_agree": 74,
+              "lookup_agreement_when_covered": 0.74,
+              "lookup_coverage": 0.4975124378109453,
+              "lookup_differ": 26,
+              "n": 201,
+              "one_blind": 101,
+              "template_agreement": 0.5621890547263682,
+              "tpl_agree": 113,
+              "tpl_differ": 88
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.07712009106431417,
+              "id_agree": 2168,
+              "id_differ": 25944,
+              "lookup_agree": 28112,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28112,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28112,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 156,
+              "lookup_agree": 0,
+              "lookup_agreement_when_covered": null,
+              "lookup_coverage": 0.0,
+              "lookup_differ": 0,
+              "n": 156,
+              "one_blind": 156,
+              "template_agreement": 0.9871794871794872,
+              "tpl_agree": 154,
+              "tpl_differ": 2
+            }
+          },
+          "clusters_a": 1070,
+          "clusters_b": 1057,
+          "lines_a": 98715,
+          "lines_b": 98715
+        },
+        {
+          "all_events": {
+            "both_blind": 0,
+            "cluster_id_agreement": 0.012266666666666667,
+            "id_agree": 368,
+            "id_differ": 29632,
+            "lookup_agree": 29679,
+            "lookup_agreement_when_covered": 0.9971442010482462,
+            "lookup_coverage": 0.9921333333333333,
+            "lookup_differ": 85,
+            "n": 30000,
+            "one_blind": 236,
+            "template_agreement": 0.9951333333333333,
+            "tpl_agree": 29854,
+            "tpl_differ": 146
+          },
+          "buckets": {
+            "101 to 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 863,
+              "lookup_agree": 843,
+              "lookup_agreement_when_covered": 0.9768250289687138,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 20,
+              "n": 863,
+              "one_blind": 0,
+              "template_agreement": 0.9768250289687138,
+              "tpl_agree": 843,
+              "tpl_differ": 20
+            },
+            "11 to 100": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 594,
+              "lookup_agree": 554,
+              "lookup_agreement_when_covered": 0.9358108108108109,
+              "lookup_coverage": 0.9966329966329966,
+              "lookup_differ": 38,
+              "n": 594,
+              "one_blind": 2,
+              "template_agreement": 0.9343434343434344,
+              "tpl_agree": 555,
+              "tpl_differ": 39
+            },
+            "2 to 10": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 189,
+              "lookup_agree": 66,
+              "lookup_agreement_when_covered": 0.7096774193548387,
+              "lookup_coverage": 0.49206349206349204,
+              "lookup_differ": 27,
+              "n": 189,
+              "one_blind": 96,
+              "template_agreement": 0.5555555555555556,
+              "tpl_agree": 105,
+              "tpl_differ": 84
+            },
+            "over 1,000": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.01304224553444854,
+              "id_agree": 368,
+              "id_differ": 27848,
+              "lookup_agree": 28216,
+              "lookup_agreement_when_covered": 1.0,
+              "lookup_coverage": 1.0,
+              "lookup_differ": 0,
+              "n": 28216,
+              "one_blind": 0,
+              "template_agreement": 1.0,
+              "tpl_agree": 28216,
+              "tpl_differ": 0
+            },
+            "seen once": {
+              "both_blind": 0,
+              "cluster_id_agreement": 0.0,
+              "id_agree": 0,
+              "id_differ": 138,
+              "lookup_agree": 0,
+              "lookup_agreement_when_covered": null,
+              "lookup_coverage": 0.0,
+              "lookup_differ": 0,
+              "n": 138,
+              "one_blind": 138,
+              "template_agreement": 0.9782608695652174,
+              "tpl_agree": 135,
+              "tpl_differ": 3
+            }
+          },
+          "clusters_a": 1037,
+          "clusters_b": 1064,
+          "lines_a": 98715,
+          "lines_b": 98715
+        }
+      ]
+    }
+  },
+  "config": {
+    "add_seen_once_threshold": 0.5,
+    "add_tail_divergence_floor": 0.02,
+    "buckets": [
+      [
+        1,
+        1,
+        "seen once"
+      ],
+      [
+        2,
+        10,
+        "2 to 10"
+      ],
+      [
+        11,
+        100,
+        "11 to 100"
+      ],
+      [
+        101,
+        1000,
+        "101 to 1,000"
+      ],
+      [
+        1001,
+        1000000000000,
+        "over 1,000"
+      ]
+    ],
+    "drain_depth": 6,
+    "drain_extra_delimiters": [],
+    "drain_max_children": 20,
+    "drain_max_clusters": 2000,
+    "id_travels_threshold": 0.5,
+    "line_cap": 1024,
+    "lookup_disagreement_floor": 0.02,
+    "parametrize_numeric_tokens": true,
+    "probes": 30000,
+    "reference_match_strategy": "fallback",
+    "seed": 100,
+    "sim_th": 0.6,
+    "stratification": "per arm, from that arm's own reference pass",
+    "trials": 10
+  },
+  "dataset": {
+    "asset": "otel-sample-200mb.log",
+    "empty_messages": 26,
+    "field": "log (application message extracted from the Fluentd/Kubernetes envelope)",
+    "lines_available": 197430,
+    "lines_used": 197430,
+    "source_url": "https://github.com/log-10x/config/releases/download/otel-sample-v1/otel-sample-200mb.log.gz"
+  },
+  "env": {
+    "drain3_distribution": "drain3-improved",
+    "drain3_version": "0.10.0",
+    "python": "3.13.11"
+  },
+  "falsifier_checks": [
+    {
+      "consequence": "TRIGGERED, and it stands as a concession: the claim that a locally mined name is local to the process that mined it is withdrawn for lines seen once. Two instances that never exchanged state give such a line the same name through the production path, because neither can generalize from one example and both mint the line's own literal text. What survives is in the rows below it, where generalization has begun, and in `bench/replay.py`, which shows the agreed literal moving as soon as a sibling arrives.",
+      "id": "add_seen_once",
+      "observed": "strong arm, lines seen once, production-path template agreement 0.9859 (stdev 0.0085, min 0.9750; threshold 0.50)",
+      "text": "Two Drain3 instances that never exchanged state give a line seen once the same name through the production path, add_log_message. Threshold 0.50 at the strong arm. At or above it, the claim that a locally mined name is local to the process that mined it does not hold for lines seen once, and that part of the claim is withdrawn.",
+      "triggered": true
+    },
+    {
+      "consequence": null,
+      "id": "add_tail_divergence",
+      "observed": "strong arm, 2 to 10, production-path template disagreement 0.3978 (floor 0.02; sim_th 0.6)",
+      "text": "Generalization drives the two instances apart. Threshold: production-path template disagreement below 0.02 in the 2-to-10 stratum at the strong arm. Below it, the divergence claim retires. This check reruns at any similarity threshold via --sim-th; a sim_th at which it passes while the reference pass still resolves the stream into at least half the distinct shapes found at sim_th 0.6 retires the claim outright.",
+      "triggered": false
+    },
+    {
+      "consequence": null,
+      "id": "id_travels",
+      "observed": "strong arm, all events, cluster_id agreement 0.0609 (threshold 0.50)",
+      "text": "The integer cluster_id does not survive the split. Threshold: cluster_id agreement over all probes at or above 0.50 at the strong arm retires the claim that Drain's identifier is arrival rank and nothing else.",
+      "triggered": false
+    },
+    {
+      "consequence": null,
+      "id": "lookup_disagreement",
+      "observed": "strong arm, 11 to 100, lookup disagreement among probes both instances can answer 0.0924 (floor 0.02)",
+      "text": "Secondary, query-time lookup: where both instances already hold a name for the same line, the names agree. Threshold: disagreement below 0.02 in the 11-to-100 stratum at the strong arm. Below it, two independent miners disagree too rarely for the disagreement to be worth acting on, and the position does not survive.",
+      "triggered": false
+    }
+  ],
+  "falsifiers": [
+    {
+      "arm": "strong",
+      "id": "add_seen_once",
+      "text": "Two Drain3 instances that never exchanged state give a line seen once the same name through the production path, add_log_message. Threshold 0.50 at the strong arm. At or above it, the claim that a locally mined name is local to the process that mined it does not hold for lines seen once, and that part of the claim is withdrawn."
+    },
+    {
+      "arm": "strong",
+      "id": "add_tail_divergence",
+      "text": "Generalization drives the two instances apart. Threshold: production-path template disagreement below 0.02 in the 2-to-10 stratum at the strong arm. Below it, the divergence claim retires. This check reruns at any similarity threshold via --sim-th; a sim_th at which it passes while the reference pass still resolves the stream into at least half the distinct shapes found at sim_th 0.6 retires the claim outright."
+    },
+    {
+      "arm": "strong",
+      "id": "id_travels",
+      "text": "The integer cluster_id does not survive the split. Threshold: cluster_id agreement over all probes at or above 0.50 at the strong arm retires the claim that Drain's identifier is arrival rank and nothing else."
+    },
+    {
+      "arm": "strong",
+      "id": "lookup_disagreement",
+      "text": "Secondary, query-time lookup: where both instances already hold a name for the same line, the names agree. Threshold: disagreement below 0.02 in the 11-to-100 stratum at the strong arm. Below it, two independent miners disagree too rarely for the disagreement to be worth acting on, and the position does not survive."
+    }
+  ],
+  "not_claimed": [
+    "Lossless template-plus-values storage is not novel. Prior art: CLP/YScope, US10484506B2.",
+    "Generic template extraction is not novel. Prior art: Drain, Spell, IPLoM.",
+    "Engine-side identifiers are not unconditionally stable. They depend on a pinned symbol library, an engine version, and library coverage of the emitting code.",
+    "This file does not describe centralized query-time mining. The major SIEM platforms that mine patterns do it in one central pass at query time, over whatever the query returns, so no second instance exists to disagree. The split here indicts per-node mining and any design that persists a mined name, not those products as they ship today.",
+    "A hash of the template is not measured separately. Equal strings hash equal and divergent strings hash divergent, so the hash column would restate the template column.",
+    "A random half-split is the friendliest division available to Drain: both instances draw statistically identical samples of one stream. Fleet splits in production follow placement, so each node sees different source statements, which is harsher than anything measured here."
+  ],
+  "script": "bench/identity.py",
+  "structural": [
+    "Production-path agreement for lines seen once is high for a mechanical reason. Neither instance can generalize a shape it has one example of, so both mint the line's own literal text as the template and the two strings are equal. The agreement is genuine and it is conceded in full. The name they agree on is the pre-generalization literal, which is the name `bench/replay.py` shows moving as soon as a sibling arrives.",
+    "Lookup coverage for lines seen once is near zero by construction. A shape the full-stream reference pass could not group with anything else occurs in exactly one line, that line lands in exactly one half, and `match()` requires a similarity of 1.0, so the other instance can answer only if some unrelated cluster of its own happens to generalize to the identical string. This is a coverage property of a lookup API, never a disagreement, and it is not scored as one anywhere on this page."
+  ],
+  "verdict": "Through the production path, at Drain3's strongest honest configuration, two instances that never exchanged state agree on the template 0.9859 of the time for lines seen once, 0.6022 at 2 to 10, and 0.9118 at 11 to 100. The singleton row is conceded: both mint the same literal. The divergence sits exactly where generalization begins. Over all probes the template agrees 0.9949 and the integer cluster_id agrees 0.0609, so anything keyed on the integer is keyed on arrival rank, and hashing the template inherits the template column unchanged. Chaining the two instances through one snapshot moves 2-to-10 production-path agreement from 0.6022 to 0.8114 and lifts seen-once lookup coverage to 0.5053. That coverage figure lands near one half for a structural reason: a shape seen once is in A's side or B's side with equal probability, and only A's side reaches B through the snapshot. Agreement is purchasable, and its price is one shared model that both sides read and write in sequence, which is an architecture rather than a setting."
+}

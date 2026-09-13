@@ -8,12 +8,12 @@ Two Drain3 instances each receive one random half of the same stream, disjoint, 
 
 **Primary, the production path.** A forwarder names a line with `add_log_message`, which mints a cluster on first sight and always returns a name. Both instances receive the same probe sequence through `add_log_message` itself, in the same order, exactly as if two nodes with different histories started seeing the same traffic. The probe pass itself is shared traffic, so the two states converge as it proceeds, which works in Drain's favour on net. Two columns: the `template_mined` strings are equal, and the integer `cluster_id`s are equal. A hash of the template agrees exactly when the string agrees, so a hash column would duplicate the template column.
 
-**Secondary, query-time lookup.** `TemplateMiner.match()` is read-only and requires a similarity of 1.0 in drain3 0.9.11, so an instance that never ingested a shape returns `None`: it has no name to offer a query. That is **coverage**, never disagreement, and it is reported as coverage. An earlier version of this benchmark scored those `None`s as disagreement in its headline, which overstated the case; the correction is this page's structure. The lookup pass runs before the probe ingest pass, so it observes the instances exactly as the split left them.
+**Secondary, query-time lookup.** `TemplateMiner.match()` is read-only and requires a similarity of 1.0 in drain3-improved 0.10.0, so an instance that never ingested a shape returns `None`: it has no name to offer a query. That is **coverage**, never disagreement, and it is reported as coverage. An earlier version of this benchmark scored those `None`s as disagreement in its headline, which overstated the case; the correction is this page's structure. The lookup pass runs before the probe ingest pass, so it observes the instances exactly as the split left them.
 
 - data: `otel-sample-200mb.log` from https://github.com/log-10x/config/releases/download/otel-sample-v1/otel-sample-200mb.log.gz
 - lines available: 197,430; lines used: 197,430
 - trials: 10; probes per trial: 30,000; seed: 100
-- drain3 0.9.11, Python 3.13.11
+- drain3-improved 0.10.0, Python 3.13.11
 - reproduce this page: `python bench/identity.py`, which is the full run, every line and every default
 - every arm: depth=6, sim_th=0.6, max_children=20, max_clusters=2000, parametrize_numeric_tokens=True, message capped at 1024 chars
 

@@ -162,6 +162,12 @@ Runs are deterministic and no artifact records a wall-clock time, so `git diff -
 | `bench/engine_side.py` | how finely does the engine name this stream, and how much source text does each name pin down | `results/engine_side.md` |
 | `bench/coverage.py` | what the engine does with vocabulary its library never held | `results/coverage.md`, `results/coverage_raw.json` |
 
+## The maintained fork
+
+Upstream drain3 went quiet in April 2026 ([logpai/Drain3#120](https://github.com/logpai/Drain3/issues/120)) and the maintained fork is [drain3-improved](https://github.com/jpodivin/Drain3-improved), which installs the same `drain3` import name. Every Drain-side experiment on this page was rerun against **drain3-improved 0.10.0** with the same seed, configuration and input.
+
+**Every measured number is identical**, including the per-trial counts in the raw JSON. `results/drain3_improved.md` states how it was run and what came back, and the fork's artifacts sit beside the upstream ones as `results/*_drain3_improved.*`. So the identity results on this page are not a property of an unmaintained release.
+
 ## Known limits
 
 Stated in the terms the reviewers of this benchmark used, because an objection published by the author is a caveat and the same objection found by a reader is a refutation.
@@ -174,4 +180,4 @@ Stated in the terms the reviewers of this benchmark used, because an objection p
 - **The encoded artifact is for analysis.** `encoded.log` carries `pattern=` and `patternHash=` fields for tooling. No storage-reduction figure may be computed from it, and none appears here.
 - **Part of the engine's template identity is deployment-specific.** 82.8% of templates on the published artifact carry environment values in envelope literals, so a redeployment with a new image tag or pod hash changes some names. Cross-deployment engine agreement is unmeasured, and this is a concrete reason it could be below 1.0.
 - **This sample is a weak surface for multi-line claims.** 2,311 of 2,316 exception bursts come from one container emitting one error shape, so the burst statistics describe one shape repeated, and `results/multiline.txt` says so in its scope note.
-- **drain3 is pinned at 0.9.11 and a version bump is a re-run gate, not a routine update.** `bench/replay.py` and `bench/identifier.py` assert current library behaviour, and both refuse to run under `python -O` so the asserts stay live.
+- **drain3 is pinned at 0.9.11 and a version bump is a re-run gate, not a routine update.** `bench/replay.py` and `bench/identifier.py` assert current library behaviour, and both refuse to run under `python -O` so the asserts stay live. The maintained fork is covered: see below.

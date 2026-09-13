@@ -82,6 +82,9 @@ from drain3.file_persistence import FilePersistence
 from drain3.masking import MaskingInstruction
 from drain3.template_miner_config import TemplateMinerConfig
 
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import drainver  # noqa: E402  which distribution provides the drain3 module
+
 # ---------------------------------------------------------------------------
 # CONFIGURATION. Every Drain3 parameter this benchmark sets is named here.
 # ---------------------------------------------------------------------------
@@ -700,7 +703,8 @@ def write_markdown(payload, path: pathlib.Path) -> None:
       "duplicate the template column.")
     A("")
     A("**Secondary, query-time lookup.** `TemplateMiner.match()` is read-only and requires "
-      "a similarity of 1.0 in drain3 0.9.11, so an instance that never ingested a shape "
+      f"a similarity of 1.0 in {payload['env'].get('drain3_distribution', 'drain3')} "
+      f"{payload['env']['drain3_version']}, so an instance that never ingested a shape "
       "returns `None`: it has no name to offer a query. That is **coverage**, never "
       "disagreement, and it is reported as coverage. An earlier version of this benchmark "
       "scored those `None`s as disagreement in its headline, which overstated the case; "
@@ -710,7 +714,8 @@ def write_markdown(payload, path: pathlib.Path) -> None:
     A(f"- data: `{ds['asset']}` from {ds['source_url']}")
     A(f"- lines available: {ds['lines_available']:,}; lines used: {ds['lines_used']:,}")
     A(f"- trials: {cfg['trials']}; probes per trial: {cfg['probes']:,}; seed: {cfg['seed']}")
-    A(f"- Drain3 {payload['env']['drain3_version']}, Python {payload['env']['python']}")
+    A(f"- {payload['env'].get('drain3_distribution', 'drain3')} "
+      f"{payload['env']['drain3_version']}, Python {payload['env']['python']}")
     is_full = (ds["lines_used"] == ds["lines_available"]
                and cfg["trials"] == DEFAULT_TRIALS and cfg["seed"] == DEFAULT_SEED
                and cfg["probes"] == DEFAULT_PROBES and cfg["sim_th"] == DRAIN_SIM_TH)
@@ -1042,7 +1047,6 @@ def main() -> int:
             ap.error(f"unknown arm {a!r}; known: {', '.join(ARMS)}")
 
     import random
-    import importlib.metadata as im
 
     asset = SAMPLE_ASSET
     path = resolve_sample(asset)
@@ -1129,7 +1133,8 @@ def main() -> int:
     payload = {
         "script": "bench/identity.py",
         "env": {
-            "drain3_version": im.version("drain3"),
+            "drain3_distribution": drainver.distribution()[0],
+            "drain3_version": drainver.distribution()[1],
             "python": ".".join(str(x) for x in sys.version_info[:3]),
         },
         "dataset": {

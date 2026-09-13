@@ -1,0 +1,10 @@
+# The maintained fork of drain3, used for the rerun recorded in
+# results/drain3_improved.md. It installs the same `drain3` import name as
+# upstream, so it goes in its own virtualenv rather than beside requirements.txt:
+#
+#   python3 -m venv .venv-fork
+#   .venv-fork/bin/pip install -r requirements-drain3-improved.txt
+#
+# Upstream drain3 0.9.11 stays the pin for every committed artifact without a
+# _drain3_improved suffix. A version bump on either side is a re-run gate.
+drain3-improved==0.10.0

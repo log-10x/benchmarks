@@ -1,0 +1,286 @@
+
+==============================================================================
+0. INPUTS
+==============================================================================
+raw lines                       197430  (otel-sample-200mb.log.gz)
+engine templates                  2896  (otel-sample-templates.json.gz)
+engine events                   159454  (otel-sample-encoded.log.gz)
+drain3 config                 depth=6 sim_th=0.6 max_children=20 max_clusters=2000 cap=1024
+drain3 input                  application message (the `log` field)
+drain3 name                   template string, not the integer cluster id
+
+==============================================================================
+1. ENGINE GROUPING, DERIVED FROM THE PUBLISHED ENCODED OUTPUT
+==============================================================================
+templates that seal more than one line       79 of 2896  (2.7%)
+events built from such a template         26370 of 159454
+raw lines inside those events             64346
+continuation lines absorbed               37976   (197430 raw lines -> 159454 events)
+  arithmetic check: sum(span x usage) = 197430, equals the raw line count
+
+  This is a reconciliation, not an anomaly. A record whose template seals
+  N lines accounts for N raw lines, so the two counts differ by exactly the
+  number of continuation lines.
+
+  lines sealed per multi-line template:
+    lines    templates  events built
+    2        23         21564
+    3        14         2326
+    4        6          2317
+    5        2          2
+    6        1          1
+    7        2          2
+    8        4          4
+    9        1          4
+    10       1          1
+    11       3          8
+    15       2          7
+    17       9          62
+    20       1          1
+    29       2          2
+    49       1          62
+    57       1          1
+    59       1          1
+    60       1          1
+    76       3          3
+    97       1          1
+
+==============================================================================
+2. EXCEPTION BURSTS IN THE RAW STREAM
+==============================================================================
+frame lines                       4658
+bursts (frame run + header)       2316
+lines inside a burst              6974
+burst length                  min 3, median 3, max 28
+  containers emitting bursts: 3
+    frontend                       2314
+    accounting                        1
+    opensearch                        1
+
+==============================================================================
+3. HOW MANY NAMES DOES EACH SIDE GIVE ONE BURST
+==============================================================================
+  drain trained on all 197430 lines, 1465 clusters
+
+  CORRECTION TO AN EARLIER CLAIM. Drain does not shatter stack frames into
+  a long tail of clusters on this file.
+    4658 frame lines collapse to 25 distinct Drain shapes.
+    Integer masking turns `Consumer.cs:line 62` into `Consumer.cs:line NUM`,
+    and the demo repeats a small set of exceptions. Any argument that rests
+    on frame-driven cluster explosion is refuted by this line.
+
+  names assigned to one exception burst
+                                   mean    min   median    max
+    drain cluster names            3.01      3        3     21
+    engine events                  1.00      1        1      3
+    engine template hashes         1.00      1        1      3
+
+    bursts sealed into a single engine event  2315 of 2316  (99.96%)
+    bursts carrying a single Drain name       0 of 2316  (0.00%)
+
+  distribution of Drain names per burst
+    names    bursts    share    
+    3        2314      99.9%    ########################################
+    4        1         0.0%     
+    21       1         0.0%     
+
+  distribution of engine events per burst
+    events   bursts    share    
+    1        2315      100.0%   ########################################
+    3        1         0.0%     
+
+  HOW LITTLE VARIETY IS BEHIND THOSE COUNTS. Burst shapes, labelled by the
+  engine template of the burst's first event:
+    PUW[b6BXeV       2311 bursts   first event seals 4 lines
+    -+6Xy2qYV#D         2 bursts   first event seals 4 lines
+    D6TVeH+WiR          1 burst    first event seals 59 lines
+    -/ksRb4?0Yp         1 burst    first event seals 29 lines
+    -/VK8mcg;wW         1 burst    first event seals 1 line 
+    5 distinct burst shapes in total; the largest is 99.8% of all bursts
+    Treat the mean and median above as one shape repeated, not as a sample.
+
+==============================================================================
+4. FALSIFIER: CAN A DRAIN CLUSTER STAND IN FOR THE EVENT
+==============================================================================
+  Claim under test: an exception burst has one name on the engine side and no
+  name on the Drain side, so counting the event is not expressible in Drain's
+  output.
+
+  The claim is wrong if some Drain cluster fires exactly once per burst and
+  never fires outside a burst, because that cluster is then a working proxy
+  for the event and a count of it is a count of exceptions.
+
+  Drain clusters that appear in a burst                         29
+  of those, exclusive to bursts and firing once per burst       25
+  bursts with at least one such proxy cluster                 2316 of 2316  (100.00%)
+
+  RESULT: REFUTED ON THIS FILE. Every burst carries a cluster that fires
+  once inside it and never outside one. Counting that cluster counts the
+  exceptions. The claim as written does not survive and is withdrawn.
+
+  proxy clusters, by how many bursts each one covers:
+      2314 bursts at <unknown> (.next/server/pages/api/checkout.js:<NUM>:<NUM>)
+      2314 bursts at new Promise (<anonymous>) {
+      2312 bursts Error: <NUM> INTERNAL: shipping quote failure: failed POST to shipping service: Post "shippi
+         2 bursts Error: <NUM> UNAVAILABLE: No connection established. Last error: connect ECONNREFUSED <IP>:<
+         1 burst  Confluent.Kafka.ConsumeException: Subscribed topic not available: orders: Broker: Unknown to
+         1 burst  at Confluent.Kafka.Consumer`<NUM>.Consume(Int32 millisecondsTimeout)
+         1 burst  at Confluent.Kafka.Consumer`<NUM>.Consume(CancellationToken cancellationToken)
+         1 burst  at Accounting.Consumer.StartListening() in /src/Accounting/Consumer.cs:line <NUM>
+
+  What the proxy does NOT give, measured:
+    best single cluster counts          2314 of 2316 bursts  (99.91%), short by 2
+    clusters needed to count them all      3
+    bursts still uncounted after that      0
+
+  So a correct exception count is a hand-built union of header clusters. Which
+  of the 29 cluster names are headers, and which frames belong with which header,
+  is a judgement made by a person reading the stream. Drain's output carries no
+  field that links a header to its frames, and a new exception adds cluster
+  names that the count has to be extended to include.
+
+  Exclusivity is a property of this file, not a guarantee. A frame such as
+  `at new Promise (<anonymous>) {` is exclusive here because one code path
+  emits it. On a service where several exceptions share a frame, that cluster
+  stops being a proxy. Current state of that on this file:
+    burst clusters that also fire outside bursts      0 of 29
+    burst bytes landing on such a cluster           0.0% of 560924 bytes
+    A prediction, not a measurement: on a stream with shared frames this
+    figure rises and the proxy degrades. Testing it needs a different file.
+
+==============================================================================
+5. FALSIFIER: DOES THE ENGINE SPLIT A BURST
+==============================================================================
+  The engine side of the claim is wrong if grouping splits a burst across
+  several events, because the event would then have several names too.
+
+  bursts spanning more than one engine event        1 of 2316  (0.04%)
+  RESULT: PARTLY REFUTED. Worst cases:
+    burst at raw line 161498   length 3   spans 3 events, container frontend
+      line 161498   event 129877   Error: 13 INTERNAL: shipping quote failure: failed POST to shipping se
+      line 161499   event 129878       at <unknown> (.next/server/pages/api/checkout.js:1:4375)
+      line 161500   event 129879       at new Promise (<anonymous>) {
+
+  Naming granularity, which is what these artifacts can show. A template
+  hash is a content hash of a template from a pinned library, so agreement
+  across processes holds by construction and is not evidence. Nor is the
+  resolve rate below: the templates file is the encoding run's own output
+  dictionary, which bench/engine_side.py section 0 measures. What the
+  figures do show is how finely the stream is named, including shapes that
+  occur once.
+    templates used exactly once                   2647 of 2896  (91.4%)
+    multi-line templates used exactly once          58 of 79
+    encoded records that resolve to a template  every one of 159454, which
+      load_engine_events() raises on a hash with no definition, so the
+      figure is a property of the published assets rather than a
+      measurement taken here; bench/engine_side.py section 0 shows why
+
+  This holds only while the symbol library, the engine version and the
+  library's coverage of the emitting code are pinned. A statement about a
+  different library is a different measurement.
+
+==============================================================================
+6. WORKED EXAMPLE
+==============================================================================
+  container opensearch, raw lines 4087 to 4114
+
+  Drain names one line at a time:
+    line 4087    name #1   java.io.FileNotFoundException: /usr/share/opensearch/config/open
+    line 4088    name #2   	at java.base/java.io.FileInputStream.open0(Native Method) ~[?:?
+    line 4089    name #3   	at java.base/java.io.FileInputStream.open(FileInputStream.java:
+    line 4090    name #4   	at java.base/java.io.FileInputStream.<init>(FileInputStream.jav
+    line 4091    name #4   	at java.base/java.io.FileInputStream.<init>(FileInputStream.jav
+    line 4092    name #5   	at org.opensearch.performanceanalyzer.commons.collectors.StatsC
+    line 4093    name #6   	at org.opensearch.performanceanalyzer.commons.collectors.StatsC
+    line 4094    name #7   	at org.opensearch.performanceanalyzer.PerformanceAnalyzerPlugin
+    line 4095    name #8   	at org.opensearch.performanceanalyzer.PerformanceAnalyzerPlugin
+    line 4096    name #9   	at java.base/jdk.internal.reflect.DirectConstructorHandleAccess
+    line 4097    name #10  	at java.base/java.lang.reflect.Constructor.newInstanceWithCalle
+    line 4098    name #11  	at java.base/java.lang.reflect.Constructor.newInstance(Construc
+    line 4099    name #12  	at org.opensearch.plugins.PluginsService.loadPlugin(PluginsServ
+    line 4100    name #13  	at org.opensearch.plugins.PluginsService.loadBundle(PluginsServ
+    line 4101    name #14  	at org.opensearch.plugins.PluginsService.loadBundles(PluginsSer
+    line 4102    name #15  	at org.opensearch.plugins.PluginsService.<init>(PluginsService.
+    line 4103    name #16  	at org.opensearch.node.Node.<init>(Node.java:554) [opensearch-3
+    line 4104    name #16  	at org.opensearch.node.Node.<init>(Node.java:482) [opensearch-3
+    line 4105    name #17  	at org.opensearch.bootstrap.Bootstrap$5.<init>(Bootstrap.java:2
+    line 4106    name #18  	at org.opensearch.bootstrap.Bootstrap.setup(Bootstrap.java:249)
+    line 4107    name #19  	at org.opensearch.bootstrap.Bootstrap.init(Bootstrap.java:411) 
+    line 4108    name #20  	at org.opensearch.bootstrap.OpenSearch.init(OpenSearch.java:168
+    line 4109    name #20  	at org.opensearch.bootstrap.OpenSearch.execute(OpenSearch.java:
+    line 4110    name #20  	at org.opensearch.common.cli.EnvironmentAwareCommand.execute(En
+    line 4111    name #21  	at org.opensearch.cli.Command.mainWithoutErrorHandling(Command.
+    line 4112    name #21  	at org.opensearch.cli.Command.main(Command.java:101) [opensearc
+    line 4113    name #20  	at org.opensearch.bootstrap.OpenSearch.main(OpenSearch.java:125
+    line 4114    name #20  	at org.opensearch.bootstrap.OpenSearch.main(OpenSearch.java:91)
+
+    -> 28 lines, 21 distinct Drain names, and no name for the burst itself
+    -> the name is not one-to-one with the frame either: name #20 covers 5
+       different source locations, because create_template wildcards every
+       position where the cluster has seen variation:
+         at org.opensearch.bootstrap.OpenSearch.execute(OpenSearch.java:159) [opensearc
+         at org.opensearch.bootstrap.OpenSearch.init(OpenSearch.java:168) [opensearch-3
+         at org.opensearch.bootstrap.OpenSearch.main(OpenSearch.java:125) [opensearch-3
+         at org.opensearch.bootstrap.OpenSearch.main(OpenSearch.java:91) [opensearch-3.
+
+  The engine names the burst once:
+    event 3315     template -/ksRb4?0Yp    seals 29 lines, 1 occurrence(s) in the file
+    The engine group is 29 lines and the burst detector took 28. The detector
+    is deliberately narrow and starts one line late here. Reported, not hidden.
+
+==============================================================================
+7. SENSITIVITY: DRAIN ON THE WHOLE JSON LINE
+==============================================================================
+  Section 3 feeds Drain the application message only, which is Drain's
+  strongest setting on this file. Feeding the whole Fluentd JSON record
+  adds envelope tokens. Reported so the weaker setting is on the record.
+    whole JSON line: 1419 clusters, names per burst mean 3.01 min 3 median 3 max 24
+
+==============================================================================
+SCOPE NOTE, READ BEFORE REUSING THESE NUMBERS
+==============================================================================
+
+  THIS FILE IS A WEAK DEMONSTRATION SURFACE FOR MULTI-LINE EVENTS.
+
+  It is the OpenTelemetry demo. The demo throws a small, fixed set of exceptions on a
+  loop, so stack-frame diversity is low: 4658 frame lines collapse to 25 Drain shapes,
+  and 2311 of 2316 bursts come from a single container emitting one error shape (engine
+  template PUW[b6BXeV). Effective sample size for the burst statistics is close to one.
+  Three consequences, all of them limits on what these numbers carry.
+
+  1. The statistical version of the multi-line argument fails here. Drain does not
+     shatter traces into a large cluster tail on this file, and section 3 says so.
+     Anyone repeating that claim is refuted in one command on this same data.
+
+  2. The counting version fails here too. Section 4 set out to show that an exception
+     count is not expressible in Drain's output and measured the opposite: every burst
+     carries a cluster that fires once inside it and never outside, so a count of that
+     cluster is a count of the exceptions. The claim is withdrawn, and what is left is
+     narrower: the link from header to frames is not in the output, so a person decides
+     which names belong to one event, and the proxy holds only while each header shape
+     stays exclusive to its exception.
+
+  3. What the numbers do support is where the event boundary sits. 2316 bursts, a median
+     of 3 Drain names each, sealed into a median of 1 engine event. Drain names
+     lines; the engine names the event. That is a structural difference and it does not
+     depend on how many distinct traces a service emits.
+
+  The single JVM trace in this file is the one hint of what a production surface looks like:
+  28 lines, 21 Drain names, one engine event. n is 1, so it illustrates and does not
+  measure.
+
+  A stronger surface would be a service with high stack-trace diversity: a JVM
+  application under load with deep and varied frames, several exception types sharing
+  frames, or a code path whose frames change between releases. On such a stream the
+  frames carry genuine cardinality, headers stop being exclusive, and the proxy from
+  section 4 can be tested properly. That measurement is not in this repo and nothing
+  here is claimed on its behalf.
+
+  Not claimed anywhere in this section: that storing a template plus its values is
+  novel (CLP and YScope hold prior art, US10484506B2), that template extraction is
+  novel (Drain, Spell and IPLoM predate this), or that the engine's identifiers are
+  stable in general. They are stable relative to a pinned symbol library, a pinned
+  engine version, and that library's coverage of the emitting code. A template hash is
+  a content hash, so cross-process agreement holds by construction and is not offered
+  as a result.
+
