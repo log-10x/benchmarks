@@ -152,6 +152,27 @@ Result: half the rows cost 39% of the CPU and a quarter cost 17%, both below the
 row share, because fewer parts merge fewer times. Full detail in
 `results/compute-vs-rows-<date>.md`.
 
+## Per-message-type policy: `run_policy.sh`
+
+Every other destination gives a log line a cheaper place to go, and the
+assumption worth checking is that ClickHouse gives it none, leaving deletion as
+the only lever. ClickHouse's own TTL grammar says otherwise: `DELETE`,
+`RECOMPRESS codec`, `TO DISK`, `TO VOLUME`, plus `WHERE` and `GROUP BY`. Four
+levers, three of which keep every line. What ClickHouse cannot do is aim any of
+them at a message type, because nothing in the row says which message it is.
+
+`run_policy.sh` adds a `templateHash` column and drives all four from one
+expression over it, on its own small container in about two minutes. Results in
+`results/per-pattern-policy-<date>.md`. In short: moving to a cheaper volume,
+rolling up into counts and per-type retention all work per message type;
+recompression fires and does nothing, because an explicit column codec beats the
+part default and the ClickStack schema declares `CODEC(ZSTD(1))` on every
+column, which reproduces hyperdxio/hyperdx issue 2525.
+
+Two traps it surfaces for anyone writing these policies. A TTL move is decided
+for a whole part, so a table not partitioned by time moves nothing at all. And a
+column codec silently disables `TTL ... RECOMPRESS` against that column.
+
 ## What it does not measure
 
 - **Ingest over the wire.** Each arm is loaded from a JSONEachRow file, so the
@@ -179,6 +200,7 @@ row share, because fewer parts merge fewer times. Full detail in
 | `run_compute.sh` | does compute follow rows: seven arms, batched inserts, background merges |
 | `build_reduction.py` | labels every captured line with its message type and builds the reduction arms |
 | `report_compute.py` | writes `results/compute-vs-rows-<date>.md` |
+| `run_policy.sh` | the four TTL levers driven per message type, on its own container |
 | `reference_decode.py` | decodes the same events with the four rules `install.sql` lacks, to tell a lost original from a misread one; `--self-test` runs in CI |
 | `results/` | `results.json` and the dated results file |
 
