@@ -1154,27 +1154,6 @@
     "native": {
       "result": "2316",
       "runs": 10,
-      "median_ms": 6,
-      "fastest_ms": 6,
-      "ms": [
-        6,
-        6,
-        6,
-        6,
-        6,
-        7,
-        7,
-        8,
-        8,
-        12
-      ],
-      "read_rows": 32768,
-      "read_bytes": 2737012,
-      "peak_memory_bytes": 315256
-    },
-    "native_folded": {
-      "result": "2316",
-      "runs": 10,
       "median_ms": 7,
       "fastest_ms": 6,
       "ms": [
@@ -1186,8 +1165,29 @@
         7,
         7,
         7,
+        7,
+        8
+      ],
+      "read_rows": 32768,
+      "read_bytes": 2737012,
+      "peak_memory_bytes": 315256
+    },
+    "native_folded": {
+      "result": "2316",
+      "runs": 10,
+      "median_ms": 12,
+      "fastest_ms": 7,
+      "ms": [
+        7,
         8,
-        9
+        8,
+        9,
+        11,
+        13,
+        14,
+        19,
+        25,
+        46
       ],
       "read_rows": 16384,
       "read_bytes": 3724610,
@@ -1196,98 +1196,98 @@
     "compact_iso": {
       "result": "2316",
       "runs": 10,
-      "median_ms": 728,
-      "fastest_ms": 563,
+      "median_ms": 675,
+      "fastest_ms": 576,
       "ms": [
-        563,
-        637,
-        640,
-        640,
-        691,
-        765,
-        765,
-        789,
-        822,
-        992
+        576,
+        601,
+        606,
+        623,
+        670,
+        680,
+        714,
+        819,
+        832,
+        837
       ],
       "read_rows": 159170,
       "read_bytes": 11612601,
-      "peak_memory_bytes": 39327370
+      "peak_memory_bytes": 33595187
     },
     "compact_native": {
       "result": "2316",
       "runs": 10,
-      "median_ms": 617,
-      "fastest_ms": 583,
+      "median_ms": 805,
+      "fastest_ms": 652,
       "ms": [
-        583,
-        587,
-        604,
-        607,
-        615,
-        620,
-        622,
-        646,
-        710,
-        822
+        652,
+        672,
+        737,
+        746,
+        760,
+        851,
+        911,
+        1140,
+        1323,
+        2164
       ],
       "read_rows": 159170,
       "read_bytes": 11612601,
-      "peak_memory_bytes": 71229227
+      "peak_memory_bytes": 66892202
     }
   },
   "ingest": {
     "otel_logs_compact_lz4": {
-      "cpu_microseconds": 3101123,
-      "wall_ms": 4086,
+      "cpu_microseconds": 1810212,
+      "wall_ms": 2956,
       "written_rows": 159170,
       "written_bytes": 107433143
     },
     "otel_logs_compact_zstd1": {
-      "cpu_microseconds": 4077068,
-      "wall_ms": 5005,
+      "cpu_microseconds": 2065151,
+      "wall_ms": 2732,
       "written_rows": 159170,
       "written_bytes": 107433143
     },
     "otel_logs_compact_zstd3": {
-      "cpu_microseconds": 2238863,
-      "wall_ms": 3222,
+      "cpu_microseconds": 1703349,
+      "wall_ms": 2272,
       "written_rows": 159170,
       "written_bytes": 107433143
     },
     "otel_logs_native_folded_lz4": {
-      "cpu_microseconds": 5560302,
-      "wall_ms": 6299,
+      "cpu_microseconds": 2977753,
+      "wall_ms": 3739,
       "written_rows": 159170,
       "written_bytes": 136693825
     },
     "otel_logs_native_folded_zstd1": {
-      "cpu_microseconds": 10824390,
-      "wall_ms": 12383,
+      "cpu_microseconds": 5061506,
+      "wall_ms": 5720,
       "written_rows": 159170,
       "written_bytes": 136693825
     },
     "otel_logs_native_folded_zstd3": {
-      "cpu_microseconds": 12396940,
-      "wall_ms": 14190,
+      "cpu_microseconds": 8523151,
+      "wall_ms": 10384,
       "written_rows": 159170,
       "written_bytes": 136693825
     },
     "otel_logs_native_lz4": {
-      "cpu_microseconds": 2169392,
-      "wall_ms": 3035,
+      "cpu_microseconds": 2786843,
+      "wall_ms": 3659,
       "written_rows": 197430,
       "written_bytes": 158186513
     },
     "otel_logs_native_zstd1": {
-      "cpu_microseconds": 3168086,
-      "wall_ms": 4142,
+      "cpu_microseconds": 5246253,
+      "wall_ms": 6786,
       "written_rows": 197430,
       "written_bytes": 158186513
     },
     "otel_logs_native_zstd3": {
-      "cpu_microseconds": 4121644,
-      "wall_ms": 4932,
+      "cpu_microseconds": 3104510,
+      "wall_ms": 3887,
       "written_rows": 197430,
       "written_bytes": 158186513
     }

@@ -6,7 +6,7 @@ Measured 2026-09-13 by `run.sh` in this folder. Every byte count is read from `s
 
 1. **Body column at ZSTD(1), row for row: 1,865,254 to 1,426,009 bytes, 23.55%.** Same 159,170 rows and the same attribute values on both sides, so this is the templating layer alone.
 2. **Whole table at ZSTD(1): 8,225,547 to 6,999,853 bytes, 14.9%,** on 197,430 rows against 159,170 rows. The compact figure includes the template dictionary (348,040 bytes on disk). The row counts differ because the engine folds a multi-line event into one event; that reduction is inside this number and outside line 1.
-3. **One text filter on `checkout`: 6 ms native, 563 ms compact through the ISO expand path, 583 ms through the format-preserving one.** Fastest of ten, first run discarded; see the timing table for the spread.
+3. **One text filter on `checkout`: 6 ms native, 576 ms compact through the ISO expand path, 652 ms through the format-preserving one.** Fastest of ten, first run discarded; see the timing table for the spread.
 4a. **LZ4:** Body 21.31%, whole table 14.36% (8,526,421 to 7,301,883 bytes).
 4b. **ZSTD(3):** Body 21.91%, whole table 13.86% (7,374,889 to 6,353,018 bytes).
 5. **It would not survive one, and the storage figure is not the reason.** 124,220 of 159,170 rows, 78.0%, do not expand back to the text they came from, because the shipped SQL decoder implements neither the `$N` back-reference nor the `/` escape nor the JSON unescape that INNER mode needs. The compact form does still hold the text, which `reference_decode.py` shows by getting it back, so this is a decoder to fix rather than a claim to withdraw. But until it is fixed there is no lossless read path on ClickHouse for a storage number to sit on. And the number itself, 14.9% on the whole table at the ClickStack default, is below the 30% a ClickHouse maintainer has already called achievable against a well-sorted ZSTD column, on a schema of their choosing.
@@ -133,10 +133,10 @@ These are the one set of numbers here that a busy host moves. On a laptop carryi
 
 | Arm | Fastest ms | Median ms | Every run | Rows read | Bytes read | Result |
 |---|---:|---:|---|---:|---:|---:|
-| native | 6 | 6 | 6, 6, 6, 6, 6, 7, 7, 8, 8, 12 | 32,768 | 2,737,012 | 2316 |
-| native_folded | 6 | 7 | 6, 6, 6, 6, 7, 7, 7, 7, 8, 9 | 16,384 | 3,724,610 | 2316 |
-| compact, `tenx_inflate_iso` | 563 | 728 | 563, 637, 640, 640, 691, 765, 765, 789, 822, 992 | 159,170 | 11,612,601 | 2316 |
-| compact, `tenx_inflate` | 583 | 617 | 583, 587, 604, 607, 615, 620, 622, 646, 710, 822 | 159,170 | 11,612,601 | 2316 |
+| native | 6 | 7 | 6, 6, 6, 6, 7, 7, 7, 7, 7, 8 | 32,768 | 2,737,012 | 2316 |
+| native_folded | 7 | 12 | 7, 8, 8, 9, 11, 13, 14, 19, 25, 46 | 16,384 | 3,724,610 | 2316 |
+| compact, `tenx_inflate_iso` | 576 | 675 | 576, 601, 606, 623, 670, 680, 714, 819, 832, 837 | 159,170 | 11,612,601 | 2316 |
+| compact, `tenx_inflate` | 652 | 805 | 652, 672, 737, 746, 760, 851, 911, 1140, 1323, 2164 | 159,170 | 11,612,601 | 2316 |
 
 ## Ingest
 
@@ -144,13 +144,13 @@ CPU as ClickHouse accounted for the `INSERT`. Each arm was loaded from a JSONEac
 
 | Table | CPU seconds | Wall ms | Rows written |
 |---|---:|---:|---:|
-| `otel_logs_compact_lz4` | 3.1 | 4,086 | 159,170 |
-| `otel_logs_compact_zstd1` | 4.1 | 5,005 | 159,170 |
-| `otel_logs_compact_zstd3` | 2.2 | 3,222 | 159,170 |
-| `otel_logs_native_folded_lz4` | 5.6 | 6,299 | 159,170 |
-| `otel_logs_native_folded_zstd1` | 10.8 | 12,383 | 159,170 |
-| `otel_logs_native_folded_zstd3` | 12.4 | 14,190 | 159,170 |
-| `otel_logs_native_lz4` | 2.2 | 3,035 | 197,430 |
-| `otel_logs_native_zstd1` | 3.2 | 4,142 | 197,430 |
-| `otel_logs_native_zstd3` | 4.1 | 4,932 | 197,430 |
+| `otel_logs_compact_lz4` | 1.8 | 2,956 | 159,170 |
+| `otel_logs_compact_zstd1` | 2.1 | 2,732 | 159,170 |
+| `otel_logs_compact_zstd3` | 1.7 | 2,272 | 159,170 |
+| `otel_logs_native_folded_lz4` | 3.0 | 3,739 | 159,170 |
+| `otel_logs_native_folded_zstd1` | 5.1 | 5,720 | 159,170 |
+| `otel_logs_native_folded_zstd3` | 8.5 | 10,384 | 159,170 |
+| `otel_logs_native_lz4` | 2.8 | 3,659 | 197,430 |
+| `otel_logs_native_zstd1` | 5.2 | 6,786 | 197,430 |
+| `otel_logs_native_zstd3` | 3.1 | 3,887 | 197,430 |
 

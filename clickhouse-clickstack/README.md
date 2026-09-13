@@ -99,6 +99,34 @@ arrays; that is quadratic and aborts a full-table decode at 7.2 GiB.
 [`../clickhouse-inflate/`](../clickhouse-inflate/) has that measurement. The fix
 has not been applied back to the product repo.
 
+## The second rung: `run_typed.sh`
+
+`run.sh` stores the compact event the way the ClickHouse app does today, as one
+text string in `Body`. ClickHouse's own [log-clustering post][clustering] measured
+that shape at 22x against 19x raw, and 45x once the template sat in a
+low-cardinality column and the values in typed columns. `run_typed.sh` climbs
+the same ladder on the same events, against the container `KEEP=1 ./run.sh`
+leaves up:
+
+| Layout | What changes |
+|---|---|
+| `compact_sorted` | the template hash materialised and added to ClickStack's sort key; `Body` unchanged |
+| `compact_typed` | `Body` replaced by the hash plus typed value arrays, same sort key |
+| `compact_typed_bytemplate` | the typed layout sorted by (service, template, time) |
+
+`build_typed.py` splits every compact event into timestamp, integer and text
+arrays, and refuses to write if any row does not reverse to its compact event
+byte for byte; `run_typed.sh` rebuilds the events again inside ClickHouse and
+compares hash sums with the text form. Ingest cost is measured table-to-table
+with `INSERT ... SELECT`, three copies per layout, so no arm pays a JSON-parsing
+cost and the CPU is what ClickHouse spends building and compressing that layout.
+
+The result is in `results/typed-layout-<date>.md`. In short: the generic typed
+arrays compress the payload worse than the text string, the template hash in the
+sort key is the one cheap real win, and the large total savings all come from
+ClickStack's full-text index on `Body` shrinking or disappearing rather than from
+the data compressing better.
+
 ## What it does not measure
 
 - **Ingest over the wire.** Each arm is loaded from a JSONEachRow file, so the
@@ -120,6 +148,9 @@ has not been applied back to the product repo.
 | `build_arms.py` | the mapping into the ClickStack schema, and the alignment checks |
 | `schema.sql.tpl` | the ClickStack DDL with the codec substituted |
 | `report.py` | reads `system.parts`, `system.parts_columns`, `system.query_log` and writes `results/` |
+| `run_typed.sh` | the second rung: sort key, typed arrays, clean ingest cost, against the container `run.sh` left up |
+| `build_typed.py` | splits compact events into typed arrays, reversing every row before writing |
+| `report_typed.py` | writes `results/typed-layout-<date>.md` |
 | `reference_decode.py` | decodes the same events with the four rules `install.sql` lacks, to tell a lost original from a misread one; `--self-test` runs in CI |
 | `results/` | `results.json` and the dated results file |
 
