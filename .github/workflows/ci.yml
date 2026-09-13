@@ -45,3 +45,31 @@ jobs:
       # so a drain3 release that changes the mechanism fails here.
       - name: Replay exhibit (Drain3 mechanism, no download, asserts live)
         run: python pattern-identity/bench/replay.py
+
+  otel-denominators:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Syntax-check the harness
+        run: |
+          python -m py_compile otel-denominators/build_inputs.py otel-denominators/report.py
+          bash -n otel-denominators/run.sh
+
+      # The full run needs Docker and a 215 MB download. What CI can check
+      # without either is that the committed table still follows from the
+      # committed counts: re-render results.md from results.csv and diff it.
+      # An edited percentage, or a byte count changed without a rerun, fails here.
+      - name: The committed table follows from the committed counts
+        run: |
+          cd otel-denominators
+          image=$(sed -n 's/^- engine image: `\(.*\)`$/\1/p' results/results.md)
+          gz=$(sed -n 's/^- capture, gzipped as published: sha256 `\(.*\)`$/\1/p' results/results.md)
+          plain=$(sed -n 's/^- capture, expanded: sha256 `\(.*\)`$/\1/p' results/results.md)
+          python report.py --csv results/results.csv --out /tmp/results.md \
+            --image "$image" --asset-gz-sha256 "$gz" --asset-sha256 "$plain"
+          diff -u results/results.md /tmp/results.md
