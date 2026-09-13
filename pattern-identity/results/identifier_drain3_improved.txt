@@ -1,0 +1,28 @@
+==============================================================================
+IDENTIFIER: same lines, two arrival orders
+==============================================================================
+drain3-improved 0.10.0, depth=6 sim_th=0.6 max_children=20, 1024-char cap
+typed-token masking on, parametrize_numeric_tokens=True (Drain3 default)
+source  otel-sample-200mb.log.gz
+lines   60,000 application messages, the `log` field of each JSON record
+orders  natural file order, and the same lines shuffled with seed 1
+
+max_clusters  templates nat  templates shuf  template agrees  cluster_id agrees
+        2000          1,453           1,464           0.9860             0.0001
+         500            500             500           0.9848             0.0000
+
+==============================================================================
+The template string agrees 0.9860 of the time. The integer agrees 0.0001.
+==============================================================================
+Drain's clustering is stable under reordering. The published shuffle result
+reproduces here and stands. The identifier Drain returns alongside it is an
+arrival counter, so it tracks discovery order instead of line content.
+
+Cap pressure leaves the split intact. At max_clusters=500, with eviction live,
+the template holds at 0.9848 and the integer falls further, to 0.0000.
+
+So hashing the template is the correct repair, and it is the one log10x
+recommends to anyone staying on Drain. What the hash cannot repair is the
+template itself moving, which bench/replay.py shows in four lines, and the
+frequency-dependent disagreement between two instances of Drain fed different
+halves of one stream, which the split-instance benchmark in this repo measures.

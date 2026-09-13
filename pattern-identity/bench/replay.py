@@ -30,7 +30,6 @@ Usage:  python bench/replay.py
 
 import gzip
 import hashlib
-import importlib.metadata
 import json
 import os
 import pathlib
@@ -39,6 +38,9 @@ import sys
 from drain3 import TemplateMiner
 from drain3.masking import MaskingInstruction
 from drain3.template_miner_config import TemplateMinerConfig
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import drainver  # noqa: E402  which distribution provides the drain3 module
 
 # Real lines from the public release asset otel-sample-200mb.log
 # (github.com/log-10x/config, tag otel-sample-v1), file lines 1109-1111,
@@ -145,12 +147,12 @@ def main():
     assert "name=Jaeger" in b_tpl, "first-sight template names the datasource"
     assert "name=Jaeger" not in a_tpl, "replay template no longer names the datasource"
 
-    ver = importlib.metadata.version("drain3")
+    ver = drainver.label()
     w = 78
     print("=" * w)
     print("REPLAY: one process, one cluster, four lines, fixed order")
     print("=" * w)
-    print(f"drain3 {ver}, depth=6 sim_th=0.6 max_children=20 max_clusters=2000")
+    print(f"{ver}, depth=6 sim_th=0.6 max_children=20 max_clusters=2000")
     print("typed-token masking on, parametrize_numeric_tokens=True (Drain3 default)")
     print(f"lines: {SOURCE}")
     print(prov)

@@ -42,7 +42,6 @@ skipped at other counts. The cluster_id assert holds everywhere.
 Usage:  python bench/identifier.py [n_lines]        default 60000
 """
 
-import importlib.metadata
 import pathlib
 import random
 import sys
@@ -53,6 +52,7 @@ from drain3.template_miner_config import TemplateMinerConfig
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import data  # noqa: E402  the repo's downloader for the public release assets
+import drainver  # noqa: E402  which distribution provides the drain3 module
 
 SEED = 1
 CAPS = (2000, 500)
@@ -104,7 +104,7 @@ def main():
     print("=" * w)
     print("IDENTIFIER: same lines, two arrival orders")
     print("=" * w)
-    print(f"drain3 {importlib.metadata.version('drain3')}, depth=6 sim_th=0.6 "
+    print(f"{drainver.label()}, depth=6 sim_th=0.6 "
           f"max_children=20, 1024-char cap")
     print("typed-token masking on, parametrize_numeric_tokens=True (Drain3 default)")
     print(f"source  {path.name}")
