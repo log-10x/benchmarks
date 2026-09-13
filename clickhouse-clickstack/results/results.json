@@ -26,22 +26,22 @@
   "totals": {
     "otel_logs_compact_lz4": {
       "rows": 159170,
-      "bytes_on_disk": 6953843,
+      "bytes_on_disk": 6953841,
       "data_compressed_bytes": 3929090,
       "data_uncompressed_bytes": 105840708,
       "parts": 2
     },
     "otel_logs_compact_zstd1": {
       "rows": 159170,
-      "bytes_on_disk": 6651813,
-      "data_compressed_bytes": 3627095,
+      "bytes_on_disk": 6651810,
+      "data_compressed_bytes": 3627094,
       "data_uncompressed_bytes": 105840708,
       "parts": 2
     },
     "otel_logs_compact_zstd3": {
       "rows": 159170,
-      "bytes_on_disk": 6004978,
-      "data_compressed_bytes": 2980317,
+      "bytes_on_disk": 6004977,
+      "data_compressed_bytes": 2980318,
       "data_uncompressed_bytes": 105840708,
       "parts": 2
     },
@@ -197,7 +197,7 @@
     },
     "otel_logs_compact_zstd1": {
       "Body": {
-        "compressed": 1426009,
+        "compressed": 1426008,
         "uncompressed": 12408451
       },
       "EventName": {
@@ -303,7 +303,7 @@
     },
     "otel_logs_compact_zstd3": {
       "Body": {
-        "compressed": 1452750,
+        "compressed": 1452751,
         "uncompressed": 12408451
       },
       "EventName": {
@@ -1046,15 +1046,15 @@
   },
   "skip_indexes": {
     "otel_logs_compact_lz4": {
-      "compressed": 2987745,
+      "compressed": 2987743,
       "uncompressed": 3250431
     },
     "otel_logs_compact_zstd1": {
-      "compressed": 2987745,
+      "compressed": 2987743,
       "uncompressed": 3250431
     },
     "otel_logs_compact_zstd3": {
-      "compressed": 2987745,
+      "compressed": 2987743,
       "uncompressed": 3250431
     },
     "otel_logs_native_folded_lz4": {
@@ -1096,7 +1096,7 @@
     "iso": {
       "rows": 159170,
       "total_length": 43471949,
-      "hash_sum": "16701008193029425989",
+      "hash_sum": "8532261125383047141",
       "identical_to_native_folded": false,
       "rows_not_matching_any_original": 139469
     },
@@ -1154,19 +1154,19 @@
     "native": {
       "result": "2316",
       "runs": 10,
-      "median_ms": 7,
+      "median_ms": 8,
       "fastest_ms": 6,
       "ms": [
         6,
         6,
         6,
-        6,
         7,
         7,
-        7,
-        7,
-        7,
-        8
+        9,
+        10,
+        11,
+        12,
+        45
       ],
       "read_rows": 32768,
       "read_bytes": 2737012,
@@ -1175,19 +1175,19 @@
     "native_folded": {
       "result": "2316",
       "runs": 10,
-      "median_ms": 12,
-      "fastest_ms": 7,
+      "median_ms": 8,
+      "fastest_ms": 6,
       "ms": [
+        6,
+        7,
+        7,
         7,
         8,
         8,
+        8,
         9,
-        11,
-        13,
-        14,
-        19,
-        25,
-        46
+        10,
+        13
       ],
       "read_rows": 16384,
       "read_bytes": 3724610,
@@ -1196,19 +1196,19 @@
     "compact_iso": {
       "result": "2316",
       "runs": 10,
-      "median_ms": 675,
-      "fastest_ms": 576,
+      "median_ms": 682,
+      "fastest_ms": 611,
       "ms": [
-        576,
-        601,
-        606,
-        623,
-        670,
-        680,
-        714,
-        819,
-        832,
-        837
+        611,
+        613,
+        625,
+        665,
+        668,
+        697,
+        738,
+        761,
+        806,
+        982
       ],
       "read_rows": 159170,
       "read_bytes": 11612601,
@@ -1217,77 +1217,77 @@
     "compact_native": {
       "result": "2316",
       "runs": 10,
-      "median_ms": 805,
-      "fastest_ms": 652,
+      "median_ms": 806,
+      "fastest_ms": 630,
       "ms": [
-        652,
-        672,
-        737,
-        746,
-        760,
-        851,
-        911,
-        1140,
-        1323,
-        2164
+        630,
+        654,
+        708,
+        729,
+        789,
+        823,
+        904,
+        964,
+        1012,
+        1423
       ],
       "read_rows": 159170,
       "read_bytes": 11612601,
-      "peak_memory_bytes": 66892202
+      "peak_memory_bytes": 71229227
     }
   },
   "ingest": {
     "otel_logs_compact_lz4": {
-      "cpu_microseconds": 1810212,
-      "wall_ms": 2956,
+      "cpu_microseconds": 3132902,
+      "wall_ms": 4630,
       "written_rows": 159170,
       "written_bytes": 107433143
     },
     "otel_logs_compact_zstd1": {
-      "cpu_microseconds": 2065151,
-      "wall_ms": 2732,
+      "cpu_microseconds": 3403169,
+      "wall_ms": 6819,
       "written_rows": 159170,
       "written_bytes": 107433143
     },
     "otel_logs_compact_zstd3": {
-      "cpu_microseconds": 1703349,
-      "wall_ms": 2272,
+      "cpu_microseconds": 3468196,
+      "wall_ms": 4261,
       "written_rows": 159170,
       "written_bytes": 107433143
     },
     "otel_logs_native_folded_lz4": {
-      "cpu_microseconds": 2977753,
-      "wall_ms": 3739,
+      "cpu_microseconds": 4237670,
+      "wall_ms": 5917,
       "written_rows": 159170,
       "written_bytes": 136693825
     },
     "otel_logs_native_folded_zstd1": {
-      "cpu_microseconds": 5061506,
-      "wall_ms": 5720,
+      "cpu_microseconds": 3889725,
+      "wall_ms": 6415,
       "written_rows": 159170,
       "written_bytes": 136693825
     },
     "otel_logs_native_folded_zstd3": {
-      "cpu_microseconds": 8523151,
-      "wall_ms": 10384,
+      "cpu_microseconds": 3386051,
+      "wall_ms": 4101,
       "written_rows": 159170,
       "written_bytes": 136693825
     },
     "otel_logs_native_lz4": {
-      "cpu_microseconds": 2786843,
-      "wall_ms": 3659,
+      "cpu_microseconds": 2728104,
+      "wall_ms": 3602,
       "written_rows": 197430,
       "written_bytes": 158186513
     },
     "otel_logs_native_zstd1": {
-      "cpu_microseconds": 5246253,
-      "wall_ms": 6786,
+      "cpu_microseconds": 3782708,
+      "wall_ms": 6866,
       "written_rows": 197430,
       "written_bytes": 158186513
     },
     "otel_logs_native_zstd3": {
-      "cpu_microseconds": 3104510,
-      "wall_ms": 3887,
+      "cpu_microseconds": 3063255,
+      "wall_ms": 4124,
       "written_rows": 197430,
       "written_bytes": 158186513
     }

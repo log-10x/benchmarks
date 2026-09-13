@@ -127,6 +127,31 @@ sort key is the one cheap real win, and the large total savings all come from
 ClickStack's full-text index on `Body` shrinking or disappearing rather than from
 the data compressing better.
 
+## The compute question: `run_compute.sh`
+
+Storage is not where a ClickHouse bill is. ClickHouse Cloud meters compute per
+unit-hour and storage at **$25.30 per compressed TB per month**, so an estate of
+ordinary size carries tens of dollars of storage and the compute line is the
+bill. `run_compute.sh` asks whether the product can move compute.
+
+The claim under test is that compute follows row count, so removing rows is a
+lever and making each row smaller is not. The falsifier is stated in the script
+before the run: if halving the rows does not roughly halve insert-plus-merge
+CPU, the claim is wrong.
+
+Every arm holds the same original log text in the same schema; only the rows
+present change. `sampled_75/50/25` is a seeded uniform sample, which holds the
+content mix fixed and isolates row count. `bypattern_75/50/25` removes whole
+message types largest first, which is the lever the product pulls. Inserts
+arrive in batches of a fixed number of rows, so an arm with half the data sends
+half the batches, and merges run on their own and are read from
+`system.part_log`. Each arm loads three times after a discarded warm-up, fastest
+kept.
+
+Result: half the rows cost 39% of the CPU and a quarter cost 17%, both below the
+row share, because fewer parts merge fewer times. Full detail in
+`results/compute-vs-rows-<date>.md`.
+
 ## What it does not measure
 
 - **Ingest over the wire.** Each arm is loaded from a JSONEachRow file, so the
@@ -151,6 +176,9 @@ the data compressing better.
 | `run_typed.sh` | the second rung: sort key, typed arrays, clean ingest cost, against the container `run.sh` left up |
 | `build_typed.py` | splits compact events into typed arrays, reversing every row before writing |
 | `report_typed.py` | writes `results/typed-layout-<date>.md` |
+| `run_compute.sh` | does compute follow rows: seven arms, batched inserts, background merges |
+| `build_reduction.py` | labels every captured line with its message type and builds the reduction arms |
+| `report_compute.py` | writes `results/compute-vs-rows-<date>.md` |
 | `reference_decode.py` | decodes the same events with the four rules `install.sql` lacks, to tell a lost original from a misread one; `--self-test` runs in CI |
 | `results/` | `results.json` and the dated results file |
 

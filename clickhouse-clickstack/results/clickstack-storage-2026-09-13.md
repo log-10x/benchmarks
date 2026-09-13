@@ -4,11 +4,11 @@ Measured 2026-09-13 by `run.sh` in this folder. Every byte count is read from `s
 
 ## The five lines
 
-1. **Body column at ZSTD(1), row for row: 1,865,254 to 1,426,009 bytes, 23.55%.** Same 159,170 rows and the same attribute values on both sides, so this is the templating layer alone.
-2. **Whole table at ZSTD(1): 8,225,547 to 6,999,853 bytes, 14.9%,** on 197,430 rows against 159,170 rows. The compact figure includes the template dictionary (348,040 bytes on disk). The row counts differ because the engine folds a multi-line event into one event; that reduction is inside this number and outside line 1.
-3. **One text filter on `checkout`: 6 ms native, 576 ms compact through the ISO expand path, 652 ms through the format-preserving one.** Fastest of ten, first run discarded; see the timing table for the spread.
-4a. **LZ4:** Body 21.31%, whole table 14.36% (8,526,421 to 7,301,883 bytes).
-4b. **ZSTD(3):** Body 21.91%, whole table 13.86% (7,374,889 to 6,353,018 bytes).
+1. **Body column at ZSTD(1), row for row: 1,865,254 to 1,426,008 bytes, 23.55%.** Same 159,170 rows and the same attribute values on both sides, so this is the templating layer alone.
+2. **Whole table at ZSTD(1): 8,225,547 to 6,999,850 bytes, 14.9%,** on 197,430 rows against 159,170 rows. The compact figure includes the template dictionary (348,040 bytes on disk). The row counts differ because the engine folds a multi-line event into one event; that reduction is inside this number and outside line 1.
+3. **One text filter on `checkout`: 6 ms native, 611 ms compact through the ISO expand path, 630 ms through the format-preserving one.** Fastest of ten, first run discarded; see the timing table for the spread.
+4a. **LZ4:** Body 21.31%, whole table 14.36% (8,526,421 to 7,301,881 bytes).
+4b. **ZSTD(3):** Body 21.91%, whole table 13.86% (7,374,889 to 6,353,017 bytes).
 5. **It would not survive one, and the storage figure is not the reason.** 124,220 of 159,170 rows, 78.0%, do not expand back to the text they came from, because the shipped SQL decoder implements neither the `$N` back-reference nor the `/` escape nor the JSON unescape that INNER mode needs. The compact form does still hold the text, which `reference_decode.py` shows by getting it back, so this is a decoder to fix rather than a claim to withdraw. But until it is fixed there is no lossless read path on ClickHouse for a storage number to sit on. And the number itself, 14.9% on the whole table at the ClickStack default, is below the 30% a ClickHouse maintainer has already called achievable against a well-sorted ZSTD column, on a schema of their choosing.
 
 ## What this was measured on
@@ -35,9 +35,9 @@ Measured 2026-09-13 by `run.sh` in this folder. Every byte count is read from `s
 
 | Codec | native | native_folded | compact | compact + dictionary | compact vs native | compact vs native_folded |
 |---|---:|---:|---:|---:|---:|---:|
-| ZSTD(1) | 8,225,547 | 7,570,122 | 6,651,813 | 6,999,853 | 14.9% | 7.53% |
-| ZSTD(3) | 7,374,889 | 6,891,440 | 6,004,978 | 6,353,018 | 13.86% | 7.81% |
-| LZ4 | 8,526,421 | 8,170,520 | 6,953,843 | 7,301,883 | 14.36% | 10.63% |
+| ZSTD(1) | 8,225,547 | 7,570,122 | 6,651,810 | 6,999,850 | 14.9% | 7.53% |
+| ZSTD(3) | 7,374,889 | 6,891,440 | 6,004,977 | 6,353,017 | 13.86% | 7.81% |
+| LZ4 | 8,526,421 | 8,170,520 | 6,953,841 | 7,301,881 | 14.36% | 10.63% |
 
 Rows: `native` 197,430, `compact` and `native_folded` 159,170. Template dictionary on disk: 348,040 bytes for 2,627 templates, 914,000 bytes allocated in memory.
 
@@ -47,7 +47,7 @@ Rows: `native` 197,430, `compact` and `native_folded` 159,170. Template dictiona
 
 | Column | native | native_folded | compact | native uncompressed | compact uncompressed |
 |---|---:|---:|---:|---:|---:|
-| `Body` | 1,888,235 | 1,865,254 | 1,426,009 | 41,933,765 | 12,408,451 |
+| `Body` | 1,888,235 | 1,865,254 | 1,426,008 | 41,933,765 | 12,408,451 |
 | `EventName` | 328 | 297 | 291 | 603 | 459 |
 | `LogAttributes` | 104,860 | 85,045 | 84,993 | 4,542,022 | 3,661,786 |
 | `ResourceAttributes` | 2,096,720 | 1,747,839 | 1,747,913 | 100,826,621 | 82,590,501 |
@@ -74,14 +74,14 @@ Rows: `native` 197,430, `compact` and `native_folded` 159,170. Template dictiona
 | `_block_number` | 7,670 | 6,233 | 6,233 | 1,579,440 | 1,273,360 |
 | `_block_offset` | 7,891 | 6,402 | 6,402 | 1,579,440 | 1,273,360 |
 
-Skip indexes, compressed, ZSTD(1): `native` 3,724,080, `compact` 2,987,745, `native_folded` 3,466,940.
+Skip indexes, compressed, ZSTD(1): `native` 3,724,080, `compact` 2,987,743, `native_folded` 3,466,940.
 
 ## The Body column alone
 
 | Codec | native | native_folded | compact | compact vs native_folded |
 |---|---:|---:|---:|---:|
-| ZSTD(1) | 1,888,235 | 1,865,254 | 1,426,009 | 23.55% |
-| ZSTD(3) | 1,860,555 | 1,860,310 | 1,452,750 | 21.91% |
+| ZSTD(1) | 1,888,235 | 1,865,254 | 1,426,008 | 23.55% |
+| ZSTD(3) | 1,860,555 | 1,860,310 | 1,452,751 | 21.91% |
 | LZ4 | 3,463,300 | 3,458,311 | 2,721,226 | 21.31% |
 
 Before ClickHouse touches it, the same text is 40,392,585 bytes native and 11,135,091 bytes compact, 72.43%.
@@ -133,10 +133,10 @@ These are the one set of numbers here that a busy host moves. On a laptop carryi
 
 | Arm | Fastest ms | Median ms | Every run | Rows read | Bytes read | Result |
 |---|---:|---:|---|---:|---:|---:|
-| native | 6 | 7 | 6, 6, 6, 6, 7, 7, 7, 7, 7, 8 | 32,768 | 2,737,012 | 2316 |
-| native_folded | 7 | 12 | 7, 8, 8, 9, 11, 13, 14, 19, 25, 46 | 16,384 | 3,724,610 | 2316 |
-| compact, `tenx_inflate_iso` | 576 | 675 | 576, 601, 606, 623, 670, 680, 714, 819, 832, 837 | 159,170 | 11,612,601 | 2316 |
-| compact, `tenx_inflate` | 652 | 805 | 652, 672, 737, 746, 760, 851, 911, 1140, 1323, 2164 | 159,170 | 11,612,601 | 2316 |
+| native | 6 | 8 | 6, 6, 6, 7, 7, 9, 10, 11, 12, 45 | 32,768 | 2,737,012 | 2316 |
+| native_folded | 6 | 8 | 6, 7, 7, 7, 8, 8, 8, 9, 10, 13 | 16,384 | 3,724,610 | 2316 |
+| compact, `tenx_inflate_iso` | 611 | 682 | 611, 613, 625, 665, 668, 697, 738, 761, 806, 982 | 159,170 | 11,612,601 | 2316 |
+| compact, `tenx_inflate` | 630 | 806 | 630, 654, 708, 729, 789, 823, 904, 964, 1012, 1423 | 159,170 | 11,612,601 | 2316 |
 
 ## Ingest
 
@@ -144,13 +144,13 @@ CPU as ClickHouse accounted for the `INSERT`. Each arm was loaded from a JSONEac
 
 | Table | CPU seconds | Wall ms | Rows written |
 |---|---:|---:|---:|
-| `otel_logs_compact_lz4` | 1.8 | 2,956 | 159,170 |
-| `otel_logs_compact_zstd1` | 2.1 | 2,732 | 159,170 |
-| `otel_logs_compact_zstd3` | 1.7 | 2,272 | 159,170 |
-| `otel_logs_native_folded_lz4` | 3.0 | 3,739 | 159,170 |
-| `otel_logs_native_folded_zstd1` | 5.1 | 5,720 | 159,170 |
-| `otel_logs_native_folded_zstd3` | 8.5 | 10,384 | 159,170 |
-| `otel_logs_native_lz4` | 2.8 | 3,659 | 197,430 |
-| `otel_logs_native_zstd1` | 5.2 | 6,786 | 197,430 |
-| `otel_logs_native_zstd3` | 3.1 | 3,887 | 197,430 |
+| `otel_logs_compact_lz4` | 3.1 | 4,630 | 159,170 |
+| `otel_logs_compact_zstd1` | 3.4 | 6,819 | 159,170 |
+| `otel_logs_compact_zstd3` | 3.5 | 4,261 | 159,170 |
+| `otel_logs_native_folded_lz4` | 4.2 | 5,917 | 159,170 |
+| `otel_logs_native_folded_zstd1` | 3.9 | 6,415 | 159,170 |
+| `otel_logs_native_folded_zstd3` | 3.4 | 4,101 | 159,170 |
+| `otel_logs_native_lz4` | 2.7 | 3,602 | 197,430 |
+| `otel_logs_native_zstd1` | 3.8 | 6,866 | 197,430 |
+| `otel_logs_native_zstd3` | 3.1 | 4,124 | 197,430 |
 
