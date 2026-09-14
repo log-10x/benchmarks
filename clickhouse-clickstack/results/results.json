@@ -1154,19 +1154,19 @@
     "native": {
       "result": "2316",
       "runs": 10,
-      "median_ms": 7,
+      "median_ms": 6,
       "fastest_ms": 6,
       "ms": [
         6,
         6,
         6,
         6,
+        6,
+        6,
         7,
         7,
-        7,
-        7,
-        7,
-        9
+        8,
+        18
       ],
       "read_rows": 32768,
       "read_bytes": 2737012,
@@ -1179,15 +1179,15 @@
       "fastest_ms": 6,
       "ms": [
         6,
-        7,
+        6,
+        6,
+        6,
         7,
         7,
         7,
         8,
-        9,
-        9,
-        9,
-        11
+        8,
+        9
       ],
       "read_rows": 16384,
       "read_bytes": 3724610,
@@ -1196,98 +1196,98 @@
     "compact_iso": {
       "result": "2316",
       "runs": 10,
-      "median_ms": 555,
-      "fastest_ms": 534,
+      "median_ms": 554,
+      "fastest_ms": 531,
       "ms": [
-        534,
-        545,
+        531,
+        540,
         547,
-        548,
+        553,
+        554,
+        554,
         555,
-        556,
-        564,
-        565,
-        573,
-        702
+        557,
+        563,
+        566
       ],
       "read_rows": 159170,
       "read_bytes": 11612601,
-      "peak_memory_bytes": 35430580
+      "peak_memory_bytes": 35430740
     },
     "compact_native": {
       "result": "2316",
       "runs": 10,
-      "median_ms": 621,
-      "fastest_ms": 598,
+      "median_ms": 597,
+      "fastest_ms": 590,
       "ms": [
+        590,
+        593,
+        593,
+        597,
+        597,
         598,
-        600,
-        603,
-        608,
-        620,
-        623,
-        632,
-        660,
-        672,
-        694
+        602,
+        607,
+        607,
+        612
       ],
       "read_rows": 159170,
       "read_bytes": 11612601,
-      "peak_memory_bytes": 69507870
+      "peak_memory_bytes": 71229227
     }
   },
   "ingest": {
     "otel_logs_compact_lz4": {
-      "cpu_microseconds": 3626286,
-      "wall_ms": 4487,
+      "cpu_microseconds": 3478853,
+      "wall_ms": 4292,
       "written_rows": 159170,
       "written_bytes": 107433143
     },
     "otel_logs_compact_zstd1": {
-      "cpu_microseconds": 6892117,
-      "wall_ms": 7837,
+      "cpu_microseconds": 2683948,
+      "wall_ms": 3318,
       "written_rows": 159170,
       "written_bytes": 107433143
     },
     "otel_logs_compact_zstd3": {
-      "cpu_microseconds": 4353569,
-      "wall_ms": 5623,
+      "cpu_microseconds": 1759073,
+      "wall_ms": 2368,
       "written_rows": 159170,
       "written_bytes": 107433143
     },
     "otel_logs_native_folded_lz4": {
-      "cpu_microseconds": 4032731,
-      "wall_ms": 4764,
+      "cpu_microseconds": 3122943,
+      "wall_ms": 3804,
       "written_rows": 159170,
       "written_bytes": 136693825
     },
     "otel_logs_native_folded_zstd1": {
-      "cpu_microseconds": 7255268,
-      "wall_ms": 10612,
+      "cpu_microseconds": 4433285,
+      "wall_ms": 5132,
       "written_rows": 159170,
       "written_bytes": 136693825
     },
     "otel_logs_native_folded_zstd3": {
-      "cpu_microseconds": 4025538,
-      "wall_ms": 5076,
+      "cpu_microseconds": 3383450,
+      "wall_ms": 4023,
       "written_rows": 159170,
       "written_bytes": 136693825
     },
     "otel_logs_native_lz4": {
-      "cpu_microseconds": 4504958,
-      "wall_ms": 5352,
+      "cpu_microseconds": 3488219,
+      "wall_ms": 4265,
       "written_rows": 197430,
       "written_bytes": 158186513
     },
     "otel_logs_native_zstd1": {
-      "cpu_microseconds": 11980897,
-      "wall_ms": 16701,
+      "cpu_microseconds": 16542243,
+      "wall_ms": 22011,
       "written_rows": 197430,
       "written_bytes": 158186513
     },
     "otel_logs_native_zstd3": {
-      "cpu_microseconds": 7643113,
-      "wall_ms": 8486,
+      "cpu_microseconds": 6434559,
+      "wall_ms": 8669,
       "written_rows": 197430,
       "written_bytes": 158186513
     }

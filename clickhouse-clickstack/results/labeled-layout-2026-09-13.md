@@ -4,10 +4,10 @@ Measured 2026-09-13 by `run_labeled.sh`. Same 197,430 rows, same ClickStack sche
 
 | Arm | What | Body | attributes | text index | all skip idx | total | vs native | ingest CPU s, fastest | every run |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---|
-| `native` | ClickStack as published | 1,888,235 | 2,575,656 | 3,641,204 | 3,724,080 | 8,225,547 | 0.0% | 2.38 | 2.38, 2.41, 3.53 |
-| `labeled` | plus templateHash, ClickStack sort key | 1,888,235 | 2,575,656 | 3,641,204 | 3,724,080 | 8,322,336 | -1.2% | 1.97 | 1.97, 2.08, 2.17 |
-| `labeled_sorted` | templateHash inside the ClickStack sort key | 1,666,928 | 2,609,474 | 2,705,972 | 2,789,395 | 7,148,605 | 13.1% | 2.12 | 2.12, 2.18, 2.23 |
-| `labeled_bytype` | sorted (ServiceName, templateHash, Timestamp) | 1,525,870 | 2,286,436 | 2,538,663 | 2,564,535 | 6,451,087 | 21.6% | 2.09 | 2.09, 2.13, 2.14 |
+| `native` | ClickStack as published | 1,888,235 | 2,575,656 | 3,641,204 | 3,724,080 | 8,225,547 | 0.0% | 2.03 | 2.03, 2.08, 2.15 |
+| `labeled` | plus templateHash, ClickStack sort key | 1,888,235 | 2,575,656 | 3,641,204 | 3,724,080 | 8,322,336 | -1.2% | 1.95 | 1.95, 2.07, 2.17 |
+| `labeled_sorted` | templateHash inside the ClickStack sort key | 1,666,928 | 2,609,474 | 2,705,972 | 2,789,395 | 7,148,605 | 13.1% | 2.05 | 2.05, 2.27, 2.59 |
+| `labeled_bytype` | sorted (ServiceName, templateHash, Timestamp) | 1,525,870 | 2,286,436 | 2,538,663 | 2,564,535 | 6,451,087 | 21.6% | 1.94 | 1.94, 2.10, 2.30 |
 
 The templateHash column itself: `labeled` 90,934 bytes, `labeled_sorted` 39,108 bytes, `labeled_bytype` 30,669 bytes.
 

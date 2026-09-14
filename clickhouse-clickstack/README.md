@@ -207,6 +207,21 @@ takes insert-plus-merge CPU from 29 s to 4 s across that range with nothing remo
 ZSTD(12) takes 19% off the text and 30% off the table. The first is a collector or engine
 setting; the second is what ClickStack's per-column codecs block.
 
+## The label as a query lever at scale: `run_scale.sh` and `run_scale_bytype.sh`
+
+`run_query_compute.sh` could not resolve query cost at 7 MB. These replicate the labeled
+rows a hundred times inside ClickHouse, one shifted day per insert, to 19,743,000 rows,
+and ask the same question three ways: a plain text scan, ClickStack's own full-text index
+via `hasToken`, and the label. The label is also asked what text cannot answer, the census
+of message types, and the text index is asked what the label cannot, a word across
+everything. `run_scale_bytype.sh` repeats the label queries with the type first in the
+sort key, the label's best case, and shows what the time-window query pays for it.
+Results in `results/label-query-scale-<date>.md`. In short: ClickStack's text index
+answers a token count from its postings in about 20 ms and the label, third in the
+ClickStack key, cannot beat that; the label's own ground is the census, which text has no
+version of, and the sort-key storage effect holds at this size at 13.6%. The replicated
+data compresses better than real data would; the query comparison is unaffected.
+
 ## What it does not measure
 
 - **Ingest over the wire.** Each arm is loaded from a JSONEachRow file, so the
@@ -239,6 +254,8 @@ setting; the second is what ClickStack's per-column codecs block.
 | `run_labeled.sh` | native text plus a message-type column, in and out of the sort key |
 | `run_query_compute.sh` | five query shapes against the reduction arms |
 | `run_lossless.sh` | insert batch shape against merge cost, and recompression levels on the real text |
+| `run_scale.sh` | the label against the text scan and the text index on 19.7M rows |
+| `run_scale_bytype.sh` | the same with the type first in the sort key |
 | `reference_decode.py` | decodes the same events with the four rules `install.sql` lacks, to tell a lost original from a misread one; `--self-test` runs in CI |
 | `results/` | `results.json` and the dated results file |
 

@@ -1,0 +1,297 @@
+{
+  "repl": 100,
+  "runs": 7,
+  "tables": {
+    "big_labeled": [
+      19743000,
+      827547676
+    ],
+    "big_labeled_sorted": [
+      19743000,
+      714724590
+    ]
+  },
+  "columns": {
+    "big_labeled": {
+      "SeverityText": 27025,
+      "__hdx_materialized_k8s.deployment.name": 27025,
+      "__hdx_materialized_k8s.node.name": 29799,
+      "TraceFlags": 6499,
+      "EventName": 7262,
+      "SeverityNumber": 6499,
+      "__hdx_materialized_k8s.container.name": 287405,
+      "__hdx_materialized_k8s.namespace.name": 57323,
+      "ResourceAttributes": 209610282,
+      "Timestamp": 33078532,
+      "Body": 190572929,
+      "ScopeName": 7262,
+      "__hdx_materialized_k8s.cluster.name": 27025,
+      "__hdx_materialized_k8s.pod.uid": 319519,
+      "__hdx_materialized_k8s.pod.name": 309181,
+      "ScopeAttributes": 102881,
+      "ResourceSchemaUrl": 27025,
+      "templateHash": 9149404,
+      "ScopeVersion": 27025,
+      "SpanId": 7262,
+      "ServiceName": 287405,
+      "__hdx_materialized_deployment.environment.name": 27025,
+      "TraceId": 7262,
+      "_block_offset": 763558,
+      "LogAttributes": 10382851,
+      "ScopeSchemaUrl": 27025,
+      "_block_number": 745319
+    },
+    "big_labeled_sorted": {
+      "__hdx_materialized_k8s.pod.uid": 321211,
+      "SpanId": 7262,
+      "ServiceName": 287405,
+      "__hdx_materialized_k8s.node.name": 29799,
+      "ScopeAttributes": 102881,
+      "ScopeName": 7262,
+      "Body": 168116420,
+      "__hdx_materialized_k8s.cluster.name": 27025,
+      "_block_offset": 763558,
+      "__hdx_materialized_k8s.pod.name": 310873,
+      "SeverityNumber": 6499,
+      "__hdx_materialized_k8s.container.name": 287405,
+      "__hdx_materialized_k8s.deployment.name": 27025,
+      "__hdx_materialized_deployment.environment.name": 27025,
+      "__hdx_materialized_k8s.namespace.name": 57323,
+      "ScopeSchemaUrl": 27025,
+      "ScopeVersion": 27025,
+      "templateHash": 3782893,
+      "TraceId": 7262,
+      "_block_number": 745319,
+      "TraceFlags": 6499,
+      "LogAttributes": 10389135,
+      "SeverityText": 27025,
+      "EventName": 7262,
+      "Timestamp": 36478840,
+      "ResourceSchemaUrl": 27025,
+      "ResourceAttributes": 209613772
+    }
+  },
+  "queries": {
+    "type_rows_label": {
+      "cpu_ms_fastest": 240.016,
+      "cpu_ms_median": 243.217,
+      "read_bytes": 130697691,
+      "read_rows": 7938684,
+      "runs_ms": [
+        240.016,
+        240.891,
+        243.162,
+        243.272,
+        264.754,
+        297.449
+      ]
+    },
+    "census_count": {
+      "cpu_ms_fastest": 448.537,
+      "cpu_ms_median": 462.174,
+      "read_bytes": 29015660,
+      "read_rows": 19743000,
+      "runs_ms": [
+        448.537,
+        451.06,
+        459.053,
+        465.295,
+        487.069,
+        490.049
+      ]
+    },
+    "census_bytes": {
+      "cpu_ms_fastest": 3252.213,
+      "cpu_ms_median": 3411.596,
+      "read_bytes": 4121205697,
+      "read_rows": 19743000,
+      "runs_ms": [
+        3252.213,
+        3294.744,
+        3324.879,
+        3498.313,
+        3607.14,
+        4365.759
+      ]
+    },
+    "service_day": {
+      "cpu_ms_fastest": 14.887,
+      "cpu_ms_median": 16.0275,
+      "read_bytes": 228729,
+      "read_rows": 151170,
+      "runs_ms": [
+        14.887,
+        14.972,
+        15.793,
+        16.262,
+        16.525,
+        17.121
+      ]
+    },
+    "type_label": {
+      "cpu_ms_fastest": 87.258,
+      "cpu_ms_median": 93.47,
+      "read_bytes": 25636362,
+      "read_rows": 16156306,
+      "runs_ms": [
+        87.258,
+        89.73,
+        91.556,
+        95.384,
+        96.778,
+        99.266
+      ]
+    },
+    "word_text_scan": {
+      "cpu_ms_fastest": 188.876,
+      "cpu_ms_median": 196.5475,
+      "read_bytes": 4094783489,
+      "read_rows": 19743000,
+      "runs_ms": [
+        188.876,
+        191.081,
+        194.619,
+        198.476,
+        215.661,
+        300.396
+      ]
+    },
+    "word_text_index": {
+      "cpu_ms_fastest": 20.505,
+      "cpu_ms_median": 23.954,
+      "read_bytes": 1616,
+      "read_rows": 101,
+      "runs_ms": [
+        20.505,
+        22.188,
+        23.688,
+        24.22,
+        24.305,
+        26.899
+      ]
+    },
+    "type_text_scan": {
+      "cpu_ms_fastest": 297.141,
+      "cpu_ms_median": 346.631,
+      "read_bytes": 4094783489,
+      "read_rows": 19743000,
+      "runs_ms": [
+        297.141,
+        340.502,
+        344.998,
+        348.264,
+        348.832,
+        380.469
+      ]
+    },
+    "type_text_index": {
+      "cpu_ms_fastest": 21.255,
+      "cpu_ms_median": 30.276,
+      "read_bytes": 1616,
+      "read_rows": 101,
+      "runs_ms": [
+        21.255,
+        28.416,
+        28.621,
+        31.931,
+        35.617,
+        41.131
+      ]
+    },
+    "anyword_error": {
+      "cpu_ms_fastest": 22.468,
+      "cpu_ms_median": 23.9945,
+      "read_bytes": 1616,
+      "read_rows": 101,
+      "runs_ms": [
+        22.468,
+        22.511,
+        23.99,
+        23.999,
+        24.359,
+        27.617
+      ]
+    },
+    "type_rows_scan": {
+      "cpu_ms_fastest": 241.313,
+      "cpu_ms_median": 257.3575,
+      "read_bytes": 141245316,
+      "read_rows": 2577068,
+      "runs_ms": [
+        241.313,
+        248.083,
+        255.808,
+        258.907,
+        277.949,
+        329.163
+      ]
+    },
+    "type_label_both": {
+      "cpu_ms_fastest": 87.751,
+      "cpu_ms_median": 109.6695,
+      "read_bytes": 24928198,
+      "read_rows": 17699269,
+      "runs_ms": [
+        87.751,
+        89.872,
+        106.372,
+        112.967,
+        123.828,
+        124.028
+      ]
+    }
+  },
+  "answers": {
+    "type_text_scan": 1270900,
+    "type_text_index": 1270900,
+    "type_label": 1848000,
+    "type_label_both": 2541600,
+    "word_text_scan": 231600,
+    "word_text_index": 231800,
+    "anyword_error": 279300,
+    "service_day": 16204
+  },
+  "bytype": {
+    "rows": 19743000,
+    "bytes": 636855786,
+    "body": 155580760,
+    "queries": {
+      "bt_service_day": {
+        "cpu_ms_fastest": 14.741,
+        "cpu_ms_median": 15.15,
+        "read_bytes": 90925,
+        "read_rows": 10102
+      },
+      "bt_type_label": {
+        "cpu_ms_fastest": 70.569,
+        "cpu_ms_median": 74.5835,
+        "read_bytes": 9718849,
+        "read_rows": 4868824
+      },
+      "bt_census_count": {
+        "cpu_ms_fastest": 389.66,
+        "cpu_ms_median": 401.14,
+        "read_bytes": 39401651,
+        "read_rows": 19743000
+      },
+      "bt_type_text_index": {
+        "cpu_ms_fastest": 20.618,
+        "cpu_ms_median": 23.142,
+        "read_bytes": 1616,
+        "read_rows": 101
+      },
+      "bt_day_all": {
+        "cpu_ms_fastest": 9.574,
+        "cpu_ms_median": 10.077,
+        "read_bytes": 16,
+        "read_rows": 1
+      },
+      "bt_type_rows_label": {
+        "cpu_ms_fastest": 262.302,
+        "cpu_ms_median": 289.1625,
+        "read_bytes": 161512729,
+        "read_rows": 6384782
+      }
+    }
+  }
+}
