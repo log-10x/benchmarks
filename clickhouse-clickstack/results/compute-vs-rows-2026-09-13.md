@@ -28,7 +28,7 @@ If halving the rows does not roughly halve insert-plus-merge CPU, then compute o
 
 **How compute moved with rows.** Across the uniform samples, 75% of the rows cost 63% of the CPU, 50% of the rows cost 39% of the CPU, 25% of the rows cost 17% of the CPU. The uniform sample keeps the content mix identical, so this is row count and nothing else.
 
-CPU per thousand rows runs from 0.0314 s to 0.0572 s across every arm, a spread of 1.82x. A flat per-row cost would be a spread of 1. The gap above it is the fixed cost a table pays whatever its size: the same schema, the same eight skip indexes, the same merge bookkeeping.
+CPU per thousand rows runs from 0.0314 s to 0.0572 s across every arm, a spread of 1.82x. A flat per-row cost would be a spread of 1. Per-row cost FALLS as the table shrinks, which rules out a fixed overhead as the explanation: a fixed cost would make half the rows cost more than half, not less. What falls is merge work, which grows faster than linearly with the parts that arrive.
 
 At about 75% of the rows, dropping whole message types cost 83% of the CPU against 63% for the uniform sample, and 6,541,774 bytes against 6,745,773.
 At about 50% of the rows, dropping whole message types cost 35% of the CPU against 39% for the uniform sample, and 4,997,429 bytes against 4,828,292.

@@ -16,7 +16,7 @@
 #       [GROUP BY key_expr [SET v = aggr_func(v), ...]]
 #
 # So ClickHouse ships four levers: move to cheaper storage, recompress harder,
-# roll up into aggregates, and delete. Three of the four keep every line. What
+# roll up into aggregates, and delete. Two of the four keep every line. What
 # it does not ship is any way to point them at a message type, because nothing
 # in the row says which message it is.
 #

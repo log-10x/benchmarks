@@ -166,9 +166,10 @@ def main() -> int:
     add("")
     add(f"CPU per thousand rows runs from {min(per_k.values()):.4f} s to "
         f"{max(per_k.values()):.4f} s across every arm, a spread of {spread:.2f}x. A flat "
-        "per-row cost would be a spread of 1. The gap above it is the fixed cost a table pays "
-        "whatever its size: the same schema, the same eight skip indexes, the same merge "
-        "bookkeeping.")
+        "per-row cost would be a spread of 1. Per-row cost FALLS as the table shrinks, which "
+        "rules out a fixed overhead as the explanation: a fixed cost would make half the rows "
+        "cost more than half, not less. What falls is merge work, which grows faster than "
+        "linearly with the parts that arrive.")
     add("")
     for target in (75, 50, 25):
         s, b = f"compute_sampled_{target}", f"compute_bypattern_{target}"

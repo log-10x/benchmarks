@@ -21,7 +21,7 @@ TTL expr
     [GROUP BY key_expr [SET v = aggr_func(v), ...]]
 ```
 
-Four levers, and three of them keep every line. What ClickHouse has no way to do
+Four levers. Two of them, the move and the recompression, keep every line; the rollup keeps counts and loses the lines; the delete keeps nothing. What ClickHouse has no way to do
 is point any of them at a message type, because nothing in a log row says which
 message it is. A `templateHash` column supplies that, and the TTL expression is
 ordinary SQL, so the policy reads straight off it:
@@ -52,8 +52,13 @@ Every one of the 300,000 rows is still queryable. Only the disk under it changed
 **The trap worth knowing.** A TTL move is decided for a whole part, so a part
 holding a spread of ages never expires and nothing moves at all. The first
 version of this test partitioned by message type alone and moved zero rows. It
-works once the table is partitioned by time as well, which the ClickStack schema
-already does with `PARTITION BY toDate(Timestamp)`.
+works once each part holds one message type at one age. This test partitions by
+`(templateHash, toYYYYMMDD(Timestamp))`, so every part is one type on one day and the
+per-type threshold applies cleanly. ClickStack's own `PARTITION BY toDate(Timestamp)` is
+not enough: a daily part holding several types waits for the longest threshold among
+them, so the noisy type moves no sooner than the valuable one. Per-type tiering needs
+the type in the partition key, and that multiplies partitions, which ClickHouse charges
+for in parts, merges and startup time.
 
 ## 2. Roll a message type up into counts. Detail lost, volume kept.
 
@@ -109,8 +114,8 @@ The mechanism is what is demonstrated, not the magnitude.
 
 ## What this changes
 
-Three of the four levers keep every line, and all four can be addressed per
-message type once the rows carry one. The cost story on ClickHouse does not
+Two of the four levers, the move and the recompression, keep every line; the rollup keeps
+counts and loses the lines. All four can be addressed per message type once the rows carry one. The cost story on ClickHouse does not
 require throwing anything away.
 
 The ordering a cautious operator would use: recompress first, because nothing is

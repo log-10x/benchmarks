@@ -158,7 +158,7 @@ Every other destination gives a log line a cheaper place to go, and the
 assumption worth checking is that ClickHouse gives it none, leaving deletion as
 the only lever. ClickHouse's own TTL grammar says otherwise: `DELETE`,
 `RECOMPRESS codec`, `TO DISK`, `TO VOLUME`, plus `WHERE` and `GROUP BY`. Four
-levers, three of which keep every line. What ClickHouse cannot do is aim any of
+levers, two of which keep every line. What ClickHouse cannot do is aim any of
 them at a message type, because nothing in the row says which message it is.
 
 `run_policy.sh` adds a `templateHash` column and drives all four from one
@@ -197,6 +197,16 @@ ClickHouse, declares the bucket as a disk of `type s3`, and repeats the per-type
 2,700 objects land in the bucket, the rows read back, the table stays whole. Result in
 `results/per-pattern-policy-s3-<date>.md`.
 
+## Two lossless levers on the real capture: `run_lossless.sh`
+
+The two lossless levers nobody had measured. Insert batch shape: the same 197,430 rows
+loaded in batches of 1,000, 5,000, 20,000 and 100,000 rows, insert-plus-merge CPU per
+arm, three passes after a warm-up. Recompression: the real `Body` at ZSTD(1), 3, 9 and 12
+with no column codec in the way. Result in `results/lossless-levers-<date>.md`: batching
+takes insert-plus-merge CPU from 29 s to 4 s across that range with nothing removed, and
+ZSTD(12) takes 19% off the text and 30% off the table. The first is a collector or engine
+setting; the second is what ClickStack's per-column codecs block.
+
 ## What it does not measure
 
 - **Ingest over the wire.** Each arm is loaded from a JSONEachRow file, so the
@@ -228,6 +238,7 @@ ClickHouse, declares the bucket as a disk of `type s3`, and repeats the per-type
 | `run_policy_s3.sh` | the per-type move again, to a MinIO bucket declared as an S3 disk |
 | `run_labeled.sh` | native text plus a message-type column, in and out of the sort key |
 | `run_query_compute.sh` | five query shapes against the reduction arms |
+| `run_lossless.sh` | insert batch shape against merge cost, and recompression levels on the real text |
 | `reference_decode.py` | decodes the same events with the four rules `install.sql` lacks, to tell a lost original from a misread one; `--self-test` runs in CI |
 | `results/` | `results.json` and the dated results file |
 

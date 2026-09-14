@@ -86,7 +86,7 @@ jobs:
       - name: Syntax-check the harness
         run: |
           python -m py_compile clickhouse-clickstack/*.py
-          bash -n clickhouse-clickstack/run.sh clickhouse-clickstack/run_typed.sh clickhouse-clickstack/run_compute.sh clickhouse-clickstack/run_policy.sh clickhouse-clickstack/run_policy_s3.sh clickhouse-clickstack/run_labeled.sh clickhouse-clickstack/run_query_compute.sh
+          bash -n clickhouse-clickstack/run.sh clickhouse-clickstack/run_typed.sh clickhouse-clickstack/run_compute.sh clickhouse-clickstack/run_policy.sh clickhouse-clickstack/run_policy_s3.sh clickhouse-clickstack/run_labeled.sh clickhouse-clickstack/run_query_compute.sh clickhouse-clickstack/run_lossless.sh
 
       # The four template constructs the shipped install.sql does not implement,
       # each with a real compact event and the line it came from. No download and

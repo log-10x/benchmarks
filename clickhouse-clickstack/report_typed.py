@@ -32,6 +32,12 @@ def fmt(n):
     return f"{int(n):,}"
 
 
+def rel(value, control):
+    """'3.7% smaller' or '4.6% larger', never a signed percentage next to a direction word."""
+    d = (value / control - 1) * 100
+    return f"{abs(d):.1f}% {'larger' if d > 0 else 'smaller'}"
+
+
 def pct(new, old):
     return f"{(1 - new / old) * 100:.1f}%" if old else "n/a"
 
@@ -196,6 +202,18 @@ def main() -> int:
         "the key, because rows of one template share their attributes. It is the one change here "
         "that a ClickHouse engineer would make unprompted, and it needs nothing but a "
         "materialised column.")
+    add("")
+    ctrl = totals[folded]["bytes_on_disk"] - text_index[folded]
+    add(f"**Against the right control the typed layout is not a saving.** Take the folded native "
+        f"table and simply drop its text index: {fmt(totals[folded]['bytes_on_disk'])} minus "
+        f"{fmt(text_index[folded])} is {fmt(ctrl)} bytes, arithmetic rather than a rebuilt table. "
+        f"The typed layout is {fmt(totals[cty]['bytes_on_disk'])} bytes, "
+        f"{rel(totals[cty]['bytes_on_disk'], ctrl)} than that, and "
+        f"{fmt(totals[cty]['bytes_on_disk'] + dict_disk)} with its dictionary, "
+        f"{rel(totals[cty]['bytes_on_disk'] + dict_disk, ctrl)}. The type-sorted typed layout is "
+        f"{fmt(totals[ctb]['bytes_on_disk'])}, {rel(totals[ctb]['bytes_on_disk'], ctrl)}. Every headline saving in "
+        "the totals table is the index leaving, and a customer can drop an index with one "
+        "statement.")
     add("")
     add(f"**The text index is the elephant.** `idx_lower_body`, ClickStack's full-text index on "
         f"`Body`, is {fmt(text_index[folded])} of the {fmt(totals[folded]['bytes_on_disk'])} bytes "
