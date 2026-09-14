@@ -73,3 +73,19 @@ jobs:
           python report.py --csv results/results.csv --out /tmp/results.md \
             --image "$image" --asset-gz-sha256 "$gz" --asset-sha256 "$plain"
           diff -u results/results.md /tmp/results.md
+
+  clickstack-e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      # The run needs Docker, four containers and a download, so CI checks what
+      # it can without them: that the driver and the two helpers still parse.
+      - name: Syntax-check the harness
+        run: |
+          bash -n clickstack-e2e/run.sh
+          python -m py_compile clickstack-e2e/report.py clickstack-e2e/patch_engine_config.py
