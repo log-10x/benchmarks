@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # The fair best case for the label: the same 100x table with the message type
-# FIRST in the sort key, (ServiceName, templateHash, Timestamp), so the primary
-# index can prune by type. run_scale.sh measured the label third in ClickStack's
+# right after service in the sort key, (ServiceName, templateHash, Timestamp),
+# so the primary index can prune by service and then by type. run_scale.sh measured the label third in ClickStack's
 # key, where it has to scan. This shows what the label costs when the table is
 # built for it, and what the time-window control pays for that.
 set -euo pipefail
@@ -44,16 +44,16 @@ for name, cpus, rb, rr in q(r"""SELECT extract(query,'/\*qs-(bt_[a-z_]+)\*/') AS
    arrayStringConcat(arraySlice(groupArray(toString(ProfileEvents['UserTimeMicroseconds']+ProfileEvents['SystemTimeMicroseconds'])), 2), ' '), max(read_bytes), max(read_rows)
    FROM (SELECT * FROM system.query_log WHERE type='QueryFinish' AND position(query,'/*qs-bt_')>0 ORDER BY event_time_microseconds) GROUP BY n"""):
     c = sorted(int(x) for x in cpus.split()); data[name] = {"cpu_ms_fastest": c[0]/1000, "cpu_ms_median": statistics.median(c)/1000, "read_bytes": int(rb), "read_rows": int(rr)}
-L = ["", "## The label's best case: the type first in the sort key", "",
+L = ["", "## The label's best case: service, then type, in the sort key", "",
      f"`big_labeled_bytype`, `ORDER BY (ServiceName, templateHash, Timestamp)`, {fmt(size[0])} rows, {fmt(size[1])} bytes on disk, Body {fmt(body)}. Same replicated data, same queries, same method.", "",
      "| Query | How | CPU ms, fastest | median | Bytes read | Rows read |", "|---|---|---:|---:|---:|---:|"]
-how = {"bt_type_label":"one type by label, type-first key","bt_type_text_index":"one type's wording by text index","bt_type_rows_label":"one type, read the rows, label",
+how = {"bt_type_label":"one type by label, service-then-type key","bt_type_text_index":"one type's wording by text index","bt_type_rows_label":"one type, read the rows, label",
        "bt_census_count":"top 10 types by count","bt_service_day":"one service, one day (was the control)","bt_day_all":"one day, all services: the time query this key hurts"}
 for n in ["bt_type_label","bt_type_text_index","bt_type_rows_label","bt_census_count","bt_service_day","bt_day_all"]:
     d = data[n]; L.append(f"| `{n}` | {how[n]} | {d['cpu_ms_fastest']:.0f} | {d['cpu_ms_median']:.0f} | {fmt(d['read_bytes'])} | {fmt(d['read_rows'])} |")
 L.append("")
 tl, ti, dy = data["bt_type_label"], data["bt_type_text_index"], data["bt_day_all"]
-L.append(f"With the type first, the label filter reads {fmt(tl['read_rows'])} rows and costs {tl['cpu_ms_fastest']:.0f} ms, against the text index's {ti['cpu_ms_fastest']:.0f} ms: still three to four times the CPU, because the inverted index answers a token count from its postings without touching a column, and the label has to walk its granules in each of the 101 daily partitions. The time penalty expected from moving time out of the leading key did not appear in these two queries: a whole day is answered from partition metadata, {fmt(dy['read_rows'])} row read, because the table is partitioned by day, and one service in one day is pruned by the service-first key. A sub-day window across all services is where this order would pay, and that was not measured.")
+L.append(f"With the type second in the key, after service, the label filter reads {fmt(tl['read_rows'])} rows and costs {tl['cpu_ms_fastest']:.0f} ms, against the text index's {ti['cpu_ms_fastest']:.0f} ms: still three to four times the CPU, because the inverted index answers a token count from its postings without touching a column, and the label has to walk its granules in each of the 101 daily partitions. The time penalty expected from moving time out of the leading key did not appear in these two queries: a whole day is answered from partition metadata, {fmt(dy['read_rows'])} row read, because the table is partitioned by day, and one service in one day is pruned by the service-first key. A sub-day window across all services is where this order would pay, and that was not measured.")
 out = results / "label-query-scale-2026-09-13.md"
 out.write_text(out.read_text() + "\n".join(L) + "\n")
 j = results / "scale.json"; d0 = json.loads(j.read_text()); d0["bytype"] = {"rows": int(size[0]), "bytes": int(size[1]), "body": int(body), "queries": data}; j.write_text(json.dumps(d0, indent=2) + "\n")

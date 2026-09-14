@@ -214,8 +214,8 @@ rows a hundred times inside ClickHouse, one shifted day per insert, to 19,743,00
 and ask the same question three ways: a plain text scan, ClickStack's own full-text index
 via `hasToken`, and the label. The label is also asked what text cannot answer, the census
 of message types, and the text index is asked what the label cannot, a word across
-everything. `run_scale_bytype.sh` repeats the label queries with the type first in the
-sort key, the label's best case, and shows what the time-window query pays for it.
+everything. `run_scale_bytype.sh` repeats the label queries with the type second in the
+sort key after service, the label's best case, and shows what the time-window query pays for it.
 Results in `results/label-query-scale-<date>.md`. In short: ClickStack's text index
 answers a token count from its postings in about 20 ms and the label, third in the
 ClickStack key, cannot beat that; the label's own ground is the census, which text has no
