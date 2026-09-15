@@ -1,0 +1,73 @@
+{
+ "gap": 4,
+ "arms": [
+  {
+   "arm": "router",
+   "input_lines": 197430,
+   "killed_at_hot_rows": 27119,
+   "down_seconds": 20,
+   "wire_records": 23899,
+   "hot_rows": 48696,
+   "cold_rows": 70676,
+   "objects": "33",
+   "seq_occurrences": 148989,
+   "seq_distinct": 132161,
+   "seq_duplicated": 8414,
+   "seq_duplicate_lines": 16828,
+   "seq_missing": 65269,
+   "hashes_on_wire": 97,
+   "hashes_stored": 2598,
+   "hashes_short": 0,
+   "hashes_over": 2582,
+   "records_short_by_hash": 0,
+   "records_over_by_hash": 95473,
+   "worst_short": [],
+   "worst_over": [
+    [
+     "z1LKaIvhNlY",
+     18757
+    ],
+    [
+     "AhVWKW0C6mg",
+     18164
+    ],
+    [
+     "UJAVPQBCfcQ",
+     7285
+    ],
+    [
+     "irw7La5zUmA",
+     5568
+    ],
+    [
+     "j-WQA9pQtc0",
+     4245
+    ]
+   ]
+  },
+  {
+   "arm": "engine",
+   "input_lines": 197430,
+   "killed_at_hot_rows": 24156,
+   "down_seconds": 20,
+   "wire_records": 89768,
+   "hot_rows": 27501,
+   "cold_rows": 62267,
+   "objects": "22",
+   "seq_occurrences": 112668,
+   "seq_distinct": 112668,
+   "seq_duplicated": 0,
+   "seq_duplicate_lines": 0,
+   "seq_missing": 84762,
+   "hashes_on_wire": 2586,
+   "hashes_stored": 2586,
+   "hashes_short": 0,
+   "hashes_over": 0,
+   "records_short_by_hash": 0,
+   "records_over_by_hash": 0,
+   "worst_short": [],
+   "worst_over": []
+  }
+ ],
+ "note_on_assembly": "the two arms ran as two invocations of the same script, one arm each, so a container removed by an unrelated process could not cost both"
+}
