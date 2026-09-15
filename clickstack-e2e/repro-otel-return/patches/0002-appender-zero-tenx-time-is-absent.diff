@@ -1,0 +1,57 @@
+--- a/edge-extensions/src/main/java/com/log10x/ext/edge/output/otlp/OtlpLogsOutputAppender.java
++++ b/edge-extensions/src/main/java/com/log10x/ext/edge/output/otlp/OtlpLogsOutputAppender.java
+@@ -197,7 +197,7 @@
+ 
+         if (tree != null) {
+             Set<String> resourceKeySet = readResourceKeys(tree);
+-            boolean hasTime = setTimestamps(lr, tree, fallbackNanos);
++            boolean hasTime = setTimestamps(lr, tree);
+             if (!hasTime) {
+                 lr.setTimeUnixNano(fallbackNanos);
+                 lr.setObservedTimeUnixNano(fallbackNanos);
+@@ -312,25 +312,31 @@
+         return out;
+     }
+ 
+-    private static boolean setTimestamps(LogRecord.Builder lr, JsonNode tree, long fallbackNanos) {
+-        JsonNode t = tree.get(META_TIME);
+-        JsonNode obs = tree.get(META_OBSERVED_TIME);
+-        if (t == null && obs == null) {
++    private static boolean setTimestamps(LogRecord.Builder lr, JsonNode tree) {
++
++        // OTLP reads 0 as "unset", and the input renderer writes whatever the
++        // incoming record carried, so a record that arrived with no record
++        // time renders `_tenx_time: 0`. Reading that as a time stamped zero on
++        // the way out and told the caller a time was set, so the fallback
++        // never ran and every marked record left with timeUnixNano 0.
++        long time = readNanos(tree, META_TIME);
++        long observed = readNanos(tree, META_OBSERVED_TIME);
++
++        if ((time == 0L) && (observed == 0L)) {
+             return false;
+         }
+-        if (t != null && t.canConvertToLong()) {
+-            lr.setTimeUnixNano(t.asLong());
+-        }
+-        if (obs != null && obs.canConvertToLong()) {
+-            lr.setObservedTimeUnixNano(obs.asLong());
+-        } else if (t != null && t.canConvertToLong()) {
+-            lr.setObservedTimeUnixNano(t.asLong());
+-        } else {
+-            lr.setObservedTimeUnixNano(fallbackNanos);
+-        }
++
++        lr.setTimeUnixNano((time != 0L) ? time : observed);
++        lr.setObservedTimeUnixNano((observed != 0L) ? observed : time);
++
+         return true;
+     }
+ 
++    private static long readNanos(JsonNode tree, String field) {
++        JsonNode node = tree.get(field);
++        return ((node != null) && (node.canConvertToLong())) ? node.asLong() : 0L;
++    }
++
+     private AnyValue otlpBodyFromShape(JsonNode val) {
+ 
+         if (val.isObject()) {
