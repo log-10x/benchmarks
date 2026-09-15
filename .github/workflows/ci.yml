@@ -73,3 +73,25 @@ jobs:
           python report.py --csv results/results.csv --out /tmp/results.md \
             --image "$image" --asset-gz-sha256 "$gz" --asset-sha256 "$plain"
           diff -u results/results.md /tmp/results.md
+
+  clickhouse-clickstack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Syntax-check the harness
+        run: |
+          python -m py_compile clickhouse-clickstack/*.py
+          bash -n clickhouse-clickstack/run.sh clickhouse-clickstack/run_typed.sh clickhouse-clickstack/run_compute.sh clickhouse-clickstack/run_policy.sh clickhouse-clickstack/run_policy_s3.sh clickhouse-clickstack/run_labeled.sh clickhouse-clickstack/run_query_compute.sh clickhouse-clickstack/run_lossless.sh clickhouse-clickstack/run_scale.sh clickhouse-clickstack/run_scale_bytype.sh
+
+      # The four template constructs the shipped install.sql does not implement,
+      # each with a real compact event and the line it came from. No download and
+      # no Docker, and it is the falsifier for the correctness section of the
+      # results file: if the engine changes how it writes a template, this fails
+      # here rather than in a table nobody reruns.
+      - name: Decode rules (no download, asserts live)
+        run: python clickhouse-clickstack/reference_decode.py --self-test
