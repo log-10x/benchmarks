@@ -1,0 +1,147 @@
+# The routing hop. ClickStack's own collector build carries the routing
+# connector but no S3 exporter and no encoding extension, so the route and the
+# offload write run in a second, stock opentelemetry-collector-contrib
+# container. Everything that is not marked `offload` goes back to ClickStack's
+# shipped OTLP endpoint and is inserted by ClickStack's own ClickHouse exporter.
+
+extensions:
+  json_log_encoding/cold:
+    mode: body_with_inline_attributes
+
+receivers:
+  # The released capture, one JSON record per line: the envelope is Fluent's,
+  # the log line is the `log` value.
+  filelog:
+    include: [ /data/slice.log ]
+    start_at: beginning
+    max_log_size: 4MiB
+    operators:
+      - type: json_parser
+        parse_from: body
+      - type: move
+        from: attributes.log
+        to: body
+      - type: copy
+        from: attributes.kubernetes.container_name
+        to: attributes.k8s_container
+      - type: copy
+        from: attributes.kubernetes.namespace_name
+        to: attributes.k8s_namespace
+      - type: copy
+        from: attributes.kubernetes.container_name
+        to: resource["service.name"]
+
+  # The return path from the receiver.
+  otlp/back:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:24225
+        max_recv_msg_size_mib: 32
+
+processors:
+  # The capture's envelope carries no timestamp, so records arrive with none and
+  # would land on 1970-01-01. Ingest time is used instead, on both routes.
+  transform/stamp:
+    error_mode: ignore
+    log_statements:
+      - context: log
+        statements:
+          - set(log.time_unix_nano, log.observed_time_unix_nano) where log.time_unix_nano == 0
+
+  # Part of the returned stream carries the service as a log attribute rather
+  # than on the OTLP resource. groupbyattrs lifts it back onto the resource so
+  # ServiceName is set on the ClickHouse side and the offload path can key the
+  # object prefix on it.
+  transform/service:
+    error_mode: ignore
+    log_statements:
+      - context: log
+        statements:
+          - set(log.attributes["service.name"], log.attributes["k8s_container"]) where log.attributes["service.name"] == nil and log.attributes["k8s_container"] != nil
+  groupbyattrs/service:
+    keys: [ service.name ]
+
+  # The offloaded object carries body and log attributes only, so the service,
+  # the record time and the severity are copied into attributes before the
+  # write or they do not survive the encoding.
+  transform/cold:
+    error_mode: ignore
+    log_statements:
+      - context: log
+        statements:
+          - set(log.attributes["ServiceName"], resource.attributes["service.name"])
+          - set(log.attributes["SeverityText"], log.severity_text)
+          - set(log.attributes["TimestampNano"], UnixNano(log.time))
+          - set(log.attributes["TimestampSec"], UnixSeconds(log.time))
+      - context: resource
+        statements:
+          - set(resource.attributes["s3.prefix"], Concat(["service=", resource.attributes["service.name"]], ""))
+  batch/cold:
+    send_batch_size: 5000
+    timeout: 5s
+
+exporters:
+  otlp/engine:
+    endpoint: cse-engine:4317
+    tls:
+      insecure: true
+  otlp/clickstack:
+    endpoint: cse-clickstack:4317
+    tls:
+      insecure: true
+    headers:
+      authorization: ${env:HDX_API_KEY}
+  awss3/cold:
+    s3uploader:
+      region: us-east-1
+      s3_bucket: coldlogs
+      s3_prefix: cold
+      s3_partition_format: 'day=%Y-%m-%d'
+      endpoint: http://cse-minio:9000
+      s3_force_path_style: true
+      disable_ssl: true
+      compression: none
+    encoding: json_log_encoding/cold
+    encoding_file_extension: json
+    resource_attrs_to_s3:
+      s3_prefix: s3.prefix
+  # The measurement tap: every record the receiver returned, before the route.
+  # It is what the lossless check counts against, and it is not part of the
+  # design being tested.
+  file/wire:
+    path: /wire/returned.json
+
+connectors:
+  routing/state:
+    default_pipelines: [ logs/hot ]
+    error_mode: ignore
+    table:
+      - context: log
+        condition: attributes["routeState"] == "offload"
+        pipelines: [ logs/cold ]
+
+service:
+  extensions: [ json_log_encoding/cold ]
+  telemetry:
+    logs:
+      level: warn
+  pipelines:
+    logs/in:
+      receivers: [ filelog ]
+      exporters: [ otlp/engine ]
+    # The measurement tap reads the same receiver as logs/back but runs no
+    # processor, so the file holds the records as the receiver returned them.
+    logs/wire:
+      receivers: [ otlp/back ]
+      exporters: [ file/wire ]
+    logs/back:
+      receivers: [ otlp/back ]
+      processors: [ transform/stamp, transform/service, groupbyattrs/service ]
+      exporters: [ routing/state ]
+    logs/hot:
+      receivers: [ routing/state ]
+      exporters: [ otlp/clickstack ]
+    logs/cold:
+      receivers: [ routing/state ]
+      processors: [ transform/cold, batch/cold ]
+      exporters: [ awss3/cold ]
