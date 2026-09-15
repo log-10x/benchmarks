@@ -77,77 +77,7 @@ PY
 )"
 echo "  wire $WIRE_RECORDS, hot $HOT_ROWS, cold $COLD_ROWS"
 
-# ----------------------------------------------------------------- replicate
-say "stage the returned cold rows, then write $DAYS days of objects"
-chq "CREATE DATABASE IF NOT EXISTS gaps"
-chq "DROP TABLE IF EXISTS gaps.cold_stage SYNC"
-chq "CREATE TABLE gaps.cold_stage (body String, logAttributes Map(String,String),
-     service LowCardinality(String)) ENGINE = MergeTree ORDER BY service"
-chq "INSERT INTO gaps.cold_stage SELECT body, logAttributes, service FROM default.otel_logs_cold"
-SERVICES="$(chq "SELECT DISTINCT service FROM gaps.cold_stage ORDER BY service" | tr '\n' ' ')"
-echo "  services on the cold side: $SERVICES"
-
-S3CONN="'http://$MINIO:9000/$COLD30"
-for n in $(seq 0 $((DAYS - 1))); do
-  D="$(chq "SELECT toString(today() - $n)")"
-  for svc in $SERVICES; do
-    for b in $(seq 0 $((BATCHES - 1))); do
-      chq "INSERT INTO FUNCTION s3($S3CONN/service=$svc/day=$D/part-$b.json.gz',
-             'minioadmin','minioadmin','JSONEachRow','auto','gzip')
-           SELECT body,
-                  mapUpdate(logAttributes, map(
-                    'TimestampSec',  toString(toUInt64OrZero(logAttributes['TimestampSec']) - $n * 86400),
-                    'TimestampNano', toString(toUInt64OrZero(logAttributes['TimestampNano']) - $n * 86400000000000)
-                  )) AS logAttributes
-           FROM gaps.cold_stage
-           WHERE service = '$svc' AND cityHash64(body) % $BATCHES = $b"
-    done
-  done
-  printf '  day %s written\n' "$D"
-done
-
-DAY_OBJECTS="$(mc "mc ls -r m/$COLD30 | wc -l" | tr -d ' \r')"
-DAY_BYTES="$(mc "mc du m/$COLD30" | awk '{print $1}')"
-echo "  $DAY_OBJECTS objects across $DAYS days, $DAY_BYTES"
-
-# --------------------------------------------------------- the multi-day table
-say "the multi-day cold table and the merge table over it"
-# ClickHouse 116888: an S3 table created with an explicit schema and
-# use_hive_partitioning before any object exists under its prefix answers zero
-# rows to every path predicate for the rest of its life, with no error.
-g_wait_for_object "$COLD30"
-docker exec -i "$CS" clickhouse-client --multiquery <<SQL
-DROP TABLE IF EXISTS default.otel_logs_cold30;
-CREATE TABLE default.otel_logs_cold30
-(
-  body           String,
-  logAttributes  Map(String, String),
-  service        LowCardinality(String),
-  day            Date
-) ENGINE = S3('http://$MINIO:9000/$COLD30/**.json.gz', 'minioadmin', 'minioadmin', 'JSONEachRow')
-SETTINGS use_hive_partitioning = 1;
-
-DROP VIEW IF EXISTS default.otel_logs_cold30v;
-CREATE VIEW default.otel_logs_cold30v AS
-SELECT toDateTime64(toUInt64OrZero(logAttributes['TimestampSec']), 9) AS Timestamp,
-       CAST(service AS LowCardinality(String))                        AS ServiceName,
-       body                                                           AS Body,
-       CAST(logAttributes['SeverityText'] AS LowCardinality(String))  AS SeverityText,
-       logAttributes                                                  AS LogAttributes,
-       day                                                            AS day
-FROM default.otel_logs_cold30;
-
-DROP TABLE IF EXISTS default.otel_logs_all30;
-CREATE TABLE default.otel_logs_all30
-(
-  Timestamp     DateTime64(9),
-  ServiceName   LowCardinality(String),
-  Body          String,
-  SeverityText  LowCardinality(String),
-  LogAttributes Map(String, String),
-  day           Date
-) ENGINE = Merge(default, '^(otel_logs|otel_logs_cold30v)\$');
-SQL
+g_cold30_layout "$COLD30" "$DAYS" "$BATCHES"
 
 SVC="$(chq "SELECT service FROM gaps.cold_stage GROUP BY service ORDER BY count() DESC LIMIT 1")"
 HASH="$(chq "SELECT logAttributes['tenx_hash'] FROM gaps.cold_stage
