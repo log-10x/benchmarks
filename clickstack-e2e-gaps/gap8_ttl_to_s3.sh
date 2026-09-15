@@ -92,16 +92,26 @@ chq "SHOW CREATE TABLE default.otel_logs" > "$BUILD/otel_logs_ddl.sql"
 python3 - "$BUILD/otel_logs_ddl.sql" "$BUILD/otel_logs_ttl.sql" "$TTL_SECONDS" <<'PY'
 import re, sys
 src, dst, ttl = sys.argv[1], sys.argv[2], int(sys.argv[3])
-t = open(src).read().replace("\\n", "\n")
-# The table keeps its name and every column. The SETTINGS clause gains the
-# policy; a TTL clause goes in front of it.
+t = open(src).read().replace("\\n", "\n").strip().rstrip(";")
+# The table keeps its name and every column. Three edits only: the move rule is
+# added to the TTL, the policy is set, and any policy the shipped DDL already
+# named is dropped so the statement carries one.
+move = f"Timestamp + INTERVAL {ttl} SECOND TO VOLUME 'cold'"
 m = re.search(r"\nSETTINGS ", t)
 assert m, "no SETTINGS clause in the shipped DDL"
 head, settings = t[:m.start()], t[m.end():]
-ttl_clause = f"\nTTL Timestamp + INTERVAL {ttl} SECOND TO VOLUME 'cold'"
-out = head + ttl_clause + "\nSETTINGS storage_policy = 'hot_cold', " + settings
-open(dst, "w").write(out.rstrip().rstrip(";") + ";\n")
-print("  DDL rewritten with the policy and the TTL")
+settings = re.sub(r"storage_policy\s*=\s*'[^']*'\s*,?\s*", "", settings).strip().rstrip(",")
+# An existing TTL is a retention rule and stays; the move is another expression
+# on the same clause, which is how ClickHouse takes more than one.
+tm = re.search(r"\nTTL ((?:.|\n)*?)$", head)
+if tm:
+    head = head[:tm.start()] + "\nTTL " + tm.group(1).rstrip() + ",\n     " + move
+else:
+    head = head.rstrip() + "\nTTL " + move
+out = head + "\nSETTINGS storage_policy = 'hot_cold'" + (", " + settings if settings else "")
+open(dst, "w").write(out + ";\n")
+print("  DDL rewritten with the policy and the move rule")
+print("  " + "\n  ".join(l for l in out.splitlines() if l.startswith(("TTL", "SETTINGS", "     "))))
 PY
 chq "DROP TABLE IF EXISTS default.otel_logs SYNC"
 docker exec -i "$CS" clickhouse-client --multiquery < "$BUILD/otel_logs_ttl.sql"
