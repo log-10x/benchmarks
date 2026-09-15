@@ -70,8 +70,10 @@ regulated at all, which is what makes an uncapped service a control.
   after the split.
 - What each query shape costs over the Merge table, in rows read, object-store
   requests and time, against the same query over the hot table alone.
-- That every record the receiver returned is in hot plus cold exactly once,
-  counted in total and per pattern hash.
+- That what the receiver returned reconciles against what is stored, counted in
+  total and per pattern hash. This is a total, not a per-line identity: a lost
+  line and a duplicated one cancel in it. `clickstack-e2e-gaps` counts per line
+  through a sequence number inside the body, and under a restart finds both.
 
 ## What a run does not prove
 
@@ -81,8 +83,8 @@ regulated at all, which is what makes an uncapped service a control.
 - Nothing about a real estate's query mix. The query list is written here, not
   taken from a customer's `system.query_log`.
 - Nothing about multi-day pruning. The objects are written during the run, so
-  they carry one day in the path. Pruning across many days and many objects was
-  measured separately, in the research note behind this harness.
+  they carry one day in the path. `clickstack-e2e-gaps/gap1_multiday_pruning.sh`
+  measures it over thirty days of objects.
 - Nothing about the Retriever. Value-level fetch-back is a different door and
   is not exercised.
 - Nothing about scale. The default slice is a few tens of thousands of records,
