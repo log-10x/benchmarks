@@ -189,3 +189,113 @@ first, so the JSON objects average about 2.5 MiB and the Parquet objects about
 rather than reading an object end to end. A run whose batches did fill 32 MiB
 would be on the other side of that threshold, and the one-GET line would need
 measuring again rather than assuming.
+
+## Step 3: the two shapes Altinity says a Merge table does not push down
+
+**Closed, and the objection is half right in a way the table makes exact.**
+Alexander Zaitsev of Altinity published this on 2025-11-07, after trying a Merge
+table over MergeTree plus object storage for hot and cold logs: "The main problem
+is bad performance... the Merge engine does not push query execution steps down,
+such as aggregations or limits." Gap 1 measured filters and counts, which is a
+different claim, so this run puts the two shapes he names.
+
+```
+QUERY_SET=agg CSE_DATA_DIR=<repo>/clickstack-e2e/data ./gap1_multiday_pruning.sh
+```
+
+The layout is gap 1's, regenerated: 197,430 lines fed, 157,100 records returned
+by the receiver, 40,466 into the hot table, 116,634 into 78 objects, those
+objects replicated across 30 day partitions into 180 objects, 151MiB, 3,499,020
+rows. One day holds 6 objects.
+
+Each shape runs four ways. Three are the same Merge table with a different
+predicate; the fourth is the hot table on its own, as the baseline.
+
+| Query | Rows read | Bytes read | S3 GET | S3 LIST | ms | ms warm | CPU us |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| GROUP BY ServiceName: time only | 3,539,486 | 152,716,146 | 180 | 1 | 4,978 | 6,233 | 13,468,784 |
+| GROUP BY ServiceName: time plus `day >= today() - 1` | 273,734 | 10,602,869 | 12 | 1 | 428 | 430 | 955,261 |
+| GROUP BY ServiceName: time plus `_table = 'otel_logs'` | 40,466 | 365,431 | 0 | 0 | 12 | 9 | 15,887 |
+| GROUP BY ServiceName: hot table alone, the baseline | 40,466 | 365,431 | 0 | 0 | 9 | 9 | 10,837 |
+| ORDER BY Timestamp DESC LIMIT 100: time only | 3,539,486 | 162,215,654 | 180 | 1 | 5,090 | 5,239 | 14,218,383 |
+| ORDER BY Timestamp DESC LIMIT 100: time plus `day >= today() - 1` | 273,734 | 20,102,377 | 12 | 1 | 416 | 405 | 925,232 |
+| ORDER BY Timestamp DESC LIMIT 100: time plus `_table = 'otel_logs'` | 40,466 | 9,864,939 | 0 | 0 | 18 | 19 | 21,792 |
+| ORDER BY Timestamp DESC LIMIT 100: hot table alone, the baseline | 41,344 | 550,672 | 0 | 0 | 7 | 8 | 9,327 |
+
+**On the limit, Zaitsev is right, and the number says how right.** All four ways
+of the second shape return the same hundred rows: the digest over their bodies is
+`13114138106639873076` in every row of the table, hot baseline included, because
+the hundred most recent records are hot records. Getting to that identical answer
+through the Merge table with a time predicate alone reads 3,539,486 rows and
+opens all 180 objects, 5,090 ms against the hot table's 7 ms. Nothing about the
+`LIMIT 100` reaches the S3 table before its objects are opened. That is the
+pushdown failure, measured on our own layout rather than argued about.
+
+**On the aggregation, the answer is different and worth separating.** The
+`GROUP BY` through the Merge table with a time predicate alone returns
+opentelemetry-collector 89,739 and kafka 28,789, the same totals the hot table
+gave before the offload. Reaching them costs 180 GETs and 13.47 CPU seconds.
+The hot table alone answers in 10,837 microseconds and returns 13,054 for
+opentelemetry-collector, which is the wrong answer rather than a cheap one: the
+rows are in the bucket. So the cost here buys a correct answer, and the question
+is what it costs to get the correct answer cheaply.
+
+**Two predicates do that, and both prune.** A day predicate takes the
+aggregation from 180 GETs and 4,978 ms to 12 GETs and 428 ms, with the same
+answer, because the day is a path segment. And `_table = 'otel_logs'` takes it to
+zero GETs and 12 ms against the hot table's own 9 ms, which settles a narrower
+question: the Merge engine does push `_table` down, opens no object for it, and
+charges 3 ms for naming the hot side through the Merge table rather than querying
+it directly.
+
+**What this does not say.** Nothing about Distributed tables, where Zaitsev's
+complaint is sharper, and nothing about projections, which the children here do
+not carry. And the day mix is gap 1's: every one of the 30 days is a replica of
+this run's own cold rows with the timestamps shifted, so the day predicate's
+saving is exact in requests and synthetic in content.
+
+## Step 5: ClickHouse issue 116888, and what actually triggers it
+
+**Closed, and the trigger is not what the issue's summary suggests.** The defect
+is real, it is worse than a simple error because the table looks healthy, and it
+is not the `CREATE TABLE` that arms it.
+
+ClickHouse issue 116888 is open, filed 2026-08-28 by `zlareb1`, a ClickHouse
+member: an S3 table with an explicit schema and `use_hive_partitioning = 1`
+created before any object exists under its prefix resolves its partition columns
+against an empty listing and keeps that, after which every predicate on a path
+column matches nothing. The offload recipe renders exactly that DDL as a setup
+step.
+
+```
+./gap7_s3_table_before_objects.sh
+```
+
+One MinIO, one ClickHouse at `26.5.7.64`, objects written by ClickHouse itself:
+two objects at `service=cart/day=2026-09-15/` and `service=kafka/day=2026-09-15/`,
+20,000 rows each. Four tables, the same DDL every time, differing only in when
+each was created and whether each was read while the prefix was still empty.
+
+| The table | `count()` | `count() WHERE service = 'cart'` | `count() WHERE day = '2026-09-15'` |
+|---|---:|---:|---:|
+| created before any object exists, not read until after | 40,000 | 20,000 | 40,000 |
+| created AND read once while the prefix is empty | 40,000 | **0** | **0** |
+| created after the first object exists | 40,000 | 20,000 | 40,000 |
+| the read-while-empty table, after DETACH and ATTACH | 40,000 | 20,000 | 40,000 |
+
+Read the second row against the first. Creating the table over an empty prefix
+does nothing on its own, because the S3 engine resolves its listing during
+`SELECT` rather than at `CREATE`. Reading it once while the prefix is still empty
+is what arms the defect, and a reader who follows the recipe does exactly that:
+runs the `CREATE TABLE` setup step, then runs a count to check the step worked.
+
+The failure is silent in the way that matters most. `count()` with no predicate
+returns 40,000 on the broken table, so the one query a reader runs next says the
+table is fine. Only the path predicates are dead, and those are the predicates
+the whole request-count argument rests on.
+
+Two ways out, both measured. Create the table after the first object exists,
+which is what `g_wait_for_object` in `lib.sh` now enforces before every
+`CREATE TABLE` over an S3 prefix in this folder. Or `DETACH TABLE` then
+`ATTACH TABLE`, which restores a table that is already broken without dropping
+it.

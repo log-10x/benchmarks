@@ -1,0 +1,35 @@
+{
+ "gap": 7,
+ "issue": "ClickHouse 116888, open, filed 2026-08-28 by zlareb1",
+ "ch_version": "26.5.7.64",
+ "objects": 2,
+ "rows_per_object": 20000,
+ "day": "2026-09-15",
+ "service": "cart",
+ "rows": [
+  {
+   "table": "created before any object exists, not read until after",
+   "no predicate": "40000",
+   "service predicate": "20000",
+   "day predicate": "40000"
+  },
+  {
+   "table": "created AND read while the prefix is empty",
+   "no predicate": "40000",
+   "service predicate": "0",
+   "day predicate": "0"
+  },
+  {
+   "table": "created after the first object exists",
+   "no predicate": "40000",
+   "service predicate": "20000",
+   "day predicate": "40000"
+  },
+  {
+   "table": "the probed table, after DETACH and ATTACH",
+   "no predicate": "40000",
+   "service predicate": "20000",
+   "day predicate": "40000"
+  }
+ ]
+}
