@@ -147,11 +147,35 @@ g_minio_up() {
 g_objects() { mc "mc ls -r m/$BUCKET | wc -l" | tr -d ' \r'; }
 g_object_bytes() { mc "mc du m/$BUCKET" | awk '{print $1}'; }
 
+# The guard for ClickHouse issue 116888, open, filed 2026-08-28 by a ClickHouse
+# member. An S3 table created with an explicit schema and
+# `use_hive_partitioning = 1` before any object exists under its prefix caches
+# the empty listing as resolved. The partition columns then read file defaults,
+# every path predicate matches nothing, and the table answers zero rows with no
+# error for the rest of its life. Nothing in the server retries the listing.
+#
+# So no script here runs CREATE TABLE until the first object is in the bucket.
+#
+#   g_wait_for_object <bucket> [tries]
+g_wait_for_object() {
+  local bucket="${1:-$BUCKET}" tries="${2:-60}" n=0 i
+  for i in $(seq 1 "$tries"); do
+    n="$(mc "mc ls -r m/$bucket | wc -l" | tr -d ' \r')"
+    [ "${n:-0}" -gt 0 ] && { echo "  $n objects under $bucket before CREATE TABLE"; return 0; }
+    sleep 2
+  done
+  echo "no object under $bucket after $((tries * 2))s: creating the S3 table now would hit ClickHouse 116888" >&2
+  return 1
+}
+
 # --------------------------------------------------------------- ClickStack
+# Extra `docker run` arguments are passed through, which is how the TTL arm
+# mounts a storage configuration into /etc/clickhouse-server/config.d.
 g_clickstack_up() {
   # No published port: the HyperDX UI is reached over `docker exec` here, and a
   # published 8080 collides with any other ClickStack on the same host.
   docker run -d --name "$CS" --network "$NET" --memory 4g --cpus 3 \
+    "$@" \
     "$CS_IMAGE" >/dev/null
   for _ in $(seq 1 100); do chq "SELECT 1" >/dev/null 2>&1 && break; sleep 3; done
   chq "SELECT 1" >/dev/null || { echo "ClickStack did not come up" >&2; exit 1; }

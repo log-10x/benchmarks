@@ -48,7 +48,14 @@ def measure(container: str, name: str, sql: str, drop_cache: bool = True) -> dic
     cols = ("read_rows", "read_bytes", "query_duration_ms",
             "ProfileEvents['S3GetObject']", "ProfileEvents['S3ListObjects']",
             "ProfileEvents['S3ReadRequestsCount']",
-            "ProfileEvents['UserTimeMicroseconds'] + ProfileEvents['SystemTimeMicroseconds']")
+            "ProfileEvents['UserTimeMicroseconds'] + ProfileEvents['SystemTimeMicroseconds']",
+            # The Parquet reader's own accounting. Zero on every query that
+            # reads no Parquet, and zero is also what a missing key returns, so
+            # a run that cares about these checks `system.events` for the names.
+            "ProfileEvents['ParquetPrunedRowGroups']",
+            "ProfileEvents['ParquetReadRowGroups']",
+            "ProfileEvents['ParquetPrunedPages']",
+            "ProfileEvents['ParquetReadPages']")
     select = ", ".join(f"toString({c})" for c in cols)
     row = run(container, f"SELECT {select} FROM system.query_log WHERE query_id = '{qid}' "
                          "AND type = 'QueryFinish' LIMIT 1", fmt="TSV").split("\t")
@@ -62,6 +69,8 @@ def measure(container: str, name: str, sql: str, drop_cache: bool = True) -> dic
                 answer=answer.replace("\n", " | ")[:200],
                 read_rows=row[0], read_bytes=row[1], ms=row[2],
                 s3_get=row[3], s3_list=row[4], s3_reads=row[5], cpu_us=row[6],
+                pq_pruned_row_groups=row[7], pq_read_row_groups=row[8],
+                pq_pruned_pages=row[9], pq_read_pages=row[10],
                 ms_warm=warm[0], s3_get_warm=warm[1], wall_ms=wall_ms)
 
 
