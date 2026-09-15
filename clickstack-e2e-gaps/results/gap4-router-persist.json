@@ -1,0 +1,97 @@
+{
+ "gap": 4,
+ "arms": [
+  {
+   "arm": "router",
+   "input_lines": 197430,
+   "killed_at_hot_rows": 21281,
+   "killed_after_seconds": 64,
+   "run_seconds": 135,
+   "down_seconds": 20,
+   "wire_records": 49647,
+   "hot_rows": 34013,
+   "cold_rows": 84312,
+   "objects": "62",
+   "seq_occurrences": 148024,
+   "seq_distinct": 148024,
+   "seq_duplicated": 0,
+   "seq_duplicate_lines": 0,
+   "seq_missing": 49406,
+   "hashes_on_wire": 101,
+   "hashes_stored": 2566,
+   "hashes_short": 0,
+   "hashes_over": 2547,
+   "records_short_by_hash": 0,
+   "records_over_by_hash": 68678,
+   "worst_short": [],
+   "worst_over": [
+    [
+     "z1LKaIvhNlY",
+     15050
+    ],
+    [
+     "AhVWKW0C6mg",
+     14554
+    ],
+    [
+     "UJAVPQBCfcQ",
+     5842
+    ],
+    [
+     "FU1__vh8hbY",
+     4618
+    ],
+    [
+     "NiDD7PpZw48",
+     2277
+    ]
+   ]
+  },
+  {
+   "arm": "persist",
+   "input_lines": 197430,
+   "killed_at_hot_rows": 21324,
+   "killed_after_seconds": 66,
+   "run_seconds": 152,
+   "down_seconds": 20,
+   "wire_records": 47119,
+   "hot_rows": 33022,
+   "cold_rows": 84478,
+   "objects": "60",
+   "seq_occurrences": 146651,
+   "seq_distinct": 146651,
+   "seq_duplicated": 0,
+   "seq_duplicate_lines": 0,
+   "seq_missing": 50779,
+   "hashes_on_wire": 90,
+   "hashes_stored": 2573,
+   "hashes_short": 0,
+   "hashes_over": 2556,
+   "records_short_by_hash": 0,
+   "records_over_by_hash": 70381,
+   "worst_short": [],
+   "worst_over": [
+    [
+     "z1LKaIvhNlY",
+     15483
+    ],
+    [
+     "AhVWKW0C6mg",
+     14942
+    ],
+    [
+     "UJAVPQBCfcQ",
+     6004
+    ],
+    [
+     "FU1__vh8hbY",
+     5213
+    ],
+    [
+     "NiDD7PpZw48",
+     2552
+    ]
+   ]
+  }
+ ]
+}

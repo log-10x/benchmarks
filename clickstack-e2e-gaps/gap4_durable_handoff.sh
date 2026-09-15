@@ -27,6 +27,13 @@
 #           default)... If you set `max_elapsed_time: 0`... the offset only
 #           advances after successful delivery." All three are applied here, and
 #           the arm reports what they cost in wall clock beside what they save.
+#   persist the `router` arm again, with every exporter queue backed by the same
+#           file_storage extension that already holds the file position. The
+#           checkpoint arms persist where the reader got to; nothing persists
+#           what the exporters were still holding, so a kill drops those queues.
+#           This arm keeps the queues enabled and the batch processor in place
+#           and writes each queue to disk, which is the only shape that can
+#           carry an accepted but undelivered batch across the restart.
 #
 #   ./gap4_durable_handoff.sh                both default arms
 #   ./gap4_durable_handoff.sh router owners  the pair this comparison needs
@@ -101,6 +108,34 @@ for needle in ("retry_on_failure", "enabled: false", "[ transform/cold ]"):
 print("  router config with the code owners' prescription written")
 PY
 
+# The persistent sending queue, applied on top of the checkpoint config. The
+# same file_storage extension that holds the file position now holds each
+# exporter's queue, so a batch the collector had accepted but not yet delivered
+# is on disk when the container dies and is replayed when it comes back. The
+# batch processor stays in the cold pipeline, and otlp/engine keeps blocking on
+# overflow.
+python3 - "$BUILD/conf/router_ckpt.yaml" "$BUILD/conf/router_persist.yaml" <<'PQ'
+import sys
+src, dst = sys.argv[1], sys.argv[2]
+t = open(src).read()
+t = t.replace("  otlp/engine:\n    sending_queue:\n      block_on_overflow: true\n",
+              "  otlp/engine:\n    sending_queue:\n      enabled: true\n"
+              "      block_on_overflow: true\n      storage: file_storage/ckpt\n", 1)
+t = t.replace("  otlp/clickstack:\n",
+              "  otlp/clickstack:\n    sending_queue:\n      enabled: true\n"
+              "      storage: file_storage/ckpt\n", 1)
+t = t.replace("  awss3/cold:\n",
+              "  awss3/cold:\n    sending_queue:\n      enabled: true\n"
+              "      storage: file_storage/ckpt\n", 1)
+assert t.count("\n      storage: file_storage/ckpt\n") == 3, t
+assert t.count("\n    storage: file_storage/ckpt\n") == 1, t
+for needle in ("  file_storage/ckpt:", "      block_on_overflow: true",
+               "[ transform/cold, batch/cold ]", "  filelog:\n    storage: file_storage/ckpt"):
+    assert needle in t, needle
+open(dst, "w").write(t)
+print("  router config with a persistent sending queue written")
+PQ
+
 g_images "$CS_IMAGE" "$OTEL_IMAGE" "$MINIO_IMAGE" "$MC_IMAGE" "$EDGE_IMAGE"
 
 ARMS=("$@")
@@ -124,6 +159,7 @@ run_arm() {
   g_engine_up "$BUILD/policy"
   local conf="$BUILD/conf/router_ckpt.yaml"
   [ "$arm" = "owners" ] && conf="$BUILD/conf/router_owners.yaml"
+  [ "$arm" = "persist" ] && conf="$BUILD/conf/router_persist.yaml"
   local started_at; started_at="$(date +%s)"
   g_router_up "$conf" -v "$BUILD/ckpt":/ckpt
 
