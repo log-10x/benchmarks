@@ -12,7 +12,6 @@ This folder keeps that route and asks the questions that run could not answer.
 ## Run it
 
 ```bash
-PATCHED_JAR=<engine>/pipeline/run-cloud/build/libs/run-cloud-<v>-all.jar \
 TENX_CONFIG_TREE=<checkout of log-10x/config> \
 TENX_MODULES_TREE=<checkout of log-10x/modules> \
 CSE_DATA_DIR=../clickstack-e2e/data \
@@ -24,19 +23,21 @@ shortens the feed for a smoke run. Run `../clickstack-e2e/run.sh` once first so
 the capture is in `data/` with its sha256 checked; these scripts refuse to run
 against a capture that does not match.
 
-The receiver is the JVM build, the way `../clickstack-e2e/repro-otel-return/verify-patched.sh`
-runs it: when these runs were made the shipped `edge-10x` image was a native
-binary carrying the three OpenTelemetry return path defects, and with those
-defects half the capture comes back unmarked, which would decide most of these
-questions before they were asked. Build the jar with
-`./gradlew :pipeline:run-cloud:shadowJar` in an engine checkout that carries both
-fixes.
+The receiver is `ghcr.io/log-10x/edge-10x:1.1.79`, public and pinned by digest
+in `lib.sh`, so nothing here needs a build and nothing here needs a private
+repository. `log-10x/config` and `log-10x/modules` are public checkouts too.
+Every other image is pinned by digest beside it, and the digests that ran are
+recorded in the results file.
 
-Both fixes are now released as 1.1.79 and published as `ghcr.io/log-10x/edge-10x`,
-and `../clickstack-e2e/results/clickstack-e2e-2026-09-15.md` is that image's own
-run. A rerun of this folder against the image rather than the jar is a change to
-`g_engine_up` in `lib.sh` and nothing else; the runs committed here used the JVM
-build of the same two fixes, and the results file says so.
+`PATCHED_JAR` remains as an optional override: set it and the receiver runs that
+run-cloud shadow jar on a stock JRE image instead of the published binary, the
+way `../clickstack-e2e/repro-otel-return/verify-patched.sh` does. That override
+is how the runs in `results/clickstack-e2e-gaps-2026-09-15.md` were made. When
+those runs were made the shipped `edge-10x` image was a native binary carrying
+the three OpenTelemetry return path defects, and with those defects half the
+capture comes back unmarked, which would have decided most of these questions
+before they were asked. Both fixes are released as 1.1.79, and
+`../clickstack-e2e/results/clickstack-e2e-2026-09-15.md` is that image's own run.
 
 A host needs about 7 GB of Docker memory and 3 GB of free disk per run, and
 nothing else may be running a second ClickStack: two of them on one Docker
@@ -48,7 +49,7 @@ with no error in the run's own log.
 | Script | Proves | Does not |
 |---|---|---|
 | `gap1_multiday_pruning.sh` | what a day predicate costs against what a time-only predicate costs, over thirty days of objects, counted in S3 GET and LIST | nothing about a real day's mix: every day is a replica of the run's own cold rows with the timestamps shifted, and the replicated objects are gzipped and written by ClickHouse, not by the collector |
-| `gap2_vector_parquet.sh` | whether Vector's shipped build takes `encoding.codec: parquet`, what it writes when it does not, and what the same queries cost over Vector's objects and over a Parquet copy | that Parquet is reachable through Vector: the Parquet objects in the query table are written by ClickHouse from the same rows, and the file says so |
+| `gap2_vector_parquet.sh` | that Vector carries the whole cold branch, and what the same queries cost over Vector's objects and over a Parquet copy of the same rows | anything about Parquet in Vector as it was first run: the pinned build was `0.50.0-debian` and the probe set `encoding.codec`, which is the per event serializer. Vector's Parquet option is `batch_encoding.codec` on the `aws_s3` sink, added in v0.55.0 and in official builds from v0.56.0. The Parquet objects in that query table were written by ClickHouse |
 | `gap3_retriever_fetch.sh` | whether the cold layout as written is indexable by the shipped Retriever index pipeline, against the same pipeline over the same records one per line | nothing about the Retriever's deployed shape: no SQS, no S3 trigger, no Quarkus service, no fan out. The local accessor the engine ships is what runs |
 | `gap4_durable_handoff.sh` | whether a line can be lost or doubled when the routing collector or the receiver is killed mid-stream and restarted, counted line by line through a sequence number inside the body | nothing about a crash that loses the collector's checkpoint file or the host, and nothing about a partial object in the store |
 | `gap5_query_alert_correctness.sh` | which of three dashboard-shaped answers change when rows leave the hot table, across the hot table before, the hot table after, the Merge table and the counts table, and whether HyperDX's API accepts an alert on each | that HyperDX's own evaluation loop fired: an alert evaluates the window its interval names, and a replayed capture is older than that by the time the loop runs. The firing condition is evaluated against the counts each surface returns and is labelled as such |

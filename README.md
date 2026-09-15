@@ -47,7 +47,7 @@ each resolves its paths relative to itself, so a benchmark can be run from anywh
 | `clickhouse-inflate/` | `./run.sh` | pinned ClickHouse Docker image | `results.json` | none, the sample is committed |
 | `clickhouse-clickstack/` | `./run.sh` | pinned engine image digest and a ClickHouse Docker image | `results/` | the `otel-sample-v2` release asset from `log-10x/config`, fetched into `data/` on first run |
 | `clickstack-e2e/` | `./run.sh` | pinned ClickStack, engine, collector and MinIO images | `results/` | the `otel-sample-v2` release asset from `log-10x/config`, fetched into `data/` on first run |
-| `clickstack-e2e-gaps/` | `./gap<N>_*.sh` | the same images, plus Vector and a patched engine jar | `results/` | the same `otel-sample-v2` asset, read from `../clickstack-e2e/data` |
+| `clickstack-e2e-gaps/` | `./gap<N>_*.sh` | the same images by digest, plus Vector by digest; the receiver is the published `edge-10x` image | `results/` | the same `otel-sample-v2` asset, read from `../clickstack-e2e/data` |
 | `drain3-vs-log10x/` | see its README | `requirements.txt` | `bench/facts.json`, `bench/results.json` | LogHub 2k sets, fetched into `loghub/` |
 
 Large inputs are never committed. Each folder's `.gitignore` excludes whatever that benchmark

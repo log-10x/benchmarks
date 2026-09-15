@@ -88,7 +88,7 @@ def main() -> int:
     if g:
         md += ["| Question | Answer |", "|---|---|",
                f"| Vector build | `{g['vector_version']}` |",
-               f"| `encoding.codec: parquet` accepted | "
+               f"| `encoding.codec: parquet` accepted, on the build above | "
                f"{'yes' if g['parquet_codec_accepted'] else 'NO'} |",
                f"| codec the run used | `{g['codec_used']}` |",
                f"| objects Vector wrote | {g['vector_objects']} |",
