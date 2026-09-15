@@ -275,7 +275,13 @@ def main():
     text = render(variants)
     (HERE / "out" / "tables.md").write_text(text)
     head = (HERE / "results.head.md").read_text()
-    (HERE / "results.md").write_text(head + "\n# The numbers\n" + text + samples(variants) + "\n")
+    # Anything hand written about a LATER run lives in results.verified.md and
+    # is kept on the end, so a rerun of the unpatched reproduction regenerates
+    # the numbers without dropping the verification that followed them.
+    tail = HERE / "results.verified.md"
+    verified = tail.read_text() if tail.exists() else ""
+    (HERE / "results.md").write_text(
+        head + "\n# The numbers\n" + text + samples(variants) + "\n" + verified)
     print(text)
 
 

@@ -23,8 +23,10 @@ regenerates it.
 | `render_conf.py` | renders `conf/collector.yaml.tmpl` per variant |
 | `analyze.py` | reads the returned records, writes `results.md` |
 | `probe/` | the parsson offset arithmetic, replayed on its own |
-| `patches/` | the proposed fixes, as unified diffs, not applied |
+| `patches/` | the two fixes, as unified diffs |
+| `verify-patched.sh` | the same run against an engine built WITH both patches |
 | `out/<variant>/wire/returned.json` | every record the receiver returned |
+| `out-patched/<variant>/wire/returned.json` | the same, from the patched engine |
 
 The engine config trees the run copies out of the image are not committed. The
 returned records, the collector configs and the engine logs are.
