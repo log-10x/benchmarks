@@ -486,3 +486,219 @@ way to keep merges off the cold volume, stops TTL deleting from it.
 One laptop, 8 GB of Docker memory, one ClickStack at a time, every run gated on
 free disk. Nothing here is a throughput measurement, and the timings are
 comparable to each other and to nothing else.
+
+## Wave 3, 2026-09-15 evening
+
+Three more measurements on the same harness, run serially on the same host, one
+ClickStack at a time. The images and the ClickHouse version are the ones named at
+the top of this file, with one addition recorded in step 9.
+
+## Step 7: a persistent sending queue does not recover the loss
+
+Both arms of step 4 checkpoint the file receiver's position in a `file_storage`
+extension, and both still lose lines: the loss sits in records that had already
+left the file receiver when the container died. Nothing in either arm persists
+what the exporters were holding, so a third arm was added to `gap4_durable_handoff.sh`
+that does. `persist` starts from the same checkpoint config and puts every
+exporter queue on the same extension, with the batch processor left in the cold
+pipeline and `otlp/engine` still blocking on overflow:
+
+```yaml
+exporters:
+  otlp/engine:
+    sending_queue:
+      enabled: true
+      block_on_overflow: true
+      storage: file_storage/ckpt
+  otlp/clickstack:
+    sending_queue:
+      enabled: true
+      storage: file_storage/ckpt
+  awss3/cold:
+    sending_queue:
+      enabled: true
+      storage: file_storage/ckpt
+```
+
+contrib 0.160.0 accepts that configuration. `otelcol-contrib validate` returns
+zero on it and the collector starts and runs the whole arm with no queue error in
+its log, which answers the question the arm was written to ask first: the S3
+exporter takes a persistent queue in this build.
+
+The control arm ran in the same run, so the pair is comparable without reaching
+across runs.
+
+```
+CSE_DATA_DIR=<repo>/clickstack-e2e/data ./gap4_durable_handoff.sh router persist
+```
+
+| Measure | `router`, the checkpoint arm | `persist`, queues on disk |
+|---|---:|---:|
+| input lines | 197,430 | 197,430 |
+| hot rows when the collector was killed | 21,281 | 21,324 |
+| seconds the collector was down | 20 | 20 |
+| lines never stored | 49,406 | 50,779 |
+| lines delivered twice | 0 | 0 |
+| distinct sequence numbers stored | 148,024 | 146,651 |
+| objects on the cold side | 62 | 60 |
+| seconds of run, stillness and downtime taken off | 135 | 152 |
+
+The per-type reconciliation the script emits, wire against stored, for the same
+two arms:
+
+| Measure | `router` | `persist` |
+|---|---:|---:|
+| records the receiver returned | 49,647 | 47,119 |
+| pattern hashes on the wire | 101 | 90 |
+| pattern hashes stored | 2,566 | 2,573 |
+| records short against the wire | 0 | 0 |
+| records stored above the wire | 68,678 | 70,381 |
+
+Nothing is short by type in either arm, and the stored count sits above the wire
+in both because the wire tap holds only what the receiver returned after the
+collector's restart while the tables hold everything either collector wrote.
+
+**The finding.** Persisting the exporter queues does not recover the lost lines.
+The `persist` arm never stored 50,779 lines against the checkpoint arm's 49,406
+in the same run, which is worse rather than better, and both lost lines sit in
+the same place: records the file receiver had read and handed on before the kill,
+which no queue on the far side of that handoff ever saw. Tonight's three arms now
+agree on the shape and disagree only on how much: 49,406 for the shipped route,
+50,779 with the queues on disk, and the earlier pair's 36,372 and 44,555. No
+surface may quote a single loss figure as a property of the route. Zero duplicate
+deliveries in every arm measured tonight.
+## Step 8: a bounded cold window, measured on the same layout
+
+Step 3 measured what the Merge engine does not push down: over thirty days of
+objects a GROUP BY carrying a time predicate and no `day` predicate opened all 180
+objects, and the same query with `day >= today() - 1` opened 12. No dashboard
+writes the second one. This step asks what a bound costs when the bound lives in
+the table rather than in the query text.
+
+`gap9_bounded_window.sh` builds step 3's layout through the same function gap 1
+calls, `g_cold30_layout`, then adds a view over the S3 table that carries the
+bound itself and a second Merge table over the hot table plus that view:
+
+```sql
+CREATE VIEW default.cold_recent AS
+SELECT ... , day AS day
+FROM default.otel_logs_cold30
+WHERE day >= today() - 7;
+
+CREATE TABLE default.otel_logs_win ( ... )
+ENGINE = Merge(default, '^(otel_logs|cold_recent)$');
+```
+
+`day` is a `Date` column on the S3 table, filled by hive partitioning out of the
+path, so the bound is a Date comparison. The Merge engine took the view as a
+child on ClickHouse 26.5.7.64 with no complaint, so the `UNION ALL` fallback the
+script carries was not needed and `window_shape` in the results is `merge`.
+
+```
+CSE_DATA_DIR=<repo>/clickstack-e2e/data ./gap9_bounded_window.sh
+```
+
+| Measure | This run |
+|---|---:|
+| lines fed | 197,430 |
+| rows in the hot table | 40,501 |
+| rows in the objects | 116,597 |
+| objects the run wrote | 77 |
+| objects after replication across 30 days | 180 |
+| bytes after replication | 151MiB |
+| objects inside the 8 day window | 48 |
+
+The two shapes step 3 put to the unbounded Merge table, each put to the bounded
+table and to the unbounded one in the same run:
+
+| Query | Answer | Rows read | Bytes read | S3 GET | S3 LIST | ms |
+|---|---|---:|---:|---:|---:|---:|
+| GROUP BY ServiceName, time only, bounded window | `opentelemetry-collector 89,743 \| kafka 28,789 \| cart 19,646` | 973,277 | 41,037,549 | 48 | 1 | 1,627 |
+| GROUP BY ServiceName, time only, unbounded Merge | `opentelemetry-collector 89,743 \| kafka 28,789 \| cart 19,646` | 3,538,411 | 152,885,038 | 180 | 1 | 4,946 |
+| GROUP BY ServiceName, hot table alone | `opentelemetry-collector 13,044 \| ad 7,115 \| kafka 4,399` | 40,501 | 365,746 | 0 | 0 | 15 |
+| ORDER BY Timestamp DESC LIMIT 100, bounded window | `100  965229932537581907` | 973,277 | 50,518,876 | 48 | 1 | 1,334 |
+| ORDER BY Timestamp DESC LIMIT 100, unbounded Merge | `100  965229932537581907` | 3,538,411 | 162,366,365 | 180 | 1 | 4,626 |
+| ORDER BY Timestamp DESC LIMIT 100, hot table alone | `100  965229932537581907` | 40,929 | 445,105 | 0 | 0 | 14 |
+
+The counts beside them, which are what says the same rows come back:
+
+| Query | Answer | Rows read | S3 GET | ms |
+|---|---:|---:|---:|---:|
+| count, time only, bounded window | 157,098 | 973,277 | 48 | 1,309 |
+| count, time only, unbounded Merge | 157,098 | 973,277 (through 3,538,411 scanned) | 180 | 4,926 |
+| count, the whole window, bounded | 973,277 | 973,277 | 48 | 1,356 |
+| count, `day >= today() - 7` written out, unbounded Merge | 973,277 | 973,277 | 48 | 926 |
+
+**What the bound buys.** The predicate inside the view prunes exactly the way the
+predicate in the query text prunes: 48 objects opened instead of 180, on a query
+whose text names no day. The answers are identical on all three shapes, the
+digest of the hundred most recent bodies included, and the count inside the
+window matches to the row on both tables.
+
+**What it does not buy.** The bounded table still opens 48 objects and reads
+973,277 rows to answer what the hot table answers from 40,501 rows with no object
+request at all: 1,627 ms against 15 ms on the GROUP BY, 1,334 against 14 on the
+ORDER BY. The bound moves the cost, it does not remove it, and the factor it moves
+it by is the ratio of the window to the retention, which is an estate's number and
+not this run's.
+
+**What the bound costs.** A window is a different table, not a faster one. Rows
+older than the bound are not reachable through `otel_logs_win` at all: the last
+row of the table above is the same 973,277 rows the unbounded table returns for an
+explicit seven day predicate, and everything from day 8 to day 30 answers zero
+through the bounded table while `otel_logs_all30` still returns it. A recipe may
+offer a bounded table beside the full one. It may not replace the full one with it.
+## Step 9: gap 3 on the public image, and why it still did not run
+
+Gap 3 drives the Retriever index and query pipelines rather than the receiver, so
+it is the one script here that still asks for `PATCHED_JAR`, the run-cloud shadow
+jar. The question this step put: does the public Retriever image carry that jar,
+so gap 3 can run with nothing private.
+
+`log10x/quarkus-10x` on Docker Hub carries 168 tags. 1.1.79 exists, published
+2026-09-15T13:10:51Z, one day after 1.1.78. The multi-architecture index and the
+`amd64` image this host would run:
+
+| What | Digest |
+|---|---|
+| `log10x/quarkus-10x:1.1.79`, index | `sha256:c0e2146fcb4ab7afdd1a15a3f529a5d11e30de299560870d2ebaee9134cb136b` |
+| `log10x/quarkus-10x:1.1.79`, `amd64` | `sha256:b1863e46c5c509d457cfb646aee1c2f5e2c16da16584a7b7445d0bfe472a1b4e` |
+
+```
+docker pull log10x/quarkus-10x@sha256:c0e2146fcb4ab7afdd1a15a3f529a5d11e30de299560870d2ebaee9134cb136b
+docker run --rm --entrypoint sh <that digest> -c 'ls -la /app /deployments'
+```
+
+There is no `/app`. The image is a Quarkus fast-jar on a jboss base, entry point
+`/opt/jboss/container/java/run/run-java.sh` with `JAVA_APP_JAR=/deployments/quarkus-run.jar`.
+
+| Path | What is there |
+|---|---|
+| `/deployments/quarkus-run.jar` | 899 bytes, the fast-jar launcher |
+| `/deployments/app/run-quarkus-1.1.79.jar` | 69,641 bytes, the Quarkus application |
+| `/deployments/quarkus/` | `generated-bytecode.jar`, `transformed-bytecode.jar`, `quarkus-application.dat` |
+| `/deployments/lib/main/` | 381 dependency jars, `com.log10x.*-1.1.79.jar` among them |
+| `/etc/tenx/config/apps/retriever/` | `index`, `query` and `stream`, the entry points the script names |
+| `/etc/tenx/{config,modules,symbols}` | the shipped trees |
+
+Both classes the script needs are in the image, in two different jars:
+
+| Class the script needs | Jar that holds it | Entries in that jar |
+|---|---|---:|
+| `com.log10x.ext.cloud.run.RunCloud` | `/deployments/lib/main/com.log10x.run-cloud-1.1.79.jar` | 15 |
+| `com.log10x.ext.cloud.index.access.LocalIndexAccess` | `/deployments/lib/main/com.log10x.cloud-extensions-1.1.79.jar` | 174 |
+
+**What is missing is the shape, not the code.** `gap3_retriever_fetch.sh` mounts
+one file at `/app/run-cloud.jar` and runs `java -classpath /app/run-cloud.jar
+com.log10x.ext.cloud.run.RunCloud @apps/retriever/index`. No single jar in this
+image answers that classpath: `RunCloud` sits in a 15 entry jar of 6,488 bytes,
+`LocalIndexAccess` in another, and the rest of the runtime in 379 more. The
+published image is a Quarkus fast-jar, not the shadow jar the harness mounts, so
+running gap 3 from it means a different classpath and a different runner, which is
+harness design and outside this wave.
+
+**Gap 3 is NOT MEASURED in this wave.** The Retriever fetch over this layout
+remains open, as it was after the second pass. One thing did change: step 8's run
+calls `g_export_cold`, so `build/cold-export` now holds the objects the collector
+wrote in the shape it wrote them, and the export is no longer a second blocker in
+front of the jar.
