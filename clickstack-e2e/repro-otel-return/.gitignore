@@ -1,0 +1,10 @@
+out/*/tenx-config/
+out/*/policy/
+out/*/stream.yaml
+probe/*.class
+__pycache__/
+out-patched/*/tenx-config/
+out-patched/*/modules/
+out-patched/*/policy/
+out-patched/*/collector.yaml
+out-patched/*/engine.log
