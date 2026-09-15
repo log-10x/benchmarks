@@ -1,6 +1,8 @@
-**Closed, and the answer is no.** The handoff is not durable. A container killed
-mid-stream and restarted twenty seconds later costs a third to a half of the
-capture, and the collector arm doubles some of what survives.
+**Closed, and the answer is no.** The handoff is not durable. With the routing
+collector killed mid-stream and restarted twenty seconds later, 65,269 of the
+197,430 input lines were never stored and 16,828 deliveries arrived twice. With
+the receiver killed instead, 84,762 were never stored and nothing arrived
+twice.
 
 Every input line carries its own number inside its body, so the reconciliation
 is per line and not per batch: `extractAll(Body, 'tenxseq…')` over the Merge
