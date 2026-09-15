@@ -78,3 +78,114 @@ set.
 
 The smoke's own `gap1.json` is not committed. `results/gap1.json` remains the
 full-capture run.
+
+## Step 2: Vector 0.58.0, and Parquet written by Vector
+
+**Closed, and the first pass's answer is withdrawn.** Vector writes Parquet. The
+first pass pinned `timberio/vector:0.50.0-debian`, published 2025-09-23, and
+probed `encoding.codec`, which names the per event serializer and has never
+taken a columnar codec. Vector's Parquet option is `batch_encoding.codec` on the
+`aws_s3` sink, added in v0.55.0 on 2026-04-22 and carried by the official release
+binaries from v0.56.0 on 2026-06-03; upstream issue 1374 closed on 2026-04-28,
+by pull requests 25156 and 25321.
+
+```
+CSE_DATA_DIR=<repo>/clickstack-e2e/data ./gap2b_vector058_parquet.sh
+```
+
+Build that ran: `vector 0.58.0 (x86_64-unknown-linux-gnu 2bcad9b 2026-08-26
+13:37:07.557544670)`. Three configurations were put to its own validator.
+
+| Configuration | `vector validate` | What the binary says |
+|---|---|---|
+| `encoding.codec: parquet` | exit 78 | ``sinks.out: unknown variant `parquet`, expected one of `avro`, `cef`, `csv`, `gelf`, `json`, `logfmt`, `native`, `native_json`, `otlp`, `protobuf`, `raw_message`, `text`, `syslog` `` |
+| `batch_encoding.codec: parquet`, no `encoding` | exit 78 | ``sinks.out: missing field `encoding` `` |
+| `batch_encoding.codec: parquet` with `encoding.codec: json` | exit 0 | Validated |
+
+So `encoding` stays required alongside `batch_encoding`, and the key the first
+pass probed is still refused on the current build for the same reason it was
+refused on the old one. The published claim that Vector's shipped build writes no
+Parquet is false, and this run is the retraction.
+
+The route then ran once, with Vector writing both containers off the same
+transform: newline delimited JSON into one bucket, Parquet into another, from
+157,151 records returned by the receiver, of which 116,507 carried the offload
+mark and 40,644 went to the hot table.
+
+| Measure | Vector JSON | Vector Parquet |
+|---|---:|---:|
+| objects | 68 | 68 |
+| bytes | 169MiB | 3.2MiB |
+| rows readable through the S3 table | 116,507 | 116,507 |
+
+Sink settings on the Parquet arm: `compression: none` at the sink because
+Parquet compresses per column page, `encoding.codec: json` because the field is
+required and ignored for the batch, `batch_encoding.schema_mode: auto_infer`, and
+snappy inside the file.
+
+One shape difference, stated rather than buried. The JSON arm writes
+`{"body": ..., "logAttributes": {...}}` and ClickHouse reads the attributes as a
+`Map(String, String)`. The Parquet arm writes the fields the queries name as
+columns of their own, because a schema inferred from a free map carries one field
+per attribute key the batch happened to see. The rows are the same rows, and
+every query answers the same number through both.
+
+| Query | Answer | Rows read | Bytes read | S3 GET | S3 reads | S3 LIST | ms | ms warm |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| hot only, last 4 hours, count | 40,644 | 40,644 | 325,152 | 0 | 0 | 0 | 138 | 67 |
+| merge, service and one day: Vector json | 89,743 | 106,917 | 123,437,448 | 24 | 25 | 1 | 628 | 302 |
+| merge, time only, the shape HyperDX sends: Vector json | 157,151 | 157,151 | 177,418,092 | 68 | 69 | 1 | 951 | 968 |
+| merge, text search, no other filter: Vector json | 14,580 | 157,151 | 186,570,062 | 68 | 69 | 1 | 375 | 324 |
+| merge, one pattern hash: Vector json | 36,395 | 157,151 | 177,701,349 | 68 | 69 | 1 | 354 | 383 |
+| merge, service and one day: Vector parquet | 89,743 | 106,917 | 90,835 | 24 | 25 | 1 | 75 | 37 |
+| merge, time only, the shape HyperDX sends: Vector parquet | 157,151 | 157,151 | 3,594,401 | 68 | 69 | 1 | 137 | 115 |
+| merge, text search, no other filter: Vector parquet | 14,580 | 140,386 | 9,219,738 | 68 | 69 | 1 | 87 | 71 |
+| merge, one pattern hash: Vector parquet | 36,395 | 157,151 | 3,877,658 | 68 | 69 | 1 | 82 | 78 |
+
+### The Parquet reader's own counters
+
+`system.query_log` was read per query for the four counters the record check
+named. The three queries that read every Parquet object report
+`ParquetReadRowGroups` 68, one row group per object, all of them read. The
+service and day query reports zero on that counter while reading 24 objects, and
+this run does not say why.
+
+| Query | ParquetPrunedRowGroups | ParquetReadRowGroups | ParquetPrunedPages | ParquetReadPages |
+|---|---:|---:|---:|---:|
+| merge, service and one day: Vector parquet | 0 | 0 | 0 | 0 |
+| merge, time only: Vector parquet | 0 | 68 | 0 | 0 |
+| merge, text search: Vector parquet | 0 | 68 | 0 | 0 |
+| merge, one pattern hash: Vector parquet | 0 | 68 | 0 | 0 |
+
+The Parquet counters this server moved at all, from `system.events`:
+`ParquetMetadataCacheHits`, `ParquetMetadataCacheMisses`,
+`ParquetFetchWaitTimeMicroseconds`, `ParquetReadRowGroups`,
+`ParquetDecodingTasks`, `ParquetDecodingTaskBatches`,
+`ParquetPrefetcherReadRandomRead`. `ParquetPrunedRowGroups`,
+`ParquetPrunedPages` and `ParquetReadPages` are not among them and read zero on
+every query.
+
+**Nothing was pruned.** The first pass said the Parquet copy "reads fewer rows on
+the text search because Parquet row groups are skipped on statistics that JSON
+has no equivalent of". The counter that would show that is zero. The text search
+does read 140,386 rows through Parquet against 157,151 through JSON, and what
+accounts for the difference is not settled by this run; row group pruning is
+ruled out by direct measurement rather than by argument. The gain that is settled
+is bytes: 3,594,401 against 177,418,092 on the time only query, because only the
+columns the query names are read.
+
+### One GET per object, and what the recipe's batch size does
+
+The recipe advises `batch.max_bytes: 33554432` for Vector, and the arithmetic in
+the post says one GET per object a path predicate does not exclude. Both arms
+report `S3GetObject` exactly equal to the number of objects the query did not
+exclude, 68 and 24, with `S3ReadRequestsCount` one higher in each case. So no
+object here took more than one GET, Parquet included.
+
+The reason is that the batch never reached `max_bytes`. `timeout_secs: 5` flushed
+first, so the JSON objects average about 2.5 MiB and the Parquet objects about
+48 KiB, and every one of them is under the 4 MiB
+`remote_read_min_bytes_for_seek` default at which ClickHouse starts seeking
+rather than reading an object end to end. A run whose batches did fill 32 MiB
+would be on the other side of that threshold, and the one-GET line would need
+measuring again rather than assuming.
