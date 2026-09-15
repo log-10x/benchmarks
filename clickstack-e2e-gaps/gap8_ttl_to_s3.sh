@@ -185,10 +185,10 @@ say "the late slice: $LATE_ROWS rows stamped behind the TTL boundary"
 PUT_L0="$(evz S3PutObject)"; DPUT_L0="$(evz DiskS3PutObject)"
 LATE_T0="$(date +%s)"
 chq "INSERT INTO default.otel_logs (Timestamp, ServiceName, Body, SeverityText, LogAttributes)
-     SELECT now() - INTERVAL 7 DAY - toIntervalSecond(number % 3600) AS Timestamp,
+     SELECT now() - INTERVAL 7 DAY - toIntervalSecond(rowNumberInAllBlocks() % 3600) AS Timestamp,
             ServiceName, Body, SeverityText, LogAttributes
-     FROM (SELECT ServiceName, Body, SeverityText, LogAttributes FROM default.otel_logs LIMIT $LATE_ROWS),
-          numbers(1)"
+     FROM (SELECT ServiceName, Body, SeverityText, LogAttributes
+           FROM default.otel_logs LIMIT $LATE_ROWS) AS src"
 chq "SYSTEM FLUSH LOGS"
 LATE_INSERT_SECONDS=$(( $(date +%s) - LATE_T0 ))
 LATE_MOVE_T0="$(date +%s)"
@@ -228,7 +228,8 @@ json.dump({
    "rows_after": ${ROWS_AFTER:-0}
  },
  "late": {
-   "rows_inserted": $LATE_ROWS,
+   "late_rows_requested": $LATE_ROWS,
+   "rows_inserted": ${LATE_ROWS_TOTAL:-0} - ${HOT_ROWS:-0},
    "insert_seconds": $LATE_INSERT_SECONDS,
    "move_seconds": $LATE_MOVE_SECONDS,
    "s3_put_object": $LATE_PUTS,

@@ -254,52 +254,6 @@ not carry. And the day mix is gap 1's: every one of the 30 days is a replica of
 this run's own cold rows with the timestamps shifted, so the day predicate's
 saving is exact in requests and synthetic in content.
 
-## Step 5: ClickHouse issue 116888, and what actually triggers it
-
-**Closed, and the trigger is not what the issue's summary suggests.** The defect
-is real, it is worse than a simple error because the table looks healthy, and it
-is not the `CREATE TABLE` that arms it.
-
-ClickHouse issue 116888 is open, filed 2026-08-28 by `zlareb1`, a ClickHouse
-member: an S3 table with an explicit schema and `use_hive_partitioning = 1`
-created before any object exists under its prefix resolves its partition columns
-against an empty listing and keeps that, after which every predicate on a path
-column matches nothing. The offload recipe renders exactly that DDL as a setup
-step.
-
-```
-./gap7_s3_table_before_objects.sh
-```
-
-One MinIO, one ClickHouse at `26.5.7.64`, objects written by ClickHouse itself:
-two objects at `service=cart/day=2026-09-15/` and `service=kafka/day=2026-09-15/`,
-20,000 rows each. Four tables, the same DDL every time, differing only in when
-each was created and whether each was read while the prefix was still empty.
-
-| The table | `count()` | `count() WHERE service = 'cart'` | `count() WHERE day = '2026-09-15'` |
-|---|---:|---:|---:|
-| created before any object exists, not read until after | 40,000 | 20,000 | 40,000 |
-| created AND read once while the prefix is empty | 40,000 | **0** | **0** |
-| created after the first object exists | 40,000 | 20,000 | 40,000 |
-| the read-while-empty table, after DETACH and ATTACH | 40,000 | 20,000 | 40,000 |
-
-Read the second row against the first. Creating the table over an empty prefix
-does nothing on its own, because the S3 engine resolves its listing during
-`SELECT` rather than at `CREATE`. Reading it once while the prefix is still empty
-is what arms the defect, and a reader who follows the recipe does exactly that:
-runs the `CREATE TABLE` setup step, then runs a count to check the step worked.
-
-The failure is silent in the way that matters most. `count()` with no predicate
-returns 40,000 on the broken table, so the one query a reader runs next says the
-table is fine. Only the path predicates are dead, and those are the predicates
-the whole request-count argument rests on.
-
-Two ways out, both measured. Create the table after the first object exists,
-which is what `g_wait_for_object` in `lib.sh` now enforces before every
-`CREATE TABLE` over an S3 prefix in this folder. Or `DETACH TABLE` then
-`ATTACH TABLE`, which restores a table that is already broken without dropping
-it.
-
 ## Step 4: the collector configured the way its code owners prescribe
 
 **Closed, and the handoff is still not durable.** Applying every fix the
@@ -380,3 +334,155 @@ exporter rather than the file position alone, and a receiver that acknowledges
 nothing until the record is written or keeps its own spool. Neither is in the
 shipped recipe today, and until one is, "every line kept" is a claim about the
 policy and not about the route.
+
+## Step 5: ClickHouse issue 116888, and what actually triggers it
+
+**Closed, and the trigger is not what the issue's summary suggests.** The defect
+is real, it is worse than a simple error because the table looks healthy, and it
+is not the `CREATE TABLE` that arms it.
+
+ClickHouse issue 116888 is open, filed 2026-08-28 by `zlareb1`, a ClickHouse
+member: an S3 table with an explicit schema and `use_hive_partitioning = 1`
+created before any object exists under its prefix resolves its partition columns
+against an empty listing and keeps that, after which every predicate on a path
+column matches nothing. The offload recipe renders exactly that DDL as a setup
+step.
+
+```
+./gap7_s3_table_before_objects.sh
+```
+
+One MinIO, one ClickHouse at `26.5.7.64`, objects written by ClickHouse itself:
+two objects at `service=cart/day=2026-09-15/` and `service=kafka/day=2026-09-15/`,
+20,000 rows each. Four tables, the same DDL every time, differing only in when
+each was created and whether each was read while the prefix was still empty.
+
+| The table | `count()` | `count() WHERE service = 'cart'` | `count() WHERE day = '2026-09-15'` |
+|---|---:|---:|---:|
+| created before any object exists, not read until after | 40,000 | 20,000 | 40,000 |
+| created AND read once while the prefix is empty | 40,000 | **0** | **0** |
+| created after the first object exists | 40,000 | 20,000 | 40,000 |
+| the read-while-empty table, after DETACH and ATTACH | 40,000 | 20,000 | 40,000 |
+
+Read the second row against the first. Creating the table over an empty prefix
+does nothing on its own, because the S3 engine resolves its listing during
+`SELECT` rather than at `CREATE`. Reading it once while the prefix is still empty
+is what arms the defect, and a reader who follows the recipe does exactly that:
+runs the `CREATE TABLE` setup step, then runs a count to check the step worked.
+
+The failure is silent in the way that matters most. `count()` with no predicate
+returns 40,000 on the broken table, so the one query a reader runs next says the
+table is fine. Only the path predicates are dead, and those are the predicates
+the whole request-count argument rests on.
+
+Two ways out, both measured. Create the table after the first object exists,
+which is what `g_wait_for_object` in `lib.sh` now enforces before every
+`CREATE TABLE` over an S3 prefix in this folder. Or `DETACH TABLE` then
+`ATTACH TABLE`, which restores a table that is already broken without dropping
+it.
+
+## Step 6: TTL MOVE TO S3, the alternative, costed
+
+**Closed on what the move costs, open on the partition boundary the recipe rests
+on.** The move is real work charged after the row has already been parsed,
+indexed, written and merged, and a row that arrives behind the boundary costs
+more than one that arrives in front of it.
+
+The objection is Denny Crane's, on ClickHouse discussion 77681, 2025-03-16, and
+it is the strongest version of "just use TTL": "keep the recent data (last
+partition (e.g. last month)) on 'Hot' EBS disk and move data to a 'Cold' S3
+using TTL when data is merged because insertion already goes into a new
+partition... This way you avoid download/upload of data from/to S3 because of
+merges." That recipe is the baseline this arm runs.
+
+```
+CSE_DATA_DIR=<repo>/clickstack-e2e/data ./gap8_ttl_to_s3.sh
+```
+
+ClickStack's own ClickHouse with a MinIO-backed `s3` disk in a `hot_cold` storage
+policy, and ClickStack's own `otel_logs` reissued under that policy with its
+shipped retention TTL kept and `Timestamp + INTERVAL 60 SECOND TO VOLUME 'cold'`
+added. The whole capture fed with the receiver regulating nothing, so every
+record lands in the hot table and nothing is offloaded.
+
+| Measure | Value |
+|---|---:|
+| lines fed | 197,430 |
+| rows in the hot table | 157,096 |
+| insert CPU, seconds | 1.16 |
+| bytes on disk before the move | 10,885,910 |
+| move, seconds | 2 |
+| **S3PutObject charged by the move** | **332** |
+| **DiskS3PutObject charged by the move** | **332** |
+| merge and move CPU, seconds | 5.40 |
+| `part_log` events | MergeParts 5, MovePart 4, NewPart 26 |
+| active parts on `s3cold` after the move | 1 |
+| active parts on `default` after the move | 0 |
+| bytes on `s3cold` | 10,535,999 |
+| objects in the bucket | 3,837 |
+| bucket size | 37MiB |
+| rows after the move | 157,096 |
+
+**The move is charged on top of everything the row already cost.** Insert took
+1.16 CPU seconds; the merge and move that followed took 5.40. Every one of those
+157,096 rows had already been parsed, indexed, written and merged before a single
+byte went to object storage, and the TTL move returned none of that work. That is
+the mechanism behind the concession: TTL is the right tool for storage, and it
+never gives back insert or merge cost.
+
+**The request count is not the part count.** One active part on `s3cold` holds
+10,535,999 bytes, and the bucket holds 3,837 objects and 37MiB, because
+ClickHouse's `s3` disk writes each part as many objects and the intermediate
+merge outputs are still present. `S3PutObject` counted 332 for the move itself.
+Read 332 as what the move charged and 3,837 as what the bucket holds.
+
+**The late slice costs more, exactly as Luciq described.** Mohamed Aziz, Luciq,
+2026-08-10, on data that arrives behind the boundary: late data "is, in the most
+literal sense, born expired. So it gets essentially no time to merge on hot
+disk." Replaying the same rows stamped seven days back put 157,096 more rows in
+the table and charged 807 `S3PutObject` and 807 `DiskS3PutObject` against the
+first move's 332, taking the bucket to 4,318 objects, for the same number of
+rows. Nothing about the second set of rows is different except when they say
+they happened.
+
+| Measure | the capture, in front of the boundary | the same rows, behind it |
+|---|---:|---:|
+| rows | 157,096 | 157,096 |
+| seconds to insert | included in the feed | 6 |
+| seconds to move | 2 | 4 |
+| S3PutObject | 332 | 807 |
+| DiskS3PutObject | 332 | 807 |
+| objects in the bucket after | 3,837 | 4,318 |
+| active parts on `s3cold` | 1 | 2 |
+
+**What this arm does not measure, and it matters to the objection.** The capture
+spans 7 seconds as inserted, because the collector stamps ingest time on records
+the envelope gives no timestamp. Every row therefore crosses the 60 second
+boundary together and the table holds one partition, so the part of den-crane's
+recipe that does the work, insertion landing in a new partition while older
+partitions move after their merges settle, is not exercised here. This arm
+measures what a move costs once it fires, not whether the recipe keeps merges off
+object storage on an estate with a month of partitions. On that question the
+record, not this run, is the evidence: issue 85636, open since 2025-08-14 with
+five confirmations across 25.1 to 25.8, says `prefer_not_to_merge`, the standard
+way to keep merges off the cold volume, stops TTL deleting from it.
+
+## What this pass changes in the first pass's reading
+
+| First pass said | This pass measured |
+|---|---|
+| "Vector's shipped build does not carry a parquet codec" | Vector 0.58.0 writes Parquet on the `aws_s3` sink through `batch_encoding.codec`, and wrote 116,507 rows into 68 objects at 3.2MiB here |
+| The Parquet copy "reads fewer rows on the text search because Parquet row groups are skipped on statistics" | `ParquetPrunedRowGroups` is zero on every query. Nothing was pruned, and what Parquet bought is bytes read |
+| The dropped batches, and "nothing downstream counts them" | `otelcol_exporter_enqueue_failed_log_records` counts them, an exporterhelper metric enabled by default and marked alpha |
+| Gap 1 said nothing about the upload-day trap | Still says nothing about it: ClickHouse synthesized those day partitions from the timestamp column, and the collector's exporter takes the day from the clock at upload |
+| Gap 4's arms were the shipped configuration only | The code owners' own configuration loses more, not less: 44,555 lines never stored against 36,372, and 1,180 objects against 65 |
+| Gap 4 reported 16,828 duplicate deliveries on the router arm | Both arms tonight report zero. The loss reproduces; the duplication is a race against the checkpoint flush and does not |
+| Nothing was said about aggregation through the Merge table | An `ORDER BY ... LIMIT 100` reads all 3,539,486 rows and opens all 180 objects to return the hundred rows the hot table returns in 7 ms |
+| Nothing was said about the TTL alternative | A forced `TTL TO VOLUME 'cold'` over the same capture charges 332 PUTs and 5.40 CPU seconds of merge and move work after the rows were already written and merged, and the same rows stamped behind the boundary charge 807 |
+| Nothing was said about the table-creation-order trap | Reading an S3 table once while its prefix is empty kills every path predicate on it for the table's lifetime, silently |
+
+## The host these ran on
+
+One laptop, 8 GB of Docker memory, one ClickStack at a time, every run gated on
+free disk. Nothing here is a throughput measurement, and the timings are
+comparable to each other and to nothing else.
