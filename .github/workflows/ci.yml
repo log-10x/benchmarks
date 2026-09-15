@@ -111,3 +111,22 @@ jobs:
         run: |
           bash -n clickstack-e2e/run.sh
           python -m py_compile clickstack-e2e/report.py clickstack-e2e/patch_engine_config.py
+
+  clickstack-e2e-gaps:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      # Six runs, each needing Docker, five containers and a 215 MB capture, so
+      # CI checks what it can without them: that every script and every helper
+      # still parses. A gap script that stops parsing stops running, and the
+      # results file it writes is the only place its numbers exist.
+      - name: Syntax-check the gap scripts
+        run: |
+          bash -n clickstack-e2e-gaps/lib.sh
+          for f in clickstack-e2e-gaps/gap*.sh; do bash -n "$f"; done
+          python -m py_compile clickstack-e2e-gaps/*.py

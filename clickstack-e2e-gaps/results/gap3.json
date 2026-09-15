@@ -1,0 +1,30 @@
+{
+ "gap": 3,
+ "cold_export": {
+  "written_by": "gap5",
+  "objects": 43,
+  "feed_lines": 197430
+ },
+ "objects_indexed": 2,
+ "objects_in_export": 43,
+ "first_object": "service=cart/day=2026-09-15/logs_126220074.json",
+ "first_object_head": "[{\"body\":\"info: cart.cartstore.ValkeyCartStore[0]\\n      AddItemAsync called with userId=520c592a-9f1e-11f0-9b9e-a666c4b68b87, productId=HQTGWGPNH4, quantity=1\",\"logAttributes\":{\"ServiceName\":\"cart\",\"SeverityText\":\"\",\"TimestampNano\":1789480983195842763,\"TimestampSec\":1789480983,\"docker\":{\"container_id\":\"f402e61ddbd15cb4cba6284af34073368c29ab31199cf8c4fa0a40e2df82cc0c\"},\"k8s_container\":\"cart\",\"k8s_",
+ "index_as_written": {
+  "objects_attempted": 2,
+  "exit_code": 0,
+  "index_artifacts": 8,
+  "log_tail": "netes.var.log.containers.cart-d569d7688-sqrd9_default_cart-f402e61ddbd15cb4cba6284af34073368c29ab31199cf8c4fa0a40e2df82cc0c.log\"},\"resourceAttributes\":{\"s3.prefix\":\"service=cart\",\"service.name\":\"cart\"}}]\n[INFO ] 2026-09-15 14:40:09.743 [main] ExecutionPipeline - shutdown phase took 1546ms\n[INFO ] 2026-09-15 14:40:09.745 [main] ExecutionPipeline - terminate of unit: templateLoader took 1ms\n[INFO ] 2026-09-15 14:40:09.746 [main] ExecutionPipeline - terminate of unit: group took 1ms\n[INFO ] 2026-09-15 14:40:09.752 [main] ExecutionPipeline - terminate of unit: output took 6ms\n[INFO ] 2026-09-15 14:40:09.790 [main] IndexFilterStats - index complete. Bytes: 477, filters.size: 1, probability historgram: [1=>1], key sizes: [150=>1], element counts: [50=>1], epochs: 1\n[INFO ] 2026-09-15 14:40:09.791 [main] IndexFilterWriter - index written: object=service=cart/day=2026-09-15/logs_279753243.json, byteRanges=1, filters=1, values=62, minTimestamp=1789480979793 (2026-09-15T14:02:59.793+0000), maxTimestamp=1789480979793 (2026-09-15T14:02:59.793+0000)\n[INFO ] 2026-09-15 14:40:09.791 [main] ExecutionPipeline - terminate of unit: output took 39ms\n[INFO ] 2026-09-15 14:40:09.792 [main] ExecutionPipeline - terminate of unit: publishEnvMetrics took 1ms\n[INFO ] 2026-09-15 14:40:09.792 [main] ExecutionPipeline - terminate phase took 49ms\n[INFO ] 2026-09-15 14:40:09.793 [main] ExecutionPipeline - execution of: /opt/tenx/modules/pipelines/run/pipeline.yaml (myObjectStorageIndex) completed in: 12sec\n"
+ },
+ "index_as_jsonl": {
+  "objects_attempted": 2,
+  "exit_code": 0,
+  "index_artifacts": 7,
+  "log_tail": "serId\", \"routeState\": \"offload\", \"stream\": \"stdout\", \"tenx_hash\": \"irw7La5zUmA\", \"tenx_tag\": \"kubernetes.var.log.containers.cart-d569d7688-sqrd9_default_cart-f402e61ddbd15cb4cba6284af34073368c29ab31199cf8c4fa0a40e2df82cc0c.log\"}, \"resourceAttributes\": {\"s3.prefix\": \"service=cart\", \"service.name\": \"cart\"}}\n[INFO ] 2026-09-15 14:41:08.932 [main] ExecutionPipeline - shutdown phase took 842ms\n[INFO ] 2026-09-15 14:41:08.934 [main] ExecutionPipeline - terminate of unit: group took 1ms\n[INFO ] 2026-09-15 14:41:08.938 [main] ExecutionPipeline - terminate of unit: output took 3ms\n[INFO ] 2026-09-15 14:41:08.986 [main] IndexFilterStats - index complete. Bytes: 495, filters.size: 1, probability historgram: [1=>1], key sizes: [150=>1], element counts: [50=>1], epochs: 1\n[INFO ] 2026-09-15 14:41:08.987 [main] IndexFilterWriter - index written: object=service=cart/day=2026-09-15/logs_279753243.json, byteRanges=1, filters=1, values=63, minTimestamp=1789480979793 (2026-09-15T14:02:59.793+0000), maxTimestamp=1789480979798 (2026-09-15T14:02:59.798+0000)\n[INFO ] 2026-09-15 14:41:08.988 [main] ExecutionPipeline - terminate of unit: output took 49ms\n[INFO ] 2026-09-15 14:41:08.989 [main] ExecutionPipeline - terminate of unit: publishEnvMetrics took 1ms\n[INFO ] 2026-09-15 14:41:08.990 [main] ExecutionPipeline - terminate phase took 56ms\n[INFO ] 2026-09-15 14:41:08.992 [main] ExecutionPipeline - execution of: /opt/tenx/modules/pipelines/run/pipeline.yaml (myObjectStorageIndex) completed in: 12sec\n"
+ },
+ "hash_probed": "irw7La5zUmA",
+ "query_shape": "jsonl",
+ "query_ms": 15924,
+ "query_exit": 0,
+ "query_search": "ValkeyCartStore",
+ "query_log_tail": "checkRetryConnect(Unknown Source) ~[java.net.http:?]\n\tat java.net.http/jdk.internal.net.http.PlainHttpConnection.lambda$connectAsync$2(Unknown Source) ~[java.net.http:?]\n\tat java.base/java.util.concurrent.CompletableFuture.uniHandle(Unknown Source) ~[?:?]\n\tat java.base/java.util.concurrent.CompletableFuture$UniHandle.tryFire(Unknown Source) ~[?:?]\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(Unknown Source) ~[?:?]\n\tat java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(Unknown Source) ~[?:?]\n\t... 3 more\nCaused by: java.nio.channels.ClosedChannelException\n\tat java.base/sun.nio.ch.SocketChannelImpl.ensureOpen(Unknown Source) ~[?:?]\n\tat java.base/sun.nio.ch.SocketChannelImpl.connect(Unknown Source) ~[?:?]\n\tat java.net.http/jdk.internal.net.http.PlainHttpConnection.lambda$connectAsync$1(Unknown Source) ~[java.net.http:?]\n\tat java.base/java.security.AccessController.doPrivileged(Unknown Source) ~[?:?]\n\tat java.net.http/jdk.internal.net.http.PlainHttpConnection.connectAsync(Unknown Source) ~[java.net.http:?]\n\tat java.net.http/jdk.internal.net.http.PlainHttpConnection.checkRetryConnect(Unknown Source) ~[java.net.http:?]\n\tat java.net.http/jdk.internal.net.http.PlainHttpConnection.lambda$connectAsync$2(Unknown Source) ~[java.net.http:?]\n\tat java.base/java.util.concurrent.CompletableFuture.uniHandle(Unknown Source) ~[?:?]\n\tat java.base/java.util.concurrent.CompletableFuture$UniHandle.tryFire(Unknown Source) ~[?:?]\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(Unknown Source) ~[?:?]\n\tat java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(Unknown Source) ~[?:?]\n\t... 3 more\n[INFO ] 2026-09-15 14:41:25.081 [main] ExecutionPipeline - terminate of unit: output took 256ms\n[INFO ] 2026-09-15 14:41:25.082 [main] ExecutionPipeline - terminate phase took 258ms\n[INFO ] 2026-09-15 14:41:25.083 [main] ExecutionPipeline - execution of: /opt/tenx/modules/pipelines/run/pipeline.yaml (myObjectStorageQuery) completed in: 9278ms\n"
+}
