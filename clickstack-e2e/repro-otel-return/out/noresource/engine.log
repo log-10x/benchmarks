@@ -1,0 +1,80 @@
+[INFO ] 2026-09-15 02:30:10.666 [main] PipelineLauncher - launching 10x engine v1.1.74, flavor: 'runtime', pipeline: 'run'
+[INFO ] 2026-09-15 02:30:10.666 [main] PipelineLauncher - log4j2 config file loaded from: /etc/tenx/config/log4j2.yaml
+[WARN ] 2026-09-15 02:30:10.692 [main] PipelineLauncher - No license configured; running on the built-in evaluation license: 10 nodes, 30 days, airgapped.
+[WARN ] 2026-09-15 02:30:10.692 [main] PipelineLauncher - To license this deployment, set licenseFile / licenseKey, the TENX_LICENSE_FILE / TENX_LICENSE_KEY env var, or a licenseKey/licenseFile entry in your bootstrap .yaml. See https://doc.log10x.com/manage/license/
+[INFO ] 2026-09-15 02:30:10.801 [main] PipelineLauncher - pipelineConfigLoader took: 109ms
+[INFO ] 2026-09-15 02:30:10.801 [main] ExecutionPipeline - executing /opt/tenx-edge/lib/app/modules/pipelines/run/pipeline.yaml (reproReceiver)
+[INFO ] 2026-09-15 02:30:10.801 [main] ExecutionPipeline - pipeline units: configLoader => symbolLoader(shared/symbols, tenx/symbols) => templateLoader => readStream(stream:otelCollector) => parallelize(0.5 / 2) => transform => group => aggregateSingle(emitted_events: 10000/2s) => aggregateSingle(all_events: 10000/2s) => metricOutput(Log10xMetricRegistryFactory) => logOutput(run/modules/output/event/otlp) => printProgress => monitor => tokenizeStats => publishEnvMetrics
+🚀 Launching 10x Engine: Edge receiver app
+🪵 Initializing 10x engine. Logging to SYS_OUT
+📚 Loading symbol libraries from: /etc/tenx/config/data/shared/symbols,/etc/tenx/symbols
+📂 Loaded symbol files: /etc/tenx/symbols/tenx-symbols-1.1.74.10x.tar
+📂 Loading TenXTemplates from: data/templates/*.json,data/sample/output/*.json
+📥 Reading events from OpenTelemetry Collector via OTLP/gRPC on tcp://0.0.0.0:4317
+🚦 Applying rate regulator to: otelCollector
+💰 Loading rate cap file: /policy/caps.csv
+[INFO ] 2026-09-15 02:30:11.574 [main] OtlpLogsInputStream - initializing OTLP/gRPC logs input on TCP port: 4317
+[INFO ] 2026-09-15 02:30:11.579 [main] OtlpLogsInputStream - OTLP/gRPC logs server listening on TCP port: 4317
+⚙️ Transforming events into TenXObjects using 50% of available cores
+ℹ️ Enriching TenXObjects with severity field: 'severity_level'
+🔲 Consolidating multi-line events into logical TenXObject groups
+💬 Enriching TenXObjects with message field: 'message_pattern'
+🌐 Enriching TenXObjects with HTTP code field: 'http_code'
+📋 Enriching TenXObjects with lookup field: 'http_message' from file: /etc/tenx/config/pipelines/run/initialize/lookup/http.csv
+☸️ Enriching TenXObjects with k8s container context using fluentK8s
+[INFO ] 2026-09-15 02:30:11.622 [main] Log10xMetricRegistryFactory - No backendEndpoint configured: 10x metrics are collected locally and forwarded nowhere.
+📝 Writing  → OTLP/gRPC
+📈 Publishing TenXSummary metrics to the log10x backend
+[INFO ] 2026-09-15 02:30:11.633 [main] EventLogPublisherConfigBuilder - Added new loggers to log4j: [tenxOtlp_repro-router_24225]
+📝 Writing TenXObject field: 'fullText("tenx_hash","message_pattern","routeState")' → OTLP/gRPC: repro-router:24225
+[INFO ] 2026-09-15 02:30:11.653 [main] ResourceReloadUnit - resource reload: starting with 4 watched path(s); pollInterval=10s
+[INFO ] 2026-09-15 02:30:15.600 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO CASE_A ProducerStateManager wrote a snapshot at offset 2583 in 0 ms.
+[INFO ] 2026-09-15 02:30:15.604 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO CASE_B consumer group "alpha" rebalanced in 0 ms.
+[INFO ] 2026-09-15 02:30:15.607 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO CASE_C keys "a" "b" "c" "d" "e" settled.
+[INFO ] 2026-09-15 02:30:15.608 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO CASE_D "f0" "f1" "f2" "f3" "f4" "f5" "f6" "f7" "f8" "f9" "f10" "f11" "f12" "f13" "f14" settled.
+[INFO ] 2026-09-15 02:30:15.611 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO CASE_E	columnar field separated by a tab.
+[INFO ] 2026-09-15 02:30:15.615 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: {"body":"CASE_F inner","level":"INFO","k":"v"}
+[INFO ] 2026-09-15 02:30:15.615 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_00  settled.
+[INFO ] 2026-09-15 02:30:15.615 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_01 " settled.
+[INFO ] 2026-09-15 02:30:15.615 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_02 "" settled.
+[INFO ] 2026-09-15 02:30:15.615 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_03 """ settled.
+[INFO ] 2026-09-15 02:30:15.616 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_04 """" settled.
+[INFO ] 2026-09-15 02:30:15.616 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_05 """"" settled.
+[INFO ] 2026-09-15 02:30:15.616 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_06 """""" settled.
+[INFO ] 2026-09-15 02:30:15.616 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_07 """"""" settled.
+[INFO ] 2026-09-15 02:30:15.616 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_08 """""""" settled.
+[INFO ] 2026-09-15 02:30:15.616 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_09 """"""""" settled.
+[INFO ] 2026-09-15 02:30:15.616 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_10 """""""""" settled.
+[INFO ] 2026-09-15 02:30:15.617 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_11 """"""""""" settled.
+[INFO ] 2026-09-15 02:30:15.617 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_12 """""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.617 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_13 """"""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.617 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_14 """""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.617 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_15 """"""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.617 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_16 """""""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.617 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_17 """"""""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.617 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_18 """""""""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.618 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_19 """"""""""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.618 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_20 """""""""""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.618 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_21 """"""""""""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.618 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_22 """""""""""""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.618 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_23 """"""""""""""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.618 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_24 """""""""""""""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.618 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_25 """"""""""""""""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.619 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_26 """""""""""""""""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.619 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_27 """"""""""""""""""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.619 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_28 """""""""""""""""""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.619 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_29 """"""""""""""""""""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.619 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_30 """""""""""""""""""""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.619 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_31 """"""""""""""""""""""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.619 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_32 """""""""""""""""""""""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.619 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_33 """"""""""""""""""""""""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.620 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_34 """""""""""""""""""""""""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.620 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_35 """"""""""""""""""""""""""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.620 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_36 """""""""""""""""""""""""""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.620 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_37 """"""""""""""""""""""""""""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.620 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_38 """""""""""""""""""""""""""""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.620 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_39 """"""""""""""""""""""""""""""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.621 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO SWEEP_40 """""""""""""""""""""""""""""""""""""""" settled.
+[INFO ] 2026-09-15 02:30:15.625 [EventProcessingTaskInput: {flush: true, size: 56, notf: false, seq: {size: 5 02:30:15] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO NOISE_00 plain message, no escapes.
+[INFO ] 2026-09-15 02:30:15.626 [AsyncWorkerTaskInput: group 02:30:11] symbolDebugger - no symbol pattern for: [2025-10-01 20:34:05,556] INFO CASE_E	columnar field separated by a tab.
+{"body":"CASE_F inner","level":"INFO","k":"v"}

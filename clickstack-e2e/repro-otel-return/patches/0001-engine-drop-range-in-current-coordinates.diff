@@ -1,0 +1,30 @@
+--- a/pipeline/run/src/main/java/com/log10x/eng/event/extract/BaseEventExtractor.java
++++ b/pipeline/run/src/main/java/com/log10x/eng/event/extract/BaseEventExtractor.java
+@@ -492,8 +492,26 @@
+ 					insertData = null;
+ 				}
+ 
+-				receiver.redactRange(insertPos, insertData, matchStart, matchLength);
++				// processUnescapes has already shrunk the buffer for every
++				// captured string that carried an escape, and it registered
++				// each gap in redactionsMap. A match offset taken from the
++				// parse is therefore one coordinate system behind what the
++				// buffer now holds. dispatchMatches and processFields both
++				// translate an offset through the ledger before they use it;
++				// this call did not, so a drop landed as many characters late
++				// as the record carried escape sequences ahead of it, and the
++				// cut ate the first characters of the field that followed.
++				int deleteStart = matchStart - this.redactStartOffset(matchStart);
++				int deleteLength = matchLength - this.redactLengthOffset(matchStart, matchLength);
+ 
++				if (insertPos != -1) {
++					insertPos -= this.redactStartOffset(insertPos);
++				}
++
++				receiver.redactRange(insertPos, insertData, deleteStart, deleteLength);
++
++				// The ledger stays in the parse's coordinates: every later
++				// translation, this one included, is computed from it.
+ 				redactionsMap.put(matchStart, matchLength);
+ 			}
+ 		}

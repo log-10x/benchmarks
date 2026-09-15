@@ -1,0 +1,50 @@
+# The reproduction's one collector. It reads the crafted capture with the same
+# filelog operators the ClickStack harness uses, exports to the receiver over
+# OTLP, takes the receiver's return path back on 24225 and writes every
+# returned record to a file with no processor in between, so the file holds the
+# records exactly as the receiver returned them.
+#
+# The three __MARKERS__ are substituted by repro.sh, per variant.
+
+receivers:
+  filelog:
+    include: [ /data/crafted.jsonl ]
+    start_at: beginning
+    max_log_size: 4MiB
+    operators:
+      - type: json_parser
+        parse_from: body
+      - type: move
+        from: attributes.log
+        to: body
+      - type: copy
+        from: attributes.kubernetes.container_name
+        to: attributes.k8s_container
+      - type: copy
+        from: attributes.kubernetes.namespace_name
+        to: attributes.k8s_namespace
+  otlp/back:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:24225
+        max_recv_msg_size_mib: 32
+
+exporters:
+  otlp/engine:
+    endpoint: repro-engine:4317
+    tls:
+      insecure: true
+  file/wire:
+    path: /wire/returned.json
+
+service:
+  telemetry:
+    logs:
+      level: warn
+  pipelines:
+    logs/in:
+      receivers: [ filelog ]
+      exporters: [ otlp/engine ]
+    logs/wire:
+      receivers: [ otlp/back ]
+      exporters: [ file/wire ]

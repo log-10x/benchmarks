@@ -1,0 +1,919 @@
+{
+  "totals": {
+    "otel_logs_compact_sorted": {
+      "rows": 159170,
+      "bytes_on_disk": 5839961
+    },
+    "otel_logs_compact_zstd1": {
+      "rows": 159170,
+      "bytes_on_disk": 6651813
+    },
+    "otel_logs_native_folded_zstd1": {
+      "rows": 159170,
+      "bytes_on_disk": 7570122
+    },
+    "otel_logs_compact_typed": {
+      "rows": 159170,
+      "bytes_on_disk": 4028701
+    },
+    "otel_logs_compact_typed_bytemplate": {
+      "rows": 159170,
+      "bytes_on_disk": 3474093
+    },
+    "otel_logs_native_zstd1": {
+      "rows": 197430,
+      "bytes_on_disk": 8225547
+    }
+  },
+  "columns": {
+    "otel_logs_compact_typed": {
+      "__hdx_materialized_k8s.namespace.name": {
+        "c": 915,
+        "u": 160060
+      },
+      "__hdx_materialized_k8s.deployment.name": {
+        "c": 684,
+        "u": 160020
+      },
+      "ResourceAttributes": {
+        "c": 1747940,
+        "u": 82590501
+      },
+      "ServiceName": {
+        "c": 3353,
+        "u": 160537
+      },
+      "num_vals": {
+        "c": 377270,
+        "u": 4900880
+      },
+      "SpanId": {
+        "c": 291,
+        "u": 459
+      },
+      "ScopeName": {
+        "c": 291,
+        "u": 459
+      },
+      "__hdx_materialized_k8s.container.name": {
+        "c": 3353,
+        "u": 160537
+      },
+      "__hdx_materialized_k8s.pod.name": {
+        "c": 3639,
+        "u": 160978
+      },
+      "TraceFlags": {
+        "c": 299,
+        "u": 459
+      },
+      "slot_kinds": {
+        "c": 110031,
+        "u": 2576559
+      },
+      "templateHash": {
+        "c": 38680,
+        "u": 242460
+      },
+      "ts_vals": {
+        "c": 342000,
+        "u": 2407976
+      },
+      "__hdx_materialized_k8s.node.name": {
+        "c": 825,
+        "u": 160082
+      },
+      "ScopeSchemaUrl": {
+        "c": 684,
+        "u": 160020
+      },
+      "TraceId": {
+        "c": 291,
+        "u": 459
+      },
+      "_block_offset": {
+        "c": 6402,
+        "u": 1273360
+      },
+      "__hdx_materialized_deployment.environment.name": {
+        "c": 684,
+        "u": 160020
+      },
+      "SeverityNumber": {
+        "c": 299,
+        "u": 459
+      },
+      "EventName": {
+        "c": 291,
+        "u": 459
+      },
+      "ScopeAttributes": {
+        "c": 1027,
+        "u": 1273376
+      },
+      "__hdx_materialized_k8s.pod.uid": {
+        "c": 3776,
+        "u": 161426
+      },
+      "ScopeVersion": {
+        "c": 684,
+        "u": 160020
+      },
+      "_block_number": {
+        "c": 6233,
+        "u": 1273360
+      },
+      "ResourceSchemaUrl": {
+        "c": 684,
+        "u": 160020
+      },
+      "SeverityText": {
+        "c": 684,
+        "u": 160020
+      },
+      "Timestamp": {
+        "c": 364959,
+        "u": 1273360
+      },
+      "__hdx_materialized_k8s.cluster.name": {
+        "c": 684,
+        "u": 160020
+      },
+      "LogAttributes": {
+        "c": 85028,
+        "u": 3661786
+      },
+      "str_vals": {
+        "c": 806682,
+        "u": 12124946
+      }
+    },
+    "otel_logs_compact_sorted": {
+      "__hdx_materialized_k8s.deployment.name": {
+        "c": 684,
+        "u": 160020
+      },
+      "_block_number": {
+        "c": 6233,
+        "u": 1273360
+      },
+      "ScopeSchemaUrl": {
+        "c": 684,
+        "u": 160020
+      },
+      "__hdx_materialized_k8s.namespace.name": {
+        "c": 915,
+        "u": 160060
+      },
+      "__hdx_materialized_k8s.node.name": {
+        "c": 825,
+        "u": 160082
+      },
+      "ResourceSchemaUrl": {
+        "c": 684,
+        "u": 160020
+      },
+      "ScopeAttributes": {
+        "c": 1027,
+        "u": 1273376
+      },
+      "ScopeName": {
+        "c": 291,
+        "u": 459
+      },
+      "SeverityText": {
+        "c": 684,
+        "u": 160020
+      },
+      "Body": {
+        "c": 1296891,
+        "u": 12408451
+      },
+      "ScopeVersion": {
+        "c": 684,
+        "u": 160020
+      },
+      "EventName": {
+        "c": 291,
+        "u": 459
+      },
+      "__hdx_materialized_k8s.container.name": {
+        "c": 3353,
+        "u": 160537
+      },
+      "_block_offset": {
+        "c": 6402,
+        "u": 1273360
+      },
+      "ServiceName": {
+        "c": 3353,
+        "u": 160537
+      },
+      "SeverityNumber": {
+        "c": 299,
+        "u": 459
+      },
+      "ResourceAttributes": {
+        "c": 1747940,
+        "u": 82590501
+      },
+      "__hdx_materialized_k8s.pod.uid": {
+        "c": 3776,
+        "u": 161426
+      },
+      "SpanId": {
+        "c": 291,
+        "u": 459
+      },
+      "LogAttributes": {
+        "c": 85028,
+        "u": 3661786
+      },
+      "__hdx_materialized_k8s.pod.name": {
+        "c": 3639,
+        "u": 160978
+      },
+      "templateHash": {
+        "c": 38680,
+        "u": 242460
+      },
+      "Timestamp": {
+        "c": 364959,
+        "u": 1273360
+      },
+      "__hdx_materialized_deployment.environment.name": {
+        "c": 684,
+        "u": 160020
+      },
+      "TraceFlags": {
+        "c": 299,
+        "u": 459
+      },
+      "__hdx_materialized_k8s.cluster.name": {
+        "c": 684,
+        "u": 160020
+      },
+      "TraceId": {
+        "c": 291,
+        "u": 459
+      }
+    },
+    "otel_logs_compact_typed_bytemplate": {
+      "__hdx_materialized_k8s.deployment.name": {
+        "c": 684,
+        "u": 160020
+      },
+      "ts_vals": {
+        "c": 293288,
+        "u": 2407976
+      },
+      "__hdx_materialized_deployment.environment.name": {
+        "c": 684,
+        "u": 160020
+      },
+      "_block_number": {
+        "c": 6233,
+        "u": 1273360
+      },
+      "ResourceAttributes": {
+        "c": 1505677,
+        "u": 82590501
+      },
+      "__hdx_materialized_k8s.pod.uid": {
+        "c": 1704,
+        "u": 161426
+      },
+      "__hdx_materialized_k8s.container.name": {
+        "c": 1260,
+        "u": 160537
+      },
+      "__hdx_materialized_k8s.cluster.name": {
+        "c": 684,
+        "u": 160020
+      },
+      "str_vals": {
+        "c": 743615,
+        "u": 12124946
+      },
+      "ScopeName": {
+        "c": 291,
+        "u": 459
+      },
+      "SpanId": {
+        "c": 291,
+        "u": 459
+      },
+      "LogAttributes": {
+        "c": 83779,
+        "u": 3661786
+      },
+      "ScopeSchemaUrl": {
+        "c": 684,
+        "u": 160020
+      },
+      "TraceId": {
+        "c": 291,
+        "u": 459
+      },
+      "templateHash": {
+        "c": 30485,
+        "u": 239881
+      },
+      "TraceFlags": {
+        "c": 299,
+        "u": 459
+      },
+      "ScopeAttributes": {
+        "c": 1027,
+        "u": 1273376
+      },
+      "__hdx_materialized_k8s.node.name": {
+        "c": 825,
+        "u": 160082
+      },
+      "SeverityText": {
+        "c": 684,
+        "u": 160020
+      },
+      "num_vals": {
+        "c": 354577,
+        "u": 4900880
+      },
+      "ScopeVersion": {
+        "c": 684,
+        "u": 160020
+      },
+      "_block_offset": {
+        "c": 6402,
+        "u": 1273360
+      },
+      "slot_kinds": {
+        "c": 71280,
+        "u": 2576559
+      },
+      "SeverityNumber": {
+        "c": 299,
+        "u": 459
+      },
+      "__hdx_materialized_k8s.pod.name": {
+        "c": 1567,
+        "u": 160978
+      },
+      "ServiceName": {
+        "c": 1260,
+        "u": 160537
+      },
+      "Timestamp": {
+        "c": 301405,
+        "u": 1273360
+      },
+      "EventName": {
+        "c": 291,
+        "u": 459
+      },
+      "ResourceSchemaUrl": {
+        "c": 684,
+        "u": 160020
+      },
+      "__hdx_materialized_k8s.namespace.name": {
+        "c": 840,
+        "u": 160060
+      }
+    },
+    "otel_logs_compact_zstd1": {
+      "ScopeSchemaUrl": {
+        "c": 684,
+        "u": 160020
+      },
+      "__hdx_materialized_k8s.cluster.name": {
+        "c": 684,
+        "u": 160020
+      },
+      "TraceId": {
+        "c": 291,
+        "u": 459
+      },
+      "SeverityText": {
+        "c": 684,
+        "u": 160020
+      },
+      "LogAttributes": {
+        "c": 84993,
+        "u": 3661786
+      },
+      "Timestamp": {
+        "c": 332103,
+        "u": 1273360
+      },
+      "ScopeVersion": {
+        "c": 684,
+        "u": 160020
+      },
+      "__hdx_materialized_deployment.environment.name": {
+        "c": 684,
+        "u": 160020
+      },
+      "Body": {
+        "c": 1426009,
+        "u": 12408451
+      },
+      "_block_number": {
+        "c": 6233,
+        "u": 1273360
+      },
+      "EventName": {
+        "c": 291,
+        "u": 459
+      },
+      "ScopeAttributes": {
+        "c": 1027,
+        "u": 1273376
+      },
+      "SeverityNumber": {
+        "c": 299,
+        "u": 459
+      },
+      "__hdx_materialized_k8s.node.name": {
+        "c": 825,
+        "u": 160082
+      },
+      "_block_offset": {
+        "c": 6402,
+        "u": 1273360
+      },
+      "__hdx_materialized_k8s.pod.uid": {
+        "c": 3778,
+        "u": 161426
+      },
+      "ResourceAttributes": {
+        "c": 1747913,
+        "u": 82590501
+      },
+      "__hdx_materialized_k8s.container.name": {
+        "c": 3353,
+        "u": 160537
+      },
+      "ServiceName": {
+        "c": 3353,
+        "u": 160537
+      },
+      "ResourceSchemaUrl": {
+        "c": 684,
+        "u": 160020
+      },
+      "SpanId": {
+        "c": 291,
+        "u": 459
+      },
+      "__hdx_materialized_k8s.pod.name": {
+        "c": 3641,
+        "u": 160978
+      },
+      "TraceFlags": {
+        "c": 299,
+        "u": 459
+      },
+      "__hdx_materialized_k8s.deployment.name": {
+        "c": 684,
+        "u": 160020
+      },
+      "__hdx_materialized_k8s.namespace.name": {
+        "c": 915,
+        "u": 160060
+      },
+      "ScopeName": {
+        "c": 291,
+        "u": 459
+      }
+    },
+    "otel_logs_native_zstd1": {
+      "_block_offset": {
+        "c": 7891,
+        "u": 1579440
+      },
+      "LogAttributes": {
+        "c": 104860,
+        "u": 4542022
+      },
+      "__hdx_materialized_k8s.pod.uid": {
+        "c": 3873,
+        "u": 199979
+      },
+      "SpanId": {
+        "c": 328,
+        "u": 603
+      },
+      "ResourceSchemaUrl": {
+        "c": 777,
+        "u": 198536
+      },
+      "__hdx_materialized_k8s.deployment.name": {
+        "c": 777,
+        "u": 198536
+      },
+      "ScopeVersion": {
+        "c": 777,
+        "u": 198536
+      },
+      "__hdx_materialized_k8s.node.name": {
+        "c": 981,
+        "u": 198598
+      },
+      "ScopeName": {
+        "c": 328,
+        "u": 603
+      },
+      "__hdx_materialized_deployment.environment.name": {
+        "c": 777,
+        "u": 198536
+      },
+      "TraceFlags": {
+        "c": 333,
+        "u": 603
+      },
+      "SeverityText": {
+        "c": 777,
+        "u": 198536
+      },
+      "__hdx_materialized_k8s.namespace.name": {
+        "c": 1081,
+        "u": 198576
+      },
+      "SeverityNumber": {
+        "c": 333,
+        "u": 603
+      },
+      "ResourceAttributes": {
+        "c": 2096720,
+        "u": 100826621
+      },
+      "Timestamp": {
+        "c": 333333,
+        "u": 1579440
+      },
+      "__hdx_materialized_k8s.container.name": {
+        "c": 3445,
+        "u": 199089
+      },
+      "_block_number": {
+        "c": 7670,
+        "u": 1579440
+      },
+      "__hdx_materialized_k8s.pod.name": {
+        "c": 3732,
+        "u": 199520
+      },
+      "ScopeAttributes": {
+        "c": 1208,
+        "u": 1579456
+      },
+      "Body": {
+        "c": 1888235,
+        "u": 41933765
+      },
+      "EventName": {
+        "c": 328,
+        "u": 603
+      },
+      "ScopeSchemaUrl": {
+        "c": 777,
+        "u": 198536
+      },
+      "__hdx_materialized_k8s.cluster.name": {
+        "c": 777,
+        "u": 198536
+      },
+      "TraceId": {
+        "c": 328,
+        "u": 603
+      },
+      "ServiceName": {
+        "c": 3445,
+        "u": 199089
+      }
+    },
+    "otel_logs_native_folded_zstd1": {
+      "Body": {
+        "c": 1865254,
+        "u": 41665945
+      },
+      "Timestamp": {
+        "c": 332103,
+        "u": 1273360
+      },
+      "__hdx_materialized_k8s.deployment.name": {
+        "c": 684,
+        "u": 160100
+      },
+      "SpanId": {
+        "c": 297,
+        "u": 504
+      },
+      "ScopeSchemaUrl": {
+        "c": 684,
+        "u": 160100
+      },
+      "ScopeVersion": {
+        "c": 684,
+        "u": 160100
+      },
+      "ResourceSchemaUrl": {
+        "c": 684,
+        "u": 160100
+      },
+      "__hdx_materialized_k8s.pod.name": {
+        "c": 3617,
+        "u": 161058
+      },
+      "_block_offset": {
+        "c": 6402,
+        "u": 1273360
+      },
+      "TraceFlags": {
+        "c": 315,
+        "u": 504
+      },
+      "__hdx_materialized_k8s.cluster.name": {
+        "c": 684,
+        "u": 160100
+      },
+      "ScopeName": {
+        "c": 297,
+        "u": 504
+      },
+      "__hdx_materialized_k8s.container.name": {
+        "c": 3330,
+        "u": 160617
+      },
+      "__hdx_materialized_k8s.namespace.name": {
+        "c": 962,
+        "u": 160140
+      },
+      "_block_number": {
+        "c": 6233,
+        "u": 1273360
+      },
+      "__hdx_materialized_deployment.environment.name": {
+        "c": 684,
+        "u": 160100
+      },
+      "EventName": {
+        "c": 297,
+        "u": 504
+      },
+      "__hdx_materialized_k8s.pod.uid": {
+        "c": 3754,
+        "u": 161506
+      },
+      "ServiceName": {
+        "c": 3330,
+        "u": 160617
+      },
+      "ScopeAttributes": {
+        "c": 1027,
+        "u": 1273376
+      },
+      "LogAttributes": {
+        "c": 85045,
+        "u": 3661866
+      },
+      "ResourceAttributes": {
+        "c": 1747839,
+        "u": 82590581
+      },
+      "SeverityText": {
+        "c": 684,
+        "u": 160100
+      },
+      "SeverityNumber": {
+        "c": 315,
+        "u": 504
+      },
+      "__hdx_materialized_k8s.node.name": {
+        "c": 877,
+        "u": 160162
+      },
+      "TraceId": {
+        "c": 297,
+        "u": 504
+      }
+    }
+  },
+  "skip_indexes": {
+    "otel_logs_compact_sorted": 2227356,
+    "otel_logs_compact_zstd1": 2987745,
+    "otel_logs_native_folded_zstd1": 3466940,
+    "otel_logs_compact_typed": 81658,
+    "otel_logs_compact_typed_bytemplate": 24031,
+    "otel_logs_native_zstd1": 3724080
+  },
+  "text_index_bytes": {
+    "otel_logs_compact_sorted": 2145698,
+    "otel_logs_compact_zstd1": 2906658,
+    "otel_logs_native_folded_zstd1": 3385853,
+    "otel_logs_native_zstd1": 3641204
+  },
+  "dictionary_bytes_on_disk": 348040,
+  "ingest": {
+    "otel_logs_native_folded_zstd1": {
+      "ingest": {
+        "cpu_us_fastest": 1640830,
+        "cpu_us_runs": [
+          1640830,
+          1739725,
+          1740320,
+          3720418
+        ],
+        "wall_ms_fastest": 1566,
+        "wall_ms_runs": [
+          1566,
+          1639,
+          1660,
+          2986
+        ],
+        "rows": 159170
+      },
+      "merge": {
+        "cpu_us_fastest": 637766,
+        "cpu_us_runs": [
+          637766,
+          709232
+        ],
+        "wall_ms_fastest": 641,
+        "wall_ms_runs": [
+          641,
+          716
+        ],
+        "rows": 0
+      }
+    },
+    "otel_logs_compact_typed": {
+      "merge": {
+        "cpu_us_fastest": 588518,
+        "cpu_us_runs": [
+          588518,
+          1297726
+        ],
+        "wall_ms_fastest": 592,
+        "wall_ms_runs": [
+          592,
+          1301
+        ],
+        "rows": 0
+      },
+      "ingest": {
+        "cpu_us_fastest": 1384661,
+        "cpu_us_runs": [
+          1384661,
+          1460341,
+          1477660,
+          2171204
+        ],
+        "wall_ms_fastest": 1306,
+        "wall_ms_runs": [
+          1306,
+          1388,
+          1409,
+          2075
+        ],
+        "rows": 159170
+      }
+    },
+    "otel_logs_native_zstd1": {
+      "ingest": {
+        "cpu_us_fastest": 2456420,
+        "cpu_us_runs": [
+          2456420,
+          2776403,
+          4138857,
+          10153490
+        ],
+        "wall_ms_fastest": 2320,
+        "wall_ms_runs": [
+          2320,
+          2655,
+          3857,
+          9361
+        ],
+        "rows": 197430
+      },
+      "merge": {
+        "cpu_us_fastest": 676035,
+        "cpu_us_runs": [
+          676035,
+          1913660
+        ],
+        "wall_ms_fastest": 679,
+        "wall_ms_runs": [
+          679,
+          1970
+        ],
+        "rows": 0
+      }
+    },
+    "otel_logs_compact_zstd1": {
+      "merge": {
+        "cpu_us_fastest": 556482,
+        "cpu_us_runs": [
+          556482,
+          583189
+        ],
+        "wall_ms_fastest": 559,
+        "wall_ms_runs": [
+          559,
+          587
+        ],
+        "rows": 0
+      },
+      "ingest": {
+        "cpu_us_fastest": 1641234,
+        "cpu_us_runs": [
+          1641234,
+          1925355,
+          1999137,
+          2287439
+        ],
+        "wall_ms_fastest": 1560,
+        "wall_ms_runs": [
+          1560,
+          1769,
+          1855,
+          2048
+        ],
+        "rows": 159170
+      }
+    },
+    "otel_logs_compact_sorted": {
+      "ingest": {
+        "cpu_us_fastest": 1538497,
+        "cpu_us_runs": [
+          1538497,
+          1553503,
+          1661677,
+          2833009
+        ],
+        "wall_ms_fastest": 1462,
+        "wall_ms_runs": [
+          1462,
+          1490,
+          1584,
+          2767
+        ],
+        "rows": 159170
+      },
+      "merge": {
+        "cpu_us_fastest": 522223,
+        "cpu_us_runs": [
+          522223,
+          587931
+        ],
+        "wall_ms_fastest": 525,
+        "wall_ms_runs": [
+          525,
+          591
+        ],
+        "rows": 0
+      }
+    },
+    "otel_logs_compact_typed_bytemplate": {
+      "merge": {
+        "cpu_us_fastest": 619943,
+        "cpu_us_runs": [
+          619943,
+          662537
+        ],
+        "wall_ms_fastest": 623,
+        "wall_ms_runs": [
+          623,
+          665
+        ],
+        "rows": 0
+      },
+      "ingest": {
+        "cpu_us_fastest": 1545656,
+        "cpu_us_runs": [
+          1545656,
+          1932325,
+          1950133,
+          2767473
+        ],
+        "wall_ms_fastest": 1451,
+        "wall_ms_runs": [
+          1451,
+          1800,
+          1836,
+          2666
+        ],
+        "rows": 159170
+      }
+    }
+  },
+  "typed_manifest": {
+    "rows": 159170,
+    "value_slots": 1303199,
+    "timestamp_values": 141827,
+    "integer_values": 453440,
+    "text_values": 707932,
+    "every_row_reversed_byte_identical": true
+  }
+}

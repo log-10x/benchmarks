@@ -1,0 +1,372 @@
+wrote 56 lines to /Users/talweiss/git/l1x-co/benchmarks/clickstack-e2e/repro-otel-return/lines/crafted.jsonl
+
+== variant: resource
+  config patched
+  receiver up
+  returned batches:        2
+
+== variant: noresource
+  config patched
+  receiver up
+  returned batches:        2
+
+== variant: nodrop
+  config patched
+  drop:tag removed from the extractor
+  receiver up
+  returned batches:        2
+
+== variant: withtime
+  config patched
+  receiver up
+  returned batches:        2
+
+== analysis
+
+## Variant `resource`
+
+Records returned: **55**.
+
+| Measure | Records |
+|---|---:|
+| carrying attributes | 25 |
+| carrying no attribute at all | 30 |
+| carrying `routeState` | 25 |
+| carrying `tenx_hash` | 25 |
+| `timeUnixNano` set | 30 |
+| `timeUnixNano` zero or absent | 25 |
+| a resource attribute present | 15 |
+
+Attribute names nothing configured:
+
+| Name | Records | Shift of the `tag` drop range that produces it |
+|---|---:|---:|
+| `_keys` | 2 | not this shape |
+| `_teys` | 2 | not this shape |
+| `ttenx_resource_keys` | 1 | 3 |
+| `taenx_resource_keys` | 1 | 4 |
+| `tagnx_resource_keys` | 1 | 5 |
+| `_tens` | 1 | not this shape |
+| `_tenx` | 1 | not this shape |
+
+Per line:
+
+| Line | Escapes in the message | Attributes | `timeUnixNano` | Anomalous key | Body, first 90 characters |
+|---|---:|---:|---|---|---|
+| CASE_A | 0 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO CASE_A ProducerStateManager wrote a snapshot at offset 2583` |
+| CASE_B | 2 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO CASE_B consumer group "alpha" rebalanced in 0 ms.` |
+| CASE_C | 10 | 0 | 1789439384004741834 | none | `{"body":"[2025-10-01 20:34:05,556] INFO CASE_C keys \"a\" \"b\" \"c\" \"d\" \"e\" settled.` |
+| CASE_D | 30 | 0 | 1789439384004798284 | none | `{"body":"[2025-10-01 20:34:05,556] INFO CASE_D \"f0\" \"f1\" \"f2\" \"f3\" \"f4\" \"f5\" \` |
+| CASE_E | 1 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO CASE_E	columnar field separated by a tab.
+{"body":"CASE_F i` |
+| NOISE_00 | 0 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_00 plain message, no escapes.` |
+| NOISE_03 | 3 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_03 plain message, no escapes.` |
+| NOISE_04 | 4 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_04 plain message, no escapes.` |
+| NOISE_05 | 5 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_05 plain message, no escapes.` |
+| NOISE_06 | 6 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_06 plain message, no escapes.` |
+| NOISE_10 | 10 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_10 plain message, no escapes.` |
+| NOISE_16 | 16 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_16 plain message, no escapes.` |
+| NOISE_20 | 20 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_20 plain message, no escapes.` |
+| NOISE_30 | 30 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_30 plain message, no escapes.` |
+| SWEEP_00 | 0 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_00  settled.` |
+| SWEEP_01 | 1 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_01 " settled.` |
+| SWEEP_02 | 2 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_02 "" settled.` |
+| SWEEP_03 | 3 | 12 | absent | `ttenx_resource_keys` | `[2025-10-01 20:34:05,556] INFO SWEEP_03 """ settled.` |
+| SWEEP_04 | 4 | 12 | absent | `taenx_resource_keys` | `[2025-10-01 20:34:05,556] INFO SWEEP_04 """" settled.` |
+| SWEEP_05 | 5 | 12 | absent | `tagnx_resource_keys` | `[2025-10-01 20:34:05,556] INFO SWEEP_05 """"" settled.` |
+| SWEEP_06 | 6 | 0 | 1789439384005160628 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_06 \"\"\"\"\"\" settled.","tenx_tag":"kubern` |
+| SWEEP_07 | 7 | 0 | 1789439384005188902 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_07 \"\"\"\"\"\"\" settled.","k8s_container":` |
+| SWEEP_08 | 8 | 0 | 1789439384005218431 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_08 \"\"\"\"\"\"\"\" settled.","k8s_namespace` |
+| SWEEP_09 | 9 | 0 | 1789439384005244930 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_09 \"\"\"\"\"\"\"\"\" settled.","stream":"st` |
+| SWEEP_10 | 10 | 0 | 1789439384005271362 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_10 \"\"\"\"\"\"\"\"\"\" settled.","tenx_tag"` |
+| SWEEP_11 | 11 | 0 | 1789439384005298189 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_11 \"\"\"\"\"\"\"\"\"\"\" settled.","docker"` |
+| SWEEP_12 | 12 | 0 | 1789439384005324699 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_12 \"\"\"\"\"\"\"\"\"\"\"\" settled.","kuber` |
+| SWEEP_13 | 13 | 0 | 1789439384005352254 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_13 \"\"\"\"\"\"\"\"\"\"\"\"\" settled.","log` |
+| SWEEP_14 | 14 | 0 | 1789439384005379973 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_14 \"\"\"\"\"\"\"\"\"\"\"\"\"\" settled.","l` |
+| SWEEP_15 | 15 | 0 | 1789439384005408732 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_15 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\" settled.",` |
+| SWEEP_16 | 16 | 12 | absent | `_keys` | `[2025-10-01 20:34:05,556] INFO SWEEP_16 """""""""""""""" settled.` |
+| SWEEP_17 | 17 | 12 | absent | `_keys` | `[2025-10-01 20:34:05,556] INFO SWEEP_17 """"""""""""""""" settled.` |
+| SWEEP_18 | 18 | 12 | absent | `_teys` | `[2025-10-01 20:34:05,556] INFO SWEEP_18 """""""""""""""""" settled.` |
+| SWEEP_19 | 19 | 12 | absent | `_teys` | `[2025-10-01 20:34:05,556] INFO SWEEP_19 """"""""""""""""""" settled.` |
+| SWEEP_20 | 20 | 12 | absent | `_tens` | `[2025-10-01 20:34:05,556] INFO SWEEP_20 """""""""""""""""""" settled.` |
+| SWEEP_21 | 21 | 12 | absent | `_tenx` | `[2025-10-01 20:34:05,556] INFO SWEEP_21 """"""""""""""""""""" settled.` |
+| SWEEP_22 | 22 | 0 | 1789439384005658349 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_22 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_23 | 23 | 0 | 1789439384005695090 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_23 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_24 | 24 | 0 | 1789439384005730237 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_24 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_25 | 25 | 0 | 1789439384005765453 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_25 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_26 | 26 | 0 | 1789439384005801812 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_26 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_27 | 27 | 0 | 1789439384005885862 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_27 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_28 | 28 | 0 | 1789439384005925768 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_28 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_29 | 29 | 0 | 1789439384005961410 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_29 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_30 | 30 | 0 | 1789439384005998491 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_30 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_31 | 31 | 0 | 1789439384006034455 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_31 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_32 | 32 | 0 | 1789439384006072737 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_32 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_33 | 33 | 0 | 1789439384006110995 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_33 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_34 | 34 | 0 | 1789439384006150415 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_34 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_35 | 35 | 0 | 1789439384006188981 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_35 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_36 | 36 | 0 | 1789439384006228773 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_36 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_37 | 37 | 0 | 1789439384006267186 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_37 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_38 | 38 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_38 """""""""""""""""""""""""""""""""""""" settled.` |
+| SWEEP_39 | 39 | 0 | 1789439384006352433 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_39 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_40 | 40 | 0 | 1789439384006395266 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_40 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+
+
+## Variant `noresource`
+
+Records returned: **55**.
+
+| Measure | Records |
+|---|---:|
+| carrying attributes | 35 |
+| carrying no attribute at all | 20 |
+| carrying `routeState` | 35 |
+| carrying `tenx_hash` | 35 |
+| `timeUnixNano` set | 29 |
+| `timeUnixNano` zero or absent | 26 |
+| a resource attribute present | 0 |
+
+Attribute names nothing configured:
+
+| Name | Records | Shift of the `tag` drop range that produces it |
+|---|---:|---:|
+| `d_time` | 2 | not this shape |
+| `ttenx_time` | 1 | not this shape |
+| `taenx_time` | 1 | not this shape |
+| `tagnx_time` | 1 | not this shape |
+| `_t_tenx_observed_time` | 1 | not this shape |
+| `_tetenx_observed_time` | 1 | not this shape |
+| `_tenenx_observed_time` | 1 | not this shape |
+| `_tenxnx_observed_time` | 1 | not this shape |
+| `__time` | 1 | not this shape |
+| `_ttime` | 1 | not this shape |
+| `_teime` | 1 | not this shape |
+| `_tenme` | 1 | not this shape |
+| `_tenxe` | 1 | not this shape |
+
+Per line:
+
+| Line | Escapes in the message | Attributes | `timeUnixNano` | Anomalous key | Body, first 90 characters |
+|---|---:|---:|---|---|---|
+| CASE_A | 0 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO CASE_A ProducerStateManager wrote a snapshot at offset 2583` |
+| CASE_B | 2 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO CASE_B consumer group "alpha" rebalanced in 0 ms.` |
+| CASE_C | 10 | 0 | 1789439415629420099 | none | `{"body":"[2025-10-01 20:34:05,556] INFO CASE_C keys \"a\" \"b\" \"c\" \"d\" \"e\" settled.` |
+| CASE_D | 30 | 11 | absent | `d_time` | `[2025-10-01 20:34:05,556] INFO CASE_D "f0" "f1" "f2" "f3" "f4" "f5" "f6" "f7" "f8" "f9" "f` |
+| CASE_E | 1 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO CASE_E	columnar field separated by a tab.
+{"body":"CASE_F i` |
+| NOISE_00 | 0 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_00 plain message, no escapes.` |
+| NOISE_03 | 3 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_03 plain message, no escapes.` |
+| NOISE_04 | 4 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_04 plain message, no escapes.` |
+| NOISE_05 | 5 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_05 plain message, no escapes.` |
+| NOISE_06 | 6 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_06 plain message, no escapes.` |
+| NOISE_10 | 10 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_10 plain message, no escapes.` |
+| NOISE_16 | 16 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_16 plain message, no escapes.` |
+| NOISE_20 | 20 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_20 plain message, no escapes.` |
+| NOISE_30 | 30 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_30 plain message, no escapes.` |
+| SWEEP_00 | 0 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_00  settled.` |
+| SWEEP_01 | 1 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_01 " settled.` |
+| SWEEP_02 | 2 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_02 "" settled.` |
+| SWEEP_03 | 3 | 11 | absent | `ttenx_time` | `[2025-10-01 20:34:05,556] INFO SWEEP_03 """ settled.` |
+| SWEEP_04 | 4 | 11 | absent | `taenx_time` | `[2025-10-01 20:34:05,556] INFO SWEEP_04 """" settled.` |
+| SWEEP_05 | 5 | 11 | absent | `tagnx_time` | `[2025-10-01 20:34:05,556] INFO SWEEP_05 """"" settled.` |
+| SWEEP_06 | 6 | 0 | 1789439415629767933 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_06 \"\"\"\"\"\" settled.","kubernetes":{"con` |
+| SWEEP_07 | 7 | 0 | 1789439415629798839 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_07 \"\"\"\"\"\"\" settled.","kubernetes":{"c` |
+| SWEEP_08 | 8 | 0 | 1789439415629828553 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_08 \"\"\"\"\"\"\"\" settled.","log.file.name` |
+| SWEEP_09 | 9 | 0 | 1789439415629856047 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_09 \"\"\"\"\"\"\"\"\" settled.","log.file.na` |
+| SWEEP_10 | 10 | 0 | 1789439415629883365 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_10 \"\"\"\"\"\"\"\"\"\" settled.","log.file.` |
+| SWEEP_11 | 11 | 0 | 1789439415629976937 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_11 \"\"\"\"\"\"\"\"\"\"\" settled.","k8s_nam` |
+| SWEEP_12 | 12 | 0 | 1789439415630016483 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_12 \"\"\"\"\"\"\"\"\"\"\"\" settled.","log.f` |
+| SWEEP_13 | 13 | 0 | 1789439415630056099 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_13 \"\"\"\"\"\"\"\"\"\"\"\"\" settled.","k8s` |
+| SWEEP_14 | 14 | 0 | 1789439415630085998 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_14 \"\"\"\"\"\"\"\"\"\"\"\"\"\" settled.","k` |
+| SWEEP_15 | 15 | 0 | 1789439415630116384 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_15 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\" settled.",` |
+| SWEEP_16 | 16 | 0 | 1789439415630152417 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_16 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\" settled.` |
+| SWEEP_17 | 17 | 11 | 1789439415630186114 | `_t_tenx_observed_time` | `[2025-10-01 20:34:05,556] INFO SWEEP_17 """"""""""""""""" settled.` |
+| SWEEP_18 | 18 | 11 | 1789439415630237064 | `_tetenx_observed_time` | `[2025-10-01 20:34:05,556] INFO SWEEP_18 """""""""""""""""" settled.` |
+| SWEEP_19 | 19 | 11 | 1789439415630273567 | `_tenenx_observed_time` | `[2025-10-01 20:34:05,556] INFO SWEEP_19 """"""""""""""""""" settled.` |
+| SWEEP_20 | 20 | 11 | 1789439415630467317 | `_tenxnx_observed_time` | `[2025-10-01 20:34:05,556] INFO SWEEP_20 """""""""""""""""""" settled.` |
+| SWEEP_21 | 21 | 10 | 1789439415631468174 | none | `[2025-10-01 20:34:05,556] INFO SWEEP_21 """"""""""""""""""""" settled.` |
+| SWEEP_22 | 22 | 10 | 1789439415631509954 | none | `[2025-10-01 20:34:05,556] INFO SWEEP_22 """""""""""""""""""""" settled.` |
+| SWEEP_23 | 23 | 10 | 1789439415631548189 | none | `[2025-10-01 20:34:05,556] INFO SWEEP_23 """"""""""""""""""""""" settled.` |
+| SWEEP_24 | 24 | 10 | 1789439415631585002 | none | `[2025-10-01 20:34:05,556] INFO SWEEP_24 """""""""""""""""""""""" settled.` |
+| SWEEP_25 | 25 | 10 | 1789439415631621820 | none | `[2025-10-01 20:34:05,556] INFO SWEEP_25 """"""""""""""""""""""""" settled.` |
+| SWEEP_26 | 26 | 0 | 1789439415631659889 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_26 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_27 | 27 | 0 | 1789439415631699362 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_27 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_28 | 28 | 0 | 1789439415631736401 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_28 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_29 | 29 | 0 | 1789439415631771793 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_29 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_30 | 30 | 11 | absent | `d_time` | `[2025-10-01 20:34:05,556] INFO SWEEP_30 """""""""""""""""""""""""""""" settled.` |
+| SWEEP_31 | 31 | 11 | absent | `__time` | `[2025-10-01 20:34:05,556] INFO SWEEP_31 """"""""""""""""""""""""""""""" settled.` |
+| SWEEP_32 | 32 | 11 | absent | `_ttime` | `[2025-10-01 20:34:05,556] INFO SWEEP_32 """""""""""""""""""""""""""""""" settled.` |
+| SWEEP_33 | 33 | 11 | absent | `_teime` | `[2025-10-01 20:34:05,556] INFO SWEEP_33 """"""""""""""""""""""""""""""""" settled.` |
+| SWEEP_34 | 34 | 11 | absent | `_tenme` | `[2025-10-01 20:34:05,556] INFO SWEEP_34 """""""""""""""""""""""""""""""""" settled.` |
+| SWEEP_35 | 35 | 11 | absent | `_tenxe` | `[2025-10-01 20:34:05,556] INFO SWEEP_35 """"""""""""""""""""""""""""""""""" settled.` |
+| SWEEP_36 | 36 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_36 """""""""""""""""""""""""""""""""""" settled.` |
+| SWEEP_37 | 37 | 0 | 1789439415632143692 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_37 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_38 | 38 | 0 | 1789439415632187996 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_38 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_39 | 39 | 0 | 1789439415632230019 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_39 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_40 | 40 | 0 | 1789439415632270467 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_40 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+
+
+## Variant `nodrop`
+
+Records returned: **55**.
+
+| Measure | Records |
+|---|---:|
+| carrying attributes | 55 |
+| carrying no attribute at all | 0 |
+| carrying `routeState` | 55 |
+| carrying `tenx_hash` | 55 |
+| `timeUnixNano` set | 0 |
+| `timeUnixNano` zero or absent | 55 |
+| a resource attribute present | 55 |
+
+No attribute name outside the configured set.
+
+Per line:
+
+| Line | Escapes in the message | Attributes | `timeUnixNano` | Anomalous key | Body, first 90 characters |
+|---|---:|---:|---|---|---|
+| CASE_A | 0 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO CASE_A ProducerStateManager wrote a snapshot at offset 2583` |
+| CASE_B | 2 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO CASE_B consumer group "alpha" rebalanced in 0 ms.` |
+| CASE_C | 10 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO CASE_C keys "a" "b" "c" "d" "e" settled.` |
+| CASE_D | 30 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO CASE_D "f0" "f1" "f2" "f3" "f4" "f5" "f6" "f7" "f8" "f9" "f` |
+| CASE_E | 1 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO CASE_E	columnar field separated by a tab.
+{"body":"CASE_F i` |
+| NOISE_00 | 0 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_00 plain message, no escapes.` |
+| NOISE_03 | 3 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_03 plain message, no escapes.` |
+| NOISE_04 | 4 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_04 plain message, no escapes.` |
+| NOISE_05 | 5 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_05 plain message, no escapes.` |
+| NOISE_06 | 6 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_06 plain message, no escapes.` |
+| NOISE_10 | 10 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_10 plain message, no escapes.` |
+| NOISE_16 | 16 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_16 plain message, no escapes.` |
+| NOISE_20 | 20 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_20 plain message, no escapes.` |
+| NOISE_30 | 30 | 11 | absent | none | `[2025-10-01 20:34:05,556] INFO NOISE_30 plain message, no escapes.` |
+| SWEEP_00 | 0 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_00  settled.` |
+| SWEEP_01 | 1 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_01 " settled.` |
+| SWEEP_02 | 2 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_02 "" settled.` |
+| SWEEP_03 | 3 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_03 """ settled.` |
+| SWEEP_04 | 4 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_04 """" settled.` |
+| SWEEP_05 | 5 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_05 """"" settled.` |
+| SWEEP_06 | 6 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_06 """""" settled.` |
+| SWEEP_07 | 7 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_07 """"""" settled.` |
+| SWEEP_08 | 8 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_08 """""""" settled.` |
+| SWEEP_09 | 9 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_09 """"""""" settled.` |
+| SWEEP_10 | 10 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_10 """""""""" settled.` |
+| SWEEP_11 | 11 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_11 """"""""""" settled.` |
+| SWEEP_12 | 12 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_12 """""""""""" settled.` |
+| SWEEP_13 | 13 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_13 """"""""""""" settled.` |
+| SWEEP_14 | 14 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_14 """""""""""""" settled.` |
+| SWEEP_15 | 15 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_15 """"""""""""""" settled.` |
+| SWEEP_16 | 16 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_16 """""""""""""""" settled.` |
+| SWEEP_17 | 17 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_17 """"""""""""""""" settled.` |
+| SWEEP_18 | 18 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_18 """""""""""""""""" settled.` |
+| SWEEP_19 | 19 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_19 """"""""""""""""""" settled.` |
+| SWEEP_20 | 20 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_20 """""""""""""""""""" settled.` |
+| SWEEP_21 | 21 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_21 """"""""""""""""""""" settled.` |
+| SWEEP_22 | 22 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_22 """""""""""""""""""""" settled.` |
+| SWEEP_23 | 23 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_23 """"""""""""""""""""""" settled.` |
+| SWEEP_24 | 24 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_24 """""""""""""""""""""""" settled.` |
+| SWEEP_25 | 25 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_25 """"""""""""""""""""""""" settled.` |
+| SWEEP_26 | 26 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_26 """""""""""""""""""""""""" settled.` |
+| SWEEP_27 | 27 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_27 """"""""""""""""""""""""""" settled.` |
+| SWEEP_28 | 28 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_28 """""""""""""""""""""""""""" settled.` |
+| SWEEP_29 | 29 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_29 """"""""""""""""""""""""""""" settled.` |
+| SWEEP_30 | 30 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_30 """""""""""""""""""""""""""""" settled.` |
+| SWEEP_31 | 31 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_31 """"""""""""""""""""""""""""""" settled.` |
+| SWEEP_32 | 32 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_32 """""""""""""""""""""""""""""""" settled.` |
+| SWEEP_33 | 33 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_33 """"""""""""""""""""""""""""""""" settled.` |
+| SWEEP_34 | 34 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_34 """""""""""""""""""""""""""""""""" settled.` |
+| SWEEP_35 | 35 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_35 """"""""""""""""""""""""""""""""""" settled.` |
+| SWEEP_36 | 36 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_36 """""""""""""""""""""""""""""""""""" settled.` |
+| SWEEP_37 | 37 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_37 """"""""""""""""""""""""""""""""""""" settled.` |
+| SWEEP_38 | 38 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_38 """""""""""""""""""""""""""""""""""""" settled.` |
+| SWEEP_39 | 39 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_39 """"""""""""""""""""""""""""""""""""""" settled.` |
+| SWEEP_40 | 40 | 10 | absent | none | `[2025-10-01 20:34:05,556] INFO SWEEP_40 """""""""""""""""""""""""""""""""""""""" settled.` |
+
+
+## Variant `withtime`
+
+Records returned: **55**.
+
+| Measure | Records |
+|---|---:|
+| carrying attributes | 25 |
+| carrying no attribute at all | 30 |
+| carrying `routeState` | 25 |
+| carrying `tenx_hash` | 25 |
+| `timeUnixNano` set | 55 |
+| `timeUnixNano` zero or absent | 0 |
+| a resource attribute present | 15 |
+
+Attribute names nothing configured:
+
+| Name | Records | Shift of the `tag` drop range that produces it |
+|---|---:|---:|
+| `_keys` | 2 | not this shape |
+| `_teys` | 2 | not this shape |
+| `ttenx_resource_keys` | 1 | 3 |
+| `taenx_resource_keys` | 1 | 4 |
+| `tagnx_resource_keys` | 1 | 5 |
+| `_tens` | 1 | not this shape |
+| `_tenx` | 1 | not this shape |
+
+Per line:
+
+| Line | Escapes in the message | Attributes | `timeUnixNano` | Anomalous key | Body, first 90 characters |
+|---|---:|---:|---|---|---|
+| CASE_A | 0 | 10 | 1759350845556000000 | none | `[2025-10-01 20:34:05,556] INFO CASE_A ProducerStateManager wrote a snapshot at offset 2583` |
+| CASE_B | 2 | 10 | 1759350845556000000 | none | `[2025-10-01 20:34:05,556] INFO CASE_B consumer group "alpha" rebalanced in 0 ms.` |
+| CASE_C | 10 | 0 | 1789439478478160376 | none | `{"body":"[2025-10-01 20:34:05,556] INFO CASE_C keys \"a\" \"b\" \"c\" \"d\" \"e\" settled.` |
+| CASE_D | 30 | 0 | 1789439478478214984 | none | `{"body":"[2025-10-01 20:34:05,556] INFO CASE_D \"f0\" \"f1\" \"f2\" \"f3\" \"f4\" \"f5\" \` |
+| CASE_E | 1 | 10 | 1759350845556000000 | none | `[2025-10-01 20:34:05,556] INFO CASE_E	columnar field separated by a tab.
+{"body":"CASE_F i` |
+| NOISE_00 | 0 | 11 | 1759350845556000000 | none | `[2025-10-01 20:34:05,556] INFO NOISE_00 plain message, no escapes.` |
+| NOISE_03 | 3 | 11 | 1759350845556000000 | none | `[2025-10-01 20:34:05,556] INFO NOISE_03 plain message, no escapes.` |
+| NOISE_04 | 4 | 11 | 1759350845556000000 | none | `[2025-10-01 20:34:05,556] INFO NOISE_04 plain message, no escapes.` |
+| NOISE_05 | 5 | 11 | 1759350845556000000 | none | `[2025-10-01 20:34:05,556] INFO NOISE_05 plain message, no escapes.` |
+| NOISE_06 | 6 | 11 | 1759350845556000000 | none | `[2025-10-01 20:34:05,556] INFO NOISE_06 plain message, no escapes.` |
+| NOISE_10 | 10 | 11 | 1759350845556000000 | none | `[2025-10-01 20:34:05,556] INFO NOISE_10 plain message, no escapes.` |
+| NOISE_16 | 16 | 11 | 1759350845556000000 | none | `[2025-10-01 20:34:05,556] INFO NOISE_16 plain message, no escapes.` |
+| NOISE_20 | 20 | 11 | 1759350845556000000 | none | `[2025-10-01 20:34:05,556] INFO NOISE_20 plain message, no escapes.` |
+| NOISE_30 | 30 | 11 | 1759350845556000000 | none | `[2025-10-01 20:34:05,556] INFO NOISE_30 plain message, no escapes.` |
+| SWEEP_00 | 0 | 10 | 1759350845556000000 | none | `[2025-10-01 20:34:05,556] INFO SWEEP_00  settled.` |
+| SWEEP_01 | 1 | 10 | 1759350845556000000 | none | `[2025-10-01 20:34:05,556] INFO SWEEP_01 " settled.` |
+| SWEEP_02 | 2 | 10 | 1759350845556000000 | none | `[2025-10-01 20:34:05,556] INFO SWEEP_02 "" settled.` |
+| SWEEP_03 | 3 | 12 | 1759350845556000000 | `ttenx_resource_keys` | `[2025-10-01 20:34:05,556] INFO SWEEP_03 """ settled.` |
+| SWEEP_04 | 4 | 12 | 1759350845556000000 | `taenx_resource_keys` | `[2025-10-01 20:34:05,556] INFO SWEEP_04 """" settled.` |
+| SWEEP_05 | 5 | 12 | 1759350845556000000 | `tagnx_resource_keys` | `[2025-10-01 20:34:05,556] INFO SWEEP_05 """"" settled.` |
+| SWEEP_06 | 6 | 0 | 1789439478478486362 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_06 \"\"\"\"\"\" settled.","stream":"stdout",` |
+| SWEEP_07 | 7 | 0 | 1789439478478513648 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_07 \"\"\"\"\"\"\" settled.","k8s_namespace":` |
+| SWEEP_08 | 8 | 0 | 1789439478478542258 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_08 \"\"\"\"\"\"\"\" settled.","k8s_namespace` |
+| SWEEP_09 | 9 | 0 | 1789439478478568575 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_09 \"\"\"\"\"\"\"\"\" settled.","log.file.na` |
+| SWEEP_10 | 10 | 0 | 1789439478478594488 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_10 \"\"\"\"\"\"\"\"\"\" settled.","docker":{` |
+| SWEEP_11 | 11 | 0 | 1789439478478620757 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_11 \"\"\"\"\"\"\"\"\"\"\" settled.","tenx_ta` |
+| SWEEP_12 | 12 | 0 | 1789439478478647474 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_12 \"\"\"\"\"\"\"\"\"\"\"\" settled.","tenx_` |
+| SWEEP_13 | 13 | 0 | 1789439478478675085 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_13 \"\"\"\"\"\"\"\"\"\"\"\"\" settled.","ten` |
+| SWEEP_14 | 14 | 0 | 1789439478478702073 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_14 \"\"\"\"\"\"\"\"\"\"\"\"\"\" settled.","l` |
+| SWEEP_15 | 15 | 0 | 1789439478478729258 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_15 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\" settled.",` |
+| SWEEP_16 | 16 | 12 | 1759350845556000000 | `_keys` | `[2025-10-01 20:34:05,556] INFO SWEEP_16 """""""""""""""" settled.` |
+| SWEEP_17 | 17 | 12 | 1759350845556000000 | `_keys` | `[2025-10-01 20:34:05,556] INFO SWEEP_17 """"""""""""""""" settled.` |
+| SWEEP_18 | 18 | 12 | 1759350845556000000 | `_teys` | `[2025-10-01 20:34:05,556] INFO SWEEP_18 """""""""""""""""" settled.` |
+| SWEEP_19 | 19 | 12 | 1759350845556000000 | `_teys` | `[2025-10-01 20:34:05,556] INFO SWEEP_19 """"""""""""""""""" settled.` |
+| SWEEP_20 | 20 | 12 | 1759350845556000000 | `_tens` | `[2025-10-01 20:34:05,556] INFO SWEEP_20 """""""""""""""""""" settled.` |
+| SWEEP_21 | 21 | 12 | 1759350845556000000 | `_tenx` | `[2025-10-01 20:34:05,556] INFO SWEEP_21 """"""""""""""""""""" settled.` |
+| SWEEP_22 | 22 | 0 | 1789439478478969702 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_22 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_23 | 23 | 0 | 1789439478479004860 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_23 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_24 | 24 | 0 | 1789439478479039491 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_24 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_25 | 25 | 0 | 1789439478479073174 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_25 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_26 | 26 | 0 | 1789439478479108540 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_26 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_27 | 27 | 0 | 1789439478479143010 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_27 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_28 | 28 | 0 | 1789439478479268582 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_28 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_29 | 29 | 0 | 1789439478479304887 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_29 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_30 | 30 | 0 | 1789439478479341625 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_30 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_31 | 31 | 0 | 1789439478479376202 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_31 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_32 | 32 | 0 | 1789439478479413051 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_32 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_33 | 33 | 0 | 1789439478479449692 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_33 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_34 | 34 | 0 | 1789439478479487398 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_34 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_35 | 35 | 0 | 1789439478479524693 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_35 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_36 | 36 | 0 | 1789439478479563220 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_36 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_37 | 37 | 0 | 1789439478479600480 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_37 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_38 | 38 | 11 | 1759350845556000000 | none | `[2025-10-01 20:34:05,556] INFO SWEEP_38 """""""""""""""""""""""""""""""""""""" settled.` |
+| SWEEP_39 | 39 | 0 | 1789439478479681960 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_39 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+| SWEEP_40 | 40 | 0 | 1789439478479722787 | none | `{"body":"[2025-10-01 20:34:05,556] INFO SWEEP_40 \"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\` |
+

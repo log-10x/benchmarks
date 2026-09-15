@@ -1,0 +1,39 @@
+# Encode, INNER mode: keep the Fluentd JSON envelope, compact only the `log` value.
+# Same module chain as the published round-trip encode config; the one difference is
+# the extractor, which captures the `log` field as the event text and sets the
+# enclosing record as the outer text, so encode() returns the envelope with the
+# message replaced by its compact form.
+tenx: run
+runtimeName: encode
+include:
+  - apps/shared
+  - run/modules/input/file
+  - run/initialize/inputField
+  - run/initialize/level
+  - run/initialize/group
+  - run/initialize/message
+  - run/initialize/httpCode
+  - run/initialize/lookup
+  - run/initialize/custom
+  - run/initialize/k8s
+  - run/modules/output/event/file
+extractor:
+  - name: fluentInner
+    type: json
+    actions:
+      - captureFirst:log
+      - setOuterText:log
+inputFile:
+  - name: input
+    path: $=TenXEnv.get("INPUT_FILE")
+    printProgress: false
+    extractors:
+      - fluentInner
+    sourcePattern: null
+outputFile:
+  - path: $=TenXEnv.get("OUTPUT_DIR") + "/templates.json"
+    writeTemplates: true
+    append: false
+  - path: $=TenXEnv.get("OUTPUT_DIR") + "/encoded.log"
+    fields:
+      - encode()
