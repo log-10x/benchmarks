@@ -395,7 +395,8 @@ def findings(wire: dict, component_rows: list, args) -> list[str]:
         "with `use_cache_for_count_from_files = 0` and a dropped cache before every row.", "",
         "**The object path carries the write time, not the record time.** `s3_partition_format` "
         "is evaluated when the object is uploaded, so a run writes one day partition whatever "
-        "the records say. Pruning across many days and many objects is not measured here.", "",
+        "the records say. Pruning across many days and many objects is not measured here; "
+        "`clickstack-e2e-gaps/gap1_multiday_pruning.sh` measures it over thirty days.", "",
         "**ClickStack's `otel_logs` has no day column**, so a day predicate over the merge "
         "table would exclude every hot row. The harness adds `day Date MATERIALIZED "
         "toDate(Timestamp)` to the shipped table. That is a change to ClickStack's schema and "
