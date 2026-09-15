@@ -1,8 +1,9 @@
 # clickstack-e2e-gaps
 
-Six scripts, one per gap the end to end harness next door left open, each run
-against the whole 197,430 line capture rather than the 50,000 line slice, and
-each against the PATCHED engine rather than the shipped image.
+Nine scripts over the questions the end to end harness next door left open, each
+run against the whole 197,430 line capture rather than the 50,000 line slice.
+Six are the first pass, one per gap; three more were added in a second pass after
+a record check against primary sources.
 
 `../clickstack-e2e` is the route: a released capture through an OpenTelemetry
 Collector into the 10x receiver, the marked slice into an object store, the rest
@@ -62,7 +63,7 @@ with no error in the run's own log.
 
 | File | What it is |
 |---|---|
-| `lib.sh` | the compose pattern every script shares: images, network, MinIO, ClickStack, the patched receiver, the routing collector |
+| `lib.sh` | the compose pattern every script shares: the pinned images, the network, MinIO, ClickStack, the receiver and the routing collector, plus `g_wait_for_object`, the guard for ClickHouse 116888 |
 | `measure.py` | one query, timed on a cold cache, read back out of `system.query_log` with its S3 counters |
 | `wire_hashes.py` | the census of what the receiver returned, from the collector's wire tap |
 | `make_seq_input.py` | the capture with a sequence number inside every line, for gap 4 |
@@ -70,10 +71,23 @@ with no error in the run's own log.
 | `hyperdx_alert.py` | the alert attempt over the HyperDX API, every status recorded |
 | `render.py` | composes `results/clickstack-e2e-gaps-<date>.md` from the per-gap JSON and the hand-written notes |
 | `notes/` | the prose for each gap. The numbers are not in here |
-| `results/` | `gap<N>.json` per script, and the composed results file |
+| `results/` | `gap<N>.json` per script, the composed first-pass file, and the second pass's own file |
 
-## Reading the results file
+## Reading the results files
 
-`results/clickstack-e2e-gaps-<date>.md` carries one table per gap. Every number
-in it comes from `results/gap<N>.json`, which comes from a run. Where a gap is
-open, its section says so and says what would close it.
+`results/clickstack-e2e-gaps-2026-09-15.md` is the first pass, one table per gap.
+Every number in it comes from `results/gap<N>.json`, and `render.py` composes it
+from those files and the prose in `notes/`. Where a gap is open, its section says
+so and says what would close it.
+
+`results/clickstack-e2e-close-2026-09-15.md` is the second pass, written after a
+record check against primary sources found one published claim false and four
+questions the first pass never put. Read it for the Vector Parquet retraction,
+the Parquet reader's own counters, the aggregation shapes through the Merge
+table, the collector run as its code owners prescribe, ClickHouse issue 116888
+and its guard, and what `TTL TO VOLUME 'cold'` costs on the same capture. That file
+carries the digests every run used and the command that produced each table, and
+its own JSON sits beside the first pass's: `gap1-agg.json`, `gap2b.json`,
+`gap4-router-owners.json`, `gap7.json`, `gap8.json`.
+
+Where the two disagree, the second is the later measurement and says so.
