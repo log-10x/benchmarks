@@ -25,5 +25,13 @@ because the hash is a column inside the file and not a path segment. A query
 that names a type and a day pays six.
 
 What this does not say: nothing about a real estate's day mix, because every day
-here is a replica of one day's cold rows; and nothing about Parquet row-group
-skipping, because these objects are JSON.
+here is a replica of one day's cold rows; nothing about Parquet row-group
+skipping, because these objects are JSON; and nothing about the upload-day trap,
+because ClickHouse synthesized these day partitions from the timestamp column.
+The collector's own S3 exporter takes the `day=` segment from the clock at
+upload time rather than from the record: `awss3exporter/internal/upload/writer.go`
+line 84 reads `now := clock.Now(ctx)` and line 95 passes that `now` to `Build`.
+On a steady feed the two agree. After a backfill or a replay they do not, and a
+`day >=` predicate then drops rows that sit inside the time window. No query in
+this run exercises that, because no object here carries a path day the collector
+chose.

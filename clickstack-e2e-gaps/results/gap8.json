@@ -1,0 +1,35 @@
+{
+ "gap": 8,
+ "baseline": "ClickHouse discussion 77681, den-crane, 2025-03-16",
+ "ttl_seconds": 60,
+ "ch_version": "26.5.7.64",
+ "feed_lines": 197430,
+ "hot_rows": 157096,
+ "capture_span_seconds": 7,
+ "insert_cpu_us": 1164543,
+ "bytes_before_move": 10885910,
+ "move": {
+  "seconds": 2,
+  "s3_put_object": 332,
+  "disk_s3_put_object": 332,
+  "parts_on_s3cold": 1,
+  "parts_on_default": 0,
+  "bytes_on_s3cold": 10535999,
+  "objects_in_bucket": 3837,
+  "bucket_size": "37MiB",
+  "merge_and_move_cpu_us": 5396945,
+  "part_log_events": "MergeParts=5, MergePartsStart=5, MovePart=4, NewPart=26",
+  "rows_after": 157096
+ },
+ "late": {
+  "insert_seconds": 6,
+  "move_seconds": 4,
+  "s3_put_object": 807,
+  "disk_s3_put_object": 807,
+  "objects_in_bucket": 4318,
+  "parts_on_s3cold": 2,
+  "rows_total": 314192,
+  "late_rows_requested": 200000,
+  "rows_inserted": 157096
+ }
+}

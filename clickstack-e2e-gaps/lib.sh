@@ -5,22 +5,29 @@
 #
 # One network, four containers: MinIO as the object store, ClickStack as the
 # ClickHouse and the HyperDX, the 10x receiver as the regulator, and a stock
-# contrib collector as the routing hop. The one difference from ../run.sh is the
-# receiver: the shipped edge image is a native binary carrying the three OTel
-# return path defects, so these runs use the PATCHED engine the way
-# verify-patched.sh does, as the run-cloud shadow jar on a stock JRE image with
-# the config and modules trees mounted beside it.
+# contrib collector as the routing hop.
 #
-# Required environment, no defaults, the same four verify-patched.sh asks for:
+# The receiver is the published `edge-10x` image, pinned by digest below, the
+# same way ../run.sh runs it. Nothing here needs a build or a private
+# repository. When the runs in results/clickstack-e2e-gaps-2026-09-15.md were
+# made the shipped image was a native binary carrying the three OTel return path
+# defects, so those runs set PATCHED_JAR and got the run-cloud shadow jar on a
+# stock JRE image instead. Both fixes are released as 1.1.79, and PATCHED_JAR
+# survives as an override for anyone reproducing those numbers or testing a
+# build that is not published yet.
 #
-#   PATCHED_JAR        pipeline/run-cloud/build/libs/run-cloud-<v>-all.jar
-#   TENX_CONFIG_TREE   a checkout of log-10x/config
-#   TENX_MODULES_TREE  a checkout of log-10x/modules
+# Required environment: none.
 #
 # Optional:
 #   CSE_DATA_DIR       where the capture lives      (default: ../data)
 #   LINES              lines of the capture fed     (default: 197430, all)
 #   KEEP               1 leaves the containers up
+#   PATCHED_JAR        pipeline/run-cloud/build/libs/run-cloud-<v>-all.jar.
+#                      Set it and the receiver runs that jar on the JRE image
+#                      instead of the published binary. TENX_CONFIG_TREE and
+#                      TENX_MODULES_TREE are then required beside it.
+#   TENX_CONFIG_TREE   a checkout of log-10x/config, public
+#   TENX_MODULES_TREE  a checkout of log-10x/modules, public
 #
 # Sourced, never run.
 #
@@ -40,13 +47,17 @@ LINES="${LINES:-197430}"
 
 cd "$GAPS_HERE"
 
-CS_IMAGE="${CSE_CS_IMAGE:-clickhouse/clickstack-all-in-one:2.38.0}"
-EDGE_IMAGE="${CSE_ENGINE_IMAGE:-ghcr.io/log-10x/edge-10x:latest}"
-OTEL_IMAGE="${CSE_OTEL_IMAGE:-otel/opentelemetry-collector-contrib:0.160.0}"
-MINIO_IMAGE="${CSE_MINIO_IMAGE:-quay.io/minio/minio:latest}"
-MC_IMAGE="${CSE_MC_IMAGE:-quay.io/minio/mc:latest}"
-JRE_IMAGE="${CSE_JRE_IMAGE:-eclipse-temurin:23-jre}"
-VECTOR_IMAGE="${CSE_VECTOR_IMAGE:-timberio/vector:0.50.0-debian}"
+# Every image is pinned by digest as well as by tag, so a rerun on another host
+# pulls the same bytes. The tag stays in the reference because a digest alone
+# says nothing about which release it is. Resolve a new one with
+# `docker pull <ref>` then `docker inspect --format '{{index .RepoDigests 0}}'`.
+CS_IMAGE="${CSE_CS_IMAGE:-clickhouse/clickstack-all-in-one:2.38.0@sha256:7b3bd9eec4e61aded56f705af7ddb2e8e49c54098d21aaaa7de6fde4d7c1f267}"
+EDGE_IMAGE="${CSE_ENGINE_IMAGE:-ghcr.io/log-10x/edge-10x:1.1.79@sha256:14357d8d570cb36ba6ca254802a1b8eedb11d8acf6916a936893f8e3babb41f4}"
+OTEL_IMAGE="${CSE_OTEL_IMAGE:-otel/opentelemetry-collector-contrib:0.160.0@sha256:799dc6cf12c96192af37b5bdba804da8c10b3bc563b43cb90c3f3c58d9572ad6}"
+MINIO_IMAGE="${CSE_MINIO_IMAGE:-quay.io/minio/minio:latest@sha256:14cea493d9a34af32f524e538b8346cf79f3321eff8e708c1e2960462bd8936e}"
+MC_IMAGE="${CSE_MC_IMAGE:-quay.io/minio/mc:latest@sha256:a7fe349ef4bd8521fb8497f55c6042871b2ae640607cf99d9bede5e9bdf11727}"
+JRE_IMAGE="${CSE_JRE_IMAGE:-eclipse-temurin:23-jre@sha256:4972459272d4050ab14700677ac7a7511194f1d9ed333b95e886c3c8c80dedae}"
+VECTOR_IMAGE="${CSE_VECTOR_IMAGE:-timberio/vector:0.58.0-debian@sha256:1c1ea358c617ea0b23003d5af87f7a678b30f8f7096437e680380c47fc13d2d9}"
 
 NET=csg-net
 CS=csg-clickstack
@@ -70,11 +81,15 @@ mc() { docker run --rm --network "$NET" --entrypoint sh "$MC_IMAGE" -c \
        "mc alias set m http://$MINIO:9000 minioadmin minioadmin >/dev/null && $1"; }
 
 g_require() {
-  : "${PATCHED_JAR:?set PATCHED_JAR to the patched run-cloud shadow jar}"
-  : "${TENX_CONFIG_TREE:?set TENX_CONFIG_TREE to a checkout of log-10x/config}"
-  : "${TENX_MODULES_TREE:?set TENX_MODULES_TREE to a checkout of log-10x/modules}"
   command -v docker >/dev/null 2>&1 || { echo "docker is required" >&2; exit 1; }
-  [ -s "$PATCHED_JAR" ] || { echo "no jar at $PATCHED_JAR" >&2; exit 1; }
+  if [ -n "${PATCHED_JAR:-}" ]; then
+    : "${TENX_CONFIG_TREE:?PATCHED_JAR is set, so TENX_CONFIG_TREE is required}"
+    : "${TENX_MODULES_TREE:?PATCHED_JAR is set, so TENX_MODULES_TREE is required}"
+    [ -s "$PATCHED_JAR" ] || { echo "no jar at $PATCHED_JAR" >&2; exit 1; }
+    echo "  receiver: the jar at $PATCHED_JAR, on $JRE_IMAGE"
+  else
+    echo "  receiver: $EDGE_IMAGE"
+  fi
   mkdir -p "$BUILD" "$RESULTS"
 }
 
@@ -132,11 +147,35 @@ g_minio_up() {
 g_objects() { mc "mc ls -r m/$BUCKET | wc -l" | tr -d ' \r'; }
 g_object_bytes() { mc "mc du m/$BUCKET" | awk '{print $1}'; }
 
+# The guard for ClickHouse issue 116888, open, filed 2026-08-28 by a ClickHouse
+# member. An S3 table created with an explicit schema and
+# `use_hive_partitioning = 1` before any object exists under its prefix caches
+# the empty listing as resolved. The partition columns then read file defaults,
+# every path predicate matches nothing, and the table answers zero rows with no
+# error for the rest of its life. Nothing in the server retries the listing.
+#
+# So no script here runs CREATE TABLE until the first object is in the bucket.
+#
+#   g_wait_for_object <bucket> [tries]
+g_wait_for_object() {
+  local bucket="${1:-$BUCKET}" tries="${2:-60}" n=0 i
+  for i in $(seq 1 "$tries"); do
+    n="$(mc "mc ls -r m/$bucket | wc -l" | tr -d ' \r')"
+    [ "${n:-0}" -gt 0 ] && { echo "  $n objects under $bucket before CREATE TABLE"; return 0; }
+    sleep 2
+  done
+  echo "no object under $bucket after $((tries * 2))s: creating the S3 table now would hit ClickHouse 116888" >&2
+  return 1
+}
+
 # --------------------------------------------------------------- ClickStack
+# Extra `docker run` arguments are passed through, which is how the TTL arm
+# mounts a storage configuration into /etc/clickhouse-server/config.d.
 g_clickstack_up() {
   # No published port: the HyperDX UI is reached over `docker exec` here, and a
   # published 8080 collides with any other ClickStack on the same host.
   docker run -d --name "$CS" --network "$NET" --memory 4g --cpus 3 \
+    "$@" \
     "$CS_IMAGE" >/dev/null
   for _ in $(seq 1 100); do chq "SELECT 1" >/dev/null 2>&1 && break; sleep 3; done
   chq "SELECT 1" >/dev/null || { echo "ClickStack did not come up" >&2; exit 1; }
@@ -163,12 +202,43 @@ g_clickstack_up() {
 }
 
 # ------------------------------------------------------------------- engine
-# The patched receiver: the shadow jar on a JRE image, config and modules trees
-# mounted, the harness's own asserted edits applied to the config copy.
+# Two paths, the same receiver either way. Without PATCHED_JAR the published
+# image runs, with its own config tree copied out and patched the way ../run.sh
+# patches it. With PATCHED_JAR the shadow jar runs on a JRE image, config and
+# modules trees mounted from the checkouts.
+#
+# Extra `docker run` arguments are passed through by every gap that needs one.
 g_engine_up() {
   local policy_dir="$1"; shift
   # The running container has these trees bind-mounted, so it goes first.
   docker rm -f -v "$ENGINE" >/dev/null 2>&1 || true
+
+  if [ -z "${PATCHED_JAR:-}" ]; then
+    # The image carries its own config, modules and symbols. The only thing
+    # taken out of it is the config tree, so the harness's asserted edits can be
+    # applied to a copy and mounted back.
+    rm -rf "$BUILD/tenx-config"; mkdir -p "$BUILD/tenx-config"
+    docker rm -f csg-config-tmp >/dev/null 2>&1 || true
+    docker create --name csg-config-tmp "$EDGE_IMAGE" >/dev/null
+    docker cp csg-config-tmp:/etc/tenx/config/. "$BUILD/tenx-config/" >/dev/null
+    docker rm csg-config-tmp >/dev/null
+    python3 "$HARNESS/patch_engine_config.py" --config-dir "$BUILD/tenx-config"
+
+    docker run -d --name "$ENGINE" --network "$NET" --memory 2500m --cpus 2 \
+      -v "$BUILD/tenx-config":/etc/tenx/config:ro \
+      -v "$policy_dir":/policy \
+      -e CAP_LOOKUP_FILE=/policy/caps.csv \
+      -e ACTION_LOOKUP_FILE=/policy/actions.csv \
+      -e outputOffload=true \
+      -e symbolMessageHashField=tenx_hash \
+      -e TENX_OTEL_COLLECTOR_OUTPUT_HOST="$ROUTER" \
+      -e TENX_OTEL_COLLECTOR_OUTPUT_PORT=24225 \
+      "$@" \
+      "$EDGE_IMAGE" @apps/e2e >/dev/null
+    g_engine_wait
+    return
+  fi
+
   rm -rf "$BUILD/tenx-config" "$BUILD/modules"
   rsync -a --exclude '.git' "$TENX_CONFIG_TREE/" "$BUILD/tenx-config/"
   rsync -a --exclude '.git' "$TENX_MODULES_TREE/" "$BUILD/modules/"

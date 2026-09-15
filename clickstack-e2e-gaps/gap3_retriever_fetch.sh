@@ -41,6 +41,13 @@ EXPORT="$BUILD/cold-export"
 WORK="$BUILD/retriever"
 
 g_require
+# This gap alone still needs the jar. The other five drive the receiver, which
+# the published image is; this one drives the Retriever index and query
+# pipelines directly, and those are entry points of the run-cloud build rather
+# than of the receiver image.
+: "${PATCHED_JAR:?gap 3 runs the Retriever pipelines: set PATCHED_JAR, TENX_CONFIG_TREE and TENX_MODULES_TREE}"
+: "${TENX_CONFIG_TREE:?gap 3 needs a checkout of log-10x/config}"
+: "${TENX_MODULES_TREE:?gap 3 needs a checkout of log-10x/modules}"
 [ -d "$EXPORT" ] || { echo "no build/cold-export: run gap 2, 5 or 6 first" >&2; exit 1; }
 g_images "$JRE_IMAGE"
 

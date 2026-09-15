@@ -14,7 +14,10 @@
 **The route drops records, and the drop is silent.** The collector's file
 receiver reads far faster than the receiver can take. With the shipped exporter
 queue, the batches that do not fit are rejected and logged as "sending queue is
-full", and nothing downstream counts them: a hundred thousand lines were read in
+full", and the collector counts them in
+`otelcol_exporter_enqueue_failed_log_records`, an exporterhelper metric that is
+enabled by default and still marked alpha. The count exists, and reaches nobody
+who is not already scraping the collector: a hundred thousand lines were read in
 twenty seconds with nothing listening at all. Every run in this folder adds
 `sending_queue.block_on_overflow: true` on the exporter into the receiver, which
 turns the drop into backpressure, and adds the collector's own telemetry on an

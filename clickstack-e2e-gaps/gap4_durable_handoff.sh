@@ -15,9 +15,25 @@
 #           delivered twice.
 #   engine  the receiver is killed mid-stream and restarted. The collector's
 #           OTLP exporter keeps its default queue and retry.
+#   owners  the `router` arm again, with the collector configured the way the
+#           component's own code owners prescribe. Andrzej Stencel, who owns the
+#           component, on contrib issue 40741, 2025-06-24: "I recommend to remove
+#           the Batch processor from the pipeline... Try disabling the [sending
+#           queue] with `sending_queue::enabled: false` or make it blocking with
+#           `sending_queue::wait_for_result: true`", and the reporter answered
+#           "you were right, with that configuration it works as expected".
+#           paulojmdias supplies the receiver half, on contrib issue 46945: "The
+#           filelog receiver has a `retry_on_failure` option (disabled by
+#           default)... If you set `max_elapsed_time: 0`... the offset only
+#           advances after successful delivery." All three are applied here, and
+#           the arm reports what they cost in wall clock beside what they save.
 #
-#   ./gap4_durable_handoff.sh          both arms
-#   ./gap4_durable_handoff.sh router   one arm
+#   ./gap4_durable_handoff.sh                both default arms
+#   ./gap4_durable_handoff.sh router owners  the pair this comparison needs
+#
+# The arm list also names the output: any run whose arms are not exactly
+# `router engine` writes results/gap4-<arms joined>.json, so the committed first
+# pass is never overwritten.
 #
 # Environment: as lib.sh. KILL_AFTER_ROWS (default 20000) is the hot row count
 # that triggers the kill, DOWN_SECONDS (default 20) how long the container stays
@@ -60,10 +76,37 @@ open(dst, "w").write(t)
 print("  router config with a file_storage checkpoint written")
 PY
 
-g_images "$CS_IMAGE" "$OTEL_IMAGE" "$MINIO_IMAGE" "$MC_IMAGE" "$JRE_IMAGE" "$EDGE_IMAGE"
+# The code owners' prescription, applied on top of the checkpoint config:
+# the file receiver retries forever and advances its offset only after delivery,
+# no batch processor stands between the route and a sink, and every exporter
+# queue is off so an export is synchronous with the receiver's read.
+python3 - "$BUILD/conf/router_ckpt.yaml" "$BUILD/conf/router_owners.yaml" <<'PY'
+import sys
+src, dst = sys.argv[1], sys.argv[2]
+t = open(src).read()
+t = t.replace("  filelog:\n    storage: file_storage/ckpt\n",
+              "  filelog:\n    storage: file_storage/ckpt\n"
+              "    retry_on_failure:\n      enabled: true\n      max_elapsed_time: 0\n", 1)
+# g_render_harness_conf turns the drop into backpressure with block_on_overflow.
+# The owners' arm goes further and takes the queue out of the path entirely.
+t = t.replace("  otlp/engine:\n    sending_queue:\n      block_on_overflow: true\n",
+              "  otlp/engine:\n    sending_queue:\n      enabled: false\n", 1)
+t = t.replace("  otlp/clickstack:\n", "  otlp/clickstack:\n    sending_queue:\n      enabled: false\n", 1)
+t = t.replace("  awss3/cold:\n", "  awss3/cold:\n    sending_queue:\n      enabled: false\n", 1)
+t = t.replace("      processors: [ transform/cold, batch/cold ]",
+              "      processors: [ transform/cold ]", 1)
+open(dst, "w").write(t)
+for needle in ("retry_on_failure", "enabled: false", "[ transform/cold ]"):
+    assert needle in t, needle
+print("  router config with the code owners' prescription written")
+PY
+
+g_images "$CS_IMAGE" "$OTEL_IMAGE" "$MINIO_IMAGE" "$MC_IMAGE" "$EDGE_IMAGE"
 
 ARMS=("$@")
 [ ${#ARMS[@]} -gt 0 ] || ARMS=(router engine)
+ARMS_KEY="$(printf '%s-' "${ARMS[@]}")"; ARMS_KEY="${ARMS_KEY%-}"
+[ "$ARMS_KEY" = "router-engine" ] || OUT="$RESULTS/gap4-$ARMS_KEY.json"
 
 arm_result_json="{}"
 
@@ -79,7 +122,10 @@ run_arm() {
   cp "$BUILD/conf/caps.csv" "$BUILD/conf/actions.csv" "$BUILD/policy/"
   touch "$BUILD/policy/caps.csv" "$BUILD/policy/actions.csv"
   g_engine_up "$BUILD/policy"
-  g_router_up "$BUILD/conf/router_ckpt.yaml" -v "$BUILD/ckpt":/ckpt
+  local conf="$BUILD/conf/router_ckpt.yaml"
+  [ "$arm" = "owners" ] && conf="$BUILD/conf/router_owners.yaml"
+  local started_at; started_at="$(date +%s)"
+  g_router_up "$conf" -v "$BUILD/ckpt":/ckpt
 
   # Kill when the hot table passes the mark, and never before data is moving.
   local cur=0 waited=0
@@ -90,6 +136,7 @@ run_arm() {
   local killed_at="$cur"
   local victim="$ROUTER"
   if [ "$arm" = "engine" ]; then victim="$ENGINE"; fi
+  local killed_after=$(( $(date +%s) - started_at ))
   echo "  killing $victim at $killed_at hot rows"
   docker kill "$victim" >/dev/null
   sleep "$DOWN_SECONDS"
@@ -103,7 +150,11 @@ run_arm() {
   # the strict check reads, so this one settles on stillness alone and the
   # reconciliation below is what says whether every line arrived.
   g_wait_settle default.otel_logs 8 0
+  # Stillness costs eight polls of fifteen seconds, the same in every arm, so
+  # the wall clock is comparable across arms once that constant is taken off.
+  local run_seconds=$(( $(date +%s) - started_at - 120 - DOWN_SECONDS ))
   g_flush_cold
+  g_wait_for_object "$BUCKET" || true
   docker exec -i "$CS" clickhouse-client --multiquery < "$BUILD/conf/schema_cold.sql"
 
   local hot cold objects
@@ -146,6 +197,8 @@ json.dump({
  "arm": "$arm",
  "input_lines": $SEQ_LINES,
  "killed_at_hot_rows": ${killed_at:-0},
+ "killed_after_seconds": ${killed_after:-0},
+ "run_seconds": ${run_seconds:-0},
  "down_seconds": $DOWN_SECONDS,
  "wire_records": wire["total"],
  "hot_rows": ${hot:-0}, "cold_rows": ${cold:-0}, "objects": "$objects",

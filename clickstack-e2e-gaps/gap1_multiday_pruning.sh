@@ -29,7 +29,14 @@ set -euo pipefail
 DAYS="${DAYS:-30}"
 BATCHES="${BATCHES:-2}"
 COLD30=cold30
+
+# Which questions to put to the layout once it exists. `pruning` is gap 1's own
+# set and writes results/gap1.json. `agg` is the set Altinity's published
+# objection aims at, a GROUP BY and an ORDER BY with a LIMIT, each three ways,
+# and writes results/gap1-agg.json so gap 1's committed numbers are left alone.
+QUERY_SET="${QUERY_SET:-pruning}"
 OUT="$RESULTS/gap1.json"
+[ "$QUERY_SET" = "pruning" ] || OUT="$RESULTS/gap1-$QUERY_SET.json"
 
 trap g_teardown EXIT
 g_require
@@ -105,6 +112,10 @@ echo "  $DAY_OBJECTS objects across $DAYS days, $DAY_BYTES"
 
 # --------------------------------------------------------- the multi-day table
 say "the multi-day cold table and the merge table over it"
+# ClickHouse 116888: an S3 table created with an explicit schema and
+# use_hive_partitioning before any object exists under its prefix answers zero
+# rows to every path predicate for the rest of its life, with no error.
+g_wait_for_object "$COLD30"
 docker exec -i "$CS" clickhouse-client --multiquery <<SQL
 DROP TABLE IF EXISTS default.otel_logs_cold30;
 CREATE TABLE default.otel_logs_cold30
@@ -145,7 +156,41 @@ PROBE_OFFSET=$(( DAYS > 5 ? 5 : DAYS - 1 ))
 MIDDAY="$(chq "SELECT toString(today() - $PROBE_OFFSET)")"
 WORD=snapshot
 
-say "queries"
+say "queries, set: $QUERY_SET"
+if [ "$QUERY_SET" = "agg" ]; then
+# Alexander Zaitsev of Altinity, 2025-11-07, on trying Merge over MergeTree plus
+# object storage: "the Merge engine does not push query execution steps down,
+# such as aggregations or limits". Gap 1 measured filters and counts, which is a
+# different claim, so this set puts the two shapes his objection names. Each
+# runs three ways over the same Merge table: the time predicate a dashboard
+# sends, the same with a day predicate in the path, and the same with
+# `_table = 'otel_logs'`, which is the hot side named through the Merge table
+# rather than queried directly. The hot table alone is the baseline for both.
+#
+# The ORDER BY shape returns a digest rather than a hundred rows, so the table
+# has one comparable cell per query and the sort and the read of `Body` still
+# happen.
+python3 - "$BUILD/gap1_queries.json" <<'PY'
+import json, sys
+out = sys.argv[1]
+T, HOT = "default.otel_logs_all30", "default.otel_logs"
+TIME = "Timestamp >= now() - INTERVAL 1 HOUR"
+GROUP = ("SELECT ServiceName, count() AS c FROM {t} WHERE {w} "
+         "GROUP BY ServiceName ORDER BY c DESC")
+RECENT = ("SELECT count(), cityHash64(groupArray(Body)) FROM "
+          "(SELECT Timestamp, ServiceName, Body FROM {t} WHERE {w} "
+          "ORDER BY Timestamp DESC LIMIT 100)")
+ways = [("time only", T, TIME),
+        ("time plus day >= today() - 1", T, f"{TIME} AND day >= today() - 1"),
+        ("time plus _table = 'otel_logs'", T, f"{TIME} AND _table = 'otel_logs'"),
+        ("hot table alone, the baseline", HOT, TIME)]
+q = []
+for shape, sql in (("GROUP BY ServiceName", GROUP), ("ORDER BY Timestamp DESC LIMIT 100", RECENT)):
+    for label, t, w in ways:
+        q.append({"name": f"{shape}: {label}", "sql": sql.format(t=t, w=w)})
+json.dump(q, open(out, "w"), indent=1)
+PY
+else
 python3 - "$BUILD/gap1_queries.json" "$SVC" "$HASH" "$MIDDAY" "$WORD" <<'PY'
 import json, sys
 out, svc, h, day, word = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5]
@@ -174,6 +219,7 @@ q = [
 ]
 json.dump([{"name": n, "sql": s} for n, s in q], open(out, "w"), indent=1)
 PY
+fi
 python3 "$GAPS_HERE/measure.py" --container "$CS" --spec "$BUILD/gap1_queries.json" --out "$BUILD/gap1_queries_out.json"
 
 OBJ_PER_DAY="$(chq "SELECT count(DISTINCT _path) FROM default.otel_logs_cold30 WHERE day = '$MIDDAY'")"
@@ -185,6 +231,7 @@ import json, sys
 out, queries = sys.argv[1], sys.argv[2]
 json.dump({
  "gap": 1,
+ "query_set": "$QUERY_SET",
  "feed_lines": $FEED_LINES, "feed_bytes": $FEED_BYTES,
  "wire_records": $WIRE_RECORDS, "hot_rows": $HOT_ROWS, "cold_rows": $COLD_ROWS,
  "run_objects": "$RUN_OBJECTS",
