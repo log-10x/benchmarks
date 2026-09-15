@@ -1,9 +1,10 @@
 # clickstack-e2e-gaps
 
-Nine scripts over the questions the end to end harness next door left open, each
+Ten scripts over the questions the end to end harness next door left open, each
 run against the whole 197,430 line capture rather than the 50,000 line slice.
 Six are the first pass, one per gap; three more were added in a second pass after
-a record check against primary sources.
+a record check against primary sources; the tenth was added in a third pass, on
+the layout the first one builds.
 
 `../clickstack-e2e` is the route: a released capture through an OpenTelemetry
 Collector into the 10x receiver, the marked slice into an object store, the rest
@@ -58,12 +59,13 @@ with no error in the run's own log.
 | `gap2b_vector058_parquet.sh` | what Vector 0.58.0 takes for Parquet, and what the same rows cost as newline delimited JSON and as Parquet, both written by Vector in one run and read through two Merge tables, with the Parquet reader's row group and page counters | that the two containers hold the same shape: the JSON arm writes a free attribute map and the Parquet arm writes named columns, because a schema inferred from a free map carries one field per key seen |
 | `gap7_s3_table_before_objects.sh` | ClickHouse issue 116888: what an S3 table with an explicit schema and `use_hive_partitioning` answers when created before any object exists, what the same DDL answers when created after, and whether DETACH and ATTACH recovers the first | anything about how long the empty listing is held, or which other engines cache one. One table, one prefix, one server version, named in the results |
 | `gap8_ttl_to_s3.sh` | what den-crane's TTL recipe costs on the same capture: the PUTs, the parts and the merge and move CPU a forced `TTL TO VOLUME 'cold'` charges, and what a slice stamped behind the boundary charges on insert alone | nothing about a bill, and nothing about the background scheduler's own pacing: the move is forced so the whole table moves exactly once and the number does not depend on which parts the scheduler happened to pick |
+| `gap9_bounded_window.sh` | what a bound inside the table costs against the same bound written into the query: a view over the cold table carrying `day >= today() - 7`, a second Merge table over hot plus that view, and the two aggregation shapes put to both | nothing about an estate's own ratio of window to retention, and nothing about the rows outside the bound, which that table cannot reach at all |
 
 ## Files
 
 | File | What it is |
 |---|---|
-| `lib.sh` | the compose pattern every script shares: the pinned images, the network, MinIO, ClickStack, the receiver and the routing collector, plus `g_wait_for_object`, the guard for ClickHouse 116888 |
+| `lib.sh` | the compose pattern every script shares, plus `g_cold30_layout`, gap 1's thirty day object layout, shared so gap 9 asks its question of the same one: the pinned images, the network, MinIO, ClickStack, the receiver and the routing collector, plus `g_wait_for_object`, the guard for ClickHouse 116888 |
 | `measure.py` | one query, timed on a cold cache, read back out of `system.query_log` with its S3 counters |
 | `wire_hashes.py` | the census of what the receiver returned, from the collector's wire tap |
 | `make_seq_input.py` | the capture with a sequence number inside every line, for gap 4 |
@@ -89,5 +91,10 @@ and its guard, and what `TTL TO VOLUME 'cold'` costs on the same capture. That f
 carries the digests every run used and the command that produced each table, and
 its own JSON sits beside the first pass's: `gap1-agg.json`, `gap2b.json`,
 `gap4-router-owners.json`, `gap7.json`, `gap8.json`.
+
+The same file's last section, `Wave 3, 2026-09-15 evening`, is a third pass on the
+same harness: the persistent sending queue arm of gap 4 (`gap4-router-persist.json`),
+the bounded cold window (`gap9.json`), and what the public Retriever image carries,
+which is why gap 3 is still not measured.
 
 Where the two disagree, the second is the later measurement and says so.
