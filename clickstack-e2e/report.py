@@ -304,8 +304,41 @@ def findings(wire: dict, component_rows: list, args) -> list[str]:
     hashed = wire["fields"].get("tenx_hash", 0)
     patterned = wire["fields"].get("message_pattern", 0)
     missing = [r["name"] for r in component_rows if not r["present"]]
-    out = [
-        "## What did not work, or was skipped", "",
+    # Three of the findings the 2026-09-14 run reported were engine defects, fixed in
+    # 1.1.79 (engine #150, pipeline-extensions #40). Each paragraph below is written
+    # from the measurement, so a run states what it saw rather than asserting a defect
+    # that is no longer there, and a regression puts the original wording back.
+    clean = []
+    if wire["no_attrs"] == 0:
+        clean.append(
+            f"**Every returned record carries the marks.** {wire['total']} of "
+            f"{wire['total']} came back with attributes, messages that are themselves "
+            f"JSON objects with a `body` key included, so every record is routable. The "
+            f"2026-09-14 run returned {'{:,}'.format(19436)} of {'{:,}'.format(37519)} "
+            f"with no attributes at all.")
+    if as_attribute == 0 and on_resource:
+        clean.append(
+            f"**The service arrives in one place.** The OTLP resource carried "
+            f"`service.name` on {on_resource} records and a log attribute carried it on "
+            f"{as_attribute}, so the `groupbyattrs` hop had nothing to lift. The hop stays "
+            f"in the config: a record that carries the service only as an attribute lands "
+            f"under a prefix of `service=<nil>` without it.")
+    if wire["with_time"] == wire["total"] and wire["total"]:
+        clean.append(
+            f"**A returned record carries the marks and a record time.** "
+            f"{wire['with_time']} of {wire['total']} came back with `timeUnixNano` set, "
+            f"the marked records included. The 2026-09-14 run set it only on the "
+            f"unmarked ones.")
+
+    out = []
+    if clean:
+        out += ["## What the earlier run reported and this run does not", ""]
+        for para in clean:
+            out += [para, ""]
+
+    out += ["## What did not work, or was skipped", ""]
+    if wire["no_attrs"]:
+        out += [
         f"**The marker does not survive a message that is itself JSON with a `body` "
         f"key.** {wire['no_attrs']} of {wire['total']} returned records came back with no "
         f"attributes at all: no `routeState`, no pattern hash, no pattern text, and an "
@@ -317,14 +350,15 @@ def findings(wire: dict, component_rows: list, args) -> list[str]:
         f"the OpenTelemetry Collector forwarder input gives its message field. The router "
         f"cannot route what carries no mark, so every one of them took the default route "
         f"into the hot table. Nothing was lost and nothing could be offloaded. The run "
-        f"exits 0 and logs no error.", "",
+        f"exits 0 and logs no error.", ""]
+    if as_attribute:
+        out += [
         f"**The service arrives in two different places.** Of the records that did carry "
         f"fields, the OTLP resource carried `service.name` on {on_resource} and a log "
         f"attribute carried it on {as_attribute}. The harness lifts the attribute back onto "
         f"the resource with the `groupbyattrs` processor; without that step the offloaded "
         f"objects land under a prefix of `service=<nil>` and the hot rows have an empty "
-        f"`ServiceName`.", "",
-    ]
+        f"`ServiceName`.", ""]
     out += [f"**The route arrives more often than the pattern does.** {routed} records came "
             f"back carrying a route, {hashed} carrying the pattern hash and {patterned} "
             f"carrying the pattern text. A record that is routed but unnamed can be shipped "
@@ -337,13 +371,15 @@ def findings(wire: dict, component_rows: list, args) -> list[str]:
                 f"holding the name of the resource attribute the engine folded into the "
                 f"record, and the damage differs from record to record. Reported, not worked "
                 f"around: nothing downstream reads that field.", ""]
-    out += [
+    if wire["with_time"] != wire["total"]:
+        out += [
         f"**A returned record carries either the marks or a record time, never both.** "
         f"{wire['with_time']} of {wire['total']} records came back with `timeUnixNano` set, "
         f"and they are exactly the {wire['no_attrs']} that came back with no attributes. "
         f"Every record that carried a route carried no time. The collector stamps ingest "
         f"time on both routes; the capture's envelope has no timestamp field either, so "
-        f"nothing here reconstructs the time a line was written.", "",
+        f"nothing here reconstructs the time a line was written.", ""]
+    out += [
         "**The offload encoding drops everything but the body and the attributes.** The "
         "`jsonlogencodingextension` in `body_with_inline_attributes` mode writes "
         "`{\"body\": ..., \"logAttributes\": {...}}` and nothing else: no record time, no "
