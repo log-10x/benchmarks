@@ -299,3 +299,84 @@ which is what `g_wait_for_object` in `lib.sh` now enforces before every
 `CREATE TABLE` over an S3 prefix in this folder. Or `DETACH TABLE` then
 `ATTACH TABLE`, which restores a table that is already broken without dropping
 it.
+
+## Step 4: the collector configured the way its code owners prescribe
+
+**Closed, and the handoff is still not durable.** Applying every fix the
+component's own maintainers recommend loses more lines rather than fewer, at
+roughly the same throughput, and multiplies the object count by eighteen.
+
+The prescription is on the record, from the people who own the code. Andrzej
+Stencel, on contrib issue 40741, 2025-06-24: "I recommend to remove the Batch
+processor from the pipeline... Try disabling the [sending queue] with
+`sending_queue::enabled: false` or make it blocking with
+`sending_queue::wait_for_result: true`", and the reporter answered "you were
+right, with that configuration it works as expected". paulojmdias supplies the
+receiver half on contrib issue 46945: "The filelog receiver has a
+`retry_on_failure` option (disabled by default)... If you set
+`max_elapsed_time: 0`... the offset only advances after successful delivery."
+
+All three are applied in the `owners` arm: `retry_on_failure` enabled on the
+file receiver with `max_elapsed_time: 0`, `batch/cold` removed from the cold
+pipeline, and `sending_queue.enabled: false` on all three exporters. The
+collector at contrib 0.160.0 accepted every one of them without complaint.
+
+```
+CSE_DATA_DIR=<repo>/clickstack-e2e/data ./gap4_durable_handoff.sh router owners
+```
+
+Both arms ran tonight, back to back, on one host, so the comparison is between
+two runs of the same shape rather than against a figure from this morning. Each
+kills the routing collector once the hot table passes twenty thousand rows and
+restarts it twenty seconds later.
+
+| Measure | router, the shipped queue | owners, the prescription |
+|---|---:|---:|
+| input lines | 197,430 | 197,430 |
+| hot rows at the kill | 20,932 | 20,664 |
+| seconds to the kill | 65 | 70 |
+| seconds of feed, stillness and downtime removed | 150 | 141 |
+| records the receiver returned | 57,036 | 47,516 |
+| rows in the hot table | 36,145 | 32,891 |
+| rows in the objects | 93,546 | 90,003 |
+| objects written | 65 | 1,180 |
+| sequence numbers found | 161,058 | 152,875 |
+| distinct sequence numbers | 161,058 | 152,875 |
+| duplicate deliveries | 0 | 0 |
+| **input lines never stored** | **36,372** | **44,555** |
+| pattern hashes stored | 2,585 | 2,562 |
+
+**Never-stored goes up, not down.** 44,555 lines against 36,372, on a
+configuration built to stop exactly that. The prescription addresses the hop it
+was written about, a receiver handing a batch to an exporter inside one
+collector, and the loss here is on the other side of the kill: records that had
+left the file receiver and were inside the 10x receiver or in flight to it when
+the container died. Nothing in the collector's configuration can hold those,
+because the collector no longer owns them.
+
+**Throughput is not the cost.** 141 seconds against 150, with the kill arriving
+at a comparable point in both. Turning the queues off did not slow this route
+down in a way this run can see, which removes the obvious reason not to apply
+the prescription.
+
+**The object count is the cost, and it is large.** Removing `batch/cold` takes
+the cold side from 65 objects to 1,180 for a comparable number of rows, because
+the S3 exporter then writes one object per batch the routing connector hands it
+rather than per five thousand records. Every one of those objects is a PUT on
+the way in and a GET on the way out, so a query that opens the whole bucket
+pays 1,180 requests instead of 65. The prescription and the request arithmetic
+pull in opposite directions, and a deployment has to choose which one it is
+paying.
+
+**Neither arm duplicated anything, and this morning's run of the same arm did.**
+The first pass reports 16,828 duplicate deliveries on the `router` arm; both arms
+tonight report zero. The kill lands at a different point relative to the file
+receiver's checkpoint flush each time, so whether the checkpoint has passed the
+in-flight lines is a race. The loss is reproducible; the duplication is not. Any
+claim about duplicate counts needs repeats, and this pair does not supply them.
+
+**What would still close the gap the other way.** A persistent queue behind the
+exporter rather than the file position alone, and a receiver that acknowledges
+nothing until the record is written or keeps its own spool. Neither is in the
+shipped recipe today, and until one is, "every line kept" is a claim about the
+policy and not about the route.

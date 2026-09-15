@@ -1,0 +1,97 @@
+{
+ "gap": 4,
+ "arms": [
+  {
+   "arm": "router",
+   "input_lines": 197430,
+   "killed_at_hot_rows": 20932,
+   "killed_after_seconds": 65,
+   "run_seconds": 150,
+   "down_seconds": 20,
+   "wire_records": 57036,
+   "hot_rows": 36145,
+   "cold_rows": 93546,
+   "objects": "65",
+   "seq_occurrences": 161058,
+   "seq_distinct": 161058,
+   "seq_duplicated": 0,
+   "seq_duplicate_lines": 0,
+   "seq_missing": 36372,
+   "hashes_on_wire": 104,
+   "hashes_stored": 2585,
+   "hashes_short": 0,
+   "hashes_over": 2567,
+   "records_short_by_hash": 0,
+   "records_over_by_hash": 72655,
+   "worst_short": [],
+   "worst_over": [
+    [
+     "z1LKaIvhNlY",
+     16150
+    ],
+    [
+     "AhVWKW0C6mg",
+     15613
+    ],
+    [
+     "UJAVPQBCfcQ",
+     6272
+    ],
+    [
+     "FU1__vh8hbY",
+     4968
+    ],
+    [
+     "NiDD7PpZw48",
+     2441
+    ]
+   ]
+  },
+  {
+   "arm": "owners",
+   "input_lines": 197430,
+   "killed_at_hot_rows": 20664,
+   "killed_after_seconds": 70,
+   "run_seconds": 141,
+   "down_seconds": 20,
+   "wire_records": 47516,
+   "hot_rows": 32891,
+   "cold_rows": 90003,
+   "objects": "1180",
+   "seq_occurrences": 152875,
+   "seq_distinct": 152875,
+   "seq_duplicated": 0,
+   "seq_duplicate_lines": 0,
+   "seq_missing": 44555,
+   "hashes_on_wire": 87,
+   "hashes_stored": 2562,
+   "hashes_short": 0,
+   "hashes_over": 2545,
+   "records_short_by_hash": 0,
+   "records_over_by_hash": 75378,
+   "worst_short": [],
+   "worst_over": [
+    [
+     "z1LKaIvhNlY",
+     16931
+    ],
+    [
+     "AhVWKW0C6mg",
+     16361
+    ],
+    [
+     "UJAVPQBCfcQ",
+     6575
+    ],
+    [
+     "FU1__vh8hbY",
+     5810
+    ],
+    [
+     "NiDD7PpZw48",
+     2841
+    ]
+   ]
+  }
+ ]
+}

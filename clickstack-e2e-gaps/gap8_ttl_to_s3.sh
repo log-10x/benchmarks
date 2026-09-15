@@ -88,11 +88,14 @@ case "$DISKS" in *s3cold*) ;; *) echo "the s3 disk is not configured; the mount 
 # ClickStack creates the table, so its own DDL is read back and reissued with
 # the policy and the TTL added. Nothing else about the table changes.
 say "otel_logs under the storage policy, with TTL TO VOLUME 'cold'"
-chq "SHOW CREATE TABLE default.otel_logs" > "$BUILD/otel_logs_ddl.sql"
+# TSVRaw, because the default TSV escapes both the newlines and the quotes
+# inside the materialized column expressions and the statement will not parse.
+docker exec "$CS" clickhouse-client --format TSVRaw \
+  --query "SHOW CREATE TABLE default.otel_logs" > "$BUILD/otel_logs_ddl.sql"
 python3 - "$BUILD/otel_logs_ddl.sql" "$BUILD/otel_logs_ttl.sql" "$TTL_SECONDS" <<'PY'
 import re, sys
 src, dst, ttl = sys.argv[1], sys.argv[2], int(sys.argv[3])
-t = open(src).read().replace("\\n", "\n").strip().rstrip(";")
+t = open(src).read().strip().rstrip(";")
 # The table keeps its name and every column. Three edits only: the move rule is
 # added to the TTL, the policy is set, and any policy the shipped DDL already
 # named is dropped so the statement carries one.
