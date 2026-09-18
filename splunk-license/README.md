@@ -15,11 +15,20 @@ the two are not the same measurement: the meter counts what the indexer ingests,
 which is neither the file size on disk nor what the forwarder sent.
 
 So: the same capture, two arms, one difference. Arm one ships the raw file.
-Arm two ships the same file after the 10x Receiver has compacted it, with
-`varMaxRecurIndexes: 0`, which the Splunk app requires. Same forwarder, same
+Arm two ships the same file after the 10x Receiver has compacted it, with the
+three settings the Splunk app requires: `varMaxRecurIndexes: 0`,
+`timestampZone: UTC` and `maxPerObject: 1`. Same forwarder, same
 index settings, same instance, same licence day.
 
 ## The result
+
+> The figures below were measured with `varMaxRecurIndexes: 0` alone. Since
+> then `run.sh` also pins `timestampZone: UTC`, which moves no byte (checked:
+> the re-encode is identical), and `maxPerObject: 1`, which does change the
+> compact form and so will change the metered bytes. Until the run is repeated
+> with that setting, `./run.sh` no longer reproduces this table to the byte.
+> The reason for the setting is in the expansion section.
+
 
 The full table, the Monitoring Console's own output and the raw rollup line are
 in [`results/results.md`](results/results.md). The headline:
@@ -142,15 +151,24 @@ The two rows becoming equal is the point of the zone fix: expansion no longer
 depends on who is looking. `results/expansion_after_app_fixes.json` carries both
 runs and the counts below.
 
-What still fails is one defect neither PR touches. 23 of the 2,986 templates
-carry more than one `$(...)` timestamp, and the app stores a single
-`timestamp_format` per template, taking the last slot rather than the first. A
-template reading `[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Kafka startTimeMs: $(+%s)`
-therefore stores `+%%%S` and renders `[+%04]` where the date belongs. Those 23
-templates account for all 5,892 remaining failures. The 45 unexpanded events are
-the trailing-space hashes, now located: Splunk's search-time extraction trims the
-space while the KV store keeps it in both `_key` and `pattern_hash`, so the
-lookup misses. Trimming all 2,986 hashes produces no collisions.
+What still failed after those two was one defect neither PR touches. 23 of the
+2,986 templates carry more than one `$(...)` timestamp, and the app stores a
+single `timestamp_format` per template, taking the last slot rather than the
+first. A template reading `[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Kafka startTimeMs:
+$(+%s)` therefore stores `+%%%S` and renders `[+%04]` where the date belongs.
+Those 23 templates account for all 5,892 remaining failures.
+
+That one is resolved on the Receiver side rather than in the app: the engine's
+`maxPerObject` setting, unlimited by default, caps how many timestamps an event
+gets a slot for. At `1` the first timestamp keeps its slot and any later one
+becomes an ordinary variable whose literal text round-trips as it is, which was
+checked on a two-timestamp fixture before it went into the run. `run.sh` now
+sets it and `template_stats.py` fails the run if any template still carries two
+slots. The 45 unexpanded events are the trailing-space hashes, now located:
+Splunk's search-time extraction trims the space while the KV store keeps it in
+both `_key` and `pattern_hash`, so the lookup misses. Trimming all 2,986 hashes
+produces no collisions, and `log-10x/splunk-app` #13 keys the store on the
+trimmed hash. Both wait on the run being repeated.
 
 ## What is claimed and what is not
 
@@ -211,6 +229,7 @@ around the quota.
 | `conf/tenx_config.conf` | the one app setting changed, and why |
 | `conf/searches/` | the licence searches, including the Monitoring Console's own |
 | `build_groundtruth.py` | what each compact event's original text was, with its invariants |
+| `template_stats.py` | fails the run if any template carries more timestamp slots than the app can reconstruct |
 | `worst_slice.py` | the reduction per Kubernetes container, so the worst slice is named |
 | `verify_expansion.py` | every compact event read back through the app, against that |
 | `report.py` | renders `results/results.md` from the kept RolloverSummary lines |

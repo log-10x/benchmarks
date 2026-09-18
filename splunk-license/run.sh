@@ -59,7 +59,13 @@ die() { echo "$*" >&2; exit 1; }
 
 # Splunk's CLI has to run as the splunk user; as root it cannot read its own
 # pid file and fails with a wall of permission errors that look like a bug.
-sp()  { docker exec -u splunk "$IDX" /opt/splunk/bin/splunk "$@"; }
+# docker exec can hang for minutes when the daemon is saturated, which it is
+# while a 6.5 GB image is being extracted on the same host. Every call into a
+# container gets a ceiling, so a stall fails a stage loudly instead of freezing
+# it. Ten minutes is long enough for a slow splunk restart on a loaded box.
+TIMEOUT_BIN="$(command -v timeout || command -v gtimeout || true)"
+dx()  { ${TIMEOUT_BIN:+$TIMEOUT_BIN 600} docker exec "$@"; }
+sp()  { dx -u splunk "$IDX" /opt/splunk/bin/splunk "$@"; }
 # -preview false matters: without it the export carries the scheduler's partial
 # result batches too, and a row count comes back larger than the event count.
 spq() { sp search "$1" -app tenx-for-splunk -auth "$PASS_ARG" -maxout 0 -preview false "${@:2}" 2>/dev/null; }
@@ -95,13 +101,19 @@ stage_data() {
 # specified only once". So the file is taken out of the image, edited, mounted
 # back, and the diff is asserted to be that one line and nothing else.
 patch_engine_config() {
-  local src="$1" out="$2" from="$3" to="$4"
+  local src="$1" out="$2"; shift 2
   docker run --rm --entrypoint sh "$ENGINE" -c "cat $src" > "$out.orig" 2>/dev/null
   [ -s "$out.orig" ] || die "could not read $src out of $ENGINE"
-  sed "s|^$from\$|$to|" "$out.orig" > "$out"
+  cp "$out.orig" "$out"
+  local pairs=0
+  while [ "$#" -ge 2 ]; do
+    sed "s|^$1\$|$2|" "$out" > "$out.tmp" && mv "$out.tmp" "$out"
+    pairs=$((pairs + 1)); shift 2
+  done
   local changed
   changed="$(diff "$out.orig" "$out" | grep -c '^[<>]' || true)"
-  [ "$changed" = "2" ] || die "patching $src changed $changed lines, expected one line replaced"
+  [ "$changed" = "$((2 * pairs))" ] \
+    || die "patching $src changed $((changed / 2)) lines, expected exactly $pairs"
   rm -f "$out.orig"
 }
 
@@ -129,15 +141,33 @@ stage_encode() {
   # makes the arm reproducible on a host that is not on UTC, and it is the
   # setting the Splunk app requires for the same reason.
   patch_engine_config /etc/tenx/config/pipelines/run/transform/timestamp/config.yaml \
-    "$HERE/conf/engine-timestamp-utc.yaml" "  zone: null" "  zone: UTC"
+    "$HERE/conf/engine-timestamp-control.yaml" "  zone: null" "  zone: UTC"
+  # maxPerObject: 1. The engine's default records every timestamp it finds in an
+  # event as its own slot; the Splunk app stores one timestamp format per
+  # template and reconstructs one. On the E21 capture 23 templates carried two
+  # or more, and they were every one of the 5,892 events still wrong after the
+  # app's own timestamp fixes. With one slot per event the first timestamp keeps
+  # its slot and any later one becomes an ordinary variable whose literal text
+  # round-trips as it is. The zone is pinned here as well.
+  patch_engine_config /etc/tenx/config/pipelines/run/transform/timestamp/config.yaml \
+    "$HERE/conf/engine-timestamp-splunk.yaml" \
+    "  zone: null" "  zone: UTC" "  maxPerObject: 0" "  maxPerObject: 1"
   docker run --rm --entrypoint sh "$ENGINE" -c "cat /etc/tenx/config/pipelines/run/template/config.yaml" \
     > "$HERE/conf/engine-template-shipped.yaml" 2>/dev/null
 
   probe_parse_zone
-  encode_arm norecur "$HERE/conf/engine-template-norecur.yaml" "$DATA_DIR/compact"
-  # The control arm exists to say what varMaxRecurIndexes: 0 costs, measured
-  # rather than claimed. It is not ingested.
-  encode_arm shipped "$HERE/conf/engine-template-shipped.yaml" "$DATA_DIR/compact_default"
+  encode_arm norecur "$HERE/conf/engine-template-norecur.yaml" \
+    "$HERE/conf/engine-timestamp-splunk.yaml" "$DATA_DIR/compact"
+
+  say "falsifier: one timestamp slot per template"
+  python3 template_stats.py --templates "$DATA_DIR/compact/templates.json" --max-slots 1
+
+  # The control arm is the engine's own defaults for both settings the Splunk
+  # app requires, so the gap between the arms is what those requirements cost,
+  # measured rather than claimed. The zone is pinned on it too; that moves no
+  # byte. It is not ingested.
+  encode_arm shipped "$HERE/conf/engine-template-shipped.yaml" \
+    "$HERE/conf/engine-timestamp-control.yaml" "$DATA_DIR/compact_default"
 
   say "round trip: decode the compact form and compare to the capture"
   cat "$DATA_DIR/compact/templates.json" "$DATA_DIR/compact/encoded.log" > "$DATA_DIR/compact/compact.log"
@@ -172,7 +202,7 @@ probe_parse_zone() {
     -v "$dir/out":/out -v "$dir/in.log":/in/events.log:ro \
     -v "$HERE/tenx-encode-splunk.config.yaml":/cfg/enc.yaml:ro \
     -v "$HERE/conf/engine-template-norecur.yaml":/etc/tenx/config/pipelines/run/template/config.yaml:ro \
-    -v "$HERE/conf/engine-timestamp-utc.yaml":/etc/tenx/config/pipelines/run/transform/timestamp/config.yaml:ro \
+    -v "$HERE/conf/engine-timestamp-splunk.yaml":/etc/tenx/config/pipelines/run/transform/timestamp/config.yaml:ro \
     -v "$HERE/conf/engine-log4j2-quiet.yaml":/etc/tenx/config/log4j2.yaml:ro \
     "$ENGINE" @/cfg/enc.yaml > "$dir/encode.stdout" 2>&1
   local n
@@ -182,7 +212,7 @@ probe_parse_zone() {
 }
 
 encode_arm() {
-  local label="$1" template="$2" out="$3"
+  local label="$1" template="$2" tsconf="$3" out="$4"
   say "encode ($label)"
   rm -rf "$out"; mkdir -p "$out"
   docker run --rm -e INPUT_FILE=/in/events.log -e OUTPUT_DIR=/out \
@@ -190,7 +220,7 @@ encode_arm() {
     -v "$DATA_DIR/base/$ASSET":/in/events.log:ro \
     -v "$HERE/tenx-encode-splunk.config.yaml":/cfg/enc.yaml:ro \
     -v "$template":/etc/tenx/config/pipelines/run/template/config.yaml:ro \
-    -v "$HERE/conf/engine-timestamp-utc.yaml":/etc/tenx/config/pipelines/run/transform/timestamp/config.yaml:ro \
+    -v "$tsconf":/etc/tenx/config/pipelines/run/transform/timestamp/config.yaml:ro \
     -v "$HERE/conf/engine-log4j2-quiet.yaml":/etc/tenx/config/log4j2.yaml:ro \
     "$ENGINE" @/cfg/enc.yaml > "$out/encode.stdout" 2>&1
   [ -s "$out/encoded.log" ] || { tail -20 "$out/encode.stdout"; die "encode ($label) produced nothing"; }
@@ -268,7 +298,7 @@ stage_splunk() {
     "$UF_IMAGE" >/dev/null
 
   echo "waiting for splunkd"
-  until docker exec -u splunk "$IDX" /opt/splunk/bin/splunk status 2>/dev/null \
+  until dx -u splunk "$IDX" /opt/splunk/bin/splunk status 2>/dev/null \
         | grep -q "splunkd is running"; do sleep 15; done
   sp version | head -1
 
@@ -289,10 +319,10 @@ stage_splunk() {
   mkdir -p "$app/tenx-for-splunk/local"
   cp "$HERE/conf/tenx_config.conf" "$app/tenx-for-splunk/local/tenx_config.conf"
   docker cp "$app/tenx-for-splunk" "$IDX:/opt/splunk/etc/apps/tenx-for-splunk"
-  docker exec -u root "$IDX" chown -R splunk:splunk \
+  dx -u root "$IDX" chown -R splunk:splunk \
     /opt/splunk/etc/apps/tenx-for-splunk /opt/splunk/etc/system/local
   sp restart >/dev/null
-  until docker exec -u splunk "$IDX" /opt/splunk/bin/splunk status 2>/dev/null \
+  until dx -u splunk "$IDX" /opt/splunk/bin/splunk status 2>/dev/null \
         | grep -q "splunkd is running"; do sleep 10; done
 }
 
@@ -301,8 +331,8 @@ stage_ingest() {
   for f in outputs.conf inputs.conf props.conf limits.conf; do
     docker cp "$HERE/conf/uf/$f" "$UF:/opt/splunkforwarder/etc/system/local/$f"
   done
-  docker exec -u root "$UF" chown -R splunk:splunk /opt/splunkforwarder/etc/system/local
-  docker exec -u splunk "$UF" /opt/splunkforwarder/bin/splunk restart >/dev/null
+  dx -u root "$UF" chown -R splunk:splunk /opt/splunkforwarder/etc/system/local
+  dx -u splunk "$UF" /opt/splunkforwarder/bin/splunk restart >/dev/null
 
   local want_enc want_tpl
   want_enc="$(wc -l < "$DATA_DIR/compact/encoded.log" | tr -d ' ')"
@@ -356,14 +386,14 @@ stage_expand() {
 stage_licence() {
   say "waiting for the licence day to roll over"
   local deadline=$((SECONDS + 9000))
-  until docker exec -u splunk "$IDX" sh -c \
+  until dx -u splunk "$IDX" sh -c \
         'grep -c "type=RolloverSummary" /opt/splunk/var/log/splunk/license_usage.log' 2>/dev/null \
         | grep -qvE '^0$'; do
-    echo "  container clock $(docker exec "$IDX" date)"
+    echo "  container clock $(dx "$IDX" date)"
     [ "$SECONDS" -lt "$deadline" ] || die "no RolloverSummary was written"
     sleep 120
   done
-  echo "rollover written at $(docker exec "$IDX" date)"
+  echo "rollover written at $(dx "$IDX" date)"
   # RolloverSummary is written at the boundary; give splunkd a moment to index it
   sleep 60
 
@@ -374,7 +404,7 @@ stage_licence() {
           -earliest_time -2d -latest_time now | tail -1 | tr -d ' ')"
   echo "licence manager host $host, pool $pool"
 
-  docker exec -u splunk "$IDX" sh -c \
+  dx -u splunk "$IDX" sh -c \
     'grep "type=RolloverSummary" /opt/splunk/var/log/splunk/license_usage.log' \
     > "$RESULTS/license_usage_rollover.log" 2>/dev/null
   echo "kept $(wc -l < "$RESULTS/license_usage_rollover.log" | tr -d ' ') RolloverSummary lines verbatim"

@@ -3,6 +3,7 @@
 # so this benchmark's compact form is visibly the one the compaction figure is
 # measured on rather than a variant written for Splunk.
 #
+# None of the three settings the Splunk app requires is set here.
 # varMaxRecurIndexes is NOT set here. It is a startup option the shipped engine
 # config already sets, so setting it again in a config file is rejected with
 # "option 'varMaxRecurIndexes' (number) should be specified only once". The run
@@ -10,6 +11,8 @@
 # run/template/config.yaml instead; that file is the image's, with its single
 # `maxRecurIndexes: 10` line changed to 0, and run.sh re-derives it from the
 # image on every run and fails if the diff is anything but that one line.
+# timestampZone and maxPerObject are handled the same way through
+# conf/engine-timestamp-splunk.yaml, mounted over run/transform/timestamp/config.yaml.
 tenx: run
 runtimeName: encode
 include:
