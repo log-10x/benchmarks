@@ -30,6 +30,7 @@ rerun it and check every figure a post cites.
 | [`clickhouse-clickstack/`](clickhouse-clickstack/) | What does the compact form cost or save on disk in ClickHouse's own recommended log schema, the ClickStack `otel_logs` table, rather than in a single `String` column? Three arms so the row-count change from multi-line folding never hides inside a ratio, three codecs, and a check on whether the compact rows read back as the text they came from. | Current. Not behind a post. |
 | [`clickstack-e2e/`](clickstack-e2e/) | Does the whole ClickHouse route work end to end, in containers? The released capture through a collector into the 10x receiver, the rows the receiver marked `offload` written to an object store and the rest inserted by ClickStack's own exporter, both sides read back as one table, the query shapes timed with their object-store requests, and a reconciliation of what left the receiver against what is stored. | Current. Behind [*Reading ClickHouse logs from the table and the bucket in one query*](https://www.log10x.com/blog/clickhouse-offload-merge-table/). |
 | [`clickstack-e2e-gaps/`](clickstack-e2e-gaps/) | The six questions the end to end run left open, each over the whole capture: what a day predicate prunes across thirty days of objects, whether Vector can write the cold branch, whether the Retriever indexes and queries that layout, what a container killed mid-stream costs line by line, which dashboard answers change when rows leave the hot table, and how the per-type policy compares with a collector-only policy on insert and merge CPU. Plus a second pass on four of them: Vector 0.58.0 writing Parquet beside JSON with the Parquet reader's own counters, a `GROUP BY` and an `ORDER BY ... LIMIT` through the Merge table, the collector configured as its code owners prescribe, the `TTL TO VOLUME 'cold'` alternative costed on the same capture, and ClickHouse issue 116888 demonstrated with its guard. | Current. Not behind a post. |
+| [`splunk-license/`](splunk-license/) | Splunk bills on what its licence meter counts, not on a file size. What does the 10x Receiver in front of Splunk do to that number? The same capture through the same Universal Forwarder into the same instance, twice, raw and compact, measured from `license_usage.log` and from the Monitoring Console's own searches, with every compact event read back through the 10x Splunk app and compared to the text that went in. | Current. Not behind a post. |
 | [`drain3-vs-log10x/`](drain3-vs-log10x/) | Log10x against [Drain3](https://github.com/logpai/Drain3) on the [LogHub](https://github.com/logpai/loghub) 2k sets: does a line get the same pattern ID regardless of file and order, and does the reduced form reverse to the original bytes? | Retired as a benchmark. The post it was written for never shipped. Its `tenx-encode.config.yaml` and `tenx-decode.config.yaml` are still cited elsewhere as the published round-trip configs, so the folder stays. |
 
 For anything about pattern identity, read `pattern-identity/`, not `drain3-vs-log10x/`. The two
@@ -48,6 +49,7 @@ each resolves its paths relative to itself, so a benchmark can be run from anywh
 | `clickhouse-clickstack/` | `./run.sh` | pinned engine image digest and a ClickHouse Docker image | `results/` | the `otel-sample-v2` release asset from `log-10x/config`, fetched into `data/` on first run |
 | `clickstack-e2e/` | `./run.sh` | pinned ClickStack, engine, collector and MinIO images | `results/` | the `otel-sample-v2` release asset from `log-10x/config`, fetched into `data/` on first run |
 | `clickstack-e2e-gaps/` | `./gap<N>_*.sh` | the same images by digest, plus Vector by digest; the receiver is the published `edge-10x` image | `results/` | the same `otel-sample-v2` asset, read from `../clickstack-e2e/data` |
+| `splunk-license/` | `./run.sh` | pinned engine, Splunk and forwarder images, and the 10x Splunk app | `results/` | the `otel-sample-v2` release asset from `log-10x/config`, fetched into `data/` on first run |
 | `drain3-vs-log10x/` | see its README | `requirements.txt` | `bench/facts.json`, `bench/results.json` | LogHub 2k sets, fetched into `loghub/` |
 
 Large inputs are never committed. Each folder's `.gitignore` excludes whatever that benchmark
@@ -60,7 +62,9 @@ need no download: `drain3-vs-log10x/smoke_test.py` and `pattern-identity/bench/r
 full runs need Docker and several hundred megabytes of public data, so they are run by hand and
 their artifacts are committed. `otel-denominators/report.py` is checked the same way: CI
 re-renders the committed CSV and fails if the rendered table does not match the committed
-`results.md`, so an edited number in the table without a rerun is caught.
+`results.md`, so an edited number in the table without a rerun is caught. `splunk-license`
+carries the same guard against its own primary file: CI recomputes the licence figures from
+the `RolloverSummary` lines the run kept verbatim and fails if `results.json` disagrees.
 
 ## License
 

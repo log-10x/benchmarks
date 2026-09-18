@@ -1,0 +1,281 @@
+{
+  "records": 157228,
+  "lines_assigned": 197430,
+  "min_events_to_rank": 100,
+  "ranked_worst_first": [
+    {
+      "container": "ad",
+      "events": 7114,
+      "lines": 7117,
+      "raw_bytes": 6798676,
+      "compact_bytes": 2864638,
+      "reduction_pct": 57.86
+    },
+    {
+      "container": "kube-proxy",
+      "events": 287,
+      "lines": 288,
+      "raw_bytes": 282497,
+      "compact_bytes": 118369,
+      "reduction_pct": 58.1
+    },
+    {
+      "container": "fluentd-10x",
+      "events": 1429,
+      "lines": 1504,
+      "raw_bytes": 1480626,
+      "compact_bytes": 592691,
+      "reduction_pct": 59.97
+    },
+    {
+      "container": "cart",
+      "events": 19646,
+      "lines": 39347,
+      "raw_bytes": 34058477,
+      "compact_bytes": 13485917,
+      "reduction_pct": 60.4
+    },
+    {
+      "container": "valkey-cart",
+      "events": 607,
+      "lines": 607,
+      "raw_bytes": 558778,
+      "compact_bytes": 217775,
+      "reduction_pct": 61.03
+    },
+    {
+      "container": "grafana",
+      "events": 2474,
+      "lines": 2474,
+      "raw_bytes": 2543675,
+      "compact_bytes": 965007,
+      "reduction_pct": 62.06
+    },
+    {
+      "container": "kafka",
+      "events": 29039,
+      "lines": 31025,
+      "raw_bytes": 31198190,
+      "compact_bytes": 11768293,
+      "reduction_pct": 62.28
+    },
+    {
+      "container": "recommendation",
+      "events": 3432,
+      "lines": 3432,
+      "raw_bytes": 4101044,
+      "compact_bytes": 1541044,
+      "reduction_pct": 62.42
+    },
+    {
+      "container": "frontend",
+      "events": 2317,
+      "lines": 16201,
+      "raw_bytes": 14619997,
+      "compact_bytes": 5295552,
+      "reduction_pct": 63.78
+    },
+    {
+      "container": "prometheus-server",
+      "events": 152,
+      "lines": 152,
+      "raw_bytes": 171713,
+      "compact_bytes": 57003,
+      "reduction_pct": 66.8
+    },
+    {
+      "container": "opentelemetry-collector",
+      "events": 89739,
+      "lines": 93875,
+      "raw_bytes": 117637691,
+      "compact_bytes": 37627765,
+      "reduction_pct": 68.01
+    },
+    {
+      "container": "frontend-proxy",
+      "events": 114,
+      "lines": 121,
+      "raw_bytes": 135088,
+      "compact_bytes": 42741,
+      "reduction_pct": 68.36
+    },
+    {
+      "container": "opensearch",
+      "events": 516,
+      "lines": 544,
+      "raw_bytes": 642494,
+      "compact_bytes": 197415,
+      "reduction_pct": 69.27
+    }
+  ],
+  "below_threshold": [
+    {
+      "container": "accounting",
+      "events": 69,
+      "lines": 130,
+      "raw_bytes": 106515,
+      "compact_bytes": 39884,
+      "reduction_pct": 62.56
+    },
+    {
+      "container": "aws-eks-nodeagent",
+      "events": 1,
+      "lines": 3,
+      "raw_bytes": 3014,
+      "compact_bytes": 1032,
+      "reduction_pct": 65.76
+    },
+    {
+      "container": "aws-node",
+      "events": 4,
+      "lines": 4,
+      "raw_bytes": 3987,
+      "compact_bytes": 1420,
+      "reduction_pct": 64.38
+    },
+    {
+      "container": "aws-vpc-cni-init",
+      "events": 7,
+      "lines": 7,
+      "raw_bytes": 5360,
+      "compact_bytes": 1821,
+      "reduction_pct": 66.03
+    },
+    {
+      "container": "coredns",
+      "events": 43,
+      "lines": 49,
+      "raw_bytes": 46079,
+      "compact_bytes": 18856,
+      "reduction_pct": 59.08
+    },
+    {
+      "container": "currency",
+      "events": 1,
+      "lines": 1,
+      "raw_bytes": 1106,
+      "compact_bytes": 356,
+      "reduction_pct": 67.81
+    },
+    {
+      "container": "email",
+      "events": 3,
+      "lines": 13,
+      "raw_bytes": 11399,
+      "compact_bytes": 4347,
+      "reduction_pct": 61.87
+    },
+    {
+      "container": "flagd",
+      "events": 9,
+      "lines": 16,
+      "raw_bytes": 14448,
+      "compact_bytes": 5567,
+      "reduction_pct": 61.47
+    },
+    {
+      "container": "flagd-ui",
+      "events": 3,
+      "lines": 3,
+      "raw_bytes": 2669,
+      "compact_bytes": 1096,
+      "reduction_pct": 58.94
+    },
+    {
+      "container": "init-config",
+      "events": 14,
+      "lines": 110,
+      "raw_bytes": 73849,
+      "compact_bytes": 28046,
+      "reduction_pct": 62.02
+    },
+    {
+      "container": "fraud-detection",
+      "events": 3,
+      "lines": 62,
+      "raw_bytes": 46761,
+      "compact_bytes": 16402,
+      "reduction_pct": 64.92
+    },
+    {
+      "container": "grafana-sc-alerts",
+      "events": 10,
+      "lines": 10,
+      "raw_bytes": 10265,
+      "compact_bytes": 3810,
+      "reduction_pct": 62.88
+    },
+    {
+      "container": "grafana-sc-dashboard",
+      "events": 14,
+      "lines": 14,
+      "raw_bytes": 14464,
+      "compact_bytes": 5335,
+      "reduction_pct": 63.12
+    },
+    {
+      "container": "grafana-sc-datasources",
+      "events": 10,
+      "lines": 11,
+      "raw_bytes": 11289,
+      "compact_bytes": 4128,
+      "reduction_pct": 63.43
+    },
+    {
+      "container": "image-provider",
+      "events": 9,
+      "lines": 39,
+      "raw_bytes": 35312,
+      "compact_bytes": 12533,
+      "reduction_pct": 64.51
+    },
+    {
+      "container": "jaeger",
+      "events": 87,
+      "lines": 91,
+      "raw_bytes": 96198,
+      "compact_bytes": 33321,
+      "reduction_pct": 65.36
+    },
+    {
+      "container": "load-generator",
+      "events": 5,
+      "lines": 44,
+      "raw_bytes": 41690,
+      "compact_bytes": 14502,
+      "reduction_pct": 65.21
+    },
+    {
+      "container": "metrics-server",
+      "events": 35,
+      "lines": 37,
+      "raw_bytes": 39899,
+      "compact_bytes": 14871,
+      "reduction_pct": 62.73
+    },
+    {
+      "container": "payment",
+      "events": 1,
+      "lines": 36,
+      "raw_bytes": 31295,
+      "compact_bytes": 11725,
+      "reduction_pct": 62.53
+    },
+    {
+      "container": "postgresql",
+      "events": 33,
+      "lines": 62,
+      "raw_bytes": 56546,
+      "compact_bytes": 20906,
+      "reduction_pct": 63.03
+    },
+    {
+      "container": "quote",
+      "events": 1,
+      "lines": 1,
+      "raw_bytes": 842,
+      "compact_bytes": 345,
+      "reduction_pct": 59.03
+    }
+  ]
+}
