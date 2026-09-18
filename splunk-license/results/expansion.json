@@ -1,25 +1,9 @@
 {
   "rows": 157228,
-  "matched": 61982,
-  "wrong_text": 95201,
-  "unexpanded": 45,
+  "matched": 157228,
+  "wrong_text": 0,
+  "unexpanded": 0,
   "compact_record_not_in_ground_truth": 0,
-  "match_pct": 39.4217,
-  "mismatch_examples": [
-    {
-      "kind": "wrong",
-      "compact": "~-;Id/}5$GPV,1759386934470,tTraces,16a4f862,8ba1,431b,894c,9beca0da41ea,0,135,0,1,1,b9a68807b33f25d446e9700951afb9e957dd9b31d1afd3516f8b9c9de7e3dde2,77f89b474d,f9526,0,135,0,89107a3a8f4636a396927edf7025bb9614b8da2d92f4cc3f43109e8d115736e2,d92d73ee,0eb9,46e7,a5c0,9623aae3e209,192,168,39,89,-192,-168,-42,-205,77f89b474d,tenx,77f89b474d,f9526,b9a68807b33f25d446e9700951afb9e957dd9b31d1afd3516f8b9c9de7e3dde2",
-      "expanded": "{\"stream\":\"stderr\",\"log\":\"2025-10-02'T'06:35:34.470'+0000'\\tinfo\\tTraces\\t{\\\"resource\\\": {\\\"service.instance.id\\\": \\\"16a4f862-8ba1-431b-894c-9beca0da41ea\\\", \\\"service.name\\\": \\\"otelcol-contrib\\\", \\\"service.version\\\": \\\"0.135.0\\\"}, \\\"otelcol.component.id\\\": \\\"debug\\\", \\\"otelcol.component.kind\\\": \\\"exporter\\\", \\\"otelcol.signal\\\": \\\"traces\\\", \\\"resource spans\\\": 1, \\\"spans\\\": 1}\",\"docker\":{\"container_id\":\"b9a68807b33f25d446e9700951afb9e957dd9b31d1afd3516f8b9c9de7e3dde2\"},\"kubernetes\":{\"container_name\":\"opentelemetry-collector\",\"namespace_name\":\"default\",\"pod_name\":\"otel-collector-77f89b474d-f9526\",\"container_image\":\"docker.io/otel/opentelemetry-collector-contrib:0.135.0\",\"container_image_id\":\"docker.io/otel/opentelemetry-collector-contrib@sha256:89107a3a8f4636a396927edf7025bb9614b8da2d92f4cc3f43109e8d115736e2\",\"pod_id\":\"d92d73ee-0eb9-46e7-a5c0-9623aae3e209\",\"pod_ip\":\"192.168.39.89\",\"host\":\"ip-192-168-42-205.ec2.internal\",\"labels\":{\"app.kubernetes.io/instance\":\"otel\",\"app.kubernetes.io/name\":\"opentelemetry-collector\",\"component\":\"standalone-collector\",\"pod-template-hash\":\"77f89b474d\"}},\"tenx_tag\":\"kubernetes.var.log.containers.otel-collector-77f89b474d-f9526_default_opentelemetry-collector-b9a68807b33f25d446e9700951afb9e957dd9b31d1afd3516f8b9c9de7e3dde2.log\"}"
-    },
-    {
-      "kind": "wrong",
-      "compact": "~-;Id/}5$GPV,1759386933869,tTraces,16a4f862,8ba1,431b,894c,9beca0da41ea,0,135,0,1,30,b9a68807b33f25d446e9700951afb9e957dd9b31d1afd3516f8b9c9de7e3dde2,77f89b474d,f9526,0,135,0,89107a3a8f4636a396927edf7025bb9614b8da2d92f4cc3f43109e8d115736e2,d92d73ee,0eb9,46e7,a5c0,9623aae3e209,192,168,39,89,-192,-168,-42,-205,77f89b474d,tenx,77f89b474d,f9526,b9a68807b33f25d446e9700951afb9e957dd9b31d1afd3516f8b9c9de7e3dde2",
-      "expanded": "{\"stream\":\"stderr\",\"log\":\"2025-10-02'T'06:35:33.869'+0000'\\tinfo\\tTraces\\t{\\\"resource\\\": {\\\"service.instance.id\\\": \\\"16a4f862-8ba1-431b-894c-9beca0da41ea\\\", \\\"service.name\\\": \\\"otelcol-contrib\\\", \\\"service.version\\\": \\\"0.135.0\\\"}, \\\"otelcol.component.id\\\": \\\"debug\\\", \\\"otelcol.component.kind\\\": \\\"exporter\\\", \\\"otelcol.signal\\\": \\\"traces\\\", \\\"resource spans\\\": 1, \\\"spans\\\": 30}\",\"docker\":{\"container_id\":\"b9a68807b33f25d446e9700951afb9e957dd9b31d1afd3516f8b9c9de7e3dde2\"},\"kubernetes\":{\"container_name\":\"opentelemetry-collector\",\"namespace_name\":\"default\",\"pod_name\":\"otel-collector-77f89b474d-f9526\",\"container_image\":\"docker.io/otel/opentelemetry-collector-contrib:0.135.0\",\"container_image_id\":\"docker.io/otel/opentelemetry-collector-contrib@sha256:89107a3a8f4636a396927edf7025bb9614b8da2d92f4cc3f43109e8d115736e2\",\"pod_id\":\"d92d73ee-0eb9-46e7-a5c0-9623aae3e209\",\"pod_ip\":\"192.168.39.89\",\"host\":\"ip-192-168-42-205.ec2.internal\",\"labels\":{\"app.kubernetes.io/instance\":\"otel\",\"app.kubernetes.io/name\":\"opentelemetry-collector\",\"component\":\"standalone-collector\",\"pod-template-hash\":\"77f89b474d\"}},\"tenx_tag\":\"kubernetes.var.log.containers.otel-collector-77f89b474d-f9526_default_opentelemetry-collector-b9a68807b33f25d446e9700951afb9e957dd9b31d1afd3516f8b9c9de7e3dde2.log\"}"
-    },
-    {
-      "kind": "wrong",
-      "compact": "~-;Id/}5$GPV,1759386933668,tTraces,16a4f862,8ba1,431b,894c,9beca0da41ea,0,135,0,2,5,b9a68807b33f25d446e9700951afb9e957dd9b31d1afd3516f8b9c9de7e3dde2,77f89b474d,f9526,0,135,0,89107a3a8f4636a396927edf7025bb9614b8da2d92f4cc3f43109e8d115736e2,d92d73ee,0eb9,46e7,a5c0,9623aae3e209,192,168,39,89,-192,-168,-42,-205,77f89b474d,tenx,77f89b474d,f9526,b9a68807b33f25d446e9700951afb9e957dd9b31d1afd3516f8b9c9de7e3dde2",
-      "expanded": "{\"stream\":\"stderr\",\"log\":\"2025-10-02'T'06:35:33.668'+0000'\\tinfo\\tTraces\\t{\\\"resource\\\": {\\\"service.instance.id\\\": \\\"16a4f862-8ba1-431b-894c-9beca0da41ea\\\", \\\"service.name\\\": \\\"otelcol-contrib\\\", \\\"service.version\\\": \\\"0.135.0\\\"}, \\\"otelcol.component.id\\\": \\\"debug\\\", \\\"otelcol.component.kind\\\": \\\"exporter\\\", \\\"otelcol.signal\\\": \\\"traces\\\", \\\"resource spans\\\": 2, \\\"spans\\\": 5}\",\"docker\":{\"container_id\":\"b9a68807b33f25d446e9700951afb9e957dd9b31d1afd3516f8b9c9de7e3dde2\"},\"kubernetes\":{\"container_name\":\"opentelemetry-collector\",\"namespace_name\":\"default\",\"pod_name\":\"otel-collector-77f89b474d-f9526\",\"container_image\":\"docker.io/otel/opentelemetry-collector-contrib:0.135.0\",\"container_image_id\":\"docker.io/otel/opentelemetry-collector-contrib@sha256:89107a3a8f4636a396927edf7025bb9614b8da2d92f4cc3f43109e8d115736e2\",\"pod_id\":\"d92d73ee-0eb9-46e7-a5c0-9623aae3e209\",\"pod_ip\":\"192.168.39.89\",\"host\":\"ip-192-168-42-205.ec2.internal\",\"labels\":{\"app.kubernetes.io/instance\":\"otel\",\"app.kubernetes.io/name\":\"opentelemetry-collector\",\"component\":\"standalone-collector\",\"pod-template-hash\":\"77f89b474d\"}},\"tenx_tag\":\"kubernetes.var.log.containers.otel-collector-77f89b474d-f9526_default_opentelemetry-collector-b9a68807b33f25d446e9700951afb9e957dd9b31d1afd3516f8b9c9de7e3dde2.log\"}"
-    }
-  ]
+  "match_pct": 100.0,
+  "mismatch_examples": []
 }

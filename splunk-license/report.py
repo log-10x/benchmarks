@@ -350,6 +350,14 @@ def main() -> int:
     md.append("")
     md.append(f"Engine `{args.engine}`. 10x Splunk app "
               f"`{payload['splunk_app_commit']}`.\n")
+    # Which app produced the expansion figure is part of the figure. The run
+    # installs whatever commit it was pointed at, and a reader who assumes that
+    # is the repository's main branch can read a fixed app's result as a shipped
+    # app's result.
+    md.append("The compact arm was encoded with `varMaxRecurIndexes: 0`, "
+              "`timestampZone: UTC` and `maxPerObject: 1`. The app commit above "
+              "is the one this run installed, which is not necessarily the "
+              "repository's `main`.\n")
 
     (results / "results.json").write_text(json.dumps(payload, indent=2) + "\n")
     (results / "results.md").write_text("\n".join(md) + "\n")

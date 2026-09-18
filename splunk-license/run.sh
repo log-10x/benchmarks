@@ -310,6 +310,18 @@ stage_splunk() {
   rm -rf "$app"; mkdir -p "$app"
   if [ -d "${E21_APP_DIR:-}" ]; then
     cp -R "$E21_APP_DIR/tenx-for-splunk" "$app/tenx-for-splunk"
+    # The results file names the app commit that produced the expansion figure.
+    # A local checkout has to record its own HEAD, and say so when it is dirty;
+    # without this the run reports whatever commit the last clone left behind,
+    # which is a different app from the one it just measured.
+    if (cd "$E21_APP_DIR" && git rev-parse HEAD >/dev/null 2>&1); then
+      ( cd "$E21_APP_DIR"
+        sha="$(git rev-parse HEAD)"
+        git diff --quiet && git diff --cached --quiet || sha="$sha (working tree modified)"
+        echo "$sha" ) > "$DATA_DIR/app_sha.txt"
+    else
+      echo "local directory $E21_APP_DIR, not a git checkout" > "$DATA_DIR/app_sha.txt"
+    fi
   else
     git clone --depth 1 "$APP_REPO" "$app/src" >/dev/null 2>&1
     cp -R "$app/src/tenx-for-splunk" "$app/tenx-for-splunk"
