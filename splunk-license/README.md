@@ -114,15 +114,43 @@ numbers rather than the flattering one.
 
 **A template hash ending in a space never expands.** 43 template hashes carry a
 trailing space, and all 45 of their events come back with the compact record
-itself as the event text, unexpanded, because the KV store lookup misses. The
-app's `transforms.conf` anticipates hashes with spaces in them; the KV key path
-does not.
+itself as the event text, unexpanded: the KV store lookup finds nothing. Which
+stage loses the space, the search-time extraction, the write into the KV store,
+or the lookup itself, is not established here. The app's `transforms.conf`
+anticipates hashes containing spaces.
 
 These are all separate from the back-reference defect the app's README already
 carries. `varMaxRecurIndexes: 0` was set throughout, so no back-referenced
 template was produced, and the engine's own round trip on the same compact form
 is byte-identical. The compact form holds the original text; the app does not
 give it back.
+
+## What the app fixes recover, measured the same way
+
+The expansion table above is the app as it shipped when this benchmark ran. Two
+of the three defects have since been fixed, in `log-10x/splunk-app` #11 and #12,
+and the same check was rerun on the same capture against them. The compact form
+is byte-identical either way, because both fixes are search-time only, so the
+licence figures above are untouched.
+
+| Search head timezone | Shipped app | With #11 and #12 |
+|---|---:|---:|
+| UTC | 39.42% | 96.25% |
+| anywhere else | 14.34% | 96.25% |
+
+The two rows becoming equal is the point of the zone fix: expansion no longer
+depends on who is looking. `results/expansion_after_app_fixes.json` carries both
+runs and the counts below.
+
+What still fails is one defect neither PR touches. 23 of the 2,986 templates
+carry more than one `$(...)` timestamp, and the app stores a single
+`timestamp_format` per template, taking the last slot rather than the first. A
+template reading `[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Kafka startTimeMs: $(+%s)`
+therefore stores `+%%%S` and renders `[+%04]` where the date belongs. Those 23
+templates account for all 5,892 remaining failures. The 45 unexpanded events are
+the trailing-space hashes, now located: Splunk's search-time extraction trims the
+space while the KV store keeps it in both `_key` and `pattern_hash`, so the
+lookup misses. Trimming all 2,986 hashes produces no collisions.
 
 ## What is claimed and what is not
 

@@ -1,0 +1,152 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/transform/timestamp/schema.json
+
+# 🔟❎ 'run' timestamp parser configuration
+
+# Identify unix/alphanumeric timestamp structures within TenXTemplates.
+# https://doc.log10x.com/run/transform/timestamp/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# ============================= Timestamp Options =============================
+
+timestamp:
+ 
+  # 'maxPerObject' controls the max number of timestamps to add into an TenXObject's
+  # 'timestamp' array. Set to 0 for unlimited.
+  maxPerObject: 0
+
+  # 'searchDirection' controls the direction(s) from with timestamps are searched for
+  #  within the object's 'text' field. Possible values: 
+
+  #  - fromStart: search for 'maxPerObject' from the start of 'text',  
+  #    limiting search to 'searchLengthLimitFromStart' characters  
+
+  #  - fromEnd: search backward for 'maxPerObject' from the end of 'text',
+  #    limiting search to 'searchLengthLimitFromEnd' characters  
+
+  #  - fromStartAndEnd: search for 'maxPerObject' from both the start and end of 'text'
+  #    limiting search to 'searchLengthLimitFromStart' and 'searchLengthLimitFromEnd' respectively  
+
+  #  - none: do not parse timestamps
+
+  searchDirection: fromStartAndEnd
+
+  # 'searchLengthLimitFromStart' limits the number of characters to search for
+  #  timestamps from the beginning of the object's 'text' field. 0 for unlimited
+  searchLengthLimitFromStart: 0
+
+  # 'searchLengthLimitFromStart' limits the number of characters to search for
+  #  timestamps from the end of the object's 'text' field. 0 for unlimited
+  searchLengthLimitFromEnd: 0
+
+  # 'zone' controls the timezone for formatting timestamp epoch
+  #  values to string. The 'java.time.ZoneId.of(String zoneId)' 
+  #  is used to obtain the timezone from the 'zone' value.
+  #  If set to null, the host OS timezone is used. 
+  zone: UTC
+
+  # 'literals' contains an array of strings to treat as a part 
+  #  of any timestamp candidate found when structuring an TenXObject.
+  literals:
+    - T
+    - Z
+    - I # Go INFO
+    - E # Go ERROR
+    - W # Go WARN
+  
+  # 'patterns' specifies an array of date-time formats to attempt when parsing timestamps from input events.
+  #  Timestamp formats that appear frequently within an input stream can be 'bumped' higher within the list below.
+
+  patterns:
+  # Most common formats
+  - "'I'MMdd HH:mm:ss.S"                       # Used in Kubernetes kube-apiserver logs with INFO prefix, 1-digit microsecond precision.
+  - "'I'MMdd HH:mm:ss.SS"                      # Used in Kubernetes kube-apiserver logs with INFO prefix, 2-digit microsecond precision.
+  - "'I'MMdd HH:mm:ss.SSS"                     # Used in Kubernetes kube-apiserver logs with INFO prefix, 3-digit microsecond precision.
+  - "'I'MMdd HH:mm:ss.SSSS"                    # Used in Kubernetes kube-apiserver logs with INFO prefix, 4-digit microsecond precision.
+  - "'I'MMdd HH:mm:ss.SSSSS"                   # Used in Kubernetes kube-apiserver logs with INFO prefix, 5-digit microsecond precision.
+  - "'I'MMdd HH:mm:ss.SSSSSS"                  # Used in Kubernetes kube-apiserver logs with INFO prefix, 6-digit microsecond precision.
+  - "'W'MMdd HH:mm:ss.S"                       # Used in Kubernetes kube-apiserver logs with WARNING prefix, 1-digit microsecond precision.
+  - "'W'MMdd HH:mm:ss.SS"                      # Used in Kubernetes kube-apiserver logs with WARNING prefix, 2-digit microsecond precision.
+  - "'W'MMdd HH:mm:ss.SSS"                     # Used in Kubernetes kube-apiserver logs with WARNING prefix, 3-digit microsecond precision.
+  - "'W'MMdd HH:mm:ss.SSSS"                    # Used in Kubernetes kube-apiserver logs with WARNING prefix, 4-digit microsecond precision.
+  - "'W'MMdd HH:mm:ss.SSSSS"                   # Used in Kubernetes kube-apiserver logs with WARNING prefix, 5-digit microsecond precision.
+  - "'W'MMdd HH:mm:ss.SSSSSS"                  # Used in Kubernetes kube-apiserver logs with WARNING prefix, 6-digit microsecond precision.
+  - "'E'MMdd HH:mm:ss.S"                       # Used in Kubernetes kube-apiserver logs with ERROR prefix, 1-digit microsecond precision.
+  - "'E'MMdd HH:mm:ss.SS"                      # Used in Kubernetes kube-apiserver logs with ERROR prefix, 2-digit microsecond precision.
+  - "'E'MMdd HH:mm:ss.SSS"                     # Used in Kubernetes kube-apiserver logs with ERROR prefix, 3-digit microsecond precision.
+  - "'E'MMdd HH:mm:ss.SSSS"                    # Used in Kubernetes kube-apiserver logs with ERROR prefix, 4-digit microsecond precision.
+  - "'E'MMdd HH:mm:ss.SSSSS"                   # Used in Kubernetes kube-apiserver logs with ERROR prefix, 5-digit microsecond precision.
+  - "'E'MMdd HH:mm:ss.SSSSSS"                  # Used in Kubernetes kube-apiserver logs with ERROR prefix, 6-digit microsecond precision.
+  - "'F'MMdd HH:mm:ss.S"                       # Used in Kubernetes kube-apiserver logs with FATAL prefix, 1-digit microsecond precision.
+  - "'F'MMdd HH:mm:ss.SS"                      # Used in Kubernetes kube-apiserver logs with FATAL prefix, 2-digit microsecond precision.
+  - "'F'MMdd HH:mm:ss.SSS"                     # Used in Kubernetes kube-apiserver logs with FATAL prefix, 3-digit microsecond precision.
+  - "'F'MMdd HH:mm:ss.SSSS"                    # Used in Kubernetes kube-apiserver logs with FATAL prefix, 4-digit microsecond precision.
+  - "'F'MMdd HH:mm:ss.SSSSS"                   # Used in Kubernetes kube-apiserver logs with FATAL prefix, 5-digit microsecond precision.
+  - "'F'MMdd HH:mm:ss.SSSSSS"                  # Used in Kubernetes kube-apiserver logs with FATAL prefix, 6-digit microsecond precision.
+  - "yyyy-MM-dd HH:mm:ss.SSSSSSZ"              # Used in macOS unified logs (log show), with microsecond precision and timezone offset (e.g., -0400).
+  - "yyyy-MM-dd HH:mm:ss"                      # Widely used in Java applications, databases (e.g., MySQL, PostgreSQL), and application servers (e.g., Tomcat, JBoss).
+  - "yyyy-MM-dd'T'HH:mm:ss.SSSZ"               # Common in web services, APIs, Java (with DateTimeFormatter.ISO_OFFSET_DATE_TIME), Python (with datetime.isoformat()), and systems requiring precise timestamps with timezone information.
+  - "MMM dd HH:mm:ss"                          # Frequently seen in syslog, Unix-based systems, network devices (e.g., Cisco routers), and web servers (e.g., Apache, Nginx).
+  - "dd/MMM/yyyy:HH:mm:ss Z"                   # Standard syslog format, used in firewalls (e.g., Cisco ASA, Palo Alto), network monitoring tools, and Unix-based systems.
+  - "yyyy-MM-dd HH:mm:ss,SSS"                  # Common in Java logging frameworks like Log4j and Logback.
+  - "yyyy-MM-dd'T'HH:mm:ss,SSS"                # Common in Java logging with ISO 8601 date-time, comma-separated milliseconds.
+  - "MM/dd/yyyy HH:mm:ss"                      # Used in Windows event logs, .NET applications, and U.S.-based systems.
+  - "EEE MMM dd HH:mm:ss yyyy"                 # Human-readable format used in various logs, including some web servers and application logs.
+  - "yyyy-MM-dd'T'HH:mm:ss"                    # Simplified ISO 8601 format, used in many modern applications and frameworks.
+  - "HH:mm:ss"                                 # Time-only format, used when the date is implied or provided separately, common in embedded systems and some programming languages.
+  - "yyyyMMdd HH:mm:ss"                        # Compact format used in some legacy systems and batch processing logs.
+  - "MMM dd, yyyy h:mm:ss a"                   # Human-readable format with 12-hour clock, used in application logs and some U.S.-based systems.
+  - "MMM dd, yyyy hh:mm:ss a"                  # Human-readable format with 12-hour clock (padded hour), used in application logs and some U.S.-based systems.
+  # Common formats with slight variations
+  - "yyyy-MM-dd HH:mm:ss.SSS"                  # Extended precision format used in Java applications and databases requiring millisecond accuracy.
+  - "dd-MMM-yyyy HH:mm:ss.SSS"                 # Common in Java logging frameworks (e.g., Log4j, SLF4J) and application logs requiring human-readable dates with millisecond precision.
+  - "yyyy-MM-dd'T'HH:mm:ss.S'Z'"               # Microsecond precision ISO 8601 format, 1-digit precision.
+  - "yyyy-MM-dd'T'HH:mm:ss.SS'Z'"              # Microsecond precision ISO 8601 format, 2-digit precision.
+  - "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"             # Microsecond precision ISO 8601 format, 3-digit precision.
+  - "yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'"            # Microsecond precision ISO 8601 format, 4-digit precision.
+  - "yyyy-MM-dd'T'HH:mm:ss.SSSSS'Z'"           # Microsecond precision ISO 8601 format, 5-digit precision.
+  - "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"          # Microsecond precision ISO 8601 format, 6-digit precision.
+  - "yyyy-MM-dd'T'HH:mm:ss.S'Z'"               # Nanosecond precision ISO 8601 format, 1-digit precision.
+  - "yyyy-MM-dd'T'HH:mm:ss.SS'Z'"              # Nanosecond precision ISO 8601 format, 2-digit precision.
+  - "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"             # Nanosecond precision ISO 8601 format, 3-digit precision.
+  - "yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'"            # Nanosecond precision ISO 8601 format, 4-digit precision.
+  - "yyyy-MM-dd'T'HH:mm:ss.SSSSS'Z'"           # Nanosecond precision ISO 8601 format, 5-digit precision.
+  - "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"          # Nanosecond precision ISO 8601 format, 6-digit precision.
+  - "yyyy-MM-dd'T'HH:mm:ss.SSSSSSS'Z'"         # Nanosecond precision ISO 8601 format, 7-digit precision.
+  - "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSS'Z'"        # Nanosecond precision ISO 8601 format, 8-digit precision.
+  - "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'"       # Nanosecond precision ISO 8601 format, 9-digit precision.
+  - "yyyy-MM-dd'T'HH:mm:ssZZZZZ"               # ISO 8601 with timezone offset, used in systems where timezone information is critical.
+  - "yyyy-MM-dd HH:mm:ss.SSSZZZZZ"             # Similar to above but without the 'T' separator, used in database logs and application servers.
+  - "yyyy-MM-dd HH:mm:ss.S"                    # Microsecond precision format, 1-digit precision.
+  - "yyyy-MM-dd HH:mm:ss.SS"                   # Microsecond precision format, 2-digit precision.
+  - "yyyy-MM-dd HH:mm:ss.SSS"                  # Microsecond precision format, 3-digit precision.
+  - "yyyy-MM-dd HH:mm:ss.SSSS"                 # Microsecond precision format, 4-digit precision.
+  - "yyyy-MM-dd HH:mm:ss.SSSSS"                # Microsecond precision format, 5-digit precision.
+  - "yyyy-MM-dd HH:mm:ss.SSSSSS"               # Microsecond precision format, 6-digit precision.
+  - "MM/dd/yyyy*HH:mm:ss*SSS"                  # Used in some U.S.-based systems, particularly in legacy applications or specific logging frameworks.
+  - "M/d/yyyy h:mm:ss a:SSS"                   # Common in systems using 12-hour time format, such as some Windows applications or older logging systems.
+  - "M/d/yyyy hh:mm:ss a:SSS"                  # Common in systems using 12-hour time format with milliseconds and padded hour, such as some Windows applications.
+  - "M/dd/yyyy hh:mm:ss a"                     # Similar to above, used in systems where millisecond precision is not needed.
+  - "yyyy-MM-dd'T'HH:mm:ss.SSSX"               # ISO 8601 with basic timezone offset format, used in systems that require standardized timestamps.
+  - "yyyy-MM-dd'T'HH:mm:ss.SSSz"               # ISO 8601 with timezone name, used in applications that need to display timezone information.
+  - "yyyy-MM-dd'T'HH:mm:ss'Z'"                 # ISO 8601 format assuming UTC, used in systems where all times are in UTC.
+  - "yy/MM/dd HH:mm:ss"                        # Two-digit year format, used in compact logs or older systems.
+  - "MMM dd HH:mm:ss ZZZZ"                     # Used in some Unix-based systems and web servers, includes timezone offset.
+  - "HH:mm:ss,SSS"                             # Time-only format with milliseconds, used in performance logs or systems where date is provided separately.
+  - "yyyy-MM-dd*HH:mm:ss"                      # Used in some application logs where the separator is a space or asterisk.
+  - "yyyy MMM dd HH:mm:ss.SSS"                 # Human-readable format with milliseconds, used in some application logs.
+  - "dd/MMM/yyyy HH:mm:ss"                     # Used in European systems and some web applications.
+  - "yyyy-MM-dd'T'HH:mm:ss.SSS''Z''"           # ISO 8601 with milliseconds and literal 'Z', used in systems where 'Z' is explicitly included.
+  - "MMM dd yyyy HH:mm:ss"                     # Human-readable format, used in various logs.
+  - "yyyy-MM-dd HH:mm:ss ZZZZ"                 # Format with timezone offset, used in systems requiring timezone information.
+  - "yyyy-MM-dd HH:mm:ssZZZZZ"                 # Similar to above, used in application logs.
+  - "dd MMM yyyy HH:mm:ss"                     # European format, used in some web applications and databases.
+  - "MMdd_HH:mm:ss"                            # Compact format without separators, used in file names or space-constrained logs.
+  - "yyyy-MM-dd HH:mm:ss,SSSZZZZZ"             # Java logging format with timezone offset.
+  - "yyyyMMdd HH:mm:ss.SSS"                    # Compact format with milliseconds, used in some legacy systems.
+  - "yyyy/MM/dd HH:mm:ss"                      # Format used in some Asian systems, particularly in Japan.
+  - "dd/MM/yyyy HH:mm:ss"                      # Common in European systems, including some web applications and databases.
+  - "MM-dd-yyyy HH:mm:ss"                      # U.S. format variant, used in some older systems.
+  - "yyyyMMddHHmmss"                           # Compact format for file names or database timestamps, used in systems where space is a concern.
+  - "EEE, dd MMM yyyy HH:mm:ss zzz"            # RFC 1123 format, used in HTTP headers, web servers, and email systems.

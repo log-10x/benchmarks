@@ -122,9 +122,18 @@ stage_encode() {
   # Root logger to warn; it changes no output byte.
   patch_engine_config /etc/tenx/config/log4j2.yaml \
     "$HERE/conf/engine-log4j2-quiet.yaml" "      level: info" "      level: warn"
+  # timestampZone: UTC. A timestamp with no zone marker of its own is only a time
+  # once something decides which zone it was written in, and the engine's default
+  # is the clock of the host it runs on. That choice is not recorded in the
+  # compact event, so nothing downstream can recover it. Pinning it here is what
+  # makes the arm reproducible on a host that is not on UTC, and it is the
+  # setting the Splunk app requires for the same reason.
+  patch_engine_config /etc/tenx/config/pipelines/run/transform/timestamp/config.yaml \
+    "$HERE/conf/engine-timestamp-utc.yaml" "  zone: null" "  zone: UTC"
   docker run --rm --entrypoint sh "$ENGINE" -c "cat /etc/tenx/config/pipelines/run/template/config.yaml" \
     > "$HERE/conf/engine-template-shipped.yaml" 2>/dev/null
 
+  probe_parse_zone
   encode_arm norecur "$HERE/conf/engine-template-norecur.yaml" "$DATA_DIR/compact"
   # The control arm exists to say what varMaxRecurIndexes: 0 costs, measured
   # rather than claimed. It is not ingested.
@@ -150,6 +159,28 @@ stage_encode() {
   [ "$ROUNDTRIP" = "BYTE-IDENTICAL" ] || die "the compact form does not decode back to the capture"
 }
 
+# Falsifier for the zone pinning, named before the run: encode one timestamp that
+# carries no zone and one that ends in Z, on a container whose clock is not UTC,
+# and require that both come out as the UTC epoch. If a future engine stops
+# honouring timestampZone, this fails here rather than moving a figure quietly.
+probe_parse_zone() {
+  say "falsifier: timestampZone pins the parse zone"
+  local dir="$DATA_DIR/zone_probe"
+  rm -rf "$dir"; mkdir -p "$dir/out"
+  printf '2025-10-02 06:35:34,498 INFO zoneless\n2025-10-02T06:35:34.498Z INFO zoned\n' > "$dir/in.log"
+  docker run --rm -e INPUT_FILE=/in/events.log -e OUTPUT_DIR=/out -e TZ=America/New_York \
+    -v "$dir/out":/out -v "$dir/in.log":/in/events.log:ro \
+    -v "$HERE/tenx-encode-splunk.config.yaml":/cfg/enc.yaml:ro \
+    -v "$HERE/conf/engine-template-norecur.yaml":/etc/tenx/config/pipelines/run/template/config.yaml:ro \
+    -v "$HERE/conf/engine-timestamp-utc.yaml":/etc/tenx/config/pipelines/run/transform/timestamp/config.yaml:ro \
+    -v "$HERE/conf/engine-log4j2-quiet.yaml":/etc/tenx/config/log4j2.yaml:ro \
+    "$ENGINE" @/cfg/enc.yaml > "$dir/encode.stdout" 2>&1
+  local n
+  n="$(grep -c ',1759386934498' "$dir/out/encoded.log" 2>/dev/null || echo 0)"
+  echo "  epochs equal to the UTC reading of 2025-10-02 06:35:34.498: $n of 2"
+  [ "$n" = "2" ] || die "timestampZone did not pin the parse zone: a host on America/New_York read the zoneless timestamp differently, so this arm is not reproducible off a UTC host"
+}
+
 encode_arm() {
   local label="$1" template="$2" out="$3"
   say "encode ($label)"
@@ -159,6 +190,7 @@ encode_arm() {
     -v "$DATA_DIR/base/$ASSET":/in/events.log:ro \
     -v "$HERE/tenx-encode-splunk.config.yaml":/cfg/enc.yaml:ro \
     -v "$template":/etc/tenx/config/pipelines/run/template/config.yaml:ro \
+    -v "$HERE/conf/engine-timestamp-utc.yaml":/etc/tenx/config/pipelines/run/transform/timestamp/config.yaml:ro \
     -v "$HERE/conf/engine-log4j2-quiet.yaml":/etc/tenx/config/log4j2.yaml:ro \
     "$ENGINE" @/cfg/enc.yaml > "$out/encode.stdout" 2>&1
   [ -s "$out/encoded.log" ] || { tail -20 "$out/encode.stdout"; die "encode ($label) produced nothing"; }
