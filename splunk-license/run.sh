@@ -278,7 +278,7 @@ stage_splunk() {
   docker image inspect "$SPLUNK_IMAGE" >/dev/null 2>&1 || docker pull "$SPLUNK_IMAGE"
   docker image inspect "$UF_IMAGE" >/dev/null 2>&1 || docker pull "$UF_IMAGE"
   docker network create "$NET" >/dev/null 2>&1 || true
-  docker rm -f "$IDX" "$UF" >/dev/null 2>&1 || true
+  docker rm -f -v "$IDX" "$UF" >/dev/null 2>&1 || true
 
   read -r TZSEL LEAD <<<"$(choose_tz)"
   echo "container timezone $TZSEL; licence day rolls over in about $LEAD minutes"
@@ -473,11 +473,15 @@ stage_report() {
   cat "$RESULTS/results.md"
 }
 
+# -v matters. The Splunk image declares volumes for /opt/splunk/etc and /opt/splunk/var,
+# so every container removed without it leaves one or two gigabytes of anonymous volume
+# behind, invisible to `docker images` and only found under `docker system df`. A night
+# of runs on a host near its disk ceiling filled it that way.
 teardown() {
   if [ "${KEEP:-0}" = "1" ]; then
     echo "KEEP=1: $IDX and $UF left up on network $NET"
   else
-    docker rm -f "$IDX" "$UF" >/dev/null 2>&1 || true
+    docker rm -f -v "$IDX" "$UF" >/dev/null 2>&1 || true
     docker network rm "$NET" >/dev/null 2>&1 || true
   fi
 }
