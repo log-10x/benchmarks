@@ -130,3 +130,26 @@ jobs:
           bash -n clickstack-e2e-gaps/lib.sh
           for f in clickstack-e2e-gaps/gap*.sh; do bash -n "$f"; done
           python -m py_compile clickstack-e2e-gaps/*.py
+
+  splunk-license:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      # The run needs Docker, a 6.5 GB Splunk image, a 215 MB capture and a
+      # licence day to end, so CI checks what it can without any of them.
+      - name: Syntax-check the harness
+        run: |
+          bash -n splunk-license/run.sh
+          python -m py_compile splunk-license/*.py
+
+      # The licence figures in the results file are arithmetic over the
+      # RolloverSummary lines the run kept verbatim. Recompute them from those
+      # lines and fail if the committed results.json disagrees, so a number
+      # edited without a rerun is caught here.
+      - name: The committed figures follow from the kept rollup lines
+        run: python splunk-license/report.py --dir splunk-license --data splunk-license/data --results splunk-license/results --check

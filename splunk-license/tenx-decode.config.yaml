@@ -1,0 +1,17 @@
+# Decode: read a compact file (template defs followed by ~encoded records); the engine
+# auto-loads the templates, recognizes the encoded events, and writes their original text.
+tenx: run
+runtimeName: decode
+include:
+  - apps/shared
+  - run/modules/input/file
+  - run/modules/output/event/file
+inputFile:
+  - name: input
+    path: $=TenXEnv.get("INPUT_FILE")
+    printProgress: false
+outputFile:
+  - path: $=TenXEnv.get("OUTPUT_DIR") + "/decoded.log"
+    filter: isEncoded
+    fields:
+      - text

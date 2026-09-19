@@ -1,0 +1,1 @@
+index=_internal host=HOSTNAME source=*license_usage.log* type="RolloverSummary" earliest=-30d@d pool="POOL" | eval _time=_time - 43200 | eval peer=coalesce(slave,peer) | bin _time span=1d | stats latest(b) AS b by peer, pool, _time | timechart span=1d sum(b) AS "volume" fixedrange=false | foreach * [eval <<FIELD>>=round('<<FIELD>>'/1024/1024/1024, 3)]
