@@ -353,12 +353,17 @@ stage_ingest() {
   local deadline=$((SECONDS + 1800))
   while :; do
     local got
-    got="$(spq 'index=tenx_base OR index=tenx_enc OR index=tenx_dml | stats count by index' \
+    # By sourcetype, not by index. The app re-indexes every template as a searchable
+    # tenx_dml_pure event when it fills the KV store, and its own default sends those to
+    # the index the templates arrived in. Counting the index therefore reaches twice the
+    # template count as soon as the scheduled fill runs, which on a slow host happens
+    # while this loop is still waiting, and the loop could never match again.
+    got="$(spq 'index=tenx_base OR index=tenx_enc OR index=tenx_dml | stats count by sourcetype' \
            -earliest_time -2h -latest_time now | tr -s ' ')"
-    echo "$got" | tail -4
-    if echo "$got" | grep -q "tenx_base $ASSET_LINES" \
-       && echo "$got" | grep -q "tenx_enc $want_enc" \
-       && echo "$got" | grep -q "tenx_dml $want_tpl"; then break; fi
+    echo "$got" | tail -5
+    if echo "$got" | grep -q "tenx_raw_json $ASSET_LINES" \
+       && echo "$got" | grep -q "tenx_encoded $want_enc" \
+       && echo "$got" | grep -q "tenx_dml_raw_json $want_tpl"; then break; fi
     [ "$SECONDS" -lt "$deadline" ] || die "ingest did not reach the expected counts"
     sleep 20
   done
@@ -370,6 +375,20 @@ stage_kv() {
   local want deadline
   want="$(wc -l < "$DATA_DIR/compact/templates.json" | tr -d ' ')"
   deadline=$((SECONDS + 1800))
+
+  # Dispatch the app's Backfill search once, rather than only waiting for the scheduled
+  # one. The scheduled search looks back a few minutes, so whether it ever sees these
+  # templates depends on how long the ingest above took relative to its window, and on a
+  # slow host it silently never does: the store stays empty, every expansion check fails
+  # and nothing says why. The backfill search covers a wide window and is idempotent, so
+  # dispatching it makes this stage deterministic. A failure here is not fatal, because
+  # the scheduled search may still do the job.
+  dx -u splunk "$IDX" curl -sk -u "$PASS_ARG" -X POST \
+    "https://localhost:8089/servicesNS/nobody/tenx-for-splunk/saved/searches/Backfill%20KV/dispatch" \
+    -d trigger_actions=1 >/dev/null 2>&1 \
+    && echo "dispatched the app's Backfill KV search" \
+    || echo "could not dispatch Backfill KV; falling back to the scheduled search"
+
   until spq '| inputlookup tenx-dml-lookup | stats count' | tail -1 | grep -qE "^ *$want\$"; do
     spq '| inputlookup tenx-dml-lookup | stats count' | tail -1
     [ "$SECONDS" -lt "$deadline" ] || die "the KV store did not reach $want templates"
