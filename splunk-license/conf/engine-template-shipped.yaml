@@ -1,0 +1,40 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/template/schema.json
+
+# 🔟❎ 'run' template file configuration
+
+# Load TenXTemplates .json files that define the structure/schema of TenXObjects.
+# To learn more see https://doc.log10x.com/run/template/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Template ===================================
+
+template:
+  # 'files' specifies GLOB pattern for finding JSON-encoded TenXTemplates.
+  files:
+    - $=path("data/templates/*.json")
+    - $=path("data/sample/output/*.json")
+
+  # 'cacheSize' controls the maximum total byte size of templates held
+  #  in the in-memory cache vs. on disk. Set to 0 to disable pruning.
+  cacheSize: $=parseBytes("10MB")
+
+# =============================== Variable ===================================
+
+var:
+  # 'placeholder' specifies a character to use when encoding a TenXTemplate
+  #  to signify the location of a runtime variable value.
+  placeholder: "$"
+
+  # 'maxRecurIndexes' controls the maximum number of variable values to reuse.
+  maxRecurIndexes: 10
+
+# =============================== Timestamp ==================================
+
+timestamp:
+  # 'prefix' specifies a prefix for a TenXTemplate's timestamp tokens.
+  prefix: (
+
+  # 'postfix' specifies a postfix for a TenXTemplate's timestamp tokens.
+  postfix: )

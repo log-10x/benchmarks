@@ -1,0 +1,42 @@
+# Encode, OUTER mode: the published round-trip encode config, unchanged.
+# It is the same file as ../drain3-vs-log10x/tenx-encode.config.yaml, copied here
+# so this benchmark's compact form is visibly the one the compaction figure is
+# measured on rather than a variant written for Splunk.
+#
+# None of the three settings the Splunk app requires is set here.
+# varMaxRecurIndexes is NOT set here. It is a startup option the shipped engine
+# config already sets, so setting it again in a config file is rejected with
+# "option 'varMaxRecurIndexes' (number) should be specified only once". The run
+# mounts conf/engine-template-norecur.yaml over the engine's own
+# run/template/config.yaml instead; that file is the image's, with its single
+# `maxRecurIndexes: 10` line changed to 0, and run.sh re-derives it from the
+# image on every run and fails if the diff is anything but that one line.
+# timestampZone and maxPerObject are handled the same way through
+# conf/engine-timestamp-splunk.yaml, mounted over run/transform/timestamp/config.yaml.
+tenx: run
+runtimeName: encode
+include:
+  - apps/shared
+  - run/modules/input/file
+  - run/initialize/inputField
+  - run/initialize/level
+  - run/initialize/group
+  - run/initialize/message
+  - run/initialize/httpCode
+  - run/initialize/lookup
+  - run/initialize/custom
+  - run/initialize/k8s
+  - run/modules/output/event/file
+inputFile:
+  - name: input
+    path: $=TenXEnv.get("INPUT_FILE")
+    printProgress: false
+    extractors: []
+    sourcePattern: null
+outputFile:
+  - path: $=TenXEnv.get("OUTPUT_DIR") + "/templates.json"
+    writeTemplates: true
+    append: false
+  - path: $=TenXEnv.get("OUTPUT_DIR") + "/encoded.log"
+    fields:
+      - encode()
