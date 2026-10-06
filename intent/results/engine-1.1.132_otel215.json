@@ -1,0 +1,1807 @@
+{
+ "capture": "otel215",
+ "events": 157228,
+ "labelled": 156563,
+ "excluded_containers": [],
+ "distinct_patterns": 2274,
+ "overall": {
+  "events": 156563,
+  "statements": 299,
+  "merged_event_share": 4.44,
+  "merged_events": 6944,
+  "split_event_share": 4.59,
+  "exact_grouping_events": 78.83,
+  "statements_clean": 75.92,
+  "statements_in_merge": 5.02,
+  "statements_split": 20.07,
+  "patterns_per_statement_mean": 7.64,
+  "patterns_per_statement_max": 666,
+  "attr_untyped": 70.14,
+  "attr_exact_file": 12.71,
+  "attr_same_repo_other_file": 12.09,
+  "attr_other_project": 5.06,
+  "name_first": 81.09,
+  "name_sev_or_env": 18.76
+ },
+ "by_group": {
+  "source_in_library": {
+   "events": 145612,
+   "statements": 144,
+   "merged_event_share": 4.76,
+   "merged_events": 6932,
+   "split_event_share": 3.49,
+   "exact_grouping_events": 81.19,
+   "statements_clean": 80.56,
+   "statements_in_merge": 4.17,
+   "statements_split": 15.28,
+   "patterns_per_statement_mean": 1.72,
+   "patterns_per_statement_max": 41,
+   "attr_untyped": 72.51,
+   "attr_exact_file": 13.41,
+   "attr_same_repo_other_file": 12.76,
+   "attr_other_project": 1.32,
+   "name_first": 80.11,
+   "name_sev_or_env": 15.27
+  },
+  "source_not_in_library": {
+   "events": 8270,
+   "statements": 145,
+   "merged_event_share": 0.13,
+   "merged_events": 11,
+   "split_event_share": 21.17,
+   "exact_grouping_events": 62.89,
+   "statements_clean": 75.17,
+   "statements_in_merge": 4.14,
+   "statements_split": 22.07,
+   "patterns_per_statement_mean": 11.73,
+   "patterns_per_statement_max": 666,
+   "attr_untyped": 28.38,
+   "attr_exact_file": 0.41,
+   "attr_same_repo_other_file": 0.25,
+   "attr_other_project": 70.96,
+   "name_first": 98.27,
+   "name_sev_or_env": 80.21
+  },
+  "not_code": {
+   "events": 2681,
+   "statements": 10,
+   "merged_event_share": 0.04,
+   "merged_events": 1,
+   "split_event_share": 13.09,
+   "exact_grouping_events": 0.11,
+   "statements_clean": 20.0,
+   "statements_in_merge": 30.0,
+   "statements_split": 60.0,
+   "patterns_per_statement_mean": 33.6,
+   "patterns_per_statement_max": 254
+  }
+ },
+ "by_container": {
+  "opentelemetry-collector": {
+   "events": 89739,
+   "statements": 34,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 100.0,
+   "statements_clean": 100.0,
+   "statements_in_merge": 0.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1,
+   "attr_untyped": 95.54,
+   "attr_exact_file": 0.28,
+   "attr_same_repo_other_file": 0.0,
+   "attr_other_project": 4.17,
+   "name_first": 99.82,
+   "name_sev_or_env": 4.17
+  },
+  "kafka": {
+   "events": 29039,
+   "statements": 92,
+   "merged_event_share": 0.0,
+   "merged_events": 1,
+   "split_event_share": 18.24,
+   "exact_grouping_events": 72.59,
+   "statements_clean": 70.65,
+   "statements_in_merge": 2.17,
+   "statements_split": 27.17,
+   "patterns_per_statement_mean": 4.58,
+   "patterns_per_statement_max": 254,
+   "attr_untyped": 0.54,
+   "attr_exact_file": 29.06,
+   "attr_same_repo_other_file": 63.71,
+   "attr_other_project": 6.69,
+   "name_first": 93.07,
+   "name_sev_or_env": 63.18
+  },
+  "cart": {
+   "events": 19639,
+   "statements": 3,
+   "merged_event_share": 35.29,
+   "merged_events": 6930,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 0.0,
+   "statements_clean": 0.0,
+   "statements_in_merge": 100.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1,
+   "attr_untyped": 100.0,
+   "attr_exact_file": 0.0,
+   "attr_same_repo_other_file": 0.0,
+   "attr_other_project": 0.0,
+   "name_first": 0.0,
+   "name_sev_or_env": 0.0
+  },
+  "ad": {
+   "events": 7114,
+   "statements": 7,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 99.99,
+   "statements_clean": 85.71,
+   "statements_in_merge": 14.29,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1,
+   "attr_untyped": 0.01,
+   "attr_exact_file": 99.99,
+   "attr_same_repo_other_file": 0.0,
+   "attr_other_project": 0.0,
+   "name_first": 0.0,
+   "name_sev_or_env": 57.02
+  },
+  "recommendation": {
+   "events": 3432,
+   "statements": 3,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 100.0,
+   "statements_clean": 100.0,
+   "statements_in_merge": 0.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1,
+   "attr_untyped": 0.0,
+   "attr_exact_file": 99.97,
+   "attr_same_repo_other_file": 0.0,
+   "attr_other_project": 0.03,
+   "name_first": 100.0,
+   "name_sev_or_env": 0.0
+  },
+  "grafana": {
+   "events": 2474,
+   "statements": 77,
+   "merged_event_share": 0.32,
+   "merged_events": 8,
+   "split_event_share": 57.52,
+   "exact_grouping_events": 38.32,
+   "statements_clean": 79.22,
+   "statements_in_merge": 5.19,
+   "statements_split": 18.18,
+   "patterns_per_statement_mean": 18.69,
+   "patterns_per_statement_max": 666,
+   "attr_untyped": 65.64,
+   "attr_exact_file": 0.0,
+   "attr_same_repo_other_file": 0.73,
+   "attr_other_project": 33.63,
+   "name_first": 99.64,
+   "name_sev_or_env": 63.46
+  },
+  "frontend": {
+   "events": 2317,
+   "statements": 3,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.09,
+   "exact_grouping_events": 0.09,
+   "statements_clean": 33.33,
+   "statements_in_merge": 33.33,
+   "statements_split": 33.33,
+   "patterns_per_statement_mean": 1.33,
+   "patterns_per_statement_max": 2
+  },
+  "fluentd-10x": {
+   "events": 1427,
+   "statements": 17,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 16.4,
+   "exact_grouping_events": 0.84,
+   "statements_clean": 52.94,
+   "statements_in_merge": 0.0,
+   "statements_split": 47.06,
+   "patterns_per_statement_mean": 6.35,
+   "patterns_per_statement_max": 53,
+   "attr_untyped": 6.91,
+   "attr_exact_file": 0.0,
+   "attr_same_repo_other_file": 0.0,
+   "attr_other_project": 93.09,
+   "name_first": 100.0,
+   "name_sev_or_env": 94.67
+  },
+  "valkey-cart": {
+   "events": 607,
+   "statements": 12,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 100.0,
+   "statements_clean": 100.0,
+   "statements_in_merge": 0.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1,
+   "attr_untyped": 0.0,
+   "attr_exact_file": 60.3,
+   "attr_same_repo_other_file": 39.7,
+   "attr_other_project": 0.0,
+   "name_first": 99.84,
+   "name_sev_or_env": 0.0
+  },
+  "opensearch": {
+   "events": 414,
+   "statements": 20,
+   "merged_event_share": 0.72,
+   "merged_events": 3,
+   "split_event_share": 26.57,
+   "exact_grouping_events": 65.46,
+   "statements_clean": 60.0,
+   "statements_in_merge": 10.0,
+   "statements_split": 30.0,
+   "patterns_per_statement_mean": 5.85,
+   "patterns_per_statement_max": 48,
+   "attr_untyped": 90.84,
+   "attr_exact_file": 4.7,
+   "attr_same_repo_other_file": 0.0,
+   "attr_other_project": 4.46,
+   "name_first": 90.59,
+   "name_sev_or_env": 10.89
+  },
+  "kube-proxy": {
+   "events": 287,
+   "statements": 26,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 22.3,
+   "exact_grouping_events": 76.31,
+   "statements_clean": 84.62,
+   "statements_in_merge": 0.0,
+   "statements_split": 15.38,
+   "patterns_per_statement_mean": 3.46,
+   "patterns_per_statement_max": 59,
+   "attr_untyped": 85.37,
+   "attr_exact_file": 5.23,
+   "attr_same_repo_other_file": 1.05,
+   "attr_other_project": 8.36,
+   "name_first": 75.96,
+   "name_sev_or_env": 3.48
+  },
+  "accounting": {
+   "events": 69,
+   "statements": 3,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 86.96,
+   "exact_grouping_events": 2.9,
+   "statements_clean": 66.67,
+   "statements_in_merge": 0.0,
+   "statements_split": 33.33,
+   "patterns_per_statement_mean": 14.33,
+   "patterns_per_statement_max": 41,
+   "attr_untyped": 100.0,
+   "attr_exact_file": 0.0,
+   "attr_same_repo_other_file": 0.0,
+   "attr_other_project": 0.0,
+   "name_first": 1.45,
+   "name_sev_or_env": 2.9
+  },
+  "fraud-detection": {
+   "events": 3,
+   "statements": 2,
+   "merged_event_share": 33.33,
+   "merged_events": 1,
+   "split_event_share": 33.33,
+   "exact_grouping_events": 33.33,
+   "statements_clean": 50.0,
+   "statements_in_merge": 50.0,
+   "statements_split": 50.0,
+   "patterns_per_statement_mean": 1.5,
+   "patterns_per_statement_max": 2,
+   "attr_untyped": 100.0,
+   "attr_exact_file": 0.0,
+   "attr_same_repo_other_file": 0.0,
+   "attr_other_project": 0.0,
+   "name_first": 0.0,
+   "name_sev_or_env": 0.0
+  },
+  "payment": {
+   "events": 1,
+   "statements": 1,
+   "merged_event_share": 100.0,
+   "merged_events": 1,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 0.0,
+   "statements_clean": 0.0,
+   "statements_in_merge": 100.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1,
+   "attr_untyped": 100.0,
+   "attr_exact_file": 0.0,
+   "attr_same_repo_other_file": 0.0,
+   "attr_other_project": 0.0,
+   "name_first": 0.0,
+   "name_sev_or_env": 0.0
+  },
+  "quote": {
+   "events": 1,
+   "statements": 1,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 100.0,
+   "statements_clean": 100.0,
+   "statements_in_merge": 0.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1,
+   "attr_untyped": 100.0,
+   "attr_exact_file": 0.0,
+   "attr_same_repo_other_file": 0.0,
+   "attr_other_project": 0.0,
+   "name_first": 100.0,
+   "name_sev_or_env": 0.0
+  }
+ },
+ "merges": [
+  {
+   "pattern": "cart_cartstore_ValkeyCartStore",
+   "events": 19639,
+   "merged_events": 6930,
+   "statements": [
+    [
+     "open-telemetry/opentelemetry-demo@2.1.3:src/cart/src/cartstore/ValkeyCartStore.cs:196",
+     12709
+    ],
+    [
+     "open-telemetry/opentelemetry-demo@2.1.3:src/cart/src/cartstore/ValkeyCartStore.cs:127",
+     6929
+    ],
+    [
+     "open-telemetry/opentelemetry-demo@2.1.3:src/cart/src/cartstore/ValkeyCartStore.cs:100",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "Installing_plugin_pluginId_version",
+   "events": 6,
+   "merged_events": 3,
+   "statements": [
+    [
+     "grafana/grafana@v12.1.1:pkg/services/pluginsintegration/plugininstaller/service.go:137",
+     3
+    ],
+    [
+     "grafana/grafana@v12.1.1:pkg/plugins/manager/installer.go:128",
+     3
+    ]
+   ]
+  },
+  {
+   "pattern": "Indexing",
+   "events": 6,
+   "merged_events": 3,
+   "statements": [
+    [
+     "opensearch-project/security-analytics@3.2.0.0:src/main/java/org/opensearch/securityanalytics/logtype/LogTypeService.java:250",
+     3
+    ],
+    [
+     "opensearch-project/security-analytics@3.2.0.0:src/main/java/org/opensearch/securityanalytics/logtype/LogTypeService.java:301",
+     3
+    ]
+   ]
+  },
+  {
+   "pattern": "Update_check_succeeded_duration",
+   "events": 66,
+   "merged_events": 2,
+   "statements": [
+    [
+     "grafana/grafana@v12.1.1:pkg/services/updatemanager/plugins.go:152",
+     64
+    ],
+    [
+     "grafana/grafana@v12.1.1:pkg/services/updatemanager/grafana.go:89",
+     2
+    ]
+   ]
+  },
+  {
+   "pattern": "Installing_plugin_pluginId_grafana_pyroscope_app_version",
+   "events": 4,
+   "merged_events": 2,
+   "statements": [
+    [
+     "grafana/grafana@v12.1.1:pkg/services/pluginsintegration/plugininstaller/service.go:137",
+     2
+    ],
+    [
+     "grafana/grafana@v12.1.1:pkg/plugins/manager/installer.go:128",
+     2
+    ]
+   ]
+  },
+  {
+   "pattern": "OpenJDK_Server_VM_Sharing_only_supported_for_boot_loader_classes_because_bootstrap_classpath_has_been_appended",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "ad:other",
+     1
+    ],
+    [
+     "fraud-detection:other",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "stream_stdout_log_docker",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "frontend:banner",
+     1
+    ],
+    [
+     "open-telemetry/opentelemetry-demo@2.1.3:src/payment/index.js:52",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "Installing_plugin_pluginId_grafana_opensearch_datasource_version",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "grafana/grafana@v12.1.1:pkg/services/pluginsintegration/plugininstaller/service.go:137",
+     1
+    ],
+    [
+     "grafana/grafana@v12.1.1:pkg/plugins/manager/installer.go:128",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "Kafka_org_apache_kafka_common_utils_AppInfoParser",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:clients/src/main/java/org/apache/kafka/common/utils/AppInfoParser.java:125",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:clients/src/main/java/org/apache/kafka/common/utils/AppInfoParser.java:126",
+     1
+    ]
+   ]
+  }
+ ],
+ "splits": [
+  {
+   "statement": "apache/kafka@3.9.1:storage/src/main/java/org/apache/kafka/storage/internals/log/LogSegment.java:806",
+   "events": 7434,
+   "split_events": 4956,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+     2478
+    ],
+    [
+     "Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+     2478
+    ],
+    [
+     "Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+     2478
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/services/sqlstore/migrator/migrator.go:369",
+   "events": 691,
+   "split_events": 686,
+   "patterns": 666,
+   "top_patterns": [
+    [
+     "Executing_migration_add_index_annotation_v",
+     5
+    ],
+    [
+     "Executing_migration_drop_table",
+     4
+    ],
+    [
+     "Executing_migration_id_Drop_old_table",
+     3
+    ],
+    [
+     "Executing_migration_create_index_IDX_org_user_id_v",
+     2
+    ],
+    [
+     "Executing_migration_id_create_dashboard_snapshot_table_v",
+     2
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/services/sqlstore/migrator/migrator.go:409",
+   "events": 688,
+   "split_events": 683,
+   "patterns": 665,
+   "top_patterns": [
+    [
+     "Migration_successfully_executed_add_index_annotation_v_duration",
+     5
+    ],
+    [
+     "Migration_successfully_executed_drop_table_duration",
+     4
+    ],
+    [
+     "Migration_successfully_executed_id_Drop_old_table_duration",
+     3
+    ],
+    [
+     "Migration_successfully_executed_create_index_IDX_org_user_id_v_duration",
+     2
+    ],
+    [
+     "Migration_successfully_executed_id_create_dashboard_snapshot_table_v_duration",
+     2
+    ]
+   ]
+  },
+  {
+   "statement": "kafka:object_body",
+   "events": 254,
+   "split_events": 253,
+   "patterns": 254,
+   "top_patterns": [
+    [
+     "template_1dbbe8bbddb88fcd",
+     1
+    ],
+    [
+     "template_1a4e141cc078d47b",
+     1
+    ],
+    [
+     "template_3e26b1405e3d54ae",
+     1
+    ],
+    [
+     "template_051bba50e5a86c5d",
+     1
+    ],
+    [
+     "template_2423e1382f47129a",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "fabric8io/fluent-plugin-kubernetes_metadata_filter@v3.5.1:lib/fluent/plugin/kubernetes_metadata_stats.rb:41",
+   "events": 1236,
+   "split_events": 119,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "stats_cache_size_pod_api_updates_id_miss",
+     1117
+    ],
+    [
+     "stats_cache_size_pod_api_updates_id_miss_host_namespace",
+     119
+    ]
+   ]
+  },
+  {
+   "statement": "fluentd-10x:object_body",
+   "events": 82,
+   "split_events": 74,
+   "patterns": 53,
+   "top_patterns": [
+    [
+     "template_4b1f845fbee908ea",
+     8
+    ],
+    [
+     "template_8d9bcda244ecb07a",
+     7
+    ],
+    [
+     "template_48180d0b4c1410c3",
+     7
+    ],
+    [
+     "template_bc946f769577793f",
+     5
+    ],
+    [
+     "template_32499053e3713529",
+     3
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-demo@2.1.3:src/accounting/Helpers.cs:30",
+   "events": 67,
+   "split_events": 60,
+   "patterns": 41,
+   "top_patterns": [
+    [
+     "OTEL_COLLECTOR_ADDR",
+     7
+    ],
+    [
+     "OTEL_COLLECTOR_PORT",
+     7
+    ],
+    [
+     "OTEL_COLLECTOR_tcp",
+     6
+    ],
+    [
+     "OTEL_COLLECTOR_PROTO_tcp",
+     6
+    ],
+    [
+     "KAFKA_tcp",
+     2
+    ]
+   ]
+  },
+  {
+   "statement": "kubernetes/kubernetes@v1.32.6:staging/src/k8s.io/component-base/cli/flag/flags.go:64",
+   "events": 59,
+   "split_events": 58,
+   "patterns": 59,
+   "top_patterns": [
+    [
+     "FLAG_bind_address",
+     1
+    ],
+    [
+     "FLAG_bind_address_hard_fail_false",
+     1
+    ],
+    [
+     "FLAG_boot_id_file_proc_sys_kernel_random",
+     1
+    ],
+    [
+     "FLAG_cleanup_false",
+     1
+    ],
+    [
+     "FLAG_cluster_cidr",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "opensearch-project/OpenSearch@3.2.0:server/src/main/java/org/opensearch/plugins/PluginsService.java:268",
+   "events": 48,
+   "split_events": 47,
+   "patterns": 48,
+   "top_patterns": [
+    [
+     "loaded_module_aggs_matrix_stats",
+     1
+    ],
+    [
+     "loaded_module_analysis_common",
+     1
+    ],
+    [
+     "loaded_module_cache_common",
+     1
+    ],
+    [
+     "loaded_module_geo",
+     1
+    ],
+    [
+     "loaded_module_ingest_common",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "opensearch-project/security-analytics@3.2.0.0:src/main/java/org/opensearch/securityanalytics/logtype/BuiltinLogTypeLoader.java:97",
+   "events": 24,
+   "split_events": 22,
+   "patterns": 23,
+   "top_patterns": [
+    [
+     "Loaded_log_type",
+     2
+    ],
+    [
+     "Loaded_windows_logtype_json_log_type",
+     1
+    ],
+    [
+     "Loaded_waf_logtype_json_log_type",
+     1
+    ],
+    [
+     "Loaded_vpcflow_logtype_json_log_type",
+     1
+    ],
+    [
+     "Loaded_test_windows_logtype_json_log_type",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:133",
+   "events": 30,
+   "split_events": 21,
+   "patterns": 11,
+   "top_patterns": [
+    [
+     "Starting_kafka_server_DelayedOperationPurgatory_ExpiredOperationReaper",
+     9
+    ],
+    [
+     "Starting_kafka_server_ClientQuotaManager_ThrottledChannelReaper",
+     8
+    ],
+    [
+     "Starting_kafka_server_NodeToControllerRequestThread",
+     5
+    ],
+    [
+     "Starting_kafka_raft_TimingWheelExpirationService_ExpiredOperationReaper",
+     1
+    ],
+    [
+     "Starting_org_apache_kafka_raft_KafkaNetworkChannel_SendThread",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "kubernetes/apiserver@v0.33.2:pkg/endpoints/discovery/aggregated/handler.go:288",
+   "events": 18,
+   "split_events": 16,
+   "patterns": 9,
+   "top_patterns": [
+    [
+     "Adding_GroupVersion_notifications_alerting_grafana_app_to_ResourceManager",
+     2
+    ],
+    [
+     "Adding_GroupVersion_folder_grafana_app_vbeta_to_ResourceManager",
+     2
+    ],
+    [
+     "Adding_GroupVersion_features_grafana_app_to_ResourceManager",
+     2
+    ],
+    [
+     "Adding_GroupVersion_dashboard_grafana_app_vbeta_to_ResourceManager",
+     2
+    ],
+    [
+     "Adding_GroupVersion_dashboard_grafana_app_to_ResourceManager",
+     2
+    ]
+   ]
+  },
+  {
+   "statement": "opensearch-project/OpenSearch@3.2.0:server/src/main/java/org/opensearch/plugins/PluginsService.java:343",
+   "events": 35,
+   "split_events": 15,
+   "patterns": 5,
+   "top_patterns": [
+    [
+     "onIndexModule_index_otel",
+     20
+    ],
+    [
+     "onIndexModule_index_opensearch_sap_log_types_config",
+     6
+    ],
+    [
+     "onIndexModule_index_top",
+     6
+    ],
+    [
+     "onIndexModule_index_plugins_ml_config",
+     2
+    ],
+    [
+     "onIndexModule_index_validate",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:metadata/src/main/java/org/apache/kafka/image/loader/MetadataLoader.java:308",
+   "events": 14,
+   "split_events": 13,
+   "patterns": 14,
+   "top_patterns": [
+    [
+     "InitializeNewPublishers_initializing_SnapshotGenerator_with_a_snapshot_at_offset_org_apache_kafka_image_loader_MetadataLoader",
+     1
+    ],
+    [
+     "InitializeNewPublishers_initializing_KRaftMetadataCachePublisher_with_a_snapshot_at_offset_org_apache_kafka_image_loader_MetadataLoader",
+     1
+    ],
+    [
+     "InitializeNewPublishers_initializing_FeaturesPublisher_with_a_snapshot_at_offset_org_apache_kafka_image_loader_MetadataLoader",
+     1
+    ],
+    [
+     "InitializeNewPublishers_initializing_ControllerRegistrationsPublisher_with_a_snapshot_at_offset_org_apache_kafka_image_loader",
+     1
+    ],
+    [
+     "InitializeNewPublishers_initializing_ControllerRegistrationManager_with_a_snapshot_at_offset_org_apache_kafka_image_loader",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "fluent/fluentd@v1.17.1:lib/fluent/supervisor.rb:659",
+   "events": 14,
+   "split_events": 13,
+   "patterns": 14,
+   "top_patterns": [
+    [
+     "gem_fluentd_version",
+     1
+    ],
+    [
+     "gem_fluent_plugin_concat_version",
+     1
+    ],
+    [
+     "gem_fluent_plugin_dedot_filter_version",
+     1
+    ],
+    [
+     "gem_fluent_plugin_detect_exceptions_version",
+     1
+    ],
+    [
+     "gem_fluent_plugin_elasticsearch_version",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "fluentd-10x:other",
+   "events": 14,
+   "split_events": 13,
+   "patterns": 14,
+   "top_patterns": [
+    [
+     "Logging_to",
+     1
+    ],
+    [
+     "Loading_symbol_libraries_from",
+     1
+    ],
+    [
+     "Loading_from_data_templates_json_sample_output",
+     1
+    ],
+    [
+     "Reading_events_from_Fluentd_via_stdin",
+     1
+    ],
+    [
+     "Transforming_events_into_using_of_available_cores",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "opensearch-project/sql@3.2.0.0:core/src/main/java/org/opensearch/sql/expression/function/PPLFuncImpTable.java:607",
+   "events": 13,
+   "split_events": 12,
+   "patterns": 13,
+   "top_patterns": [
+    [
+     "Cannot_create_type_checker_for_function_ARRAY_Will_skip_its_checking",
+     1
+    ],
+    [
+     "Cannot_create_type_checker_for_function_FORALL_Will_skip_its_checking",
+     1
+    ],
+    [
+     "Cannot_create_type_checker_for_function_EXISTS_Will_skip_its_checking",
+     1
+    ],
+    [
+     "Cannot_create_type_checker_for_function_FILTER_Will_skip_its_checking",
+     1
+    ],
+    [
+     "Cannot_create_type_checker_for_function_TRANSFORM_Will_skip_its_checking",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "fluent/fluentd@v1.17.1:lib/fluent/agent.rb:128",
+   "events": 14,
+   "split_events": 10,
+   "patterns": 9,
+   "top_patterns": [
+    [
+     "adding_match_in_pattern_type_relabel",
+     4
+    ],
+    [
+     "adding_match_in_pattern_type_null",
+     3
+    ],
+    [
+     "adding_match_in_pattern_type_exec_filter",
+     1
+    ],
+    [
+     "adding_match_in_pattern_type_stdout",
+     1
+    ],
+    [
+     "adding_match_in_KUBERNETES_pattern_kubernetes_var_log_containers_fluentd_type_relabel",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/setting/setting.go:1524",
+   "events": 12,
+   "split_events": 10,
+   "patterns": 6,
+   "top_patterns": [
+    [
+     "Config_overridden_Environment_variable_var_GF_PATHS_DATA_lib_grafana",
+     2
+    ],
+    [
+     "Config_overridden_Environment_variable_var_GF_PATHS_LOGS_log_grafana",
+     2
+    ],
+    [
+     "Config_overridden_Environment_variable_var_GF_PATHS_PLUGINS_lib_grafana_plugins",
+     2
+    ],
+    [
+     "Config_overridden_Environment_variable_var_GF_PATHS_PROVISIONING_etc_grafana_provisioning",
+     2
+    ],
+    [
+     "Config_overridden_Environment_variable_var_GF_SECURITY_ADMIN_USER_admin",
+     2
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/FutureUtils.java:57",
+   "events": 11,
+   "split_events": 10,
+   "patterns": 11,
+   "top_patterns": [
+    [
+     "Waiting_controller_quorum_voters_future_kafka_server_ControllerServer",
+     1
+    ],
+    [
+     "Waiting_the_controller_metadata_publishers_to_be_installed_kafka_server_ControllerServer",
+     1
+    ],
+    [
+     "Waiting_for_all_of_the_authorizer_futures_to_be_completed_kafka_server_ControllerServer",
+     1
+    ],
+    [
+     "Waiting_for_all_of_the_SocketServer_Acceptors_to_be_started_kafka_server_ControllerServer",
+     1
+    ],
+    [
+     "Waiting_controller_quorum_voters_future_kafka_server_BrokerServer",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/FutureUtils.java:60",
+   "events": 11,
+   "split_events": 10,
+   "patterns": 11,
+   "top_patterns": [
+    [
+     "Finished_waiting_controller_quorum_voters_future_kafka_server_ControllerServer",
+     1
+    ],
+    [
+     "Finished_waiting_for_the_controller_metadata_publishers_to_be_installed_kafka_server_ControllerServer",
+     1
+    ],
+    [
+     "Finished_waiting_for_all_of_the_authorizer_futures_to_be_completed_kafka_server_ControllerServer",
+     1
+    ],
+    [
+     "Finished_waiting_for_all_of_the_SocketServer_Acceptors_to_be_started_kafka_server_ControllerServer",
+     1
+    ],
+    [
+     "Finished_waiting_controller_quorum_voters_future_kafka_server_BrokerServer",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/setting/setting.go:1517",
+   "events": 10,
+   "split_events": 8,
+   "patterns": 5,
+   "top_patterns": [
+    [
+     "Config_overridden_from_command_line_arg_default_paths_data_var_lib_grafana",
+     2
+    ],
+    [
+     "Config_overridden_from_command_line_arg_default_paths_logs_var_log_grafana",
+     2
+    ],
+    [
+     "Config_overridden_from_command_line_arg_default_paths_plugins_var_lib_grafana",
+     2
+    ],
+    [
+     "Config_overridden_from_command_line_arg_default_paths_provisioning_etc_grafana",
+     2
+    ],
+    [
+     "Config_overridden_from_command_line_arg_default_log_mode_console",
+     2
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-java-instrumentation@v2.20.1:instrumentation/jmx-metrics/library/src/main/java/io/opentelemetry/instrumentation/jmx/engine/MetricRegistrar.java:95",
+   "events": 10,
+   "split_events": 8,
+   "patterns": 7,
+   "top_patterns": [
+    [
+     "javaagent_shaded_instrumentation_jmx_Created_Counter_kafka_request_count",
+     2
+    ],
+    [
+     "javaagent_shaded_instrumentation_jmx_Created_Counter_kafka_request_failed",
+     2
+    ],
+    [
+     "javaagent_shaded_instrumentation_jmx_Created_Counter_kafka_network_io",
+     2
+    ],
+    [
+     "javaagent_shaded_instrumentation_jmx_Created_Counter_for_kafka_message_count",
+     1
+    ],
+    [
+     "javaagent_shaded_instrumentation_jmx_Created_Counter_for_kafka_request_time_total",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "opensearch:other",
+   "events": 10,
+   "split_events": 8,
+   "patterns": 7,
+   "top_patterns": [
+    [
+     "SLFJ_Failed_to_load_class",
+     2
+    ],
+    [
+     "SLFJ_Defaulting_to_no_operation_NOP_logger_implementation",
+     2
+    ],
+    [
+     "SLFJ_See_for_further_details",
+     2
+    ],
+    [
+     "opensearch_javaagent_setPolicy",
+     1
+    ],
+    [
+     "Policy_attached_successfully_org_opensearch",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-java-instrumentation@v2.20.1:instrumentation/jmx-metrics/library/src/main/java/io/opentelemetry/instrumentation/jmx/engine/MetricRegistrar.java:112",
+   "events": 8,
+   "split_events": 6,
+   "patterns": 7,
+   "top_patterns": [
+    [
+     "javaagent_shaded_instrumentation_jmx_Created_UpDownCounter_for_kafka_isr_operation_count",
+     2
+    ],
+    [
+     "javaagent_shaded_instrumentation_jmx_Created_UpDownCounter_for_kafka_request_queue",
+     1
+    ],
+    [
+     "javaagent_shaded_instrumentation_jmx_Created_UpDownCounter_for_kafka_purgatory_size",
+     1
+    ],
+    [
+     "javaagent_shaded_instrumentation_jmx_Created_UpDownCounter_kafka_partition_count",
+     1
+    ],
+    [
+     "javaagent_shaded_instrumentation_jmx_Created_UpDownCounter_kafka_partition_offline",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "opensearch-project/job-scheduler@3.2.0.0:src/main/java/org/opensearch/jobscheduler/JobSchedulerPlugin.java:202",
+   "events": 7,
+   "split_events": 6,
+   "patterns": 7,
+   "top_patterns": [
+    [
+     "Loaded_scheduler_extension_opensearch_time_series_analytics_index_detector_jobs",
+     1
+    ],
+    [
+     "Loaded_scheduler_extension_management_index_config",
+     1
+    ],
+    [
+     "Loaded_scheduler_extension_job_index_opensearch_sap",
+     1
+    ],
+    [
+     "Loaded_scheduler_extension_reports_index_definitions",
+     1
+    ],
+    [
+     "Loaded_scheduler_extension_opensearch_ml_commons_jobs_index_plugins",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/plugins/manager/pipeline/initialization/steps.go:119",
+   "events": 7,
+   "split_events": 3,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "Plugin_registered_pluginId",
+     4
+    ],
+    [
+     "Plugin_registered_pluginId_grafana_opensearch_datasource",
+     2
+    ],
+    [
+     "Plugin_registered_pluginId_grafana_pyroscope_app",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/services/pluginsintegration/plugininstaller/service.go:137",
+   "events": 6,
+   "split_events": 3,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "Installing_plugin_pluginId_version",
+     3
+    ],
+    [
+     "Installing_plugin_pluginId_grafana_pyroscope_app_version",
+     2
+    ],
+    [
+     "Installing_plugin_pluginId_grafana_opensearch_datasource_version",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/plugins/manager/installer.go:128",
+   "events": 6,
+   "split_events": 3,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "Installing_plugin_pluginId_version",
+     3
+    ],
+    [
+     "Installing_plugin_pluginId_grafana_pyroscope_app_version",
+     2
+    ],
+    [
+     "Installing_plugin_pluginId_grafana_opensearch_datasource_version",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "frontend:stack_frame",
+   "events": 2314,
+   "split_events": 2,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Error_INTERNAL_shipping_quote_failure_failed_POST_to_service_Post_get_unsupported_protocol_scheme",
+     2312
+    ],
+    [
+     "Error_UNAVAILABLE_No_connection_established_Last_error_connect_ECONNREFUSED",
+     2
+    ]
+   ]
+  },
+  {
+   "statement": "fluent/fluentd@v1.17.1:lib/fluent/plugin/in_tail.rb:1134",
+   "events": 49,
+   "split_events": 2,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "following_tail_of",
+     47
+    ],
+    [
+     "following_tail_of_var_log_containers",
+     2
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/plugins/storage/fs.go:51",
+   "events": 5,
+   "split_events": 2,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "Downloaded_and_extracted_zip_successfully_to",
+     3
+    ],
+    [
+     "Downloaded_and_extracted_grafana_pyroscope_app_zip_successfully_to_var_lib_plugins",
+     1
+    ],
+    [
+     "Downloaded_and_extracted_grafana_opensearch_datasource_zip_successfully_to_var_lib_plugins",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/services/pluginsintegration/plugininstaller/service.go:156",
+   "events": 5,
+   "split_events": 2,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "Plugin_successfully_installed_pluginId_version_duration",
+     3
+    ],
+    [
+     "Plugin_successfully_installed_pluginId_grafana_pyroscope_app_version_duration",
+     1
+    ],
+    [
+     "Plugin_successfully_installed_pluginId_grafana_opensearch_datasource_version_duration",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/setting/setting.go:1512",
+   "events": 4,
+   "split_events": 2,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Config_loaded_from_file_usr_share_grafana_conf_defaults_ini",
+     2
+    ],
+    [
+     "Config_loaded_from_file_etc_grafana_ini",
+     2
+    ]
+   ]
+  },
+  {
+   "statement": "fluent/fluentd@v1.17.1:lib/fluent/root_agent.rb:313",
+   "events": 4,
+   "split_events": 2,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "adding_source_type_tail",
+     2
+    ],
+    [
+     "adding_source_type_unix",
+     1
+    ],
+    [
+     "adding_source_type_prometheus",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/services/provisioning/datasources/datasources.go:75",
+   "events": 3,
+   "split_events": 2,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "inserting_datasource_from_configuration_name_Jaeger_uid",
+     1
+    ],
+    [
+     "inserting_datasource_from_configuration_name_OpenSearch_uid",
+     1
+    ],
+    [
+     "inserting_datasource_from_configuration_name_Prometheus_uid",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/services/sqlstore/migrator/migrator.go:384",
+   "events": 3,
+   "split_events": 2,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "Skipping_Already_executed_but_not_recorded_migration_drop_unique_orgID_index_configuration_if_exists",
+     1
+    ],
+    [
+     "Skipping_Already_executed_but_not_recorded_migration_drop_index_public_config_uid_v",
+     1
+    ],
+    [
+     "Skipping_Already_executed_but_not_recorded_migration_drop_index_IDX_dashboard_public_config_org_id_uid_v",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:raft/src/main/java/org/apache/kafka/raft/QuorumState.java:618",
+   "events": 3,
+   "split_events": 2,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "Attempting_durable_transition_to_Unattached_epoch_votedKey_null_voters_electionTimeoutMs_highWatermark_Optional_empty_apache",
+     1
+    ],
+    [
+     "Attempting_durable_transition_to_CandidateState_localId_localDirectoryId_epoch_retries_highWatermark_Optional_empty_electionTimeoutMs",
+     1
+    ],
+    [
+     "Attempting_durable_transition_to_Leader_ReplicaKey_id_directoryId_Optional_epoch_epochStartOffset_highWatermark_empty_voterStates",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:raft/src/main/java/org/apache/kafka/raft/QuorumState.java:635",
+   "events": 3,
+   "split_events": 2,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "Completed_transition_to_Unattached_epoch_votedKey_null_voters_electionTimeoutMs_highWatermark_Optional_empty_apache_kafka",
+     1
+    ],
+    [
+     "Completed_transition_to_CandidateState_localId_localDirectoryId_epoch_retries_highWatermark_Optional_empty_electionTimeoutMs",
+     1
+    ],
+    [
+     "Completed_transition_to_Leader_ReplicaKey_id_directoryId_Optional_epoch_epochStartOffset_highWatermark_empty_voterStates_CandidateState",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "kubernetes/kubernetes@v1.32.6:cmd/kube-proxy/app/conntrack.go:121",
+   "events": 3,
+   "split_events": 2,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "Set_sysctl_entry_netfilter_nf_conntrack_max_value",
+     1
+    ],
+    [
+     "Set_sysctl_entry_netfilter_nf_conntrack_tcp_timeout_established_value",
+     1
+    ],
+    [
+     "Set_sysctl_entry_netfilter_nf_conntrack_tcp_timeout_close_wait_value",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "kubernetes/kubernetes@v1.32.6:staging/src/k8s.io/client-go/tools/cache/shared_informer.go:313",
+   "events": 3,
+   "split_events": 2,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "Waiting_for_caches_to_sync_service_config",
+     1
+    ],
+    [
+     "Waiting_for_caches_to_sync_node_config",
+     1
+    ],
+    [
+     "Waiting_for_caches_to_sync_endpoint_slice_config",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "kubernetes/kubernetes@v1.32.6:staging/src/k8s.io/client-go/tools/cache/shared_informer.go:320",
+   "events": 3,
+   "split_events": 2,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "Caches_are_synced_for_node_config",
+     1
+    ],
+    [
+     "Caches_are_synced_for_service_config",
+     1
+    ],
+    [
+     "Caches_are_synced_for_endpoint_slice_config",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/log/LogManager.scala:1100",
+   "events": 51,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Created_log_for_partition_consumer_in_tmp_kafka_logs_with_properties_LogManager",
+     50
+    ],
+    [
+     "Created_log_for_partition_in_tmp_kafka_logs_with_properties_LogManager",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/cluster/Partition.scala:482",
+   "events": 51,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "No_checkpointed_highwatermark_is_found_for_partition_consumer_kafka_cluster_Partition",
+     50
+    ],
+    [
+     "No_checkpointed_highwatermark_is_found_for_partition_kafka_cluster_Partition",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/cluster/Partition.scala:486",
+   "events": 51,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Log_loaded_for_partition_consumer_with_initial_high_watermark_kafka_cluster_Partition",
+     50
+    ],
+    [
+     "Log_loaded_for_partition_with_initial_high_watermark_kafka_cluster_Partition",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-java-instrumentation@v2.20.1:instrumentation/jmx-metrics/library/src/main/java/io/opentelemetry/instrumentation/jmx/engine/MetricRegistrar.java:129",
+   "events": 5,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "javaagent_shaded_instrumentation_jmx_Created_Gauge_for",
+     4
+    ],
+    [
+     "javaagent_shaded_instrumentation_jmx_Created_Gauge_for_kafka_lag_max",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "fraud-detection:other",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Picked_up_JAVA_TOOL_OPTIONS_javaagent_usr_src_app_opentelemetry_jar",
+     1
+    ],
+    [
+     "OpenJDK_Server_VM_Sharing_only_supported_for_boot_loader_classes_because_bootstrap_classpath_has_been_appended",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/services/featuremgmt/service.go:64",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "correlations_true_formatString",
+     1
+    ],
+    [
+     "formatString_true_correlations",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/network/SocketServer.scala:254",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Created_data_plane_acceptor_and_processors_for_endpoint_ListenerName_CONTROLLER_kafka_network_SocketServer",
+     1
+    ],
+    [
+     "Created_data_plane_acceptor_and_processors_for_endpoint_ListenerName_PLAINTEXT_kafka_network_SocketServer",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/network/EndpointReadyFutures.java:168",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "authorizerStart_completed_endpoint_CONTROLLER_Endpoint_is_now_READY_org_apache_kafka_server_network_EndpointReadyFutures",
+     1
+    ],
+    [
+     "authorizerStart_completed_endpoint_PLAINTEXT_Endpoint_is_now_READY_org_apache_kafka_server_network_EndpointReadyFutures",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:raft/src/main/java/org/apache/kafka/raft/KafkaRaftClient.java:3233",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Registered_the_listener_org_apache_kafka_image_loader_MetadataLoader_raft_KafkaRaftClient",
+     1
+    ],
+    [
+     "Registered_the_listener_org_apache_kafka_controller_QuorumController_QuorumMetaLogListener_raft_KafkaRaftClient",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:raft/src/main/java/org/apache/kafka/raft/KafkaRaftClient.java:407",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Setting_next_offset_image_loader_MetadataLoader_since_there_are_no_snapshots_org_apache_kafka_raft_KafkaRaftClient",
+     1
+    ],
+    [
+     "offset_controller_QuorumController_QuorumMetaLogListener_since_there_are_no_snapshots_org_apache_kafka_raft_KafkaRaftClient",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/server/BrokerServer.scala:155",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Transition_from_SHUTDOWN_to_STARTING_kafka_server_BrokerServer",
+     1
+    ],
+    [
+     "Transition_from_STARTING_to_STARTED_kafka_server_BrokerServer",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/server/AutoTopicCreationManager.scala:223",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Sent_auto_creation_request_for_Set_consumer_offsets_to_the_active_controller_kafka_server_DefaultAutoTopicCreationManager",
+     1
+    ],
+    [
+     "Sent_auto_creation_request_for_Set_orders_to_the_active_controller_kafka_server_DefaultAutoTopicCreationManager",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/server/AbstractFetcherManager.scala:200",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Removed_fetcher_for_partitions_Set_consumer_kafka_server_ReplicaFetcherManager",
+     1
+    ],
+    [
+     "Removed_fetcher_for_partitions_Set_kafka_server_ReplicaFetcherManager",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/group/GroupCoordinator.scala:359",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Dynamic_member_with_unknown_id_joins_group_accounting_in_Empty_state_Created_a_new_and_request_the_to_rejoin_this_kafka_coordinator",
+     1
+    ],
+    [
+     "Dynamic_member_with_unknown_id_joins_group_fraud_detection_in_Empty_state_Created_a_new_consumer_and_request_the_to_rejoin",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/group/GroupCoordinator.scala:1501",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "PreparingRebalance_old_generation_Adding_new_group_None_client_reason_need_to_re_join_with_the_given_member_id_consumer_fraud_kafka",
+     1
+    ],
+    [
+     "Preparing_to_rebalance_group_accounting_in_state_PreparingRebalance_with_old_generation_consumer_reason_Adding_new_member",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/group/GroupCoordinator.scala:1576",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Stabilized_group_fraud_detection_generation_consumer_with_members_kafka_coordinator_GroupCoordinator",
+     1
+    ],
+    [
+     "Stabilized_group_accounting_generation_consumer_with_members_kafka_coordinator_GroupCoordinator",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/group/GroupCoordinator.scala:607",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Assignment_received_leader_accounting_generation_The_group_has_members_of_which_are_static_kafka_coordinator_GroupCoordinator",
+     1
+    ],
+    [
+     "received_leader_consumer_fraud_detection_generation_The_group_has_members_of_which_are_static_kafka_coordinator_GroupCoordinator",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "fluent/fluentd@v1.17.1:lib/fluent/agent.rb:150",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "adding_filter_in_KUBERNETES_pattern_kubernetes_type_metadata",
+     1
+    ],
+    [
+     "adding_filter_in_DISPATCH_pattern_type_prometheus",
+     1
+    ]
+   ]
+  }
+ ]
+}

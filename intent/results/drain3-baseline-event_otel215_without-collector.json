@@ -1,0 +1,1211 @@
+{
+ "capture": "otel215",
+ "events": 157228,
+ "labelled": 66824,
+ "excluded_containers": [
+  "opentelemetry-collector"
+ ],
+ "distinct_patterns": 769,
+ "overall": {
+  "events": 66824,
+  "statements": 265,
+  "merged_event_share": 0.14,
+  "merged_events": 94,
+  "split_event_share": 7.85,
+  "exact_grouping_events": 55.54,
+  "statements_clean": 75.47,
+  "statements_in_merge": 13.21,
+  "statements_split": 13.21,
+  "patterns_per_statement_mean": 2.98,
+  "patterns_per_statement_max": 148
+ },
+ "by_group": {
+  "source_in_library": {
+   "events": 59618,
+   "statements": 111,
+   "merged_event_share": 0.01,
+   "merged_events": 6,
+   "split_event_share": 6.28,
+   "exact_grouping_events": 59.47,
+   "statements_clean": 78.38,
+   "statements_in_merge": 9.91,
+   "statements_split": 13.51,
+   "patterns_per_statement_mean": 2.05,
+   "patterns_per_statement_max": 67
+  },
+  "source_not_in_library": {
+   "events": 4525,
+   "statements": 144,
+   "merged_event_share": 1.92,
+   "merged_events": 87,
+   "split_event_share": 28.04,
+   "exact_grouping_events": 36.57,
+   "statements_clean": 76.39,
+   "statements_in_merge": 15.28,
+   "statements_split": 9.72,
+   "patterns_per_statement_mean": 3.01,
+   "patterns_per_statement_max": 148
+  },
+  "not_code": {
+   "events": 2681,
+   "statements": 10,
+   "merged_event_share": 0.04,
+   "merged_events": 1,
+   "split_event_share": 8.73,
+   "exact_grouping_events": 0.15,
+   "statements_clean": 30.0,
+   "statements_in_merge": 20.0,
+   "statements_split": 60.0,
+   "patterns_per_statement_mean": 13,
+   "patterns_per_statement_max": 53
+  }
+ },
+ "by_container": {
+  "kafka": {
+   "events": 29039,
+   "statements": 92,
+   "merged_event_share": 0.07,
+   "merged_events": 19,
+   "split_event_share": 13.13,
+   "exact_grouping_events": 59.82,
+   "statements_clean": 70.65,
+   "statements_in_merge": 15.22,
+   "statements_split": 16.3,
+   "patterns_per_statement_mean": 2.08,
+   "patterns_per_statement_max": 50
+  },
+  "cart": {
+   "events": 19639,
+   "statements": 3,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.01,
+   "exact_grouping_events": 35.29,
+   "statements_clean": 66.67,
+   "statements_in_merge": 0.0,
+   "statements_split": 33.33,
+   "patterns_per_statement_mean": 1.33,
+   "patterns_per_statement_max": 2
+  },
+  "ad": {
+   "events": 7114,
+   "statements": 7,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 99.97,
+   "statements_clean": 71.43,
+   "statements_in_merge": 14.29,
+   "statements_split": 14.29,
+   "patterns_per_statement_mean": 1.14,
+   "patterns_per_statement_max": 2
+  },
+  "recommendation": {
+   "events": 3432,
+   "statements": 3,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 100.0,
+   "statements_clean": 100.0,
+   "statements_in_merge": 0.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1
+  },
+  "grafana": {
+   "events": 2474,
+   "statements": 77,
+   "merged_event_share": 1.17,
+   "merged_events": 29,
+   "split_event_share": 46.28,
+   "exact_grouping_events": 41.55,
+   "statements_clean": 75.32,
+   "statements_in_merge": 16.88,
+   "statements_split": 10.39,
+   "patterns_per_statement_mean": 4.68,
+   "patterns_per_statement_max": 148
+  },
+  "frontend": {
+   "events": 2317,
+   "statements": 3,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.09,
+   "exact_grouping_events": 0.13,
+   "statements_clean": 66.67,
+   "statements_in_merge": 0.0,
+   "statements_split": 33.33,
+   "patterns_per_statement_mean": 1.33,
+   "patterns_per_statement_max": 2
+  },
+  "fluentd-10x": {
+   "events": 1427,
+   "statements": 17,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 14.44,
+   "exact_grouping_events": 6.52,
+   "statements_clean": 76.47,
+   "statements_in_merge": 0.0,
+   "statements_split": 23.53,
+   "patterns_per_statement_mean": 4.88,
+   "patterns_per_statement_max": 53
+  },
+  "valkey-cart": {
+   "events": 607,
+   "statements": 12,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 100.0,
+   "statements_clean": 100.0,
+   "statements_in_merge": 0.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1
+  },
+  "opensearch": {
+   "events": 414,
+   "statements": 20,
+   "merged_event_share": 10.63,
+   "merged_events": 44,
+   "split_event_share": 1.93,
+   "exact_grouping_events": 76.33,
+   "statements_clean": 75.0,
+   "statements_in_merge": 20.0,
+   "statements_split": 5.0,
+   "patterns_per_statement_mean": 1.25,
+   "patterns_per_statement_max": 6
+  },
+  "kube-proxy": {
+   "events": 287,
+   "statements": 26,
+   "merged_event_share": 0.35,
+   "merged_events": 1,
+   "split_event_share": 1.05,
+   "exact_grouping_events": 74.91,
+   "statements_clean": 80.77,
+   "statements_in_merge": 7.69,
+   "statements_split": 11.54,
+   "patterns_per_statement_mean": 1.12,
+   "patterns_per_statement_max": 2
+  },
+  "accounting": {
+   "events": 69,
+   "statements": 3,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 95.65,
+   "exact_grouping_events": 2.9,
+   "statements_clean": 66.67,
+   "statements_in_merge": 0.0,
+   "statements_split": 33.33,
+   "patterns_per_statement_mean": 23,
+   "patterns_per_statement_max": 67
+  },
+  "fraud-detection": {
+   "events": 3,
+   "statements": 2,
+   "merged_event_share": 33.33,
+   "merged_events": 1,
+   "split_event_share": 66.67,
+   "exact_grouping_events": 0.0,
+   "statements_clean": 0.0,
+   "statements_in_merge": 50.0,
+   "statements_split": 100.0,
+   "patterns_per_statement_mean": 2,
+   "patterns_per_statement_max": 2
+  },
+  "payment": {
+   "events": 1,
+   "statements": 1,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 100.0,
+   "statements_clean": 100.0,
+   "statements_in_merge": 0.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1
+  },
+  "quote": {
+   "events": 1,
+   "statements": 1,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 100.0,
+   "statements_clean": 100.0,
+   "statements_in_merge": 0.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1
+  }
+ },
+ "merges": [
+  {
+   "pattern": "[<TS>,<NUM>][INFO ][o.o.s.s.c.FlintStreamingJobHouseKeeperTask] [opensearch-<NUM>] <*> housekeeping task for auto refresh streaming jobs.",
+   "events": 82,
+   "merged_events": 41,
+   "statements": [
+    [
+     "opensearch-project/sql@3.2.0.0:async-query/src/main/java/org/opensearch/sql/spark/cluster/FlintStreamingJobHouseKeeperTask.java:46",
+     41
+    ],
+    [
+     "opensearch-project/sql@3.2.0.0:async-query/src/main/java/org/opensearch/sql/spark/cluster/FlintStreamingJobHouseKeeperTask.java:82",
+     41
+    ]
+   ]
+  },
+  {
+   "pattern": "[otel.javaagent <TS>:<NUM> +<NUM>] [jmx_bean_finder] INFO io.opentelemetry.javaagent.shaded.instrumentation.jmx.engine.MetricRegistrar - Created <*> for <*>",
+   "events": 23,
+   "merged_events": 13,
+   "statements": [
+    [
+     "open-telemetry/opentelemetry-java-instrumentation@v2.20.1:instrumentation/jmx-metrics/library/src/main/java/io/opentelemetry/instrumentation/jmx/engine/MetricRegistrar.java:95",
+     10
+    ],
+    [
+     "open-telemetry/opentelemetry-java-instrumentation@v2.20.1:instrumentation/jmx-metrics/library/src/main/java/io/opentelemetry/instrumentation/jmx/engine/MetricRegistrar.java:112",
+     8
+    ],
+    [
+     "open-telemetry/opentelemetry-java-instrumentation@v2.20.1:instrumentation/jmx-metrics/library/src/main/java/io/opentelemetry/instrumentation/jmx/engine/MetricRegistrar.java:129",
+     5
+    ]
+   ]
+  },
+  {
+   "pattern": "logger=settings t=<TS> level=info msg=\"Config overridden from <*> <*> <*>",
+   "events": 22,
+   "merged_events": 10,
+   "statements": [
+    [
+     "grafana/grafana@v12.1.1:pkg/setting/setting.go:1524",
+     12
+    ],
+    [
+     "grafana/grafana@v12.1.1:pkg/setting/setting.go:1517",
+     10
+    ]
+   ]
+  },
+  {
+   "pattern": "logger=settings t=<TS> level=info msg=\"Path <*> <*>",
+   "events": 10,
+   "merged_events": 8,
+   "statements": [
+    [
+     "grafana/grafana@v12.1.1:pkg/setting/setting.go:1529",
+     2
+    ],
+    [
+     "grafana/grafana@v12.1.1:pkg/setting/setting.go:1530",
+     2
+    ],
+    [
+     "grafana/grafana@v12.1.1:pkg/setting/setting.go:1531",
+     2
+    ],
+    [
+     "grafana/grafana@v12.1.1:pkg/setting/setting.go:1532",
+     2
+    ],
+    [
+     "grafana/grafana@v12.1.1:pkg/setting/setting.go:1533",
+     2
+    ]
+   ]
+  },
+  {
+   "pattern": "logger=provisioning.dashboard t=<TS> level=info <*> to provision dashboards\"",
+   "events": 8,
+   "merged_events": 4,
+   "statements": [
+    [
+     "grafana/grafana@v12.1.1:pkg/services/provisioning/dashboards/dashboard.go:88",
+     4
+    ],
+    [
+     "grafana/grafana@v12.1.1:pkg/services/provisioning/dashboards/dashboard.go:103",
+     4
+    ]
+   ]
+  },
+  {
+   "pattern": "logger=provisioning.alerting t=<TS> level=info <*> to provision alerting\"",
+   "events": 6,
+   "merged_events": 3,
+   "statements": [
+    [
+     "grafana/grafana@v12.1.1:pkg/services/provisioning/alerting/provisioner.go:31",
+     3
+    ],
+    [
+     "grafana/grafana@v12.1.1:pkg/services/provisioning/alerting/provisioner.go:78",
+     3
+    ]
+   ]
+  },
+  {
+   "pattern": "[<TS>,<NUM>][INFO ][o.o.s.l.LogTypeService ] [opensearch-<NUM>] Indexing [<NUM>] <*>",
+   "events": 6,
+   "merged_events": 3,
+   "statements": [
+    [
+     "opensearch-project/security-analytics@3.2.0.0:src/main/java/org/opensearch/securityanalytics/logtype/LogTypeService.java:250",
+     3
+    ],
+    [
+     "opensearch-project/security-analytics@3.2.0.0:src/main/java/org/opensearch/securityanalytics/logtype/LogTypeService.java:301",
+     3
+    ]
+   ]
+  },
+  {
+   "pattern": "logger=migrator t=<TS> level=info <*> database\"",
+   "events": 4,
+   "merged_events": 2,
+   "statements": [
+    [
+     "grafana/grafana@v12.1.1:pkg/services/sqlstore/migrator/migrator.go:209",
+     2
+    ],
+    [
+     "grafana/grafana@v12.1.1:pkg/services/sqlstore/migrator/migrator.go:222",
+     2
+    ]
+   ]
+  },
+  {
+   "pattern": "logger=resource-migrator t=<TS> level=info <*> database\"",
+   "events": 4,
+   "merged_events": 2,
+   "statements": [
+    [
+     "grafana/grafana@v12.1.1:pkg/services/sqlstore/migrator/migrator.go:209",
+     2
+    ],
+    [
+     "grafana/grafana@v12.1.1:pkg/services/sqlstore/migrator/migrator.go:222",
+     2
+    ]
+   ]
+  },
+  {
+   "pattern": "[<TS>,<NUM>] INFO Kafka <*> <*> (org.apache.kafka.common.utils.AppInfoParser)",
+   "events": 3,
+   "merged_events": 2,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:clients/src/main/java/org/apache/kafka/common/utils/AppInfoParser.java:125",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:clients/src/main/java/org/apache/kafka/common/utils/AppInfoParser.java:126",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:clients/src/main/java/org/apache/kafka/common/utils/AppInfoParser.java:127",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "OpenJDK <NUM>-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "ad:other",
+     1
+    ],
+    [
+     "fraud-detection:other",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<TS>,<NUM>] INFO [BrokerLifecycleManager id=<NUM>] The broker has <*> <*> Transitioning from <*> to <*> (kafka.server.BrokerLifecycleManager)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/server/BrokerLifecycleManager.scala:531",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/server/BrokerLifecycleManager.scala:542",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<TS>,<NUM>] INFO [BrokerServer id=<NUM>] <*> <*> <*> <*> broker metadata <*> to be <*> (kafka.server.BrokerServer)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/FutureUtils.java:60",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/FutureUtils.java:57",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<TS>,<NUM>] INFO [GroupCoordinator <NUM>]: <*> <*> (kafka.coordinator.group.GroupCoordinator)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/group/GroupCoordinator.scala:114",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/group/GroupCoordinator.scala:117",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<TS>,<NUM>] INFO [TransactionCoordinator id=<NUM>] <*> <*> (kafka.coordinator.transaction.TransactionCoordinator)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/transaction/TransactionCoordinator.scala:734",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/transaction/TransactionCoordinator.scala:745",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "I1001 <NUM>:<NUM>:<NUM>.<NUM> <NUM> config.go:<NUM>] \"Starting <*> config controller\"",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "kubernetes/kubernetes@v1.32.6:pkg/proxy/config/config.go:199",
+     1
+    ],
+    [
+     "kubernetes/kubernetes@v1.32.6:pkg/proxy/config/config.go:329",
+     1
+    ]
+   ]
+  }
+ ],
+ "splits": [
+  {
+   "statement": "apache/kafka@3.9.1:storage/src/main/java/org/apache/kafka/storage/internals/log/LogSegment.java:806",
+   "events": 7434,
+   "split_events": 2478,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "[<TS>,<NUM>] INFO Deleted <*> index <*> (org.apache.kafka.storage.internals.log.LogSegment)",
+     4956
+    ],
+    [
+     "[<TS>,<NUM>] INFO Deleted log /tmp/kafka-logs/__cluster_metadata-<NUM>/<HEX>.log.deleted. (org.apache.kafka.storage.internals.log.LogSegment)",
+     2478
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/log/UnifiedLog.scala:2452",
+   "events": 1909,
+   "split_events": 573,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "[<TS>,<NUM>] INFO [UnifiedLog partition=__cluster_metadata-<NUM>, dir=/tmp/kafka-logs] Deleting segments due to log start offset <NUM> breach: LogSegment(baseOffset=<NUM>, size=<NUM>, lastModifiedTime=<NUM>, largestRecordTimestamp=<NUM>) (kafka.log.UnifiedLog)",
+     1336
+    ],
+    [
+     "[<TS>,<NUM>] INFO [UnifiedLog partition=__cluster_metadata-<NUM>, dir=/tmp/kafka-logs] Deleting segments due to log start offset <NUM> breach: LogSegment(baseOffset=<NUM>, size=<NUM>, lastModifiedTime=<NUM>, largestRecordTimestamp=<NUM>),LogSegment(baseOffset=<NUM>, size=<NUM>, lastModifiedTime=<NUM>, largestRecordTimestamp=<NUM>) (kafka.log.UnifiedLog)",
+     573
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/log/LocalLog.scala:923",
+   "events": 1906,
+   "split_events": 572,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "[<TS>,<NUM>] INFO [LocalLog partition=__cluster_metadata-<NUM>, dir=/tmp/kafka-logs] Deleting segment files LogSegment(baseOffset=<NUM>, size=<NUM>, lastModifiedTime=<NUM>, largestRecordTimestamp=<NUM>) (kafka.log.LocalLog$)",
+     1334
+    ],
+    [
+     "[<TS>,<NUM>] INFO [LocalLog partition=__cluster_metadata-<NUM>, dir=/tmp/kafka-logs] Deleting segment files LogSegment(baseOffset=<NUM>, size=<NUM>, lastModifiedTime=<NUM>, largestRecordTimestamp=<NUM>),LogSegment(baseOffset=<NUM>, size=<NUM>, lastModifiedTime=<NUM>, largestRecordTimestamp=<NUM>) (kafka.log.LocalLog$)",
+     572
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/services/sqlstore/migrator/migrator.go:369",
+   "events": 691,
+   "split_events": 569,
+   "patterns": 131,
+   "top_patterns": [
+    [
+     "logger=migrator t=<TS> level=info msg=\"Executing migration\" <*> <*> <*>",
+     122
+    ],
+    [
+     "logger=migrator t=<TS> level=info msg=\"Executing migration\" <*> index <*> <*> <*>",
+     66
+    ],
+    [
+     "logger=migrator t=<TS> level=info msg=\"Executing migration\" <*> <*> table <*>",
+     51
+    ],
+    [
+     "logger=migrator t=<TS> level=info msg=\"Executing migration\" <*> <*> <*> to <*>",
+     48
+    ],
+    [
+     "logger=migrator t=<TS> level=info msg=\"Executing migration\" id=\"add <*> <*> <*>",
+     42
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/services/sqlstore/migrator/migrator.go:409",
+   "events": 688,
+   "split_events": 566,
+   "patterns": 148,
+   "top_patterns": [
+    [
+     "logger=migrator t=<TS> level=info msg=\"Migration successfully executed\" <*> <*> <*> <*>",
+     122
+    ],
+    [
+     "logger=migrator t=<TS> level=info msg=\"Migration successfully executed\" <*> index <*> - <*> <*>",
+     59
+    ],
+    [
+     "logger=migrator t=<TS> level=info msg=\"Migration successfully executed\" <*> <*> table <*> <*>",
+     51
+    ],
+    [
+     "logger=migrator t=<TS> level=info msg=\"Migration successfully executed\" id=\"add <*> <*> <*> <*>",
+     42
+    ],
+    [
+     "logger=migrator t=<TS> level=info msg=\"Migration successfully executed\" <*> <*> <*> to <*> table\" <*>",
+     31
+    ]
+   ]
+  },
+  {
+   "statement": "kafka:object_body",
+   "events": 254,
+   "split_events": 137,
+   "patterns": 50,
+   "top_patterns": [
+    [
+     "<*> = <NUM>",
+     117
+    ],
+    [
+     "<*> = null",
+     51
+    ],
+    [
+     "<*> = false",
+     12
+    ],
+    [
+     "<*> = <HEX>",
+     9
+    ],
+    [
+     "<*> = <NUM>.<NUM>",
+     7
+    ]
+   ]
+  },
+  {
+   "statement": "fabric8io/fluent-plugin-kubernetes_metadata_filter@v3.5.1:lib/fluent/plugin/kubernetes_metadata_stats.rb:41",
+   "events": 1236,
+   "split_events": 119,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "<TS> +<NUM> [info]: #<NUM> [filter_kube_metadata] stats - namespace_cache_size: <NUM>, pod_cache_size: <NUM>, pod_cache_api_updates: <NUM>, id_cache_miss: <NUM>",
+     1117
+    ],
+    [
+     "<TS> +<NUM> [info]: #<NUM> [filter_kube_metadata] stats - namespace_cache_size: <NUM>, pod_cache_size: <NUM>, pod_cache_api_updates: <NUM>, id_cache_miss: <NUM>, pod_cache_host_updates: <NUM>, namespace_cache_host_updates: <NUM>",
+     119
+    ]
+   ]
+  },
+  {
+   "statement": "fluentd-10x:object_body",
+   "events": 82,
+   "split_events": 74,
+   "patterns": 53,
+   "top_patterns": [
+    [
+     "</match>",
+     8
+    ],
+    [
+     "<match **>",
+     7
+    ],
+    [
+     "</label>",
+     7
+    ],
+    [
+     "@type relabel",
+     5
+    ],
+    [
+     "@type null",
+     3
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-demo@2.1.3:src/accounting/Helpers.cs:30",
+   "events": 67,
+   "split_events": 66,
+   "patterns": 67,
+   "top_patterns": [
+    [
+     "[CORECLR_ENABLE_PROFILING, <NUM>]",
+     1
+    ],
+    [
+     "[CORECLR_PROFILER, {<UUID>}]",
+     1
+    ],
+    [
+     "[CORECLR_PROFILER_PATH, /app/OpenTelemetry.AutoInstrumentation.Native.so]",
+     1
+    ],
+    [
+     "[DOTNET_RUNNING_IN_CONTAINER, true]",
+     1
+    ],
+    [
+     "[DOTNET_STARTUP_HOOKS, /app/OpenTelemetry.AutoInstrumentation.StartupHook.dll]",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:133",
+   "events": 30,
+   "split_events": 20,
+   "patterns": 20,
+   "top_patterns": [
+    [
+     "[<TS>,<NUM>] INFO <*> Starting <*>",
+     10
+    ],
+    [
+     "[<TS>,<NUM>] INFO [ExpirationReaper-<NUM>-AlterAcls]: Starting (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)",
+     2
+    ],
+    [
+     "[<TS>,<NUM>] INFO [raft-expiration-reaper]: Starting (kafka.raft.TimingWheelExpirationService$ExpiredOperationReaper)",
+     1
+    ],
+    [
+     "[<TS>,<NUM>] INFO [kafka-<NUM>-raft-outbound-request-thread]: Starting (org.apache.kafka.raft.KafkaNetworkChannel$SendThread)",
+     1
+    ],
+    [
+     "[<TS>,<NUM>] INFO [kafka-<NUM>-raft-io-thread]: Starting (org.apache.kafka.raft.KafkaRaftClientDriver)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "fluentd-10x:other",
+   "events": 14,
+   "split_events": 12,
+   "patterns": 13,
+   "top_patterns": [
+    [
+     "<TS> +<NUM> tenx-stdout: <*> Enriching TenXObjects with <*> field: <*>",
+     2
+    ],
+    [
+     "<TS> +<NUM> tenx-stdout: {\"message\":\"\ud83e\udeb5 Logging to: /var/log/tenx/tenx.log\"}",
+     1
+    ],
+    [
+     "<TS> +<NUM> tenx-stdout: {\"message\":\"\ud83d\udcda Loading symbol libraries from: /etc/tenx/config/data/shared/symbols,/etc/tenx/symbols\"}",
+     1
+    ],
+    [
+     "<TS> +<NUM> tenx-stdout: {\"message\":\"\ud83d\udcc2 Loading TenXTemplates from: data/templates/*.json,data/sample/output/*.json\"}",
+     1
+    ],
+    [
+     "<TS> +<NUM> tenx-stdout: {\"message\":\"\ud83d\udce5 Reading events from Fluentd via stdin\"}",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/FutureUtils.java:57",
+   "events": 11,
+   "split_events": 9,
+   "patterns": 9,
+   "top_patterns": [
+    [
+     "[<TS>,<NUM>] INFO [ControllerServer id=<NUM>] Waiting for all of the <*> <*> to be <*> (kafka.server.ControllerServer)",
+     2
+    ],
+    [
+     "[<TS>,<NUM>] INFO [BrokerServer id=<NUM>] Waiting for all of the <*> <*> to be <*> (kafka.server.BrokerServer)",
+     2
+    ],
+    [
+     "[<TS>,<NUM>] INFO [ControllerServer id=<NUM>] Waiting for controller quorum voters future (kafka.server.ControllerServer)",
+     1
+    ],
+    [
+     "[<TS>,<NUM>] INFO [ControllerServer id=<NUM>] Waiting for the controller metadata publishers to be installed (kafka.server.ControllerServer)",
+     1
+    ],
+    [
+     "[<TS>,<NUM>] INFO [BrokerServer id=<NUM>] Waiting for controller quorum voters future (kafka.server.BrokerServer)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/FutureUtils.java:60",
+   "events": 11,
+   "split_events": 8,
+   "patterns": 8,
+   "top_patterns": [
+    [
+     "[<TS>,<NUM>] INFO [BrokerServer id=<NUM>] Finished waiting for <*> <*> <*> <*> <*> to be <*> (kafka.server.BrokerServer)",
+     3
+    ],
+    [
+     "[<TS>,<NUM>] INFO [ControllerServer id=<NUM>] Finished waiting for all of the <*> <*> to be <*> (kafka.server.ControllerServer)",
+     2
+    ],
+    [
+     "[<TS>,<NUM>] INFO [ControllerServer id=<NUM>] Finished waiting for controller quorum voters future (kafka.server.ControllerServer)",
+     1
+    ],
+    [
+     "[<TS>,<NUM>] INFO [ControllerServer id=<NUM>] Finished waiting for the controller metadata publishers to be installed (kafka.server.ControllerServer)",
+     1
+    ],
+    [
+     "[<TS>,<NUM>] INFO [BrokerServer id=<NUM>] Finished waiting for controller quorum voters future (kafka.server.BrokerServer)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "opensearch:other",
+   "events": 10,
+   "split_events": 8,
+   "patterns": 6,
+   "top_patterns": [
+    [
+     "[<TS>,<NUM>][WARN ][stderr ] [opensearch-<NUM>] Oct <NUM>, <NUM> <NUM>:<NUM>:<NUM> PM <*> <*>",
+     2
+    ],
+    [
+     "[<TS>,<NUM>][WARN ][stderr ] [opensearch-<NUM>] SLF4J: Failed to load class \"org.slf4j.impl.StaticLoggerBinder\".",
+     2
+    ],
+    [
+     "[<TS>,<NUM>][WARN ][stderr ] [opensearch-<NUM>] SLF4J: Defaulting to no-operation (NOP) logger implementation",
+     2
+    ],
+    [
+     "[<TS>,<NUM>][WARN ][stderr ] [opensearch-<NUM>] SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.",
+     2
+    ],
+    [
+     "[<TS>,<NUM>][WARN ][stderr ] [opensearch-<NUM>] INFO: Policy attached successfully: org.opensearch.bootstrap.OpenSearchPolicy@249e0271",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:metadata/src/main/java/org/apache/kafka/image/loader/MetadataLoader.java:308",
+   "events": 14,
+   "split_events": 5,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "[<TS>,<NUM>] INFO [MetadataLoader id=<NUM>] InitializeNewPublishers: initializing <*> with a snapshot at offset <NUM> (org.apache.kafka.image.loader.MetadataLoader)",
+     9
+    ],
+    [
+     "[<TS>,<NUM>] INFO [MetadataLoader id=<NUM>] InitializeNewPublishers: initializing <*> controller id=<NUM> with a snapshot at offset <NUM> (org.apache.kafka.image.loader.MetadataLoader)",
+     5
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/server/NodeToControllerChannelManager.scala:387",
+   "events": 5,
+   "split_events": 4,
+   "patterns": 5,
+   "top_patterns": [
+    [
+     "[<TS>,<NUM>] INFO [controller-<NUM>-to-controller-registration-channel-manager]: Recorded new KRaft controller, from now on will use node kafka:<NUM> (id: <NUM> rack: null) (kafka.server.NodeToControllerRequestThread)",
+     1
+    ],
+    [
+     "[<TS>,<NUM>] INFO [broker-<NUM>-to-controller-forwarding-channel-manager]: Recorded new KRaft controller, from now on will use node kafka:<NUM> (id: <NUM> rack: null) (kafka.server.NodeToControllerRequestThread)",
+     1
+    ],
+    [
+     "[<TS>,<NUM>] INFO [broker-<NUM>-to-controller-alter-partition-channel-manager]: Recorded new KRaft controller, from now on will use node kafka:<NUM> (id: <NUM> rack: null) (kafka.server.NodeToControllerRequestThread)",
+     1
+    ],
+    [
+     "[<TS>,<NUM>] INFO [broker-<NUM>-to-controller-directory-assignments-channel-manager]: Recorded new KRaft controller, from now on will use node kafka:<NUM> (id: <NUM> rack: null) (kafka.server.NodeToControllerRequestThread)",
+     1
+    ],
+    [
+     "[<TS>,<NUM>] INFO [broker-<NUM>-to-controller-heartbeat-channel-manager]: Recorded new KRaft controller, from now on will use node kafka:<NUM> (id: <NUM> rack: null) (kafka.server.NodeToControllerRequestThread)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "frontend:stack_frame",
+   "events": 2314,
+   "split_events": 2,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Error: <NUM> INTERNAL: shipping quote failure: failed POST to shipping service: Post \"shipping:<NUM>/get-quote\": unsupported protocol scheme \"shipping\" at <unknown> (.next/server/pages/api/checkout.js:<NUM>:<NUM>) at new Promise (<anonymous>) { code: <NUM>, details: 'shipping quote failure: failed POST to shipping service: Post \"shipping:<NUM>/get-quote\": unsupported protocol scheme \"shipping\"', metadata: [Metadata] }",
+     2312
+    ],
+    [
+     "Error: <NUM> UNAVAILABLE: No connection established. Last error: connect ECONNREFUSED <IP>:<NUM> (<TS>) at <unknown> (.next/server/pages/api/checkout.js:<NUM>:<NUM>) at new Promise (<anonymous>) { code: <NUM>,",
+     2
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/services/sqlstore/migrator/migrator.go:209",
+   "events": 4,
+   "split_events": 2,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "logger=migrator t=<TS> level=info <*> database\"",
+     2
+    ],
+    [
+     "logger=resource-migrator t=<TS> level=info <*> database\"",
+     2
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/services/sqlstore/migrator/migrator.go:240",
+   "events": 4,
+   "split_events": 2,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "logger=migrator t=<TS> level=info msg=\"Starting DB migrations\"",
+     2
+    ],
+    [
+     "logger=resource-migrator t=<TS> level=info msg=\"Starting DB migrations\"",
+     2
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/services/sqlstore/migrator/migrator.go:300",
+   "events": 4,
+   "split_events": 2,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "logger=migrator t=<TS> level=info msg=\"migrations completed\" performed=<NUM> skipped=<NUM> <*>",
+     2
+    ],
+    [
+     "logger=resource-migrator t=<TS> level=info msg=\"migrations completed\" performed=<NUM> skipped=<NUM> <*>",
+     2
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/services/sqlstore/migrator/migrator.go:222",
+   "events": 4,
+   "split_events": 2,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "logger=migrator t=<TS> level=info <*> database\"",
+     2
+    ],
+    [
+     "logger=resource-migrator t=<TS> level=info <*> database\"",
+     2
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:raft/src/main/java/org/apache/kafka/raft/QuorumState.java:618",
+   "events": 3,
+   "split_events": 2,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "[<TS>,<NUM>] INFO [RaftManager id=<NUM>] Attempting durable transition to Unattached(epoch=<NUM>, votedKey=null, voters=[<NUM>], electionTimeoutMs=<NUM>, highWatermark=Optional.empty) from null (org.apache.kafka.raft.QuorumState)",
+     1
+    ],
+    [
+     "[<TS>,<NUM>] INFO [RaftManager id=<NUM>] Attempting durable transition to CandidateState(localId=<NUM>, localDirectoryId=U5n9H8H1RBnU7GtW3zvgMQ,epoch=<NUM>, retries=<NUM>, voteStates={<NUM>=org.apache.kafka.raft.CandidateState$VoterState@2a191f83}, highWatermark=Optional.empty, electionTimeoutMs=<NUM>) from Unattached(epoch=<NUM>, votedKey=null, voters=[<NUM>], electionTimeoutMs=<NUM>, highWatermark=Optional.empty) (org.apache.kafka.raft.QuorumState)",
+     1
+    ],
+    [
+     "[<TS>,<NUM>] INFO [RaftManager id=<NUM>] Attempting durable transition to Leader(localReplicaKey=ReplicaKey(id=<NUM>, directoryId=Optional[U5n9H8H1RBnU7GtW3zvgMQ]), epoch=<NUM>, epochStartOffset=<NUM>, highWatermark=Optional.empty, voterStates={<NUM>=ReplicaState(replicaKey=ReplicaKey(id=<NUM>, directoryId=Optional.empty), endOffset=Optional.empty, lastFetchTimestamp=-<NUM>, lastCaughtUpTimestamp=-<NUM>, hasAcknowledgedLeader=true)}) from CandidateState(localId=<NUM>, localDirectoryId=U5n9H8H1RBnU7GtW3zvgMQ,epoch=<NUM>, retries=<NUM>, voteStates={<NUM>=org.apache.kafka.raft.CandidateState$VoterState@2a191f83}, highWatermark=Optional.empty, electionTimeoutMs=<NUM>) (org.apache.kafka.raft.QuorumState)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:raft/src/main/java/org/apache/kafka/raft/QuorumState.java:635",
+   "events": 3,
+   "split_events": 2,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "[<TS>,<NUM>] INFO [RaftManager id=<NUM>] Completed transition to Unattached(epoch=<NUM>, votedKey=null, voters=[<NUM>], electionTimeoutMs=<NUM>, highWatermark=Optional.empty) from null (org.apache.kafka.raft.QuorumState)",
+     1
+    ],
+    [
+     "[<TS>,<NUM>] INFO [RaftManager id=<NUM>] Completed transition to CandidateState(localId=<NUM>, localDirectoryId=U5n9H8H1RBnU7GtW3zvgMQ,epoch=<NUM>, retries=<NUM>, voteStates={<NUM>=org.apache.kafka.raft.CandidateState$VoterState@2a191f83}, highWatermark=Optional.empty, electionTimeoutMs=<NUM>) from Unattached(epoch=<NUM>, votedKey=null, voters=[<NUM>], electionTimeoutMs=<NUM>, highWatermark=Optional.empty) (org.apache.kafka.raft.QuorumState)",
+     1
+    ],
+    [
+     "[<TS>,<NUM>] INFO [RaftManager id=<NUM>] Completed transition to Leader(localReplicaKey=ReplicaKey(id=<NUM>, directoryId=Optional[U5n9H8H1RBnU7GtW3zvgMQ]), epoch=<NUM>, epochStartOffset=<NUM>, highWatermark=Optional.empty, voterStates={<NUM>=ReplicaState(replicaKey=ReplicaKey(id=<NUM>, directoryId=Optional.empty), endOffset=Optional.empty, lastFetchTimestamp=-<NUM>, lastCaughtUpTimestamp=-<NUM>, hasAcknowledgedLeader=true)}) from CandidateState(localId=<NUM>, localDirectoryId=U5n9H8H1RBnU7GtW3zvgMQ,epoch=<NUM>, retries=<NUM>, voteStates={<NUM>=org.apache.kafka.raft.CandidateState$VoterState@2a191f83}, highWatermark=Optional.empty, electionTimeoutMs=<NUM>) (org.apache.kafka.raft.QuorumState)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-demo@2.1.3:src/cart/src/cartstore/ValkeyCartStore.cs:196",
+   "events": 12709,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "info: cart.cartstore.ValkeyCartStore[<NUM>] GetCartAsync called with <*>",
+     12708
+    ],
+    [
+     "info: cart.cartstore.ValkeyCartStore[<NUM>] GetCartAsync called with userId=<UUID> waiting for valkey-cart waiting for valkey-cart waiting for valkey-cart waiting for valkey-cart waiting for valkey-cart waiting for valkey-cart waiting for valkey-cart waiting for valkey-cart waiting for valkey-cart waiting for valkey-cart valkey-cart (<IP>:<NUM>) open waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "kubernetes/kubernetes@v1.32.6:pkg/proxy/iptables/proxier.go:822",
+   "events": 64,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "<*> <NUM>:<NUM>:<NUM>.<NUM> <NUM> proxier.go:<NUM>] \"SyncProxyRules complete\" <*> <*>",
+     63
+    ],
+    [
+     "I1001 <NUM>:<NUM>:<NUM>.<NUM> <NUM> proxier.go:<NUM>] \"SyncProxyRules complete\" ipFamily=\"IPv4\" elapsed=\"<NUM>.852597ms\" Exception ignored in: <bound method _ForkHooks.after_fork_in_child of <gevent.threading._ForkHooks object at 0x7f9eb23f6e70>>",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/log/LogManager.scala:1100",
+   "events": 51,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "[<TS>,<NUM>] INFO Created log for partition __consumer_offsets-<NUM> in /tmp/kafka-logs/__consumer_offsets-<NUM> with properties {cleanup.policy=compact, compression.type=\"producer\", segment.bytes=<NUM>} (kafka.log.LogManager)",
+     50
+    ],
+    [
+     "[<TS>,<NUM>] INFO Created log for partition orders-<NUM> in /tmp/kafka-logs/orders-<NUM> with properties {} (kafka.log.LogManager)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-java-instrumentation@v2.20.1:javaagent-tooling/src/main/java/io/opentelemetry/javaagent/tooling/VersionLogger.java:18",
+   "events": 3,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "[otel.javaagent <TS>:<NUM> +<NUM>] [main] INFO io.opentelemetry.javaagent.tooling.VersionLogger - opentelemetry-javaagent - version: <NUM>.<NUM>.<NUM>",
+     2
+    ],
+    [
+     "[otel.javaagent <TS>:<NUM> +<NUM>] [main] INFO io.opentelemetry.javaagent.tooling.VersionLogger - opentelemetry-javaagent - version: <NUM>.<NUM>.<NUM> SLF4J(W): No SLF4J providers were found. SLF4J(W): Defaulting to no-operation (NOP) logger implementation SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details. waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka waiting for kafka wa",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/services/sqlstore/migrator/migrator.go:384",
+   "events": 3,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "logger=migrator t=<TS> level=warn msg=\"Skipping migration: Already executed, but not recorded in migration log\" id=\"drop index <*> - v1\"",
+     2
+    ],
+    [
+     "logger=migrator t=<TS> level=warn msg=\"Skipping migration: Already executed, but not recorded in migration log\" id=\"drop unique orgID index on alert_configuration if exists\"",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "kubernetes/kubernetes@v1.32.6:staging/src/k8s.io/client-go/tools/cache/shared_informer.go:313",
+   "events": 3,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "I1001 <NUM>:<NUM>:<NUM>.<NUM> <NUM> shared_informer.go:<NUM>] Waiting for caches to sync for <*> config",
+     2
+    ],
+    [
+     "I1001 <NUM>:<NUM>:<NUM>.<NUM> <NUM> shared_informer.go:<NUM>] Waiting for caches to sync for endpoint slice config",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "kubernetes/kubernetes@v1.32.6:staging/src/k8s.io/client-go/tools/cache/shared_informer.go:320",
+   "events": 3,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "I1001 <NUM>:<NUM>:<NUM>.<NUM> <NUM> shared_informer.go:<NUM>] Caches are synced for <*> config",
+     2
+    ],
+    [
+     "I1001 <NUM>:<NUM>:<NUM>.<NUM> <NUM> shared_informer.go:<NUM>] Caches are synced for endpoint slice config",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "fraud-detection:other",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Picked up JAVA_TOOL_OPTIONS: -javaagent:/usr/src/app/opentelemetry-javaagent.jar",
+     1
+    ],
+    [
+     "OpenJDK <NUM>-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/services/featuremgmt/service.go:64",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "logger=featuremgmt t=<TS> level=info msg=FeatureToggles dashgpt=true tlsMemcached=true nestedFolders=true promQLScope=true correlations=true awsAsyncQueryCaching=true formatString=true influxdbBackendMigration=true improvedExternalSessionHandlingSAML=true logsInfiniteScrolling=true alertingQueryAndExpressionsStepMode=true addFieldFromCalculationStatFunctions=true annotationPermissionUpdate=true dashboardScene=true ssoSettingsSAML=true prometheusAzureOverrideAudience=true alertingImportYAMLUI=true publicDashboardsScene=true alertingNotificationsStepMode=true recordedQueriesMulti=true groupToNestedTableTransformation=true newPDFRendering=true pinNavItems=true alertingRuleRecoverDeleted=true alertingMigrationUI=true azureMonitorEnableUserAuth=true logsExploreTableVisualisation=true grafanaconThemes=true tabularNumbers=true useSessionStorageForRedirection=true cloudWatchCrossAccountQuerying=true lokiQuerySplitting=true logsPanelControls=true logsContextDatasourceUi=true jaegerBackendMigr",
+     1
+    ],
+    [
+     "logger=featuremgmt t=<TS> level=info msg=FeatureToggles annotationPermissionUpdate=true improvedExternalSessionHandling=true cloudWatchCrossAccountQuerying=true unifiedRequestLog=true logRowsPopoverMenu=true dataplaneFrontendFallback=true cloudWatchNewLabelParsing=true transformationsRedesign=true skipTokenRotationIfRecent=true cloudWatchRoundUpEndTime=true alertingBulkActionsInUI=true lokiLabelNamesQueryApi=true dashboardScene=true tlsMemcached=true tabularNumbers=true preinstallAutoUpdate=true unifiedStorageSearchPermissionFiltering=true alertingNotificationsStepMode=true recordedQueriesMulti=true formatString=true useSessionStorageForRedirection=true kubernetesClientDashboardsFolders=true improvedExternalSessionHandlingSAML=true prometheusAzureOverrideAudience=true dashgpt=true alertingRuleRecoverDeleted=true externalCorePlugins=true correlations=true publicDashboardsScene=true logsInfiniteScrolling=true influxdbBackendMigration=true jaegerBackendMigration=true dashboardSceneForVi",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/server/AbstractFetcherManager.scala:200",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "[<TS>,<NUM>] INFO [ReplicaFetcherManager on broker <NUM>] Removed fetcher for partitions Set(__consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer_offsets-<NUM>, __consumer",
+     1
+    ],
+    [
+     "[<TS>,<NUM>] INFO [ReplicaFetcherManager on broker <NUM>] Removed fetcher for partitions Set(orders-<NUM>) (kafka.server.ReplicaFetcherManager)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/group/GroupCoordinator.scala:1501",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "[<TS>,<NUM>] INFO [GroupCoordinator <NUM>]: Preparing to rebalance group fraud-detection in state PreparingRebalance with old generation <NUM> (__consumer_offsets-<NUM>) (reason: Adding new member consumer-fraud-detection-<NUM>-<UUID> with group instance id None; client reason: need to re-join with the given member-id: consumer-fraud-detection-<NUM>-<UUID>) (kafka.coordinator.group.GroupCoordinator)",
+     1
+    ],
+    [
+     "[<TS>,<NUM>] INFO [GroupCoordinator <NUM>]: Preparing to rebalance group accounting in state PreparingRebalance with old generation <NUM> (__consumer_offsets-<NUM>) (reason: Adding new member rdkafka-<UUID> with group instance id None; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "fabric8io/fluent-plugin-kubernetes_metadata_filter@v3.5.1:lib/fluent/plugin/filter_kubernetes_metadata.rb:283",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "<TS> +<NUM> [warn]: [filter_kube_metadata] !! The environment variable 'K8S_NODE_NAME' is not set to the node name which can affect the API server and watch efficiency !!",
+     1
+    ],
+    [
+     "<TS> +<NUM> [warn]: #<NUM> [filter_kube_metadata] !! The environment variable 'K8S_NODE_NAME' is not set to the node name which can affect the API server and watch efficiency !!",
+     1
+    ]
+   ]
+  }
+ ]
+}

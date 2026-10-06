@@ -1,0 +1,16 @@
+# Writes one JSON record per event with the fields the scorer reads: the
+# pattern name, its typed origin and the event's text. Run with @apps/dev,
+# which reads the input file and names every event.
+tenx: run
+
+include:
+  - run/modules/output/event/file
+
+outputFile:
+  - path: $=TenXEnv.get("OUTPUT_DIR") + "/events.jsonl"
+    filter: null
+    encodeType: json
+    fields:
+      - message_pattern
+      - tenx_origin
+      - text

@@ -153,3 +153,27 @@ jobs:
       # edited without a rerun is caught here.
       - name: The committed figures follow from the kept rollup lines
         run: python splunk-license/report.py --dir splunk-license --data splunk-license/data --results splunk-license/results --check
+
+  intent:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      # The run needs Docker, two engine images and both captures, so CI checks
+      # what it can without them.
+      - name: Syntax-check the harness
+        run: |
+          bash -n intent/run.sh intent/bench/engine.sh
+          python -m py_compile intent/bench/*.py
+
+      # The tables in results.md are rendered from the committed score files.
+      # Re-render them and fail if the committed tables disagree, so a number
+      # edited without a rerun is caught here.
+      - name: The committed tables follow from the committed scores
+        run: |
+          python intent/bench/summarize.py > /tmp/results.md
+          diff -u intent/results/results.md /tmp/results.md
