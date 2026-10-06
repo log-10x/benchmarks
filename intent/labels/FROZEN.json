@@ -1,0 +1,13 @@
+{
+ "labels_frozen_utc": "2026-10-05T16:43:50Z",
+ "statements": 423,
+ "note": "Statement assignments are those frozen at labels_frozen_utc, before any tool's pattern names were read. These files carry them unchanged; the library_1_1_89 column, the records field and the 16-digit text hashes were added for publication.",
+ "files_sha256": {
+  "labels_otel215.jsonl.gz": "4548c855c36b090f8ba963b29912212c9f167b176178cf99b19971d60de9741e",
+  "labels_rec1155.jsonl.gz": "87255d28e3f67cfcdeece86104e39a956da0c9839e6d35ab39642834653bdcc4",
+  "repo_basenames.json.gz": "8cdbb584bf79c8d1f44ea27502d513793ce3cb3475d0e36523c2147a606e575f",
+  "statements.tsv": "8c25e67ee4e0d63a1ff20ec729af0c3f3ba30f39c377517a7d0a301c0e554d94",
+  "texthash_otel215.txt.gz": "f669f578b0838a0987ff6fe5379ad8e1b7db1917db6818c2488c5d7caa49b139",
+  "texthash_rec1155.txt.gz": "d7606d40ecf18cab973c4cceae300a74aec92a42c60fde791e1ca4bf3e60eec7"
+ }
+}

@@ -1,0 +1,1258 @@
+{
+ "capture": "rec1155",
+ "events": 41573,
+ "labelled": 41333,
+ "excluded_containers": [],
+ "distinct_patterns": 406,
+ "overall": {
+  "events": 41333,
+  "statements": 213,
+  "merged_event_share": 0.15,
+  "merged_events": 63,
+  "split_event_share": 9.95,
+  "exact_grouping_events": 85.94,
+  "statements_clean": 78.4,
+  "statements_in_merge": 4.23,
+  "statements_split": 18.78,
+  "patterns_per_statement_mean": 1.93,
+  "patterns_per_statement_max": 50,
+  "attr_untyped": 57.45,
+  "attr_exact_file": 26.74,
+  "attr_same_repo_other_file": 12.18,
+  "attr_other_project": 3.64,
+  "name_first": 87.39,
+  "name_sev_or_env": 15.18
+ },
+ "by_group": {
+  "source_in_library": {
+   "events": 39902,
+   "statements": 199,
+   "merged_event_share": 0.15,
+   "merged_events": 61,
+   "split_event_share": 10.27,
+   "exact_grouping_events": 85.52,
+   "statements_clean": 80.9,
+   "statements_in_merge": 2.51,
+   "statements_split": 17.59,
+   "patterns_per_statement_mean": 1.92,
+   "patterns_per_statement_max": 50,
+   "attr_untyped": 58.25,
+   "attr_exact_file": 25.74,
+   "attr_same_repo_other_file": 12.36,
+   "attr_other_project": 3.66,
+   "name_first": 87.28,
+   "name_sev_or_env": 15.4
+  },
+  "source_not_in_library": {
+   "events": 586,
+   "statements": 8,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 3.07,
+   "exact_grouping_events": 94.88,
+   "statements_clean": 37.5,
+   "statements_in_merge": 12.5,
+   "statements_split": 62.5,
+   "patterns_per_statement_mean": 2.88,
+   "patterns_per_statement_max": 7,
+   "attr_untyped": 3.07,
+   "attr_exact_file": 94.37,
+   "attr_same_repo_other_file": 0.34,
+   "attr_other_project": 2.22,
+   "name_first": 94.88,
+   "name_sev_or_env": 0.68
+  },
+  "not_code": {
+   "events": 845,
+   "statements": 6,
+   "merged_event_share": 0.24,
+   "merged_events": 2,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 99.64,
+   "statements_clean": 50.0,
+   "statements_in_merge": 50.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1
+  }
+ },
+ "by_container": {
+  "opentelemetry-collector": {
+   "events": 19068,
+   "statements": 8,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 100.0,
+   "statements_clean": 100.0,
+   "statements_in_merge": 0.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1,
+   "attr_untyped": 99.97,
+   "attr_exact_file": 0.03,
+   "attr_same_repo_other_file": 0.0,
+   "attr_other_project": 0.0,
+   "name_first": 99.99,
+   "name_sev_or_env": 0.0
+  },
+  "kafka": {
+   "events": 6226,
+   "statements": 140,
+   "merged_event_share": 0.03,
+   "merged_events": 2,
+   "split_event_share": 17.64,
+   "exact_grouping_events": 71.27,
+   "statements_clean": 75.71,
+   "statements_in_merge": 2.86,
+   "statements_split": 22.14,
+   "patterns_per_statement_mean": 1.84,
+   "patterns_per_statement_max": 14,
+   "attr_untyped": 4.59,
+   "attr_exact_file": 28.37,
+   "attr_same_repo_other_file": 60.34,
+   "attr_other_project": 6.7,
+   "name_first": 92.69,
+   "name_sev_or_env": 56.88
+  },
+  "product-reviews": {
+   "events": 4931,
+   "statements": 14,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 44.23,
+   "exact_grouping_events": 53.96,
+   "statements_clean": 85.71,
+   "statements_in_merge": 7.14,
+   "statements_split": 14.29,
+   "patterns_per_statement_mean": 5.14,
+   "patterns_per_statement_max": 50,
+   "attr_untyped": 44.23,
+   "attr_exact_file": 31.13,
+   "attr_same_repo_other_file": 9.13,
+   "attr_other_project": 15.51,
+   "name_first": 95.44,
+   "name_sev_or_env": 13.16
+  },
+  "cart": {
+   "events": 3755,
+   "statements": 6,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 100.0,
+   "statements_clean": 100.0,
+   "statements_in_merge": 0.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1,
+   "attr_untyped": 0.0,
+   "attr_exact_file": 100.0,
+   "attr_same_repo_other_file": 0.0,
+   "attr_other_project": 0.0,
+   "name_first": 100.0,
+   "name_sev_or_env": 0.0
+  },
+  "llm": {
+   "events": 2477,
+   "statements": 9,
+   "merged_event_share": 2.38,
+   "merged_events": 59,
+   "split_event_share": 33.55,
+   "exact_grouping_events": 45.42,
+   "statements_clean": 44.44,
+   "statements_in_merge": 11.11,
+   "statements_split": 55.56,
+   "patterns_per_statement_mean": 3.33,
+   "patterns_per_statement_max": 10,
+   "attr_untyped": 8.24,
+   "attr_exact_file": 44.45,
+   "attr_same_repo_other_file": 33.3,
+   "attr_other_project": 14.01,
+   "name_first": 0.94,
+   "name_sev_or_env": 4.05
+  },
+  "ad": {
+   "events": 1240,
+   "statements": 7,
+   "merged_event_share": 0.08,
+   "merged_events": 1,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 99.76,
+   "statements_clean": 57.14,
+   "statements_in_merge": 42.86,
+   "statements_split": 14.29,
+   "patterns_per_statement_mean": 1.14,
+   "patterns_per_statement_max": 2,
+   "attr_untyped": 0.08,
+   "attr_exact_file": 99.84,
+   "attr_same_repo_other_file": 0.0,
+   "attr_other_project": 0.08,
+   "name_first": 0.0,
+   "name_sev_or_env": 56.82
+  },
+  "accounting": {
+   "events": 948,
+   "statements": 4,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.32,
+   "exact_grouping_events": 58.44,
+   "statements_clean": 50.0,
+   "statements_in_merge": 0.0,
+   "statements_split": 50.0,
+   "patterns_per_statement_mean": 1.5,
+   "patterns_per_statement_max": 2,
+   "attr_untyped": 41.03,
+   "attr_exact_file": 58.44,
+   "attr_same_repo_other_file": 0.21,
+   "attr_other_project": 0.32,
+   "name_first": 58.44,
+   "name_sev_or_env": 0.0
+  },
+  "payment": {
+   "events": 781,
+   "statements": 3,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 100.0,
+   "statements_clean": 100.0,
+   "statements_in_merge": 0.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1,
+   "attr_untyped": 100.0,
+   "attr_exact_file": 0.0,
+   "attr_same_repo_other_file": 0.0,
+   "attr_other_project": 0.0,
+   "name_first": 100.0,
+   "name_sev_or_env": 100.0
+  },
+  "recommendation": {
+   "events": 604,
+   "statements": 3,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 100.0,
+   "statements_clean": 100.0,
+   "statements_in_merge": 0.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1,
+   "attr_untyped": 0.0,
+   "attr_exact_file": 99.83,
+   "attr_same_repo_other_file": 0.0,
+   "attr_other_project": 0.17,
+   "name_first": 100.0,
+   "name_sev_or_env": 0.0
+  },
+  "fraud-detection": {
+   "events": 393,
+   "statements": 3,
+   "merged_event_share": 0.25,
+   "merged_events": 1,
+   "split_event_share": 0.25,
+   "exact_grouping_events": 99.49,
+   "statements_clean": 33.33,
+   "statements_in_merge": 66.67,
+   "statements_split": 33.33,
+   "patterns_per_statement_mean": 1.33,
+   "patterns_per_statement_max": 2,
+   "attr_untyped": 0.0,
+   "attr_exact_file": 99.74,
+   "attr_same_repo_other_file": 0.0,
+   "attr_other_project": 0.26,
+   "name_first": 0.0,
+   "name_sev_or_env": 99.74
+  },
+  "quote": {
+   "events": 392,
+   "statements": 2,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 100.0,
+   "statements_clean": 100.0,
+   "statements_in_merge": 0.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1,
+   "attr_untyped": 100.0,
+   "attr_exact_file": 0.0,
+   "attr_same_repo_other_file": 0.0,
+   "attr_other_project": 0.0,
+   "name_first": 0.26,
+   "name_sev_or_env": 0.0
+  },
+  "email": {
+   "events": 391,
+   "statements": 1,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 100.0,
+   "statements_clean": 100.0,
+   "statements_in_merge": 0.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1
+  },
+  "valkey-cart": {
+   "events": 126,
+   "statements": 15,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 100.0,
+   "statements_clean": 100.0,
+   "statements_in_merge": 0.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1,
+   "attr_untyped": 0.0,
+   "attr_exact_file": 61.11,
+   "attr_same_repo_other_file": 38.89,
+   "attr_other_project": 0.0,
+   "name_first": 98.41,
+   "name_sev_or_env": 0.0
+  },
+  "frontend": {
+   "events": 1,
+   "statements": 1,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 100.0,
+   "statements_clean": 100.0,
+   "statements_in_merge": 0.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1
+  }
+ },
+ "merges": [
+  {
+   "pattern": "times_while_exceptional_engineering_short_focal_length_make_it_an_incredibly_efficient_and_professional_piece_of_equipment",
+   "events": 70,
+   "merged_events": 35,
+   "statements": [
+    [
+     "open-telemetry/opentelemetry-demo@2.2.0:src/product-reviews/product_reviews_server.py:301",
+     35
+    ],
+    [
+     "open-telemetry/opentelemetry-demo@2.2.0:src/llm/app.py:169",
+     35
+    ]
+   ]
+  },
+  {
+   "pattern": "moon_brighter_Users_appreciate_its_portability_ease_setup_good_value_though_some_note_manual_controls_can_be_a_bit_tricky",
+   "events": 48,
+   "merged_events": 24,
+   "statements": [
+    [
+     "open-telemetry/opentelemetry-demo@2.2.0:src/product-reviews/product_reviews_server.py:301",
+     24
+    ],
+    [
+     "open-telemetry/opentelemetry-demo@2.2.0:src/llm/app.py:169",
+     24
+    ]
+   ]
+  },
+  {
+   "pattern": "OpenJDK_Server_VM_Sharing_only_supported_for_boot_loader_classes_because_bootstrap_classpath_has_been_appended",
+   "events": 3,
+   "merged_events": 2,
+   "statements": [
+    [
+     "ad:other",
+     1
+    ],
+    [
+     "fraud-detection:other",
+     1
+    ],
+    [
+     "kafka:other",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "SLFJ_Defaulting_to_no_operation_NOP_logger_implementation_further_details",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "open-telemetry/opentelemetry-java-instrumentation@v2.23.0:javaagent-tooling/src/main/java/io/opentelemetry/javaagent/tooling/VersionLogger.java:18",
+     1
+    ],
+    [
+     "open-telemetry/opentelemetry-demo@2.2.0:src/ad/src/main/java/oteldemo/AdService.java:323",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "Kafka_org_apache_kafka_common_utils_AppInfoParser",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:clients/src/main/java/org/apache/kafka/common/utils/AppInfoParser.java:125",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:clients/src/main/java/org/apache/kafka/common/utils/AppInfoParser.java:126",
+     1
+    ]
+   ]
+  }
+ ],
+ "splits": [
+  {
+   "statement": "open-telemetry/opentelemetry-demo@2.2.0:src/product-reviews/product_reviews_server.py:127",
+   "events": 2045,
+   "split_events": 1991,
+   "patterns": 50,
+   "top_patterns": [
+    [
+     "username_clean_optics_description_This_kit_is_a_for_all_my_The_brush_and_work_perfectly_without_leaving_any_residue_My_have_never",
+     54
+    ],
+    [
+     "username_description_Essential_for_any_photographer_or_telescope_owner_It_safely_removes_dust_and_fingerprints_high_quality_cleaning",
+     54
+    ],
+    [
+     "username_daily_cleaner_description_use_this_on_my_binoculars_camera_and_even_phone_screen_It_s_very_effective_gentle_versatile_cleaning",
+     54
+    ],
+    [
+     "username_tech_maintenance_description_Great_value_for_money_The_different_cleaning_options_cover_all_needs_Keeps_my_expensive_equipment",
+     54
+    ],
+    [
+     "username_sharp_view_description_Works_as_advertised_my_telescope_views_are_much_clearer_after_using_this_The_fluid_and_cloth_excellent",
+     54
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:storage/src/main/java/org/apache/kafka/storage/internals/log/LogSegment.java:806",
+   "events": 1404,
+   "split_events": 936,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+     468
+    ],
+    [
+     "Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+     468
+    ],
+    [
+     "Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+     468
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-demo@2.2.0:src/llm/app.py:94",
+   "events": 450,
+   "split_events": 225,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "app_Received_chat_completion_request",
+     225
+    ],
+    [
+     "app_Received_chat_completion_request_requesting_tool_call_calls_fetch_product_reviews",
+     225
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-demo@2.2.0:src/llm/app.py:98",
+   "events": 450,
+   "split_events": 225,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "app_last_Answer_the_following_question_about_product_ID_Can_you_summarize_reviews",
+     225
+    ],
+    [
+     "app_last_Based_on_the_tool_results_answer_original_question_about_product_ID_Keep_response_brief_with_no_more_than_sentences",
+     225
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-demo@2.2.0:src/product-reviews/product_reviews_server.py:301",
+   "events": 225,
+   "split_events": 190,
+   "patterns": 10,
+   "top_patterns": [
+    [
+     "times_while_exceptional_engineering_short_focal_length_make_it_an_incredibly_efficient_and_professional_piece_of_equipment",
+     35
+    ],
+    [
+     "Returning_an_AI_assistant_response_This_dedicated_solar_scope_is_highly_for_its_perfect_performance_in_observations_and_eclipse_events",
+     29
+    ],
+    [
+     "Returning_an_AI_assistant_response_These_roof_binoculars_are_highly_rated_for_their_incredible_clarity_brightness_and_sharp_images",
+     27
+    ],
+    [
+     "moon_brighter_Users_appreciate_its_portability_ease_setup_good_value_though_some_note_manual_controls_can_be_a_bit_tricky",
+     24
+    ],
+    [
+     "Returning_an_AI_assistant_response_This_solar_system_color_imager_is_highly_as_excellent_solution_for_both_beginners_and_serious_observers",
+     21
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-demo@2.2.0:src/llm/app.py:71",
+   "events": 225,
+   "split_events": 190,
+   "patterns": 10,
+   "top_patterns": [
+    [
+     "app_product_review_summary_is_The_V_as_a_dream_come_true_for_serious_deep_sky_offering_performance_and_detailed_images_Its",
+     35
+    ],
+    [
+     "app_product_review_summary_is_This_dedicated_solar_scope_highly_for_its_perfect_performance_in_observations_and_eclipse_events",
+     29
+    ],
+    [
+     "app_product_review_summary_is_These_roof_binoculars_are_highly_rated_for_their_incredible_clarity_brightness_and_sharp_images",
+     27
+    ],
+    [
+     "app_product_review_summary_is_This_entry_level_telescope_highly_recommended_for_beginners_and_casual_viewing_offering_clear",
+     24
+    ],
+    [
+     "app_product_review_summary_is_This_solar_system_color_imager_highly_as_an_excellent_solution_for_both_beginners_and_serious",
+     21
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-demo@2.2.0:src/llm/app.py:169",
+   "events": 225,
+   "split_events": 190,
+   "patterns": 10,
+   "top_patterns": [
+    [
+     "times_while_exceptional_engineering_short_focal_length_make_it_an_incredibly_efficient_and_professional_piece_of_equipment",
+     35
+    ],
+    [
+     "app_Processing_a_response_This_dedicated_solar_scope_is_highly_for_its_perfect_performance_in_observations_and_eclipse_events_thanks",
+     29
+    ],
+    [
+     "app_Processing_a_response_These_roof_binoculars_are_highly_rated_for_their_incredible_clarity_brightness_and_sharp_images_making",
+     27
+    ],
+    [
+     "moon_brighter_Users_appreciate_its_portability_ease_setup_good_value_though_some_note_manual_controls_can_be_a_bit_tricky",
+     24
+    ],
+    [
+     "app_Processing_a_response_This_solar_system_color_imager_is_highly_as_an_excellent_solution_for_both_beginners_and_serious_observers",
+     21
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+   "events": 31,
+   "split_events": 22,
+   "patterns": 11,
+   "top_patterns": [
+    [
+     "Shutdown_completed_kafka_server_DelayedOperationPurgatory_ExpiredOperationReaper",
+     9
+    ],
+    [
+     "Shutdown_completed_kafka_server_ClientQuotaManager_ThrottledChannelReaper",
+     8
+    ],
+    [
+     "Shutdown_completed_kafka_server_NodeToControllerRequestThread",
+     6
+    ],
+    [
+     "Shutdown_completed_kafka_coordinator_transaction_TransactionMarkerChannelManager",
+     1
+    ],
+    [
+     "Shutdown_completed_kafka_server_ReplicaManager_LogDirFailureHandler",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+   "events": 30,
+   "split_events": 21,
+   "patterns": 11,
+   "top_patterns": [
+    [
+     "Shutting_down_kafka_server_DelayedOperationPurgatory_ExpiredOperationReaper",
+     9
+    ],
+    [
+     "Shutting_down_kafka_server_ClientQuotaManager_ThrottledChannelReaper",
+     8
+    ],
+    [
+     "Shutting_down_kafka_server_NodeToControllerRequestThread",
+     5
+    ],
+    [
+     "Shutting_down_kafka_coordinator_transaction_TransactionMarkerChannelManager",
+     1
+    ],
+    [
+     "Shutting_down_kafka_server_ReplicaManager_LogDirFailureHandler",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:148",
+   "events": 30,
+   "split_events": 21,
+   "patterns": 11,
+   "top_patterns": [
+    [
+     "Stopped_kafka_server_DelayedOperationPurgatory_ExpiredOperationReaper",
+     9
+    ],
+    [
+     "Stopped_kafka_server_ClientQuotaManager_ThrottledChannelReaper",
+     8
+    ],
+    [
+     "Stopped_kafka_server_NodeToControllerRequestThread",
+     5
+    ],
+    [
+     "Stopped_kafka_coordinator_transaction_TransactionMarkerChannelManager",
+     1
+    ],
+    [
+     "Stopped_kafka_server_ReplicaManager_LogDirFailureHandler",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:133",
+   "events": 30,
+   "split_events": 21,
+   "patterns": 11,
+   "top_patterns": [
+    [
+     "Starting_kafka_server_DelayedOperationPurgatory_ExpiredOperationReaper",
+     9
+    ],
+    [
+     "Starting_kafka_server_ClientQuotaManager_ThrottledChannelReaper",
+     8
+    ],
+    [
+     "Starting_kafka_server_NodeToControllerRequestThread",
+     5
+    ],
+    [
+     "Starting_kafka_raft_TimingWheelExpirationService_ExpiredOperationReaper",
+     1
+    ],
+    [
+     "Starting_org_apache_kafka_raft_KafkaNetworkChannel_SendThread",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:metadata/src/main/java/org/apache/kafka/image/loader/MetadataLoader.java:308",
+   "events": 14,
+   "split_events": 13,
+   "patterns": 14,
+   "top_patterns": [
+    [
+     "InitializeNewPublishers_initializing_SnapshotGenerator_with_a_snapshot_at_offset_org_apache_kafka_image_loader_MetadataLoader",
+     1
+    ],
+    [
+     "InitializeNewPublishers_initializing_KRaftMetadataCachePublisher_with_a_snapshot_at_offset_org_apache_kafka_image_loader_MetadataLoader",
+     1
+    ],
+    [
+     "InitializeNewPublishers_initializing_FeaturesPublisher_with_a_snapshot_at_offset_org_apache_kafka_image_loader_MetadataLoader",
+     1
+    ],
+    [
+     "InitializeNewPublishers_initializing_ControllerRegistrationsPublisher_with_a_snapshot_at_offset_org_apache_kafka_image_loader",
+     1
+    ],
+    [
+     "InitializeNewPublishers_initializing_ControllerRegistrationManager_with_a_snapshot_at_offset_org_apache_kafka_image_loader",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/FutureUtils.java:57",
+   "events": 11,
+   "split_events": 10,
+   "patterns": 11,
+   "top_patterns": [
+    [
+     "Waiting_controller_quorum_voters_future_kafka_server_ControllerServer",
+     1
+    ],
+    [
+     "Waiting_the_controller_metadata_publishers_to_be_installed_kafka_server_ControllerServer",
+     1
+    ],
+    [
+     "Waiting_for_all_of_the_authorizer_futures_to_be_completed_kafka_server_ControllerServer",
+     1
+    ],
+    [
+     "Waiting_for_all_of_the_SocketServer_Acceptors_to_be_started_kafka_server_ControllerServer",
+     1
+    ],
+    [
+     "Waiting_controller_quorum_voters_future_kafka_server_BrokerServer",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/FutureUtils.java:60",
+   "events": 11,
+   "split_events": 10,
+   "patterns": 11,
+   "top_patterns": [
+    [
+     "Finished_waiting_controller_quorum_voters_future_kafka_server_ControllerServer",
+     1
+    ],
+    [
+     "Finished_waiting_for_the_controller_metadata_publishers_to_be_installed_kafka_server_ControllerServer",
+     1
+    ],
+    [
+     "Finished_waiting_for_all_of_the_authorizer_futures_to_be_completed_kafka_server_ControllerServer",
+     1
+    ],
+    [
+     "Finished_waiting_for_all_of_the_SocketServer_Acceptors_to_be_started_kafka_server_ControllerServer",
+     1
+    ],
+    [
+     "Finished_waiting_controller_quorum_voters_future_kafka_server_BrokerServer",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-java-instrumentation@v2.23.0:instrumentation/jmx-metrics/library/src/main/java/io/opentelemetry/instrumentation/jmx/engine/MetricRegistrar.java:95",
+   "events": 10,
+   "split_events": 8,
+   "patterns": 7,
+   "top_patterns": [
+    [
+     "javaagent_shaded_instrumentation_jmx_Created_Counter_kafka_request_count",
+     2
+    ],
+    [
+     "javaagent_shaded_instrumentation_jmx_Created_Counter_kafka_request_failed",
+     2
+    ],
+    [
+     "javaagent_shaded_instrumentation_jmx_Created_Counter_kafka_network_io",
+     2
+    ],
+    [
+     "javaagent_shaded_instrumentation_jmx_Created_Counter_for_kafka_message_count",
+     1
+    ],
+    [
+     "javaagent_shaded_instrumentation_jmx_Created_Counter_for_kafka_request_time_total",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-java-instrumentation@v2.23.0:instrumentation/jmx-metrics/library/src/main/java/io/opentelemetry/instrumentation/jmx/engine/MetricRegistrar.java:112",
+   "events": 8,
+   "split_events": 6,
+   "patterns": 7,
+   "top_patterns": [
+    [
+     "javaagent_shaded_instrumentation_jmx_Created_UpDownCounter_for_kafka_isr_operation_count",
+     2
+    ],
+    [
+     "javaagent_shaded_instrumentation_jmx_Created_UpDownCounter_for_kafka_request_queue",
+     1
+    ],
+    [
+     "javaagent_shaded_instrumentation_jmx_Created_UpDownCounter_for_kafka_purgatory_size",
+     1
+    ],
+    [
+     "javaagent_shaded_instrumentation_jmx_Created_UpDownCounter_kafka_partition_count",
+     1
+    ],
+    [
+     "javaagent_shaded_instrumentation_jmx_Created_UpDownCounter_kafka_partition_offline",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/server/NodeToControllerChannelManager.scala:149",
+   "events": 6,
+   "split_events": 4,
+   "patterns": 5,
+   "top_patterns": [
+    [
+     "Node_to_controller_channel_manager_for_registration_shutdown_kafka_server_NodeToControllerChannelManagerImpl",
+     2
+    ],
+    [
+     "Node_to_controller_channel_manager_for_heartbeat_shutdown_kafka_server_NodeToControllerChannelManagerImpl",
+     1
+    ],
+    [
+     "Node_to_controller_channel_manager_for_directory_assignments_shutdown_kafka_server_NodeToControllerChannelManagerImpl",
+     1
+    ],
+    [
+     "Node_to_controller_channel_manager_for_alter_partition_shutdown_kafka_server_NodeToControllerChannelManagerImpl",
+     1
+    ],
+    [
+     "Node_to_controller_channel_manager_for_forwarding_shutdown_kafka_server_NodeToControllerChannelManagerImpl",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/server/BrokerServer.scala:155",
+   "events": 4,
+   "split_events": 3,
+   "patterns": 4,
+   "top_patterns": [
+    [
+     "Transition_from_STARTED_to_SHUTTING_DOWN_kafka_server_BrokerServer",
+     1
+    ],
+    [
+     "Transition_from_SHUTTING_DOWN_to_SHUTDOWN_kafka_server_BrokerServer",
+     1
+    ],
+    [
+     "Transition_from_SHUTDOWN_to_STARTING_kafka_server_BrokerServer",
+     1
+    ],
+    [
+     "Transition_from_STARTING_to_STARTED_kafka_server_BrokerServer",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/server/AbstractFetcherManager.scala:200",
+   "events": 4,
+   "split_events": 3,
+   "patterns": 4,
+   "top_patterns": [
+    [
+     "Removed_fetcher_for_partitions_HashSet_consumer_kafka_server_ReplicaFetcherManager",
+     1
+    ],
+    [
+     "Removed_fetcher_for_partitions_HashSet_consumer_kafka_server_ReplicaAlterLogDirsManager",
+     1
+    ],
+    [
+     "Removed_fetcher_for_partitions_Set_consumer_kafka_server_ReplicaFetcherManager",
+     1
+    ],
+    [
+     "Removed_fetcher_for_partitions_Set_kafka_server_ReplicaFetcherManager",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/queue/KafkaEventQueue.java:497",
+   "events": 6,
+   "split_events": 2,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "beginShutdown_shutting_down_event_queue_org_apache_kafka_KafkaEventQueue",
+     4
+    ],
+    [
+     "KafkaEventQueueclose_shutting_down_event_queue_org_apache_kafka_KafkaEventQueue",
+     1
+    ],
+    [
+     "QuorumControllerbeginShutdown_shutting_down_event_queue_org_apache_kafka_KafkaEventQueue",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "confluentinc/librdkafka@v2.12.0:src/rdkafka_transport.c:694",
+   "events": 4,
+   "split_events": 2,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "kafka_bootstrap_Connect_failed_Connection_refused_after_in_state_CONNECT",
+     2
+    ],
+    [
+     "kafka_bootstrap_Connect_failed_Connection_refused_after_state_CONNECT_identical_error_s_suppressed",
+     2
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:raft/src/main/java/org/apache/kafka/raft/QuorumState.java:618",
+   "events": 3,
+   "split_events": 2,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "Attempting_durable_transition_to_Unattached_epoch_votedKey_null_voters_electionTimeoutMs_highWatermark_Optional_empty_apache",
+     1
+    ],
+    [
+     "Attempting_durable_transition_to_CandidateState_localId_localDirectoryId_epoch_retries_highWatermark_Optional_empty_electionTimeoutMs",
+     1
+    ],
+    [
+     "Attempting_durable_transition_to_Leader_ReplicaKey_id_directoryId_Optional_epoch_epochStartOffset_highWatermark_empty_voterStates",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:raft/src/main/java/org/apache/kafka/raft/QuorumState.java:635",
+   "events": 3,
+   "split_events": 2,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "Completed_transition_to_Unattached_epoch_votedKey_null_voters_electionTimeoutMs_highWatermark_Optional_empty_apache_kafka",
+     1
+    ],
+    [
+     "Completed_transition_to_CandidateState_localId_localDirectoryId_epoch_retries_highWatermark_Optional_empty_electionTimeoutMs",
+     1
+    ],
+    [
+     "Completed_transition_to_Leader_ReplicaKey_id_directoryId_Optional_epoch_epochStartOffset_highWatermark_empty_voterStates_CandidateState",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-demo@2.2.0:src/accounting/Log.cs:13",
+   "events": 390,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Accounting_Consumer_Order_details",
+     389
+    ],
+    [
+     "Cannot_load_library",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/log/LogManager.scala:1100",
+   "events": 51,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Created_log_for_partition_consumer_in_tmp_kafka_logs_with_properties_LogManager",
+     50
+    ],
+    [
+     "Created_log_for_partition_in_tmp_kafka_logs_with_properties_LogManager",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/cluster/Partition.scala:482",
+   "events": 51,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "No_checkpointed_highwatermark_is_found_for_partition_consumer_kafka_cluster_Partition",
+     50
+    ],
+    [
+     "No_checkpointed_highwatermark_is_found_for_partition_kafka_cluster_Partition",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/cluster/Partition.scala:486",
+   "events": 51,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Log_loaded_for_partition_consumer_with_initial_high_watermark_kafka_cluster_Partition",
+     50
+    ],
+    [
+     "Log_loaded_for_partition_with_initial_high_watermark_kafka_cluster_Partition",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-java-instrumentation@v2.23.0:instrumentation/jmx-metrics/library/src/main/java/io/opentelemetry/instrumentation/jmx/engine/MetricRegistrar.java:129",
+   "events": 5,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "javaagent_shaded_instrumentation_jmx_Created_Gauge_for",
+     4
+    ],
+    [
+     "javaagent_shaded_instrumentation_jmx_Created_Gauge_for_kafka_lag_max",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/server/AutoTopicCreationManager.scala:223",
+   "events": 4,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Sent_auto_creation_request_for_Set_orders_to_the_active_controller_kafka_server_DefaultAutoTopicCreationManager",
+     3
+    ],
+    [
+     "Sent_auto_creation_request_for_Set_consumer_offsets_to_the_active_controller_kafka_server_DefaultAutoTopicCreationManager",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-java-instrumentation@v2.23.0:javaagent-tooling/src/main/java/io/opentelemetry/javaagent/tooling/VersionLogger.java:18",
+   "events": 3,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "javaagent_tooling_VersionLogger_opentelemetry_version",
+     2
+    ],
+    [
+     "SLFJ_Defaulting_to_no_operation_NOP_logger_implementation_further_details",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/group/GroupCoordinator.scala:1190",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Unloading_group_metadata_for_fraud_detection_with_generation_kafka_coordinator_GroupCoordinator",
+     1
+    ],
+    [
+     "Unloading_group_metadata_for_accounting_with_generation_kafka_coordinator_GroupCoordinator",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-demo@2.2.0:src/llm/app.py:218",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "OpenAI_API_server_starting_on_http_localhost",
+     1
+    ],
+    [
+     "app",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/network/SocketServer.scala:254",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Created_data_plane_acceptor_and_processors_for_endpoint_ListenerName_CONTROLLER_kafka_network_SocketServer",
+     1
+    ],
+    [
+     "Created_data_plane_acceptor_and_processors_for_endpoint_ListenerName_PLAINTEXT_kafka_network_SocketServer",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/network/EndpointReadyFutures.java:168",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "authorizerStart_completed_endpoint_CONTROLLER_Endpoint_is_now_READY_org_apache_kafka_server_network_EndpointReadyFutures",
+     1
+    ],
+    [
+     "authorizerStart_completed_endpoint_PLAINTEXT_Endpoint_is_now_READY_org_apache_kafka_server_network_EndpointReadyFutures",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:raft/src/main/java/org/apache/kafka/raft/KafkaRaftClient.java:3233",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Registered_the_listener_org_apache_kafka_image_loader_MetadataLoader_raft_KafkaRaftClient",
+     1
+    ],
+    [
+     "Registered_the_listener_org_apache_kafka_controller_QuorumController_QuorumMetaLogListener_raft_KafkaRaftClient",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:raft/src/main/java/org/apache/kafka/raft/KafkaRaftClient.java:407",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Setting_next_offset_image_loader_MetadataLoader_since_there_are_no_snapshots_org_apache_kafka_raft_KafkaRaftClient",
+     1
+    ],
+    [
+     "offset_controller_QuorumController_QuorumMetaLogListener_since_there_are_no_snapshots_org_apache_kafka_raft_KafkaRaftClient",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/group/GroupCoordinator.scala:359",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Dynamic_member_with_unknown_id_joins_group_fraud_detection_in_Empty_state_Created_a_new_consumer_and_request_the_to_rejoin",
+     1
+    ],
+    [
+     "Dynamic_member_with_unknown_id_joins_group_accounting_in_Empty_state_Created_a_new_and_request_the_to_rejoin_this_kafka_coordinator",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/group/GroupCoordinator.scala:1501",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "PreparingRebalance_old_generation_Adding_new_group_None_client_reason_need_to_re_join_with_the_given_member_id_consumer_fraud_kafka",
+     1
+    ],
+    [
+     "Preparing_to_rebalance_group_accounting_in_state_PreparingRebalance_with_old_generation_consumer_reason_Adding_new_member",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/group/GroupCoordinator.scala:1576",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Stabilized_group_fraud_detection_generation_consumer_with_members_kafka_coordinator_GroupCoordinator",
+     1
+    ],
+    [
+     "Stabilized_group_accounting_generation_consumer_with_members_kafka_coordinator_GroupCoordinator",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/group/GroupCoordinator.scala:607",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "received_leader_consumer_fraud_detection_generation_The_group_has_members_of_which_are_static_kafka_coordinator_GroupCoordinator",
+     1
+    ],
+    [
+     "Assignment_received_leader_accounting_generation_The_group_has_members_of_which_are_static_kafka_coordinator_GroupCoordinator",
+     1
+    ]
+   ]
+  }
+ ]
+}

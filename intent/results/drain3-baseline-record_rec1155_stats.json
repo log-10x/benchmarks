@@ -1,0 +1,19 @@
+{
+ "capture": "rec1155",
+ "arm": "baseline",
+ "unit": "record",
+ "drain3": "drain3 0.9.11",
+ "settings": {
+  "depth": 6,
+  "sim_th": 0.6,
+  "max_children": 20,
+  "max_clusters": 2000,
+  "parametrize_numeric_tokens": true,
+  "line_cap": 1024,
+  "match_strategy": "fallback"
+ },
+ "messages": 41713,
+ "clusters": 701,
+ "distinct_names": 701,
+ "unmatched": 0
+}

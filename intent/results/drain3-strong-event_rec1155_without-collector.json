@@ -1,0 +1,1614 @@
+{
+ "capture": "rec1155",
+ "events": 41573,
+ "labelled": 22265,
+ "excluded_containers": [
+  "opentelemetry-collector"
+ ],
+ "distinct_patterns": 370,
+ "overall": {
+  "events": 22265,
+  "statements": 205,
+  "merged_event_share": 3.3,
+  "merged_events": 734,
+  "split_event_share": 19.21,
+  "exact_grouping_events": 52.71,
+  "statements_clean": 63.9,
+  "statements_in_merge": 24.88,
+  "statements_split": 13.66,
+  "patterns_per_statement_mean": 2.09,
+  "patterns_per_statement_max": 51
+ },
+ "by_group": {
+  "source_in_library": {
+   "events": 20834,
+   "statements": 191,
+   "merged_event_share": 3.45,
+   "merged_events": 719,
+   "split_event_share": 20.5,
+   "exact_grouping_events": 51.49,
+   "statements_clean": 65.97,
+   "statements_in_merge": 23.56,
+   "statements_split": 13.09,
+   "patterns_per_statement_mean": 2.14,
+   "patterns_per_statement_max": 51
+  },
+  "source_not_in_library": {
+   "events": 586,
+   "statements": 8,
+   "merged_event_share": 2.22,
+   "merged_events": 13,
+   "split_event_share": 0.68,
+   "exact_grouping_events": 94.88,
+   "statements_clean": 37.5,
+   "statements_in_merge": 37.5,
+   "statements_split": 25.0,
+   "patterns_per_statement_mean": 1.5,
+   "patterns_per_statement_max": 4
+  },
+  "not_code": {
+   "events": 845,
+   "statements": 6,
+   "merged_event_share": 0.24,
+   "merged_events": 2,
+   "split_event_share": 0.36,
+   "exact_grouping_events": 53.37,
+   "statements_clean": 33.33,
+   "statements_in_merge": 50.0,
+   "statements_split": 16.67,
+   "patterns_per_statement_mean": 1.33,
+   "patterns_per_statement_max": 3
+  }
+ },
+ "by_container": {
+  "kafka": {
+   "events": 6226,
+   "statements": 140,
+   "merged_event_share": 1.86,
+   "merged_events": 116,
+   "split_event_share": 12.4,
+   "exact_grouping_events": 60.5,
+   "statements_clean": 62.14,
+   "statements_in_merge": 29.29,
+   "statements_split": 11.43,
+   "patterns_per_statement_mean": 1.59,
+   "patterns_per_statement_max": 29
+  },
+  "product-reviews": {
+   "events": 4931,
+   "statements": 14,
+   "merged_event_share": 4.56,
+   "merged_events": 225,
+   "split_event_share": 48.08,
+   "exact_grouping_events": 40.28,
+   "statements_clean": 64.29,
+   "statements_in_merge": 14.29,
+   "statements_split": 21.43,
+   "patterns_per_statement_mean": 5.86,
+   "patterns_per_statement_max": 51
+  },
+  "cart": {
+   "events": 3755,
+   "statements": 6,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.05,
+   "exact_grouping_events": 41.94,
+   "statements_clean": 83.33,
+   "statements_in_merge": 0.0,
+   "statements_split": 16.67,
+   "patterns_per_statement_mean": 1.33,
+   "patterns_per_statement_max": 3
+  },
+  "llm": {
+   "events": 2477,
+   "statements": 9,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 33.51,
+   "exact_grouping_events": 45.5,
+   "statements_clean": 55.56,
+   "statements_in_merge": 0.0,
+   "statements_split": 44.44,
+   "patterns_per_statement_mean": 4,
+   "patterns_per_statement_max": 10
+  },
+  "ad": {
+   "events": 1240,
+   "statements": 7,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 99.84,
+   "statements_clean": 71.43,
+   "statements_in_merge": 14.29,
+   "statements_split": 14.29,
+   "patterns_per_statement_mean": 1.14,
+   "patterns_per_statement_max": 2
+  },
+  "accounting": {
+   "events": 948,
+   "statements": 4,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 31.33,
+   "exact_grouping_events": 58.44,
+   "statements_clean": 50.0,
+   "statements_in_merge": 0.0,
+   "statements_split": 50.0,
+   "patterns_per_statement_mean": 11.5,
+   "patterns_per_statement_max": 40
+  },
+  "payment": {
+   "events": 781,
+   "statements": 3,
+   "merged_event_share": 49.94,
+   "merged_events": 390,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 0.13,
+   "statements_clean": 33.33,
+   "statements_in_merge": 66.67,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1
+  },
+  "recommendation": {
+   "events": 604,
+   "statements": 3,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 100.0,
+   "statements_clean": 100.0,
+   "statements_in_merge": 0.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1
+  },
+  "fraud-detection": {
+   "events": 393,
+   "statements": 3,
+   "merged_event_share": 0.25,
+   "merged_events": 1,
+   "split_event_share": 0.25,
+   "exact_grouping_events": 99.49,
+   "statements_clean": 33.33,
+   "statements_in_merge": 33.33,
+   "statements_split": 33.33,
+   "patterns_per_statement_mean": 1.33,
+   "patterns_per_statement_max": 2
+  },
+  "quote": {
+   "events": 392,
+   "statements": 2,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 100.0,
+   "statements_clean": 100.0,
+   "statements_in_merge": 0.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1
+  },
+  "email": {
+   "events": 391,
+   "statements": 1,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.77,
+   "exact_grouping_events": 0.0,
+   "statements_clean": 0.0,
+   "statements_in_merge": 0.0,
+   "statements_split": 100.0,
+   "patterns_per_statement_mean": 3,
+   "patterns_per_statement_max": 3
+  },
+  "valkey-cart": {
+   "events": 126,
+   "statements": 15,
+   "merged_event_share": 1.59,
+   "merged_events": 2,
+   "split_event_share": 0.79,
+   "exact_grouping_events": 78.57,
+   "statements_clean": 73.33,
+   "statements_in_merge": 26.67,
+   "statements_split": 6.67,
+   "patterns_per_statement_mean": 1.07,
+   "patterns_per_statement_max": 2
+  },
+  "frontend": {
+   "events": 1,
+   "statements": 1,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 100.0,
+   "statements_clean": 100.0,
+   "statements_in_merge": 0.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1
+  }
+ },
+ "merges": [
+  {
+   "pattern": "{ resource: { attributes: { 'process.pid': <:NUM:>, 'process.executable.name': '/nodejs/bin/node', 'process.executable.path': '/nodejs/bin/node', 'process.command_args': [ '/nodejs/bin/node', '--require=./opentelemetry.js', '/usr/src/app/node_modules/thread-stream/lib/worker.js' ], 'process.runtime.version': '<:NUM:>.<:NUM:>.<:NUM:>', 'process.runtime.name': 'nodejs', 'process.runtime.description': 'Node.js', 'process.command': '/usr/src/app/node_modules/thread-stream/lib/worker.js', 'os.type': 'linux', 'os.version': '<:NUM:>.<:NUM:>.<:NUM:>-<:NUM:>.<:NUM:>.amzn2023.aarch64', 'host.name': <:*:> 'host.arch': 'arm64', 'service.name': 'payment' } }, instrumentationScope: { name: 'payment-logger', version: '<:NUM:>.<:NUM:>.<:NUM:>', schemaUrl: undefined }, timestamp: <:SEQ:>, traceId: '<:SEQ:>', spanId: <:*:> traceFlags: '<:NUM:>', severityText: 'info', severityNumber: <:NUM:>, body:",
+   "events": 780,
+   "merged_events": 390,
+   "statements": [
+    [
+     "open-telemetry/opentelemetry-demo@2.2.0:src/payment/index.js:19",
+     390
+    ],
+    [
+     "open-telemetry/opentelemetry-demo@2.2.0:src/payment/charge.js:83",
+     390
+    ]
+   ]
+  },
+  {
+   "pattern": "<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:> INFO [main] [product_reviews_server.py:<:NUM:>] [trace_id=<:SEQ:> <:*:> resource.service.name=product-reviews trace_sampled=True] - <:*:> feature flag: False",
+   "events": 450,
+   "merged_events": 225,
+   "statements": [
+    [
+     "open-telemetry/opentelemetry-demo@2.2.0:src/product-reviews/product_reviews_server.py:165",
+     225
+    ],
+    [
+     "open-telemetry/opentelemetry-demo@2.2.0:src/product-reviews/product_reviews_server.py:270",
+     225
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [GroupCoordinator <:NUM:>]: <:*:> as the group coordinator for partition <:NUM:> in epoch <:*:> (kafka.coordinator.group.GroupCoordinator)",
+   "events": 100,
+   "merged_events": 50,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/group/GroupCoordinator.scala:1243",
+     50
+    ],
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/group/GroupCoordinator.scala:1233",
+     50
+    ]
+   ]
+  },
+  {
+   "pattern": "[otel.javaagent <:NUM:>-<:NUM:>-<:NUM:> <:ID:> <:NUM:>] [jmx_bean_finder] INFO io.opentelemetry.javaagent.shaded.instrumentation.jmx.engine.MetricRegistrar - Created <:*:> for <:*:>",
+   "events": 23,
+   "merged_events": 13,
+   "statements": [
+    [
+     "open-telemetry/opentelemetry-java-instrumentation@v2.23.0:instrumentation/jmx-metrics/library/src/main/java/io/opentelemetry/instrumentation/jmx/engine/MetricRegistrar.java:95",
+     10
+    ],
+    [
+     "open-telemetry/opentelemetry-java-instrumentation@v2.23.0:instrumentation/jmx-metrics/library/src/main/java/io/opentelemetry/instrumentation/jmx/engine/MetricRegistrar.java:112",
+     8
+    ],
+    [
+     "open-telemetry/opentelemetry-java-instrumentation@v2.23.0:instrumentation/jmx-metrics/library/src/main/java/io/opentelemetry/instrumentation/jmx/engine/MetricRegistrar.java:129",
+     5
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [GroupCoordinator <:NUM:>]: <:*:> <:*:> (kafka.coordinator.group.GroupCoordinator)",
+   "events": 4,
+   "merged_events": 3,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/group/GroupCoordinator.scala:125",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/group/GroupCoordinator.scala:130",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/group/GroupCoordinator.scala:114",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/group/GroupCoordinator.scala:117",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO <:*:> on broker <:NUM:>] <:*:> <:*:> <:*:>",
+   "events": 4,
+   "merged_events": 3,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/server/ReplicaFetcherManager.scala:54",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/server/ReplicaFetcherManager.scala:56",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/server/ReplicaAlterLogDirsManager.scala:58",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/server/ReplicaAlterLogDirsManager.scala:60",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO <:*:> id=<:NUM:>] Starting <:*:> <:*:>",
+   "events": 4,
+   "merged_events": 3,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/server/ControllerServer.scala:149",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/server/SharedServer.scala:260",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/server/BrokerServer.scala:178",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/transaction/TransactionCoordinator.scala:734",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [SocketServer <:*:> nodeId=<:NUM:>] <:*:> socket server request processors (kafka.network.SocketServer)",
+   "events": 4,
+   "merged_events": 2,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/network/SocketServer.scala:284",
+     2
+    ],
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/network/SocketServer.scala:291",
+     2
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [ExpirationReaper-<:NUM:>-AlterAcls]: <:*:> <:*:> (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)",
+   "events": 4,
+   "merged_events": 2,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     2
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     2
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO <:*:> id=<:NUM:>] shutting <:*:> <:*:>",
+   "events": 3,
+   "merged_events": 2,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/server/BrokerServer.scala:617",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server/src/main/java/org/apache/kafka/server/AssignmentsManager.java:243",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/server/ControllerServer.scala:476",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [TransactionCoordinator id=<:NUM:>] <:*:> <:*:> (kafka.coordinator.transaction.TransactionCoordinator)",
+   "events": 3,
+   "merged_events": 2,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/transaction/TransactionCoordinator.scala:753",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/transaction/TransactionCoordinator.scala:759",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/transaction/TransactionCoordinator.scala:745",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO Kafka <:*:> <:*:> (org.apache.kafka.common.utils.AppInfoParser)",
+   "events": 3,
+   "merged_events": 2,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:clients/src/main/java/org/apache/kafka/common/utils/AppInfoParser.java:125",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:clients/src/main/java/org/apache/kafka/common/utils/AppInfoParser.java:126",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:clients/src/main/java/org/apache/kafka/common/utils/AppInfoParser.java:127",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "OpenJDK <:NUM:>-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended",
+   "events": 3,
+   "merged_events": 2,
+   "statements": [
+    [
+     "ad:other",
+     1
+    ],
+    [
+     "fraud-detection:other",
+     1
+    ],
+    [
+     "kafka:other",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO <:*:> <:*:> <:*:> <:*:> event queue. (org.apache.kafka.queue.KafkaEventQueue)",
+   "events": 3,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/queue/KafkaEventQueue.java:519",
+     2
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/queue/KafkaEventQueue.java:497",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [controller-<:NUM:>-to-controller-registration-channel-manager]: <:*:> <:*:> (kafka.server.NodeToControllerRequestThread)",
+   "events": 3,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     2
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [broker-<:NUM:>-to-controller-heartbeat-channel-manager]: <:*:> <:*:> (kafka.server.NodeToControllerRequestThread)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [TxnMarkerSenderThread-<:NUM:>]: <:*:> <:*:> (kafka.coordinator.transaction.TransactionMarkerChannelManager)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [ExpirationReaper-<:NUM:>-Heartbeat]: <:*:> <:*:> (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [ExpirationReaper-<:NUM:>-Rebalance]: <:*:> <:*:> (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [broker-<:NUM:>-to-controller-directory-assignments-channel-manager]: <:*:> <:*:> (kafka.server.NodeToControllerRequestThread)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [LogDirFailureHandler]: <:*:> <:*:> (kafka.server.ReplicaManager$LogDirFailureHandler)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [ExpirationReaper-<:NUM:>-Fetch]: <:*:> <:*:> (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [ExpirationReaper-<:NUM:>-RemoteFetch]: <:*:> <:*:> (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [ExpirationReaper-<:NUM:>-Produce]: <:*:> <:*:> (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [ExpirationReaper-<:NUM:>-DeleteRecords]: <:*:> <:*:> (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [ExpirationReaper-<:NUM:>-ElectLeader]: <:*:> <:*:> (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [AddPartitionsToTxnSenderThread-<:NUM:>]: <:*:> <:*:> (kafka.server.AddPartitionsToTxnManager)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [broker-<:NUM:>-to-controller-alter-partition-channel-manager]: <:*:> <:*:> (kafka.server.NodeToControllerRequestThread)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [broker-<:NUM:>-to-controller-forwarding-channel-manager]: <:*:> <:*:> (kafka.server.NodeToControllerRequestThread)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO <:*:> <:*:> (kafka.log.LogManager)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/log/LogManager.scala:659",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/log/LogManager.scala:729",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [kafka-log-cleaner-thread-<:NUM:>]: <:*:> <:*:> (kafka.log.LogCleaner$CleanerThread)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [broker-<:NUM:>-ThrottledChannelReaper-Fetch]: <:*:> <:*:> (kafka.server.ClientQuotaManager$ThrottledChannelReaper)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [broker-<:NUM:>-ThrottledChannelReaper-Produce]: <:*:> <:*:> (kafka.server.ClientQuotaManager$ThrottledChannelReaper)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [broker-<:NUM:>-ThrottledChannelReaper-Request]: <:*:> <:*:> (kafka.server.ClientQuotaManager$ThrottledChannelReaper)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [broker-<:NUM:>-ThrottledChannelReaper-ControllerMutation]: <:*:> <:*:> (kafka.server.ClientQuotaManager$ThrottledChannelReaper)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [client-metrics-reaper]: <:*:> <:*:> (org.apache.kafka.server.util.timer.SystemTimerReaper$Reaper)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [raft-expiration-reaper]: <:*:> <:*:> (kafka.raft.TimingWheelExpirationService$ExpiredOperationReaper)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [kafka-<:NUM:>-raft-io-thread]: <:*:> <:*:> (org.apache.kafka.raft.KafkaRaftClientDriver)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [RaftManager id=<:NUM:>] <:*:> <:*:> <:*:> (org.apache.kafka.raft.KafkaRaftClient)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:raft/src/main/java/org/apache/kafka/raft/KafkaRaftClient.java:3397",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:raft/src/main/java/org/apache/kafka/raft/KafkaRaftClient.java:3562",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [kafka-<:NUM:>-raft-outbound-request-thread]: <:*:> <:*:> (org.apache.kafka.raft.KafkaNetworkChannel$SendThread)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [controller-<:NUM:>-ThrottledChannelReaper-Fetch]: <:*:> <:*:> (kafka.server.ClientQuotaManager$ThrottledChannelReaper)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [controller-<:NUM:>-ThrottledChannelReaper-Produce]: <:*:> <:*:> (kafka.server.ClientQuotaManager$ThrottledChannelReaper)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [controller-<:NUM:>-ThrottledChannelReaper-Request]: <:*:> <:*:> (kafka.server.ClientQuotaManager$ThrottledChannelReaper)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [controller-<:NUM:>-ThrottledChannelReaper-ControllerMutation]: <:*:> <:*:> (kafka.server.ClientQuotaManager$ThrottledChannelReaper)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO Metrics <:*:> closed (org.apache.kafka.common.metrics.Metrics)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:clients/src/main/java/org/apache/kafka/common/metrics/Metrics.java:685",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:clients/src/main/java/org/apache/kafka/common/metrics/Metrics.java:695",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "<:NUM:>:M <:NUM:> Aug <:NUM:> <:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> * <:*:> <:*:> <:*:>",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "valkey-io/valkey@9.0.1:src/server.c:4616",
+     1
+    ],
+    [
+     "valkey-io/valkey@9.0.1:src/server.c:6626",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "<:NUM:>:M <:NUM:> Aug <:NUM:> <:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> * <:*:> <:*:> <:*:> <:*:>",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "valkey-io/valkey@9.0.1:src/rdb.c:1640",
+     1
+    ],
+    [
+     "valkey-io/valkey@9.0.1:src/server.c:2898",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [BrokerLifecycleManager id=<:NUM:>] The broker has <:*:> <:*:> Transitioning from <:*:> to <:*:> (kafka.server.BrokerLifecycleManager)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/server/BrokerLifecycleManager.scala:531",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/server/BrokerLifecycleManager.scala:542",
+     1
+    ]
+   ]
+  }
+ ],
+ "splits": [
+  {
+   "statement": "open-telemetry/opentelemetry-demo@2.2.0:src/product-reviews/product_reviews_server.py:127",
+   "events": 2045,
+   "split_events": 1991,
+   "patterns": 51,
+   "top_patterns": [
+    [
+     "<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:> INFO [main] [product_reviews_server.py:<:NUM:>] [trace_id=<:SEQ:> <:*:> resource.service.name=product-reviews trace_sampled=True] - username: clean_optics, description: This kit is a lifesaver for all my optics. The brush and wipes work perfectly without leaving any residue. My lenses have never been cleaner., score: <:NUM:>.<:NUM:>",
+     54
+    ],
+    [
+     "<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:> INFO [main] [product_reviews_server.py:<:NUM:>] [trace_id=<:SEQ:> <:*:> resource.service.name=product-reviews trace_sampled=True] - username: photog_pro, description: Essential for any photographer or telescope owner. It safely removes dust and fingerprints. A high-quality cleaning solution., score: <:NUM:>.<:NUM:>",
+     54
+    ],
+    [
+     "<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:> INFO [main] [product_reviews_server.py:<:NUM:>] [trace_id=<:SEQ:> <:*:> resource.service.name=product-reviews trace_sampled=True] - username: daily_cleaner, description: I use this on my binoculars, camera lenses, and even my phone screen. It's very effective and gentle. A versatile cleaning kit., score: <:NUM:>.<:NUM:>",
+     54
+    ],
+    [
+     "<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:> INFO [main] [product_reviews_server.py:<:NUM:>] [trace_id=<:SEQ:> <:*:> resource.service.name=product-reviews trace_sampled=True] - username: tech_maintenance, description: Great value for money. The different cleaning options cover all needs. Keeps my expensive equipment in pristine condition., score: <:NUM:>.<:NUM:>",
+     54
+    ],
+    [
+     "<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:> INFO [main] [product_reviews_server.py:<:NUM:>] [trace_id=<:SEQ:> <:*:> resource.service.name=product-reviews trace_sampled=True] - username: sharp_view, description: Works as advertised, my telescope views are much clearer after using this. The fluid and cloth are excellent. Definitely recommend., score: <:NUM:>.<:NUM:>",
+     54
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:storage/src/main/java/org/apache/kafka/storage/internals/log/LogSegment.java:806",
+   "events": 1404,
+   "split_events": 468,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO Deleted <:*:> index <:*:> (org.apache.kafka.storage.internals.log.LogSegment)",
+     936
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO Deleted log /tmp/kafka-logs/__cluster_metadata-<:NUM:>/<:SEQ:>.log.deleted. (org.apache.kafka.storage.internals.log.LogSegment)",
+     468
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-demo@2.2.0:src/accounting/Log.cs:13",
+   "events": 390,
+   "split_events": 294,
+   "patterns": 40,
+   "top_patterns": [
+    [
+     "info: Accounting.Consumer[<:NUM:>] Order details: { \"orderId\": <:*:> \"shippingTrackingId\": <:*:> \"shippingCost\": { \"currencyCode\": \"USD\", \"units\": \"<:NUM:>\", \"nanos\": <:NUM:> }, \"shippingAddress\": { \"streetAddress\": <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> \"state\": <:*:> \"country\": \"United States\", \"zipCode\": \"<:NUM:>\" }, \"items\": [ { \"item\": { \"productId\": <:*:> \"quantity\": <:NUM:> }, \"cost\": { \"currencyCode\": \"USD\", \"units\": \"<:NUM:>\", \"nanos\": <:NUM:> } } ] }.",
+     96
+    ],
+    [
+     "info: Accounting.Consumer[<:NUM:>] Order details: { \"orderId\": <:*:> \"shippingTrackingId\": <:*:> \"shippingCost\": { \"currencyCode\": \"USD\", \"units\": \"<:NUM:>\", \"nanos\": <:NUM:> }, \"shippingAddress\": { \"streetAddress\": <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> \"state\": <:*:> \"country\": \"United States\", \"zipCode\": \"<:NUM:>\" }, \"items\": [ { \"item\": { \"productId\": <:*:> \"quantity\": <:NUM:> }, \"cost\": { \"currencyCode\": \"USD\", <:*:> <:*:> } } ] }.",
+     45
+    ],
+    [
+     "info: Accounting.Consumer[<:NUM:>] Order details: { \"orderId\": <:*:> \"shippingTrackingId\": <:*:> \"shippingCost\": { \"currencyCode\": \"CAD\", \"units\": \"<:NUM:>\", \"nanos\": <:NUM:> }, \"shippingAddress\": { \"streetAddress\": \"<:NUM:> Elgin St\", \"city\": \"Ottawa\", \"state\": \"ON\", \"country\": \"Canada\", \"zipCode\": \"K2P1L4\" }, \"items\": [ { \"item\": { \"productId\": <:*:> \"quantity\": <:NUM:> }, \"cost\": { \"currencyCode\": \"CAD\", \"units\": \"<:NUM:>\", \"nanos\": <:NUM:> } } ] }.",
+     27
+    ],
+    [
+     "info: Accounting.Consumer[<:NUM:>] Order details: { \"orderId\": <:*:> \"shippingTrackingId\": <:*:> \"shippingCost\": { \"currencyCode\": \"USD\", \"units\": \"<:NUM:>\", \"nanos\": <:NUM:> }, \"shippingAddress\": { \"streetAddress\": <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> \"state\": <:*:> \"country\": \"United States\", \"zipCode\": \"<:NUM:>\" }, \"items\": [ { \"item\": { \"productId\": <:*:> \"quantity\": <:NUM:> }, \"cost\": { \"currencyCode\": \"USD\", \"units\": \"<:NUM:>\", \"nanos\": <:NUM:> } }, { \"item\": { \"productId\": <:*:> \"quantity\": <:NUM:> }, \"cost\": { \"currencyCode\": \"USD\", \"units\": \"<:NUM:>\", \"nanos\": <:NUM:> } } ] }.",
+     24
+    ],
+    [
+     "info: Accounting.Consumer[<:NUM:>] Order details: { \"orderId\": <:*:> \"shippingTrackingId\": <:*:> \"shippingCost\": { \"currencyCode\": \"USD\", \"units\": \"<:NUM:>\", \"nanos\": <:NUM:> }, \"shippingAddress\": { \"streetAddress\": <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> \"state\": <:*:> \"country\": \"United States\", \"zipCode\": \"<:NUM:>\" }, \"items\": [ { \"item\": { \"productId\": <:*:> \"quantity\": <:NUM:> }, \"cost\": { \"currencyCode\": \"USD\", <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> { <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> } } ] }.",
+     22
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-demo@2.2.0:src/llm/app.py:94",
+   "events": 450,
+   "split_events": 225,
+   "patterns": 9,
+   "top_patterns": [
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO in app: Received a chat completion request: '[{'role': 'system', 'content': \"You are a helpful assistant that answers related to a specific product. Use tools as needed to fetch the product reviews and product information. Keep the response brief with no more than <:NUM:>-<:NUM:> sentences. If you don't know the answer, just say you don't know.\"}, {'role': 'user', 'content': 'Answer the following question about product <:*:> Can you summarize the product reviews?'}]'",
+     225
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO in app: Received a chat completion request: '[{'role': 'system', 'content': \"You are a helpful assistant that answers related to a specific product. Use tools as needed to fetch the product reviews and product information. Keep the response brief with no more than <:NUM:>-<:NUM:> sentences. If you don't know the answer, just say you don't know.\"}, {'role': 'user', 'content': 'Answer the following question about product <:*:> Can you summarize the product reviews?'}, {'content': 'requesting a tool call', 'role': 'assistant', 'tool_calls': [{'id': 'call', 'function': {'arguments': '{\"product_id\": <:*:> 'name': 'fetch_product_reviews'}, 'type': 'function'}]}, {'tool_call_id': 'call', 'role': 'tool', 'name': 'fetch_product_reviews', 'content': <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:>",
+     62
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO in app: Received a chat completion request: '[{'role': 'system', 'content': \"You are a helpful assistant that answers related to a specific product. Use tools as needed to fetch the product reviews and product information. Keep the response brief with no more than <:NUM:>-<:NUM:> sentences. If you don't know the answer, just say you don't know.\"}, {'role': 'user', 'content': 'Answer the following question about product <:*:> Can you summarize the product reviews?'}, {'content': 'requesting a tool call', 'role': 'assistant', 'tool_calls': [{'id': 'call', 'function': {'arguments': '{\"product_id\": <:*:> 'name': 'fetch_product_reviews'}, 'type': 'function'}]}, {'tool_call_id': 'call', 'role': 'tool', 'name': 'fetch_product_reviews', 'content': <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:NUM:>.<:NUM:>], <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:> <:*:>",
+     43
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO in app: Received a chat completion request: '[{'role': 'system', 'content': \"You are a helpful assistant that answers related to a specific product. Use tools as needed to fetch the product reviews and product information. Keep the response brief with no more than <:NUM:>-<:NUM:> sentences. If you don't know the answer, just say you don't know.\"}, {'role': 'user', 'content': 'Answer the following question about product ID:1YMWWN1N4O: Can you summarize the product reviews?'}, {'content': 'requesting a tool call', 'role': 'assistant', 'tool_calls': [{'id': 'call', 'function': {'arguments': '{\"product_id\": \"1YMWWN1N4O\"}', 'name': 'fetch_product_reviews'}, 'type': 'function'}]}, {'tool_call_id': 'call', 'role': 'tool', 'name': 'fetch_product_reviews', 'content': '[[\"solar_viewer\", \"Perfect for solar observations! The Solar Safe filter gives peace of mind. I used it for the last partial eclipse and it was fantastic.\", <:NUM:>.<:NUM:>], [\"eclipse_chaser\", \"Compact and easy to carry, this telescope is ideal f",
+     29
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO in app: Received a chat completion request: '[{'role': 'system', 'content': \"You are a helpful assistant that answers related to a specific product. Use tools as needed to fetch the product reviews and product information. Keep the response brief with no more than <:NUM:>-<:NUM:> sentences. If you don't know the answer, just say you don't know.\"}, {'role': 'user', 'content': 'Answer the following question about product ID:0PUK6V6EV0: Can you summarize the product reviews?'}, {'content': 'requesting a tool call', 'role': 'assistant', 'tool_calls': [{'id': 'call', 'function': {'arguments': '{\"product_id\": \"0PUK6V6EV0\"}', 'name': 'fetch_product_reviews'}, 'type': 'function'}]}, {'tool_call_id': 'call', 'role': 'tool', 'name': 'fetch_product_reviews', 'content': '[[\"astro_photog\", \"This imager is a fantastic step up for planetary photography. The color quality is superb. Easy to use with my existing telescope setup.\", <:NUM:>.<:NUM:>], [\"planet_shooter\", \"Finally capturing stunning images of Saturn and Jup",
+     21
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-demo@2.2.0:src/llm/app.py:98",
+   "events": 450,
+   "split_events": 225,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO in app: last_message is: 'Answer the following question about product <:*:> Can you summarize the product reviews?'",
+     225
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO in app: last_message is: 'Based on the tool results, answer the original question about product <:*:> Keep the response brief with no more than <:NUM:>-<:NUM:> sentences.'",
+     225
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-demo@2.2.0:src/product-reviews/product_reviews_server.py:248",
+   "events": 225,
+   "split_events": 190,
+   "patterns": 10,
+   "top_patterns": [
+    [
+     "<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:> INFO [main] [product_reviews_server.py:<:NUM:>] [trace_id=<:SEQ:> <:*:> resource.service.name=product-reviews trace_sampled=True] - Function response for fetch_product_reviews: '[[\"deep_sky_master\", \"The RASA V2 is a dream come true for deep-sky imaging. The f/<:NUM:>.<:NUM:> speed drastically cuts down exposure times. My best astrophotography investment yet.\", <:NUM:>.<:NUM:>], [\"pro_astro\", \"Unbelievable performance for wide-field astrophotography. The short focal length makes guiding less critical. Produces stunning, detailed images.\", <:NUM:>.<:NUM:>], [\"imaging_guru\", \"This OTA is a beast! The fast optics mean more data in less time. If you're serious about deep-sky imaging, this is the one.\", <:NUM:>.<:NUM:>], [\"advanced_scope\", \"Worth every penny for the quality and speed it offers. My images have never been sharper or more vibrant. A truly professional piece of equipment.\", <:NUM:>.<:NUM:>], [\"precision_optics\", \"The engineering behind this RASA is exceptional. It's incredibly efficient for captur",
+     35
+    ],
+    [
+     "<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:> INFO [main] [product_reviews_server.py:<:NUM:>] [trace_id=<:SEQ:> <:*:> resource.service.name=product-reviews trace_sampled=True] - Function response for fetch_product_reviews: '[[\"solar_viewer\", \"Perfect for solar observations! The Solar Safe filter gives peace of mind. I used it for the last partial eclipse and it was fantastic.\", <:NUM:>.<:NUM:>], [\"eclipse_chaser\", \"Compact and easy to carry, this telescope is ideal for eclipse events. The included backpack is a nice touch. Views of the sun are incredibly clear and safe.\", <:NUM:>.<:NUM:>], [\"travel_astro\", \"Excellent travel scope for solar viewing. The magnification is much better than binoculars for the sun. A must-have for any solar enthusiast.\", <:NUM:>.<:NUM:>], [\"sun_gazer\", \"Very impressed with the safety features and clarity. Sharing the sun with family has never been easier or safer. Great value for a dedicated solar scope.\", <:NUM:>.<:NUM:>], [\"safe_viewer\", \"The ISO compliant filter is reassuring. It's a well-designed product fo",
+     29
+    ],
+    [
+     "<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:> INFO [main] [product_reviews_server.py:<:NUM:>] [trace_id=<:SEQ:> <:*:> resource.service.name=product-reviews trace_sampled=True] - Function response for fetch_product_reviews: '[[\"bird_watcher\", \"Incredible clarity and brightness, perfect for bird watching. The ED glass really makes a difference. I can spot the subtlest markings.\", <:NUM:>.<:NUM:>], [\"nature_lover\", \"These binoculars are fantastic for nature observation. The close focus is a huge advantage for viewing nearby wildlife. Very comfortable to hold.\", <:NUM:>.<:NUM:>], [\"hiker_guy\", \"Lightweight and durable, these are my go-to binoculars for hiking. The wide field of view is excellent. Highly recommend for outdoor enthusiasts.\", <:NUM:>.<:NUM:>], [\"stadium_fan\", \"Took these to a game and had an amazing view of the action. They perform great in various lighting conditions. A solid all-around binocular.\", <:NUM:>.<:NUM:>], [\"outdoor_adventurer\", \"Excellent build quality and optical performance. They feel robust and provide sharp imag",
+     27
+    ],
+    [
+     "<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:> INFO [main] [product_reviews_server.py:<:NUM:>] [trace_id=<:SEQ:> <:*:> resource.service.name=product-reviews trace_sampled=True] - Function response for fetch_product_reviews: '[[\"stargazer_mike\", \"Great entry-level telescope! Easy to set up and provides clear views of the moon and brighter planets. Highly recommend for new astronomers.\", <:NUM:>.<:NUM:>], [\"nightskylover\", \"For the price, this Explorascope delivers excellent performance. I was able to see Jupiter's moons clearly. A fantastic purchase for casual viewing.\", <:NUM:>.<:NUM:>], [\"beginner_astro\", \"A bit tricky to get used to the manual controls, but once you do, it's very rewarding. Saw the Orion Nebula for the first time! Good value.\", <:NUM:>.<:NUM:>], [\"celestial_explorer\", \"Perfect for camping trips. It's lightweight and portable, making it easy to take anywhere. The views are surprisingly good for its size.\", <:NUM:>.<:NUM:>], [\"telescope_fan\", \"Not the most powerful scope, but it's great for kids and beginners. My children",
+     24
+    ],
+    [
+     "<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:> INFO [main] [product_reviews_server.py:<:NUM:>] [trace_id=<:SEQ:> <:*:> resource.service.name=product-reviews trace_sampled=True] - Function response for fetch_product_reviews: '[[\"astro_photog\", \"This imager is a fantastic step up for planetary photography. The color quality is superb. Easy to use with my existing telescope setup.\", <:NUM:>.<:NUM:>], [\"planet_shooter\", \"Finally capturing stunning images of Saturn and Jupiter! The NexImage <:NUM:> makes it so accessible. Great for beginners in astrophotography.\", <:NUM:>.<:NUM:>], [\"imager_pro\", \"Excellent resolution and color rendition for its price point. It's a perfect solution for those looking to start imaging planets. Highly satisfied.\", <:NUM:>.<:NUM:>], [\"space_artist\", \"The detail I can capture with this imager is incredible. It integrates well with various software. A must-have for serious planetary observers.\", <:NUM:>.<:NUM:>], [\"digital_sky\", \"A solid choice for getting into solar system imaging. The setup was straightforward. Produces",
+     21
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-demo@2.2.0:src/product-reviews/product_reviews_server.py:301",
+   "events": 225,
+   "split_events": 190,
+   "patterns": 10,
+   "top_patterns": [
+    [
+     "<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:> INFO [main] [product_reviews_server.py:<:NUM:>] [trace_id=<:SEQ:> <:*:> resource.service.name=product-reviews trace_sampled=True] - Returning an AI assistant response: 'The Rowe-Ackermann Schmidt Astrograph (RASA) V2 is overwhelmingly praised as a dream come true for serious deep-sky imagers, offering unbelievable performance and stunning, detailed images. Its f/<:NUM:>.<:NUM:> speed drastically cuts exposure times, while the exceptional engineering and short focal length make it an incredibly efficient and professional piece of equipment.'",
+     35
+    ],
+    [
+     "<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:> INFO [main] [product_reviews_server.py:<:NUM:>] [trace_id=<:SEQ:> <:*:> resource.service.name=product-reviews trace_sampled=True] - Returning an AI assistant response: 'This dedicated solar scope is highly lauded for its perfect performance in solar observations and eclipse events, thanks to its ISO compliant Solar Safe filter ensuring clear and safe views. Users appreciate its compact, portable design with an included backpack, making it an excellent value for any solar enthusiast.'",
+     29
+    ],
+    [
+     "<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:> INFO [main] [product_reviews_server.py:<:NUM:>] [trace_id=<:SEQ:> <:*:> resource.service.name=product-reviews trace_sampled=True] - Returning an AI assistant response: 'These roof binoculars are highly rated for their incredible clarity, brightness, and sharp images, making them perfect for bird watching, nature observation, and various outdoor activities. Users appreciate the ED glass, close focus, and durable, lightweight design, deeming them a solid all-around investment.'",
+     27
+    ],
+    [
+     "<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:> INFO [main] [product_reviews_server.py:<:NUM:>] [trace_id=<:SEQ:> <:*:> resource.service.name=product-reviews trace_sampled=True] - Returning an AI assistant response: 'This entry-level telescope is highly recommended for beginners and casual viewing, offering clear views of celestial objects like the moon and brighter planets. Users appreciate its portability, ease of setup, and good value, though some note manual controls can be a bit tricky.'",
+     24
+    ],
+    [
+     "<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:> INFO [main] [product_reviews_server.py:<:NUM:>] [trace_id=<:SEQ:> <:*:> resource.service.name=product-reviews trace_sampled=True] - Returning an AI assistant response: 'This solar system color imager is highly praised as an excellent solution for both beginners and serious planetary observers looking to capture stunning, vibrant images of planets like Saturn and Jupiter. Users commend its superb color quality, excellent resolution, and straightforward setup, making astrophotography accessible.'",
+     21
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-demo@2.2.0:src/llm/app.py:71",
+   "events": 225,
+   "split_events": 190,
+   "patterns": 10,
+   "top_patterns": [
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO in app: product_review_summary is: The Rowe-Ackermann Schmidt Astrograph (RASA) V2 is overwhelmingly praised as a dream come true for serious deep-sky imagers, offering unbelievable performance and stunning, detailed images. Its f/<:NUM:>.<:NUM:> speed drastically cuts exposure times, while the exceptional engineering and short focal length make it an incredibly efficient and professional piece of equipment.",
+     35
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO in app: product_review_summary is: This dedicated solar scope is highly lauded for its perfect performance in solar observations and eclipse events, thanks to its ISO compliant Solar Safe filter ensuring clear and safe views. Users appreciate its compact, portable design with an included backpack, making it an excellent value for any solar enthusiast.",
+     29
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO in app: product_review_summary is: These roof binoculars are highly rated for their incredible clarity, brightness, and sharp images, making them perfect for bird watching, nature observation, and various outdoor activities. Users appreciate the ED glass, close focus, and durable, lightweight design, deeming them a solid all-around investment.",
+     27
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO in app: product_review_summary is: This entry-level telescope is highly recommended for beginners and casual viewing, offering clear views of celestial objects like the moon and brighter planets. Users appreciate its portability, ease of setup, and good value, though some note manual controls can be a bit tricky.",
+     24
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO in app: product_review_summary is: This solar system color imager is highly praised as an excellent solution for both beginners and serious planetary observers looking to capture stunning, vibrant images of planets like Saturn and Jupiter. Users commend its superb color quality, excellent resolution, and straightforward setup, making astrophotography accessible.",
+     21
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-demo@2.2.0:src/llm/app.py:169",
+   "events": 225,
+   "split_events": 190,
+   "patterns": 10,
+   "top_patterns": [
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO in app: Processing a response: 'The Rowe-Ackermann Schmidt Astrograph (RASA) V2 is overwhelmingly praised as a dream come true for serious deep-sky imagers, offering unbelievable performance and stunning, detailed images. Its f/<:NUM:>.<:NUM:> speed drastically cuts exposure times, while the exceptional engineering and short focal length make it an incredibly efficient and professional piece of equipment.'",
+     35
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO in app: Processing a response: 'This dedicated solar scope is highly lauded for its perfect performance in solar observations and eclipse events, thanks to its ISO compliant Solar Safe filter ensuring clear and safe views. Users appreciate its compact, portable design with an included backpack, making it an excellent value for any solar enthusiast.'",
+     29
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO in app: Processing a response: 'These roof binoculars are highly rated for their incredible clarity, brightness, and sharp images, making them perfect for bird watching, nature observation, and various outdoor activities. Users appreciate the ED glass, close focus, and durable, lightweight design, deeming them a solid all-around investment.'",
+     27
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO in app: Processing a response: 'This entry-level telescope is highly recommended for beginners and casual viewing, offering clear views of celestial objects like the moon and brighter planets. Users appreciate its portability, ease of setup, and good value, though some note manual controls can be a bit tricky.'",
+     24
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO in app: Processing a response: 'This solar system color imager is highly praised as an excellent solution for both beginners and serious planetary observers looking to capture stunning, vibrant images of planets like Saturn and Jupiter. Users commend its superb color quality, excellent resolution, and straightforward setup, making astrophotography accessible.'",
+     21
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/log/UnifiedLog.scala:2452",
+   "events": 363,
+   "split_events": 108,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [UnifiedLog partition=__cluster_metadata-<:NUM:>, dir=/tmp/kafka-logs] Deleting segments due to log start offset <:NUM:> breach: LogSegment(baseOffset=<:NUM:>, size=<:NUM:>, lastModifiedTime=<:NUM:>, largestRecordTimestamp=<:NUM:>) (kafka.log.UnifiedLog)",
+     255
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [UnifiedLog partition=__cluster_metadata-<:NUM:>, dir=/tmp/kafka-logs] Deleting segments due to log start offset <:NUM:> breach: LogSegment(baseOffset=<:NUM:>, size=<:NUM:>, lastModifiedTime=<:NUM:>, largestRecordTimestamp=<:NUM:>),LogSegment(baseOffset=<:NUM:>, size=<:NUM:>, lastModifiedTime=<:NUM:>, largestRecordTimestamp=<:NUM:>) (kafka.log.UnifiedLog)",
+     108
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/log/LocalLog.scala:923",
+   "events": 360,
+   "split_events": 108,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [LocalLog partition=__cluster_metadata-<:NUM:>, dir=/tmp/kafka-logs] Deleting segment files LogSegment(baseOffset=<:NUM:>, size=<:NUM:>, lastModifiedTime=<:NUM:>, largestRecordTimestamp=<:NUM:>) (kafka.log.LocalLog$)",
+     252
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [LocalLog partition=__cluster_metadata-<:NUM:>, dir=/tmp/kafka-logs] Deleting segment files LogSegment(baseOffset=<:NUM:>, size=<:NUM:>, lastModifiedTime=<:NUM:>, largestRecordTimestamp=<:NUM:>),LogSegment(baseOffset=<:NUM:>, size=<:NUM:>, lastModifiedTime=<:NUM:>, largestRecordTimestamp=<:NUM:>) (kafka.log.LocalLog$)",
+     108
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:110",
+   "events": 31,
+   "split_events": 29,
+   "patterns": 29,
+   "top_patterns": [
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [ExpirationReaper-<:NUM:>-AlterAcls]: <:*:> <:*:> (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)",
+     2
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [controller-<:NUM:>-to-controller-registration-channel-manager]: <:*:> <:*:> (kafka.server.NodeToControllerRequestThread)",
+     2
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [broker-<:NUM:>-to-controller-heartbeat-channel-manager]: <:*:> <:*:> (kafka.server.NodeToControllerRequestThread)",
+     1
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [TxnMarkerSenderThread-<:NUM:>]: <:*:> <:*:> (kafka.coordinator.transaction.TransactionMarkerChannelManager)",
+     1
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [ExpirationReaper-<:NUM:>-Heartbeat]: <:*:> <:*:> (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/ShutdownableThread.java:91",
+   "events": 30,
+   "split_events": 28,
+   "patterns": 29,
+   "top_patterns": [
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [ExpirationReaper-<:NUM:>-AlterAcls]: <:*:> <:*:> (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)",
+     2
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [broker-<:NUM:>-to-controller-heartbeat-channel-manager]: <:*:> <:*:> (kafka.server.NodeToControllerRequestThread)",
+     1
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [TxnMarkerSenderThread-<:NUM:>]: <:*:> <:*:> (kafka.coordinator.transaction.TransactionMarkerChannelManager)",
+     1
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [ExpirationReaper-<:NUM:>-Heartbeat]: <:*:> <:*:> (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)",
+     1
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [ExpirationReaper-<:NUM:>-Rebalance]: <:*:> <:*:> (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/FutureUtils.java:57",
+   "events": 11,
+   "split_events": 7,
+   "patterns": 6,
+   "top_patterns": [
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO <:*:> id=<:NUM:>] Waiting for all of the <:*:> <:*:> to be <:*:> <:*:>",
+     4
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO <:*:> id=<:NUM:>] Waiting for controller quorum voters future <:*:>",
+     2
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO <:*:> id=<:NUM:>] Waiting for the <:*:> metadata publishers to be installed <:*:>",
+     2
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [BrokerServer id=<:NUM:>] Waiting for the controller to acknowledge that we are caught up (kafka.server.BrokerServer)",
+     1
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [BrokerServer id=<:NUM:>] Waiting for the initial broker metadata update to be published (kafka.server.BrokerServer)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/FutureUtils.java:60",
+   "events": 11,
+   "split_events": 7,
+   "patterns": 6,
+   "top_patterns": [
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO <:*:> id=<:NUM:>] Finished waiting for all of the <:*:> <:*:> to be <:*:> <:*:>",
+     4
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO <:*:> id=<:NUM:>] Finished waiting for controller quorum voters future <:*:>",
+     2
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO <:*:> id=<:NUM:>] Finished waiting for the <:*:> metadata publishers to be installed <:*:>",
+     2
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [BrokerServer id=<:NUM:>] Finished waiting for the controller to acknowledge that we are caught up (kafka.server.BrokerServer)",
+     1
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [BrokerServer id=<:NUM:>] Finished waiting for the initial broker metadata update to be published (kafka.server.BrokerServer)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:metadata/src/main/java/org/apache/kafka/image/loader/MetadataLoader.java:308",
+   "events": 14,
+   "split_events": 5,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [MetadataLoader id=<:NUM:>] InitializeNewPublishers: initializing <:*:> with a snapshot at offset <:NUM:> (org.apache.kafka.image.loader.MetadataLoader)",
+     9
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [MetadataLoader id=<:NUM:>] InitializeNewPublishers: initializing <:*:> controller id=<:NUM:> with a snapshot at offset <:NUM:> (org.apache.kafka.image.loader.MetadataLoader)",
+     5
+    ]
+   ]
+  },
+  {
+   "statement": "email:access_log",
+   "events": 391,
+   "split_events": 3,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "<:IP:> - - [<:NUM:>/Aug/<:ID:> <:NUM:>] \"POST /send_order_confirmation HTTP/<:NUM:>.<:NUM:>\" <:NUM:> - <:NUM:>.<:NUM:> Order confirmation email sent to: <:*:>",
+     388
+    ],
+    [
+     "<:IP:> - - [<:NUM:>/Aug/<:ID:> <:NUM:>] \"POST /send_order_confirmation HTTP/<:NUM:>.<:NUM:>\" <:NUM:> - <:NUM:>.<:NUM:>",
+     2
+    ],
+    [
+     "<:IP:> - - [<:NUM:>/Aug/<:ID:> <:NUM:>] \"POST /send_order_confirmation HTTP/<:NUM:>.<:NUM:>\" <:NUM:> - <:NUM:>.<:NUM:> Order confirmation email sent to: steve@example.com Order confirmation email sent to: larry_sergei@example.com",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/queue/KafkaEventQueue.java:519",
+   "events": 8,
+   "split_events": 3,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO <:*:> id=<:NUM:>] closed event queue. (org.apache.kafka.queue.KafkaEventQueue)",
+     5
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO <:*:> <:*:> <:*:> <:*:> event queue. (org.apache.kafka.queue.KafkaEventQueue)",
+     2
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [AssignmentsManager id=<:NUM:>]closed event queue. (org.apache.kafka.queue.KafkaEventQueue)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "confluentinc/librdkafka@v2.12.0:src/rdkafka_transport.c:694",
+   "events": 4,
+   "split_events": 3,
+   "patterns": 4,
+   "top_patterns": [
+    [
+     "%<:NUM:>|<:NUM:>.<:NUM:>|FAIL|rdkafka#consumer-<:NUM:>| [thrd:kafka:<:NUM:>/bootstrap]: kafka:<:NUM:>/bootstrap: Connect to ipv4#<:IP:>:<:NUM:> failed: Connection refused (after 1ms in state CONNECT)",
+     1
+    ],
+    [
+     "%<:NUM:>|<:NUM:>.<:NUM:>|FAIL|rdkafka#consumer-<:NUM:>| [thrd:kafka:<:NUM:>/bootstrap]: kafka:<:NUM:>/bootstrap: Connect to ipv4#<:IP:>:<:NUM:> failed: Connection refused (after 0ms in state CONNECT, <:NUM:> identical error(s) suppressed)",
+     1
+    ],
+    [
+     "%<:NUM:>|<:NUM:>.<:NUM:>|ERROR|rdkafka#consumer-<:NUM:>| [thrd:app]: rdkafka#consumer-<:NUM:>: kafka:<:NUM:>/bootstrap: Connect to ipv4#<:IP:>:<:NUM:> failed: Connection refused (after 1ms in state CONNECT)",
+     1
+    ],
+    [
+     "%<:NUM:>|<:NUM:>.<:NUM:>|ERROR|rdkafka#consumer-<:NUM:>| [thrd:app]: rdkafka#consumer-<:NUM:>: kafka:<:NUM:>/bootstrap: Connect to ipv4#<:IP:>:<:NUM:> failed: Connection refused (after 0ms in state CONNECT, <:NUM:> identical error(s) suppressed)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-demo@2.2.0:src/cart/src/cartstore/ValkeyCartStore.cs:213",
+   "events": 2180,
+   "split_events": 2,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "info: cart.cartstore.ValkeyCartStore[<:NUM:>] GetCartAsync called with <:*:>",
+     2178
+    ],
+    [
+     "info: cart.cartstore.ValkeyCartStore[<:NUM:>] GetCartAsync called with userId=9de3729a-<:NUM:>-11f1-ac2a-9608f884da9b valkey-cart (<:IP:>:<:NUM:>) open",
+     1
+    ],
+    [
+     "info: cart.cartstore.ValkeyCartStore[<:NUM:>] GetCartAsync called with userId=2e223534-<:NUM:>-11f1-ac2a-9608f884da9b Order confirmation email sent to: moore@example.com",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/queue/KafkaEventQueue.java:497",
+   "events": 6,
+   "split_events": 2,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO <:*:> id=<:NUM:>] <:*:> shutting down event queue. (org.apache.kafka.queue.KafkaEventQueue)",
+     4
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO <:*:> <:*:> <:*:> <:*:> event queue. (org.apache.kafka.queue.KafkaEventQueue)",
+     1
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [ControllerRegistrationManager id=<:NUM:> incarnation=63Ak20XMRuS--bIrKiKbag] beginShutdown: shutting down event queue. (org.apache.kafka.queue.KafkaEventQueue)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:raft/src/main/java/org/apache/kafka/raft/QuorumState.java:618",
+   "events": 3,
+   "split_events": 2,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [RaftManager id=<:NUM:>] Attempting durable transition to Unattached(epoch=<:NUM:>, votedKey=null, voters=[<:NUM:>], electionTimeoutMs=<:NUM:>, highWatermark=Optional.empty) from null (org.apache.kafka.raft.QuorumState)",
+     1
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [RaftManager id=<:NUM:>] Attempting durable transition to CandidateState(localId=<:NUM:>, localDirectoryId=q0nlNALNRARmkCUmhFpAKA,epoch=<:NUM:>, retries=<:NUM:>, voteStates={<:NUM:>=org.apache.kafka.raft.CandidateState$VoterState@5392aa2b}, highWatermark=Optional.empty, electionTimeoutMs=<:NUM:>) from Unattached(epoch=<:NUM:>, votedKey=null, voters=[<:NUM:>], electionTimeoutMs=<:NUM:>, highWatermark=Optional.empty) (org.apache.kafka.raft.QuorumState)",
+     1
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [RaftManager id=<:NUM:>] Attempting durable transition to Leader(localReplicaKey=ReplicaKey(id=<:NUM:>, directoryId=Optional[q0nlNALNRARmkCUmhFpAKA]), epoch=<:NUM:>, epochStartOffset=<:NUM:>, highWatermark=Optional.empty, voterStates={<:NUM:>=ReplicaState(replicaKey=ReplicaKey(id=<:NUM:>, directoryId=Optional.empty), endOffset=Optional.empty, lastFetchTimestamp=<:NUM:>, lastCaughtUpTimestamp=<:NUM:>, hasAcknowledgedLeader=true)}) from CandidateState(localId=<:NUM:>, localDirectoryId=q0nlNALNRARmkCUmhFpAKA,epoch=<:NUM:>, retries=<:NUM:>, voteStates={<:NUM:>=org.apache.kafka.raft.CandidateState$VoterState@5392aa2b}, highWatermark=Optional.empty, electionTimeoutMs=<:NUM:>) (org.apache.kafka.raft.QuorumState)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:raft/src/main/java/org/apache/kafka/raft/QuorumState.java:635",
+   "events": 3,
+   "split_events": 2,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [RaftManager id=<:NUM:>] Completed transition to Unattached(epoch=<:NUM:>, votedKey=null, voters=[<:NUM:>], electionTimeoutMs=<:NUM:>, highWatermark=Optional.empty) from null (org.apache.kafka.raft.QuorumState)",
+     1
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [RaftManager id=<:NUM:>] Completed transition to CandidateState(localId=<:NUM:>, localDirectoryId=q0nlNALNRARmkCUmhFpAKA,epoch=<:NUM:>, retries=<:NUM:>, voteStates={<:NUM:>=org.apache.kafka.raft.CandidateState$VoterState@5392aa2b}, highWatermark=Optional.empty, electionTimeoutMs=<:NUM:>) from Unattached(epoch=<:NUM:>, votedKey=null, voters=[<:NUM:>], electionTimeoutMs=<:NUM:>, highWatermark=Optional.empty) (org.apache.kafka.raft.QuorumState)",
+     1
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [RaftManager id=<:NUM:>] Completed transition to Leader(localReplicaKey=ReplicaKey(id=<:NUM:>, directoryId=Optional[q0nlNALNRARmkCUmhFpAKA]), epoch=<:NUM:>, epochStartOffset=<:NUM:>, highWatermark=Optional.empty, voterStates={<:NUM:>=ReplicaState(replicaKey=ReplicaKey(id=<:NUM:>, directoryId=Optional.empty), endOffset=Optional.empty, lastFetchTimestamp=<:NUM:>, lastCaughtUpTimestamp=<:NUM:>, hasAcknowledgedLeader=true)}) from CandidateState(localId=<:NUM:>, localDirectoryId=q0nlNALNRARmkCUmhFpAKA,epoch=<:NUM:>, retries=<:NUM:>, voteStates={<:NUM:>=org.apache.kafka.raft.CandidateState$VoterState@5392aa2b}, highWatermark=Optional.empty, electionTimeoutMs=<:NUM:>) (org.apache.kafka.raft.QuorumState)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/log/LogManager.scala:1100",
+   "events": 51,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO Created log for partition __consumer_offsets-<:NUM:> in /tmp/kafka-logs/__consumer_offsets-<:NUM:> with properties {cleanup.policy=compact, compression.type=\"producer\", segment.bytes=<:NUM:>} (kafka.log.LogManager)",
+     50
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO Created log for partition orders-<:NUM:> in /tmp/kafka-logs/orders-<:NUM:> with properties {} (kafka.log.LogManager)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "valkey-io/valkey@9.0.1:src/rdb.c:1640",
+   "events": 24,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "<:NUM:>:C <:NUM:> Aug <:NUM:> <:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> * DB saved on disk",
+     23
+    ],
+    [
+     "<:NUM:>:M <:NUM:> Aug <:NUM:> <:NUM:>:<:NUM:>:<:NUM:>.<:NUM:> * <:*:> <:*:> <:*:> <:*:>",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/server/AbstractFetcherManager.scala:200",
+   "events": 4,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO <:*:> on broker <:NUM:>] Removed fetcher for partitions <:*:> __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, <:*:> __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, __consumer_offsets-<:NUM:>, <:*:>",
+     3
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [ReplicaFetcherManager on broker <:NUM:>] Removed fetcher for partitions Set(orders-<:NUM:>) (kafka.server.ReplicaFetcherManager)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-java-instrumentation@v2.23.0:javaagent-tooling/src/main/java/io/opentelemetry/javaagent/tooling/VersionLogger.java:18",
+   "events": 3,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "[otel.javaagent <:NUM:>-<:NUM:>-<:NUM:> <:ID:> <:NUM:>] [main] INFO io.opentelemetry.javaagent.tooling.VersionLogger - opentelemetry-javaagent - version: <:NUM:>.<:NUM:>.<:NUM:>",
+     2
+    ],
+    [
+     "[otel.javaagent <:NUM:>-<:NUM:>-<:NUM:> <:ID:> <:NUM:>] [main] INFO io.opentelemetry.javaagent.tooling.VersionLogger - opentelemetry-javaagent - version: <:NUM:>.<:NUM:>.<:NUM:> SLF4J(W): No SLF4J providers were found. SLF4J(W): Defaulting to no-operation (NOP) logger implementation SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/group/GroupCoordinator.scala:1501",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [GroupCoordinator <:NUM:>]: Preparing to rebalance group fraud-detection in state PreparingRebalance with old generation <:NUM:> (__consumer_offsets-<:NUM:>) (reason: Adding new member consumer-fraud-detection-<:NUM:>-f5d312b2-91a8-460c-b8b1-f9481356ee27 with group instance id None; client reason: need to re-join with the given member-id: consumer-fraud-detection-<:NUM:>-f5d312b2-91a8-460c-b8b1-f9481356ee27) (kafka.coordinator.group.GroupCoordinator)",
+     1
+    ],
+    [
+     "[<:NUM:>-<:NUM:>-<:NUM:> <:NUM:>:<:NUM:>:<:NUM:>,<:NUM:>] INFO [GroupCoordinator <:NUM:>]: Preparing to rebalance group accounting in state PreparingRebalance with old generation <:NUM:> (__consumer_offsets-<:NUM:>) (reason: Adding new member rdkafka-2162faa5-d916-458f-8e2c-eac1fd82f50c with group instance id None; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)",
+     1
+    ]
+   ]
+  }
+ ]
+}
