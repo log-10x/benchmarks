@@ -1,6 +1,7 @@
 # How the labels were made
 
-Every event of two captures of the OpenTelemetry demo carries a label: the
+Every labelled event of two captures of the OpenTelemetry demo (99.58% of otel215's
+events and 99.42% of rec1155's; the rest are listed under coverage below) carries the
 source statement that wrote it, located in that program's own source at the
 version that ran. The labels come from source code alone. No tool's pattern
 names were read until the labels were validated and frozen (2026-10-05 16:43
