@@ -84,6 +84,35 @@ Drain3 fed one message per record, an event named by its first record:
 | Drain3, strong arm, per record | 41,333 | 1.78% (734) | 10.35% | 79.79% | 65.26% of 213 | 377 |
 | Drain3, baseline arm, per record | 41,333 | 1.81% (749) | 10.47% | 79.64% | 64.79% of 213 | 411 |
 
+## zookeeper
+
+| tool | events scored | merged events | split events | exact grouping | statements with one pattern of their own | patterns |
+|---|---:|---:|---:|---:|---:|---:|
+| 10x engine 1.1.136 | 74,380 | 0.21% (153) | 1.21% | 95.38% | 69.05% of 84 | 97 |
+| Drain3, strong arm | 74,380 | 0.75% (555) | 0.32% | 91.31% | 50.0% of 84 | 58 |
+| Drain3, baseline arm | 74,380 | 0.55% (412) | 0.32% | 93.25% | 55.95% of 84 | 64 |
+
+By where the statement's source is:
+
+| tool | source in the 1.1.89 library: merged / exact | source not in it: merged / exact | not code: merged / exact |
+|---|---|---|---|
+| 10x engine 1.1.136 | n/a | 0.21% / 95.38% (74,380 events, 84 statements) | n/a |
+| Drain3, strong arm | n/a | 0.75% / 91.31% (74,380 events, 84 statements) | n/a |
+| Drain3, baseline arm | n/a | 0.55% / 93.25% (74,380 events, 84 statements) | n/a |
+
+Engine only, events whose statement is code:
+
+| engine | untyped | exact file | same repository, other file | other project | name starts with the statement's first word | name carries a severity or envelope word |
+|---|---:|---:|---:|---:|---:|---:|
+| 10x engine 1.1.136 | 54.45% | 0.0% | 0.0% | 45.55% | 99.0% | 1.53% |
+
+Drain3 fed one message per record (each event of this capture is one record):
+
+| tool | events scored | merged events | split events | exact grouping | statements with one pattern of their own | patterns |
+|---|---:|---:|---:|---:|---:|---:|
+| Drain3, strong arm, per record | 74,380 | 0.75% (555) | 0.32% | 91.31% | 50.0% of 84 | 58 |
+| Drain3, baseline arm, per record | 74,380 | 0.55% (412) | 0.32% | 93.25% | 55.95% of 84 | 64 |
+
 ## Drain3 runs
 
 | run | messages | clusters | distinct names | unmatched |
@@ -96,3 +125,7 @@ Drain3 fed one message per record, an event named by its first record:
 | Drain3, baseline arm, rec1155 | 41,573 | 592 | 592 | 0 |
 | Drain3, strong arm, per record, rec1155 | 41,713 | 608 | 608 | 0 |
 | Drain3, baseline arm, per record, rec1155 | 41,713 | 701 | 701 | 0 |
+| Drain3, strong arm, zookeeper | 74,380 | 58 | 58 | 0 |
+| Drain3, baseline arm, zookeeper | 74,380 | 64 | 64 | 0 |
+| Drain3, strong arm, per record, zookeeper | 74,380 | 58 | 58 | 0 |
+| Drain3, baseline arm, per record, zookeeper | 74,380 | 64 | 64 | 0 |

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# One command. Fetches the two captures, runs each engine image and the Drain3
+# One command. Fetches the three captures, runs each engine image and the Drain3
 # arm over them, scores every run against the labels, and writes results/.
 #
 #   ./run.sh
@@ -9,16 +9,20 @@
 # virtualenv from ../pattern-identity/requirements.txt).
 #
 # Environment:
-#   INTENT_ENGINES   space-separated engine images to run (default: the two
-#                    pinned below). Any image tag or digest of
-#                    log10x/pipeline-10x works; results are named after the
-#                    part after the last ':' or '@'.
+#   INTENT_ENGINES   space-separated engine images to run on rec1155 and
+#                    otel215 (default: the two pinned below). Any image tag or
+#                    digest of log10x/pipeline-10x works; results are named
+#                    after the part after the last ':' or '@'.
+#   INTENT_HELDOUT_ENGINES
+#                    engine images to run on the zookeeper capture
+#                    (default: the one pinned below).
 #   INTENT_CACHE     where inputs and engine output go (default: ./cache)
 #   INTENT_PYTHON    interpreter for the Drain3 virtualenv (default: python3)
 #
 # Timings on an Intel macOS laptop with Docker Desktop: about 10 minutes per
 # engine run on otel215 (the dev app prints its metrics as it goes), 1 minute
-# on rec1155; Drain3 about 1 minute on rec1155 and 5 on otel215 per arm.
+# on rec1155, under 1 minute on zookeeper; Drain3 about 1 minute on rec1155
+# and zookeeper and 5 on otel215 per arm.
 
 set -euo pipefail
 
@@ -29,6 +33,7 @@ CACHE="${INTENT_CACHE:-$HERE/cache}"
 PY="${INTENT_PYTHON:-python3}"
 VENV="$HERE/.venv"
 ENGINES="${INTENT_ENGINES:-log10x/pipeline-10x:1.1.132@sha256:3e21cd41cde6d8263b5fa1b121ff15587a6bfe33ca4b3338b08bbb8c0e7a0c5f log10x/pipeline-10x:1.1.133@sha256:fe3dcdefdc2f42fa7117c4f63fe97b28508fbf1356725422703f0dfab55f2360}"
+HELDOUT_ENGINES="${INTENT_HELDOUT_ENGINES:-log10x/pipeline-10x:1.1.136@sha256:fccff37a6a41e52eb4df8a108d042b0176210842b7ed25f08b1419df3a37904f}"
 
 OTEL_URL="https://github.com/log-10x/config/releases/download/otel-sample-v1/otel-sample-200mb.log.gz"
 OTEL_GZ_SHA="c118e55f1e431d9ff43fe1b3b62237d2fbd7c6e27821a8a9c4c57757786b0eb9"
@@ -36,6 +41,10 @@ OTEL_SHA="aa79b9349a4123d88936fd064f5eccd9fd84f45a1fd03cff3f64c259715c2432"
 REC_URL="https://github.com/log-10x/benchmarks/releases/download/intent-data-v1/rec1155.log.gz"
 REC_GZ_SHA="d9ebe8c79e3ef6c1ca656599203d588831b6ed72e1f245cc32cd26124b6c4301"
 REC_SHA="df78e200d929bc57f826a396fb8e1764717bf6b61544970261f3647163351b77"
+# LogHub Zookeeper.log (Zenodo record 8196385); line endings converted from CRLF to LF
+ZK_URL="https://zenodo.org/records/8196385/files/Zookeeper.tar.gz?download=1"
+ZK_GZ_SHA="ea350b0d3ff22bca4764ae4a1521bd1b79c448db4ee99aac02fd82b9a0995f19"
+ZK_SHA="b3d26d41af56d483c2d72c7eddc6deb546980d177c02dd10d1e0562d40056fa0"
 
 say() { printf '\n=== %s\n' "$*"; }
 sha() { shasum -a 256 "$1" | cut -d' ' -f1; }
@@ -61,10 +70,25 @@ if [ ! -f "$CACHE/rec1155.log" ] || [ "$(sha "$CACHE/rec1155.log")" != "$REC_SHA
 fi
 [ "$(sha "$CACHE/rec1155.log")" = "$REC_SHA" ] || { echo "rec1155 hash mismatch"; exit 1; }
 
+if [ ! -f "$CACHE/zookeeper.log" ] || [ "$(sha "$CACHE/zookeeper.log")" != "$ZK_SHA" ]; then
+  say "zookeeper: downloading LogHub Zookeeper.tar.gz from Zenodo"
+  curl -fsSL "$ZK_URL" -o "$CACHE/Zookeeper.tar.gz"
+  [ "$(sha "$CACHE/Zookeeper.tar.gz")" = "$ZK_GZ_SHA" ] || { echo "zookeeper download hash mismatch"; exit 1; }
+  tar -xzOf "$CACHE/Zookeeper.tar.gz" Zookeeper.log | tr -d '\r' > "$CACHE/zookeeper.log"
+  rm -f "$CACHE/Zookeeper.tar.gz"
+fi
+[ "$(sha "$CACHE/zookeeper.log")" = "$ZK_SHA" ] || { echo "zookeeper hash mismatch"; exit 1; }
+
 # ------------------------------------------------------------------- engines
-for image in $ENGINES; do
+version_of() {
+  local image="$1" ver
   ver="${image##*:}"; ver="${ver%%@*}"
   case "$image" in *@sha256:*) ver="$(echo "$image" | sed -E 's|.*:([^:@]+)@sha256:.*|\1|')";; esac
+  echo "$ver"
+}
+
+for image in $ENGINES; do
+  ver="$(version_of "$image")"
   for cap in rec1155 otel215; do
     out="$CACHE/engine-$ver/$cap"
     say "engine $ver on $cap"
@@ -76,6 +100,15 @@ for image in $ENGINES; do
   done
 done
 
+for image in $HELDOUT_ENGINES; do
+  ver="$(version_of "$image")"
+  out="$CACHE/engine-$ver/zookeeper"
+  say "engine $ver on zookeeper"
+  bench/engine.sh "$image" "$CACHE/zookeeper.log" "$out"
+  gzip -f "$out/events.jsonl"
+  "$PY" bench/score.py zookeeper "$out/events.jsonl.gz" --out "results/engine-${ver}_zookeeper.json" > /dev/null
+done
+
 # ------------------------------------------------------------------- Drain3
 if [ ! -x "$VENV/bin/python" ]; then
   say "creating virtualenv at $VENV"
@@ -84,7 +117,7 @@ if [ ! -x "$VENV/bin/python" ]; then
 fi
 "$VENV/bin/pip" install --quiet -r ../pattern-identity/requirements.txt
 
-for cap in rec1155 otel215; do
+for cap in rec1155 otel215 zookeeper; do
   for arm in strong baseline; do
     for unit in event record; do
       tag="drain3-$arm-$unit"
@@ -93,8 +126,10 @@ for cap in rec1155 otel215; do
       "$VENV/bin/python" bench/drain_arm.py "$cap" "$CACHE/$cap.log" "$out" --arm "$arm" --unit "$unit" > /dev/null
       cp "$out/drain_stats.json" "results/${tag}_${cap}_stats.json"
       "$PY" bench/score.py "$cap" "$out/events.jsonl.gz" --grouping-only --out "results/${tag}_$cap.json" > /dev/null
-      "$PY" bench/score.py "$cap" "$out/events.jsonl.gz" --grouping-only --exclude-container opentelemetry-collector \
-        --out "results/${tag}_${cap}_without-collector.json" > /dev/null
+      if [ "$cap" != zookeeper ]; then
+        "$PY" bench/score.py "$cap" "$out/events.jsonl.gz" --grouping-only --exclude-container opentelemetry-collector \
+          --out "results/${tag}_${cap}_without-collector.json" > /dev/null
+      fi
     done
   done
 done

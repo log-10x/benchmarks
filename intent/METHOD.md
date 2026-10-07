@@ -5,7 +5,8 @@ events and 99.42% of rec1155's; the rest are listed under coverage below) carrie
 source statement that wrote it, located in that program's own source at the
 version that ran. The labels come from source code alone. No tool's pattern
 names were read until the labels were validated and frozen (2026-10-05 16:43
-UTC); the freeze record is `labels/FROZEN.json`.
+UTC); the freeze record is `labels/FROZEN.json`. A third capture, labelled after
+the engine was fixed, has [its own section](#the-third-capture-zookeeper).
 
 ## The captures
 
@@ -204,10 +205,79 @@ A listed repository was compiled at its own pin, which can differ from the
 version that ran. The column says the source was available to the engine; it
 does not check that the statement's text is unchanged at that pin.
 
+## The third capture: zookeeper
+
+`zookeeper` is LogHub's ZooKeeper log: `Zookeeper.log` in `Zookeeper.tar.gz` of
+[Zenodo record 8196385](https://zenodo.org/records/8196385). It holds 74,380
+lines from a three-server ensemble (hosts `mesos-master-1` to `mesos-master-3`),
+2015-07-29 to 2015-08-25, with 36 server starts. It is not held out from the engine's development: LogHub's 2,000-line ZooKeeper sample, drawn from this log, was one of 16 LogHub sets the rule work scored by LogHub's template labels, so 2,000 of its lines were in view; no rule was built from the statement labels, which did not exist until this capture was labelled.
+
+The file is used as published, with its CRLF line ends converted to LF; `run.sh`
+does the conversion and checks the hash of the download and of the result. Every
+line begins with a timestamp, so every event is one line (`records` is 1 for
+every event), and the engine's events matched them one for one. The capture
+carries no container metadata: its labels hold `container: null`, which is what
+the scorer reads from a line that is not Docker JSON. Drain3 is given the whole
+line, the program's own output, as it is given the `log` value of a Docker
+record.
+
+### Version
+
+ZooKeeper 3.4.5, established from the log itself:
+- **The startup banner**, printed at each of the 36 starts: `Server environment:zookeeper.version=3.4.5--1, built on 06/10/2013 17:26 GMT`.
+- **The printed source locations.** The log4j layout prints each call's class and line, as in `[QuorumPeer[myid=1]/0:0:0:0:0:0:0:0:2181:FastLeaderElection@774]`. The capture holds 84 distinct locations. At tag `release-3.4.5` of apache/zookeeper, all 84 hold the logging call whose text the line carries. At `release-3.4.3` 44 do, and at `release-3.4.6` 25. `release-3.4.4` also agrees on all 84, since none of these lines moved between 3.4.4 and 3.4.5; the banner names 3.4.5.
+
+### Labels
+
+The method is the one above, applied to one program:
+- **Statements.** Each is a repository, ref, path and needle, at `apache/zookeeper@release-3.4.5`. The line is found by searching the fetched file for the needle, taking the hit nearest the printed line when the needle occurs more than once (`Shutting down`, for one, occurs twice in `Leader.java`).
+- **Rules.** Each rule keys on the printed `Class@line`, the level and the call's format.
+- **Lines.** 81 statements sit at their printed line. Three differ, by step 4:
+  - `Environment@100` is `Environment.logEnv`, which logs `msg + e.toString()`. The literal `Server environment:` is passed in at `ZooKeeperServer.java:81`, so that line is the label. One statement covers 16 shapes, one per environment key.
+  - `QuorumPeer@429` and `QuorumPeer@444` are calls written over two lines; the format literal, ` not found! Creating with a reasonable default of {}. This should only happen when you are upgrading your installation`, is on lines 430 and 445. The first argument is a constant, `currentEpoch` or `acceptedEpoch`.
+- **Cross-check.** Every printed location holds the call whose text its lines carry (the version check above), and the needle search lands on the printed line, or one line below it for the two `QuorumPeer` statements.
+- **Validation.** All 74,380 events are code events: 0 raw failures, 0 masked failures. In the masked check, a `0x` written directly before a value counts as part of the value, because the mask turns `0x` and the hex digits into one token. Seventeen formats print hex this way, as in `Expiring session 0x{}, timeout of {}ms exceeded`.
+
+### Coverage and what is excluded
+
+| capture | events | labelled | unlabelled | statements | code / pseudo |
+|---|---:|---:|---:|---:|---|
+| zookeeper | 74,380 | 74,380 (100%) | 0 | 84 | 84 / 0 |
+
+Nothing is excluded, and no event needed a pseudo statement.
+
+**One message, several statements.** Thirteen statements print the same message as
+another and differ only in the printed class and line:
+- `Shutting down`, nine statements: `CommitProcessor`, `SyncRequestProcessor`, `FollowerZooKeeperServer`, `FollowerRequestProcessor`, `PrepRequestProcessor`, `ProposalRequestProcessor`, `SessionTrackerImpl`, `Leader` and `Leader$ToBeAppliedRequestProcessor`;
+- `TCP NoDelay set to: true`: `Leader` and `Learner`;
+- `Got zxid 0x{} expected 0x{}`: `Follower` and `Learner`.
+
+**One statement, several shapes:**
+- `Server environment:`, one shape per key;
+- the election `Notification:` line, by peer state;
+- `Sending DIFF` and `Sending SNAP`;
+- `Closed socket connection for client`, by the branch of its last argument (`which had sessionid 0x{}` or `(no session established for client)`);
+- `Got user-level KeeperException`, by path.
+
+### The library column
+
+The 1.1.89 library's manifest lists neither apache/zookeeper nor a ZooKeeper
+image, so `library_1_1_89` is empty for all 84 statements. Engine image 1.1.136
+carries the same library files as 1.1.132 and 1.1.133 (the hashes are in the
+README).
+
+### Freeze
+
+The labels were validated and frozen on 2026-10-07 at 17:31 UTC
+(`labels/FROZEN_zookeeper.json`, which also records the capture's hash). The
+commit that adds the label files holds no result, and it was pushed before the
+engine or Drain3 ran on the capture. Each tool then ran once.
+
 ## Files
 
 - `labels/labels_<capture>.jsonl.gz`: one line per event, with `i`, `records`, `container`, `statement` (empty when unlabelled), `multiline` and `shape`.
 - `labels/statements.tsv`: the 423 statement ids across both captures, with repository, ref, path, line, format, kind, per-capture event counts, `library_1_1_89` and notes.
 - `labels/texthash_<capture>.txt.gz`: the first 16 hex digits of the SHA-1 of each event's text, for the alignment check.
 - `labels/repo_basenames.json.gz`: the file names in each statement's repository at its ref, for the attribution score.
-- `labels/FROZEN.json`: hashes of the published label files.
+- `labels/FROZEN.json`: hashes of the published label files for otel215 and rec1155.
+- For zookeeper, the same files with the capture's name: `labels_zookeeper.jsonl.gz`, `texthash_zookeeper.txt.gz`, `repo_basenames_zookeeper.json.gz`, `statements_zookeeper.tsv` (84 statements; `printed_location` and `events_zookeeper` take the place of `containers` and the per-capture counts) and `FROZEN_zookeeper.json`.

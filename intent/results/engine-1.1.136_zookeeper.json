@@ -1,0 +1,313 @@
+{
+ "capture": "zookeeper",
+ "events": 74380,
+ "labelled": 74380,
+ "excluded_containers": [],
+ "distinct_patterns": 97,
+ "overall": {
+  "events": 74380,
+  "statements": 84,
+  "merged_event_share": 0.21,
+  "merged_events": 153,
+  "split_event_share": 1.21,
+  "exact_grouping_events": 95.38,
+  "statements_clean": 69.05,
+  "statements_in_merge": 23.81,
+  "statements_split": 7.14,
+  "patterns_per_statement_mean": 1.33,
+  "patterns_per_statement_max": 16,
+  "attr_untyped": 54.45,
+  "attr_exact_file": 0.0,
+  "attr_same_repo_other_file": 0.0,
+  "attr_other_project": 45.55,
+  "name_first": 99.0,
+  "name_sev_or_env": 1.53
+ },
+ "by_group": {
+  "source_in_library": null,
+  "source_not_in_library": {
+   "events": 74380,
+   "statements": 84,
+   "merged_event_share": 0.21,
+   "merged_events": 153,
+   "split_event_share": 1.21,
+   "exact_grouping_events": 95.38,
+   "statements_clean": 69.05,
+   "statements_in_merge": 23.81,
+   "statements_split": 7.14,
+   "patterns_per_statement_mean": 1.33,
+   "patterns_per_statement_max": 16,
+   "attr_untyped": 54.45,
+   "attr_exact_file": 0.0,
+   "attr_same_repo_other_file": 0.0,
+   "attr_other_project": 45.55,
+   "name_first": 99.0,
+   "name_sev_or_env": 1.53
+  },
+  "not_code": null
+ },
+ "by_container": {
+  "null": {
+   "events": 74380,
+   "statements": 84,
+   "merged_event_share": 0.21,
+   "merged_events": 153,
+   "split_event_share": 1.21,
+   "exact_grouping_events": 95.38,
+   "statements_clean": 69.05,
+   "statements_in_merge": 23.81,
+   "statements_split": 7.14,
+   "patterns_per_statement_mean": 1.33,
+   "patterns_per_statement_max": 16,
+   "attr_untyped": 54.45,
+   "attr_exact_file": 0.0,
+   "attr_same_repo_other_file": 0.0,
+   "attr_other_project": 45.55,
+   "name_first": 99.0,
+   "name_sev_or_env": 1.53
+  }
+ },
+ "merges": [
+  {
+   "pattern": "set_to",
+   "events": 108,
+   "merged_events": 72,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/DatadirCleanupManager.java:78",
+     36
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/DatadirCleanupManager.java:79",
+     36
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:933",
+     36
+    ]
+   ]
+  },
+  {
+   "pattern": "Shutting_down",
+   "events": 58,
+   "merged_events": 45,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/CommitProcessor.java:181",
+     13
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/SyncRequestProcessor.java:175",
+     13
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FollowerZooKeeperServer.java:139",
+     11
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FollowerRequestProcessor.java:105",
+     11
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Leader.java:490",
+     2
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/SessionTrackerImpl.java:225",
+     2
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/PrepRequestProcessor.java:743",
+     2
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/ProposalRequestProcessor.java:88",
+     2
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Leader.java:655",
+     2
+    ]
+   ]
+  },
+  {
+   "pattern": "exited_loop",
+   "events": 28,
+   "merged_events": 15,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/CommitProcessor.java:150",
+     13
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FollowerRequestProcessor.java:95",
+     11
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/PrepRequestProcessor.java:143",
+     2
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/SessionTrackerImpl.java:162",
+     2
+    ]
+   ]
+  },
+  {
+   "pattern": "TCP_NoDelay_set_to_true",
+   "events": 39,
+   "merged_events": 14,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Learner.java:85",
+     25
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Leader.java:58",
+     14
+    ]
+   ]
+  },
+  {
+   "pattern": "Got_zxid_expected",
+   "events": 28,
+   "merged_events": 7,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Follower.java:118",
+     21
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Learner.java:373",
+     7
+    ]
+   ]
+  }
+ ],
+ "splits": [
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/ZooKeeperServer.java:81",
+   "events": 540,
+   "split_events": 504,
+   "patterns": 16,
+   "top_patterns": [
+    [
+     "Server_environment_zookeeper_version_built_on",
+     36
+    ],
+    [
+     "Server_environment_java_version",
+     36
+    ],
+    [
+     "Server_environment_java_vendor_Oracle_Corporation",
+     36
+    ],
+    [
+     "Server_environment_java_home_usr_lib_jvm_jre",
+     36
+    ],
+    [
+     "Server_environment_java_class_path_etc_zookeeper_conf_usr_share_jline_jar_netty",
+     36
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FastLeaderElection.java:542",
+   "events": 505,
+   "split_events": 212,
+   "patterns": 9,
+   "top_patterns": [
+    [
+     "Notification_n_leader_zxid_round_LOOKING_state_sid_my",
+     293
+    ],
+    [
+     "Notification_n_leader_zxid_round_LOOKING_state_sid_FOLLOWING_my",
+     57
+    ],
+    [
+     "Notification_n_leader_zxid_round_LOOKING_state_sid_LEADING_my",
+     46
+    ],
+    [
+     "Notification_n_leader_zxid_round_LEADING_state_sid_LOOKING_my",
+     32
+    ],
+    [
+     "Notification_n_leader_zxid_round_FOLLOWING_state_sid_LOOKING_my",
+     29
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/NIOServerCnxn.java:1001",
+   "events": 1908,
+   "split_events": 159,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Closed_socket_connection_for_client_which_had_sessionid",
+     1749
+    ],
+    [
+     "Closed_socket_connection_for_client_no_session_established",
+     159
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/PrepRequestProcessor.java:627",
+   "events": 19,
+   "split_events": 11,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "Got_user_KeeperException_when_processing_sessionid_type_create_cxid_zxid_n_a_Error_Path_NodeExists_for",
+     8
+    ],
+    [
+     "Got_user_KeeperException_when_processing_sessionid_type_create_cxid_zxid_n_a_Error_Path_hdfs_mesos_NodeExists_for",
+     8
+    ],
+    [
+     "Got_user_KeeperException_when_processing_sessionid_type_create_cxid_zxid_n_a_Error_Path_home_NodeExists_for",
+     3
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/NIOServerCnxn.java:354",
+   "events": 167,
+   "split_events": 8,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Exception_causing_close_session_due_java_io_IOException_not_running",
+     159
+    ],
+    [
+     "Exception_causing_close_session_due_java_IOException_Connection_reset_by_peer",
+     8
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/LearnerHandler.java:395",
+   "events": 34,
+   "split_events": 6,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Sending_DIFF",
+     28
+    ],
+    [
+     "Sending_SNAP",
+     6
+    ]
+   ]
+  }
+ ]
+}

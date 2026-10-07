@@ -11,6 +11,10 @@ message, and the reference pass (one instance sees the whole stream in memory,
 then each message is matched back read-only with full_search_strategy
 "fallback" and takes the template it matches as its name).
 
+A record is one line of the capture. In rec1155 and otel215 it is a Docker
+JSON line and the message is its `log` value; the zookeeper capture is the
+program's own text output, so the message is the whole line.
+
 What Drain3 is given, per --unit:
   event   (default) one message per labelled event: the `log` values of the
           event's records joined by newlines. This hands Drain3 the engine's
@@ -39,6 +43,8 @@ sys.path.insert(0, str(HERE.parent.parent / 'pattern-identity' / 'bench'))
 import drainver  # noqa: E402  which distribution provides the drain3 module
 import identity  # noqa: E402  the pattern-identity harness: settings and Drain3 plumbing
 
+PLAIN_TEXT = {'zookeeper'}  # captures whose records are the program's own lines, not Docker JSON
+
 
 def read_records(path):
     op = gzip.open if str(path).endswith('.gz') else open
@@ -60,7 +66,7 @@ def message_of(record):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('capture', choices=('rec1155', 'otel215'))
+    ap.add_argument('capture', choices=('rec1155', 'otel215', 'zookeeper'))
     ap.add_argument('input')
     ap.add_argument('out')
     ap.add_argument('--arm', choices=('strong', 'baseline'), default='strong')
@@ -78,10 +84,11 @@ def main():
         spans.append((pos, pos + c))
         pos += c
 
+    msg = (lambda r: r) if a.capture in PLAIN_TEXT else message_of
     if a.unit == 'event':
-        messages = ['\n'.join(message_of(r) for r in records[s:e]) for s, e in spans]
+        messages = ['\n'.join(msg(r) for r in records[s:e]) for s, e in spans]
     else:
-        messages = [message_of(r) for r in records]
+        messages = [msg(r) for r in records]
 
     arm = {**identity.ARMS[a.arm], 'persistence_restart': False, 'warm_start_b_from_a': False}
     tm = identity.train(messages, range(len(messages)), arm, identity.DRAIN_SIM_TH)

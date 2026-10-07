@@ -1,0 +1,13 @@
+{
+ "capture": "zookeeper",
+ "capture_sha256": "b3d26d41af56d483c2d72c7eddc6deb546980d177c02dd10d1e0562d40056fa0",
+ "labels_frozen_utc": "2026-10-07T17:31:03Z",
+ "statements": 84,
+ "note": "Statement assignments frozen at labels_frozen_utc, before any tool ran on this capture or any tool's pattern names for it were read. No later change.",
+ "files_sha256": {
+  "labels_zookeeper.jsonl.gz": "51f9dc306476c85fff27ef7b1ac790fdf5cef0adfcb84b4b31315f4423159062",
+  "repo_basenames_zookeeper.json.gz": "22eab1ad9ac98ec65a9f524e7efb3ee8cf071e2b1a32461f84955449f0d0aace",
+  "statements_zookeeper.tsv": "d3705124b2ed9814e4ad5fd801841f2143cca42f77286639892cca92624c526e",
+  "texthash_zookeeper.txt.gz": "93312f51c5f367c9b0426950d08807af8703b6f3ce66bfe370b7006f434c568f"
+ }
+}
