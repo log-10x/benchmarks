@@ -9,13 +9,13 @@
 #   ./run.sh a_asis c_msg       a subset, same order
 #
 # Needs Docker and about 1.2 GB of free disk for the derived inputs and the
-# engine outputs. Timings on an Intel macOS laptop, engine 1.1.5: the capture
+# engine outputs. Timings on an Intel macOS laptop: the capture
 # downloads once at 8.4 MB gzipped, the derived inputs take about 15s to build,
 # and each case is roughly 30s to encode and 15s to decode.
 #
 # Environment:
 #   OTD_DATA_DIR   download and derived-input cache (default: <dir>/data)
-#   OTD_IMAGE      engine image (default: log10x/pipeline-10x:1.1.5)
+#   OTD_IMAGE      engine image (default: log10x/pipeline-10x:1.1.136, by digest)
 #   OTD_KEEP       set to 1 to keep each case's encoded/decoded output
 
 set -euo pipefail
@@ -24,7 +24,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$HERE"
 
 DATA_DIR="${OTD_DATA_DIR:-$HERE/data}"
-IMAGE="${OTD_IMAGE:-log10x/pipeline-10x:1.1.5}"
+IMAGE="${OTD_IMAGE:-log10x/pipeline-10x:1.1.136@sha256:fccff37a6a41e52eb4df8a108d042b0176210842b7ed25f08b1419df3a37904f}"
 # The two round-trip configs published with the compaction benchmark. They are
 # cited elsewhere as the reference configs, so this benchmark reads them from
 # where they already live rather than keeping a second copy.

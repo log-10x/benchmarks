@@ -16,7 +16,7 @@ import subprocess, os, sys, re, json
 SCRATCH = os.environ.get("BENCH_DIR") or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOGHUB  = os.path.join(SCRATCH, "loghub")
 CFG     = os.path.join(SCRATCH, "tenx-stability.config.yaml")  # no grouping -> 1:1 line/event
-IMAGE   = "log10x/pipeline-10x:1.1.5"
+IMAGE   = "log10x/pipeline-10x:1.1.136@sha256:fccff37a6a41e52eb4df8a108d042b0176210842b7ed25f08b1419df3a37904f"
 WORK    = os.path.join(SCRATCH, "bench", "stability")
 
 def read_lines(path):

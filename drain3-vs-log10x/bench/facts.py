@@ -24,7 +24,7 @@ def wsinfo(ds):
     return dict(n_lines=len(lines), ws_lines=ws_lines)
 
 res=json.load(open(os.path.join(BENCH,"results.json")))
-facts={"datasets":{}, "versions":{"drain3":"0.9.11","engine":"1.1.5","image":"log10x/pipeline-10x:1.1.5",
+facts={"datasets":{}, "versions":{"drain3":"0.9.11","engine":"1.1.136","image":"log10x/pipeline-10x:1.1.136@sha256:fccff37a6a41e52eb4df8a108d042b0176210842b7ed25f08b1419df3a37904f",
         "loghub":"logpai/loghub 2k samples (16 datasets)"}}
 
 agg=dict(lx_loss=[],d3_loss=[],lx_tmpl=0,d3_tmpl=0,gt_tmpl=0,

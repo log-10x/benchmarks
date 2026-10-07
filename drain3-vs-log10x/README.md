@@ -39,7 +39,7 @@ a fixed input order).
 ## Prerequisites
 
 - **Python 3.9+** with Drain3 pinned: `pip install -r requirements.txt` (Drain3 0.9.11).
-- **Docker**, to run the log10x engine image `log10x/pipeline-10x:1.1.5` (engine 1.1.5).
+- **Docker**, to run the log10x engine image `log10x/pipeline-10x:1.1.136` (pinned by digest in the scripts).
   No API key is needed — local file I/O runs under the image's built-in limited license.
 - The 16 loghub datasets (see Setup).
 
@@ -97,14 +97,19 @@ cd ../bench
 python bigfile.py BGL ../bigfile/BGL.log
 ```
 
-Reference results for BGL (measured 2026-07-07, engine 1.1.5, Drain3 0.9.11):
+Reference results for BGL:
 
-- log10x: **4,747,963/4,747,963 lines lossless (100.000%)**, whole file byte-identical;
-  127,532 cold templates; encode ~46 s. (Decode is a separate pass and is slow here:
-  loading 127,532 templates before expanding 4.7M records is the cost of the cold,
-  over-segmented dictionary.)
-- Drain3: 842 templates; 100% lossless on the sampled first 200,000 lines (BGL has no
-  collapsible whitespace, so token-aligned reconstruction is byte-exact); mine ~194 s.
+- log10x (engine 1.1.136, measured 2026-10-07): **4,735,315 of 4,747,963 lines come back
+  identical (99.73%)**; 136,461 cold templates; encode about 2 minutes. Of the 12,648 lines that
+  do not: 11,904 quote a date with a zone name (`Fri Jun 17 07:25:00 PDT 2005`), which keeps its
+  instant and decodes in another zone; 741 do not come back and 3 come back changed, from a
+  round-trip defect with the events of one template shape. (Decode is a separate pass and is slow
+  here: loading 136,461 templates before expanding 4.7M records is the cost of the cold,
+  over-segmented dictionary. The figure above used the image's own jar outside Docker, because
+  writing 700 MB through a macOS bind mount is slower still.)
+- Drain3 (0.9.11, measured 2026-07-07): 842 templates; 100% lossless on the sampled first 200,000
+  lines (BGL has no collapsible whitespace, so token-aligned reconstruction is byte-exact); mine
+  ~194 s.
 
 ## What each script does
 
@@ -137,4 +142,4 @@ The engine is a codec, run in two passes:
 
 ## Versions
 
-Drain3 0.9.11 · log10x engine 1.1.5 (`log10x/pipeline-10x:1.1.5`) · loghub 2k samples.
+Drain3 0.9.11 · log10x engine 1.1.136 (`log10x/pipeline-10x:1.1.136@sha256:fccff37a6a41e52eb4df8a108d042b0176210842b7ed25f08b1419df3a37904f`) · loghub 2k samples.

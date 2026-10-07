@@ -6,7 +6,7 @@ and how much does the answer move when you change it.
 
 ## The question
 
-The published figure for this capture is **63.7%**. The capture is a Fluentd envelope around
+The capture as published compacts by **64.00%**. The capture is a Fluentd envelope around
 each container's stdout line, so most of its bytes are Kubernetes and Docker metadata rather
 than the application's message. Two objections follow, and they point in opposite directions.
 
@@ -25,26 +25,26 @@ check.
 
 | Case | Input bytes | Lines | Encoded | Templates bytes | Compact | Reduction | Templates | Round trip |
 |---|---:|---:|---:|---:|---:|---:|---:|---|
-| (a) as captured | 215,039,161 | 197,430 | 74,841,891 | 3,226,416 | 78,068,307 | **63.70%** | 2,933 | byte-identical |
-| (b) SIEM-billed | 88,975,911 | 111,691 | 30,496,832 | 2,903,267 | 33,400,099 | **62.46%** | 2,869 | byte-identical |
-| (c) message only | 40,551,755 | 197,430 | 10,644,634 | 600,758 | 11,245,392 | **72.27%** | 2,631 | byte-identical |
+| (a) as captured | 215,039,161 | 197,430 | 74,142,102 | 3,279,142 | 77,421,244 | **64.00%** | 3,028 | byte-identical |
+| (b) SIEM-billed | 88,975,911 | 111,691 | 30,452,359 | 2,949,044 | 33,401,403 | **62.46%** | 2,978 | byte-identical |
+| (c) message only | 40,551,755 | 197,430 | 10,610,578 | 601,676 | 11,212,254 | **72.35%** | 2,625 | byte-identical |
 
 Reduction is the compact form, the encoded events plus the template dictionary needed to
 expand them, against the input, with no gzip or ZSTD on either side. Each row decodes back to
 its own input and is compared with `cmp`, so no row borrows another row's round trip.
 
 **The second objection does not survive the measurement.** On the message text alone, with the
-whole envelope gone, the reduction is 8.57 points **higher** than the published figure, not
+whole envelope gone, the reduction is 8.35 points **higher** than the figure as captured, not
 lower. Repeated text is a larger share of an application message than of the Kubernetes
 metadata around it, so removing the envelope removes the harder part of the file.
 
-**The first objection moves the figure by 1.24 points.** Removing the injected field and
+**The first objection moves the figure by 1.54 points.** Removing the injected field and
 dropping 85,739 collector debug lines, which together take 126,063,250 bytes off the input,
-58.6% of it, moves 63.70% to 62.46%.
+58.6% of it, moves 64.00% to 62.46%.
 
 An OTLP log record carries more than a bare message, since it has a timestamp, severity, body,
 attributes and trace ids, and much less than this Fluentd envelope. Rows (b) and (c) therefore
-bracket it at **62.46% to 72.27%**. No figure for an OTLP wire is measured here, and none is
+bracket it at **62.46% to 72.35%**. No figure for an OTLP wire is measured here, and none is
 claimed. Measuring one needs a capture of OTLP records, which this is not.
 
 ## What each denominator is
@@ -100,8 +100,8 @@ location, the engine image and the output retention.
 | `results/results.csv` | the committed run, one row per case |
 | `results/results.md` | the same run as a table, with the image digest and the input sha256 |
 
-Pinned: engine image `log10x/pipeline-10x@sha256:aeb3784c8895bf990e9a88f49c68d59f5729f6738c44c6e8fd87a489f725d316`
-(`log10x/pipeline-10x:1.1.5`), and the two round-trip configs in
+Pinned: engine image `log10x/pipeline-10x@sha256:fccff37a6a41e52eb4df8a108d042b0176210842b7ed25f08b1419df3a37904f`
+(`log10x/pipeline-10x:1.1.136`), and the two round-trip configs in
 [`../drain3-vs-log10x/`](../drain3-vs-log10x/), which are the configs the compaction post
 publishes.
 
@@ -122,7 +122,5 @@ the released asset reads `@apps/regulator` and the copy behind the manifest read
 `@apps/edge/optimizer`, an older name for the same app. One token, five bytes, in one line of
 197,430.
 
-It moves the compact form by two bytes, 78,068,307 here against 78,068,309 in the manifest, and
-moves neither the reduction to two decimals nor the template count. Every figure in this
-benchmark is measured on the published asset, so a reader who downloads it reproduces this
-table rather than the manifest's byte counts.
+Every figure in this benchmark is measured on the published asset with the pinned engine, so a
+reader who downloads it reproduces this table rather than the manifest's byte counts.
