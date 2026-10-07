@@ -102,8 +102,10 @@ Reference results for BGL:
 - log10x (engine 1.1.136, measured 2026-10-07): **4,735,315 of 4,747,963 lines come back
   identical (99.73%)**; 136,461 cold templates; encode about 2 minutes. Of the 12,648 lines that
   do not: 11,904 quote a date with a zone name (`Fri Jun 17 07:25:00 PDT 2005`), which keeps its
-  instant and decodes in another zone; 741 do not come back and 3 come back changed, from a
-  round-trip defect with the events of one template shape. (Decode is a separate pass and is slow
+  instant and decodes in another zone; 737 are the events of 13 templates whose hash is eight
+  characters or fewer, which the decoder skips; and 7 follow from the 4 events of one template
+  whose encoded record ends early, folding the next event into it, so 3 come back changed and 4
+  do not come back. (Decode is a separate pass and is slow
   here: loading 136,461 templates before expanding 4.7M records is the cost of the cold,
   over-segmented dictionary. The figure above used the image's own jar outside Docker, because
   writing 700 MB through a macOS bind mount is slower still.)
