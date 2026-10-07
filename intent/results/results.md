@@ -84,7 +84,7 @@ Drain3 fed one message per record, an event named by its first record:
 | Drain3, strong arm, per record | 41,333 | 1.78% (734) | 10.35% | 79.79% | 65.26% of 213 | 377 |
 | Drain3, baseline arm, per record | 41,333 | 1.81% (749) | 10.47% | 79.64% | 64.79% of 213 | 411 |
 
-## zookeeper, held out
+## zookeeper
 
 | tool | events scored | merged events | split events | exact grouping | statements with one pattern of their own | patterns |
 |---|---:|---:|---:|---:|---:|---:|

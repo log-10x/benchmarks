@@ -5,8 +5,8 @@ events and 99.42% of rec1155's; the rest are listed under coverage below) carrie
 source statement that wrote it, located in that program's own source at the
 version that ran. The labels come from source code alone. No tool's pattern
 names were read until the labels were validated and frozen (2026-10-05 16:43
-UTC); the freeze record is `labels/FROZEN.json`. A third capture, held out from
-the engine's development, has [its own section](#the-held-out-capture-zookeeper).
+UTC); the freeze record is `labels/FROZEN.json`. A third capture, labelled after
+the engine was fixed, has [its own section](#the-third-capture-zookeeper).
 
 ## The captures
 
@@ -205,13 +205,12 @@ A listed repository was compiled at its own pin, which can differ from the
 version that ran. The column says the source was available to the engine; it
 does not check that the statement's text is unchanged at that pin.
 
-## The held-out capture: zookeeper
+## The third capture: zookeeper
 
 `zookeeper` is LogHub's ZooKeeper log: `Zookeeper.log` in `Zookeeper.tar.gz` of
 [Zenodo record 8196385](https://zenodo.org/records/8196385). It holds 74,380
 lines from a three-server ensemble (hosts `mesos-master-1` to `mesos-master-3`),
-2015-07-29 to 2015-08-25, with 36 server starts. The engine's rules and the
-labelling method were not developed against it.
+2015-07-29 to 2015-08-25, with 36 server starts. It is not held out from the engine's development: LogHub's 2,000-line ZooKeeper sample, drawn from this log, was one of 16 LogHub sets the rule work scored by LogHub's template labels, so 2,000 of its lines were in view; no rule was built from the statement labels, which did not exist until this capture was labelled.
 
 The file is used as published, with its CRLF line ends converted to LF; `run.sh`
 does the conversion and checks the hash of the download and of the result. Every

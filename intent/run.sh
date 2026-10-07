@@ -14,7 +14,7 @@
 #                    digest of log10x/pipeline-10x works; results are named
 #                    after the part after the last ':' or '@'.
 #   INTENT_HELDOUT_ENGINES
-#                    engine images to run on the held-out zookeeper capture
+#                    engine images to run on the zookeeper capture
 #                    (default: the one pinned below).
 #   INTENT_CACHE     where inputs and engine output go (default: ./cache)
 #   INTENT_PYTHON    interpreter for the Drain3 virtualenv (default: python3)
