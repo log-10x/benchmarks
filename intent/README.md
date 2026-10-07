@@ -2,10 +2,10 @@
 
 A log pattern is useful when it stands for one thing the code does. A cap, a
 sample rate or a route set on a pattern then acts on that one statement. This
-benchmark measures that against ground truth. Every event of two captures of
-the OpenTelemetry demo is labelled with the source statement that wrote it,
-found in the program's own source at the version that ran. Each tool's
-patterns are then scored against those labels. [METHOD.md](METHOD.md)
+benchmark measures that against ground truth. Every labelled event of two
+captures of the OpenTelemetry demo (99.58% of otel215's events, 99.42% of rec1155's) carries
+the source statement that wrote it, found in the program's own source at the
+version that ran. Each tool's patterns are then scored against those labels. [METHOD.md](METHOD.md)
 describes how a label is made.
 
 Three outcomes, per event:
@@ -84,7 +84,8 @@ Two Grafana statements account for 1,331 of 1.1.133's 2,277 otel215 patterns. Th
   - That cuts both ways: where the source is listed, the engine can find the statement; where it is not (Grafana, fluentd, OpenSearch, Kubernetes), the engine names the line from the words in it that the library knows.
   - `results/results.md` splits every score this way. On otel215 statements outside the library, 1.1.133 merges 0.13% of events against Drain3's 0.86%, and Drain3's exact grouping is higher.
 - **Event boundaries are the engine's.** An event is one record or a run of records the engine groups (a stack trace, a .NET header and its message). Drain3 is scored on those events, either given each event's text (the default rows) or fed one record at a time (the "per record" rows).
-- **Who wrote the labels.** Log10x wrote them, from source code alone, and froze them before any tool's output was read (`labels/FROZEN.json`). Every label names a repository, ref, path and line in `labels/statements.tsv`, so any one can be checked against its source.
+- **Who wrote the labels.** Log10x wrote them, from source code alone, and froze them on 2026-10-05 before any tool's output was read (`labels/FROZEN.json`). Every label names a repository, ref, path and line in `labels/statements.tsv`, so any one can be checked against its source.
+- **The 1.1.133 column is in-sample.** Engine 1.1.133's group-lead rule (a multi-line event is named from its first record that holds a message) was developed after the freeze, with these two captures in view. Its column shows the rule on the data it was built against; a capture held out from that work is the out-of-sample test. Drain3 ran at its published settings, untuned.
 
 ## Drain3 settings
 
