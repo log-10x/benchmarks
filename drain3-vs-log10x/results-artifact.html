@@ -129,12 +129,12 @@
 <div class="wrap">
   <p class="eyebrow">Benchmark · logpai/loghub 2k · 16 datasets · ~32,000 lines</p>
   <h1>The pattern ID you can plot:<br><span class="lx">log10x</span> vs <span class="d3">Drain3</span></h1>
-  <p class="lede">Both tools collapse repetitive log lines into templates. Only <b>log10x</b> gives each line a pattern ID that stays identical across files, hosts, and order — the thing that lets you ask "when did this event start?" and plot one event over time. And its encoding is <b>reversible</b>: Drain3 mines templates and discards the values, while log10x keeps them and decodes the exact original back. Identical raw input to both, no per-source configuration; every number below is reproducible from the commands at the bottom.</p>
+  <p class="lede">Both tools collapse repetitive log lines into templates. Only <b>log10x</b> gives each line a pattern ID that stays identical across files, hosts, and order — the thing that lets you ask "when did this event start?" and plot one event over time. And its encoding is <b>reversible</b>: Drain3 mines templates and discards the values, while log10x keeps them and decodes the original back, byte for byte except a date quoted with a zone name. Identical raw input to both, no per-source configuration; every number below is reproducible from the commands at the bottom.</p>
 
   <div class="tiles">
     <div class="tile lx"><span class="v">100%</span><span class="k">log10x pattern stability</span><span class="s">order + context · 16/16</span></div>
     <div class="tile d3"><span class="v">0.8%</span><span class="k">Drain3 worst-case stability</span><span class="s">context · worst of 16</span></div>
-    <div class="tile lx"><span class="v">100%</span><span class="k">log10x reversible</span><span class="s">per-line byte-exact · 16/16</span></div>
+    <div class="tile lx"><span class="v">14/16</span><span class="k">log10x reversible</span><span class="s">datasets byte-exact · 99.98% of lines</span></div>
     <div class="tile d3"><span class="v">0%</span><span class="k">Drain3 reconstructs</span><span class="s">out of the box · a miner</span></div>
   </div>
 
@@ -192,7 +192,7 @@
   <!-- DATA -->
   <section>
     <h2><span class="n">04</span> Full results</h2>
-    <p class="sub">All 16 datasets. <span class="lxc">log10x</span> is 100% stable and 100% byte-exact reversible on every one; <span class="d3c">Drain3</span> figures vary. (ws% = share of lines with collapsible whitespace, which is exactly Drain3's byte-exact shortfall.)</p>
+    <p class="sub">All 16 datasets. <span class="lxc">log10x</span> is 100% stable on every one and byte-exact on 14 (BGL and Thunderbird quote dates with a zone name, which decode in another zone); <span class="d3c">Drain3</span> figures vary. (ws% = share of lines with collapsible whitespace, which is exactly Drain3's byte-exact shortfall.)</p>
     <div class="tbl-wrap">
       <table id="data-tbl">
         <thead><tr>
@@ -220,8 +220,8 @@
         <p><code>pip install drain3==0.9.11</code>; default config. Mine templates, then reconstruct by token alignment: Drain clusters are length-homogeneous, so each variable is recoverable by position (bolted on, since Drain3 doesn't reconstruct).</p>
       </div>
       <div class="card">
-        <h3>log10x <span style="color:var(--muted)">engine 1.1.5</span></h3>
-        <p><code>docker run … log10x/pipeline-10x:1.1.5 @tenx-encode.config.yaml</code> reads a log file and writes <code>templates.json</code> + <code>encoded.log</code>; a second decode pass turns those back into <code>decoded.log</code>. No API key for local file I/O.</p>
+        <h3>log10x <span style="color:var(--muted)">engine 1.1.136</span></h3>
+        <p><code>docker run … log10x/pipeline-10x:1.1.136 @tenx-encode.config.yaml</code> reads a log file and writes <code>templates.json</code> + <code>encoded.log</code>; a second decode pass turns those back into <code>decoded.log</code>. No API key for local file I/O.</p>
       </div>
       <div class="card">
         <h3>Metrics</h3>
@@ -230,29 +230,29 @@
     </div>
   </section>
 
-  <footer>logpai/loghub 2k · Drain3 0.9.11 · log10x engine 1.1.5 (log10x/pipeline-10x:1.1.5) · identical raw input, zero per-source configuration</footer>
+  <footer>logpai/loghub 2k · Drain3 0.9.11 · log10x engine 1.1.136 (log10x/pipeline-10x:1.1.136) · identical raw input, zero per-source configuration</footer>
 </div>
 
 <div id="tip"></div>
 
 <script>
 const DATA = [
-  {d:"Android",   ws:98.65, lxT:236, d3T:105, d3L:1.35,  d3O:95.9, d3C:92.9},
-  {d:"Apache",    ws:0.0,   lxT:8,   d3T:12,  d3L:100.0, d3O:100.0,d3C:99.6},
-  {d:"BGL",       ws:0.0,   lxT:1278,d3T:95,  d3L:100.0, d3O:100.0,d3C:97.8},
-  {d:"HDFS",      ws:0.25,  lxT:55,  d3T:17,  d3L:99.75, d3O:100.0,d3C:88.0},
-  {d:"HPC",       ws:7.1,   lxT:102, d3T:38,  d3L:92.9,  d3O:100.0,d3C:99.3},
-  {d:"Hadoop",    ws:24.1,  lxT:188, d3T:82,  d3L:75.9,  d3O:85.4, d3C:83.4},
-  {d:"HealthApp", ws:0.3,   lxT:70,  d3T:656, d3L:99.7,  d3O:99.8, d3C:98.4},
-  {d:"Linux",     ws:79.55, lxT:158, d3T:61,  d3L:20.45, d3O:100.0,d3C:79.4},
-  {d:"Mac",       ws:100.0, lxT:309, d3T:308, d3L:0.0,   d3O:87.6, d3C:87.9},
-  {d:"OpenSSH",   ws:25.35, lxT:163, d3T:131, d3L:74.65, d3O:99.8, d3C:40.3},
-  {d:"OpenStack", ws:0.0,   lxT:448, d3T:46,  d3L:100.0, d3O:100.0,d3C:100.0},
-  {d:"Proxifier", ws:1.55,  lxT:126, d3T:22,  d3L:98.45, d3O:94.6, d3C:23.4},
-  {d:"Spark",     ws:0.0,   lxT:70,  d3T:27,  d3L:100.0, d3O:100.0,d3C:99.5},
-  {d:"Thunderbird",ws:0.0,  lxT:159, d3T:78,  d3L:100.0, d3O:100.0,d3C:52.9},
-  {d:"Windows",   ws:100.0, lxT:76,  d3T:42,  d3L:0.0,   d3O:99.7, d3C:0.8},
-  {d:"Zookeeper", ws:99.4,  lxT:63,  d3T:41,  d3L:0.6,   d3O:83.4, d3C:69.1},
+  {d:"Android",   ws:98.65, lxT:236, lxL:100.0, d3T:105, d3L:1.35,  d3O:95.9, d3C:92.9},
+  {d:"Apache",    ws:0.0,   lxT:8,   lxL:100.0, d3T:12,  d3L:100.0, d3O:100.0,d3C:99.6},
+  {d:"BGL",       ws:0.0,   lxT:1323,lxL:99.75, d3T:95,  d3L:100.0, d3O:100.0,d3C:97.8},
+  {d:"HDFS",      ws:0.25,  lxT:55,  lxL:100.0, d3T:17,  d3L:99.75, d3O:100.0,d3C:88.0},
+  {d:"HPC",       ws:7.1,   lxT:102, lxL:100.0, d3T:38,  d3L:92.9,  d3O:100.0,d3C:99.3},
+  {d:"Hadoop",    ws:24.1,  lxT:188, lxL:100.0, d3T:82,  d3L:75.9,  d3O:85.4, d3C:83.4},
+  {d:"HealthApp", ws:0.3,   lxT:90,  lxL:100.0, d3T:656, d3L:99.7,  d3O:99.8, d3C:98.4},
+  {d:"Linux",     ws:79.55, lxT:165, lxL:100.0, d3T:61,  d3L:20.45, d3O:100.0,d3C:79.4},
+  {d:"Mac",       ws:100.0, lxT:631, lxL:100.0, d3T:308, d3L:0.0,   d3O:87.6, d3C:87.9},
+  {d:"OpenSSH",   ws:25.35, lxT:166, lxL:100.0, d3T:131, d3L:74.65, d3O:99.8, d3C:40.3},
+  {d:"OpenStack", ws:0.0,   lxT:448, lxL:100.0, d3T:46,  d3L:100.0, d3O:100.0,d3C:100.0},
+  {d:"Proxifier", ws:1.55,  lxT:525, lxL:100.0, d3T:22,  d3L:98.45, d3O:94.6, d3C:23.4},
+  {d:"Spark",     ws:0.0,   lxT:70,  lxL:100.0, d3T:27,  d3L:100.0, d3O:100.0,d3C:99.5},
+  {d:"Thunderbird",ws:0.0,  lxT:221, lxL:99.9, d3T:78,  d3L:100.0, d3O:100.0,d3C:52.9},
+  {d:"Windows",   ws:100.0, lxT:76,  lxL:100.0, d3T:42,  d3L:0.0,   d3O:99.7, d3C:0.8},
+  {d:"Zookeeper", ws:99.4,  lxT:63,  lxL:100.0, d3T:41,  d3L:0.6,   d3O:83.4, d3C:69.1},
 ];
 
 const tip=document.getElementById('tip');
@@ -278,7 +278,7 @@ function barRow(o,val,tipHtml){
 const lossHost=document.getElementById('loss-bars');
 [...DATA].sort((a,b)=>b.d3L-a.d3L).forEach(o=>{
   lossHost.appendChild(barRow(o,o.d3L,
-    `<b>${o.d}</b><br>log10x: 100% byte-exact<br>Drain3: ${o.d3L}% byte-exact<br>shortfall is whitespace`));
+    `<b>${o.d}</b><br>log10x: ${o.lxL}% byte-exact<br>Drain3: ${o.d3L}% byte-exact<br>Drain3's shortfall is whitespace`));
 });
 
 // stability bars (sorted desc by d3C)
