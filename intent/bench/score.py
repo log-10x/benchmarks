@@ -4,9 +4,9 @@
     python3 bench/score.py <capture> <events.jsonl[.gz]> [--out file.json]
                            [--exclude-container NAME ...] [--grouping-only]
 
-<capture> is rec1155 or otel215. The events file holds one JSON record per
-event, in input order, with `text` (the event's raw records joined by
-newlines) and `message_pattern` (the name the tool gave it); `tenx_origin`
+<capture> is rec1155, otel215 or zookeeper. The events file holds one JSON
+record per event, in input order, with `text` (the event's raw records joined
+by newlines) and `message_pattern` (the name the tool gave it); `tenx_origin`
 (the typed origin, `<file>:<symbol>`) is optional.
 
 Alignment is checked before anything is scored: the events must be the
@@ -29,11 +29,13 @@ import hashlib
 import json
 import os
 import re
+import glob
 import statistics
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 LABELS = os.path.join(os.path.dirname(HERE), 'labels')
+CAPTURES = ('rec1155', 'otel215', 'zookeeper')
 
 SEVERITY = {'TRACE', 'DEBUG', 'INFO', 'NOTICE', 'WARN', 'WARNING', 'ERROR', 'ERR', 'CRITICAL', 'CRIT',
             'ALERT', 'EMERGENCY', 'EMERG', 'FATAL', 'PANIC', 'trace', 'debug', 'info', 'notice', 'warn',
@@ -99,14 +101,27 @@ def attr_category(r, origin, repo_bases):
 
 
 def load_statements():
+    """statements.tsv (rec1155, otel215) and statements_<capture>.tsv (a capture frozen on its own)."""
     st = {}
-    with open(os.path.join(LABELS, 'statements.tsv'), encoding='utf-8') as f:
-        for r in csv.DictReader(f, delimiter='\t'):
-            r['fmt_words'] = {w.lower() for w in words(PH.sub(' ', r['format'].replace('\\n', ' ')))}
-            r['first_word'] = first_word(r['format']) if r['kind'] == 'code' else None
-            r['file_base'] = os.path.basename(r['path']) if r['path'] else ''
-            st[r['statement']] = r
+    for path in sorted(glob.glob(os.path.join(LABELS, 'statements*.tsv'))):
+        with open(path, encoding='utf-8') as f:
+            for r in csv.DictReader(f, delimiter='\t'):
+                r['fmt_words'] = {w.lower() for w in words(PH.sub(' ', r['format'].replace('\\n', ' ')))}
+                r['first_word'] = first_word(r['format']) if r['kind'] == 'code' else None
+                r['file_base'] = os.path.basename(r['path']) if r['path'] else ''
+                if r['statement'] in st:
+                    sys.exit(f'statement listed twice: {r["statement"]}')
+                st[r['statement']] = r
     return st
+
+
+def load_repo_bases():
+    bases = {}
+    for path in sorted(glob.glob(os.path.join(LABELS, 'repo_basenames*.json.gz'))):
+        with opener(path) as f:
+            for k, v in json.load(f).items():
+                bases.setdefault(k, set()).update(v)
+    return bases
 
 
 def container_of(text):
@@ -145,8 +160,7 @@ def score(capture, events_path, exclude=(), grouping_only=False):
         sys.exit(f'ALIGNMENT: {n} events, {len(labels)} labels')
 
     ST = load_statements()
-    with opener(os.path.join(LABELS, 'repo_basenames.json.gz')) as f:
-        repo_bases = {k: set(v) for k, v in json.load(f).items()}
+    repo_bases = load_repo_bases()
 
     idx = [k for k in range(n) if labels[k]['statement'] and labels[k]['container'] not in exclude]
     stmt = {k: labels[k]['statement'] for k in idx}
@@ -239,7 +253,7 @@ def score(capture, events_path, exclude=(), grouping_only=False):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('capture', choices=('rec1155', 'otel215'))
+    ap.add_argument('capture', choices=CAPTURES)
     ap.add_argument('events')
     ap.add_argument('--out')
     ap.add_argument('--exclude-container', action='append', default=[])
