@@ -15,7 +15,7 @@ import sys
 LABELS = {
     "a_asis": ("(a) as captured",
                "the release asset, untouched"),
-    "b_siem": ("(b) SIEM-billed",
+    "b_siem": ("(b) tag and debug lines removed",
                "the injected `tenx_tag` field removed, the collector's "
                "debug-exporter lines dropped, envelope kept"),
     "c_msg": ("(c) message only",
