@@ -19,25 +19,32 @@ index settings, same instance, same licence day.
 
 ## The result
 
-The full table, the Monitoring Console's own output and the raw rollup line are
-in [`results/results.md`](results/results.md). The headline:
+Two runs on the same capture, the same Splunk 10.4.3, the same forwarder path and the same
+licence meter. The full table for each, with the Monitoring Console's own output and the raw
+rollup line, is in [`results-2026-10-10/results.md`](results-2026-10-10/results.md) and
+[`results/results.md`](results/results.md).
 
-| Arm | What it carries | Licence-metered bytes | GB/day |
-|---|---|---:|---:|
-| baseline | the capture as it is | 214,841,731 | 0.200087 |
-| compact | compact events, the template dictionary, and the app's own re-index | 80,653,626 | 0.075115 |
+| Run | Engine | Splunk app | Baseline, metered bytes | Compact, metered bytes | Licence-metered reduction |
+|---|---|---|---:|---:|---:|
+| 2026-10-10 | 1.1.139 | 1.1.5 | 214,841,731 | 77,532,468 | **63.91%** |
+| 2026-09-18 | 1.1.79 | commit `9a203c6` | 214,841,731 | 80,653,626 | 62.46% |
 
-**62.46%**, measured by Splunk's licence meter on Splunk 10.4.3, through a
-Universal Forwarder, on the Enterprise download trial. The same two files
-measured on disk give 63.55%; the next section explains the gap.
+**63.91%** on the current engine and app, measured by Splunk's licence meter on Splunk
+10.4.3, through a Universal Forwarder, on the Enterprise download trial. The compact arm is
+the compact events, 74,338,244 metered bytes, and the template dictionary, 3,194,224. The
+same two files measured on disk give 63.87%; the next section explains the gap.
 
-Splunk's own dated figure for its own tool is "customers using Edge Processor
-can routinely reduce ingest volumes by 30-50% without losing analytical value"
-(2026-04-20). This run is above that range on this capture.
+The 2026-09-18 run's compact arm also carried the app's searchable copy of each template,
+2,441,744 metered bytes, which the app now writes unmetered. The rest of the difference is
+the engine: 74,338,244 metered bytes of compact events against 75,017,247.
 
-**Every compact event expands back to its original text.** All 157,228 come
-back byte-identical, in UTC and in any other timezone, read through the app's
-own macro and compared against the text that went in.
+Splunk's own dated figure for its own tool is "customers using Edge Processor can routinely
+reduce ingest volumes by 30-50% without losing analytical value" (2026-04-20). Both runs are
+above that range on this capture.
+
+**Every compact event expands back to its original text.** In both runs all 157,228 come back
+byte-identical, in UTC and in any other timezone, read through the app's own macro and
+compared against the text that went in.
 
 ## The three things the licence meter sees that a file ratio does not
 
@@ -45,10 +52,10 @@ own macro and compared against the text that went in.
 raw text, and Splunk has already stripped the line break by then. The capture is
 215,039,161 bytes on disk and 214,841,731 metered, exactly its 197,430 newlines
 short. The compact arm loses its own newlines the same way, and as a
-share of itself it loses more of them, 0.20% against the baseline's 0.09%,
+share of itself it loses more of them, 0.21% against the baseline's 0.09%,
 because its bytes are fewer while its records are of the same order. So the
 metered ratio comes out slightly better than the file ratio on the same two
-files, 63.6% against 63.55%, before anything else is counted.
+files: 63.91% against 63.87% in the 2026-10-10 run, where nothing else is counted.
 
 **The template dictionary is billed.** The compact events are unreadable without
 it, so a deployment sends it, and Splunk meters it like anything else. It is
@@ -56,11 +63,15 @@ inside the compact arm here for that reason.
 
 **The app's searchable copy of each template.** When the app's Consume KV alert
 fills the KV store, it also writes each template into Splunk as a searchable
-`tenx_dml_pure` event. In this run the app wrote that copy through
-`/services/receivers/simple`, so the meter counted it: 2,441,744 bytes, sent to
-the compact arm's own index so the arm is charged for it. The results file
-reports the compact arm with and without it. The app in `main` writes the copy
-with `collect` as sourcetype `stash`, which Splunk does not meter.
+`tenx_dml_pure` event, sent here to the compact arm's own index so the arm is
+charged for whatever the meter counts. In the 2026-09-18 run the app wrote that
+copy through `/services/receivers/simple` and the meter counted 2,441,744 bytes.
+The app writes it with `collect` as sourcetype `stash`, which Splunk does not
+meter: 0 bytes in the 2026-10-10 run.
+
+**The event time is free.** App 1.1.5 sets a compact event's `_time` from the
+timestamp in its original line while the event is parsed. The compact events
+metered exactly their raw text, 74,338,244 bytes, with that setting on.
 
 ## The daily rollup has no per-arm figure in it
 
@@ -76,15 +87,16 @@ and switches to Usage the moment it is split by index, source, host or
 sourcetype. The run reports both, keeps the empty output of the by-index rollup
 query so the next reader does not think the run failed, and checks the one
 identity that ties them together: the per-index Usage bytes sum to the rollup's
-own daily total, 295,495,357, to the byte.
+own daily total to the byte, 292,374,199 in the 2026-10-10 run and 295,495,357 in
+the 2026-09-18 run.
 
 ## Expansion
 
 Every one of the 157,228 compact events was read back through the app's own
 `tenx-inflate` macro and compared, byte for byte, against the text that went in.
-**All 157,228 come back byte-identical**, with the search head in UTC and with
-it in the instance's own timezone. `results/expansion.json` and
-`results/expansion_local_tz.json` carry the two runs.
+**All 157,228 come back byte-identical** in both runs, with the search head in UTC
+and with it in the instance's own timezone. `expansion.json` and
+`expansion_local_tz.json` in each results directory carry the two checks.
 
 The three Receiver settings are what the app's expansion relies on:
 
@@ -98,10 +110,13 @@ The three Receiver settings are what the app's expansion relies on:
   as ordinary text. `template_stats.py` fails the run if any template carries
   two slots.
 
-The run installed the app commit named in `results/results.md`. Its changes are
-in the app's `main`: Java quoted literals in timestamp formats
-(`log-10x/splunk-app` #11), UTC rendering with exact sub-second digits (#14),
-and a KV store keyed on the trimmed template hash (#13).
+Each run installed the app commit named in its results file. The 2026-09-18
+commit's changes are in the app's `main`: Java quoted literals in timestamp
+formats (`log-10x/splunk-app` #11), UTC rendering with exact sub-second digits
+(#14), and a KV store keyed on the trimmed template hash (#13). The 2026-10-10
+run installed app 1.1.5 (`log-10x/splunk-app` #41), which dates each compact
+event by its original line, so the harness counts and reads compact events over
+all time rather than over the last hours.
 
 ## What is claimed and what is not
 
@@ -109,7 +124,7 @@ and a KV store keyed on the trimmed template hash (#13).
   on one licence day, through the forwarder path named in the results file. They
   are not a claim about a customer's estate, whose data, sourcetypes and
   forwarder topology are all different.
-- **Every compact event expands to its original text on this run**, byte for
+- **Every compact event expands to its original text on both runs**, byte for
   byte, in both timezones, with the three Receiver settings above.
 - **One capture.** 36 Kubernetes containers from one small demo cluster, a
   Fluentd envelope around each container's stdout line.
@@ -124,6 +139,11 @@ and a KV store keyed on the trimmed template hash (#13).
 KEEP=1 ./run.sh           # leave them up
 ./run.sh encode licence   # some stages only, in the order given
 ```
+
+The defaults reproduce the 2026-10-10 run: engine `log10x/pipeline-10x:1.1.139` pinned by
+digest, Splunk and the Universal Forwarder at 10.4.3, results in `results-2026-10-10/`. The
+2026-09-18 run is `E21_ENGINE=ghcr.io/log-10x/edge-10x:1.1.79 E21_RESULTS=$PWD/results` with
+the app at commit `9a203c6` in `E21_APP_DIR`.
 
 Stages are `data encode groundtruth splunk ingest kv expand licence report`.
 Needs Docker with about 10 GB of free disk, since the Splunk image alone is
@@ -162,7 +182,8 @@ around the quota.
 | `worst_slice.py` | the reduction per Kubernetes container, so the worst slice is named |
 | `verify_expansion.py` | every compact event read back through the app, against that |
 | `report.py` | renders `results/results.md` from the kept RolloverSummary lines |
-| `results/` | the committed run |
+| `results-2026-10-10/` | the 2026-10-10 run, engine 1.1.139 and app 1.1.5 |
+| `results/` | the 2026-09-18 run, engine 1.1.79 |
 
 `report.py` recomputes the licence figures from
 `results/license_usage_rollover.log`, the rollup lines kept verbatim, rather
