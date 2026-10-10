@@ -7,14 +7,11 @@ size on disk.
 
 ## The question
 
-Every Splunk-facing figure log10x has published was measured as a file
-shrinking outside Splunk. The compaction post gives 63.7% on this capture; the
-docs tell the reader to "validate with Splunk license usage reports". Until a
-licence-metered run exists, a file ratio is standing in for a Splunk number, and
-the two are not the same measurement: the meter counts what the indexer ingests,
-which is neither the file size on disk nor what the forwarder sent.
+A file shrinking on disk and Splunk's licence meter are different
+measurements. The meter counts what the indexer ingests, which is neither the
+file size on disk nor what the forwarder sent. This run reads the meter.
 
-So: the same capture, two arms, one difference. Arm one ships the raw file.
+The same capture, two arms, one difference. Arm one ships the raw file.
 Arm two ships the same file after the 10x Receiver has compacted it, with the
 three settings the Splunk app requires: `varMaxRecurIndexes: 0`,
 `timestampZone: UTC` and `maxPerObject: 1`. Same forwarder, same
@@ -32,19 +29,15 @@ in [`results/results.md`](results/results.md). The headline:
 
 **62.46%**, measured by Splunk's licence meter on Splunk 10.4.3, through a
 Universal Forwarder, on the Enterprise download trial. The same two files
-measured on disk give 63.55%, and the gap between those two numbers is explained
-below rather than averaged away.
+measured on disk give 63.55%; the next section explains the gap.
 
-Against Splunk's own dated figure for its own tool, "customers using Edge
-Processor can routinely reduce ingest volumes by 30-50% without losing
-analytical value" (2026-04-20), this run is higher on this capture. That
-comparison is one dataset against a general claim, and it is worth exactly that.
+Splunk's own dated figure for its own tool is "customers using Edge Processor
+can routinely reduce ingest volumes by 30-50% without losing analytical value"
+(2026-04-20). This run is above that range on this capture.
 
-**The expansion check passes, and that is part of the result.** All 157,228
-compact events come back byte-identical, in UTC and in any other timezone, read
-through the app's own macro and compared against the text that went in. It took
-four defects closed to get there, three of them in pull requests against the
-Splunk app that have not merged. Neither number should travel without the other.
+**Every compact event expands back to its original text.** All 157,228 come
+back byte-identical, in UTC and in any other timezone, read through the app's
+own macro and compared against the text that went in.
 
 ## The three things the licence meter sees that a file ratio does not
 
@@ -61,24 +54,23 @@ files, 63.6% against 63.55%, before anything else is counted.
 it, so a deployment sends it, and Splunk meters it like anything else. It is
 inside the compact arm here for that reason.
 
-**The app re-indexes every template a second time.** This is the one a file
-measurement cannot see at all. When the app's Consume KV alert fills the KV
-store, it writes each template back into Splunk again as a searchable
-`tenx_dml_pure` event, through `/services/receivers/simple`. That is metered
-volume the compact arm causes. The app's default sends it to `main`, where it is
-charged to whatever else lives there; this run points it at the compact arm's own
-index so the arm is charged for it. The results file reports the compact arm both
-ways.
+**The app's searchable copy of each template.** When the app's Consume KV alert
+fills the KV store, it also writes each template into Splunk as a searchable
+`tenx_dml_pure` event. In this run the app wrote that copy through
+`/services/receivers/simple`, so the meter counted it: 2,441,744 bytes, sent to
+the compact arm's own index so the arm is charged for it. The results file
+reports the compact arm with and without it. The app in `main` writes the copy
+with `collect` as sourcetype `stash`, which Splunk does not meter.
 
 ## The daily rollup has no per-arm figure in it
 
-The ask for this run named `index=_internal source=*license_usage.log
-type=RolloverSummary` as the place to read GB/day. On Splunk 10.4.3 that rollup
-is a single line per licence pool, carrying the day's total `b=` and no `idx`,
-`st`, `s` or `h`. Split it by index and nothing comes back. The per-arm split has
-to come from `type=Usage`, the per-minute records, binned to the same day.
+The obvious place to read GB/day is `index=_internal source=*license_usage.log
+type=RolloverSummary`. On Splunk 10.4.3 that rollup is a single line per licence
+pool, carrying the day's total `b=` and no `idx`, `st`, `s` or `h`. Split it by
+index and nothing comes back. The per-arm split has to come from `type=Usage`,
+the per-minute records, binned to the same day.
 
-That is not a workaround, it is what Splunk's own console does: the Monitoring
+Splunk's own console does the same: the Monitoring
 Console's Historic License Usage view reads RolloverSummary while it is unsplit
 and switches to Usage the moment it is split by index, source, host or
 sourcetype. The run reports both, keeps the empty output of the by-index rollup
@@ -86,82 +78,30 @@ query so the next reader does not think the run failed, and checks the one
 identity that ties them together: the per-index Usage bytes sum to the rollup's
 own daily total, 295,495,357, to the byte.
 
-## The expansion check passes, and four defects had to be closed first
+## Expansion
 
-A volume win with wrong text is not a win. So every one of the 157,228 compact
-events was read back through the app's own `tenx-inflate` macro and compared,
-byte for byte, against the text that went in. Not a sample: all of them.
-
+Every one of the 157,228 compact events was read back through the app's own
+`tenx-inflate` macro and compared, byte for byte, against the text that went in.
 **All 157,228 come back byte-identical**, with the search head in UTC and with
 it in the instance's own timezone. `results/expansion.json` and
 `results/expansion_local_tz.json` carry the two runs.
 
-That result holds only with the three Receiver settings this run pins and the
-three app fixes named below. The first pass of this benchmark failed the same
-check: 61,982 of 157,228 matched with the search head in UTC and 22,550 with it
-anywhere else. Four separate defects came out of that pass, each with an exact
-blast radius, because the events partition cleanly. They are recorded here
-because the settings and the fixes are only legible next to what they repair,
-and because a reader repeating the run on the app as it currently ships in
-`main` will get the failing numbers, not these.
+The three Receiver settings are what the app's expansion relies on:
 
-**Timestamps came back quoted, and marked with the wrong zone.** 2,466 of the
-then 2,986 templates carried a timestamp slot, covering 134,669 events. The
-cause was one function, `convert_java_to_strftime` in `tenx_dml_builder.py`,
-which converts the engine's Java `SimpleDateFormat` pattern into a Splunk
-`strftime` format and had no handling for Java's single-quoted literal sections.
-In `yyyy-MM-dd'T'HH:mm:ss.SSS'Z'` the `'T'` and `'Z'` are literals; the converter
-passed the quotes through and converted the letters inside them, so `Z`, which
-marks UTC, became `%z`, a numeric offset. `2025-10-02T06:35:34.470Z` came back as
-`2025-10-02'T'06:35:34.470'+0000'`. Fixed in `log-10x/splunk-app` #11.
+- `varMaxRecurIndexes: 0`: the app does not expand back-referenced templates,
+  so the compact form carries none. The engine's own round trip on the same
+  compact form is byte-identical.
+- `timestampZone: UTC`: the app renders timestamps in UTC, so the compact form
+  stores them in UTC.
+- `maxPerObject: 1`: the app stores one timestamp format per template. At `1`
+  the first timestamp in an event keeps its slot and any later one round-trips
+  as ordinary text. `template_stats.py` fails the run if any template carries
+  two slots.
 
-**And they came back differently for different people.** The offset rendered was
-the search head's, not the timestamp's, because the macro calls `strftime` and
-Splunk renders in the viewer's timezone. The same stored event therefore read
-one way in UTC and another way in Sydney. That is why the check is run twice,
-once in each zone, and why the two rows being equal is itself part of the
-result. Fixed in #12, which also keeps sub-second digits exact.
-
-**A template carrying two timestamps kept only the last.** 23 templates held
-more than one `$(...)` slot and the app stores a single `timestamp_format` per
-template, taken from the last slot rather than the first. A template reading
-`[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Kafka startTimeMs: $(+%s)` stored `+%%%S` and
-rendered `[+%04]` where the date belonged. Those 23 templates accounted for all
-5,892 events still wrong once #11 and #12 were in.
-
-This one is closed on the Receiver side rather than in the app. The engine's
-`maxPerObject` setting, unlimited by default, caps how many timestamps an event
-gets a slot for. At `1` the first timestamp keeps its slot and any later one
-becomes an ordinary variable whose literal text round-trips as it is, which was
-checked on a two-timestamp fixture before it went into the run. `run.sh` sets it
-and `template_stats.py` fails the run if any template still carries two slots.
-The setting changes the compact form, which is why it moves the metered bytes
-and why the whole run was repeated rather than patched.
-
-**A template hash ending in a space never expanded.** 43 template hashes carried
-a trailing space and all 45 of their events came back with the compact record
-itself as the event text: the KV store lookup found nothing. Splunk's
-search-time extraction trims the space while the KV store keeps it in both
-`_key` and `pattern_hash`, so the lookup missed. Trimming all hashes produces no
-collisions. Fixed in #13, which keys the store on the trimmed hash.
-
-`results/expansion_after_app_fixes.json` holds the intermediate measurement, the
-same check with #11 and #12 applied and neither of the other two closed: 151,336
-of 157,228, 96.25%, equal in both timezones. It is kept because it is what
-isolates the last two causes from the first two.
-
-These are all separate from the back-reference defect the app's README carries.
-`varMaxRecurIndexes: 0` is set throughout, so no back-referenced template is
-produced, and the engine's own round trip on the same compact form is
-byte-identical. What the first pass established is that the compact form held
-the original text and the app did not give it back; what this one establishes is
-that, with the four causes closed, it does.
-
-**The app this was measured against is not the app in `main`.** The three fixes
-are open pull requests, `log-10x/splunk-app` #11, #12 and #13, stacked in that
-order, and the run installs their head. `results/results.md` names the commit.
-Until they merge, the expansion figure belongs to that stack and not to a
-released app.
+The run installed the app commit named in `results/results.md`. Its changes are
+in the app's `main`: Java quoted literals in timestamp formats
+(`log-10x/splunk-app` #11), UTC rendering with exact sub-second digits (#14),
+and a KV store keyed on the trimmed template hash (#13).
 
 ## What is claimed and what is not
 
@@ -169,17 +109,10 @@ released app.
   on one licence day, through the forwarder path named in the results file. They
   are not a claim about a customer's estate, whose data, sourcetypes and
   forwarder topology are all different.
-- **The compact arm gives the original text back on this run, under stated
-  conditions.** Every event, byte for byte, in both timezones. The conditions
-  are the three Receiver settings and the three app pull requests named above,
-  none of them merged at the time of the run. On the app as it ships in `main`
-  today, the same check fails. The volume number and the expansion result belong
-  together, and quoting the first without the second would misdescribe what
-  shipped.
+- **Every compact event expands to its original text on this run**, byte for
+  byte, in both timezones, with the three Receiver settings above.
 - **One capture.** 36 Kubernetes containers from one small demo cluster, a
-  Fluentd envelope around each container's stdout line. A Splunk estate is
-  rarely shaped like this, and a second run on something syslog-shaped would say
-  more to a Splunk buyer.
+  Fluentd envelope around each container's stdout line.
 - **Nothing about indexed storage, search speed or retention.** The meter is
   about ingest.
 - **Nothing about Splunk Cloud**, whose metering and ingest path are not this.
@@ -244,5 +177,5 @@ construction.
 `aa79b9349a4123d88936fd064f5eccd9fd84f45a1fd03cff3f64c259715c2432`. The same
 asset the [`otel-denominators/`](../otel-denominators/) and
 [`clickhouse-clickstack/`](../clickhouse-clickstack/) benchmarks run on, which
-is what lets the licence-metered figure here be set beside the 63.7% file ratio
+is what lets the licence-metered figure here be set beside the file ratios
 there.

@@ -79,7 +79,7 @@ if [ "$GZ_SHA" != "$ASSET_GZ_SHA256" ] || [ "$PLAIN_SHA" != "$ASSET_SHA256" ]; t
   exit 1
 fi
 
-say "derived inputs (b) SIEM-billed and (c) message only"
+say "derived inputs (b) tag and debug lines removed and (c) message only"
 python3 build_inputs.py --src "$PLAIN" --out-dir "$DATA_DIR"
 
 # ------------------------------------------------------------------ the cases
