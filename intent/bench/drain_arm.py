@@ -1,15 +1,20 @@
 #!/usr/bin/env python3
-"""Drain3 on the labelled events, with the settings of ../pattern-identity.
+"""Drain3 on the labelled events: two arms with the settings of ../pattern-identity, and drain3's factory defaults.
 
-    python3 bench/drain_arm.py <capture> <input.log[.gz]> <out dir> [--arm strong|baseline]
-                               [--unit event|record]
+    python3 bench/drain_arm.py <capture> <input.log[.gz]> <out dir>
+                               [--arm strong|baseline|factory] [--unit event|record]
 
-Every Drain3 parameter comes from pattern-identity/bench/identity.py, imported
-here rather than copied: depth, similarity threshold, children and cluster
-caps, numeric parametrisation, masking per arm, the 1,024-character cap on the
-message, and the reference pass (one instance sees the whole stream in memory,
-then each message is matched back read-only with full_search_strategy
-"fallback" and takes the template it matches as its name).
+For the strong and baseline arms every Drain3 parameter comes from
+pattern-identity/bench/identity.py, imported here rather than copied: depth,
+similarity threshold, children and cluster caps, numeric parametrisation,
+masking per arm. The factory arm uses drain3's TemplateMinerConfig() as the
+package ships it: depth 4, sim_th 0.4, max_children 100, no cluster cap, no
+masking, numeric tokens parametrised.
+
+Every arm shares the harness's 1,024-character cap on the message and its
+reference pass (one instance sees the whole stream in memory, then each message
+is matched back read-only with full_search_strategy "fallback" and takes the
+template it matches as its name).
 
 A record is one line of the capture. In rec1155 and otel215 it is a Docker
 JSON line and the message is its `log` value; the zookeeper capture is the
@@ -42,6 +47,8 @@ sys.path.insert(0, str(HERE.parent.parent / 'pattern-identity' / 'bench'))
 
 import drainver  # noqa: E402  which distribution provides the drain3 module
 import identity  # noqa: E402  the pattern-identity harness: settings and Drain3 plumbing
+from drain3 import TemplateMiner  # noqa: E402
+from drain3.template_miner_config import TemplateMinerConfig  # noqa: E402
 
 PLAIN_TEXT = {'zookeeper'}  # captures whose records are the program's own lines, not Docker JSON
 
@@ -54,6 +61,14 @@ def read_records(path):
     if lines and lines[-1] == '':
         lines.pop()
     return lines
+
+
+def train_factory(messages):
+    """One instance on drain3's factory configuration, fed every message in order."""
+    tm = TemplateMiner(config=TemplateMinerConfig())
+    for m in messages:
+        tm.add_log_message(m[:identity.LINE_CAP])
+    return tm
 
 
 def message_of(record):
@@ -69,7 +84,7 @@ def main():
     ap.add_argument('capture', choices=('rec1155', 'otel215', 'zookeeper'))
     ap.add_argument('input')
     ap.add_argument('out')
-    ap.add_argument('--arm', choices=('strong', 'baseline'), default='strong')
+    ap.add_argument('--arm', choices=('strong', 'baseline', 'factory'), default='strong')
     ap.add_argument('--unit', choices=('event', 'record'), default='event')
     a = ap.parse_args()
 
@@ -90,8 +105,11 @@ def main():
     else:
         messages = [msg(r) for r in records]
 
-    arm = {**identity.ARMS[a.arm], 'persistence_restart': False, 'warm_start_b_from_a': False}
-    tm = identity.train(messages, range(len(messages)), arm, identity.DRAIN_SIM_TH)
+    if a.arm == 'factory':
+        tm = train_factory(messages)
+    else:
+        arm = {**identity.ARMS[a.arm], 'persistence_restart': False, 'warm_start_b_from_a': False}
+        tm = identity.train(messages, range(len(messages)), arm, identity.DRAIN_SIM_TH)
     shape, unmatched = [], 0
     for i, m in enumerate(messages):
         t = identity.lookup_template(tm, m, identity.REFERENCE_MATCH_STRATEGY)
@@ -108,9 +126,9 @@ def main():
                                ensure_ascii=False) + '\n')
     stats = {
         'capture': a.capture, 'arm': a.arm, 'unit': a.unit, 'drain3': drainver.label(),
-        'settings': {'depth': identity.DRAIN_DEPTH, 'sim_th': identity.DRAIN_SIM_TH,
-                     'max_children': identity.DRAIN_MAX_CHILDREN, 'max_clusters': identity.DRAIN_MAX_CLUSTERS,
-                     'parametrize_numeric_tokens': identity.PARAMETRIZE_NUMERIC_TOKENS,
+        'settings': {'depth': tm.config.drain_depth, 'sim_th': tm.config.drain_sim_th,
+                     'max_children': tm.config.drain_max_children, 'max_clusters': tm.config.drain_max_clusters,
+                     'parametrize_numeric_tokens': tm.config.parametrize_numeric_tokens,
                      'line_cap': identity.LINE_CAP, 'match_strategy': identity.REFERENCE_MATCH_STRATEGY},
         'messages': len(messages), 'clusters': len(tm.drain.clusters),
         'distinct_names': len(set(shape)), 'unmatched': unmatched,

@@ -1,0 +1,19 @@
+{
+ "capture": "otel215",
+ "arm": "factory",
+ "unit": "record",
+ "drain3": "drain3 0.9.11",
+ "settings": {
+  "depth": 4,
+  "sim_th": 0.4,
+  "max_children": 100,
+  "max_clusters": null,
+  "parametrize_numeric_tokens": true,
+  "line_cap": 1024,
+  "match_strategy": "fallback"
+ },
+ "messages": 197430,
+ "clusters": 1239,
+ "distinct_names": 1239,
+ "unmatched": 0
+}
