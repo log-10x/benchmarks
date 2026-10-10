@@ -1,0 +1,78 @@
+{
+  "splunk_version": "Splunk 10.4.3 (build 4174a2deda5d)",
+  "engine_image": "log10x/pipeline-10x@sha256:e2db543265cddd30a959c729c19e61d5f1b97e8be74a8d8e65dcb71a6466491c",
+  "container_timezone": "Etc/GMT-2",
+  "splunk_app_commit": "06c48a5d3d32be20906af3b217623065839d3c95",
+  "forwarder_path": "Universal Forwarder, file monitor, S2S to the indexer on 9997",
+  "licence": "Splunk Enterprise download trial, 500 MB/day",
+  "licence_day_rollup_written": [
+    "10-11-2026"
+  ],
+  "dataset": {
+    "name": "otel-sample-200mb.log (otel-sample-v2)",
+    "bytes": 215039161,
+    "lines": 197430,
+    "sha256": "aa79b9349a4123d88936fd064f5eccd9fd84f45a1fd03cff3f64c259715c2432"
+  },
+  "on_disk": {
+    "capture_bytes": 215039161,
+    "encoded_bytes": 74495472,
+    "templates_bytes": 3197212,
+    "compact_bytes": 77692684,
+    "reduction_pct": 63.87,
+    "encoded_records": 157228,
+    "templates": 2988,
+    "roundtrip": "BYTE-IDENTICAL"
+  },
+  "licence_metered": {
+    "source_of_total": "type=RolloverSummary, the daily rollup",
+    "source_of_split": "type=Usage, the per-minute records, binned to the day",
+    "licence_day_total_bytes": 292374199,
+    "per_index_bytes": {
+      "tenx_base": 214841731,
+      "tenx_dml": 3194224,
+      "tenx_enc": 74338244
+    },
+    "per_index_sourcetype_bytes": {
+      "tenx_base/tenx_raw_json": 214841731,
+      "tenx_dml/tenx_dml_raw_json": 3194224,
+      "tenx_enc/tenx_encoded": 74338244
+    },
+    "rollup_carries_per_index": false,
+    "baseline_bytes": 214841731,
+    "compact_bytes": 77532468,
+    "app_reindex_bytes": 0,
+    "compact_bytes_without_app_reindex": 77532468,
+    "baseline_gb_per_day": 0.200087,
+    "compact_gb_per_day": 0.072208,
+    "reduction_pct": 63.91,
+    "reduction_pct_without_app_reindex": 63.91,
+    "split_sums_to_rollup_total": true
+  },
+  "expansion": {
+    "rows": 157228,
+    "matched": 157228,
+    "wrong_text": 0,
+    "unexpanded": 0,
+    "compact_record_not_in_ground_truth": 0,
+    "match_pct": 100.0,
+    "mismatch_examples": []
+  },
+  "expansion_local_tz": {
+    "rows": 157228,
+    "matched": 157228,
+    "wrong_text": 0,
+    "unexpanded": 0,
+    "compact_record_not_in_ground_truth": 0,
+    "match_pct": 100.0,
+    "mismatch_examples": []
+  },
+  "worst_slice": {
+    "container": "ad",
+    "events": 7114,
+    "lines": 7117,
+    "raw_bytes": 6798676,
+    "compact_bytes": 2864638,
+    "reduction_pct": 57.86
+  }
+}

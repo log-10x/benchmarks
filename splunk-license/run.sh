@@ -20,11 +20,13 @@
 #
 # Environment:
 #   E21_DATA_DIR    capture and engine output cache (default: <dir>/data)
-#   E21_ENGINE      engine image (default: ghcr.io/log-10x/edge-10x:1.1.79)
-#   E21_SPLUNK      Splunk image (default: splunk/splunk:latest)
-#   E21_UF          forwarder image (default: splunk/universalforwarder:latest)
+#   E21_ENGINE      engine image (default: log10x/pipeline-10x:1.1.139, by digest)
+#   E21_SPLUNK      Splunk image (default: splunk/splunk:10.4.3)
+#   E21_UF          forwarder image (default: splunk/universalforwarder:10.4.3)
 #   E21_MIN_LEAD    minutes the licence rollover must sit ahead of container
 #                   start (default: 75). See "the licence day" below.
+#   E21_RESULTS     where this run writes its results (default: <dir>/results-2026-10-10;
+#                   <dir>/results holds the 2026-09-18 run on engine 1.1.79)
 #   KEEP            1 to leave the containers up
 
 set -euo pipefail
@@ -33,11 +35,11 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$HERE"
 
 DATA_DIR="${E21_DATA_DIR:-$HERE/data}"
-ENGINE="${E21_ENGINE:-ghcr.io/log-10x/edge-10x:1.1.79}"
-SPLUNK_IMAGE="${E21_SPLUNK:-splunk/splunk:latest}"
-UF_IMAGE="${E21_UF:-splunk/universalforwarder:latest}"
+ENGINE="${E21_ENGINE:-log10x/pipeline-10x:1.1.139@sha256:e2db543265cddd30a959c729c19e61d5f1b97e8be74a8d8e65dcb71a6466491c}"
+SPLUNK_IMAGE="${E21_SPLUNK:-splunk/splunk:10.4.3}"
+UF_IMAGE="${E21_UF:-splunk/universalforwarder:10.4.3}"
 MIN_LEAD="${E21_MIN_LEAD:-75}"
-RESULTS="$HERE/results"
+RESULTS="${E21_RESULTS:-$HERE/results-2026-10-10}"
 APP_REPO="${E21_APP_REPO:-https://github.com/log-10x/splunk-app.git}"
 
 IDX=e21-idx
@@ -358,8 +360,10 @@ stage_ingest() {
     # the index the templates arrived in. Counting the index therefore reaches twice the
     # template count as soon as the scheduled fill runs, which on a slow host happens
     # while this loop is still waiting, and the loop could never match again.
+    # Over all time: the app sets a compact event's _time from its original line, so a
+    # replayed capture's events are dated when the capture was taken, not when they arrived.
     got="$(spq 'index=tenx_base OR index=tenx_enc OR index=tenx_dml | stats count by sourcetype' \
-           -earliest_time -2h -latest_time now | tr -s ' ')"
+           -earliest_time 0 -latest_time +10y | tr -s ' ')"
     echo "$got" | tail -5
     if echo "$got" | grep -q "tenx_raw_json $ASSET_LINES" \
        && echo "$got" | grep -q "tenx_encoded $want_enc" \
@@ -408,7 +412,8 @@ stage_expand() {
     sp _internal call /services/authentication/users/admin -post:tz "$view" -auth "$PASS_ARG" >/dev/null 2>&1
     local out="$RESULTS/expansion.json"
     [ "$view" = "UTC" ] || out="$RESULTS/expansion_local_tz.json"
-    spq 'index=tenx_enc | eval tenx_compact=_raw | `tenx-inflate` | table tenx_compact, _raw' -output json \
+    spq 'index=tenx_enc | eval tenx_compact=_raw | `tenx-inflate` | table tenx_compact, _raw' \
+        -earliest_time 0 -latest_time +10y -output json \
       | python3 verify_expansion.py --groundtruth "$DATA_DIR/groundtruth.json" --out "$out"
   done
   sp _internal call /services/authentication/users/admin -post:tz UTC -auth "$PASS_ARG" >/dev/null 2>&1

@@ -154,6 +154,9 @@ jobs:
       - name: The committed figures follow from the kept rollup lines
         run: python splunk-license/report.py --dir splunk-license --data splunk-license/data --results splunk-license/results --check
 
+      - name: The same check on the 2026-10-10 run
+        run: python splunk-license/report.py --dir splunk-license --data splunk-license/data --results splunk-license/results-2026-10-10 --check
+
   intent:
     runs-on: ubuntu-latest
     steps:

@@ -88,14 +88,21 @@ timestamp:
   - "yyyy-MM-dd HH:mm:ss"                      # Widely used in Java applications, databases (e.g., MySQL, PostgreSQL), and application servers (e.g., Tomcat, JBoss).
   - "yyyy-MM-dd'T'HH:mm:ss.SSSZ"               # Common in web services, APIs, Java (with DateTimeFormatter.ISO_OFFSET_DATE_TIME), Python (with datetime.isoformat()), and systems requiring precise timestamps with timezone information.
   - "MMM dd HH:mm:ss"                          # Frequently seen in syslog, Unix-based systems, network devices (e.g., Cisco routers), and web servers (e.g., Apache, Nginx).
+  - "MMM  d HH:mm:ss"                          # Classic syslog (RFC 3164) on days 1-9: the day is space-padded, e.g. "Jan  3 17:38:36".
+  - "MMM d HH:mm:ss"                           # Same date without the padding (strftime %b %-d), e.g. "Nov 9 12:01:01" in Thunderbird-style system logs.
   - "dd/MMM/yyyy:HH:mm:ss Z"                   # Standard syslog format, used in firewalls (e.g., Cisco ASA, Palo Alto), network monitoring tools, and Unix-based systems.
   - "yyyy-MM-dd HH:mm:ss,SSS"                  # Common in Java logging frameworks like Log4j and Logback.
   - "yyyy-MM-dd'T'HH:mm:ss,SSS"                # Common in Java logging with ISO 8601 date-time, comma-separated milliseconds.
   - "MM/dd/yyyy HH:mm:ss"                      # Used in Windows event logs, .NET applications, and U.S.-based systems.
   - "EEE MMM dd HH:mm:ss yyyy"                 # Human-readable format used in various logs, including some web servers and application logs.
+  - "EEE MMM dd HH:mm:ss zzz yyyy"             # java.util.Date.toString() and the Unix date command, e.g. "Thu Jan 15 10:00:01 UTC 2026". Common in Java application logs and shell-script output.
   - "yyyy-MM-dd'T'HH:mm:ss"                    # Simplified ISO 8601 format, used in many modern applications and frameworks.
   - "HH:mm:ss"                                 # Time-only format, used when the date is implied or provided separately, common in embedded systems and some programming languages.
   - "yyyyMMdd HH:mm:ss"                        # Compact format used in some legacy systems and batch processing logs.
+  - "yyyyMMdd-H:m:s:SSS"                       # Compact date, hyphen, unpadded time, colon before the milliseconds, e.g. "20171223-22:15:29:606" or "20171224-0:0:0:234". Android HealthApp and similar mobile logs.
+  - "yyyyMMdd-H:m:s:SS"                        # Same with two fraction digits, e.g. "20171223-22:30:24:28".
+  - "yyyyMMdd-H:m:s:S"                         # Same with one fraction digit.
+  - "MM.dd HH:mm:ss"                           # Month.day without a year, e.g. "10.30 16:49:06". Proxifier and other Windows utility logs.
   - "MMM dd, yyyy h:mm:ss a"                   # Human-readable format with 12-hour clock, used in application logs and some U.S.-based systems.
   - "MMM dd, yyyy hh:mm:ss a"                  # Human-readable format with 12-hour clock (padded hour), used in application logs and some U.S.-based systems.
   # Common formats with slight variations
