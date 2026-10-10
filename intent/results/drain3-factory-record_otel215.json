@@ -1,0 +1,1551 @@
+{
+ "capture": "otel215",
+ "events": 157228,
+ "labelled": 156563,
+ "excluded_containers": [],
+ "distinct_patterns": 618,
+ "overall": {
+  "events": 156563,
+  "statements": 299,
+  "merged_event_share": 4.58,
+  "merged_events": 7172,
+  "split_event_share": 3.46,
+  "exact_grouping_events": 76.18,
+  "statements_clean": 66.56,
+  "statements_in_merge": 23.75,
+  "statements_split": 13.04,
+  "patterns_per_statement_mean": 2.22,
+  "patterns_per_statement_max": 104
+ },
+ "by_group": {
+  "source_in_library": {
+   "events": 145612,
+   "statements": 144,
+   "merged_event_share": 4.85,
+   "merged_events": 7069,
+   "split_event_share": 2.73,
+   "exact_grouping_events": 78.22,
+   "statements_clean": 66.67,
+   "statements_in_merge": 23.61,
+   "statements_split": 13.89,
+   "patterns_per_statement_mean": 1.54,
+   "patterns_per_statement_max": 40
+  },
+  "source_not_in_library": {
+   "events": 8270,
+   "statements": 145,
+   "merged_event_share": 1.23,
+   "merged_events": 102,
+   "split_event_share": 14.04,
+   "exact_grouping_events": 64.95,
+   "statements_clean": 68.97,
+   "statements_in_merge": 24.14,
+   "statements_split": 8.97,
+   "patterns_per_statement_mean": 1.94,
+   "patterns_per_statement_max": 65
+  },
+  "not_code": {
+   "events": 2681,
+   "statements": 10,
+   "merged_event_share": 0.04,
+   "merged_events": 1,
+   "split_event_share": 10.93,
+   "exact_grouping_events": 0.15,
+   "statements_clean": 30.0,
+   "statements_in_merge": 20.0,
+   "statements_split": 60.0,
+   "patterns_per_statement_mean": 16.1,
+   "patterns_per_statement_max": 104
+  }
+ },
+ "by_container": {
+  "opentelemetry-collector": {
+   "events": 89739,
+   "statements": 34,
+   "merged_event_share": 0.01,
+   "merged_events": 6,
+   "split_event_share": 0.1,
+   "exact_grouping_events": 99.82,
+   "statements_clean": 58.82,
+   "statements_in_merge": 29.41,
+   "statements_split": 11.76,
+   "patterns_per_statement_mean": 1.41,
+   "patterns_per_statement_max": 7
+  },
+  "kafka": {
+   "events": 29039,
+   "statements": 92,
+   "merged_event_share": 0.08,
+   "merged_events": 23,
+   "split_event_share": 13.26,
+   "exact_grouping_events": 59.93,
+   "statements_clean": 70.65,
+   "statements_in_merge": 18.48,
+   "statements_split": 13.04,
+   "patterns_per_statement_mean": 2.35,
+   "patterns_per_statement_max": 104
+  },
+  "cart": {
+   "events": 19639,
+   "statements": 3,
+   "merged_event_share": 35.29,
+   "merged_events": 6930,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 0.0,
+   "statements_clean": 0.0,
+   "statements_in_merge": 100.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1
+  },
+  "ad": {
+   "events": 7114,
+   "statements": 7,
+   "merged_event_share": 0.01,
+   "merged_events": 1,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 99.97,
+   "statements_clean": 71.43,
+   "statements_in_merge": 28.57,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1
+  },
+  "recommendation": {
+   "events": 3432,
+   "statements": 3,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 100.0,
+   "statements_clean": 100.0,
+   "statements_in_merge": 0.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1
+  },
+  "grafana": {
+   "events": 2474,
+   "statements": 77,
+   "merged_event_share": 1.17,
+   "merged_events": 29,
+   "split_event_share": 41.92,
+   "exact_grouping_events": 41.55,
+   "statements_clean": 75.32,
+   "statements_in_merge": 16.88,
+   "statements_split": 10.39,
+   "patterns_per_statement_mean": 2.7,
+   "patterns_per_statement_max": 65
+  },
+  "frontend": {
+   "events": 2317,
+   "statements": 3,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.09,
+   "exact_grouping_events": 0.13,
+   "statements_clean": 66.67,
+   "statements_in_merge": 0.0,
+   "statements_split": 33.33,
+   "patterns_per_statement_mean": 1.33,
+   "patterns_per_statement_max": 2
+  },
+  "fluentd-10x": {
+   "events": 1427,
+   "statements": 17,
+   "merged_event_share": 0.42,
+   "merged_events": 6,
+   "split_event_share": 14.23,
+   "exact_grouping_events": 0.63,
+   "statements_clean": 23.53,
+   "statements_in_merge": 52.94,
+   "statements_split": 29.41,
+   "patterns_per_statement_mean": 3.65,
+   "patterns_per_statement_max": 31
+  },
+  "valkey-cart": {
+   "events": 607,
+   "statements": 12,
+   "merged_event_share": 20.26,
+   "merged_events": 123,
+   "split_event_share": 28.34,
+   "exact_grouping_events": 20.43,
+   "statements_clean": 41.67,
+   "statements_in_merge": 58.33,
+   "statements_split": 33.33,
+   "patterns_per_statement_mean": 1.33,
+   "patterns_per_statement_max": 2
+  },
+  "opensearch": {
+   "events": 414,
+   "statements": 20,
+   "merged_event_share": 12.08,
+   "merged_events": 50,
+   "split_event_share": 1.45,
+   "exact_grouping_events": 74.15,
+   "statements_clean": 60.0,
+   "statements_in_merge": 35.0,
+   "statements_split": 5.0,
+   "patterns_per_statement_mean": 1.2,
+   "patterns_per_statement_max": 5
+  },
+  "kube-proxy": {
+   "events": 287,
+   "statements": 26,
+   "merged_event_share": 0.35,
+   "merged_events": 1,
+   "split_event_share": 0.7,
+   "exact_grouping_events": 97.21,
+   "statements_clean": 84.62,
+   "statements_in_merge": 7.69,
+   "statements_split": 7.69,
+   "patterns_per_statement_mean": 1.08,
+   "patterns_per_statement_max": 2
+  },
+  "accounting": {
+   "events": 69,
+   "statements": 3,
+   "merged_event_share": 1.45,
+   "merged_events": 1,
+   "split_event_share": 85.51,
+   "exact_grouping_events": 1.45,
+   "statements_clean": 33.33,
+   "statements_in_merge": 33.33,
+   "statements_split": 33.33,
+   "patterns_per_statement_mean": 14,
+   "patterns_per_statement_max": 40
+  },
+  "fraud-detection": {
+   "events": 3,
+   "statements": 2,
+   "merged_event_share": 66.67,
+   "merged_events": 2,
+   "split_event_share": 33.33,
+   "exact_grouping_events": 0.0,
+   "statements_clean": 0.0,
+   "statements_in_merge": 100.0,
+   "statements_split": 50.0,
+   "patterns_per_statement_mean": 1.5,
+   "patterns_per_statement_max": 2
+  },
+  "payment": {
+   "events": 1,
+   "statements": 1,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 100.0,
+   "statements_clean": 100.0,
+   "statements_in_merge": 0.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1
+  },
+  "quote": {
+   "events": 1,
+   "statements": 1,
+   "merged_event_share": 0.0,
+   "merged_events": 0,
+   "split_event_share": 0.0,
+   "exact_grouping_events": 100.0,
+   "statements_clean": 100.0,
+   "statements_in_merge": 0.0,
+   "statements_split": 0.0,
+   "patterns_per_statement_mean": 1,
+   "patterns_per_statement_max": 1
+  }
+ },
+ "merges": [
+  {
+   "pattern": "info: <*>",
+   "events": 19640,
+   "merged_events": 6931,
+   "statements": [
+    [
+     "open-telemetry/opentelemetry-demo@2.1.3:src/cart/src/cartstore/ValkeyCartStore.cs:196",
+     12709
+    ],
+    [
+     "open-telemetry/opentelemetry-demo@2.1.3:src/cart/src/cartstore/ValkeyCartStore.cs:127",
+     6929
+    ],
+    [
+     "open-telemetry/opentelemetry-demo@2.1.3:src/accounting/Consumer.cs:47",
+     1
+    ],
+    [
+     "open-telemetry/opentelemetry-demo@2.1.3:src/cart/src/cartstore/ValkeyCartStore.cs:100",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "1:M 02 Oct 2025 <*> * <*> <*> <*> <*> <*> <*>",
+   "events": 154,
+   "merged_events": 77,
+   "statements": [
+    [
+     "valkey-io/valkey@8.1.3:src/server.c:1606",
+     77
+    ],
+    [
+     "valkey-io/valkey@8.1.3:src/rdb.c:1643",
+     77
+    ]
+   ]
+  },
+  {
+   "pattern": "1:M 01 Oct 2025 <*> * <*> <*> <*> <*> <*> <*>",
+   "events": 86,
+   "merged_events": 43,
+   "statements": [
+    [
+     "valkey-io/valkey@8.1.3:src/server.c:1606",
+     43
+    ],
+    [
+     "valkey-io/valkey@8.1.3:src/rdb.c:1643",
+     43
+    ]
+   ]
+  },
+  {
+   "pattern": "<*> ][o.o.s.s.c.FlintStreamingJobHouseKeeperTask] [opensearch-0] <*> housekeeping task for auto refresh streaming jobs.",
+   "events": 82,
+   "merged_events": 41,
+   "statements": [
+    [
+     "opensearch-project/sql@3.2.0.0:async-query/src/main/java/org/opensearch/sql/spark/cluster/FlintStreamingJobHouseKeeperTask.java:46",
+     41
+    ],
+    [
+     "opensearch-project/sql@3.2.0.0:async-query/src/main/java/org/opensearch/sql/spark/cluster/FlintStreamingJobHouseKeeperTask.java:82",
+     41
+    ]
+   ]
+  },
+  {
+   "pattern": "[otel.javaagent 2025-10-01 <*> +0000] <*> INFO <*> - <*> <*> <*> <*>",
+   "events": 26,
+   "merged_events": 16,
+   "statements": [
+    [
+     "open-telemetry/opentelemetry-java-instrumentation@v2.20.1:instrumentation/jmx-metrics/library/src/main/java/io/opentelemetry/instrumentation/jmx/engine/MetricRegistrar.java:95",
+     10
+    ],
+    [
+     "open-telemetry/opentelemetry-java-instrumentation@v2.20.1:instrumentation/jmx-metrics/library/src/main/java/io/opentelemetry/instrumentation/jmx/engine/MetricRegistrar.java:112",
+     8
+    ],
+    [
+     "open-telemetry/opentelemetry-java-instrumentation@v2.20.1:instrumentation/jmx-metrics/library/src/main/java/io/opentelemetry/instrumentation/jmx/engine/MetricRegistrar.java:129",
+     5
+    ],
+    [
+     "open-telemetry/opentelemetry-java-instrumentation@v2.20.1:javaagent-tooling/src/main/java/io/opentelemetry/javaagent/tooling/VersionLogger.java:18",
+     3
+    ]
+   ]
+  },
+  {
+   "pattern": "logger=settings <*> level=info msg=\"Config overridden from <*> <*> <*>",
+   "events": 22,
+   "merged_events": 10,
+   "statements": [
+    [
+     "grafana/grafana@v12.1.1:pkg/setting/setting.go:1524",
+     12
+    ],
+    [
+     "grafana/grafana@v12.1.1:pkg/setting/setting.go:1517",
+     10
+    ]
+   ]
+  },
+  {
+   "pattern": "logger=settings <*> level=info msg=\"Path <*> <*>",
+   "events": 10,
+   "merged_events": 8,
+   "statements": [
+    [
+     "grafana/grafana@v12.1.1:pkg/setting/setting.go:1529",
+     2
+    ],
+    [
+     "grafana/grafana@v12.1.1:pkg/setting/setting.go:1530",
+     2
+    ],
+    [
+     "grafana/grafana@v12.1.1:pkg/setting/setting.go:1531",
+     2
+    ],
+    [
+     "grafana/grafana@v12.1.1:pkg/setting/setting.go:1532",
+     2
+    ],
+    [
+     "grafana/grafana@v12.1.1:pkg/setting/setting.go:1533",
+     2
+    ]
+   ]
+  },
+  {
+   "pattern": "<*> ][o.o.s.l.LogTypeService ] [opensearch-0] <*> <*> <*>",
+   "events": 9,
+   "merged_events": 6,
+   "statements": [
+    [
+     "opensearch-project/security-analytics@3.2.0.0:src/main/java/org/opensearch/securityanalytics/logtype/LogTypeService.java:532",
+     3
+    ],
+    [
+     "opensearch-project/security-analytics@3.2.0.0:src/main/java/org/opensearch/securityanalytics/logtype/LogTypeService.java:250",
+     3
+    ],
+    [
+     "opensearch-project/security-analytics@3.2.0.0:src/main/java/org/opensearch/securityanalytics/logtype/LogTypeService.java:301",
+     3
+    ]
+   ]
+  },
+  {
+   "pattern": "logger=provisioning.dashboard <*> level=info <*> to provision dashboards\"",
+   "events": 8,
+   "merged_events": 4,
+   "statements": [
+    [
+     "grafana/grafana@v12.1.1:pkg/services/provisioning/dashboards/dashboard.go:88",
+     4
+    ],
+    [
+     "grafana/grafana@v12.1.1:pkg/services/provisioning/dashboards/dashboard.go:103",
+     4
+    ]
+   ]
+  },
+  {
+   "pattern": "logger=provisioning.alerting <*> level=info <*> to provision alerting\"",
+   "events": 6,
+   "merged_events": 3,
+   "statements": [
+    [
+     "grafana/grafana@v12.1.1:pkg/services/provisioning/alerting/provisioner.go:31",
+     3
+    ],
+    [
+     "grafana/grafana@v12.1.1:pkg/services/provisioning/alerting/provisioner.go:78",
+     3
+    ]
+   ]
+  },
+  {
+   "pattern": "<*> ][o.o.s.l.LogTypeService ] [opensearch-0] <*> [432] <*> <*> <*> <*>",
+   "events": 6,
+   "merged_events": 3,
+   "statements": [
+    [
+     "opensearch-project/security-analytics@3.2.0.0:src/main/java/org/opensearch/securityanalytics/logtype/LogTypeService.java:542",
+     3
+    ],
+    [
+     "opensearch-project/security-analytics@3.2.0.0:src/main/java/org/opensearch/securityanalytics/logtype/LogTypeService.java:258",
+     3
+    ]
+   ]
+  },
+  {
+   "pattern": "[2025-10-01 <*> INFO <*> id=1] Starting <*> <*>",
+   "events": 4,
+   "merged_events": 3,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/server/ControllerServer.scala:149",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/server/SharedServer.scala:260",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/server/BrokerServer.scala:178",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/transaction/TransactionCoordinator.scala:734",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "1:M 01 Oct 2025 <*> * <*> <*> <*> <*> <*>",
+   "events": 45,
+   "merged_events": 2,
+   "statements": [
+    [
+     "valkey-io/valkey@8.1.3:src/rdb.c:3467",
+     43
+    ],
+    [
+     "valkey-io/valkey@8.1.3:src/server.c:7133",
+     1
+    ],
+    [
+     "valkey-io/valkey@8.1.3:src/server.c:7180",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "2025-10-01 20:17:20 +0000 [info]: <*> <*> <*> <*>",
+   "events": 16,
+   "merged_events": 2,
+   "statements": [
+    [
+     "fluent/fluentd@v1.17.1:lib/fluent/supervisor.rb:659",
+     14
+    ],
+    [
+     "fluent/fluentd@v1.17.1:lib/fluent/engine.rb:114",
+     1
+    ],
+    [
+     "fluent/fluentd@v1.17.1:lib/fluent/supervisor.rb:763",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "2025-10-01 <*> +0000 [info]: adding <*> in <*> <*> <*>",
+   "events": 16,
+   "merged_events": 2,
+   "statements": [
+    [
+     "fluent/fluentd@v1.17.1:lib/fluent/agent.rb:128",
+     14
+    ],
+    [
+     "fluent/fluentd@v1.17.1:lib/fluent/agent.rb:150",
+     2
+    ]
+   ]
+  },
+  {
+   "pattern": "logger=migrator <*> level=info <*> database\"",
+   "events": 4,
+   "merged_events": 2,
+   "statements": [
+    [
+     "grafana/grafana@v12.1.1:pkg/services/sqlstore/migrator/migrator.go:209",
+     2
+    ],
+    [
+     "grafana/grafana@v12.1.1:pkg/services/sqlstore/migrator/migrator.go:222",
+     2
+    ]
+   ]
+  },
+  {
+   "pattern": "logger=resource-migrator <*> level=info <*> database\"",
+   "events": 4,
+   "merged_events": 2,
+   "statements": [
+    [
+     "grafana/grafana@v12.1.1:pkg/services/sqlstore/migrator/migrator.go:209",
+     2
+    ],
+    [
+     "grafana/grafana@v12.1.1:pkg/services/sqlstore/migrator/migrator.go:222",
+     2
+    ]
+   ]
+  },
+  {
+   "pattern": "[2025-10-01 20:13:06,184] INFO Kafka <*> <*> (org.apache.kafka.common.utils.AppInfoParser)",
+   "events": 3,
+   "merged_events": 2,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:clients/src/main/java/org/apache/kafka/common/utils/AppInfoParser.java:125",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:clients/src/main/java/org/apache/kafka/common/utils/AppInfoParser.java:126",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:clients/src/main/java/org/apache/kafka/common/utils/AppInfoParser.java:127",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "<*> info <*> Starting <*> <*> {\"resource\": {\"service.instance.id\": \"16a4f862-8ba1-431b-894c-9beca0da41ea\", \"service.name\": \"otelcol-contrib\", \"service.version\": \"0.135.0\"}, \"otelcol.component.id\": <*> \"otelcol.component.kind\": <*> <*> <*>",
+   "events": 3,
+   "merged_events": 2,
+   "statements": [
+    [
+     "open-telemetry/opentelemetry-collector-contrib@v0.135.0:extension/healthcheckextension/healthcheckextension.go:32",
+     1
+    ],
+    [
+     "open-telemetry/opentelemetry-collector@v0.135.0:receiver/otlpreceiver/otlp.go:121",
+     1
+    ],
+    [
+     "open-telemetry/opentelemetry-collector@v0.135.0:receiver/otlpreceiver/otlp.go:179",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "2025-10-01T20:11:21.550Z info <*> Starting <*> server for <*> <*> {\"resource\": {\"service.instance.id\": \"16a4f862-8ba1-431b-894c-9beca0da41ea\", \"service.name\": \"otelcol-contrib\", \"service.version\": \"0.135.0\"}, \"otelcol.component.id\": \"jaeger\", \"otelcol.component.kind\": \"receiver\", \"otelcol.signal\": \"traces\", \"endpoint\": <*>",
+   "events": 3,
+   "merged_events": 2,
+   "statements": [
+    [
+     "open-telemetry/opentelemetry-collector-contrib@v0.135.0:receiver/jaegerreceiver/trace_receiver.go:235",
+     1
+    ],
+    [
+     "open-telemetry/opentelemetry-collector-contrib@v0.135.0:receiver/jaegerreceiver/trace_receiver.go:340",
+     1
+    ],
+    [
+     "open-telemetry/opentelemetry-collector-contrib@v0.135.0:receiver/jaegerreceiver/trace_receiver.go:366",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "2025-10-01 <*> +0000 [info]: #0 <*> <*> <*> <*> <*>",
+   "events": 48,
+   "merged_events": 1,
+   "statements": [
+    [
+     "fluent/fluentd@v1.17.1:lib/fluent/plugin/in_tail.rb:1134",
+     47
+    ],
+    [
+     "fluent/fluentd@v1.17.1:lib/fluent/plugin/in_unix.rb:73",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "<*> 01 Oct 2025 <*> * <*> <*> <*> <*>",
+   "events": 44,
+   "merged_events": 1,
+   "statements": [
+    [
+     "valkey-io/valkey@8.1.3:src/rdb.c:1604",
+     43
+    ],
+    [
+     "valkey-io/valkey@8.1.3:src/server.c:2821",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[2025-10-01 <*> INFO [BrokerServer id=1] <*> <*> <*> <*> <*> <*> <*> to be <*> (kafka.server.BrokerServer)",
+   "events": 4,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/FutureUtils.java:57",
+     3
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/FutureUtils.java:60",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[2025-10-01 <*> INFO [ControllerServer id=1] <*> <*> <*> <*> <*> <*> <*> to be <*> (kafka.server.ControllerServer)",
+   "events": 3,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/FutureUtils.java:57",
+     2
+    ],
+    [
+     "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/FutureUtils.java:60",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "ad:other",
+     1
+    ],
+    [
+     "fraud-detection:other",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[2025-10-01 <*> INFO [BrokerLifecycleManager id=1] The broker has <*> <*> Transitioning from <*> to <*> (kafka.server.BrokerLifecycleManager)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/server/BrokerLifecycleManager.scala:531",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/server/BrokerLifecycleManager.scala:542",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "[2025-10-01 <*> INFO [GroupCoordinator 1]: <*> <*> (kafka.coordinator.group.GroupCoordinator)",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/group/GroupCoordinator.scala:114",
+     1
+    ],
+    [
+     "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/group/GroupCoordinator.scala:117",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "I1001 <*> 1 <*> \"Starting <*> config controller\"",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "kubernetes/kubernetes@v1.32.6:pkg/proxy/config/config.go:199",
+     1
+    ],
+    [
+     "kubernetes/kubernetes@v1.32.6:pkg/proxy/config/config.go:329",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "<*> info <*> <*> spanmetrics connector {\"resource\": {\"service.instance.id\": \"16a4f862-8ba1-431b-894c-9beca0da41ea\", \"service.name\": \"otelcol-contrib\", \"service.version\": \"0.135.0\"}, \"otelcol.component.id\": \"spanmetrics\", \"otelcol.component.kind\": \"connector\", \"otelcol.signal\": \"traces\", \"otelcol.signal.output\": \"metrics\"}",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "open-telemetry/opentelemetry-collector-contrib@v0.135.0:connector/spanmetricsconnector/connector.go:116",
+     1
+    ],
+    [
+     "open-telemetry/opentelemetry-collector-contrib@v0.135.0:connector/spanmetricsconnector/connector.go:211",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "<*> info <*> <*> <*> {\"resource\": {\"service.instance.id\": \"16a4f862-8ba1-431b-894c-9beca0da41ea\", \"service.name\": \"otelcol-contrib\", \"service.version\": \"0.135.0\"}, <*> <*> <*> <*>",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "open-telemetry/opentelemetry-collector@v0.135.0:service/service.go:211",
+     1
+    ],
+    [
+     "open-telemetry/opentelemetry-collector@v0.135.0:service/extensions/extensions.go:62",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "2025-10-01 <*> +0000 [info]: #0 <*> <*> <*> <*> <*> worker=0",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "fluent/fluentd@v1.17.1:lib/fluent/engine.rb:146",
+     1
+    ],
+    [
+     "fluent/fluentd@v1.17.1:lib/fluent/engine.rb:151",
+     1
+    ]
+   ]
+  }
+ ],
+ "splits": [
+  {
+   "statement": "apache/kafka@3.9.1:storage/src/main/java/org/apache/kafka/storage/internals/log/LogSegment.java:806",
+   "events": 7434,
+   "split_events": 2478,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "<*> <*> INFO Deleted <*> index <*> (org.apache.kafka.storage.internals.log.LogSegment)",
+     4956
+    ],
+    [
+     "<*> <*> INFO Deleted log <*> (org.apache.kafka.storage.internals.log.LogSegment)",
+     2478
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/log/UnifiedLog.scala:2452",
+   "events": 1909,
+   "split_events": 573,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "<*> <*> INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Deleting segments due to log start offset <*> breach: <*> <*> <*> <*> (kafka.log.UnifiedLog)",
+     1336
+    ],
+    [
+     "<*> <*> INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Deleting segments due to log start offset <*> breach: <*> <*> <*> <*> size=2160, <*> <*> (kafka.log.UnifiedLog)",
+     573
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/log/LocalLog.scala:923",
+   "events": 1906,
+   "split_events": 572,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "<*> <*> INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Deleting segment files <*> <*> <*> <*> (kafka.log.LocalLog$)",
+     1334
+    ],
+    [
+     "<*> <*> INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Deleting segment files <*> <*> <*> <*> size=2160, <*> <*> (kafka.log.LocalLog$)",
+     572
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/services/sqlstore/migrator/migrator.go:369",
+   "events": 691,
+   "split_events": 514,
+   "patterns": 65,
+   "top_patterns": [
+    [
+     "logger=migrator <*> level=info msg=\"Executing migration\" <*> <*> <*> <*> <*>",
+     177
+    ],
+    [
+     "logger=migrator <*> level=info msg=\"Executing migration\" <*> <*> <*> <*>",
+     155
+    ],
+    [
+     "logger=migrator <*> level=info msg=\"Executing migration\" <*> <*> <*>",
+     122
+    ],
+    [
+     "logger=migrator <*> level=info msg=\"Executing migration\" <*> <*> column <*> <*> <*>",
+     28
+    ],
+    [
+     "logger=migrator <*> level=info msg=\"Executing migration\" id=\"Add <*> <*> <*> <*> <*>",
+     25
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/services/sqlstore/migrator/migrator.go:409",
+   "events": 688,
+   "split_events": 513,
+   "patterns": 62,
+   "top_patterns": [
+    [
+     "logger=migrator <*> level=info msg=\"Migration successfully executed\" <*> <*> <*> <*> <*> <*>",
+     175
+    ],
+    [
+     "logger=migrator <*> level=info msg=\"Migration successfully executed\" <*> <*> <*> <*> <*>",
+     155
+    ],
+    [
+     "logger=migrator <*> level=info msg=\"Migration successfully executed\" <*> <*> <*> <*>",
+     122
+    ],
+    [
+     "logger=migrator <*> level=info msg=\"Migration successfully executed\" <*> <*> column <*> <*> <*> <*>",
+     28
+    ],
+    [
+     "logger=migrator <*> level=info msg=\"Migration successfully executed\" id=\"Add <*> <*> <*> <*> <*> <*>",
+     25
+    ]
+   ]
+  },
+  {
+   "statement": "kafka:object_body",
+   "events": 254,
+   "split_events": 203,
+   "patterns": 104,
+   "top_patterns": [
+    [
+     "<*> = null",
+     51
+    ],
+    [
+     "<*> = 1",
+     13
+    ],
+    [
+     "<*> = false",
+     12
+    ],
+    [
+     "<*> = 9223372036854775807",
+     9
+    ],
+    [
+     "<*> = 30000",
+     9
+    ]
+   ]
+  },
+  {
+   "statement": "fabric8io/fluent-plugin-kubernetes_metadata_filter@v3.5.1:lib/fluent/plugin/kubernetes_metadata_stats.rb:41",
+   "events": 1236,
+   "split_events": 119,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "<*> <*> +0000 [info]: #0 [filter_kube_metadata] stats - namespace_cache_size: 0, pod_cache_size: <*> pod_cache_api_updates: <*> id_cache_miss: <*>",
+     1117
+    ],
+    [
+     "2025-10-01 <*> +0000 [info]: #0 [filter_kube_metadata] stats - namespace_cache_size: 4, pod_cache_size: 32, pod_cache_api_updates: 41, id_cache_miss: 41, pod_cache_host_updates: 32, namespace_cache_host_updates: 4",
+     119
+    ]
+   ]
+  },
+  {
+   "statement": "fluentd-10x:object_body",
+   "events": 82,
+   "split_events": 69,
+   "patterns": 31,
+   "top_patterns": [
+    [
+     "@type <*>",
+     13
+    ],
+    [
+     "<match <*>",
+     8
+    ],
+    [
+     "</match>",
+     8
+    ],
+    [
+     "<label <*>",
+     7
+    ],
+    [
+     "</label>",
+     7
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-demo@2.1.3:src/accounting/Helpers.cs:30",
+   "events": 67,
+   "split_events": 59,
+   "patterns": 40,
+   "top_patterns": [
+    [
+     "<*> tcp]",
+     8
+    ],
+    [
+     "<*> 10.100.134.60]",
+     8
+    ],
+    [
+     "<*> 10.100.90.228]",
+     3
+    ],
+    [
+     "<*> 9092]",
+     3
+    ],
+    [
+     "<*> 6831]",
+     3
+    ]
+   ]
+  },
+  {
+   "statement": "valkey-io/valkey@8.1.3:src/server.c:1606",
+   "events": 120,
+   "split_events": 43,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "1:M 02 Oct 2025 <*> * <*> <*> <*> <*> <*> <*>",
+     77
+    ],
+    [
+     "1:M 01 Oct 2025 <*> * <*> <*> <*> <*> <*> <*>",
+     43
+    ]
+   ]
+  },
+  {
+   "statement": "valkey-io/valkey@8.1.3:src/rdb.c:1643",
+   "events": 120,
+   "split_events": 43,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "1:M 02 Oct 2025 <*> * <*> <*> <*> <*> <*> <*>",
+     77
+    ],
+    [
+     "1:M 01 Oct 2025 <*> * <*> <*> <*> <*> <*> <*>",
+     43
+    ]
+   ]
+  },
+  {
+   "statement": "valkey-io/valkey@8.1.3:src/rdb.c:1604",
+   "events": 120,
+   "split_events": 43,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "<*> 02 Oct 2025 <*> * DB saved on disk",
+     77
+    ],
+    [
+     "<*> 01 Oct 2025 <*> * <*> <*> <*> <*>",
+     43
+    ]
+   ]
+  },
+  {
+   "statement": "valkey-io/valkey@8.1.3:src/rdb.c:3467",
+   "events": 120,
+   "split_events": 43,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "1:M 02 Oct 2025 <*> * Background saving terminated with success",
+     77
+    ],
+    [
+     "1:M 01 Oct 2025 <*> * <*> <*> <*> <*> <*>",
+     43
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-collector@v0.135.0:exporter/exporterhelper/internal/base_exporter.go:114",
+   "events": 62,
+   "split_events": 38,
+   "patterns": 7,
+   "top_patterns": [
+    [
+     "<*> error internal/base_exporter.go:114 Exporting failed. Rejecting data. Try enabling sending_queue to survive temporary failures. {\"resource\": {\"service.instance.id\": \"16a4f862-8ba1-431b-894c-9beca0da41ea\", \"service.name\": \"otelcol-contrib\", \"service.version\": \"0.135.0\"}, \"otelcol.component.id\": \"opensearch\", \"otelcol.component.kind\": \"exporter\", \"otelcol.signal\": \"logs\", \"error\": \"not retryable error: Permanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: Permanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\", \"rejected_items\": 1}",
+     24
+    ],
+    [
+     "<*> error internal/base_exporter.go:114 Exporting failed. Rejecting data. Try enabling sending_queue to survive temporary failures. {\"resource\": {\"service.instance.id\": \"16a4f862-8ba1-431b-894c-9beca0da41ea\", \"service.name\": \"otelcol-contrib\", \"service.version\": \"0.135.0\"}, \"otelcol.component.id\": \"opensearch\", \"otelcol.component.kind\": \"exporter\", \"otelcol.signal\": \"logs\", \"error\": \"not retryable error: Permanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: Permanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\", \"rejected_items\": 2}",
+     16
+    ],
+    [
+     "<*> error internal/base_exporter.go:114 Exporting failed. Rejecting data. Try enabling sending_queue to survive temporary failures. {\"resource\": {\"service.instance.id\": \"16a4f862-8ba1-431b-894c-9beca0da41ea\", \"service.name\": \"otelcol-contrib\", \"service.version\": \"0.135.0\"}, \"otelcol.component.id\": \"opensearch\", \"otelcol.component.kind\": \"exporter\", \"otelcol.signal\": \"logs\", \"error\": \"not retryable error: Permanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: Permanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\", \"rejected_items\": 4}",
+     9
+    ],
+    [
+     "<*> error internal/base_exporter.go:114 Exporting failed. Rejecting data. Try enabling sending_queue to survive temporary failures. {\"resource\": {\"service.instance.id\": \"16a4f862-8ba1-431b-894c-9beca0da41ea\", \"service.name\": \"otelcol-contrib\", \"service.version\": \"0.135.0\"}, \"otelcol.component.id\": \"opensearch\", \"otelcol.component.kind\": \"exporter\", \"otelcol.signal\": \"logs\", \"error\": \"not retryable error: Permanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: Permanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\", \"rejected_items\": 3}",
+     5
+    ],
+    [
+     "<*> error internal/base_exporter.go:114 Exporting failed. Rejecting data. Try enabling sending_queue to survive temporary failures. {\"resource\": {\"service.instance.id\": \"16a4f862-8ba1-431b-894c-9beca0da41ea\", \"service.name\": \"otelcol-contrib\", \"service.version\": \"0.135.0\"}, \"otelcol.component.id\": \"opensearch\", \"otelcol.component.kind\": \"exporter\", \"otelcol.signal\": \"logs\", \"error\": \"not retryable error: Permanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flus",
+     4
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-collector@v0.135.0:processor/batchprocessor/batch_processor.go:275",
+   "events": 62,
+   "split_events": 38,
+   "patterns": 7,
+   "top_patterns": [
+    [
+     "<*> warn batchprocessor@v0.135.0/batch_processor.go:275 Sender failed {\"resource\": {\"service.instance.id\": \"16a4f862-8ba1-431b-894c-9beca0da41ea\", \"service.name\": \"otelcol-contrib\", \"service.version\": \"0.135.0\"}, \"otelcol.component.id\": \"batch\", \"otelcol.component.kind\": \"processor\", \"otelcol.pipeline.id\": \"logs\", \"otelcol.signal\": \"logs\", \"error\": \"not retryable error: Permanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: Permanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\"}",
+     24
+    ],
+    [
+     "<*> warn batchprocessor@v0.135.0/batch_processor.go:275 Sender failed {\"resource\": {\"service.instance.id\": \"16a4f862-8ba1-431b-894c-9beca0da41ea\", \"service.name\": \"otelcol-contrib\", \"service.version\": \"0.135.0\"}, \"otelcol.component.id\": \"batch\", \"otelcol.component.kind\": \"processor\", \"otelcol.pipeline.id\": \"logs\", \"otelcol.signal\": \"logs\", \"error\": \"not retryable error: Permanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: Permanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\"}",
+     16
+    ],
+    [
+     "<*> warn batchprocessor@v0.135.0/batch_processor.go:275 Sender failed {\"resource\": {\"service.instance.id\": \"16a4f862-8ba1-431b-894c-9beca0da41ea\", \"service.name\": \"otelcol-contrib\", \"service.version\": \"0.135.0\"}, \"otelcol.component.id\": \"batch\", \"otelcol.component.kind\": \"processor\", \"otelcol.pipeline.id\": \"logs\", \"otelcol.signal\": \"logs\", \"error\": \"not retryable error: Permanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: Permanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\"}",
+     9
+    ],
+    [
+     "<*> warn batchprocessor@v0.135.0/batch_processor.go:275 Sender failed {\"resource\": {\"service.instance.id\": \"16a4f862-8ba1-431b-894c-9beca0da41ea\", \"service.name\": \"otelcol-contrib\", \"service.version\": \"0.135.0\"}, \"otelcol.component.id\": \"batch\", \"otelcol.component.kind\": \"processor\", \"otelcol.pipeline.id\": \"logs\", \"otelcol.signal\": \"logs\", \"error\": \"not retryable error: Permanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: Permanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\"}",
+     5
+    ],
+    [
+     "<*> warn batchprocessor@v0.135.0/batch_processor.go:275 Sender failed {\"resource\": {\"service.instance.id\": \"16a4f862-8ba1-431b-894c-9beca0da41ea\", \"service.name\": \"otelcol-contrib\", \"service.version\": \"0.135.0\"}, \"otelcol.component.id\": \"batch\", \"otelcol.component.kind\": \"processor\", \"otelcol.pipeline.id\": \"logs\", \"otelcol.signal\": \"logs\", \"error\": \"not retryable error: Permanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flush: dial tcp 10.100.33.201:9200: connect: connection refused\\nPermanent error: flush: dial tcp 10.100.33.201:9200: con",
+     4
+    ]
+   ]
+  },
+  {
+   "statement": "fluentd-10x:other",
+   "events": 14,
+   "split_events": 12,
+   "patterns": 13,
+   "top_patterns": [
+    [
+     "2025-10-01 <*> +0000 tenx-stdout: <*> Enriching TenXObjects with <*> field: <*>",
+     2
+    ],
+    [
+     "2025-10-01 20:17:27.522198112 +0000 tenx-stdout: {\"message\":\"\ud83e\udeb5 Logging to: /var/log/tenx/tenx.log\"}",
+     1
+    ],
+    [
+     "2025-10-01 20:17:28.504190164 +0000 tenx-stdout: {\"message\":\"\ud83d\udcda Loading symbol libraries from: /etc/tenx/config/data/shared/symbols,/etc/tenx/symbols\"}",
+     1
+    ],
+    [
+     "2025-10-01 20:17:28.531343567 +0000 tenx-stdout: {\"message\":\"\ud83d\udcc2 Loading TenXTemplates from: data/templates/*.json,data/sample/output/*.json\"}",
+     1
+    ],
+    [
+     "2025-10-01 20:17:28.554094461 +0000 tenx-stdout: {\"message\":\"\ud83d\udce5 Reading events from Fluentd via stdin\"}",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-collector@v0.135.0:exporter/exporterhelper/internal/retry_sender.go:134",
+   "events": 24,
+   "split_events": 11,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "<*> info internal/retry_sender.go:133 Exporting failed. Will retry the request after interval. {\"resource\": {\"service.instance.id\": \"16a4f862-8ba1-431b-894c-9beca0da41ea\", \"service.name\": \"otelcol-contrib\", \"service.version\": \"0.135.0\"}, \"otelcol.component.id\": \"otlphttp/prometheus\", \"otelcol.component.kind\": \"exporter\", \"otelcol.signal\": \"metrics\", \"error\": \"failed to make an HTTP request: Post \\\"http://prometheus:9090/api/v1/otlp/v1/metrics\\\": dial tcp 10.100.2.161:9090: connect: connection refused\", \"interval\": <*>",
+     13
+    ],
+    [
+     "<*> info internal/retry_sender.go:133 Exporting failed. Will retry the request after interval. {\"resource\": {\"service.instance.id\": \"16a4f862-8ba1-431b-894c-9beca0da41ea\", \"service.name\": \"otelcol-contrib\", \"service.version\": \"0.135.0\"}, \"otelcol.component.id\": \"otlp\", \"otelcol.component.kind\": \"exporter\", \"otelcol.signal\": \"traces\", \"error\": \"rpc error: code = Unavailable desc = connection error: desc = \\\"transport: Error while dialing: dial tcp: lookup jaeger-collector on 10.100.0.10:53: no such host\\\"\", \"interval\": <*>",
+     11
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/FutureUtils.java:57",
+   "events": 11,
+   "split_events": 8,
+   "patterns": 6,
+   "top_patterns": [
+    [
+     "[2025-10-01 <*> INFO [BrokerServer id=1] <*> <*> <*> <*> <*> <*> <*> to be <*> (kafka.server.BrokerServer)",
+     3
+    ],
+    [
+     "[2025-10-01 <*> INFO <*> id=1] Waiting for controller quorum voters future <*>",
+     2
+    ],
+    [
+     "[2025-10-01 <*> INFO <*> id=1] Waiting for the <*> metadata publishers to be installed <*>",
+     2
+    ],
+    [
+     "[2025-10-01 <*> INFO [ControllerServer id=1] <*> <*> <*> <*> <*> <*> <*> to be <*> (kafka.server.ControllerServer)",
+     2
+    ],
+    [
+     "[2025-10-01 20:13:05,937] INFO [BrokerServer id=1] Waiting for the controller to acknowledge that we are caught up (kafka.server.BrokerServer)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:server-common/src/main/java/org/apache/kafka/server/util/FutureUtils.java:60",
+   "events": 11,
+   "split_events": 6,
+   "patterns": 6,
+   "top_patterns": [
+    [
+     "[2025-10-01 <*> INFO <*> id=1] Finished waiting for <*> <*> <*> <*> <*> to be <*> <*>",
+     5
+    ],
+    [
+     "[2025-10-01 <*> INFO <*> id=1] Finished waiting for controller quorum voters future <*>",
+     2
+    ],
+    [
+     "[2025-10-01 <*> INFO [ControllerServer id=1] <*> <*> <*> <*> <*> <*> <*> to be <*> (kafka.server.ControllerServer)",
+     1
+    ],
+    [
+     "[2025-10-01 <*> INFO [BrokerServer id=1] <*> <*> <*> <*> <*> <*> <*> to be <*> (kafka.server.BrokerServer)",
+     1
+    ],
+    [
+     "[2025-10-01 20:13:05,937] INFO [BrokerServer id=1] Finished waiting for the controller to acknowledge that we are caught up (kafka.server.BrokerServer)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "opensearch:other",
+   "events": 10,
+   "split_events": 6,
+   "patterns": 5,
+   "top_patterns": [
+    [
+     "<*> ][stderr ] [opensearch-0] SLF4J: <*> <*> <*> <*> <*>",
+     4
+    ],
+    [
+     "<*> ][stderr ] [opensearch-0] Oct 01, 2025 <*> PM <*> <*>",
+     2
+    ],
+    [
+     "<*> ][stderr ] [opensearch-0] SLF4J: Defaulting to no-operation (NOP) logger implementation",
+     2
+    ],
+    [
+     "[2025-10-01T20:12:27,700][WARN ][stderr ] [opensearch-0] INFO: Policy attached successfully: org.opensearch.bootstrap.OpenSearchPolicy@249e0271",
+     1
+    ],
+    [
+     "[2025-10-01T20:12:28,114][WARN ][stderr ] [opensearch-0] INFO: Java vector incubator API enabled; uses preferredBitSize=512; FMA enabled",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:metadata/src/main/java/org/apache/kafka/image/loader/MetadataLoader.java:308",
+   "events": 14,
+   "split_events": 5,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "[2025-10-01 <*> INFO [MetadataLoader id=1] InitializeNewPublishers: initializing <*> with a snapshot at offset <*> (org.apache.kafka.image.loader.MetadataLoader)",
+     9
+    ],
+    [
+     "[2025-10-01 <*> INFO [MetadataLoader id=1] InitializeNewPublishers: initializing <*> controller id=1 with a snapshot at offset 4 (org.apache.kafka.image.loader.MetadataLoader)",
+     5
+    ]
+   ]
+  },
+  {
+   "statement": "open-telemetry/opentelemetry-collector@v0.135.0:scraper/scraperhelper/obs_metrics.go:61",
+   "events": 7,
+   "split_events": 3,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "<*> error scraperhelper@v0.135.0/obs_metrics.go:61 Error scraping metrics {\"resource\": {\"service.instance.id\": \"16a4f862-8ba1-431b-894c-9beca0da41ea\", \"service.name\": \"otelcol-contrib\", \"service.version\": \"0.135.0\"}, \"otelcol.component.id\": \"postgresql\", \"otelcol.component.kind\": \"receiver\", \"otelcol.signal\": \"metrics\", \"error\": \"dial tcp 10.100.254.88:5432: connect: connection refused\"}",
+     4
+    ],
+    [
+     "<*> error scraperhelper@v0.135.0/obs_metrics.go:61 Error scraping metrics {\"resource\": {\"service.instance.id\": \"16a4f862-8ba1-431b-894c-9beca0da41ea\", \"service.name\": \"otelcol-contrib\", \"service.version\": \"0.135.0\"}, \"otelcol.component.id\": \"nginx\", \"otelcol.component.kind\": \"receiver\", \"otelcol.signal\": \"metrics\", \"error\": \"failed to get http://image-provider:8081/status: Get \\\"http://image-provider:8081/status\\\": dial tcp 10.100.112.85:8081: connect: connection refused\"}",
+     3
+    ]
+   ]
+  },
+  {
+   "statement": "frontend:stack_frame",
+   "events": 2314,
+   "split_events": 2,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Error: 13 INTERNAL: shipping quote failure: failed POST to shipping service: Post \"shipping:8080/get-quote\": unsupported protocol scheme \"shipping\"",
+     2312
+    ],
+    [
+     "Error: 14 UNAVAILABLE: No connection established. Last error: connect ECONNREFUSED 10.100.75.183:8080 <*>",
+     2
+    ]
+   ]
+  },
+  {
+   "statement": "fluent/fluentd@v1.17.1:lib/fluent/plugin/in_tail.rb:1134",
+   "events": 49,
+   "split_events": 2,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "2025-10-01 <*> +0000 [info]: #0 <*> <*> <*> <*> <*>",
+     47
+    ],
+    [
+     "2025-10-02 <*> +0000 [info]: #0 [in_tail_container_logs] following tail of /var/log/containers/otel-collector-77f89b474d-f9526_default_opentelemetry-collector-b9a68807b33f25d446e9700951afb9e957dd9b31d1afd3516f8b9c9de7e3dde2.log",
+     2
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/services/sqlstore/migrator/migrator.go:209",
+   "events": 4,
+   "split_events": 2,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "logger=migrator <*> level=info <*> database\"",
+     2
+    ],
+    [
+     "logger=resource-migrator <*> level=info <*> database\"",
+     2
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/services/sqlstore/migrator/migrator.go:240",
+   "events": 4,
+   "split_events": 2,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "logger=migrator <*> level=info msg=\"Starting DB migrations\"",
+     2
+    ],
+    [
+     "logger=resource-migrator <*> level=info msg=\"Starting DB migrations\"",
+     2
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/services/sqlstore/migrator/migrator.go:300",
+   "events": 4,
+   "split_events": 2,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "logger=migrator <*> level=info msg=\"migrations completed\" <*> <*> <*>",
+     2
+    ],
+    [
+     "logger=resource-migrator <*> level=info msg=\"migrations completed\" <*> <*> <*>",
+     2
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/services/sqlstore/migrator/migrator.go:222",
+   "events": 4,
+   "split_events": 2,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "logger=migrator <*> level=info <*> database\"",
+     2
+    ],
+    [
+     "logger=resource-migrator <*> level=info <*> database\"",
+     2
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:raft/src/main/java/org/apache/kafka/raft/QuorumState.java:618",
+   "events": 3,
+   "split_events": 2,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "[2025-10-01 20:13:04,208] INFO [RaftManager id=1] Attempting durable transition to Unattached(epoch=0, votedKey=null, voters=[1], electionTimeoutMs=1838, highWatermark=Optional.empty) from null (org.apache.kafka.raft.QuorumState)",
+     1
+    ],
+    [
+     "[2025-10-01 20:13:04,591] INFO [RaftManager id=1] Attempting durable transition to CandidateState(localId=1, localDirectoryId=U5n9H8H1RBnU7GtW3zvgMQ,epoch=1, retries=1, voteStates={1=org.apache.kafka.raft.CandidateState$VoterState@2a191f83}, highWatermark=Optional.empty, electionTimeoutMs=1958) from Unattached(epoch=0, votedKey=null, voters=[1], electionTimeoutMs=1838, highWatermark=Optional.empty) (org.apache.kafka.raft.QuorumState)",
+     1
+    ],
+    [
+     "[2025-10-01 20:13:04,599] INFO [RaftManager id=1] Attempting durable transition to Leader(localReplicaKey=ReplicaKey(id=1, directoryId=Optional[U5n9H8H1RBnU7GtW3zvgMQ]), epoch=1, epochStartOffset=0, highWatermark=Optional.empty, voterStates={1=ReplicaState(replicaKey=ReplicaKey(id=1, directoryId=Optional.empty), endOffset=Optional.empty, lastFetchTimestamp=-1, lastCaughtUpTimestamp=-1, hasAcknowledgedLeader=true)}) from CandidateState(localId=1, localDirectoryId=U5n9H8H1RBnU7GtW3zvgMQ,epoch=1, retries=1, voteStates={1=org.apache.kafka.raft.CandidateState$VoterState@2a191f83}, highWatermark=Optional.empty, electionTimeoutMs=1958) (org.apache.kafka.raft.QuorumState)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:raft/src/main/java/org/apache/kafka/raft/QuorumState.java:635",
+   "events": 3,
+   "split_events": 2,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "[2025-10-01 20:13:04,586] INFO [RaftManager id=1] Completed transition to Unattached(epoch=0, votedKey=null, voters=[1], electionTimeoutMs=1838, highWatermark=Optional.empty) from null (org.apache.kafka.raft.QuorumState)",
+     1
+    ],
+    [
+     "[2025-10-01 20:13:04,593] INFO [RaftManager id=1] Completed transition to CandidateState(localId=1, localDirectoryId=U5n9H8H1RBnU7GtW3zvgMQ,epoch=1, retries=1, voteStates={1=org.apache.kafka.raft.CandidateState$VoterState@2a191f83}, highWatermark=Optional.empty, electionTimeoutMs=1958) from Unattached(epoch=0, votedKey=null, voters=[1], electionTimeoutMs=1838, highWatermark=Optional.empty) (org.apache.kafka.raft.QuorumState)",
+     1
+    ],
+    [
+     "[2025-10-01 20:13:04,601] INFO [RaftManager id=1] Completed transition to Leader(localReplicaKey=ReplicaKey(id=1, directoryId=Optional[U5n9H8H1RBnU7GtW3zvgMQ]), epoch=1, epochStartOffset=0, highWatermark=Optional.empty, voterStates={1=ReplicaState(replicaKey=ReplicaKey(id=1, directoryId=Optional.empty), endOffset=Optional.empty, lastFetchTimestamp=-1, lastCaughtUpTimestamp=-1, hasAcknowledgedLeader=true)}) from CandidateState(localId=1, localDirectoryId=U5n9H8H1RBnU7GtW3zvgMQ,epoch=1, retries=1, voteStates={1=org.apache.kafka.raft.CandidateState$VoterState@2a191f83}, highWatermark=Optional.empty, electionTimeoutMs=1958) (org.apache.kafka.raft.QuorumState)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/log/LogManager.scala:1100",
+   "events": 51,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "[2025-10-01 <*> INFO Created log for partition <*> in <*> with properties {cleanup.policy=compact, compression.type=\"producer\", segment.bytes=104857600} (kafka.log.LogManager)",
+     50
+    ],
+    [
+     "[2025-10-01 20:13:23,391] INFO Created log for partition orders-0 in /tmp/kafka-logs/orders-0 with properties {} (kafka.log.LogManager)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/services/sqlstore/migrator/migrator.go:384",
+   "events": 3,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "logger=migrator <*> level=warn msg=\"Skipping migration: Already executed, but not recorded in migration log\" id=\"drop index <*> - v1\"",
+     2
+    ],
+    [
+     "logger=migrator t=2025-10-01T20:12:26.540351719Z level=warn msg=\"Skipping migration: Already executed, but not recorded in migration log\" id=\"drop unique orgID index on alert_configuration if exists\"",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "kubernetes/kubernetes@v1.32.6:staging/src/k8s.io/client-go/tools/cache/shared_informer.go:313",
+   "events": 3,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "I1001 <*> 1 shared_informer.go:313] Waiting for caches to sync for <*> config",
+     2
+    ],
+    [
+     "I1001 20:07:11.845647 1 shared_informer.go:313] Waiting for caches to sync for endpoint slice config",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "kubernetes/kubernetes@v1.32.6:staging/src/k8s.io/client-go/tools/cache/shared_informer.go:320",
+   "events": 3,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "I1001 <*> 1 shared_informer.go:320] Caches are synced for <*> config",
+     2
+    ],
+    [
+     "I1001 20:07:11.946643 1 shared_informer.go:320] Caches are synced for endpoint slice config",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "fraud-detection:other",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "Picked up JAVA_TOOL_OPTIONS: -javaagent:/usr/src/app/opentelemetry-javaagent.jar",
+     1
+    ],
+    [
+     "OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "grafana/grafana@v12.1.1:pkg/services/featuremgmt/service.go:64",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "logger=featuremgmt t=2025-10-01T20:12:41.024373277Z level=info msg=FeatureToggles dashgpt=true tlsMemcached=true nestedFolders=true promQLScope=true correlations=true awsAsyncQueryCaching=true formatString=true influxdbBackendMigration=true improvedExternalSessionHandlingSAML=true logsInfiniteScrolling=true alertingQueryAndExpressionsStepMode=true addFieldFromCalculationStatFunctions=true annotationPermissionUpdate=true dashboardScene=true ssoSettingsSAML=true prometheusAzureOverrideAudience=true alertingImportYAMLUI=true publicDashboardsScene=true alertingNotificationsStepMode=true recordedQueriesMulti=true groupToNestedTableTransformation=true newPDFRendering=true pinNavItems=true alertingRuleRecoverDeleted=true alertingMigrationUI=true azureMonitorEnableUserAuth=true logsExploreTableVisualisation=true grafanaconThemes=true tabularNumbers=true useSessionStorageForRedirection=true cloudWatchCrossAccountQuerying=true lokiQuerySplitting=true logsPanelControls=true logsContextDatasourceUi=true jaegerBackendMigr",
+     1
+    ],
+    [
+     "logger=featuremgmt t=2025-10-01T20:12:19.475211233Z level=info msg=FeatureToggles annotationPermissionUpdate=true improvedExternalSessionHandling=true cloudWatchCrossAccountQuerying=true unifiedRequestLog=true logRowsPopoverMenu=true dataplaneFrontendFallback=true cloudWatchNewLabelParsing=true transformationsRedesign=true skipTokenRotationIfRecent=true cloudWatchRoundUpEndTime=true alertingBulkActionsInUI=true lokiLabelNamesQueryApi=true dashboardScene=true tlsMemcached=true tabularNumbers=true preinstallAutoUpdate=true unifiedStorageSearchPermissionFiltering=true alertingNotificationsStepMode=true recordedQueriesMulti=true formatString=true useSessionStorageForRedirection=true kubernetesClientDashboardsFolders=true improvedExternalSessionHandlingSAML=true prometheusAzureOverrideAudience=true dashgpt=true alertingRuleRecoverDeleted=true externalCorePlugins=true correlations=true publicDashboardsScene=true logsInfiniteScrolling=true influxdbBackendMigration=true jaegerBackendMigration=true dashboardSceneForVi",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/server/AbstractFetcherManager.scala:200",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "[2025-10-01 20:13:14,477] INFO [ReplicaFetcherManager on broker 1] Removed fetcher for partitions Set(__consumer_offsets-13, __consumer_offsets-46, __consumer_offsets-9, __consumer_offsets-42, __consumer_offsets-21, __consumer_offsets-17, __consumer_offsets-30, __consumer_offsets-26, __consumer_offsets-5, __consumer_offsets-38, __consumer_offsets-1, __consumer_offsets-34, __consumer_offsets-16, __consumer_offsets-45, __consumer_offsets-12, __consumer_offsets-41, __consumer_offsets-24, __consumer_offsets-20, __consumer_offsets-49, __consumer_offsets-0, __consumer_offsets-29, __consumer_offsets-25, __consumer_offsets-8, __consumer_offsets-37, __consumer_offsets-4, __consumer_offsets-33, __consumer_offsets-15, __consumer_offsets-48, __consumer_offsets-11, __consumer_offsets-44, __consumer_offsets-23, __consumer_offsets-19, __consumer_offsets-32, __consumer_offsets-28, __consumer_offsets-7, __consumer_offsets-40, __consumer_offsets-3, __consumer_offsets-36, __consumer_offsets-47, __consumer_offsets-14, __consumer",
+     1
+    ],
+    [
+     "[2025-10-01 20:13:23,386] INFO [ReplicaFetcherManager on broker 1] Removed fetcher for partitions Set(orders-0) (kafka.server.ReplicaFetcherManager)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/kafka@3.9.1:core/src/main/scala/kafka/coordinator/group/GroupCoordinator.scala:1501",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "[2025-10-01 20:13:23,423] INFO [GroupCoordinator 1]: Preparing to rebalance group fraud-detection in state PreparingRebalance with old generation 0 (__consumer_offsets-44) (reason: Adding new member consumer-fraud-detection-1-955f0f5f-e402-49e1-bf4e-d1f592fef774 with group instance id None; client reason: need to re-join with the given member-id: consumer-fraud-detection-1-955f0f5f-e402-49e1-bf4e-d1f592fef774) (kafka.coordinator.group.GroupCoordinator)",
+     1
+    ],
+    [
+     "[2025-10-01 20:13:23,424] INFO [GroupCoordinator 1]: Preparing to rebalance group accounting in state PreparingRebalance with old generation 0 (__consumer_offsets-43) (reason: Adding new member rdkafka-01efe93b-2237-4ab2-9d74-9d3d61d44be6 with group instance id None; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "fabric8io/fluent-plugin-kubernetes_metadata_filter@v3.5.1:lib/fluent/plugin/filter_kubernetes_metadata.rb:283",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "2025-10-01 20:17:20 +0000 [warn]: [filter_kube_metadata] !! The environment variable 'K8S_NODE_NAME' is not set to the node name which can affect the API server and watch efficiency !!",
+     1
+    ],
+    [
+     "2025-10-01 20:17:21 +0000 [warn]: #0 [filter_kube_metadata] !! The environment variable 'K8S_NODE_NAME' is not set to the node name which can affect the API server and watch efficiency !!",
+     1
+    ]
+   ]
+  }
+ ]
+}

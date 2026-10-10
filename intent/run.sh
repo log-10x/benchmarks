@@ -118,7 +118,7 @@ fi
 "$VENV/bin/pip" install --quiet -r ../pattern-identity/requirements.txt
 
 for cap in rec1155 otel215 zookeeper; do
-  for arm in strong baseline; do
+  for arm in strong baseline factory; do
     for unit in event record; do
       tag="drain3-$arm-$unit"
       out="$CACHE/$tag/$cap"

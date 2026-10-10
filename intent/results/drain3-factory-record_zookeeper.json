@@ -1,0 +1,1915 @@
+{
+ "capture": "zookeeper",
+ "events": 74380,
+ "labelled": 74380,
+ "excluded_containers": [],
+ "distinct_patterns": 72,
+ "overall": {
+  "events": 74380,
+  "statements": 84,
+  "merged_event_share": 1.12,
+  "merged_events": 831,
+  "split_event_share": 1.9,
+  "exact_grouping_events": 76.95,
+  "statements_clean": 42.86,
+  "statements_in_merge": 54.76,
+  "statements_split": 41.67,
+  "patterns_per_statement_mean": 2.87,
+  "patterns_per_statement_max": 9
+ },
+ "by_group": {
+  "source_in_library": null,
+  "source_not_in_library": {
+   "events": 74380,
+   "statements": 84,
+   "merged_event_share": 1.12,
+   "merged_events": 831,
+   "split_event_share": 1.9,
+   "exact_grouping_events": 76.95,
+   "statements_clean": 42.86,
+   "statements_in_merge": 54.76,
+   "statements_split": 41.67,
+   "patterns_per_statement_mean": 2.87,
+   "patterns_per_statement_max": 9
+  },
+  "not_code": null
+ },
+ "by_container": {
+  "null": {
+   "events": 74380,
+   "statements": 84,
+   "merged_event_share": 1.12,
+   "merged_events": 831,
+   "split_event_share": 1.9,
+   "exact_grouping_events": 76.95,
+   "statements_clean": 42.86,
+   "statements_in_merge": 54.76,
+   "statements_split": 41.67,
+   "patterns_per_statement_mean": 2.87,
+   "patterns_per_statement_max": 9
+  }
+ },
+ "merges": [
+  {
+   "pattern": "2015-07-31 <*> - INFO <*> - <*> <*> <*> <*>",
+   "events": 132,
+   "merged_events": 109,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumCnxManager.java:493",
+     23
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FastLeaderElection.java:774",
+     16
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/persistence/FileTxnSnapLog.java:240",
+     12
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java:101",
+     9
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java:334",
+     9
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/DatadirCleanupManager.java:78",
+     9
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/DatadirCleanupManager.java:79",
+     9
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/NIOServerCnxnFactory.java:94",
+     9
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:913",
+     9
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:933",
+     9
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:944",
+     9
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:959",
+     9
+    ]
+   ]
+  },
+  {
+   "pattern": "2015-07-30 <*> - INFO <*> - <*> <*> <*> <*>",
+   "events": 135,
+   "merged_events": 97,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FastLeaderElection.java:774",
+     38
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumCnxManager.java:493",
+     18
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/persistence/FileTxnSnapLog.java:240",
+     16
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java:101",
+     7
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java:334",
+     7
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/DatadirCleanupManager.java:78",
+     7
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/DatadirCleanupManager.java:79",
+     7
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/NIOServerCnxnFactory.java:94",
+     7
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:913",
+     7
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:933",
+     7
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:944",
+     7
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:959",
+     7
+    ]
+   ]
+  },
+  {
+   "pattern": "<*> <*> - INFO <*> - Client attempting to <*> <*> <*> at <*>",
+   "events": 1861,
+   "merged_events": 71,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/ZooKeeperServer.java:839",
+     1790
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/ZooKeeperServer.java:832",
+     71
+    ]
+   ]
+  },
+  {
+   "pattern": "2015-08-10 <*> - INFO <*> - <*> <*> <*> <*>",
+   "events": 72,
+   "merged_events": 63,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumCnxManager.java:493",
+     9
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/persistence/FileTxnSnapLog.java:240",
+     9
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java:101",
+     6
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java:334",
+     6
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/DatadirCleanupManager.java:78",
+     6
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/DatadirCleanupManager.java:79",
+     6
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/NIOServerCnxnFactory.java:94",
+     6
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:913",
+     6
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:933",
+     6
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:944",
+     6
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:959",
+     6
+    ]
+   ]
+  },
+  {
+   "pattern": "2015-07-29 <*> - INFO <*> - <*> <*> <*> <*>",
+   "events": 10424,
+   "merged_events": 60,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumCnxManager.java:493",
+     10364
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FastLeaderElection.java:774",
+     28
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/persistence/FileTxnSnapLog.java:240",
+     5
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java:101",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java:334",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/DatadirCleanupManager.java:78",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/DatadirCleanupManager.java:79",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/NIOServerCnxnFactory.java:94",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:913",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:933",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:944",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:959",
+     3
+    ]
+   ]
+  },
+  {
+   "pattern": "2015-08-25 <*> - INFO <*> - <*> <*> <*> <*>",
+   "events": 738,
+   "merged_events": 54,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FastLeaderElection.java:774",
+     684
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/persistence/FileTxnSnapLog.java:240",
+     11
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumCnxManager.java:493",
+     7
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java:101",
+     4
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java:334",
+     4
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/DatadirCleanupManager.java:78",
+     4
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/DatadirCleanupManager.java:79",
+     4
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/NIOServerCnxnFactory.java:94",
+     4
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:913",
+     4
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:933",
+     4
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:944",
+     4
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:959",
+     4
+    ]
+   ]
+  },
+  {
+   "pattern": "<*> <*> - INFO <*> - <*>",
+   "events": 98,
+   "merged_events": 49,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:670",
+     49
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:738",
+     34
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:750",
+     15
+    ]
+   ]
+  },
+  {
+   "pattern": "2015-07-30 <*> - INFO <*> - <*> <*>",
+   "events": 46,
+   "merged_events": 38,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/LearnerHandler.java:395",
+     8
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/ZooKeeperServer.java:419",
+     5
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/CommitProcessor.java:181",
+     5
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/SyncRequestProcessor.java:175",
+     5
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/SyncRequestProcessor.java:155",
+     5
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Follower.java:166",
+     4
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FollowerZooKeeperServer.java:139",
+     4
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FollowerRequestProcessor.java:105",
+     4
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Leader.java:490",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Leader.java:496",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/SessionTrackerImpl.java:225",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/PrepRequestProcessor.java:743",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/ProposalRequestProcessor.java:88",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Leader.java:655",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "2015-08-07 <*> - INFO <*> - <*> <*> <*> <*>",
+   "events": 41,
+   "merged_events": 36,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumCnxManager.java:493",
+     5
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FastLeaderElection.java:774",
+     5
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/persistence/FileTxnSnapLog.java:240",
+     4
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java:101",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java:334",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/DatadirCleanupManager.java:78",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/DatadirCleanupManager.java:79",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/NIOServerCnxnFactory.java:94",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:913",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:933",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:944",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:959",
+     3
+    ]
+   ]
+  },
+  {
+   "pattern": "2015-08-18 <*> - INFO <*> - <*> <*> <*> <*>",
+   "events": 39,
+   "merged_events": 34,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FastLeaderElection.java:774",
+     5
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/persistence/FileTxnSnapLog.java:240",
+     4
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java:101",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java:334",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/DatadirCleanupManager.java:78",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/DatadirCleanupManager.java:79",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/NIOServerCnxnFactory.java:94",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:913",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:933",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:944",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:959",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumCnxManager.java:493",
+     3
+    ]
+   ]
+  },
+  {
+   "pattern": "2015-07-30 <*> - INFO <*> - <*> <*> <*>",
+   "events": 40,
+   "merged_events": 24,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/persistence/FileSnap.java:83",
+     16
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerMain.java:127",
+     7
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/ZooKeeperServer.java:81",
+     7
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/CommitProcessor.java:150",
+     5
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FollowerRequestProcessor.java:95",
+     4
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/SessionTrackerImpl.java:162",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "2015-08-20 <*> - INFO <*> - <*> <*>",
+   "events": 26,
+   "merged_events": 23,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/ZooKeeperServer.java:419",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/CommitProcessor.java:181",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/SyncRequestProcessor.java:175",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/SyncRequestProcessor.java:155",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Follower.java:166",
+     2
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FollowerZooKeeperServer.java:139",
+     2
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FollowerRequestProcessor.java:105",
+     2
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/LearnerHandler.java:395",
+     2
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Leader.java:490",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Leader.java:496",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/SessionTrackerImpl.java:225",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/PrepRequestProcessor.java:743",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/ProposalRequestProcessor.java:88",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Leader.java:655",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "2015-08-25 <*> - INFO <*> - <*> <*>",
+   "events": 26,
+   "merged_events": 21,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/LearnerHandler.java:395",
+     5
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Follower.java:166",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FollowerZooKeeperServer.java:139",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/ZooKeeperServer.java:419",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FollowerRequestProcessor.java:105",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/CommitProcessor.java:181",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/SyncRequestProcessor.java:175",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/SyncRequestProcessor.java:155",
+     3
+    ]
+   ]
+  },
+  {
+   "pattern": "2015-08-10 <*> - INFO <*> - <*> <*> <*>",
+   "events": 66,
+   "merged_events": 20,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Learner.java:107",
+     46
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/persistence/FileSnap.java:83",
+     8
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerMain.java:127",
+     6
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/ZooKeeperServer.java:81",
+     6
+    ]
+   ]
+  },
+  {
+   "pattern": "2015-07-31 <*> - INFO <*> - <*> <*> <*>",
+   "events": 32,
+   "merged_events": 20,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/persistence/FileSnap.java:83",
+     12
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerMain.java:127",
+     9
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/ZooKeeperServer.java:81",
+     9
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FollowerRequestProcessor.java:95",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/CommitProcessor.java:150",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "<*> <*> - INFO <*> - <*> - LEADER ELECTION TOOK - <*>",
+   "events": 49,
+   "merged_events": 15,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Follower.java:63",
+     34
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Leader.java:345",
+     15
+    ]
+   ]
+  },
+  {
+   "pattern": "2015-08-25 <*> - INFO <*> - <*> <*> <*>",
+   "events": 25,
+   "merged_events": 15,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/persistence/FileSnap.java:83",
+     10
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/ZooKeeperServer.java:81",
+     5
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerMain.java:127",
+     4
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FollowerRequestProcessor.java:95",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/CommitProcessor.java:150",
+     3
+    ]
+   ]
+  },
+  {
+   "pattern": "<*> <*> - INFO <*> - TCP NoDelay set to: true",
+   "events": 39,
+   "merged_events": 14,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Learner.java:85",
+     25
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Leader.java:58",
+     14
+    ]
+   ]
+  },
+  {
+   "pattern": "2015-08-20 <*> - INFO <*> - <*> <*> <*>",
+   "events": 14,
+   "merged_events": 10,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Learner.java:107",
+     4
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/persistence/FileSnap.java:83",
+     4
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/CommitProcessor.java:150",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FollowerRequestProcessor.java:95",
+     2
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/SessionTrackerImpl.java:162",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "2015-08-24 <*> - INFO <*> - <*> <*> <*> <*>",
+   "events": 528,
+   "merged_events": 9,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FastLeaderElection.java:774",
+     519
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java:101",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java:334",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/DatadirCleanupManager.java:78",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/DatadirCleanupManager.java:79",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/NIOServerCnxnFactory.java:94",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:913",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:933",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:944",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:959",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "2015-07-29 <*> - INFO <*> - <*> <*> <*>",
+   "events": 14,
+   "merged_events": 9,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Learner.java:107",
+     5
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerMain.java:127",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/ZooKeeperServer.java:81",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FollowerRequestProcessor.java:95",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/CommitProcessor.java:150",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/persistence/FileSnap.java:83",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "<*> <*> - WARN <*> - Got zxid <*> expected <*>",
+   "events": 28,
+   "merged_events": 7,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Follower.java:118",
+     21
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Learner.java:373",
+     7
+    ]
+   ]
+  },
+  {
+   "pattern": "2015-07-31 <*> - INFO <*> - <*> <*>",
+   "events": 15,
+   "merged_events": 7,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/LearnerHandler.java:395",
+     8
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Follower.java:166",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FollowerZooKeeperServer.java:139",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/ZooKeeperServer.java:419",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FollowerRequestProcessor.java:105",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/CommitProcessor.java:181",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/SyncRequestProcessor.java:175",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/SyncRequestProcessor.java:155",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "2015-08-07 <*> - INFO <*> - <*> <*> <*>",
+   "events": 10,
+   "merged_events": 6,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/persistence/FileSnap.java:83",
+     4
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerMain.java:127",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/ZooKeeperServer.java:81",
+     3
+    ]
+   ]
+  },
+  {
+   "pattern": "2015-08-18 <*> - INFO <*> - <*> <*> <*>",
+   "events": 10,
+   "merged_events": 6,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/persistence/FileSnap.java:83",
+     4
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerMain.java:127",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/ZooKeeperServer.java:81",
+     3
+    ]
+   ]
+  },
+  {
+   "pattern": "2015-07-29 <*> - INFO <*> - <*> <*>",
+   "events": 7,
+   "merged_events": 6,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Follower.java:166",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FollowerZooKeeperServer.java:139",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/ZooKeeperServer.java:419",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FollowerRequestProcessor.java:105",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/CommitProcessor.java:181",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/SyncRequestProcessor.java:175",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/SyncRequestProcessor.java:155",
+     1
+    ]
+   ]
+  },
+  {
+   "pattern": "2015-08-20 <*> - INFO <*> - <*> <*> <*> <*>",
+   "events": 31,
+   "merged_events": 4,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FastLeaderElection.java:774",
+     27
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/persistence/FileTxnSnapLog.java:240",
+     4
+    ]
+   ]
+  },
+  {
+   "pattern": "2015-07-29 <*> - INFO <*> - <*> not found! Creating with a reasonable default of 0. This should only happen when you are upgrading your installation",
+   "events": 6,
+   "merged_events": 3,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:430",
+     3
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:445",
+     3
+    ]
+   ]
+  },
+  {
+   "pattern": "2015-08-24 <*> - INFO <*> - <*> <*> <*>",
+   "events": 2,
+   "merged_events": 1,
+   "statements": [
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerMain.java:127",
+     1
+    ],
+    [
+     "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/persistence/FileSnap.java:83",
+     1
+    ]
+   ]
+  }
+ ],
+ "splits": [
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FastLeaderElection.java:774",
+   "events": 1322,
+   "split_events": 638,
+   "patterns": 8,
+   "top_patterns": [
+    [
+     "2015-08-25 <*> - INFO <*> - <*> <*> <*> <*>",
+     684
+    ],
+    [
+     "2015-08-24 <*> - INFO <*> - <*> <*> <*> <*>",
+     519
+    ],
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*> <*> <*>",
+     38
+    ],
+    [
+     "2015-07-29 <*> - INFO <*> - <*> <*> <*> <*>",
+     28
+    ],
+    [
+     "2015-08-20 <*> - INFO <*> - <*> <*> <*> <*>",
+     27
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/NIOServerCnxn.java:1001",
+   "events": 1908,
+   "split_events": 159,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "<*> <*> - INFO <*> - Closed socket connection for client <*> which had sessionid <*>",
+     1749
+    ],
+    [
+     "<*> <*> - INFO [NIOServerCxn.Factory:0.0.0.0/0.0.0.0:2181:NIOServerCnxn@1001] - Closed socket connection for client <*> (no session established for client)",
+     159
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/ZooKeeperServer.java:81",
+   "events": 540,
+   "split_events": 72,
+   "patterns": 9,
+   "top_patterns": [
+    [
+     "<*> <*> - INFO <*> - Server <*>",
+     468
+    ],
+    [
+     "<*> <*> - INFO <*> - Server environment:zookeeper.version=3.4.5--1, built on 06/10/2013 17:26 GMT",
+     36
+    ],
+    [
+     "2015-07-31 <*> - INFO <*> - <*> <*> <*>",
+     9
+    ],
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*> <*>",
+     7
+    ],
+    [
+     "2015-08-10 <*> - INFO <*> - <*> <*> <*>",
+     6
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumCnxManager.java:493",
+   "events": 10429,
+   "split_events": 65,
+   "patterns": 7,
+   "top_patterns": [
+    [
+     "2015-07-29 <*> - INFO <*> - <*> <*> <*> <*>",
+     10364
+    ],
+    [
+     "2015-07-31 <*> - INFO <*> - <*> <*> <*> <*>",
+     23
+    ],
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*> <*> <*>",
+     18
+    ],
+    [
+     "2015-08-10 <*> - INFO <*> - <*> <*> <*> <*>",
+     9
+    ],
+    [
+     "2015-08-25 <*> - INFO <*> - <*> <*> <*> <*>",
+     7
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/persistence/FileTxnSnapLog.java:240",
+   "events": 65,
+   "split_events": 49,
+   "patterns": 8,
+   "top_patterns": [
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*> <*> <*>",
+     16
+    ],
+    [
+     "2015-07-31 <*> - INFO <*> - <*> <*> <*> <*>",
+     12
+    ],
+    [
+     "2015-08-25 <*> - INFO <*> - <*> <*> <*> <*>",
+     11
+    ],
+    [
+     "2015-08-10 <*> - INFO <*> - <*> <*> <*> <*>",
+     9
+    ],
+    [
+     "2015-07-29 <*> - INFO <*> - <*> <*> <*> <*>",
+     5
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/persistence/FileSnap.java:83",
+   "events": 60,
+   "split_events": 44,
+   "patterns": 9,
+   "top_patterns": [
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*> <*>",
+     16
+    ],
+    [
+     "2015-07-31 <*> - INFO <*> - <*> <*> <*>",
+     12
+    ],
+    [
+     "2015-08-25 <*> - INFO <*> - <*> <*> <*>",
+     10
+    ],
+    [
+     "2015-08-10 <*> - INFO <*> - <*> <*> <*>",
+     8
+    ],
+    [
+     "2015-08-07 <*> - INFO <*> - <*> <*> <*>",
+     4
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java:101",
+   "events": 36,
+   "split_events": 27,
+   "patterns": 8,
+   "top_patterns": [
+    [
+     "2015-07-31 <*> - INFO <*> - <*> <*> <*> <*>",
+     9
+    ],
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*> <*> <*>",
+     7
+    ],
+    [
+     "2015-08-10 <*> - INFO <*> - <*> <*> <*> <*>",
+     6
+    ],
+    [
+     "2015-08-25 <*> - INFO <*> - <*> <*> <*> <*>",
+     4
+    ],
+    [
+     "2015-07-29 <*> - INFO <*> - <*> <*> <*> <*>",
+     3
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerConfig.java:334",
+   "events": 36,
+   "split_events": 27,
+   "patterns": 8,
+   "top_patterns": [
+    [
+     "2015-07-31 <*> - INFO <*> - <*> <*> <*> <*>",
+     9
+    ],
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*> <*> <*>",
+     7
+    ],
+    [
+     "2015-08-10 <*> - INFO <*> - <*> <*> <*> <*>",
+     6
+    ],
+    [
+     "2015-08-25 <*> - INFO <*> - <*> <*> <*> <*>",
+     4
+    ],
+    [
+     "2015-07-29 <*> - INFO <*> - <*> <*> <*> <*>",
+     3
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/DatadirCleanupManager.java:78",
+   "events": 36,
+   "split_events": 27,
+   "patterns": 8,
+   "top_patterns": [
+    [
+     "2015-07-31 <*> - INFO <*> - <*> <*> <*> <*>",
+     9
+    ],
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*> <*> <*>",
+     7
+    ],
+    [
+     "2015-08-10 <*> - INFO <*> - <*> <*> <*> <*>",
+     6
+    ],
+    [
+     "2015-08-25 <*> - INFO <*> - <*> <*> <*> <*>",
+     4
+    ],
+    [
+     "2015-07-29 <*> - INFO <*> - <*> <*> <*> <*>",
+     3
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/DatadirCleanupManager.java:79",
+   "events": 36,
+   "split_events": 27,
+   "patterns": 8,
+   "top_patterns": [
+    [
+     "2015-07-31 <*> - INFO <*> - <*> <*> <*> <*>",
+     9
+    ],
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*> <*> <*>",
+     7
+    ],
+    [
+     "2015-08-10 <*> - INFO <*> - <*> <*> <*> <*>",
+     6
+    ],
+    [
+     "2015-08-25 <*> - INFO <*> - <*> <*> <*> <*>",
+     4
+    ],
+    [
+     "2015-07-29 <*> - INFO <*> - <*> <*> <*> <*>",
+     3
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeerMain.java:127",
+   "events": 36,
+   "split_events": 27,
+   "patterns": 8,
+   "top_patterns": [
+    [
+     "2015-07-31 <*> - INFO <*> - <*> <*> <*>",
+     9
+    ],
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*> <*>",
+     7
+    ],
+    [
+     "2015-08-10 <*> - INFO <*> - <*> <*> <*>",
+     6
+    ],
+    [
+     "2015-08-25 <*> - INFO <*> - <*> <*> <*>",
+     4
+    ],
+    [
+     "2015-07-29 <*> - INFO <*> - <*> <*> <*>",
+     3
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/NIOServerCnxnFactory.java:94",
+   "events": 36,
+   "split_events": 27,
+   "patterns": 8,
+   "top_patterns": [
+    [
+     "2015-07-31 <*> - INFO <*> - <*> <*> <*> <*>",
+     9
+    ],
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*> <*> <*>",
+     7
+    ],
+    [
+     "2015-08-10 <*> - INFO <*> - <*> <*> <*> <*>",
+     6
+    ],
+    [
+     "2015-08-25 <*> - INFO <*> - <*> <*> <*> <*>",
+     4
+    ],
+    [
+     "2015-07-29 <*> - INFO <*> - <*> <*> <*> <*>",
+     3
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:913",
+   "events": 36,
+   "split_events": 27,
+   "patterns": 8,
+   "top_patterns": [
+    [
+     "2015-07-31 <*> - INFO <*> - <*> <*> <*> <*>",
+     9
+    ],
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*> <*> <*>",
+     7
+    ],
+    [
+     "2015-08-10 <*> - INFO <*> - <*> <*> <*> <*>",
+     6
+    ],
+    [
+     "2015-08-25 <*> - INFO <*> - <*> <*> <*> <*>",
+     4
+    ],
+    [
+     "2015-07-29 <*> - INFO <*> - <*> <*> <*> <*>",
+     3
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:933",
+   "events": 36,
+   "split_events": 27,
+   "patterns": 8,
+   "top_patterns": [
+    [
+     "2015-07-31 <*> - INFO <*> - <*> <*> <*> <*>",
+     9
+    ],
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*> <*> <*>",
+     7
+    ],
+    [
+     "2015-08-10 <*> - INFO <*> - <*> <*> <*> <*>",
+     6
+    ],
+    [
+     "2015-08-25 <*> - INFO <*> - <*> <*> <*> <*>",
+     4
+    ],
+    [
+     "2015-07-29 <*> - INFO <*> - <*> <*> <*> <*>",
+     3
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:944",
+   "events": 36,
+   "split_events": 27,
+   "patterns": 8,
+   "top_patterns": [
+    [
+     "2015-07-31 <*> - INFO <*> - <*> <*> <*> <*>",
+     9
+    ],
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*> <*> <*>",
+     7
+    ],
+    [
+     "2015-08-10 <*> - INFO <*> - <*> <*> <*> <*>",
+     6
+    ],
+    [
+     "2015-08-25 <*> - INFO <*> - <*> <*> <*> <*>",
+     4
+    ],
+    [
+     "2015-07-29 <*> - INFO <*> - <*> <*> <*> <*>",
+     3
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/QuorumPeer.java:959",
+   "events": 36,
+   "split_events": 27,
+   "patterns": 8,
+   "top_patterns": [
+    [
+     "2015-07-31 <*> - INFO <*> - <*> <*> <*> <*>",
+     9
+    ],
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*> <*> <*>",
+     7
+    ],
+    [
+     "2015-08-10 <*> - INFO <*> - <*> <*> <*> <*>",
+     6
+    ],
+    [
+     "2015-08-25 <*> - INFO <*> - <*> <*> <*> <*>",
+     4
+    ],
+    [
+     "2015-07-29 <*> - INFO <*> - <*> <*> <*> <*>",
+     3
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/LearnerHandler.java:395",
+   "events": 34,
+   "split_events": 23,
+   "patterns": 5,
+   "top_patterns": [
+    [
+     "<*> <*> - INFO <*> - Sending <*>",
+     11
+    ],
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*>",
+     8
+    ],
+    [
+     "2015-07-31 <*> - INFO <*> - <*> <*>",
+     8
+    ],
+    [
+     "2015-08-25 <*> - INFO <*> - <*> <*>",
+     5
+    ],
+    [
+     "2015-08-20 <*> - INFO <*> - <*> <*>",
+     2
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Learner.java:107",
+   "events": 55,
+   "split_events": 9,
+   "patterns": 3,
+   "top_patterns": [
+    [
+     "2015-08-10 <*> - INFO <*> - <*> <*> <*>",
+     46
+    ],
+    [
+     "2015-07-29 <*> - INFO <*> - <*> <*> <*>",
+     5
+    ],
+    [
+     "2015-08-20 <*> - INFO <*> - <*> <*> <*>",
+     4
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/NIOServerCnxn.java:354",
+   "events": 167,
+   "split_events": 8,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "<*> <*> - WARN [NIOServerCxn.Factory:0.0.0.0/0.0.0.0:2181:NIOServerCnxn@354] - Exception causing close of session 0x0 due to java.io.IOException: ZooKeeperServer not running",
+     159
+    ],
+    [
+     "2015-07-29 <*> - WARN [NIOServerCxn.Factory:0.0.0.0/0.0.0.0:2181:NIOServerCnxn@354] - Exception causing close of session <*> due to java.io.IOException: Connection reset by peer",
+     8
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/ZooKeeperServer.java:419",
+   "events": 13,
+   "split_events": 8,
+   "patterns": 5,
+   "top_patterns": [
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*>",
+     5
+    ],
+    [
+     "2015-08-20 <*> - INFO <*> - <*> <*>",
+     3
+    ],
+    [
+     "2015-08-25 <*> - INFO <*> - <*> <*>",
+     3
+    ],
+    [
+     "2015-07-31 <*> - INFO <*> - <*> <*>",
+     1
+    ],
+    [
+     "2015-07-29 <*> - INFO <*> - <*> <*>",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/CommitProcessor.java:181",
+   "events": 13,
+   "split_events": 8,
+   "patterns": 5,
+   "top_patterns": [
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*>",
+     5
+    ],
+    [
+     "2015-08-20 <*> - INFO <*> - <*> <*>",
+     3
+    ],
+    [
+     "2015-08-25 <*> - INFO <*> - <*> <*>",
+     3
+    ],
+    [
+     "2015-07-31 <*> - INFO <*> - <*> <*>",
+     1
+    ],
+    [
+     "2015-07-29 <*> - INFO <*> - <*> <*>",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/CommitProcessor.java:150",
+   "events": 13,
+   "split_events": 8,
+   "patterns": 5,
+   "top_patterns": [
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*> <*>",
+     5
+    ],
+    [
+     "2015-08-20 <*> - INFO <*> - <*> <*> <*>",
+     3
+    ],
+    [
+     "2015-08-25 <*> - INFO <*> - <*> <*> <*>",
+     3
+    ],
+    [
+     "2015-07-31 <*> - INFO <*> - <*> <*> <*>",
+     1
+    ],
+    [
+     "2015-07-29 <*> - INFO <*> - <*> <*> <*>",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/SyncRequestProcessor.java:175",
+   "events": 13,
+   "split_events": 8,
+   "patterns": 5,
+   "top_patterns": [
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*>",
+     5
+    ],
+    [
+     "2015-08-20 <*> - INFO <*> - <*> <*>",
+     3
+    ],
+    [
+     "2015-08-25 <*> - INFO <*> - <*> <*>",
+     3
+    ],
+    [
+     "2015-07-31 <*> - INFO <*> - <*> <*>",
+     1
+    ],
+    [
+     "2015-07-29 <*> - INFO <*> - <*> <*>",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/SyncRequestProcessor.java:155",
+   "events": 13,
+   "split_events": 8,
+   "patterns": 5,
+   "top_patterns": [
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*>",
+     5
+    ],
+    [
+     "2015-08-20 <*> - INFO <*> - <*> <*>",
+     3
+    ],
+    [
+     "2015-08-25 <*> - INFO <*> - <*> <*>",
+     3
+    ],
+    [
+     "2015-07-31 <*> - INFO <*> - <*> <*>",
+     1
+    ],
+    [
+     "2015-07-29 <*> - INFO <*> - <*> <*>",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Follower.java:166",
+   "events": 11,
+   "split_events": 7,
+   "patterns": 5,
+   "top_patterns": [
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*>",
+     4
+    ],
+    [
+     "2015-08-25 <*> - INFO <*> - <*> <*>",
+     3
+    ],
+    [
+     "2015-08-20 <*> - INFO <*> - <*> <*>",
+     2
+    ],
+    [
+     "2015-07-31 <*> - INFO <*> - <*> <*>",
+     1
+    ],
+    [
+     "2015-07-29 <*> - INFO <*> - <*> <*>",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FollowerZooKeeperServer.java:139",
+   "events": 11,
+   "split_events": 7,
+   "patterns": 5,
+   "top_patterns": [
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*>",
+     4
+    ],
+    [
+     "2015-08-25 <*> - INFO <*> - <*> <*>",
+     3
+    ],
+    [
+     "2015-08-20 <*> - INFO <*> - <*> <*>",
+     2
+    ],
+    [
+     "2015-07-31 <*> - INFO <*> - <*> <*>",
+     1
+    ],
+    [
+     "2015-07-29 <*> - INFO <*> - <*> <*>",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FollowerRequestProcessor.java:105",
+   "events": 11,
+   "split_events": 7,
+   "patterns": 5,
+   "top_patterns": [
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*>",
+     4
+    ],
+    [
+     "2015-08-25 <*> - INFO <*> - <*> <*>",
+     3
+    ],
+    [
+     "2015-08-20 <*> - INFO <*> - <*> <*>",
+     2
+    ],
+    [
+     "2015-07-31 <*> - INFO <*> - <*> <*>",
+     1
+    ],
+    [
+     "2015-07-29 <*> - INFO <*> - <*> <*>",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/FollowerRequestProcessor.java:95",
+   "events": 11,
+   "split_events": 7,
+   "patterns": 5,
+   "top_patterns": [
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*> <*>",
+     4
+    ],
+    [
+     "2015-08-25 <*> - INFO <*> - <*> <*> <*>",
+     3
+    ],
+    [
+     "2015-08-20 <*> - INFO <*> - <*> <*> <*>",
+     2
+    ],
+    [
+     "2015-07-31 <*> - INFO <*> - <*> <*> <*>",
+     1
+    ],
+    [
+     "2015-07-29 <*> - INFO <*> - <*> <*> <*>",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Leader.java:490",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*>",
+     1
+    ],
+    [
+     "2015-08-20 <*> - INFO <*> - <*> <*>",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Leader.java:496",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*>",
+     1
+    ],
+    [
+     "2015-08-20 <*> - INFO <*> - <*> <*>",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/SessionTrackerImpl.java:225",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*>",
+     1
+    ],
+    [
+     "2015-08-20 <*> - INFO <*> - <*> <*>",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/PrepRequestProcessor.java:743",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*>",
+     1
+    ],
+    [
+     "2015-08-20 <*> - INFO <*> - <*> <*>",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/ProposalRequestProcessor.java:88",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*>",
+     1
+    ],
+    [
+     "2015-08-20 <*> - INFO <*> - <*> <*>",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/quorum/Leader.java:655",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*>",
+     1
+    ],
+    [
+     "2015-08-20 <*> - INFO <*> - <*> <*>",
+     1
+    ]
+   ]
+  },
+  {
+   "statement": "apache/zookeeper@release-3.4.5:src/java/main/org/apache/zookeeper/server/SessionTrackerImpl.java:162",
+   "events": 2,
+   "split_events": 1,
+   "patterns": 2,
+   "top_patterns": [
+    [
+     "2015-07-30 <*> - INFO <*> - <*> <*> <*>",
+     1
+    ],
+    [
+     "2015-08-20 <*> - INFO <*> - <*> <*> <*>",
+     1
+    ]
+   ]
+  }
+ ]
+}

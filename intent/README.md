@@ -19,7 +19,7 @@ Three outcomes, per event:
 
 Two tools are scored on the same events:
 - the 10x engine (versions 1.1.132 and 1.1.133 on the two demo captures, 1.1.136 on the ZooKeeper capture);
-- [Drain3](https://github.com/logpai/Drain3) 0.9.11, with the settings of [`../pattern-identity`](../pattern-identity).
+- [Drain3](https://github.com/logpai/Drain3) 0.9.11, in two arms with the settings of [`../pattern-identity`](../pattern-identity), and at drain3's factory defaults.
 
 ## Results
 
@@ -31,6 +31,7 @@ Two tools are scored on the same events:
 | 10x engine 1.1.132 | 4.44% (6,944) | 4.59% | 78.83% | 75.92% of 299 | 2,274 |
 | Drain3, strong arm | 0.05% (83) | 3.47% | 80.95% | 76.25% of 299 | 865 |
 | Drain3, baseline arm | 0.06% (99) | 3.41% | 80.92% | 74.25% of 299 | 812 |
+| Drain3, factory defaults | 0.15% (239) | 3.47% | 80.57% | 67.56% of 299 | 686 |
 | Drain3, strong arm, per record | 4.48% (7,013) | 3.47% | 76.57% | 76.25% of 299 | 851 |
 
 `rec1155`: 41,573 events, 41,333 labelled.
@@ -41,6 +42,7 @@ Two tools are scored on the same events:
 | 10x engine 1.1.132 | 1.1% (454) | 9.95% | 84.05% | 77.0% of 213 | 404 |
 | Drain3, strong arm | 1.78% (734) | 10.37% | 28.42% | 63.38% of 213 | 386 |
 | Drain3, baseline arm | 1.81% (749) | 10.49% | 28.26% | 62.91% of 213 | 420 |
+| Drain3, factory defaults | 3.34% (1,381) | 10.34% | 26.19% | 57.75% of 213 | 393 |
 | Drain3, strong arm, per record | 1.78% (734) | 10.35% | 79.79% | 65.26% of 213 | 377 |
 
 Without the opentelemetry-collector container (57% of otel215's events, 46% of rec1155's):
@@ -51,6 +53,7 @@ Without the opentelemetry-collector container (57% of otel215's events, 46% of r
 | 10x engine 1.1.132 | 10.39% (6,944) | 50.41% | 2.04% (454) | 70.4% |
 | Drain3, strong arm | 0.12% (79) | 55.61% | 3.3% (734) | 52.71% |
 | Drain3, baseline arm | 0.14% (94) | 55.54% | 3.36% (749) | 52.42% |
+| Drain3, factory defaults | 0.35% (233) | 54.72% | 6.2% (1,381) | 48.58% |
 
 [`results/results.md`](results/results.md) has every table:
 - split shares without the collector;
@@ -66,10 +69,11 @@ The `results/*.json` files list every merged pattern with its statements, and ev
 - On otel215 the gap to Drain3 is small when Drain3 is given the engine's events: 13 events against 83. Drain3's merges there pair statements that differ in one word, such as Grafana's `starting to provision dashboards` and `finished to provision dashboards`, or OpenSearch's `Starting housekeeping task for auto refresh streaming jobs.` and its `Finished` twin.
 - Fed one record at a time, as Drain3 normally runs, it also merges the cart service's three statements (6,930 events). The .NET console logger prints the same header line before each message, so every cart event starts with the same line. 1.1.132 made the same merge; 1.1.133 names such an event from its first record that holds a message.
 - On rec1155, Drain3 merges 734 events against 63. The largest are payment's two OpenTelemetry log dumps (390 events each) and two product-reviews statements (225 each).
+- At drain3's factory defaults, Drain3 merges more than either arm: 239 events on otel215 and 1,381 on rec1155. With no masking, a template can keep a date, so on otel215 Valkey's `%d changes in %d seconds. Saving...` and `Background saving started by pid %ld` share one template per day (120 events). On rec1155 it adds a merge of the cart service's `GetCartAsync` and `EmptyCartAsync` statements (390 events).
 
 **Where Drain3 does better.**
 - It splits fewer events on otel215: 3.47% against 4.59%, and 8.0% against 10.76% without the collector.
-- Without the collector, more of otel215's statements get a pattern of their own: 77.36% against 74.72%.
+- Without the collector, the two harness arms give more of otel215's statements a pattern of their own: 77.36% and 75.47% against 74.72%.
 - It produces about a third as many patterns.
 - On otel215 statements whose source the engine's library does not list, its exact grouping is higher: 65.49% against 62.89%.
 
@@ -82,7 +86,7 @@ Two Grafana statements account for 1,331 of 1.1.133's 2,277 otel215 patterns. Th
 `zookeeper` is LogHub's ZooKeeper log: 74,380 lines from a three-server ZooKeeper 3.4.5
 ensemble, every one labelled, 84 statements. Its labels were frozen and committed before any
 tool ran on it (`labels/FROZEN_zookeeper.json`). It is not held out from the engine's development: LogHub's 2,000-line ZooKeeper sample, drawn from this log, was one of 16 LogHub sets the rule work scored by LogHub's template labels, so 2,000 of its lines were in view; no rule was built from the statement labels, which did not exist until this capture was labelled. Each tool then ran once: the released engine 1.1.136
-with its shipped configuration, and Drain3 at the settings below. [METHOD.md](METHOD.md#the-third-capture-zookeeper)
+with its shipped configuration, and Drain3 in its two arms and at its factory defaults. [METHOD.md](METHOD.md#the-third-capture-zookeeper)
 gives the version evidence and how the labels were made.
 
 | tool | merged events | split events | exact grouping | statements with one pattern of their own | patterns |
@@ -90,6 +94,7 @@ gives the version evidence and how the labels were made.
 | 10x engine 1.1.136 | 0.21% (153) | 1.21% | 95.38% | 69.05% of 84 | 97 |
 | Drain3, strong arm | 0.75% (555) | 0.32% | 91.31% | 50.0% of 84 | 58 |
 | Drain3, baseline arm | 0.55% (412) | 0.32% | 93.25% | 55.95% of 84 | 64 |
+| Drain3, factory defaults | 1.12% (831) | 1.9% | 76.95% | 42.86% of 84 | 72 |
 
 Each event is one line, so Drain3 fed one record at a time gives the same figures. The
 1.1.89 library does not list ZooKeeper, so every statement falls in the "source not in the
@@ -99,12 +104,13 @@ library" group and that split equals the table above.
 - Thirteen statements print the same message as another statement and differ only in the class and line that log4j prints in brackets: nine `Shutting down`, two `TCP NoDelay set to: true` and two `Got zxid 0x{} expected 0x{}`. A tool that names a line from its level and message gives each group one name, which merges at least 66 of their 125 events. Neither tool separates them.
 - 1.1.136 merges those 66 and 87 more. `autopurge.snapRetainCount set to`, `autopurge.purgeInterval set to` and `minSessionTimeout set to` share the name `set_to` (72 events), while `tickTime`, `maxSessionTimeout` and `initLimit` keep their own names. Four `exited loop!` statements, each starting with its class name, share one pattern (15 events).
 - Drain3's strong arm puts `Notification time out: {}` (1,322 events) and all six `set to` statements under one template (216 merged events). The baseline arm keeps the time-out apart and merges the six (180). Both arms merge `Client attempting to establish new session` with `Client attempting to renew session` (71 events).
+- At factory defaults Drain3 merges 831 events. With no masking, templates such as `2015-07-31 <*> - INFO <*> - <*> <*> <*> <*>` keep the date and hold lines of several statements written that day. It also merges the two `Client attempting to` statements (71 events).
 
 **Where Drain3 does better.**
-- It splits fewer events: 0.32% against 1.21%. 1.1.136 gives `Server environment:` one pattern per environment key (16 patterns, 504 split events) and the election `Notification:` line one per combination of peer states (9 patterns, 212 split events).
-- It produces 58 or 64 patterns against 97.
+- The two harness arms split fewer events: 0.32% against 1.21%. 1.1.136 gives `Server environment:` one pattern per environment key (16 patterns, 504 split events) and the election `Notification:` line one per combination of peer states (9 patterns, 212 split events). At factory defaults Drain3 splits 1.9%.
+- It produces 58, 64 or 72 patterns against 97.
 
-1.1.136 gives more statements a pattern of their own: 58 of 84, against 42 for the strong arm and 47 for the baseline.
+1.1.136 gives more statements a pattern of their own: 58 of 84, against 42 for the strong arm, 47 for the baseline and 36 at factory defaults.
 
 ## Caveats
 
@@ -113,22 +119,27 @@ library" group and that split equals the table above.
 - **Unlabelled events are excluded.** 0.58% of rec1155's events and 0.42% of otel215's carry no label and are excluded from every score; [METHOD.md](METHOD.md) lists them by container. Every zookeeper event is labelled.
 - **The default library lists much of what runs.** The engine names a line from the library compiled into it: the 1.1.89 library, inside all three engine images.
   - Its manifest lists the repository or image behind 144 of otel215's 289 code statements (145,612 of its 156,563 labelled events) and 199 of rec1155's 207 (39,902 of 41,333). These include the OpenTelemetry demo itself, Kafka and the collector.
+  - The tables' 299 and 213 statements are these 289 and 207 code statements plus 10 and 6 [pseudo statements](METHOD.md#pseudo-statements): events that hold no single statement's text, such as access logs, stack frames and object dumps.
   - That cuts both ways: where the source is listed, the engine can find the statement; where it is not (Grafana, fluentd, OpenSearch, Kubernetes), the engine names the line from the words in it that the library knows.
   - `results/results.md` splits every score this way. On otel215 statements outside the library, 1.1.133 merges 0.13% of events against Drain3's 0.86%, and Drain3's exact grouping is higher.
   - The manifest does not list ZooKeeper, so the ZooKeeper capture is scored entirely outside the library.
 - **Event boundaries are the engine's.** An event is one record or a run of records the engine groups (a stack trace, a .NET header and its message). Drain3 is scored on those events, either given each event's text (the default rows) or fed one record at a time (the "per record" rows).
 - **Who wrote the labels.** Log10x wrote them, from source code alone, and froze them before any tool's output was read: otel215 and rec1155 on 2026-10-05 (`labels/FROZEN.json`), zookeeper on 2026-10-07 (`labels/FROZEN_zookeeper.json`), before any tool ran on it. Every label names a repository, ref, path and line in `labels/statements.tsv` or `labels/statements_zookeeper.tsv`, so any one can be checked against its source.
-- **The 1.1.133 column is in-sample.** Engine 1.1.133's group-lead rule (a multi-line event is named from its first record that holds a message) was developed after the freeze, with these two captures in view. Its column shows the rule on the data it was built against. The ZooKeeper column is labelled after the fact but is not a clean out-of-sample test (see its section); a capture never used in the engine's development would be. Drain3 ran at its published settings, untuned.
+- **The 1.1.133 column is in-sample.** Engine 1.1.133's group-lead rule (a multi-line event is named from its first record that holds a message) was developed after the freeze, with these two captures in view. Its column shows the rule on the data it was built against. The ZooKeeper column is labelled after the fact but is not a clean out-of-sample test (see its section); a capture never used in the engine's development would be. Drain3 ran at the pattern-identity harness's fixed settings, listed below, which were not tuned to these captures, and at drain3's factory defaults.
 
 ## Drain3 settings
 
-All taken from `../pattern-identity/bench/identity.py`, imported rather than copied:
+The strong and baseline arms take their settings from `../pattern-identity/bench/identity.py`, imported rather than copied. These are not drain3's factory values:
 - depth 6, `sim_th` 0.6, `max_children` 20, `max_clusters` 2,000;
 - numeric tokens parametrized;
-- the first 1,024 characters of each message;
 - baseline arm: typed-token masking; strong arm: the masking block of Drain3's `examples/drain3.ini`.
 
-Each run is the harness's reference pass: one instance learns the whole capture in memory, then every message is matched back read-only (`full_search_strategy="fallback"`) and named by the template it matches. No message went unmatched.
+The factory-defaults arm uses `TemplateMinerConfig()` as drain3 0.9.11 ships it:
+- depth 4, `sim_th` 0.4, `max_children` 100, no cluster cap;
+- numeric tokens parametrized;
+- no masking.
+
+Every arm is given the first 1,024 characters of each message. Each run is the harness's reference pass: one instance learns the whole capture in memory, then every message is matched back read-only (`full_search_strategy="fallback"`) and named by the template it matches. No message went unmatched.
 
 Fed one record at a time, the run reproduces the harness's own reference pass on otel215: 1,481 clusters under the strong arm and 1,465 under the baseline. drain3 0.9.11 on Python 3.13.11.
 
@@ -152,7 +163,7 @@ All three engines run with their shipped configuration through the dev app (`@ap
 
 This needs Docker, curl and Python 3. `run.sh` does the following:
 - downloads otel215 from the `otel-sample-v1` release of log-10x/config, rec1155 from this repository's `intent-data-v1` release and `Zookeeper.tar.gz` from LogHub's [Zenodo record 8196385](https://zenodo.org/records/8196385), checking every hash (the ZooKeeper log's CRLF line ends are converted to LF);
-- runs the 1.1.132 and 1.1.133 images on the demo captures, the 1.1.136 image on zookeeper, and the four Drain3 combinations on each capture;
+- runs the 1.1.132 and 1.1.133 images on the demo captures, the 1.1.136 image on zookeeper, and the six Drain3 combinations (three arms, each given events or records) on each capture;
 - scores every run and writes `results/`.
 
 On an Intel laptop with Docker Desktop it takes about 45 minutes.
@@ -171,7 +182,7 @@ python3 bench/score.py otel215 out/events.jsonl
 - `METHOD.md`: how the labels were made, coverage, exclusions, versions.
 - `labels/`: per-event labels, the statement registries, text hashes for the alignment check, file names per repository for the origin score, and the freeze records (`FROZEN.json` for otel215 and rec1155, `FROZEN_zookeeper.json` for zookeeper).
 - `bench/engine.sh`, `bench/events.config.yaml`: run an engine image over a capture.
-- `bench/drain_arm.py`: the Drain3 arm.
+- `bench/drain_arm.py`: the Drain3 arms.
 - `bench/score.py`: the scorer.
 - `bench/summarize.py`: writes `results/results.md`.
 - `results/`: the committed output of `run.sh`.
