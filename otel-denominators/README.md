@@ -26,7 +26,7 @@ check.
 | Case | Input bytes | Lines | Encoded | Templates bytes | Compact | Reduction | Templates | Round trip |
 |---|---:|---:|---:|---:|---:|---:|---:|---|
 | (a) as captured | 215,039,161 | 197,430 | 74,142,102 | 3,279,142 | 77,421,244 | **64.00%** | 3,028 | byte-identical |
-| (b) SIEM-billed | 88,975,911 | 111,691 | 30,452,359 | 2,949,044 | 33,401,403 | **62.46%** | 2,978 | byte-identical |
+| (b) tag and debug lines removed | 88,975,911 | 111,691 | 30,452,359 | 2,949,044 | 33,401,403 | **62.46%** | 2,978 | byte-identical |
 | (c) message only | 40,551,755 | 197,430 | 10,610,578 | 601,676 | 11,212,254 | **72.35%** | 2,625 | byte-identical |
 
 Reduction is the compact form, the encoded events plus the template dictionary needed to
@@ -51,7 +51,7 @@ claimed. Measuring one needs a capture of OTLP records, which this is not.
 
 - **(a) as captured** is the release asset, untouched: one JSON record per line with `log`,
   `stream`, `docker` and `kubernetes` keys, plus the `tenx_tag` field the forwarder adds.
-- **(b) SIEM-billed** removes `tenx_tag` and drops the collector's debug-exporter lines,
+- **(b) tag and debug lines removed** removes `tenx_tag` and drops the collector's debug-exporter lines,
   keeping the Kubernetes and Docker envelope, because a log platform bills that envelope. A
   line is dropped only when its container is `opentelemetry-collector` **and** its message
   matches zap's tab-separated debug prefix `<ts>\tinfo\t(Traces|Logs|Metrics)\t`. Ordinary
@@ -69,7 +69,7 @@ only (b) drops them.
   envelopes. The bracket in the result section is arithmetic on two measured points, not a
   measurement.
 - **No claim about what a particular platform bills.** Metering rules differ per product and
-  per contract. (b) is named for the shape a platform receives, not for anyone's invoice.
+  per contract.
 - **One capture, one cluster, about ten hours.** 36 containers from one small demo cluster at
   roughly 5 lines per second. A shape that occurs once at 5 lines per second is a different
   population from a shape that occurs once at 100,000.

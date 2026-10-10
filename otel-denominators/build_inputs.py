@@ -7,7 +7,8 @@ one names a different denominator, so all three are built here from one input
 and measured by the same engine and the same configs.
 
     (a) as captured    the release asset, untouched
-    (b) SIEM-billed    the field this project injects is removed and the
+    (b) tag and debug lines removed
+                       the field this project injects is removed and the
                        collector's debug-exporter lines are dropped; the
                        Kubernetes and Docker envelope is kept, because a log
                        platform bills it

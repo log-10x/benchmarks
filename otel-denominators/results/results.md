@@ -10,13 +10,13 @@ Written by `run.sh`. Every byte count is `wc -c` on a file this run produced; th
 | Case | Input bytes | Lines | Encoded | Templates bytes | Compact | Reduction | Templates | Round trip |
 |---|---:|---:|---:|---:|---:|---:|---:|---|
 | (a) as captured | 215,039,161 | 197,430 | 74,142,102 | 3,279,142 | 77,421,244 | **64.00%** | 3,028 | byte-identical |
-| (b) SIEM-billed | 88,975,911 | 111,691 | 30,452,359 | 2,949,044 | 33,401,403 | **62.46%** | 2,978 | byte-identical |
+| (b) tag and debug lines removed | 88,975,911 | 111,691 | 30,452,359 | 2,949,044 | 33,401,403 | **62.46%** | 2,978 | byte-identical |
 | (c) message only | 40,551,755 | 197,430 | 10,610,578 | 601,676 | 11,212,254 | **72.35%** | 2,625 | byte-identical |
 
 What each denominator is:
 
 - **(a) as captured**: the release asset, untouched.
-- **(b) SIEM-billed**: the injected `tenx_tag` field removed, the collector's debug-exporter lines dropped, envelope kept.
+- **(b) tag and debug lines removed**: the injected `tenx_tag` field removed, the collector's debug-exporter lines dropped, envelope kept.
 - **(c) message only**: the `log` value alone, one message per line.
 
 Round trip is `cmp` against that case's own input, so each row decodes back to the bytes it was measured on, not to some other file.
