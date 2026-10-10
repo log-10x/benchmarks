@@ -1,0 +1,19 @@
+{
+ "capture": "rec1155",
+ "arm": "factory",
+ "unit": "event",
+ "drain3": "drain3 0.9.11",
+ "settings": {
+  "depth": 4,
+  "sim_th": 0.4,
+  "max_children": 100,
+  "max_clusters": null,
+  "parametrize_numeric_tokens": true,
+  "line_cap": 1024,
+  "match_strategy": "fallback"
+ },
+ "messages": 41573,
+ "clusters": 502,
+ "distinct_names": 502,
+ "unmatched": 0
+}
