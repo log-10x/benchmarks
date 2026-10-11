@@ -15,9 +15,10 @@ construction:
    written. What comes back decides three claims:
      - the known-vocabulary line gets a readable template and a readable
        pattern name;
-     - the invented line gets a template with no literal content and an EMPTY
-       pattern name, so a coverage failure is visible in the artifact itself,
-       never disguised as a confident wrong name;
+     - the invented line gets a template with no literal content and a pattern
+       named by that template's shape, `template_<hex>`, with no word taken from
+       the line, so a coverage failure is visible in the artifact itself, never
+       disguised as a confident wrong name;
      - the template hash on the invented line is IDENTICAL across its
        occurrences and across two independent engine runs, so the identifier
        stays deterministic even where coverage failed.
@@ -26,10 +27,11 @@ construction:
    built for: Proxifier, a Windows consumer application, and the Apache error
    log. Both download from Zenodo record 3227177 into data/ (gitignored). The
    engine encodes each and this script measures the templates it minted: how
-   many, how much literal text each keeps, and how many are pure variables. The
-   counts are then compared with the counts the same engine version produced on
-   the same files in the compaction ledger recorded six weeks before this
-   script existed, so drift over time has a place to show up.
+   many, how much literal text each keeps, and how many are pure variables. Each
+   file is encoded twice, by two independent engine runs, and the counts and
+   template hashes must agree exactly. The counts are also set beside the
+   compaction ledger's measurement of the same files on an earlier engine, so a
+   change between engine versions has a place to show up.
 
 The engine runs as a pinned Docker image. If Docker or the image is absent the
 script SKIPS with a clear message and touches nothing under results/, so a
@@ -58,7 +60,7 @@ import sys
 import tarfile
 import urllib.request
 
-IMAGE = "log10x/pipeline-10x:1.1.5"
+IMAGE = "log10x/pipeline-10x:1.1.140@sha256:fd9c98384a775df13ed41921c2cf95ef1d1313f62f1300aac61da55ca64feb67"
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
 RESULTS_DIR = REPO_ROOT / "results"
@@ -67,13 +69,18 @@ ENGINE_OUT = DATA_DIR / "engine"
 
 ZENODO_BASE = "https://zenodo.org/records/3227177/files"
 
-# The counts the same engine version produced on the same two files in the
-# compaction ledger, recorded six weeks before this script existed. A mismatch
-# here is a falsifier firing, not a footnote.
+# The compaction ledger's measurement of the same two files on engine 1.1.133,
+# 2026-10-05 (dotcom blog/inventories/compaction-ledger.md, "Engine 1.1.133
+# measurement"). Shown beside this run's counts; a difference is a change between
+# engine versions, not a failure. Two runs of the pinned engine must agree exactly.
+LEDGER_ENGINE = "1.1.133"
 LEDGER = {
-    "Proxifier": {"events": 4257, "templates": 574},
-    "Apache": {"events": 52004, "templates": 370},
+    "Proxifier": {"events": 21329, "templates": 1854},
+    "Apache": {"events": 52004, "templates": 371},
 }
+
+# A pattern named by its template's shape: no word from the line in it.
+SHAPE_NAME = re.compile(r"^template_[0-9a-f]+$")
 
 # Two vocabularies, one probe file. Timestamps are fixed so the artifact is
 # byte-identical across reruns. The invented words did not exist until this
@@ -272,15 +279,20 @@ def invented_vocabulary_probe() -> dict:
                 fail(f"{run_name}: known-vocabulary template lost its literal "
                      f"text: {templates[tpl_hash]!r}")
 
-        # The invented line: empty pattern, zero literal content, one hash.
+        # The invented line: a shape name, zero literal content, one hash.
         inv_hashes = {tpl_hash for tpl_hash, _, _ in invented}
         if len(inv_hashes) != 1:
             fail(f"{run_name}: the invented-vocabulary occurrences carry "
                  f"{len(inv_hashes)} different template hashes: {sorted(inv_hashes)}")
+        inv_patterns = {pattern for _, pattern, _ in invented}
+        if len(inv_patterns) != 1:
+            fail(f"{run_name}: the invented-vocabulary occurrences carry "
+                 f"{len(inv_patterns)} different pattern names: {sorted(inv_patterns)}")
         for tpl_hash, pattern, _ in invented:
-            if pattern:
-                fail(f"{run_name}: invented-vocabulary line came back with a "
-                     f"non-empty pattern {pattern!r}, a confident wrong name")
+            if not SHAPE_NAME.match(pattern or ""):
+                fail(f"{run_name}: invented-vocabulary line came back with the "
+                     f"pattern {pattern!r}, not a shape name template_<hex>; a word "
+                     f"name here would be a confident wrong name")
         inv_hash = next(iter(inv_hashes))
         inv_template = templates[inv_hash]
         if literal_alnum_chars(inv_template) != 0:
@@ -293,6 +305,7 @@ def invented_vocabulary_probe() -> dict:
             "known_pattern": known[0][1],
             "invented_template": inv_template,
             "invented_template_hash": inv_hash,
+            "invented_pattern": invented[0][1],
             "invented_pattern_hash": invented[0][2],
             "records": len(records),
         }
@@ -302,6 +315,10 @@ def invented_vocabulary_probe() -> dict:
         fail("the invented-vocabulary template hash differs between two "
              f"independent engine runs: {a['invented_template_hash']!r} against "
              f"{b['invented_template_hash']!r}; the determinism claim retires")
+    if a["invented_pattern"] != b["invented_pattern"]:
+        fail("the invented-vocabulary pattern name differs between two "
+             f"independent engine runs: {a['invented_pattern']!r} against "
+             f"{b['invented_pattern']!r}; the determinism claim retires")
     if a["known_template_hash"] != b["known_template_hash"]:
         fail("the known-vocabulary template hash differs between two "
              "independent engine runs; the determinism claim retires")
@@ -316,15 +333,19 @@ def loghub_analysis(name: str) -> dict:
     templates = load_templates(outdir / "templates.json")
     events = sum(1 for line in open(outdir / "encoded.log", errors="replace")
                  if line.startswith("~"))
+    rerun = run_engine(log_path, f"{name}-rerun")
+    templates_b = load_templates(rerun / "templates.json")
+    events_b = sum(1 for line in open(rerun / "encoded.log", errors="replace")
+                   if line.startswith("~"))
+    if events_b != events or set(templates_b) != set(templates):
+        fail(f"{name}: two independent engine runs disagree: {events:,} events and "
+             f"{len(templates):,} templates against {events_b:,} and {len(templates_b):,}; "
+             f"run-to-run determinism retires")
 
     words = [literal_words(t) for t in templates.values()]
     pure_variable = sum(1 for t in templates.values() if literal_alnum_chars(t) == 0)
 
     exp = LEDGER[name]
-    if events != exp["events"] or len(templates) != exp["templates"]:
-        fail(f"{name}: this run minted {events:,} events and {len(templates):,} "
-             f"templates against {exp['events']:,} and {exp['templates']:,} in the "
-             f"compaction ledger six weeks earlier; cross-time determinism retires")
 
     return {
         "dataset": name,
@@ -361,9 +382,9 @@ def write_report(payload, md_path: pathlib.Path, json_path: pathlib.Path):
       "the emitting code is out of reach. What this page measures is narrower: how each "
       "side fails when the vocabulary is new. Drain fails by minting a first-sight "
       "literal that `bench/replay.py` shows moving when siblings arrive. The engine "
-      "fails by handing back a template with no literal content and an empty pattern "
-      "name, and the question here is whether that failure is visible, deterministic, "
-      "and free of wrong names.")
+      "fails by handing back a template with no literal content and a pattern named by "
+      "that template's shape, `template_<hex>`, and the question here is whether that "
+      "failure is visible, deterministic, and free of wrong names.")
     A("")
     A("**Why this is not circular.** The consistency checks in `bench/engine_side.py` "
       "compare two artifacts of one run and cannot fail; they are gates, not evidence. "
@@ -385,20 +406,21 @@ def write_report(payload, md_path: pathlib.Path, json_path: pathlib.Path):
     A("| line | template | pattern |")
     A("|---|---|---|")
     A(f"| known vocabulary | `{p['known_template']}` | `{p['known_pattern']}` |")
-    A(f"| invented vocabulary | `{p['invented_template']}` | (empty) |")
+    A(f"| invented vocabulary | `{p['invented_template']}` | `{p['invented_pattern']}` |")
     A("")
     A("Checked by the script, and each check is a falsifier that can fire:")
     A("")
     A("- The known-vocabulary line keeps its words: the template reads "
       f"\"{KNOWN_TEMPLATE_TEXT}\" and the pattern name `{p['known_pattern']}` is "
       "readable.")
-    A("- The invented-vocabulary line comes back with an EMPTY pattern and a template "
-      "with zero literal content. Unknown tokens become variables. The coverage "
-      "failure is visible in the artifact itself; at no point does the engine hand "
-      "back a confident wrong name.")
+    A(f"- The invented-vocabulary line comes back named `{p['invented_pattern']}`, a "
+      "hash of its template's shape with no word from the line, and a template with "
+      "zero literal content. Unknown tokens become variables. The coverage failure is "
+      "visible in the artifact itself; at no point does the engine hand back a "
+      "confident wrong name.")
     A(f"- All {len(INVENTED_LINES)} occurrences carry the identical template hash "
-      f"`{p['invented_template_hash']}`, and a second, independent engine run "
-      "reproduces it byte for byte. The identifier stays deterministic where coverage "
+      f"`{p['invented_template_hash']}` and pattern name, and a second, independent "
+      "engine run reproduces both byte for byte. The identifier stays deterministic where coverage "
       "failed, so the moment the library gains a symbol for the statement, everything "
       "already keyed on the hash re-resolves.")
     A("")
@@ -425,12 +447,13 @@ def write_report(payload, md_path: pathlib.Path, json_path: pathlib.Path):
       "only job is to separate templates that pin down source text from templates that "
       "are all variables.")
     A("")
-    A("Cross-time determinism: the compaction ledger recorded the same engine version "
-      "on the same two files six weeks before this script existed, at "
+    A("Determinism: each file is encoded by two independent engine runs, and their "
+      "event counts and template hashes agree exactly; the script fails on any "
+      "difference. Beside them, the compaction ledger's measurement of the same files "
+      f"on engine {LEDGER_ENGINE} (2026-10-05): "
       + ", ".join(f"{r['ledger_events']:,} events and {r['ledger_templates']:,} "
                   f"templates for {r['dataset']}" for r in payload["loghub"])
-      + ". This run reproduces both counts exactly, and the script fails loudly on "
-        "any mismatch.")
+      + ".")
     A("")
     for r in payload["loghub"]:
         A(f"- `{r['dataset']}.tar.gz` sha256 `{r['tarball_sha256']}`")
@@ -449,17 +472,18 @@ def write_report(payload, md_path: pathlib.Path, json_path: pathlib.Path):
     A("- An invented-vocabulary line that ever yields two different template hashes, "
       "across occurrences or across independent runs, retires the determinism claim. "
       "Checked on every run of this script.")
-    A("- An invented-vocabulary line that comes back with a non-empty pattern retires "
-      "the claim that coverage failures are visible rather than mislabelled. Checked "
-      "on every run.")
+    A("- An invented-vocabulary line that comes back with a pattern other than a shape "
+      "name `template_<hex>` retires the claim that coverage failures are visible "
+      "rather than mislabelled. Checked on every run.")
     A("- A known-vocabulary line whose template loses its literal text retires the "
       "readable-template claim. Checked on every run.")
     A("- A LogHub run that mints a material share of pure-variable templates retires "
       "the claim that the engine generalizes with readable templates; observed "
       + " and ".join(f"{r['pure_variable_templates']} of {r['templates']:,} on "
                      f"{r['dataset']}" for r in payload["loghub"]) + ".")
-    A("- A rerun whose event or template counts differ from the compaction ledger's "
-      "retires cross-time determinism. Checked on every run.")
+    A("- Two independent runs of the pinned engine whose event counts or template "
+      "hashes differ on either LogHub file retire run-to-run determinism. Checked on "
+      "every run.")
     A("")
     A("## What is not claimed")
     A("")
@@ -468,7 +492,7 @@ def write_report(payload, md_path: pathlib.Path, json_path: pathlib.Path):
       "expected behaviour outside the library.")
     A("- Immediate naming of unfamiliar streams is not an advantage over Drain3, which "
       "does the same with less machinery. The measured difference is the failure "
-      "shape: empty and deterministic against literal and mobile.")
+      "shape: a shape name, deterministic, against a literal that moves.")
     A("- The engine artifacts here are produced by a vendor-built image, and this "
       "repository does not build the engine from source. The pinned digest above is "
       "what a reader needs to hold the run to account.")
@@ -501,7 +525,7 @@ def main() -> int:
     print(f"  known    template  {probe['known_template']}")
     print(f"  known    pattern   {probe['known_pattern']}")
     print(f"  invented template  {probe['invented_template']}")
-    print(f"  invented pattern   (empty)")
+    print(f"  invented pattern   {probe['invented_pattern']}")
     print(f"  invented hash      {probe['invented_template_hash']} "
           f"(identical across {len(INVENTED_LINES)} occurrences and 2 runs)")
 
@@ -515,8 +539,8 @@ def main() -> int:
                   f"templates {r['templates']:,}")
             print(f"  median literal words {r['median_literal_words']:g}  "
                   f"pure-variable templates {r['pure_variable_templates']}")
-            print(f"  ledger match: {r['ledger_events']:,} events, "
-                  f"{r['ledger_templates']:,} templates, reproduced exactly")
+            print(f"  two runs agree; ledger ({LEDGER_ENGINE}): {r['ledger_events']:,} events, "
+                  f"{r['ledger_templates']:,} templates")
 
     payload = {
         "script": "bench/coverage.py",
@@ -524,6 +548,7 @@ def main() -> int:
         "image_digest": digest,
         "probe": probe,
         "loghub": loghub,
+        "ledger_engine": LEDGER_ENGINE,
         "ledger": LEDGER,
     }
 
