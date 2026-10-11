@@ -10,60 +10,54 @@ metered by Datadog, and no Datadog account is needed to rerun it.
 
 ## The result
 
-The OpenTelemetry demo capture, 197,430 lines, 157,228 events after grouping, 0.215 GB
-over ten hours. Engine `log10x/pipeline-10x:1.1.140`, log10x-mcp 1.30.48, prices read
-2026-10-11.
+<!-- generated:run -->
+The OpenTelemetry demo capture, 197,430 lines, 157,228 events after grouping, 0.215 GB over 10 hours. Engine `log10x/pipeline-10x:1.1.140`, log10x-mcp 1.30.48, prices read 2026-10-11.
+<!-- /generated:run -->
 
-**What a moved event costs at list.** Standard indexing avoided: $1.70 per million events
-at 15-day retention and $2.50 at 30-day, annual; $2.55 and $3.75 on demand. Flex storage
-added: $0.05 per million events stored per month, annual, $0.075 on demand, billed for at
-least 30 days. Flex Starter, compute bundled, for volumes below 2 billion events a month:
-$0.60 per million stored per month. Flex compute above Starter: "Contact Us for Pricing".
-Ingestion, $0.10 per GB, is paid once on every event and unchanged by a move. The full rate
-table with every URL is in [`results/results.md`](results/results.md).
+<!-- generated:rates -->
+**What a moved event costs at list.** Standard indexing avoided: $1.70 per million events at 15-day retention and $2.50 at 30-day, annual; $2.55 and $3.75 on demand. Flex storage added: $0.05 per million events stored per month, annual, $0.075 on demand, billed for at least 30 days. Flex Starter, compute bundled, for volumes below 2 billion events a month: $0.60 per million stored per month. Flex compute above Starter: "Contact Us for Pricing". Ingestion, $0.10 per GB, is paid once on every event and unchanged by a move. The full rate table with every URL is in [`results/results.md`](results/results.md).
+<!-- /generated:rates -->
 
 **What moves, per target.** The MCP's plan applied as written, its `caps.csv` and
 `actions.csv` on the released engine, with each cap scaled to the one-window replay:
 
+<!-- generated:moves -->
 | Target | Patterns planned | Containers capped | Events the plan states | Events the engine marked tier_down | Share of the volume the plan states | Share of the bytes the engine moved | Events in Standard | Errors and warnings to Flex |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | 30% | 3 | 1 | 60,783 | 67,505 | 40.3% | 39.9% | 89,723 | 0 |
 | 50% | 7 | 4 | 82,585 | 90,555 | 50.6% | 56.1% | 66,673 | 0 |
 | 70% | 55 | 17 | 112,944 | 119,833 | 68.4% | 71.2% | 37,395 | 0 |
+<!-- /generated:moves -->
 
-The plan moves whole patterns, so a target lands on the first set that reaches it: at 30%
-the collector's `Traces`, `Logs` and `Metrics` lines, 40% of the volume, under a cap set
-at the collector's largest kept line. At 50% the cart's `GetCartAsync` and the ad and
-recommendation services join, each container capped at the largest pattern it keeps; at
-70%, 55 patterns across 17 containers. The engine moves each pattern's excess over its
-container's cap, less the share the severity floors keep. Its figure runs above the plan's
-because the plan is stated from a 12,000-line sample scaled to the file and the engine
-counts the whole capture, and because a container capped at one byte (nothing kept) moves
-every pattern it has. At 70%, 4 planned patterns carried no container and are not in the
-files.
+The plan moves whole patterns, so a target lands on the first set of patterns that reaches
+it, each container capped at the largest pattern it keeps:
 
-**A month at this capture's volume, an illustration.** The capture's ten hours scaled to a
+<!-- generated:moves-notes -->
+- **30%**: 3 patterns in 1 container (`opentelemetry-collector`: `Traces`, `Logs`, `Metrics`).
+- **50%**: 7 patterns in 4 containers (`opentelemetry-collector`: `Traces`, `Logs`, `Metrics`; `cart`: `cart_cartstore_ValkeyCartStore`; `recommendation`: `Receive_ListRecommendations_for_product_ids`; `ad`: `oteldemo_AdService_Targeted_ad_request_received_for`, `oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags`).
+- **70%**: 55 patterns in 17 containers; 4 planned patterns carried no container and are not in the files.
+<!-- /generated:moves-notes -->
+
+The engine moves each pattern's excess over its container's cap, less the share the
+severity floors keep. Its figure runs above the plan's because the plan is stated from a
+12,000-line sample scaled to the file and the engine counts the whole capture, and because a
+container capped at one byte (nothing kept) moves every pattern it has.
+
+**A month at this capture's volume, an illustration.** The capture's span scaled to a
 720-hour month, at the rates above. The volume is one small demo cluster's; the rates are
 what carry.
 
+<!-- generated:month -->
 | Target | Events to Flex per month | Standard indexing avoided, 15-day annual | Flex storage added, annual | Flex compute tier | Custom metrics above a Pro allotment, 10 to 300 nodes |
 |---:|---:|---:|---:|---|---:|
 | 30% | 4,860,360 | $8.26 | $0.24 | Starter | $0 |
 | 50% | 6,519,960 | $11.08 | $0.33 | Starter | $0 |
 | 70% | 8,627,976 | $14.67 | $0.43 | Starter | $0 |
+<!-- /generated:month -->
 
-**Custom metrics.** The `metrics` stage replays the capture through the engine's shipped
-Datadog metric output, posting to a local stand-in for Datadog's intake; the one change to
-the image's config is the URI it posts to. Each series carried the pattern and where it ran
-(`message_pattern`, `tenx_hash`, `tenx_user_service`, `severity_level`, `routeState`,
-`k8s_container`, `k8s_namespace`) and `tenx_reported_name`, and no host, pod or pipeline id,
-so every node posts the same series. The output keeps to the 200 tag sets with the most
-bytes, each from both aggregators: at most 776 series in one post without a move, and 768,
-786 and 780 at 30, 50 and 70%. A Pro plan includes 100 custom metrics per host, so at 10,
-100 and 300 nodes the line is $0. While ranks settle, tag sets enter and leave the top, and
-the replay, which delivers ten hours in about 30 seconds, saw 1,386 to 1,590 distinct series
-in all; on a live stream that settling happens once. Every tag set from every node would be
-about 10,850 series per node, $5,374, $53,740 and $161,220 a month at $5 per 100.
+<!-- generated:custom-metrics -->
+**Custom metrics.** The `metrics` stage replays the capture through the engine's shipped Datadog metric output, posting to a local stand-in for Datadog's intake; the one change to the image's config is the URI it posts to. Each series carried `k8s_container`, `k8s_namespace`, `message_pattern`, `routeState`, `severity_level`, `tenx_hash`, `tenx_reported_name`, `tenx_user_service`, and no host, pod or pipeline id, so every node posts the same series. The output keeps to the 200 tag sets with the most bytes, each from both aggregators: at most 776 series in one post without a move, and 768, 786 and 780 at 30, 50 and 70%. A Pro plan includes 100 custom metrics per host, so at 10, 100 and 300 nodes the line is $0. While ranks settle, tag sets enter and leave the top, and the replay, which delivers 10 hours in under a minute, saw 1,386 to 1,590 distinct series in all; on a live stream that settling happens once. Every tag set from every node would be 10,836 series per node, $5,368, $53,680 and $161,040 a month at $5 per 100.
+<!-- /generated:custom-metrics -->
 
 ## Counting conditions
 

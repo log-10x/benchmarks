@@ -10,48 +10,53 @@ Nothing was metered by AWS, and no AWS account is needed to rerun it.
 
 ## The result
 
-The OpenTelemetry demo capture, 197,430 lines, 157,228 events after grouping, 0.215 GB
-over ten hours. Engine `log10x/pipeline-10x:1.1.140`, log10x-mcp 1.30.48 with the S3
-retriever declared installed, prices read 2026-10-11.
+<!-- generated:run -->
+The OpenTelemetry demo capture, 197,430 lines, 157,228 events after grouping, 0.215 GB over 10 hours. Engine `log10x/pipeline-10x:1.1.140`, log10x-mcp 1.30.48 with the S3 retriever declared installed, prices read 2026-10-11.
+<!-- /generated:run -->
 
-**Dollars per GB at list.** Ingest: $0.50 Standard, $0.25 Infrequent Access. Storage: $0.03
-per GB-month in both classes, on compressed bytes at AWS's stated 0.15 ratio. Logs
-Insights: $0.005 per GB scanned. S3 Standard: $0.023 per GB-month and $0.005 per 1,000 PUT
-requests. A GB moved to Infrequent Access costs $0.25 instead of $0.50 to ingest and the
-same to store; a GB offloaded costs nothing to ingest and $0.023 a month in S3. The 26 bytes
-per event in the PutLogEvents batch-size rule are shown as a separate line; no AWS page read
-bills them. The full table with every URL is in [`results/results.md`](results/results.md).
+<!-- generated:rates -->
+**Dollars per GB at list.** Ingest: $0.50 Standard, $0.25 Infrequent Access. Storage: $0.03 per GB-month in both classes, on compressed bytes at AWS's stated 0.15 ratio. Logs Insights: $0.005 per GB scanned. S3 Standard: $0.023 per GB-month and $0.005 per 1,000 PUT requests. A GB moved to Infrequent Access costs $0.25 instead of $0.50 to ingest and the same to store; a GB offloaded costs nothing to ingest and $0.023 a month in S3. The 26 bytes per event in the PutLogEvents batch-size rule are shown as a separate line; no AWS page read bills them. The full table with every URL is in [`results/results.md`](results/results.md).
+<!-- /generated:rates -->
 
 **What moves, per target.** The MCP's plan applied as written, its `caps.csv` and
 `actions.csv` on the released engine, with each cap scaled to the one-window replay. The
-plan's percentages are of the bill, and Infrequent Access halves the ingest rate, so a 30%
-cut in dollars is about 60% of the bytes:
+plan's percentages are of the bill, and Infrequent Access halves the ingest rate, so a cut
+in dollars is about twice that share of the bytes:
 
+<!-- generated:moves -->
 | Target | Patterns planned | Containers | GB the plan states to IA | GB the engine marked to IA | GB offloaded | GB in Standard | Share of the bill the plan states | Share of the bytes the engine moved | Errors and warnings moved |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | 30% | 22 | 5 | 0.136 | 0.150 | 0.000 | 0.065 | 30.4% | 69.7% | 0 |
-| 50% | 55 | 17 | 0.071 | 0.067 | 0.099 | 0.049 | 56.9% | 77.3% | 53 |
-| 70% | 55 | 17 | 0.030 | 0.002 | 0.165 | 0.048 | 70.6% | 77.7% | 52 |
+| 50% | 55 | 17 | 0.071 | 0.067 | 0.099 | 0.048 | 56.9% | 77.4% | 53 |
+| 70% | 55 | 17 | 0.030 | 0.002 | 0.165 | 0.048 | 70.6% | 77.7% | 51 |
+<!-- /generated:moves -->
 
-At 30% the plan tiers down 22 patterns in five containers, each capped at the largest
-pattern it keeps. At 50% it offloads the collector's `Traces` and `Logs` lines and tiers
-down 16 other containers; at 70% it offloads the collector, the cart, the ad and
-recommendation services and kafka. Offload acts on the whole container, its cap is the
-one-byte minimum, so the patterns the plan still lists as tier_down inside an offloaded
-container are offloaded with it, which is where the 70% row's 0.030 GB stated against
-0.002 GB marked goes. The engine's bytes run above the plan's because the plan is stated
-from a 12,000-line sample scaled to the file and the engine counts the whole capture. At
-50% and 70%, 4 planned patterns carried no container and are not in the files.
+Per target, the plan's actions by container:
 
-**A month at this capture's volume, an illustration.** The capture's ten hours scaled to a
+<!-- generated:moves-notes -->
+- **30%**: 22 patterns; tier_down on 5 containers.
+- **50%**: 55 patterns; offload on 1 container (`opentelemetry-collector`), tier_down on 16 containers; 4 planned patterns carried no container and are not in the files.
+- **70%**: 55 patterns; offload on 5 containers (`ad`, `cart`, `kafka`, `opentelemetry-collector`, `recommendation`), tier_down on 12 containers; 4 planned patterns carried no container and are not in the files.
+<!-- /generated:moves-notes -->
+
+Each tier_down container is capped at the largest pattern it keeps. Offload acts on the
+whole container, its cap is the one-byte minimum, so the patterns the plan still lists as
+tier_down inside an offloaded container are offloaded with it, which is where the gap
+between the stated and marked Infrequent Access columns at the higher targets goes. The
+engine's bytes run above the plan's because the plan is stated from a 12,000-line sample
+scaled to the file and the engine counts the whole capture.
+
+**A month at this capture's volume, an illustration.** The capture's span scaled to a
 720-hour month, at the rates above. The volume is one small demo cluster's; the rates are
 what carry.
 
+<!-- generated:month -->
 | Target | GB to IA per month | Ingest at the IA rate | Ingest at Standard the same GB would cost | GB offloaded per month | Ingest avoided by offload |
 |---:|---:|---:|---:|---:|---:|
-| 30% | 10.778 | $2.69 | $5.39 | 0.000 | $0.00 |
-| 50% | 4.831 | $1.21 | $2.42 | 7.130 | $3.56 |
-| 70% | 0.127 | $0.03 | $0.06 | 11.901 | $5.95 |
+| 30% | 10.776 | $2.69 | $5.39 | 0.000 | $0 |
+| 50% | 4.832 | $1.21 | $2.42 | 7.150 | $3.58 |
+| 70% | 0.127 | $0.03 | $0.06 | 11.895 | $5.95 |
+<!-- /generated:month -->
 
 **What Infrequent Access lacks**, from AWS's log class table: Facets, natural language
 query assist, Anomaly Detection, Live Tail, field indexing, compare to previous time range,

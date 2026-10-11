@@ -71,7 +71,9 @@ def fmt_int(n):
 
 
 def fmt_usd(x, places=2):
-    return f'${x:,.{places}f}'
+    """Dollars to `places` decimals, with no decimals when the amount rounds to whole dollars."""
+    text = f'{x:,.{places}f}'
+    return '$' + (text.split('.')[0] if '.' in text and set(text.split('.')[1]) == {'0'} else text)
 
 
 def fmt_gb(b):

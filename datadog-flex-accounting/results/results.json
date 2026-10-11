@@ -1,5 +1,6 @@
 {
  "engine_image": "log10x/pipeline-10x@sha256:fd9c98384a775df13ed41921c2cf95ef1d1313f62f1300aac61da55ca64feb67",
+ "engine_tag": "1.1.140",
  "mcp_version": "1.30.48",
  "capture": {
   "name": "otel-sample-200mb.log",
@@ -27,6 +28,24 @@
   "label_sets": {
    "all_events": 2709,
    "emitted_events": 2709
+  },
+  "datadog_series": {
+   "max_series_per_post": 776,
+   "distinct_series_over_run": 1588,
+   "posts": 7,
+   "tag_keys": [
+    "k8s_container",
+    "k8s_namespace",
+    "message_pattern",
+    "routeState",
+    "severity_level",
+    "statistic",
+    "tenx_hash",
+    "tenx_reported_name",
+    "tenx_user_service"
+   ],
+   "node_or_process_tags": [],
+   "host_field": []
   }
  },
  "targets": {

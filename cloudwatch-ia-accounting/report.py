@@ -11,12 +11,14 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent / 'accounting-lib'))
 import tally as T  # noqa: E402
+import readme as README  # noqa: E402
 
 
 def compute(results: pathlib.Path, prices: dict, targets: list, window_hours: float, run: dict) -> dict:
     control = T.load(results / 'control.tally.json')
     out = {
         'engine_image': run['engine_image'],
+        'engine_tag': run.get('engine_tag', ''),
         'mcp_version': run['mcp_version'],
         'capture': run['capture'],
         'window_hours': window_hours,
@@ -102,6 +104,60 @@ def compute(results: pathlib.Path, prices: dict, targets: list, window_hours: fl
         }
     return out
 
+
+
+def readme_blocks(r: dict, prices: dict) -> dict:
+    """Every figure the README quotes from this run, rendered from results.json and prices.json."""
+    c, cap = r['control'], r['capture']
+    pr = lambda k: prices[k]['price']
+    B = {}
+    B['run'] = (f'The OpenTelemetry demo capture, {cap["lines"]:,} lines, {c["events"]:,} events after grouping, {T.gb(c["bytes"]):.3f} GB '
+                f'over {r["window_hours"]:g} hours. Engine `log10x/pipeline-10x:{r["engine_tag"]}`, log10x-mcp {r["mcp_version"]} with the S3 '
+                f'retriever declared installed, prices read {r["prices_read_on"]}.')
+    B['rates'] = (f'**Dollars per GB at list.** Ingest: ${pr("ingest_standard_per_gb"):.2f} Standard, ${pr("ingest_ia_per_gb"):.2f} Infrequent Access. '
+                  f'Storage: ${pr("storage_per_gb_month"):.2f} per GB-month in both classes, on compressed bytes at AWS\'s stated '
+                  f'{prices["storage_per_gb_month"]["compression_ratio"]:g} ratio. Logs Insights: ${pr("insights_per_gb_scanned"):.3f} per GB scanned. '
+                  f'S3 Standard: ${pr("s3_standard_storage_per_gb_month"):.3f} per GB-month and ${pr("s3_put_per_1000"):.3f} per 1,000 PUT requests. '
+                  f'A GB moved to Infrequent Access costs ${pr("ingest_ia_per_gb"):.2f} instead of ${pr("ingest_standard_per_gb"):.2f} to ingest and '
+                  f'the same to store; a GB offloaded costs nothing to ingest and ${pr("s3_standard_storage_per_gb_month"):.3f} a month in S3. The '
+                  f'{prices["put_log_events_overhead"]["bytes_per_event"]} bytes per event in the PutLogEvents batch-size rule are shown as a separate '
+                  f'line; no AWS page read bills them. The full table with every URL is in [`results/results.md`](results/results.md).')
+    L = ['| Target | Patterns planned | Containers | GB the plan states to IA | GB the engine marked to IA | GB offloaded | GB in Standard | Share of the bill the plan states | Share of the bytes the engine moved | Errors and warnings moved |',
+         '|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|']
+    for t, v in r['targets'].items():
+        p, e = v['plan'], v['engine']['by_route']
+        tot = sum(x['bytes'] for x in e.values())
+        b = lambda k: e.get(k, {'bytes': 0})['bytes']
+        L.append(f'| {t}% | {p["planned_count"]} | {len(p["containers"])} | {T.fmt_gb(p["stated_bytes_moved"])} | {T.fmt_gb(b("tier_down"))} | '
+                 f'{T.fmt_gb(b("offload"))} | {T.fmt_gb(b("pass"))} | {p["achieved_pct_stated"]:.1f}% | {(b("tier_down") + b("offload")) / tot * 100:.1f}% | '
+                 f'{v["engine"]["protected_moved_events"]:,} |')
+    B['moves'] = '\n'.join(L)
+    N = []
+    for t, v in r['targets'].items():
+        p = v['plan']
+        by_a = {}
+        for cname, cv in sorted(p['containers'].items()):
+            by_a.setdefault(cv['action'], []).append(cname)
+        parts = []
+        for action in ('offload', 'tier_down'):
+            cs = by_a.get(action, [])
+            if not cs:
+                continue
+            parts.append(f'{action} on {len(cs)} container{"s" if len(cs) != 1 else ""}' +
+                         (f' ({", ".join(f"`{x}`" for x in cs)})' if action == 'offload' else ''))
+        line = f'- **{t}%**: {p["planned_count"]} patterns; ' + ', '.join(parts)
+        if p['unattributed_planned']:
+            line += f'; {p["unattributed_planned"]} planned pattern{"s" if p["unattributed_planned"] != 1 else ""} carried no container and {"are" if p["unattributed_planned"] != 1 else "is"} not in the files'
+        N.append(line + '.')
+    B['moves-notes'] = '\n'.join(N)
+    M = ['| Target | GB to IA per month | Ingest at the IA rate | Ingest at Standard the same GB would cost | GB offloaded per month | Ingest avoided by offload |',
+         '|---:|---:|---:|---:|---:|---:|']
+    for t, v in r['targets'].items():
+        m, u = v['month'], v['usd_per_month_at_list']
+        M.append(f'| {t}% | {m["gb_ia"]:.3f} | {T.fmt_usd(u["ingest_ia_for_the_moved_slice"])} | {T.fmt_usd(u["ingest_standard_the_moved_slice_would_have_cost"])} | '
+                 f'{m["gb_offloaded"]:.3f} | {T.fmt_usd(u["ingest_avoided_by_offload"])} |')
+    B['month'] = '\n'.join(M)
+    return B
 
 def render(r: dict, prices: dict) -> str:
     L = []
@@ -243,11 +299,9 @@ def main() -> int:
     r = compute(results, prices, run['targets'], run['window_hours'], run)
     if a.check:
         committed = json.load(open(results / 'results.json'))
-        readme = open(here / 'README.md').read()
-        for t, v in r['targets'].items():
-            cell = T.fmt_gb(v['engine']['by_route'].get('tier_down', {'bytes': 0})['bytes'])
-            if f'| {t}% |' not in readme or f'| {cell} |' not in readme:
-                raise SystemExit(f'README.md does not carry the {t}% figure {cell}')
+        stale = README.differing(open(here / 'README.md').read(), readme_blocks(r, prices))
+        if stale:
+            raise SystemExit(f'README.md differs from the results in: {", ".join(stale)}; run report.py to rewrite them')
         if committed != r:
             for k in r:
                 if committed.get(k) != r[k]:
@@ -258,7 +312,9 @@ def main() -> int:
         return 0
     json.dump(r, open(results / 'results.json', 'w'), indent=1)
     open(results / 'results.md', 'w').write(render(r, prices))
-    print(f'wrote {results / "results.md"}')
+    readme = here / 'README.md'
+    readme.write_text(README.apply(readme.read_text(), readme_blocks(r, prices)))
+    print(f'wrote {results / "results.md"} and the README\'s generated blocks')
     return 0
 
 
