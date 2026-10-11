@@ -1,2 +1,2 @@
 container,action
-opentelemetry-collector,tier_down::plan datadog 30 pct
+opentelemetry-collector,tier_down::MCP poc_from_local plan 30 pct

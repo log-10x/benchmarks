@@ -1,5 +1,6 @@
 container,cap
-ad,9469200::plan cloudwatch 30 pct; tool cap 63128 per 240 s window x 36000/240
-kafka,9469200::plan cloudwatch 30 pct; tool cap 63128 per 240 s window x 36000/240
-opentelemetry-collector,9469200::plan cloudwatch 30 pct; tool cap 63128 per 240 s window x 36000/240
-recommendation,9469200::plan cloudwatch 30 pct; tool cap 63128 per 240 s window x 36000/240
+ad,754965::MCP poc_from_local plan 30 pct
+cart,334725::MCP poc_from_local plan 30 pct
+kafka,64320::MCP poc_from_local plan 30 pct
+opentelemetry-collector,4569255::MCP poc_from_local plan 30 pct
+recommendation,15::MCP poc_from_local plan 30 pct

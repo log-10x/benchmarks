@@ -1,96 +1,41 @@
 {
- "siem": "cloudwatch",
  "target_pct": 30,
- "tool_caps_row": "<container>,63128:tier_down:MCP poc_from_local soft",
- "tool_caps_key": "<container>",
- "cap_bytes_per_window": 63128,
- "window_seconds": 36000,
+ "tool_caps_csv": "container,cap\nad,50331::MCP poc_from_local plan 30 pct\ncart,22315::MCP poc_from_local plan 30 pct\nkafka,4288::MCP poc_from_local plan 30 pct\nopentelemetry-collector,304617::MCP poc_from_local plan 30 pct\nrecommendation,1::MCP poc_from_local plan 30 pct\n",
+ "tool_actions_csv": "container,action\nad,tier_down::MCP poc_from_local plan 30 pct\ncart,tier_down::MCP poc_from_local plan 30 pct\nkafka,tier_down::MCP poc_from_local plan 30 pct\nopentelemetry-collector,tier_down::MCP poc_from_local plan 30 pct\nrecommendation,tier_down::MCP poc_from_local plan 30 pct\n",
+ "span_seconds": 3600,
  "reset_window_seconds": 240,
- "cap_bytes_replay": 9469200,
- "planned": [
-  {
-   "name": "Traces",
-   "action": "tier_down",
-   "severity": "INFO",
-   "container": "opentelemetry-collector",
-   "bytes_in_capture": 46123321
-  },
-  {
-   "name": "Logs",
-   "action": "tier_down",
-   "severity": "INFO",
-   "container": "opentelemetry-collector",
-   "bytes_in_capture": 44661566
-  },
-  {
-   "name": "cart_cartstore_ValkeyCartStore",
-   "action": "tier_down",
-   "severity": "INFO",
-   "container": null
-  },
-  {
-   "name": "Metrics",
-   "action": "tier_down",
-   "severity": "INFO",
-   "container": "opentelemetry-collector",
-   "bytes_in_capture": 18296446
-  },
-  {
-   "name": "Receive_ListRecommendations_for_product_ids",
-   "action": "tier_down",
-   "severity": "INFO",
-   "container": "recommendation",
-   "bytes_in_capture": 4098850
-  },
-  {
-   "name": "oteldemo_AdService_Targeted_ad_request_received_for",
-   "action": "tier_down",
-   "severity": "TRACE",
-   "container": "ad",
-   "bytes_in_capture": 2940899
-  },
-  {
-   "name": "oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags",
-   "action": "tier_down",
-   "severity": "TRACE",
-   "container": "ad",
-   "bytes_in_capture": 3363030
-  },
-  {
-   "name": "Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
-   "action": "tier_down",
-   "severity": "INFO",
-   "container": "kafka",
-   "bytes_in_capture": 2465610
-  }
- ],
+ "replay_factor": 15.0,
+ "unattributed_planned": 0,
  "containers": {
   "ad": {
    "action": "tier_down",
-   "patterns": [
-    "oteldemo_AdService_Targeted_ad_request_received_for",
-    "oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags"
-   ]
+   "container": "ad",
+   "cap_bytes_per_window": 50331,
+   "cap_bytes_replay": 754965
+  },
+  "cart": {
+   "action": "tier_down",
+   "container": "cart",
+   "cap_bytes_per_window": 22315,
+   "cap_bytes_replay": 334725
   },
   "kafka": {
    "action": "tier_down",
-   "patterns": [
-    "Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment"
-   ]
+   "container": "kafka",
+   "cap_bytes_per_window": 4288,
+   "cap_bytes_replay": 64320
   },
   "opentelemetry-collector": {
    "action": "tier_down",
-   "patterns": [
-    "Traces",
-    "Logs",
-    "Metrics"
-   ]
+   "container": "opentelemetry-collector",
+   "cap_bytes_per_window": 304617,
+   "cap_bytes_replay": 4569255
   },
   "recommendation": {
    "action": "tier_down",
-   "patterns": [
-    "Receive_ListRecommendations_for_product_ids"
-   ]
+   "container": "recommendation",
+   "cap_bytes_per_window": 1,
+   "cap_bytes_replay": 15
   }
  }
 }

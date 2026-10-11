@@ -1,7 +1,9 @@
 # Shared shell for the accounting benchmarks. Sourced by each folder's run.sh.
 #
 # Expects: IMAGE (engine image, pinned by digest), LIB (this directory), MCP_VERSION,
-# MCP_DIR (where log10x-mcp is installed), MCP_HOME (an empty HOME for the server).
+# MCP_DIR (where log10x-mcp is installed), MCP_HOME (an empty HOME for the server), and
+# optionally MCP_TARBALL, a local `npm pack` of log10x-mcp to install instead of the
+# published version.
 
 say() { printf '\n=== %s\n' "$*"; }
 die() { echo "$*" >&2; exit 1; }
@@ -41,9 +43,11 @@ pull_engine() {
 install_mcp() {
   mkdir -p "$MCP_DIR" "$MCP_HOME"
   [ -f "$MCP_DIR/package.json" ] || printf '{ "name": "accounting-plan", "private": true }\n' > "$MCP_DIR/package.json"
+  local spec="log10x-mcp@$MCP_VERSION"
+  [ -n "${MCP_TARBALL:-}" ] && spec="$(cd "$(dirname "$MCP_TARBALL")" && pwd)/$(basename "$MCP_TARBALL")"
   if [ ! -f "$MCP_DIR/node_modules/log10x-mcp/package.json" ] ||
      [ "$(node -p "require('$MCP_DIR/node_modules/log10x-mcp/package.json').version")" != "$MCP_VERSION" ]; then
-    (cd "$MCP_DIR" && npm install --silent --no-audit --no-fund "log10x-mcp@$MCP_VERSION")
+    (cd "$MCP_DIR" && npm install --silent --no-audit --no-fund "$spec")
   fi
   cp "$LIB/plan.mjs" "$MCP_DIR/plan.mjs"
   echo "log10x-mcp $(node -p "require('$MCP_DIR/node_modules/log10x-mcp/package.json').version")"

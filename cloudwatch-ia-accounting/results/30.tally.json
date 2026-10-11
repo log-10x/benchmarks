@@ -3,21 +3,21 @@
 "bytes": 214881933,
 "lines": 197430,
 "line_bytes": 214841731,
-"keys": 2712,
+"keys": 2730,
 "agreement": {
 "records_vs_engine_aggregators": "equal on every key: events, and bytes once the newlines joining a multi-line event are taken out",
-"keys_compared": 2712,
+"keys_compared": 2730,
 "joined_lines": 40202
 },
 "series": {
 "label_sets_per_aggregator": {
-"all_events": 2712,
-"emitted_events": 2712
+"all_events": 2730,
+"emitted_events": 2730
 },
 "counters_per_label_set": 2,
-"custom_metrics": 10848
+"custom_metrics": 10920
 },
-"replay_seconds": 25,
+"replay_seconds": 28,
 "by_key": [
 {
 "route": "pass",
@@ -542,10 +542,10 @@
 "severity": "TRACE",
 "pattern": "oteldemo_AdService_Targeted_ad_request_received_for",
 "hash": "xHrytxJfUdw",
-"events": 3056,
-"bytes": 2940899,
-"lines": 3056,
-"line_bytes": 2940899
+"events": 993,
+"bytes": 955606,
+"lines": 993,
+"line_bytes": 955606
 },
 {
 "route": "pass",
@@ -553,10 +553,10 @@
 "severity": "TRACE",
 "pattern": "oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags",
 "hash": "bz3kQNPdXvc",
-"events": 3555,
-"bytes": 3363030,
-"lines": 3555,
-"line_bytes": 3363030
+"events": 1069,
+"bytes": 1011274,
+"lines": 1069,
+"line_bytes": 1011274
 },
 {
 "route": "pass",
@@ -707,10 +707,10 @@
 "severity": "INFO",
 "pattern": "AddItemAsync_called_with_userId_productId_quantity",
 "hash": "eDSYlCMPqVY",
-"events": 6929,
-"bytes": 12196235,
-"lines": 13858,
-"line_bytes": 12189306
+"events": 872,
+"bytes": 1534877,
+"lines": 1744,
+"line_bytes": 1534005
 },
 {
 "route": "pass",
@@ -740,10 +740,10 @@
 "severity": "INFO",
 "pattern": "GetCartAsync_called_with_userId",
 "hash": "YZplfQ4a1Xw",
-"events": 12709,
-"bytes": 21848535,
-"lines": 25473,
-"line_bytes": 21835771
+"events": 1391,
+"bytes": 2424835,
+"lines": 2837,
+"line_bytes": 2423389
 },
 {
 "route": "pass",
@@ -23532,10 +23532,10 @@
 "severity": "INFO",
 "pattern": "Creating_new_KRaft_snapshot_file_because_we_have_replayed_at_least_bytes_org_apache_kafka_image_publisher_SnapshotGenerator",
 "hash": "YJTvxN0rObQ",
-"events": 1914,
-"bytes": 2000130,
-"lines": 1914,
-"line_bytes": 2000130
+"events": 322,
+"bytes": 336490,
+"lines": 322,
+"line_bytes": 336490
 },
 {
 "route": "pass",
@@ -23543,10 +23543,10 @@
 "severity": "INFO",
 "pattern": "Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
 "hash": "q20KpyVGjSM",
-"events": 2478,
-"bytes": 2465610,
-"lines": 2478,
-"line_bytes": 2465610
+"events": 354,
+"bytes": 352230,
+"lines": 354,
+"line_bytes": 352230
 },
 {
 "route": "pass",
@@ -23554,10 +23554,10 @@
 "severity": "INFO",
 "pattern": "Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
 "hash": "hl_fK-uzMu8",
-"events": 2478,
-"bytes": 2460654,
-"lines": 2478,
-"line_bytes": 2460654
+"events": 361,
+"bytes": 358473,
+"lines": 361,
+"line_bytes": 358473
 },
 {
 "route": "pass",
@@ -23565,10 +23565,10 @@
 "severity": "INFO",
 "pattern": "Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile",
 "hash": "AMFi23Ga9wY",
-"events": 2477,
-"bytes": 2496816,
-"lines": 2477,
-"line_bytes": 2496816
+"events": 340,
+"bytes": 342720,
+"lines": 340,
+"line_bytes": 342720
 },
 {
 "route": "pass",
@@ -23576,10 +23576,10 @@
 "severity": "INFO",
 "pattern": "Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots",
 "hash": "uZa7Kr7RvMY",
-"events": 1906,
-"bytes": 1829480,
-"lines": 1906,
-"line_bytes": 1829480
+"events": 436,
+"bytes": 418280,
+"lines": 436,
+"line_bytes": 418280
 },
 {
 "route": "pass",
@@ -23587,10 +23587,10 @@
 "severity": "INFO",
 "pattern": "Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
 "hash": "WlIY0QjIiEg",
-"events": 2478,
-"bytes": 2433396,
-"lines": 2478,
-"line_bytes": 2433396
+"events": 373,
+"bytes": 366286,
+"lines": 373,
+"line_bytes": 366286
 },
 {
 "route": "pass",
@@ -23598,10 +23598,10 @@
 "severity": "INFO",
 "pattern": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_kafka_LocalLog",
 "hash": "TxSKKm13VKE",
-"events": 1906,
-"bytes": 2092443,
-"lines": 1906,
-"line_bytes": 2092443
+"events": 304,
+"bytes": 333311,
+"lines": 304,
+"line_bytes": 333311
 },
 {
 "route": "pass",
@@ -23609,10 +23609,10 @@
 "severity": "INFO",
 "pattern": "Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_kafka_UnifiedLog",
 "hash": "O4QwlwcKPUE",
-"events": 1909,
-"bytes": 2164195,
-"lines": 1909,
-"line_bytes": 2164195
+"events": 307,
+"bytes": 348422,
+"lines": 307,
+"line_bytes": 348422
 },
 {
 "route": "pass",
@@ -23807,10 +23807,10 @@
 "severity": "INFO",
 "pattern": "Incremented_log_start_offset_to_due_snapshot_generated_kafka_UnifiedLog",
 "hash": "JlanVdU0Z_U",
-"events": 1909,
-"bytes": 1906814,
-"lines": 1909,
-"line_bytes": 1906814
+"events": 356,
+"bytes": 355418,
+"lines": 356,
+"line_bytes": 355418
 },
 {
 "route": "pass",
@@ -24280,10 +24280,10 @@
 "severity": "INFO",
 "pattern": "Rolled_new_log_segment_at_offset_in_ms_kafka_LocalLog",
 "hash": "7CaEeIJhG-8",
-"events": 2487,
-"bytes": 2434412,
-"lines": 2487,
-"line_bytes": 2434412
+"events": 326,
+"bytes": 318999,
+"lines": 326,
+"line_bytes": 318999
 },
 {
 "route": "pass",
@@ -24621,10 +24621,10 @@
 "severity": "INFO",
 "pattern": "Successfully_wrote_snapshot_org_apache_kafka_image_publisher_SnapshotEmitter",
 "hash": "TM6TaR-b4oE",
-"events": 1914,
-"bytes": 1877634,
-"lines": 1914,
-"line_bytes": 1877634
+"events": 352,
+"bytes": 345312,
+"lines": 352,
+"line_bytes": 345312
 },
 {
 "route": "pass",
@@ -24841,10 +24841,10 @@
 "severity": "INFO",
 "pattern": "Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager",
 "hash": "VnqlcNA_PIM",
-"events": 2487,
-"bytes": 2566221,
-"lines": 2487,
-"line_bytes": 2566221
+"events": 328,
+"bytes": 338352,
+"lines": 328,
+"line_bytes": 338352
 },
 {
 "route": "pass",
@@ -25149,10 +25149,10 @@
 "severity": "INFO",
 "pattern": "older_than_the",
 "hash": "QTxV2J9g6c0",
-"events": 1909,
-"bytes": 3647819,
-"lines": 3818,
-"line_bytes": 3645910
+"events": 212,
+"bytes": 405050,
+"lines": 424,
+"line_bytes": 404838
 },
 {
 "route": "pass",
@@ -28669,10 +28669,10 @@
 "severity": "INFO",
 "pattern": "Logs",
 "hash": "KG8Fq0QFuoY",
-"events": 10241,
-"bytes": 12985957,
-"lines": 10241,
-"line_bytes": 12985957
+"events": 6760,
+"bytes": 8571935,
+"lines": 6760,
+"line_bytes": 8571935
 },
 {
 "route": "pass",
@@ -28691,10 +28691,10 @@
 "severity": "INFO",
 "pattern": "Metrics",
 "hash": "PuWB8kkVbfw",
-"events": 7995,
-"bytes": 10357537,
-"lines": 7995,
-"line_bytes": 10357537
+"events": 4589,
+"bytes": 5945021,
+"lines": 4589,
+"line_bytes": 5945021
 },
 {
 "route": "pass",
@@ -28801,10 +28801,10 @@
 "severity": "INFO",
 "pattern": "Traces",
 "hash": "Gl3Gtr_SH5w",
-"events": 10436,
-"bytes": 13225385,
-"lines": 10436,
-"line_bytes": 13225385
+"events": 6888,
+"bytes": 8729131,
+"lines": 6888,
+"line_bytes": 8729131
 },
 {
 "route": "pass",
@@ -29659,10 +29659,10 @@
 "severity": "INFO",
 "pattern": "Receive_ListRecommendations_for_product_ids",
 "hash": "bzLB1zZCTIw",
-"events": 3430,
-"bytes": 4098850,
-"lines": 3430,
-"line_bytes": 4098850
+"events": 353,
+"bytes": 421835,
+"lines": 353,
+"line_bytes": 421835
 },
 {
 "route": "pass",
@@ -29820,14 +29820,201 @@
 },
 {
 "route": "tier_down",
+"container": "ad",
+"severity": "TRACE",
+"pattern": "oteldemo_AdService_Targeted_ad_request_received_for",
+"hash": "xHrytxJfUdw",
+"events": 2063,
+"bytes": 1985293,
+"lines": 2063,
+"line_bytes": 1985293
+},
+{
+"route": "tier_down",
+"container": "ad",
+"severity": "TRACE",
+"pattern": "oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags",
+"hash": "bz3kQNPdXvc",
+"events": 2486,
+"bytes": 2351756,
+"lines": 2486,
+"line_bytes": 2351756
+},
+{
+"route": "tier_down",
+"container": "cart",
+"severity": "INFO",
+"pattern": "AddItemAsync_called_with_userId_productId_quantity",
+"hash": "eDSYlCMPqVY",
+"events": 6057,
+"bytes": 10661358,
+"lines": 12114,
+"line_bytes": 10655301
+},
+{
+"route": "tier_down",
+"container": "cart",
+"severity": "INFO",
+"pattern": "GetCartAsync_called_with_userId",
+"hash": "YZplfQ4a1Xw",
+"events": 11318,
+"bytes": 19423700,
+"lines": 22636,
+"line_bytes": 19412382
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Creating_new_KRaft_snapshot_file_because_we_have_replayed_at_least_bytes_org_apache_kafka_image_publisher_SnapshotGenerator",
+"hash": "YJTvxN0rObQ",
+"events": 1592,
+"bytes": 1663640,
+"lines": 1592,
+"line_bytes": 1663640
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+"hash": "q20KpyVGjSM",
+"events": 2124,
+"bytes": 2113380,
+"lines": 2124,
+"line_bytes": 2113380
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+"hash": "hl_fK-uzMu8",
+"events": 2117,
+"bytes": 2102181,
+"lines": 2117,
+"line_bytes": 2102181
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile",
+"hash": "AMFi23Ga9wY",
+"events": 2137,
+"bytes": 2154096,
+"lines": 2137,
+"line_bytes": 2154096
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots",
+"hash": "uZa7Kr7RvMY",
+"events": 1470,
+"bytes": 1411200,
+"lines": 1470,
+"line_bytes": 1411200
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+"hash": "WlIY0QjIiEg",
+"events": 2105,
+"bytes": 2067110,
+"lines": 2105,
+"line_bytes": 2067110
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_kafka_LocalLog",
+"hash": "TxSKKm13VKE",
+"events": 1602,
+"bytes": 1759132,
+"lines": 1602,
+"line_bytes": 1759132
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_kafka_UnifiedLog",
+"hash": "O4QwlwcKPUE",
+"events": 1602,
+"bytes": 1815773,
+"lines": 1602,
+"line_bytes": 1815773
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Incremented_log_start_offset_to_due_snapshot_generated_kafka_UnifiedLog",
+"hash": "JlanVdU0Z_U",
+"events": 1553,
+"bytes": 1551396,
+"lines": 1553,
+"line_bytes": 1551396
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Rolled_new_log_segment_at_offset_in_ms_kafka_LocalLog",
+"hash": "7CaEeIJhG-8",
+"events": 2161,
+"bytes": 2115413,
+"lines": 2161,
+"line_bytes": 2115413
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Successfully_wrote_snapshot_org_apache_kafka_image_publisher_SnapshotEmitter",
+"hash": "TM6TaR-b4oE",
+"events": 1562,
+"bytes": 1532322,
+"lines": 1562,
+"line_bytes": 1532322
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager",
+"hash": "VnqlcNA_PIM",
+"events": 2159,
+"bytes": 2227869,
+"lines": 2159,
+"line_bytes": 2227869
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "older_than_the",
+"hash": "QTxV2J9g6c0",
+"events": 1697,
+"bytes": 3242769,
+"lines": 3394,
+"line_bytes": 3241072
+},
+{
+"route": "tier_down",
 "container": "opentelemetry-collector",
 "severity": "INFO",
 "pattern": "Logs",
 "hash": "KG8Fq0QFuoY",
-"events": 24980,
-"bytes": 31675609,
-"lines": 24980,
-"line_bytes": 31675609
+"events": 28461,
+"bytes": 36089631,
+"lines": 28461,
+"line_bytes": 36089631
 },
 {
 "route": "tier_down",
@@ -29835,10 +30022,10 @@
 "severity": "INFO",
 "pattern": "Metrics",
 "hash": "PuWB8kkVbfw",
-"events": 6128,
-"bytes": 7938909,
-"lines": 6128,
-"line_bytes": 7938909
+"events": 9534,
+"bytes": 12351425,
+"lines": 9534,
+"line_bytes": 12351425
 },
 {
 "route": "tier_down",
@@ -29846,10 +30033,21 @@
 "severity": "INFO",
 "pattern": "Traces",
 "hash": "Gl3Gtr_SH5w",
-"events": 25959,
-"bytes": 32897936,
-"lines": 25959,
-"line_bytes": 32897936
+"events": 29507,
+"bytes": 37394190,
+"lines": 29507,
+"line_bytes": 37394190
+},
+{
+"route": "tier_down",
+"container": "recommendation",
+"severity": "INFO",
+"pattern": "Receive_ListRecommendations_for_product_ids",
+"hash": "bzLB1zZCTIw",
+"events": 3077,
+"bytes": 3677015,
+"lines": 3077,
+"line_bytes": 3677015
 }
 ]
 }

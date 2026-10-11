@@ -1,2 +1,5 @@
 container,cap
-opentelemetry-collector,9469200::plan datadog 50 pct; tool cap 63128 per 240 s window x 36000/240
+ad,754965::MCP poc_from_local plan 50 pct
+cart,2018970::MCP poc_from_local plan 50 pct
+opentelemetry-collector,4569255::MCP poc_from_local plan 50 pct
+recommendation,15::MCP poc_from_local plan 50 pct

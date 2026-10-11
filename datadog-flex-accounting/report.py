@@ -48,16 +48,23 @@ def compute(results: pathlib.Path, prices: dict, targets: list, window_hours: fl
         tier = next((name for name, lo, hi in prices['flex_compute']['tiers_by_cumulative_events_stored'] if lo <= stored_month < hi), 'above L')
         within_starter = events_month < prices['flex_compute']['starter_monthly_limit_events']
         cmc = tl['series']['custom_metrics']
+        pm = plan['plan'].get('perEventMove') or {}
         out['targets'][str(t)] = {
             'plan': {
                 'target_pct': plan['plan']['targetPct'],
                 'achieved_pct_stated': round(plan['plan']['achievedPct'], 2),
                 'events_sampled': plan['events_pulled'],
-                'planned_patterns': [{'name': r['name'], 'action': r['action'], 'severity': r.get('severity') or ''} for r in plan['plan']['planned']],
-                'tool_caps_row': policy['tool_caps_row'],
+                'planned_patterns': [{'name': r['name'], 'action': r['action'], 'severity': r.get('severity') or '',
+                                      'container': r.get('dominantService') or '', 'moved_bytes_stated': round(r.get('movedBytesMonthly') or 0)}
+                                     for r in plan['plan']['planned']],
+                'stated_events_moved': round(pm.get('events_moved') or 0),
+                'stated_bytes_moved': round(sum(r.get('movedBytesMonthly') or 0 for r in plan['plan']['planned'])),
+                'tool_caps_csv': policy['tool_caps_csv'],
+                'tool_actions_csv': policy['tool_actions_csv'],
+                'span_seconds': policy['span_seconds'],
+                'replay_factor': policy['replay_factor'],
+                'unattributed_planned': policy['unattributed_planned'],
                 'containers': policy['containers'],
-                'cap_bytes_per_window': policy['cap_bytes_per_window'],
-                'cap_bytes_replay': policy['cap_bytes_replay'],
             },
             'engine': {
                 'events': tl['events'],
@@ -125,18 +132,7 @@ def render(r: dict, prices: dict) -> str:
     L.append(f'- MCP: log10x-mcp {r["mcp_version"]}')
     L.append(f'- capture: `{r["capture"]["name"]}`, sha256 `{r["capture"]["sha256"]}`, {r["capture"]["lines"]:,} lines, {r["control"]["events"]:,} events after grouping, {T.fmt_gb(r["control"]["bytes"])} GB, {r["window_hours"]:g} hours; a month is {r["month_hours"]} hours; {r["gb_definition"]}')
     L.append('')
-    L.append('## The result')
-    L.append('')
-    L.append('| Target | Patterns planned | Containers capped | Events to Flex | GB to Flex | Events in Standard | Errors and warnings to Flex | Events to Flex per month | Standard indexing avoided per month, 15-day annual | Flex storage added per month, annual | Flex compute tier | Custom metrics, one node |')
-    L.append('|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|---:|')
-    for t, v in r['targets'].items():
-        e, m, u = v['engine'], v['month'], v['usd_per_month_at_list']
-        L.append(f'| {t}% | {len(v["plan"]["planned_patterns"])} | {len(v["plan"]["containers"])} | {T.fmt_int(e["by_route"].get("tier_down", {"events": 0})["events"])} | {T.fmt_gb(e["by_route"].get("tier_down", {"bytes": 0})["bytes"])} | {T.fmt_int(e["by_route"].get("pass", {"events": 0})["events"])} | {T.fmt_int(e["protected_moved_events"])} | {T.fmt_int(m["events_to_flex"])} | {T.fmt_usd(u["standard_indexing_avoided"]["15d_annual"])} | {T.fmt_usd(u["flex_storage_added"]["annual"])} | {v["flex_compute"]["tier"]} | {v["custom_metrics"]["count_one_node"]:,} |')
-    L.append('')
-    L.append('Ingestion is unchanged by a move to Flex: every event is ingested once, at '
-             f'${prices["ingestion_per_gb"]["annual"]:.2f} per GB, before any index or Flex routing.')
-    L.append('')
-    L.append('## What one million moved events cost at list')
+    L.append('## What a moved event costs at list')
     L.append('')
     L.append('| Line | Annual | On-demand | Datadog\'s wording | Read |')
     L.append('|---|---:|---:|---|---|')
@@ -145,7 +141,7 @@ def render(r: dict, prices: dict) -> str:
     L.append(f'| Flex storage added, per million events stored per month | ${flex["annual"]:.2f} | ${flex["on_demand"]:.3f} | {flex["quote"]}; {flex["minimum"]} | [{r["prices_read_on"]}]({flex["url"]}) |')
     L.append(f'| Flex Starter, per million events stored per month, compute bundled | ${starter["annual"]:.2f} | ${starter["on_demand"]:.2f} | {starter["quote"]}; {starter["limit"]} | [{r["prices_read_on"]}]({starter["url"]}) |')
     L.append(f'| Flex compute, XS to L | {prices["flex_compute"]["price"]} | {prices["flex_compute"]["price"]} | {prices["flex_compute"]["price_quote"]} | [{r["prices_read_on"]}]({prices["flex_compute"]["price_url"]}) |')
-    L.append(f'| Ingestion, per GB, unchanged | ${prices["ingestion_per_gb"]["annual"]:.2f} | ${prices["ingestion_per_gb"]["on_demand"]:.2f} | {prices["ingestion_per_gb"]["quote"]} | [{r["prices_read_on"]}]({prices["ingestion_per_gb"]["url"]}) |')
+    L.append(f'| Ingestion, per GB, unchanged by a move | ${prices["ingestion_per_gb"]["annual"]:.2f} | ${prices["ingestion_per_gb"]["on_demand"]:.2f} | {prices["ingestion_per_gb"]["quote"]} | [{r["prices_read_on"]}]({prices["ingestion_per_gb"]["url"]}) |')
     L.append(f'| Custom metrics, per 100 per month above the allotment | ${cm["per_100_per_month"]["annual"]:.2f} | ${cm["per_100_per_month"]["on_demand"]:.2f} | {cm["quote"]}; {cm["allotment_quote"]} | [{r["prices_read_on"]}]({cm["url"]}) |')
     L.append('')
     L.append('Flex compute sizes by cumulative events stored, from Datadog\'s own table: ' +
@@ -153,20 +149,39 @@ def render(r: dict, prices: dict) -> str:
              f'. Starter is bundled storage and compute for volumes below {prices["flex_compute"]["starter_monthly_limit_events"] / 1e9:g} billion events a month. '
              f'[{r["prices_read_on"]}]({prices["flex_compute"]["sizing_url"]})')
     L.append('')
+    L.append('## What moves, per target')
+    L.append('')
+    L.append('| Target | Patterns planned | Containers capped | Events the plan states | Events the engine marked tier_down | GB to Flex | Events in Standard | Errors and warnings to Flex | Custom metrics, one node |')
+    L.append('|---:|---:|---:|---:|---:|---:|---:|---:|---:|')
+    for t, v in r['targets'].items():
+        e, p = v['engine'], v['plan']
+        L.append(f'| {t}% | {len(p["planned_patterns"])} | {len(p["containers"])} | {T.fmt_int(p["stated_events_moved"])} | {T.fmt_int(e["by_route"].get("tier_down", {"events": 0})["events"])} | {T.fmt_gb(e["by_route"].get("tier_down", {"bytes": 0})["bytes"])} | {T.fmt_int(e["by_route"].get("pass", {"events": 0})["events"])} | {T.fmt_int(e["protected_moved_events"])} | {v["custom_metrics"]["count_one_node"]:,} |')
+    L.append('')
+    L.append('The engine moves each pattern\'s excess over its container\'s cap; the plan sets the cap at the largest pattern the container keeps and states the excess, less the share the severity floors keep. Ingestion is unchanged: every event is ingested once, at '
+             f'${prices["ingestion_per_gb"]["annual"]:.2f} per GB, before any index routing.')
+    L.append('')
+    L.append(f'## A month at this capture\'s volume, an illustration')
+    L.append('')
+    L.append(f'The capture\'s {r["window_hours"]:g} hours scaled to a {r["month_hours"]}-hour month, at the rates above. The volume is one small demo cluster\'s; the rates are what carry.')
+    L.append('')
+    L.append('| Target | Events to Flex per month | Standard indexing avoided, 15-day annual | Flex storage added, annual | Flex compute tier | Ingestion, unchanged | Custom metrics above a Pro host\'s allotment, one node |')
+    L.append('|---:|---:|---:|---:|---|---:|---:|')
+    for t, v in r['targets'].items():
+        m, u, c = v['month'], v['usd_per_month_at_list'], v['custom_metrics']
+        L.append(f'| {t}% | {T.fmt_int(m["events_to_flex"])} | {T.fmt_usd(u["standard_indexing_avoided"]["15d_annual"])} | {T.fmt_usd(u["flex_storage_added"]["annual"])} | {v["flex_compute"]["tier"]} | {T.fmt_usd(u["ingestion_unchanged"])} | {T.fmt_usd(c["usd_per_month_above_pro"])} |')
+    L.append('')
     for t, v in r['targets'].items():
         p, e, m, u = v['plan'], v['engine'], v['month'], v['usd_per_month_at_list']
         L.append(f'## Target {t}%')
         L.append('')
-        L.append(f'**The plan.** The MCP sampled {p["events_sampled"]:,} events of the capture and planned {len(p["planned_patterns"])} patterns for Flex, stating {p["achieved_pct_stated"]:g}% of the Standard-index volume moved: ' +
-                 ', '.join(f'`{x["name"]}` ({x["severity"] or "no level"})' for x in p['planned_patterns']) + '.')
-        L.append(f'Its cap row reads `{p["tool_caps_row"]}`: {p["cap_bytes_per_window"]:,} bytes per pattern per 240 s window, keyed `<container>`. '
-                 f'The patterns are placed in the containers that produced them in the control run, and the cap is multiplied by {r["window_hours"] * 3600 / 240:g} because the replay delivers the {r["window_hours"]:g}-hour capture inside one window: '
-                 f'{p["cap_bytes_replay"]:,} bytes per pattern.')
+        L.append(f'**The plan.** The MCP sampled {p["events_sampled"]:,} events of the capture and planned {len(p["planned_patterns"])} patterns for Flex, stating {p["achieved_pct_stated"]:g}% of the Standard-index volume and {T.fmt_int(p["stated_events_moved"])} events moved: ' +
+                 ', '.join(f'`{x["name"]}` ({x["severity"] or "no level"}, `{x["container"]}`)' for x in p['planned_patterns']) + '.')
+        L.append(f'Its engine files, as written (a cap is bytes per pattern per 240 s window over the {p["span_seconds"] / 3600:g} hours the plan covers; the replay multiplies each cap by {p["replay_factor"]:g} because it delivers the capture inside one window):')
         L.append('')
-        L.append('| Container | Action | Patterns of the plan it hosts |')
-        L.append('|---|---|---|')
-        for c, cv in p['containers'].items():
-            L.append(f'| `{c}` | {cv["action"]} | ' + ', '.join(f'`{x}`' for x in cv['patterns']) + ' |')
+        L.append('```')
+        L.append(p['tool_caps_csv'].rstrip('\n'))
+        L.append(p['tool_actions_csv'].rstrip('\n'))
+        L.append('```')
         L.append('')
         L.append(f'**The engine.** {e["events"]:,} events replayed in {e["replay_seconds"]} s; the records and the engine\'s aggregators agree on every one of {e["agreement"]["keys_compared"]:,} keys.')
         L.append('')
@@ -183,7 +198,7 @@ def render(r: dict, prices: dict) -> str:
         for x in e['top_moved']:
             L.append(f'| `{x["pattern"]}` | `{x["container"]}` | {x["severity"]} | {x["events"]:,} | {T.fmt_gb(x["bytes"])} |')
         L.append('')
-        L.append(f'**A month at list.** {T.fmt_int(m["events_to_flex"])} events to Flex ({m["gb_to_flex"]:.3f} GB), {T.fmt_int(m["events_in_standard"])} in Standard, {m["gb_ingested"]:.3f} GB ingested.')
+        L.append(f'**A month at this volume, an illustration.** {T.fmt_int(m["events_to_flex"])} events to Flex ({m["gb_to_flex"]:.3f} GB), {T.fmt_int(m["events_in_standard"])} in Standard, {m["gb_ingested"]:.3f} GB ingested.')
         L.append('')
         L.append('| Line | Per month |')
         L.append('|---|---:|')
@@ -211,7 +226,7 @@ def render(r: dict, prices: dict) -> str:
     L.append(f'- Datadog counts indexed events: "{prices["event_counting"]["quote"]}" ([{r["prices_read_on"]}]({prices["event_counting"]["url"]})). With the shipped forwarder path one record is one event; the Receiver groups the lines of a multi-line event into one record, and the engine counted {r["control"]["events"]:,} records from {r["capture"]["lines"]:,} lines here.')
     L.append('- The Flex route is the documented index filter on `@routeState:tier_down`, applied to a Flex index listed before the Standard one. Every event the engine marks `tier_down` carries that field to Datadog.')
     L.append('- The regulator caps each pattern\'s bytes per container per 240 s window; an event over its pattern\'s cap takes the container\'s action. Patterns under 5% of their container\'s bytes in the window are not capped, the first 5 events of a pattern in a window pass, and the severity floors keep a share of each level: a tenth of INFO, DEBUG and TRACE, three tenths of WARN, half of ERROR and CRITICAL. The kept share is drawn at random per event, so a rerun differs within that noise.')
-    L.append('- The replay delivers the capture inside one window; the plan\'s cap is scaled by the window the MCP was told the capture covers, as the policy files record.')
+    L.append('- The replay delivers the capture inside one window; each cap the plan wrote is multiplied by the span the plan covers over 240 s, and nothing else in the plan\'s files is changed. `results/policy-*.json` records the files and the factor.')
     L.append(f'- Events and GB are the engine\'s counts of the records it emitted; dollars are those counts at list price. A month is {r["month_hours"]} hours; the capture covers {r["window_hours"]:g}.')
     L.append('')
     L.append('## Reproduce')
@@ -231,7 +246,7 @@ def render(r: dict, prices: dict) -> str:
     L.append('| `report.py` | renders `results/results.md` and `results/results.json` from the kept outputs; `--check` fails CI if the committed figures do not follow from them |')
     L.append('| `../accounting-lib/plan.mjs` | asks the released MCP for its plan over stdio and keeps what it wrote |')
     L.append('| `../accounting-lib/replay.config.yaml` | the engine run: shipped enrichment, regulator and aggregators, file in, file out |')
-    L.append('| `../accounting-lib/policy.py` | the plan\'s patterns and cap mapped onto the engine\'s per-container files, with the arithmetic recorded |')
+    L.append('| `../accounting-lib/policy.py` | the engine files the tool wrote, caps scaled to the one-window replay |')
     L.append('| `../accounting-lib/count.py` | the two counts, records and aggregators, required to agree |')
     L.append('| `results/plan-<target>.json` | the plan the MCP wrote, its notes and the caps row it rendered |')
     L.append('| `results/policy-<target>.caps.csv`, `.actions.csv`, `.json` | the files the engine read |')

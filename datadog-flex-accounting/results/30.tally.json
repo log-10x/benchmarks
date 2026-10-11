@@ -17,7 +17,7 @@
 "counters_per_label_set": 2,
 "custom_metrics": 10848
 },
-"replay_seconds": 24,
+"replay_seconds": 53,
 "by_key": [
 {
 "route": "pass",
@@ -28669,10 +28669,10 @@
 "severity": "INFO",
 "pattern": "Logs",
 "hash": "KG8Fq0QFuoY",
-"events": 10202,
-"bytes": 12936528,
-"lines": 10202,
-"line_bytes": 12936528
+"events": 6804,
+"bytes": 8627728,
+"lines": 6804,
+"line_bytes": 8627728
 },
 {
 "route": "pass",
@@ -28691,10 +28691,10 @@
 "severity": "INFO",
 "pattern": "Metrics",
 "hash": "PuWB8kkVbfw",
-"events": 7996,
-"bytes": 10358870,
-"lines": 7996,
-"line_bytes": 10358870
+"events": 4581,
+"bytes": 5934657,
+"lines": 4581,
+"line_bytes": 5934657
 },
 {
 "route": "pass",
@@ -28801,10 +28801,10 @@
 "severity": "INFO",
 "pattern": "Traces",
 "hash": "Gl3Gtr_SH5w",
-"events": 10378,
-"bytes": 13151936,
-"lines": 10378,
-"line_bytes": 13151936
+"events": 6928,
+"bytes": 8779833,
+"lines": 6928,
+"line_bytes": 8779833
 },
 {
 "route": "pass",
@@ -29824,10 +29824,10 @@
 "severity": "INFO",
 "pattern": "Logs",
 "hash": "KG8Fq0QFuoY",
-"events": 25019,
-"bytes": 31725038,
-"lines": 25019,
-"line_bytes": 31725038
+"events": 28417,
+"bytes": 36033838,
+"lines": 28417,
+"line_bytes": 36033838
 },
 {
 "route": "tier_down",
@@ -29835,10 +29835,10 @@
 "severity": "INFO",
 "pattern": "Metrics",
 "hash": "PuWB8kkVbfw",
-"events": 6127,
-"bytes": 7937576,
-"lines": 6127,
-"line_bytes": 7937576
+"events": 9542,
+"bytes": 12361789,
+"lines": 9542,
+"line_bytes": 12361789
 },
 {
 "route": "tier_down",
@@ -29846,10 +29846,10 @@
 "severity": "INFO",
 "pattern": "Traces",
 "hash": "Gl3Gtr_SH5w",
-"events": 26017,
-"bytes": 32971385,
-"lines": 26017,
-"line_bytes": 32971385
+"events": 29467,
+"bytes": 37343488,
+"lines": 29467,
+"line_bytes": 37343488
 }
 ]
 }

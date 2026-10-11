@@ -61,12 +61,17 @@ def compute(results: pathlib.Path, prices: dict, targets: list, window_hours: fl
                 'target_pct': plan['plan']['targetPct'],
                 'achieved_pct_stated': round(plan['plan']['achievedPct'], 2),
                 'events_sampled': plan['events_pulled'],
-                'planned_patterns': [{'name': r['name'], 'action': r['action'], 'severity': r.get('severity') or ''} for r in plan['plan']['planned']],
+                'planned_patterns': [{'name': r['name'], 'action': r['action'], 'severity': r.get('severity') or '',
+                                      'container': r.get('dominantService') or '', 'moved_bytes_stated': round(r.get('movedBytesMonthly') or 0)}
+                                     for r in plan['plan']['planned']],
                 'planned_count': len(plan['plan']['planned']),
-                'tool_caps_row': policy['tool_caps_row'],
+                'stated_bytes_moved': round(sum(r.get('movedBytesMonthly') or 0 for r in plan['plan']['planned'] if r['action'] == 'tier_down')),
+                'tool_caps_csv': policy['tool_caps_csv'],
+                'tool_actions_csv': policy['tool_actions_csv'],
+                'span_seconds': policy['span_seconds'],
+                'replay_factor': policy['replay_factor'],
+                'unattributed_planned': policy['unattributed_planned'],
                 'containers': policy['containers'],
-                'cap_bytes_per_window': policy['cap_bytes_per_window'],
-                'cap_bytes_replay': policy['cap_bytes_replay'],
             },
             'engine': {
                 'events': tl['events'],
@@ -108,14 +113,6 @@ def render(r: dict, prices: dict) -> str:
     L.append(f'- MCP: log10x-mcp {r["mcp_version"]}')
     L.append(f'- capture: `{r["capture"]["name"]}`, sha256 `{r["capture"]["sha256"]}`, {r["capture"]["lines"]:,} lines, {r["control"]["events"]:,} events after grouping, {T.fmt_gb(r["control"]["bytes"])} GB, {r["window_hours"]:g} hours; a month is {r["month_hours"]} hours; {r["gb_definition"]}')
     L.append('')
-    L.append('## The result')
-    L.append('')
-    L.append('| Target | Patterns planned | Containers | GB to IA | GB offloaded | GB in Standard | Errors and warnings moved | GB to IA per month | Ingest, IA rate per month | Ingest at Standard the same GB would cost | Ingest avoided by offload per month |')
-    L.append('|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|')
-    for t, v in r['targets'].items():
-        e, m, u = v['engine'], v['month'], v['usd_per_month_at_list']
-        L.append(f'| {t}% | {v["plan"]["planned_count"]} | {len(v["plan"]["containers"])} | {T.fmt_gb(e["by_route"].get("tier_down", {"bytes": 0})["bytes"])} | {T.fmt_gb(e["by_route"].get("offload", {"bytes": 0})["bytes"])} | {T.fmt_gb(e["by_route"].get("pass", {"bytes": 0})["bytes"])} | {T.fmt_int(e["protected_moved_events"])} | {m["gb_ia"]:.3f} | {T.fmt_usd(u["ingest_ia_for_the_moved_slice"])} | {T.fmt_usd(u["ingest_standard_the_moved_slice_would_have_cost"])} | {T.fmt_usd(u["ingest_avoided_by_offload"])} |')
-    L.append('')
     L.append('## Dollars per GB at list')
     L.append('')
     L.append('| Line | Per GB | AWS\'s wording | Read |')
@@ -127,7 +124,27 @@ def render(r: dict, prices: dict) -> str:
     L.append(f'| S3 Standard storage, per GB-month | ${prices["s3_standard_storage_per_gb_month"]["price"]:.3f} | {prices["s3_standard_storage_per_gb_month"]["quote"]} | [{r["prices_read_on"]}]({prices["s3_standard_storage_per_gb_month"]["url"]}) |')
     L.append(f'| S3 PUT, per 1,000 requests | ${prices["s3_put_per_1000"]["price"]:.3f} | {prices["s3_put_per_1000"]["quote"]} | [{r["prices_read_on"]}]({prices["s3_put_per_1000"]["url"]}) |')
     L.append('')
-    L.append(f'The price list carries publication date {prices["price_list"]["publication_date"]} ([index.json]({prices["price_list"]["url"]})). {prices["class_immutable"]}')
+    L.append(f'A GB moved from Standard to Infrequent Access costs ${prices["ingest_ia_per_gb"]["price"]:.2f} instead of ${prices["ingest_standard_per_gb"]["price"]:.2f} to ingest, and the same to store; a GB offloaded costs nothing to ingest, ${prices["s3_standard_storage_per_gb_month"]["price"]:.3f} per month in S3. The price list carries publication date {prices["price_list"]["publication_date"]} ([index.json]({prices["price_list"]["url"]})). {prices["class_immutable"]}')
+    L.append('')
+    L.append('## What moves, per target')
+    L.append('')
+    L.append('| Target | Patterns planned | Containers | GB the plan states to IA | GB the engine marked to IA | GB offloaded | GB in Standard | Errors and warnings moved |')
+    L.append('|---:|---:|---:|---:|---:|---:|---:|---:|')
+    for t, v in r['targets'].items():
+        e, p = v['engine'], v['plan']
+        L.append(f'| {t}% | {p["planned_count"]} | {len(p["containers"])} | {T.fmt_gb(p["stated_bytes_moved"])} | {T.fmt_gb(e["by_route"].get("tier_down", {"bytes": 0})["bytes"])} | {T.fmt_gb(e["by_route"].get("offload", {"bytes": 0})["bytes"])} | {T.fmt_gb(e["by_route"].get("pass", {"bytes": 0})["bytes"])} | {T.fmt_int(e["protected_moved_events"])} |')
+    L.append('')
+    L.append('The engine moves each pattern\'s excess over its container\'s cap; the plan sets the cap at the largest pattern the container keeps and states the excess, less the share the severity floors keep. Offload acts on the whole container: its cap is the one-byte minimum.')
+    L.append('')
+    L.append(f'## A month at this capture\'s volume, an illustration')
+    L.append('')
+    L.append(f'The capture\'s {r["window_hours"]:g} hours scaled to a {r["month_hours"]}-hour month, at the rates above. The volume is one small demo cluster\'s; the rates are what carry.')
+    L.append('')
+    L.append('| Target | GB to IA per month | Ingest at the IA rate | Ingest at Standard the same GB would cost | GB offloaded per month | Ingest avoided by offload |')
+    L.append('|---:|---:|---:|---:|---:|---:|')
+    for t, v in r['targets'].items():
+        m, u = v['month'], v['usd_per_month_at_list']
+        L.append(f'| {t}% | {m["gb_ia"]:.3f} | {T.fmt_usd(u["ingest_ia_for_the_moved_slice"])} | {T.fmt_usd(u["ingest_standard_the_moved_slice_would_have_cost"])} | {m["gb_offloaded"]:.3f} | {T.fmt_usd(u["ingest_avoided_by_offload"])} |')
     L.append('')
     for t, v in r['targets'].items():
         p, e, m, u = v['plan'], v['engine'], v['month'], v['usd_per_month_at_list']
@@ -137,14 +154,12 @@ def render(r: dict, prices: dict) -> str:
         shown = ', '.join(f'`{x["name"]}` ({x["action"]}, {x["severity"] or "no level"})' for x in names[:12])
         more = f', and {len(names) - 12} more' if len(names) > 12 else ''
         L.append(f'**The plan.** The MCP sampled {p["events_sampled"]:,} events of the capture and planned {len(names)} patterns, stating {p["achieved_pct_stated"]:g}% of the bill: {shown}{more}.')
-        L.append(f'Its cap row reads `{p["tool_caps_row"]}`: {p["cap_bytes_per_window"]:,} bytes per pattern per 240 s window, keyed `<container>`. '
-                 f'The patterns are placed in the containers that produced them in the control run, a container takes the strongest action among its patterns (offload before tier_down), and the cap is multiplied by {r["window_hours"] * 3600 / 240:g} because the replay delivers the {r["window_hours"]:g}-hour capture inside one window: '
-                 f'{p["cap_bytes_replay"]:,} bytes per pattern.')
+        L.append(f'Its engine files, as written (a cap is bytes per pattern per 240 s window over the {p["span_seconds"] / 3600:g} hours the plan covers; the replay multiplies each cap by {p["replay_factor"]:g} because it delivers the capture inside one window):')
         L.append('')
-        L.append('| Container | Action | Patterns of the plan it hosts |')
-        L.append('|---|---|---:|')
-        for c, cv in p['containers'].items():
-            L.append(f'| `{c}` | {cv["action"]} | {len(cv["patterns"])} |')
+        L.append('```')
+        L.append(p['tool_caps_csv'].rstrip('\n'))
+        L.append(p['tool_actions_csv'].rstrip('\n'))
+        L.append('```')
         L.append('')
         L.append(f'**The engine.** {e["events"]:,} events replayed in {e["replay_seconds"]} s; the records and the engine\'s aggregators agree on every one of {e["agreement"]["keys_compared"]:,} keys.')
         L.append('')
@@ -161,7 +176,7 @@ def render(r: dict, prices: dict) -> str:
         for x in e['top_moved']:
             L.append(f'| `{x["pattern"]}` | `{x["container"]}` | {x["severity"]} | {x["route"]} | {x["events"]:,} | {T.fmt_gb(x["bytes"])} |')
         L.append('')
-        L.append(f'**A month at list.** {m["gb_ia"]:.3f} GB to Infrequent Access ({T.fmt_int(m["events_ia"])} events), {m["gb_offloaded"]:.3f} GB offloaded ({T.fmt_int(m["events_offloaded"])} events), {m["gb_standard"]:.3f} GB in Standard.')
+        L.append(f'**A month at this volume, an illustration.** {m["gb_ia"]:.3f} GB to Infrequent Access ({T.fmt_int(m["events_ia"])} events), {m["gb_offloaded"]:.3f} GB offloaded ({T.fmt_int(m["events_offloaded"])} events), {m["gb_standard"]:.3f} GB in Standard.')
         L.append('')
         L.append('| Line | Per month |')
         L.append('|---|---:|')
@@ -186,7 +201,7 @@ def render(r: dict, prices: dict) -> str:
     L.append(f'- The 26 bytes per event in the PutLogEvents batch-size rule are shown as a separate line. {prices["put_log_events_overhead"]["billed"]} ([{r["prices_read_on"]}]({prices["put_log_events_overhead"]["url"]}))')
     L.append('- The split is forwarder-side: the `tenx.tier_down` tag goes to a log group in the Infrequent Access class, `tenx.offload` to the S3 output, and the class is fixed when the group is created.')
     L.append('- The regulator caps each pattern\'s bytes per container per 240 s window; an event over its pattern\'s cap takes the container\'s action. Patterns under 5% of their container\'s bytes in the window are not capped, the first 5 events of a pattern in a window pass, and the severity floors keep a share of each level: a tenth of INFO, DEBUG and TRACE, three tenths of WARN, half of ERROR and CRITICAL. The kept share is drawn at random per event, so a rerun differs within that noise.')
-    L.append('- The replay delivers the capture inside one window; the plan\'s cap is scaled by the window the MCP was told the capture covers, as the policy files record.')
+    L.append('- The replay delivers the capture inside one window; each cap the plan wrote is multiplied by the span the plan covers over 240 s, and nothing else in the plan\'s files is changed. `results/policy-*.json` records the files and the factor.')
     L.append(f'- A month is {r["month_hours"]} hours; the capture covers {r["window_hours"]:g}. Storage and S3 storage accrue per GB-month and are shown per GB-month of data held.')
     L.append('')
     L.append('## Reproduce')

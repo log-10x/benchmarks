@@ -11,27 +11,47 @@ Nothing was metered by AWS, and no AWS account is needed to rerun it.
 ## The result
 
 The OpenTelemetry demo capture, 197,430 lines, 157,228 events after grouping, 0.215 GB
-over ten hours. Engine `log10x/pipeline-10x:1.1.139`, log10x-mcp 1.30.46 with the S3
+over ten hours. Engine `log10x/pipeline-10x:1.1.139`, log10x-mcp 1.30.47 with the S3
 retriever declared installed, prices read 2026-10-11.
-
-| Target | Patterns planned | Containers | GB to IA | GB offloaded | GB in Standard | Errors and warnings moved | GB to IA per month | Ingest, IA rate per month | Ingest at Standard the same GB would cost | Ingest avoided by offload per month |
-|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 30% | 8 | 4 | 0.073 | 0.000 | 0.142 | 0 | 5.221 | $1.31 | $2.61 | $0.00 |
-| 50% | 1005 | 24 | 0.014 | 0.072 | 0.129 | 0 | 0.980 | $0.24 | $0.49 | $2.61 |
-| 70% | 1005 | 24 | 0.014 | 0.073 | 0.129 | 0 | 0.985 | $0.25 | $0.49 | $2.61 |
-
-The engine moves the excess of each pattern over its container's cap. The planner wrote
-the same cap at every target, 63,128 bytes per pattern per 240 s window. At 30% the
-collector's `Traces`, `Logs` and `Metrics` lines move to Infrequent Access. At 50% and 70%
-the plan offloads the collector, so those lines go to S3 instead, and the other capped
-containers send one pattern's excess, the cart's `GetCartAsync` line, to Infrequent Access.
 
 **Dollars per GB at list.** Ingest: $0.50 Standard, $0.25 Infrequent Access. Storage: $0.03
 per GB-month in both classes, on compressed bytes at AWS's stated 0.15 ratio. Logs
 Insights: $0.005 per GB scanned. S3 Standard: $0.023 per GB-month and $0.005 per 1,000 PUT
-requests. The 26 bytes per event in the PutLogEvents batch-size rule are shown as a
-separate line; no AWS page read bills them. The full table with every URL is in
-[`results/results.md`](results/results.md).
+requests. A GB moved to Infrequent Access costs $0.25 instead of $0.50 to ingest and the
+same to store; a GB offloaded costs nothing to ingest and $0.023 a month in S3. The 26 bytes
+per event in the PutLogEvents batch-size rule are shown as a separate line; no AWS page read
+bills them. The full table with every URL is in [`results/results.md`](results/results.md).
+
+**What moves, per target.** The MCP's plan applied as written, its `caps.csv` and
+`actions.csv` on the released engine, with each cap scaled to the one-window replay. The
+plan's percentages are of the bill, and Infrequent Access halves the ingest rate, so a 30%
+cut in dollars is about 60% of the bytes:
+
+| Target | Patterns planned | Containers | GB the plan states to IA | GB the engine marked to IA | GB offloaded | GB in Standard | Share of the bill the plan states | Share of the bytes the engine moved | Errors and warnings moved |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 30% | 22 | 5 | 0.136 | 0.150 | 0.000 | 0.065 | 30.4% | 69.7% | 0 |
+| 50% | 55 | 17 | 0.071 | 0.067 | 0.099 | 0.049 | 56.9% | 77.3% | 53 |
+| 70% | 55 | 17 | 0.030 | 0.002 | 0.165 | 0.048 | 70.6% | 77.7% | 52 |
+
+At 30% the plan tiers down 22 patterns in five containers, each capped at the largest
+pattern it keeps. At 50% it offloads the collector's `Traces` and `Logs` lines and tiers
+down 16 other containers; at 70% it offloads the collector, the cart, the ad and
+recommendation services and kafka. Offload acts on the whole container, its cap is the
+one-byte minimum, so the patterns the plan still lists as tier_down inside an offloaded
+container are offloaded with it, which is where the 70% row's 0.030 GB stated against
+0.002 GB marked goes. The engine's bytes run above the plan's because the plan is stated
+from a 12,000-line sample scaled to the file and the engine counts the whole capture. At
+50% and 70%, 4 planned patterns carried no container and are not in the files.
+
+**A month at this capture's volume, an illustration.** The capture's ten hours scaled to a
+720-hour month, at the rates above. The volume is one small demo cluster's; the rates are
+what carry.
+
+| Target | GB to IA per month | Ingest at the IA rate | Ingest at Standard the same GB would cost | GB offloaded per month | Ingest avoided by offload |
+|---:|---:|---:|---:|---:|---:|
+| 30% | 10.778 | $2.69 | $5.39 | 0.000 | $0.00 |
+| 50% | 4.831 | $1.21 | $2.42 | 7.130 | $3.56 |
+| 70% | 0.127 | $0.03 | $0.06 | 11.901 | $5.95 |
 
 **What Infrequent Access lacks**, from AWS's log class table: Facets, natural language
 query assist, Anomaly Detection, Live Tail, field indexing, compare to previous time range,
@@ -55,11 +75,11 @@ and masking. A log group's class is fixed when it is created.
   severity floors keep a tenth of INFO, DEBUG and TRACE, three tenths of WARN and half of
   ERROR and CRITICAL. The kept share is drawn at random per event, so a rerun differs within
   that noise.
-- The replay delivers the capture inside one window; the plan's cap is multiplied by the
-  window the MCP was told the capture covers over 240 s, the plan's patterns are placed in
-  the containers that produced them in the control run, and a container takes the strongest
-  action among its patterns, offload before tier_down. `results/policy-*.json` records each
-  step.
+- The replay delivers the capture inside one window; each cap the plan wrote is multiplied
+  by the span the plan covers over 240 s, 15 here, and nothing else in the plan's files is
+  changed. A container takes the one action its row names; the planner gives it the strongest
+  action among its patterns, offload before tier_down. `results/policy-*.json` records the
+  files and the factor.
 - Every count is taken two ways, from the emitted records and from the engine's own
   aggregators, and the run fails if they differ.
 - A month is 720 hours; the capture covers 10. GB are decimal.
@@ -84,7 +104,7 @@ other stage runs the engine image on the capture. `ACCT_TARGETS` sets the target
 | `prices.json` | every price used, with its URL and the date read |
 | `report.py` | renders `results/results.md` and `results/results.json` from the kept outputs; `--check` fails CI if the committed figures do not follow from them |
 | `../accounting-lib/` | the MCP driver, the engine run, the policy mapping and the two-way count, shared with [`datadog-flex-accounting/`](../datadog-flex-accounting/) |
-| `results/plan-<target>.json` | the plan the MCP wrote, its notes and the caps row it rendered |
+| `results/plan-<target>.json` | the plan the MCP wrote, its notes and both engine files as it rendered them |
 | `results/policy-<target>.caps.csv`, `.actions.csv`, `.json` | the files the engine read |
 | `results/<target>.tally.json`, `results/control.tally.json` | the counts per route, container, severity and pattern |
 | `results/results.md` | every table, with the per-target detail |

@@ -1,100 +1,58 @@
 #!/usr/bin/env python3
 """
-Turn the plan the MCP wrote into the two files the engine reads.
+Write the engine's two files from what the MCP returned, unchanged but for the replay's
+time scale.
 
-The engine's rate regulator enforces a plan per container: `caps.csv` gives a container
-the byte cap each of its patterns may spend per 240 s window, and `actions.csv` gives
-the container the action its excess takes. The plan is written per pattern. This maps
-one onto the other, and writes down every step so the result can be read back.
-
-Containers: the plan names its patterns but attributes none of them to a service, and
-the caps row it rendered keys `<container>`. Each planned pattern is placed in the
-container that produced most of its bytes in the engine's own control run of the same
-capture.
-
-Action: Datadog plans tier_down only. A CloudWatch plan can offload one pattern and
-tier_down another hosted in the same container; the container takes the stronger one,
-offload before tier_down, the order the MCP's action-intent writer documents.
-
-Cap: the plan's cap row is bytes per 240 s window, scaled by the MCP from the window it
-was told the capture covers. The replay delivers the whole capture inside one window, so
-the cap is scaled back up by that window over 240 s.
+The tool's `engine_policy` holds `caps.csv` and `actions.csv` as the engine reads them:
+a cap is bytes per pattern per 240 s regulator window, scaled by the tool from the span
+its plan covers. The replay delivers the whole capture inside one window, so every cap is
+multiplied by that span over 240 s; the actions file is copied as it is. Nothing else is
+derived here.
 """
 import argparse
-import collections
 import json
 import pathlib
-import re
-
-RESET_WINDOW_SECONDS = 240
-ACTION_RANK = {'drop': 5, 'offload': 4, 'tier_down': 3, 'compact': 2, 'sample': 1, 'pass': 0}
 
 
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument('--plan', required=True, help='plan-<target>.json written by plan.mjs')
-    ap.add_argument('--control', required=True, help='control tally written by count.py')
-    ap.add_argument('--window-seconds', type=int, required=True, help='the window the plan was told the capture covers')
-    ap.add_argument('--siem', required=True)
-    ap.add_argument('--out-prefix', required=True, help='writes <prefix>.caps.csv, <prefix>.actions.csv, <prefix>.json')
+    ap.add_argument('--out-prefix', required=True)
     a = ap.parse_args()
-
     plan_file = json.load(open(a.plan))
-    plan = plan_file.get('plan') or {}
-    planned = [{'name': r['name'], 'action': r['action'], 'severity': r.get('severity') or ''}
-               for r in plan.get('planned', [])]
-
-    tool_caps = plan_file.get('tool_caps_csv') or ''
-    rows = [l for l in tool_caps.splitlines()[1:] if l.strip()]
-    if len(rows) != 1:
-        raise SystemExit(f'expected one cap row from the tool, found {len(rows)}: {rows}')
-    key, value = rows[0].split(',', 1)
-    cap_window = int(re.match(r'\d+', value).group(0))
-    cap_replay = round(cap_window * a.window_seconds / RESET_WINDOW_SECONDS)
-
-    control = json.load(open(a.control))
-    bytes_by_pattern = collections.defaultdict(collections.Counter)
-    for k in control['by_key']:
-        bytes_by_pattern[k['pattern']][k['container']] += k['bytes']
-
-    containers = {}
-    placed = []
-    for p in planned:
-        hosts = bytes_by_pattern.get(p['name'])
-        if not hosts:
-            placed.append({**p, 'container': None})
+    policy = plan_file.get('engine_policy')
+    if not policy:
+        raise SystemExit('the tool returned no engine_policy: the plan has no volume action')
+    span = int(policy['span_seconds'])
+    window = int(policy['reset_window_seconds'])
+    factor = span / window
+    caps_out = ['container,cap']
+    rows = []
+    for line in policy['caps_csv'].splitlines()[1:]:
+        if not line.strip():
             continue
-        container, b = hosts.most_common(1)[0]
-        placed.append({**p, 'container': container, 'bytes_in_capture': b})
-        c = containers.setdefault(container, {'action': 'pass', 'patterns': []})
-        c['patterns'].append(p['name'])
-        if ACTION_RANK[p['action']] > ACTION_RANK[c['action']]:
-            c['action'] = p['action']
-
+        container, value = line.split(',', 1)
+        bytes_text, rest = value.split(':', 1)
+        cap = int(bytes_text)
+        scaled = max(1, round(cap * factor))
+        caps_out.append(f'{container},{scaled}:{rest}')
+        rows.append({'container': container, 'cap_bytes_per_window': cap, 'cap_bytes_replay': scaled})
     prefix = pathlib.Path(a.out_prefix)
-    reason = f'plan {a.siem} {plan.get("targetPct")} pct; tool cap {cap_window} per {RESET_WINDOW_SECONDS} s window x {a.window_seconds}/{RESET_WINDOW_SECONDS}'
-    with open(f'{prefix}.caps.csv', 'w') as f:
-        f.write('container,cap\n')
-        for c in sorted(containers):
-            f.write(f'{c},{cap_replay}::{reason}\n')
-    with open(f'{prefix}.actions.csv', 'w') as f:
-        f.write('container,action\n')
-        for c in sorted(containers):
-            f.write(f'{c},{containers[c]["action"]}::plan {a.siem} {plan.get("targetPct")} pct\n')
+    open(f'{prefix}.caps.csv', 'w').write('\n'.join(caps_out) + '\n')
+    open(f'{prefix}.actions.csv', 'w').write(policy['actions_csv'])
+    actions = {l.split(',', 1)[0]: l.split(',', 1)[1].split(':', 1)[0] for l in policy['actions_csv'].splitlines()[1:] if l.strip()}
     json.dump({
-        'siem': a.siem,
-        'target_pct': plan.get('targetPct'),
-        'tool_caps_row': rows[0],
-        'tool_caps_key': key,
-        'cap_bytes_per_window': cap_window,
-        'window_seconds': a.window_seconds,
-        'reset_window_seconds': RESET_WINDOW_SECONDS,
-        'cap_bytes_replay': cap_replay,
-        'planned': placed,
-        'containers': {c: containers[c] for c in sorted(containers)},
+        'target_pct': (plan_file.get('plan') or {}).get('targetPct'),
+        'tool_caps_csv': policy['caps_csv'],
+        'tool_actions_csv': policy['actions_csv'],
+        'span_seconds': span,
+        'reset_window_seconds': window,
+        'replay_factor': factor,
+        'unattributed_planned': policy.get('unattributed_planned', 0),
+        'containers': {r['container']: {'action': actions.get(r['container']), **r} for r in rows},
     }, open(f'{prefix}.json', 'w'), indent=1)
-    print(f'{len(planned)} planned patterns -> {len(containers)} containers, cap {cap_window} per window -> {cap_replay} for the replay; '
-          + ', '.join(f'{c}={containers[c]["action"]}' for c in sorted(containers)))
+    print(f'{len(rows)} container rows from the tool, caps x {factor:g} for the one-window replay; '
+          + ', '.join(f"{r['container']}={actions.get(r['container'])}" for r in rows))
     return 0
 
 

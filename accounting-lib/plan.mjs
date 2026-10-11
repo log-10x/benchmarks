@@ -59,6 +59,8 @@ if (res.isError || !envelope) {
 const data = envelope.data ?? {};
 const capsPath = data.report_caps_path;
 const tool_caps_csv = capsPath && existsSync(capsPath) ? readFileSync(capsPath, "utf8") : null;
+const actionsPath = data.report_actions_path;
+const tool_actions_csv = actionsPath && existsSync(actionsPath) ? readFileSync(actionsPath, "utf8") : null;
 writeFileSync(out, JSON.stringify({
   mcp_version: mcpVersion,
   args,
@@ -71,6 +73,8 @@ writeFileSync(out, JSON.stringify({
   feasibility: data.feasibility ?? null,
   plan: data.plan ?? null,
   tool_caps_csv,
+  tool_actions_csv,
+  engine_policy: data.engine_policy ?? null,
   markdown: data.markdown ?? null,
 }, null, 1));
 console.log(`plan ${siem} ${target}%: ${data.events_pulled} events sampled, ${(data.plan?.planned ?? []).length} patterns planned, ${Math.round(elapsed_ms / 1000)} s`);

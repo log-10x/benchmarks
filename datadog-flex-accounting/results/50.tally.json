@@ -3,21 +3,21 @@
 "bytes": 214881933,
 "lines": 197430,
 "line_bytes": 214841731,
-"keys": 2712,
+"keys": 2717,
 "agreement": {
 "records_vs_engine_aggregators": "equal on every key: events, and bytes once the newlines joining a multi-line event are taken out",
-"keys_compared": 2712,
+"keys_compared": 2717,
 "joined_lines": 40202
 },
 "series": {
 "label_sets_per_aggregator": {
-"all_events": 2712,
-"emitted_events": 2712
+"all_events": 2717,
+"emitted_events": 2717
 },
 "counters_per_label_set": 2,
-"custom_metrics": 10848
+"custom_metrics": 10868
 },
-"replay_seconds": 25,
+"replay_seconds": 34,
 "by_key": [
 {
 "route": "pass",
@@ -542,10 +542,10 @@
 "severity": "TRACE",
 "pattern": "oteldemo_AdService_Targeted_ad_request_received_for",
 "hash": "xHrytxJfUdw",
-"events": 3056,
-"bytes": 2940899,
-"lines": 3056,
-"line_bytes": 2940899
+"events": 1023,
+"bytes": 984439,
+"lines": 1023,
+"line_bytes": 984439
 },
 {
 "route": "pass",
@@ -553,10 +553,10 @@
 "severity": "TRACE",
 "pattern": "oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags",
 "hash": "bz3kQNPdXvc",
-"events": 3555,
-"bytes": 3363030,
-"lines": 3555,
-"line_bytes": 3363030
+"events": 1082,
+"bytes": 1023572,
+"lines": 1082,
+"line_bytes": 1023572
 },
 {
 "route": "pass",
@@ -707,10 +707,10 @@
 "severity": "INFO",
 "pattern": "AddItemAsync_called_with_userId_productId_quantity",
 "hash": "eDSYlCMPqVY",
-"events": 6929,
-"bytes": 12196235,
-"lines": 13858,
-"line_bytes": 12189306
+"events": 1722,
+"bytes": 3031013,
+"lines": 3444,
+"line_bytes": 3029291
 },
 {
 "route": "pass",
@@ -740,10 +740,10 @@
 "severity": "INFO",
 "pattern": "GetCartAsync_called_with_userId",
 "hash": "YZplfQ4a1Xw",
-"events": 12709,
-"bytes": 21848535,
-"lines": 25473,
-"line_bytes": 21835771
+"events": 2355,
+"bytes": 4077287,
+"lines": 4765,
+"line_bytes": 4074877
 },
 {
 "route": "pass",
@@ -28669,10 +28669,10 @@
 "severity": "INFO",
 "pattern": "Logs",
 "hash": "KG8Fq0QFuoY",
-"events": 10243,
-"bytes": 12988518,
-"lines": 10243,
-"line_bytes": 12988518
+"events": 6667,
+"bytes": 8453988,
+"lines": 6667,
+"line_bytes": 8453988
 },
 {
 "route": "pass",
@@ -28691,10 +28691,10 @@
 "severity": "INFO",
 "pattern": "Metrics",
 "hash": "PuWB8kkVbfw",
-"events": 7973,
-"bytes": 10329045,
-"lines": 7973,
-"line_bytes": 10329045
+"events": 4548,
+"bytes": 5891958,
+"lines": 4548,
+"line_bytes": 5891958
 },
 {
 "route": "pass",
@@ -28801,10 +28801,10 @@
 "severity": "INFO",
 "pattern": "Traces",
 "hash": "Gl3Gtr_SH5w",
-"events": 10330,
-"bytes": 13091072,
-"lines": 10330,
-"line_bytes": 13091072
+"events": 6956,
+"bytes": 8815252,
+"lines": 6956,
+"line_bytes": 8815252
 },
 {
 "route": "pass",
@@ -29659,10 +29659,10 @@
 "severity": "INFO",
 "pattern": "Receive_ListRecommendations_for_product_ids",
 "hash": "bzLB1zZCTIw",
-"events": 3430,
-"bytes": 4098850,
-"lines": 3430,
-"line_bytes": 4098850
+"events": 377,
+"bytes": 450515,
+"lines": 377,
+"line_bytes": 450515
 },
 {
 "route": "pass",
@@ -29820,14 +29820,58 @@
 },
 {
 "route": "tier_down",
+"container": "ad",
+"severity": "TRACE",
+"pattern": "oteldemo_AdService_Targeted_ad_request_received_for",
+"hash": "xHrytxJfUdw",
+"events": 2033,
+"bytes": 1956460,
+"lines": 2033,
+"line_bytes": 1956460
+},
+{
+"route": "tier_down",
+"container": "ad",
+"severity": "TRACE",
+"pattern": "oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags",
+"hash": "bz3kQNPdXvc",
+"events": 2473,
+"bytes": 2339458,
+"lines": 2473,
+"line_bytes": 2339458
+},
+{
+"route": "tier_down",
+"container": "cart",
+"severity": "INFO",
+"pattern": "AddItemAsync_called_with_userId_productId_quantity",
+"hash": "eDSYlCMPqVY",
+"events": 5207,
+"bytes": 9165222,
+"lines": 10414,
+"line_bytes": 9160015
+},
+{
+"route": "tier_down",
+"container": "cart",
+"severity": "INFO",
+"pattern": "GetCartAsync_called_with_userId",
+"hash": "YZplfQ4a1Xw",
+"events": 10354,
+"bytes": 17771248,
+"lines": 20708,
+"line_bytes": 17760894
+},
+{
+"route": "tier_down",
 "container": "opentelemetry-collector",
 "severity": "INFO",
 "pattern": "Logs",
 "hash": "KG8Fq0QFuoY",
-"events": 24978,
-"bytes": 31673048,
-"lines": 24978,
-"line_bytes": 31673048
+"events": 28554,
+"bytes": 36207578,
+"lines": 28554,
+"line_bytes": 36207578
 },
 {
 "route": "tier_down",
@@ -29835,10 +29879,10 @@
 "severity": "INFO",
 "pattern": "Metrics",
 "hash": "PuWB8kkVbfw",
-"events": 6150,
-"bytes": 7967401,
-"lines": 6150,
-"line_bytes": 7967401
+"events": 9575,
+"bytes": 12404488,
+"lines": 9575,
+"line_bytes": 12404488
 },
 {
 "route": "tier_down",
@@ -29846,10 +29890,21 @@
 "severity": "INFO",
 "pattern": "Traces",
 "hash": "Gl3Gtr_SH5w",
-"events": 26065,
-"bytes": 33032249,
-"lines": 26065,
-"line_bytes": 33032249
+"events": 29439,
+"bytes": 37308069,
+"lines": 29439,
+"line_bytes": 37308069
+},
+{
+"route": "tier_down",
+"container": "recommendation",
+"severity": "INFO",
+"pattern": "Receive_ListRecommendations_for_product_ids",
+"hash": "bzLB1zZCTIw",
+"events": 3053,
+"bytes": 3648335,
+"lines": 3053,
+"line_bytes": 3648335
 }
 ]
 }
