@@ -1,0 +1,59 @@
+{
+ "posts": [
+  {
+   "series": 768,
+   "by_metric": {
+    "all_events_summaryBytes": 200,
+    "all_events_summaryVolume": 200,
+    "emitted_events_summaryBytes": 184,
+    "emitted_events_summaryVolume": 184
+   },
+   "patterns": 198
+  },
+  {
+   "series": 592,
+   "by_metric": {
+    "all_events_summaryBytes": 178,
+    "all_events_summaryVolume": 178,
+    "emitted_events_summaryBytes": 118,
+    "emitted_events_summaryVolume": 118
+   },
+   "patterns": 176
+  },
+  {
+   "series": 240,
+   "by_metric": {
+    "all_events_summaryBytes": 63,
+    "all_events_summaryVolume": 63,
+    "emitted_events_summaryBytes": 57,
+    "emitted_events_summaryVolume": 57
+   },
+   "patterns": 60
+  },
+  {
+   "series": 240,
+   "by_metric": {
+    "all_events_summaryBytes": 63,
+    "all_events_summaryVolume": 63,
+    "emitted_events_summaryBytes": 57,
+    "emitted_events_summaryVolume": 57
+   },
+   "patterns": 60
+  }
+ ],
+ "max_series_per_post": 768,
+ "distinct_series_over_run": 1386,
+ "tag_keys": [
+  "k8s_container",
+  "k8s_namespace",
+  "message_pattern",
+  "routeState",
+  "severity_level",
+  "statistic",
+  "tenx_hash",
+  "tenx_reported_name",
+  "tenx_user_service"
+ ],
+ "host_field": [],
+ "node_or_process_tags": []
+}

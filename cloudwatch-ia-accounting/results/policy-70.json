@@ -1,0 +1,113 @@
+{
+ "target_pct": 70,
+ "tool_caps_csv": "container,cap\naccounting,2018::MCP poc_from_local plan 70 pct\nad,1::MCP poc_from_local plan 70 pct\naws-node,1::MCP poc_from_local plan 70 pct\ncart,1::MCP poc_from_local plan 70 pct\ncoredns,5013::MCP poc_from_local plan 70 pct\nemail,991::MCP poc_from_local plan 70 pct\nflagd,1088::MCP poc_from_local plan 70 pct\nfluentd-10x,1::MCP poc_from_local plan 70 pct\nfraud-detection,1::MCP poc_from_local plan 70 pct\nfrontend-proxy,2491::MCP poc_from_local plan 70 pct\nimage-provider,1::MCP poc_from_local plan 70 pct\njaeger,2322::MCP poc_from_local plan 70 pct\nkafka,1::MCP poc_from_local plan 70 pct\nopensearch,1::MCP poc_from_local plan 70 pct\nopentelemetry-collector,1::MCP poc_from_local plan 70 pct\nrecommendation,1::MCP poc_from_local plan 70 pct\nvalkey-cart,1::MCP poc_from_local plan 70 pct\n",
+ "tool_actions_csv": "container,action\naccounting,tier_down::MCP poc_from_local plan 70 pct\nad,offload::MCP poc_from_local plan 70 pct\naws-node,tier_down::MCP poc_from_local plan 70 pct\ncart,offload::MCP poc_from_local plan 70 pct\ncoredns,tier_down::MCP poc_from_local plan 70 pct\nemail,tier_down::MCP poc_from_local plan 70 pct\nflagd,tier_down::MCP poc_from_local plan 70 pct\nfluentd-10x,tier_down::MCP poc_from_local plan 70 pct\nfraud-detection,tier_down::MCP poc_from_local plan 70 pct\nfrontend-proxy,tier_down::MCP poc_from_local plan 70 pct\nimage-provider,tier_down::MCP poc_from_local plan 70 pct\njaeger,tier_down::MCP poc_from_local plan 70 pct\nkafka,offload::MCP poc_from_local plan 70 pct\nopensearch,tier_down::MCP poc_from_local plan 70 pct\nopentelemetry-collector,offload::MCP poc_from_local plan 70 pct\nrecommendation,offload::MCP poc_from_local plan 70 pct\nvalkey-cart,tier_down::MCP poc_from_local plan 70 pct\n",
+ "span_seconds": 3600,
+ "reset_window_seconds": 240,
+ "replay_factor": 15.0,
+ "unattributed_planned": 4,
+ "containers": {
+  "accounting": {
+   "action": "tier_down",
+   "container": "accounting",
+   "cap_bytes_per_window": 2018,
+   "cap_bytes_replay": 30270
+  },
+  "ad": {
+   "action": "offload",
+   "container": "ad",
+   "cap_bytes_per_window": 1,
+   "cap_bytes_replay": 15
+  },
+  "aws-node": {
+   "action": "tier_down",
+   "container": "aws-node",
+   "cap_bytes_per_window": 1,
+   "cap_bytes_replay": 15
+  },
+  "cart": {
+   "action": "offload",
+   "container": "cart",
+   "cap_bytes_per_window": 1,
+   "cap_bytes_replay": 15
+  },
+  "coredns": {
+   "action": "tier_down",
+   "container": "coredns",
+   "cap_bytes_per_window": 5013,
+   "cap_bytes_replay": 75195
+  },
+  "email": {
+   "action": "tier_down",
+   "container": "email",
+   "cap_bytes_per_window": 991,
+   "cap_bytes_replay": 14865
+  },
+  "flagd": {
+   "action": "tier_down",
+   "container": "flagd",
+   "cap_bytes_per_window": 1088,
+   "cap_bytes_replay": 16320
+  },
+  "fluentd-10x": {
+   "action": "tier_down",
+   "container": "fluentd-10x",
+   "cap_bytes_per_window": 1,
+   "cap_bytes_replay": 15
+  },
+  "fraud-detection": {
+   "action": "tier_down",
+   "container": "fraud-detection",
+   "cap_bytes_per_window": 1,
+   "cap_bytes_replay": 15
+  },
+  "frontend-proxy": {
+   "action": "tier_down",
+   "container": "frontend-proxy",
+   "cap_bytes_per_window": 2491,
+   "cap_bytes_replay": 37365
+  },
+  "image-provider": {
+   "action": "tier_down",
+   "container": "image-provider",
+   "cap_bytes_per_window": 1,
+   "cap_bytes_replay": 15
+  },
+  "jaeger": {
+   "action": "tier_down",
+   "container": "jaeger",
+   "cap_bytes_per_window": 2322,
+   "cap_bytes_replay": 34830
+  },
+  "kafka": {
+   "action": "offload",
+   "container": "kafka",
+   "cap_bytes_per_window": 1,
+   "cap_bytes_replay": 15
+  },
+  "opensearch": {
+   "action": "tier_down",
+   "container": "opensearch",
+   "cap_bytes_per_window": 1,
+   "cap_bytes_replay": 15
+  },
+  "opentelemetry-collector": {
+   "action": "offload",
+   "container": "opentelemetry-collector",
+   "cap_bytes_per_window": 1,
+   "cap_bytes_replay": 15
+  },
+  "recommendation": {
+   "action": "offload",
+   "container": "recommendation",
+   "cap_bytes_per_window": 1,
+   "cap_bytes_replay": 15
+  },
+  "valkey-cart": {
+   "action": "tier_down",
+   "container": "valkey-cart",
+   "cap_bytes_per_window": 1,
+   "cap_bytes_replay": 15
+  }
+ }
+}

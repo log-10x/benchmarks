@@ -1,0 +1,1254 @@
+{
+ "engine_image": "log10x/pipeline-10x@sha256:fd9c98384a775df13ed41921c2cf95ef1d1313f62f1300aac61da55ca64feb67",
+ "mcp_version": "1.30.48",
+ "capture": {
+  "name": "otel-sample-200mb.log",
+  "sha256": "aa79b9349a4123d88936fd064f5eccd9fd84f45a1fd03cff3f64c259715c2432",
+  "bytes": 215039161,
+  "lines": 197430
+ },
+ "window_hours": 10.0,
+ "month_hours": 720,
+ "gb_definition": "1 GB = 1,000,000,000 bytes",
+ "prices_read_on": "2026-10-11",
+ "control": {
+  "events": 157228,
+  "bytes": 214881933,
+  "by_severity": {
+   "CRITICAL": 2324,
+   "DEBUG": 2,
+   "ERROR": 4030,
+   "INFO": 142455,
+   "TRACE": 7113,
+   "WARN": 217,
+   "none": 1087
+  },
+  "custom_metrics": 10836,
+  "label_sets": {
+   "all_events": 2709,
+   "emitted_events": 2709
+  }
+ },
+ "targets": {
+  "30": {
+   "plan": {
+    "target_pct": 30,
+    "achieved_pct_stated": 40.32,
+    "events_sampled": 9563,
+    "planned_patterns": [
+     {
+      "name": "Traces",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "opentelemetry-collector",
+      "moved_bytes_stated": 36626177
+     },
+     {
+      "name": "Logs",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "opentelemetry-collector",
+      "moved_bytes_stated": 36119272
+     },
+     {
+      "name": "Metrics",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "opentelemetry-collector",
+      "moved_bytes_stated": 12123752
+     }
+    ],
+    "stated_events_moved": 60783,
+    "stated_bytes_moved": 84869201,
+    "tool_caps_csv": "container,cap\nopentelemetry-collector,304617::MCP poc_from_local plan 30 pct\n",
+    "tool_actions_csv": "container,action\nopentelemetry-collector,tier_down::MCP poc_from_local plan 30 pct\n",
+    "span_seconds": 3600,
+    "replay_factor": 15.0,
+    "unattributed_planned": 0,
+    "containers": {
+     "opentelemetry-collector": {
+      "action": "tier_down",
+      "container": "opentelemetry-collector",
+      "cap_bytes_per_window": 304617,
+      "cap_bytes_replay": 4569255
+     }
+    }
+   },
+   "engine": {
+    "events": 157228,
+    "bytes": 214881933,
+    "by_route": {
+     "pass": {
+      "events": 89723,
+      "bytes": 129043284
+     },
+     "tier_down": {
+      "events": 67505,
+      "bytes": 85838649
+     }
+    },
+    "by_route_severity": {
+     "pass": {
+      "CRITICAL": {
+       "events": 2324,
+       "bytes": 14685666
+      },
+      "DEBUG": {
+       "events": 2,
+       "bytes": 2087
+      },
+      "ERROR": {
+       "events": 4030,
+       "bytes": 8594139
+      },
+      "INFO": {
+       "events": 74950,
+       "bytes": 97576719
+      },
+      "TRACE": {
+       "events": 7113,
+       "bytes": 6805008
+      },
+      "WARN": {
+       "events": 217,
+       "bytes": 285482
+      },
+      "none": {
+       "events": 1087,
+       "bytes": 1094183
+      }
+     },
+     "tier_down": {
+      "INFO": {
+       "events": 67505,
+       "bytes": 85838649
+      }
+     }
+    },
+    "protected_moved_events": 0,
+    "top_moved": [
+     {
+      "pattern": "Traces",
+      "container": "opentelemetry-collector",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 29521,
+      "bytes": 37411943
+     },
+     {
+      "pattern": "Logs",
+      "container": "opentelemetry-collector",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 28460,
+      "bytes": 36088355
+     },
+     {
+      "pattern": "Metrics",
+      "container": "opentelemetry-collector",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 9524,
+      "bytes": 12338351
+     }
+    ],
+    "agreement": {
+     "records_vs_engine_aggregators": "equal on every key: events, and bytes once the newlines joining a multi-line event are taken out",
+     "keys_compared": 2712,
+     "joined_lines": 40202
+    },
+    "replay_seconds": 28
+   },
+   "month": {
+    "events_to_flex": 4860360,
+    "gb_to_flex": 6.1804,
+    "events_in_standard": 6460056,
+    "events_offloaded": 0,
+    "gb_ingested": 15.4715
+   },
+   "usd_per_month_at_list": {
+    "standard_indexing_avoided": {
+     "15d_annual": 8.2626,
+     "15d_on_demand": 12.3939,
+     "30d_annual": 12.1509,
+     "30d_on_demand": 18.2264
+    },
+    "flex_storage_added": {
+     "annual": 0.243,
+     "on_demand": 0.3645
+    },
+    "flex_starter_instead": {
+     "annual": 2.9162,
+     "on_demand": 4.3743
+    },
+    "ingestion_unchanged": 1.5471
+   },
+   "flex_compute": {
+    "cumulative_events_stored_at_30_days": 4860360,
+    "tier": "Starter",
+    "within_starter_monthly_limit": true,
+    "price": "Contact Us for Pricing"
+   },
+   "custom_metrics": {
+    "count_measured": 768,
+    "distinct_over_run": 1386,
+    "posts": 4,
+    "node_or_process_tags": [],
+    "host_field": [],
+    "tag_keys": [
+     "k8s_container",
+     "k8s_namespace",
+     "message_pattern",
+     "routeState",
+     "severity_level",
+     "statistic",
+     "tenx_hash",
+     "tenx_reported_name",
+     "tenx_user_service"
+    ],
+    "top_series_default": 200,
+    "bytes_share_of_top_series": 0.9876,
+    "count_every_set_one_node": 10848,
+    "label_sets": {
+     "all_events": 2712,
+     "emitted_events": 2712
+    },
+    "fleet": {
+     "10": {
+      "measured_above_pro_allotment": 0,
+      "measured_usd_per_month": 0.0,
+      "every_set_per_node_usd_per_month": 5374.0
+     },
+     "100": {
+      "measured_above_pro_allotment": 0,
+      "measured_usd_per_month": 0.0,
+      "every_set_per_node_usd_per_month": 53740.0
+     },
+     "300": {
+      "measured_above_pro_allotment": 0,
+      "measured_usd_per_month": 0.0,
+      "every_set_per_node_usd_per_month": 161220.0
+     }
+    }
+   }
+  },
+  "50": {
+   "plan": {
+    "target_pct": 50,
+    "achieved_pct_stated": 50.56,
+    "events_sampled": 9563,
+    "planned_patterns": [
+     {
+      "name": "Traces",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "opentelemetry-collector",
+      "moved_bytes_stated": 36626177
+     },
+     {
+      "name": "Logs",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "opentelemetry-collector",
+      "moved_bytes_stated": 36119272
+     },
+     {
+      "name": "Metrics",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "opentelemetry-collector",
+      "moved_bytes_stated": 12123752
+     },
+     {
+      "name": "cart_cartstore_ValkeyCartStore",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "cart",
+      "moved_bytes_stated": 12182435
+     },
+     {
+      "name": "Receive_ListRecommendations_for_product_ids",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "recommendation",
+      "moved_bytes_stated": 4406532
+     },
+     {
+      "name": "oteldemo_AdService_Targeted_ad_request_received_for",
+      "action": "tier_down",
+      "severity": "TRACE",
+      "container": "ad",
+      "moved_bytes_stated": 2859499
+     },
+     {
+      "name": "oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags",
+      "action": "tier_down",
+      "severity": "TRACE",
+      "container": "ad",
+      "moved_bytes_stated": 2099404
+     }
+    ],
+    "stated_events_moved": 82585,
+    "stated_bytes_moved": 106417072,
+    "tool_caps_csv": "container,cap\nad,50331::MCP poc_from_local plan 50 pct\ncart,134598::MCP poc_from_local plan 50 pct\nopentelemetry-collector,304617::MCP poc_from_local plan 50 pct\nrecommendation,1::MCP poc_from_local plan 50 pct\n",
+    "tool_actions_csv": "container,action\nad,tier_down::MCP poc_from_local plan 50 pct\ncart,tier_down::MCP poc_from_local plan 50 pct\nopentelemetry-collector,tier_down::MCP poc_from_local plan 50 pct\nrecommendation,tier_down::MCP poc_from_local plan 50 pct\n",
+    "span_seconds": 3600,
+    "replay_factor": 15.0,
+    "unattributed_planned": 0,
+    "containers": {
+     "ad": {
+      "action": "tier_down",
+      "container": "ad",
+      "cap_bytes_per_window": 50331,
+      "cap_bytes_replay": 754965
+     },
+     "cart": {
+      "action": "tier_down",
+      "container": "cart",
+      "cap_bytes_per_window": 134598,
+      "cap_bytes_replay": 2018970
+     },
+     "opentelemetry-collector": {
+      "action": "tier_down",
+      "container": "opentelemetry-collector",
+      "cap_bytes_per_window": 304617,
+      "cap_bytes_replay": 4569255
+     },
+     "recommendation": {
+      "action": "tier_down",
+      "container": "recommendation",
+      "cap_bytes_per_window": 1,
+      "cap_bytes_replay": 15
+     }
+    }
+   },
+   "engine": {
+    "events": 157228,
+    "bytes": 214881933,
+    "by_route": {
+     "pass": {
+      "events": 66673,
+      "bytes": 94243882
+     },
+     "tier_down": {
+      "events": 90555,
+      "bytes": 120638051
+     }
+    },
+    "by_route_severity": {
+     "pass": {
+      "CRITICAL": {
+       "events": 2324,
+       "bytes": 14685666
+      },
+      "DEBUG": {
+       "events": 2,
+       "bytes": 2087
+      },
+      "ERROR": {
+       "events": 4030,
+       "bytes": 8594139
+      },
+      "INFO": {
+       "events": 56403,
+       "bytes": 67070415
+      },
+      "TRACE": {
+       "events": 2610,
+       "bytes": 2511910
+      },
+      "WARN": {
+       "events": 217,
+       "bytes": 285482
+      },
+      "none": {
+       "events": 1087,
+       "bytes": 1094183
+      }
+     },
+     "tier_down": {
+      "INFO": {
+       "events": 86052,
+       "bytes": 116344953
+      },
+      "TRACE": {
+       "events": 4503,
+       "bytes": 4293098
+      }
+     }
+    },
+    "protected_moved_events": 0,
+    "top_moved": [
+     {
+      "pattern": "Traces",
+      "container": "opentelemetry-collector",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 29488,
+      "bytes": 37370170
+     },
+     {
+      "pattern": "Logs",
+      "container": "opentelemetry-collector",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 28392,
+      "bytes": 36002146
+     },
+     {
+      "pattern": "GetCartAsync_called_with_userId",
+      "container": "cart",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 10375,
+      "bytes": 17806738
+     },
+     {
+      "pattern": "Metrics",
+      "container": "opentelemetry-collector",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 9514,
+      "bytes": 12325425
+     },
+     {
+      "pattern": "AddItemAsync_called_with_userId_productId_quantity",
+      "container": "cart",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 5206,
+      "bytes": 9163459
+     },
+     {
+      "pattern": "Receive_ListRecommendations_for_product_ids",
+      "container": "recommendation",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 3077,
+      "bytes": 3677015
+     },
+     {
+      "pattern": "oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags",
+      "container": "ad",
+      "severity": "TRACE",
+      "route": "tier_down",
+      "events": 2468,
+      "bytes": 2334728
+     },
+     {
+      "pattern": "oteldemo_AdService_Targeted_ad_request_received_for",
+      "container": "ad",
+      "severity": "TRACE",
+      "route": "tier_down",
+      "events": 2035,
+      "bytes": 1958370
+     }
+    ],
+    "agreement": {
+     "records_vs_engine_aggregators": "equal on every key: events, and bytes once the newlines joining a multi-line event are taken out",
+     "keys_compared": 2717,
+     "joined_lines": 40202
+    },
+    "replay_seconds": 29
+   },
+   "month": {
+    "events_to_flex": 6519960,
+    "gb_to_flex": 8.6859,
+    "events_in_standard": 4800456,
+    "events_offloaded": 0,
+    "gb_ingested": 15.4715
+   },
+   "usd_per_month_at_list": {
+    "standard_indexing_avoided": {
+     "15d_annual": 11.0839,
+     "15d_on_demand": 16.6259,
+     "30d_annual": 16.2999,
+     "30d_on_demand": 24.4499
+    },
+    "flex_storage_added": {
+     "annual": 0.326,
+     "on_demand": 0.489
+    },
+    "flex_starter_instead": {
+     "annual": 3.912,
+     "on_demand": 5.868
+    },
+    "ingestion_unchanged": 1.5471
+   },
+   "flex_compute": {
+    "cumulative_events_stored_at_30_days": 6519960,
+    "tier": "Starter",
+    "within_starter_monthly_limit": true,
+    "price": "Contact Us for Pricing"
+   },
+   "custom_metrics": {
+    "count_measured": 786,
+    "distinct_over_run": 1424,
+    "posts": 5,
+    "node_or_process_tags": [],
+    "host_field": [],
+    "tag_keys": [
+     "k8s_container",
+     "k8s_namespace",
+     "message_pattern",
+     "routeState",
+     "severity_level",
+     "statistic",
+     "tenx_hash",
+     "tenx_reported_name",
+     "tenx_user_service"
+    ],
+    "top_series_default": 200,
+    "bytes_share_of_top_series": 0.9875,
+    "count_every_set_one_node": 10868,
+    "label_sets": {
+     "all_events": 2717,
+     "emitted_events": 2717
+    },
+    "fleet": {
+     "10": {
+      "measured_above_pro_allotment": 0,
+      "measured_usd_per_month": 0.0,
+      "every_set_per_node_usd_per_month": 5384.0
+     },
+     "100": {
+      "measured_above_pro_allotment": 0,
+      "measured_usd_per_month": 0.0,
+      "every_set_per_node_usd_per_month": 53840.0
+     },
+     "300": {
+      "measured_above_pro_allotment": 0,
+      "measured_usd_per_month": 0.0,
+      "every_set_per_node_usd_per_month": 161520.0
+     }
+    }
+   }
+  },
+  "70": {
+   "plan": {
+    "target_pct": 70,
+    "achieved_pct_stated": 68.4,
+    "events_sampled": 9563,
+    "planned_patterns": [
+     {
+      "name": "Traces",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "opentelemetry-collector",
+      "moved_bytes_stated": 36626177
+     },
+     {
+      "name": "Logs",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "opentelemetry-collector",
+      "moved_bytes_stated": 36119272
+     },
+     {
+      "name": "Metrics",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "opentelemetry-collector",
+      "moved_bytes_stated": 12123752
+     },
+     {
+      "name": "cart_cartstore_ValkeyCartStore",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "cart",
+      "moved_bytes_stated": 13986602
+     },
+     {
+      "name": "Receive_ListRecommendations_for_product_ids",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "recommendation",
+      "moved_bytes_stated": 4406532
+     },
+     {
+      "name": "oteldemo_AdService_Targeted_ad_request_received_for",
+      "action": "tier_down",
+      "severity": "TRACE",
+      "container": "ad",
+      "moved_bytes_stated": 3538962
+     },
+     {
+      "name": "oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags",
+      "action": "tier_down",
+      "severity": "TRACE",
+      "container": "ad",
+      "moved_bytes_stated": 2778866
+     },
+     {
+      "name": "Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "kafka",
+      "moved_bytes_stated": 2476719
+     },
+     {
+      "name": "Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "kafka",
+      "moved_bytes_stated": 2375461
+     },
+     {
+      "name": "Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_kafka_UnifiedLog",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "kafka",
+      "moved_bytes_stated": 2168294
+     },
+     {
+      "name": "Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "kafka",
+      "moved_bytes_stated": 2118493
+     },
+     {
+      "name": "Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "kafka",
+      "moved_bytes_stated": 2078538
+     },
+     {
+      "name": "Rolled_new_log_segment_at_offset_in_ms_kafka_LocalLog",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "kafka",
+      "moved_bytes_stated": 2004349
+     },
+     {
+      "name": "Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "kafka",
+      "moved_bytes_stated": 1985500
+     },
+     {
+      "name": "Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "kafka",
+      "moved_bytes_stated": 1925959
+     },
+     {
+      "name": "Successfully_wrote_snapshot_org_apache_kafka_image_publisher_SnapshotEmitter",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "kafka",
+      "moved_bytes_stated": 1832259
+     },
+     {
+      "name": "GetCartAsync_called_with_userId",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "cart",
+      "moved_bytes_stated": 1804167
+     },
+     {
+      "name": "Creating_new_KRaft_snapshot_file_because_we_have_replayed_at_least_bytes_org_apache_kafka_image_publisher_SnapshotGenerator",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "kafka",
+      "moved_bytes_stated": 1813215
+     },
+     {
+      "name": "older_than_the",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "kafka",
+      "moved_bytes_stated": 1784445
+     },
+     {
+      "name": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_kafka_LocalLog",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "kafka",
+      "moved_bytes_stated": 1733049
+     },
+     {
+      "name": "AddItemAsync_called_with_userId_productId_quantity",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "cart",
+      "moved_bytes_stated": 1411993
+     },
+     {
+      "name": "Incremented_log_start_offset_to_due_snapshot_generated_kafka_UnifiedLog",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "kafka",
+      "moved_bytes_stated": 1392903
+     },
+     {
+      "name": "stats_cache_size_pod_api_updates_id_miss",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "fluentd-10x",
+      "moved_bytes_stated": 1301823
+     },
+     {
+      "name": "oteldemo_AdService_Non_targeted_ad_request_received_preparing_random_response_trace_id_span_flags",
+      "action": "tier_down",
+      "severity": "TRACE",
+      "container": "ad",
+      "moved_bytes_stated": 679462
+     },
+     {
+      "name": "description_Fail_product_catalog_service_on_a_specific",
+      "action": "tier_down",
+      "severity": "",
+      "container": "flagd",
+      "moved_bytes_stated": 581848
+     },
+     {
+      "name": "fail_Accounting_Consumer",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "accounting",
+      "moved_bytes_stated": 351135
+     },
+     {
+      "name": "javaagent_tooling_VersionLogger_opentelemetry_version_Defaulting_to_no_operation_NOP_logger_implementation_waiting_for_kafka",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "fraud-detection",
+      "moved_bytes_stated": 349449
+     },
+     {
+      "name": "stream_stdout_log_docker",
+      "action": "tier_down",
+      "severity": "",
+      "container": "image-provider",
+      "moved_bytes_stated": 239505
+     },
+     {
+      "name": "Loading_producer_state_till_offset_with_message_format_version_kafka_log_UnifiedLog",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "(unattributed)",
+      "moved_bytes_stated": 208040
+     },
+     {
+      "name": "Background_saving_terminated_with_success",
+      "action": "tier_down",
+      "severity": "",
+      "container": "valkey-cart",
+      "moved_bytes_stated": 177931
+     },
+     {
+      "name": "Created_log_for_partition_consumer_in_tmp_kafka_logs_with_properties_LogManager",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "(unattributed)",
+      "moved_bytes_stated": 155349
+     },
+     {
+      "name": "plugin_kubernetes_waiting_for_Kubernetes_API_before_starting_server",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "coredns",
+      "moved_bytes_stated": 84683
+     },
+     {
+      "name": "Log_loaded_for_partition_consumer_with_initial_high_watermark_kafka_cluster_Partition",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "(unattributed)",
+      "moved_bytes_stated": 142387
+     },
+     {
+      "name": "No_checkpointed_highwatermark_is_found_for_partition_consumer_kafka_cluster_Partition",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "(unattributed)",
+      "moved_bytes_stated": 130027
+     },
+     {
+      "name": "Running_full_sweep",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "opensearch",
+      "moved_bytes_stated": 120663
+     },
+     {
+      "name": "Fork_CoW_RDB_current_peak_MB_average",
+      "action": "tier_down",
+      "severity": "",
+      "container": "valkey-cart",
+      "moved_bytes_stated": 99090
+     },
+     {
+      "name": "changes_seconds_Saving",
+      "action": "tier_down",
+      "severity": "",
+      "container": "valkey-cart",
+      "moved_bytes_stated": 97057
+     },
+     {
+      "name": "DB_saved_on_disk",
+      "action": "tier_down",
+      "severity": "",
+      "container": "valkey-cart",
+      "moved_bytes_stated": 94965
+     },
+     {
+      "name": "Background_saving_started_by_pid",
+      "action": "tier_down",
+      "severity": "",
+      "container": "valkey-cart",
+      "moved_bytes_stated": 83042
+     },
+     {
+      "name": "OTEL_COLLECTOR_PORT",
+      "action": "tier_down",
+      "severity": "",
+      "container": "accounting",
+      "moved_bytes_stated": 81265
+     },
+     {
+      "name": "Starting_housekeeping_task_for_auto_refresh_streaming_jobs",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "opensearch",
+      "moved_bytes_stated": 72443
+     },
+     {
+      "name": "OTEL_COLLECTOR_tcp",
+      "action": "tier_down",
+      "severity": "",
+      "container": "accounting",
+      "moved_bytes_stated": 68860
+     },
+     {
+      "name": "OpenTelemetry_Instrumentation_Sinatra_was_successfully_installed_with_the_following_options",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "email",
+      "moved_bytes_stated": 52676
+     },
+     {
+      "name": "runtime_layers_static_layer_resource_limits_example_listener_name",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "frontend-proxy",
+      "moved_bytes_stated": 38766
+     },
+     {
+      "name": "stream_stdout_log_docker_kubernetes_image",
+      "action": "tier_down",
+      "severity": "",
+      "container": "image-provider",
+      "moved_bytes_stated": 54408
+     },
+     {
+      "name": "Finished_housekeeping_task_for_auto_refresh_streaming_jobs",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "opensearch",
+      "moved_bytes_stated": 54332
+     },
+     {
+      "name": "Resolver_state_updated_Addresses_Addr_localhost_ServerName_Attributes_null_BalancerAttributes_Metadata_Endpoints_ServiceConfig_resolver",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "jaeger",
+      "moved_bytes_stated": 33150
+     },
+     {
+      "name": "Subchannel_Connectivity_change_to_READY_system_grpc_log_true_User_Setting_default_values_of_environment_variables_if_not_already",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "jaeger",
+      "moved_bytes_stated": 22823
+     },
+     {
+      "name": "Subchannel_picks_a_new_address_localhost_to_connect_system_grpc_log_true",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "jaeger",
+      "moved_bytes_stated": 13609
+     },
+     {
+      "name": "Serving_metrics_on_port_Installed_host_opt_cni_bin_egress",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "aws-node",
+      "moved_bytes_stated": 31088
+     },
+     {
+      "name": "Successfully_copied_CNI_plugin_binary_and_config_file",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "aws-node",
+      "moved_bytes_stated": 15326
+     },
+     {
+      "name": "Checking_for_IPAM_connectivity",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "aws-node",
+      "moved_bytes_stated": 15025
+     },
+     {
+      "name": "Copied_all_CNI_plugin_binaries_to_host_opt_cni_bin",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "aws-node",
+      "moved_bytes_stated": 11788
+     },
+     {
+      "name": "Updated_net_tcp_early_demux_to_n",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "aws-node",
+      "moved_bytes_stated": 11622
+     },
+     {
+      "name": "Found_eth",
+      "action": "tier_down",
+      "severity": "INFO",
+      "container": "aws-node",
+      "moved_bytes_stated": 11321
+     }
+    ],
+    "stated_events_moved": 112944,
+    "stated_bytes_moved": 143970466,
+    "tool_caps_csv": "container,cap\naccounting,2018::MCP poc_from_local plan 70 pct\nad,2957::MCP poc_from_local plan 70 pct\naws-node,1::MCP poc_from_local plan 70 pct\ncart,22315::MCP poc_from_local plan 70 pct\ncoredns,5013::MCP poc_from_local plan 70 pct\nemail,991::MCP poc_from_local plan 70 pct\nflagd,1088::MCP poc_from_local plan 70 pct\nfluentd-10x,1::MCP poc_from_local plan 70 pct\nfraud-detection,1::MCP poc_from_local plan 70 pct\nfrontend-proxy,2491::MCP poc_from_local plan 70 pct\nimage-provider,1::MCP poc_from_local plan 70 pct\njaeger,2322::MCP poc_from_local plan 70 pct\nkafka,4288::MCP poc_from_local plan 70 pct\nopensearch,1::MCP poc_from_local plan 70 pct\nopentelemetry-collector,304617::MCP poc_from_local plan 70 pct\nrecommendation,1::MCP poc_from_local plan 70 pct\nvalkey-cart,1::MCP poc_from_local plan 70 pct\n",
+    "tool_actions_csv": "container,action\naccounting,tier_down::MCP poc_from_local plan 70 pct\nad,tier_down::MCP poc_from_local plan 70 pct\naws-node,tier_down::MCP poc_from_local plan 70 pct\ncart,tier_down::MCP poc_from_local plan 70 pct\ncoredns,tier_down::MCP poc_from_local plan 70 pct\nemail,tier_down::MCP poc_from_local plan 70 pct\nflagd,tier_down::MCP poc_from_local plan 70 pct\nfluentd-10x,tier_down::MCP poc_from_local plan 70 pct\nfraud-detection,tier_down::MCP poc_from_local plan 70 pct\nfrontend-proxy,tier_down::MCP poc_from_local plan 70 pct\nimage-provider,tier_down::MCP poc_from_local plan 70 pct\njaeger,tier_down::MCP poc_from_local plan 70 pct\nkafka,tier_down::MCP poc_from_local plan 70 pct\nopensearch,tier_down::MCP poc_from_local plan 70 pct\nopentelemetry-collector,tier_down::MCP poc_from_local plan 70 pct\nrecommendation,tier_down::MCP poc_from_local plan 70 pct\nvalkey-cart,tier_down::MCP poc_from_local plan 70 pct\n",
+    "span_seconds": 3600,
+    "replay_factor": 15.0,
+    "unattributed_planned": 4,
+    "containers": {
+     "accounting": {
+      "action": "tier_down",
+      "container": "accounting",
+      "cap_bytes_per_window": 2018,
+      "cap_bytes_replay": 30270
+     },
+     "ad": {
+      "action": "tier_down",
+      "container": "ad",
+      "cap_bytes_per_window": 2957,
+      "cap_bytes_replay": 44355
+     },
+     "aws-node": {
+      "action": "tier_down",
+      "container": "aws-node",
+      "cap_bytes_per_window": 1,
+      "cap_bytes_replay": 15
+     },
+     "cart": {
+      "action": "tier_down",
+      "container": "cart",
+      "cap_bytes_per_window": 22315,
+      "cap_bytes_replay": 334725
+     },
+     "coredns": {
+      "action": "tier_down",
+      "container": "coredns",
+      "cap_bytes_per_window": 5013,
+      "cap_bytes_replay": 75195
+     },
+     "email": {
+      "action": "tier_down",
+      "container": "email",
+      "cap_bytes_per_window": 991,
+      "cap_bytes_replay": 14865
+     },
+     "flagd": {
+      "action": "tier_down",
+      "container": "flagd",
+      "cap_bytes_per_window": 1088,
+      "cap_bytes_replay": 16320
+     },
+     "fluentd-10x": {
+      "action": "tier_down",
+      "container": "fluentd-10x",
+      "cap_bytes_per_window": 1,
+      "cap_bytes_replay": 15
+     },
+     "fraud-detection": {
+      "action": "tier_down",
+      "container": "fraud-detection",
+      "cap_bytes_per_window": 1,
+      "cap_bytes_replay": 15
+     },
+     "frontend-proxy": {
+      "action": "tier_down",
+      "container": "frontend-proxy",
+      "cap_bytes_per_window": 2491,
+      "cap_bytes_replay": 37365
+     },
+     "image-provider": {
+      "action": "tier_down",
+      "container": "image-provider",
+      "cap_bytes_per_window": 1,
+      "cap_bytes_replay": 15
+     },
+     "jaeger": {
+      "action": "tier_down",
+      "container": "jaeger",
+      "cap_bytes_per_window": 2322,
+      "cap_bytes_replay": 34830
+     },
+     "kafka": {
+      "action": "tier_down",
+      "container": "kafka",
+      "cap_bytes_per_window": 4288,
+      "cap_bytes_replay": 64320
+     },
+     "opensearch": {
+      "action": "tier_down",
+      "container": "opensearch",
+      "cap_bytes_per_window": 1,
+      "cap_bytes_replay": 15
+     },
+     "opentelemetry-collector": {
+      "action": "tier_down",
+      "container": "opentelemetry-collector",
+      "cap_bytes_per_window": 304617,
+      "cap_bytes_replay": 4569255
+     },
+     "recommendation": {
+      "action": "tier_down",
+      "container": "recommendation",
+      "cap_bytes_per_window": 1,
+      "cap_bytes_replay": 15
+     },
+     "valkey-cart": {
+      "action": "tier_down",
+      "container": "valkey-cart",
+      "cap_bytes_per_window": 1,
+      "cap_bytes_replay": 15
+     }
+    }
+   },
+   "engine": {
+    "events": 157228,
+    "bytes": 214881933,
+    "by_route": {
+     "pass": {
+      "events": 37395,
+      "bytes": 61877580
+     },
+     "tier_down": {
+      "events": 119833,
+      "bytes": 153004353
+     }
+    },
+    "by_route_severity": {
+     "pass": {
+      "CRITICAL": {
+       "events": 2324,
+       "bytes": 14685666
+      },
+      "DEBUG": {
+       "events": 2,
+       "bytes": 2087
+      },
+      "ERROR": {
+       "events": 4030,
+       "bytes": 8594139
+      },
+      "INFO": {
+       "events": 29447,
+       "bytes": 36911833
+      },
+      "TRACE": {
+       "events": 820,
+       "bytes": 793787
+      },
+      "WARN": {
+       "events": 217,
+       "bytes": 285482
+      },
+      "none": {
+       "events": 555,
+       "bytes": 604586
+      }
+     },
+     "tier_down": {
+      "INFO": {
+       "events": 113008,
+       "bytes": 146503535
+      },
+      "TRACE": {
+       "events": 6293,
+       "bytes": 6011221
+      },
+      "none": {
+       "events": 532,
+       "bytes": 489597
+      }
+     }
+    },
+    "protected_moved_events": 0,
+    "top_moved": [
+     {
+      "pattern": "Traces",
+      "container": "opentelemetry-collector",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 29490,
+      "bytes": 37372649
+     },
+     {
+      "pattern": "Logs",
+      "container": "opentelemetry-collector",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 28413,
+      "bytes": 36028781
+     },
+     {
+      "pattern": "GetCartAsync_called_with_userId",
+      "container": "cart",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 11306,
+      "bytes": 19403276
+     },
+     {
+      "pattern": "Metrics",
+      "container": "opentelemetry-collector",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 9570,
+      "bytes": 12398031
+     },
+     {
+      "pattern": "AddItemAsync_called_with_userId_productId_quantity",
+      "container": "cart",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 6036,
+      "bytes": 10624401
+     },
+     {
+      "pattern": "oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags",
+      "container": "ad",
+      "severity": "TRACE",
+      "route": "tier_down",
+      "events": 3161,
+      "bytes": 2990306
+     },
+     {
+      "pattern": "Receive_ListRecommendations_for_product_ids",
+      "container": "recommendation",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 3107,
+      "bytes": 3712865
+     },
+     {
+      "pattern": "oteldemo_AdService_Targeted_ad_request_received_for",
+      "container": "ad",
+      "severity": "TRACE",
+      "route": "tier_down",
+      "events": 2719,
+      "bytes": 2616588
+     },
+     {
+      "pattern": "Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+      "container": "kafka",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 2150,
+      "bytes": 2134950
+     },
+     {
+      "pattern": "Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager",
+      "container": "kafka",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 2141,
+      "bytes": 2209296
+     }
+    ],
+    "agreement": {
+     "records_vs_engine_aggregators": "equal on every key: events, and bytes once the newlines joining a multi-line event are taken out",
+     "keys_compared": 2743,
+     "joined_lines": 40202
+    },
+    "replay_seconds": 32
+   },
+   "month": {
+    "events_to_flex": 8627976,
+    "gb_to_flex": 11.0163,
+    "events_in_standard": 2692440,
+    "events_offloaded": 0,
+    "gb_ingested": 15.4715
+   },
+   "usd_per_month_at_list": {
+    "standard_indexing_avoided": {
+     "15d_annual": 14.6676,
+     "15d_on_demand": 22.0013,
+     "30d_annual": 21.5699,
+     "30d_on_demand": 32.3549
+    },
+    "flex_storage_added": {
+     "annual": 0.4314,
+     "on_demand": 0.6471
+    },
+    "flex_starter_instead": {
+     "annual": 5.1768,
+     "on_demand": 7.7652
+    },
+    "ingestion_unchanged": 1.5471
+   },
+   "flex_compute": {
+    "cumulative_events_stored_at_30_days": 8627976,
+    "tier": "Starter",
+    "within_starter_monthly_limit": true,
+    "price": "Contact Us for Pricing"
+   },
+   "custom_metrics": {
+    "count_measured": 780,
+    "distinct_over_run": 1590,
+    "posts": 4,
+    "node_or_process_tags": [],
+    "host_field": [],
+    "tag_keys": [
+     "k8s_container",
+     "k8s_namespace",
+     "message_pattern",
+     "routeState",
+     "severity_level",
+     "statistic",
+     "tenx_hash",
+     "tenx_reported_name",
+     "tenx_user_service"
+    ],
+    "top_series_default": 200,
+    "bytes_share_of_top_series": 0.9873,
+    "count_every_set_one_node": 10972,
+    "label_sets": {
+     "all_events": 2743,
+     "emitted_events": 2743
+    },
+    "fleet": {
+     "10": {
+      "measured_above_pro_allotment": 0,
+      "measured_usd_per_month": 0.0,
+      "every_set_per_node_usd_per_month": 5436.0
+     },
+     "100": {
+      "measured_above_pro_allotment": 0,
+      "measured_usd_per_month": 0.0,
+      "every_set_per_node_usd_per_month": 54360.0
+     },
+     "300": {
+      "measured_above_pro_allotment": 0,
+      "measured_usd_per_month": 0.0,
+      "every_set_per_node_usd_per_month": 163080.0
+     }
+    }
+   }
+  }
+ }
+}

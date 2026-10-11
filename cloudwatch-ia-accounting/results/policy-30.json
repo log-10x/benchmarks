@@ -1,0 +1,41 @@
+{
+ "target_pct": 30,
+ "tool_caps_csv": "container,cap\nad,50331::MCP poc_from_local plan 30 pct\ncart,22315::MCP poc_from_local plan 30 pct\nkafka,4288::MCP poc_from_local plan 30 pct\nopentelemetry-collector,304617::MCP poc_from_local plan 30 pct\nrecommendation,1::MCP poc_from_local plan 30 pct\n",
+ "tool_actions_csv": "container,action\nad,tier_down::MCP poc_from_local plan 30 pct\ncart,tier_down::MCP poc_from_local plan 30 pct\nkafka,tier_down::MCP poc_from_local plan 30 pct\nopentelemetry-collector,tier_down::MCP poc_from_local plan 30 pct\nrecommendation,tier_down::MCP poc_from_local plan 30 pct\n",
+ "span_seconds": 3600,
+ "reset_window_seconds": 240,
+ "replay_factor": 15.0,
+ "unattributed_planned": 0,
+ "containers": {
+  "ad": {
+   "action": "tier_down",
+   "container": "ad",
+   "cap_bytes_per_window": 50331,
+   "cap_bytes_replay": 754965
+  },
+  "cart": {
+   "action": "tier_down",
+   "container": "cart",
+   "cap_bytes_per_window": 22315,
+   "cap_bytes_replay": 334725
+  },
+  "kafka": {
+   "action": "tier_down",
+   "container": "kafka",
+   "cap_bytes_per_window": 4288,
+   "cap_bytes_replay": 64320
+  },
+  "opentelemetry-collector": {
+   "action": "tier_down",
+   "container": "opentelemetry-collector",
+   "cap_bytes_per_window": 304617,
+   "cap_bytes_replay": 4569255
+  },
+  "recommendation": {
+   "action": "tier_down",
+   "container": "recommendation",
+   "cap_bytes_per_window": 1,
+   "cap_bytes_replay": 15
+  }
+ }
+}

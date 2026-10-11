@@ -1,0 +1,16 @@
+{
+ "engine_image": "log10x/pipeline-10x@sha256:fd9c98384a775df13ed41921c2cf95ef1d1313f62f1300aac61da55ca64feb67",
+ "mcp_version": "1.30.48",
+ "capture": {
+  "name": "otel-sample-200mb.log",
+  "sha256": "aa79b9349a4123d88936fd064f5eccd9fd84f45a1fd03cff3f64c259715c2432",
+  "bytes": 215039161,
+  "lines": 197430
+ },
+ "window_hours": 10.0,
+ "targets": [
+  30,
+  50,
+  70
+ ]
+}

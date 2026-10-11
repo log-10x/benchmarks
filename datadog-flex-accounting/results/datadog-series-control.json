@@ -1,0 +1,89 @@
+{
+ "posts": [
+  {
+   "series": 776,
+   "by_metric": {
+    "all_events_summaryBytes": 188,
+    "all_events_summaryVolume": 188,
+    "emitted_events_summaryBytes": 200,
+    "emitted_events_summaryVolume": 200
+   },
+   "patterns": 198
+  },
+  {
+   "series": 776,
+   "by_metric": {
+    "all_events_summaryBytes": 188,
+    "all_events_summaryVolume": 188,
+    "emitted_events_summaryBytes": 200,
+    "emitted_events_summaryVolume": 200
+   },
+   "patterns": 198
+  },
+  {
+   "series": 506,
+   "by_metric": {
+    "all_events_summaryBytes": 149,
+    "all_events_summaryVolume": 149,
+    "emitted_events_summaryBytes": 104,
+    "emitted_events_summaryVolume": 104
+   },
+   "patterns": 170
+  },
+  {
+   "series": 506,
+   "by_metric": {
+    "all_events_summaryBytes": 149,
+    "all_events_summaryVolume": 149,
+    "emitted_events_summaryBytes": 104,
+    "emitted_events_summaryVolume": 104
+   },
+   "patterns": 170
+  },
+  {
+   "series": 386,
+   "by_metric": {
+    "all_events_summaryBytes": 111,
+    "all_events_summaryVolume": 111,
+    "emitted_events_summaryBytes": 82,
+    "emitted_events_summaryVolume": 82
+   },
+   "patterns": 116
+  },
+  {
+   "series": 406,
+   "by_metric": {
+    "all_events_summaryBytes": 115,
+    "all_events_summaryVolume": 115,
+    "emitted_events_summaryBytes": 88,
+    "emitted_events_summaryVolume": 88
+   },
+   "patterns": 121
+  },
+  {
+   "series": 406,
+   "by_metric": {
+    "all_events_summaryBytes": 115,
+    "all_events_summaryVolume": 115,
+    "emitted_events_summaryBytes": 88,
+    "emitted_events_summaryVolume": 88
+   },
+   "patterns": 121
+  }
+ ],
+ "max_series_per_post": 776,
+ "distinct_series_over_run": 1588,
+ "tag_keys": [
+  "k8s_container",
+  "k8s_namespace",
+  "message_pattern",
+  "routeState",
+  "severity_level",
+  "statistic",
+  "tenx_hash",
+  "tenx_reported_name",
+  "tenx_user_service"
+ ],
+ "host_field": [],
+ "node_or_process_tags": []
+}

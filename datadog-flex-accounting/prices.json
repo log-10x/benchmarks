@@ -1,0 +1,68 @@
+{
+  "read_on": "2026-10-11",
+  "list_page": "https://www.datadoghq.com/pricing/list/",
+  "product_page": "https://www.datadoghq.com/pricing/?product=log-management",
+  "ingestion_per_gb": {
+    "annual": 0.10, "month_to_month": 0.10, "on_demand": 0.10,
+    "quote": "Per ingested logs (1GB), per month",
+    "url": "https://www.datadoghq.com/pricing/list/"
+  },
+  "indexed_per_million_events": {
+    "3d": {"annual": 1.06, "month_to_month": 1.27, "on_demand": 1.59},
+    "7d": {"annual": 1.27, "month_to_month": 1.52, "on_demand": 1.91},
+    "15d": {"annual": 1.70, "month_to_month": 2.04, "on_demand": 2.55},
+    "30d": {"annual": 2.50, "month_to_month": 3.00, "on_demand": 3.75},
+    "quote": "Per 1M indexed logs (15-day retention), per month",
+    "url": "https://www.datadoghq.com/pricing/list/"
+  },
+  "flex_storage_per_million_events_month": {
+    "annual": 0.05, "month_to_month": 0.06, "on_demand": 0.075,
+    "quote": "Per 1 M events stored, per month",
+    "minimum": "Each million events stored is billed for a minimum of 30 days, or a minimum of $0.05.",
+    "url": "https://www.datadoghq.com/pricing/list/",
+    "minimum_url": "https://www.datadoghq.com/pricing/?product=log-management"
+  },
+  "flex_starter_per_million_events_month": {
+    "annual": 0.60, "month_to_month": 0.72, "on_demand": 0.90,
+    "quote": "Per 1 M events stored (6, 12 or 15 months retention), per month",
+    "limit": "Bundled Starter Compute for log volumes below 2B per month (10B total stored)",
+    "url": "https://www.datadoghq.com/pricing/list/",
+    "limit_url": "https://www.datadoghq.com/pricing/?product=log-management"
+  },
+  "flex_compute": {
+    "price": "Contact Us for Pricing",
+    "price_quote": "Per instance-hour, per month",
+    "price_url": "https://www.datadoghq.com/pricing/?product=log-management",
+    "sizing_quote": "Datadog recommends the following compute sizes based on log volume:",
+    "sizing_url": "https://docs.datadoghq.com/logs/log_configuration/flex_logs/",
+    "tiers_by_cumulative_events_stored": [
+      ["Starter", 0, 10000000000],
+      ["XS", 10000000000, 50000000000],
+      ["XS+", 50000000000, 100000000000],
+      ["S", 100000000000, 200000000000],
+      ["M", 200000000000, 500000000000],
+      ["L", 500000000000, 1000000000000]
+    ],
+    "starter_monthly_limit_events": 2000000000,
+    "starter_quote": "Datadog recommends the Starter compute size for organizations with less than 10B logs stored."
+  },
+  "custom_metrics": {
+    "per_100_per_month": {"annual": 5.00, "month_to_month": 5.00, "on_demand": 5.00},
+    "quote": "Per 100 custom metrics, per month",
+    "url": "https://www.datadoghq.com/pricing/list/",
+    "allotment_per_host": {"pro": 100, "enterprise": 200},
+    "allotment_quote": "Pro: 100 ingested custom metrics per host and 100 indexed custom metrics per host; Enterprise: 200 ingested custom metrics per host and 200 indexed custom metrics per host",
+    "allotment_url": "https://docs.datadoghq.com/account_management/billing/custom_metrics/",
+    "definition": "A custom metric is uniquely identified by a combination of a metric name and tag values (including the host tag).",
+    "counting": "Custom metrics are counted hourly and averaged monthly across your entire account, not on a per-host basis.",
+    "counting_url": "https://www.datadoghq.com/pricing/?product=infrastructure",
+    "log_based": "Metrics created from ingested logs are billed as Custom Metrics.",
+    "log_based_url": "https://docs.datadoghq.com/logs/log_configuration/logs_to_metrics/"
+  },
+  "event_counting": {
+    "quote": "At the end of the month, Datadog computes the total number of log events that have been indexed",
+    "url": "https://docs.datadoghq.com/account_management/billing/log_management/",
+    "size_limit": "Maximum size for a single log: 1MB",
+    "size_limit_url": "https://docs.datadoghq.com/api/latest/logs/send-logs.md"
+  }
+}
