@@ -195,7 +195,9 @@ construction.
 `otel-sample-200mb.log` from
 [otel-sample-v2](https://github.com/log-10x/config/releases/tag/otel-sample-v2),
 215,039,161 bytes, 197,430 lines, sha256
-`aa79b9349a4123d88936fd064f5eccd9fd84f45a1fd03cff3f64c259715c2432`. The same
+`aa79b9349a4123d88936fd064f5eccd9fd84f45a1fd03cff3f64c259715c2432`.
+[otel-sample-v1](https://github.com/log-10x/config/releases/tag/otel-sample-v1)
+carries the same file (gzip sha256 `c118e55f…` in both releases). The same
 asset the [`otel-denominators/`](../otel-denominators/) and
 [`clickhouse-clickstack/`](../clickhouse-clickstack/) benchmarks run on, which
 is what lets the licence-metered figure here be set beside the file ratios
