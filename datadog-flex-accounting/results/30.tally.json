@@ -20,7 +20,7 @@
 "custom_metrics_default": 800,
 "bytes_share_of_top_series": 0.9876
 },
-"replay_seconds": 53,
+"replay_seconds": 28,
 "by_key": [
 {
 "route": "pass",
@@ -28672,10 +28672,10 @@
 "severity": "INFO",
 "pattern": "Logs",
 "hash": "KG8Fq0QFuoY",
-"events": 6804,
-"bytes": 8627728,
-"lines": 6804,
-"line_bytes": 8627728
+"events": 6761,
+"bytes": 8573211,
+"lines": 6761,
+"line_bytes": 8573211
 },
 {
 "route": "pass",
@@ -28694,10 +28694,10 @@
 "severity": "INFO",
 "pattern": "Metrics",
 "hash": "PuWB8kkVbfw",
-"events": 4581,
-"bytes": 5934657,
-"lines": 4581,
-"line_bytes": 5934657
+"events": 4599,
+"bytes": 5958095,
+"lines": 4599,
+"line_bytes": 5958095
 },
 {
 "route": "pass",
@@ -28804,10 +28804,10 @@
 "severity": "INFO",
 "pattern": "Traces",
 "hash": "Gl3Gtr_SH5w",
-"events": 6928,
-"bytes": 8779833,
-"lines": 6928,
-"line_bytes": 8779833
+"events": 6874,
+"bytes": 8711378,
+"lines": 6874,
+"line_bytes": 8711378
 },
 {
 "route": "pass",
@@ -29827,10 +29827,10 @@
 "severity": "INFO",
 "pattern": "Logs",
 "hash": "KG8Fq0QFuoY",
-"events": 28417,
-"bytes": 36033838,
-"lines": 28417,
-"line_bytes": 36033838
+"events": 28460,
+"bytes": 36088355,
+"lines": 28460,
+"line_bytes": 36088355
 },
 {
 "route": "tier_down",
@@ -29838,10 +29838,10 @@
 "severity": "INFO",
 "pattern": "Metrics",
 "hash": "PuWB8kkVbfw",
-"events": 9542,
-"bytes": 12361789,
-"lines": 9542,
-"line_bytes": 12361789
+"events": 9524,
+"bytes": 12338351,
+"lines": 9524,
+"line_bytes": 12338351
 },
 {
 "route": "tier_down",
@@ -29849,10 +29849,10 @@
 "severity": "INFO",
 "pattern": "Traces",
 "hash": "Gl3Gtr_SH5w",
-"events": 29467,
-"bytes": 37343488,
-"lines": 29467,
-"line_bytes": 37343488
+"events": 29521,
+"bytes": 37411943,
+"lines": 29521,
+"line_bytes": 37411943
 }
 ]
 }

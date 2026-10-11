@@ -11,7 +11,7 @@ metered by Datadog, and no Datadog account is needed to rerun it.
 ## The result
 
 The OpenTelemetry demo capture, 197,430 lines, 157,228 events after grouping, 0.215 GB
-over ten hours. Engine `log10x/pipeline-10x:1.1.139`, log10x-mcp 1.30.47, prices read
+over ten hours. Engine `log10x/pipeline-10x:1.1.140`, log10x-mcp 1.30.48, prices read
 2026-10-11.
 
 **What a moved event costs at list.** Standard indexing avoided: $1.70 per million events
@@ -27,9 +27,9 @@ table with every URL is in [`results/results.md`](results/results.md).
 
 | Target | Patterns planned | Containers capped | Events the plan states | Events the engine marked tier_down | Share of the volume the plan states | Share of the bytes the engine moved | Events in Standard | Errors and warnings to Flex |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 30% | 3 | 1 | 60,783 | 67,426 | 40.3% | 39.9% | 89,802 | 0 |
-| 50% | 7 | 4 | 82,585 | 90,688 | 50.6% | 56.2% | 66,540 | 0 |
-| 70% | 55 | 17 | 112,944 | 119,885 | 68.4% | 71.2% | 37,343 | 0 |
+| 30% | 3 | 1 | 60,783 | 67,505 | 40.3% | 39.9% | 89,723 | 0 |
+| 50% | 7 | 4 | 82,585 | 90,555 | 50.6% | 56.1% | 66,673 | 0 |
+| 70% | 55 | 17 | 112,944 | 119,833 | 68.4% | 71.2% | 37,395 | 0 |
 
 The plan moves whole patterns, so a target lands on the first set that reaches it: at 30%
 the collector's `Traces`, `Logs` and `Metrics` lines, 40% of the volume, under a cap set
@@ -48,18 +48,22 @@ what carry.
 
 | Target | Events to Flex per month | Standard indexing avoided, 15-day annual | Flex storage added, annual | Flex compute tier | Custom metrics above a Pro allotment, 10 to 300 nodes |
 |---:|---:|---:|---:|---|---:|
-| 30% | 4,854,672 | $8.25 | $0.24 | Starter | $0 |
-| 50% | 6,529,536 | $11.10 | $0.33 | Starter | $0 |
-| 70% | 8,631,720 | $14.67 | $0.43 | Starter | $0 |
+| 30% | 4,860,360 | $8.26 | $0.24 | Starter | $0 |
+| 50% | 6,519,960 | $11.08 | $0.33 | Starter | $0 |
+| 70% | 8,627,976 | $14.67 | $0.43 | Starter | $0 |
 
-**Custom metrics.** The engine's Datadog metric output tags each series with the pattern
-and where it ran (`message_pattern`, `tenx_hash`, `tenx_user_service`, `severity_level`,
-`routeState`, `k8s_container`, `k8s_namespace`) and with nothing that names a node or a
-process, and publishes the 200 tag sets with the most bytes, each from both aggregators: 800 custom
-metrics from this capture whatever the node count, carrying 98.8% of the bytes. A Pro plan
-includes 100 custom metrics per host, so at 10, 100 and 300 nodes the line is $0. Every tag
-set from every node would be 10,848 per node, $5,374, $53,740 and $161,220 a month at $5
-per 100.
+**Custom metrics.** The `metrics` stage replays the capture through the engine's shipped
+Datadog metric output, posting to a local stand-in for Datadog's intake; the one change to
+the image's config is the URI it posts to. Each series carried the pattern and where it ran
+(`message_pattern`, `tenx_hash`, `tenx_user_service`, `severity_level`, `routeState`,
+`k8s_container`, `k8s_namespace`) and `tenx_reported_name`, and no host, pod or pipeline id,
+so every node posts the same series. The output keeps to the 200 tag sets with the most
+bytes, each from both aggregators: at most 776 series in one post without a move, and 768,
+786 and 780 at 30, 50 and 70%. A Pro plan includes 100 custom metrics per host, so at 10,
+100 and 300 nodes the line is $0. While ranks settle, tag sets enter and leave the top, and
+the replay, which delivers ten hours in about 30 seconds, saw 1,386 to 1,590 distinct series
+in all; on a live stream that settling happens once. Every tag set from every node would be
+about 10,850 series per node, $5,374, $53,740 and $161,220 a month at $5 per 100.
 
 ## Counting conditions
 

@@ -1,6 +1,6 @@
 {
- "engine_image": "log10x/pipeline-10x@sha256:e2db543265cddd30a959c729c19e61d5f1b97e8be74a8d8e65dcb71a6466491c",
- "mcp_version": "1.30.47",
+ "engine_image": "log10x/pipeline-10x@sha256:fd9c98384a775df13ed41921c2cf95ef1d1313f62f1300aac61da55ca64feb67",
+ "mcp_version": "1.30.48",
  "capture": {
   "name": "otel-sample-200mb.log",
   "sha256": "aa79b9349a4123d88936fd064f5eccd9fd84f45a1fd03cff3f64c259715c2432",
@@ -79,12 +79,12 @@
     "bytes": 214881933,
     "by_route": {
      "pass": {
-      "events": 89802,
-      "bytes": 129142818
+      "events": 89723,
+      "bytes": 129043284
      },
      "tier_down": {
-      "events": 67426,
-      "bytes": 85739115
+      "events": 67505,
+      "bytes": 85838649
      }
     },
     "by_route_severity": {
@@ -102,8 +102,8 @@
        "bytes": 8594139
       },
       "INFO": {
-       "events": 75029,
-       "bytes": 97676253
+       "events": 74950,
+       "bytes": 97576719
       },
       "TRACE": {
        "events": 7113,
@@ -120,8 +120,8 @@
      },
      "tier_down": {
       "INFO": {
-       "events": 67426,
-       "bytes": 85739115
+       "events": 67505,
+       "bytes": 85838649
       }
      }
     },
@@ -132,24 +132,24 @@
       "container": "opentelemetry-collector",
       "severity": "INFO",
       "route": "tier_down",
-      "events": 29467,
-      "bytes": 37343488
+      "events": 29521,
+      "bytes": 37411943
      },
      {
       "pattern": "Logs",
       "container": "opentelemetry-collector",
       "severity": "INFO",
       "route": "tier_down",
-      "events": 28417,
-      "bytes": 36033838
+      "events": 28460,
+      "bytes": 36088355
      },
      {
       "pattern": "Metrics",
       "container": "opentelemetry-collector",
       "severity": "INFO",
       "route": "tier_down",
-      "events": 9542,
-      "bytes": 12361789
+      "events": 9524,
+      "bytes": 12338351
      }
     ],
     "agreement": {
@@ -157,40 +157,55 @@
      "keys_compared": 2712,
      "joined_lines": 40202
     },
-    "replay_seconds": 53
+    "replay_seconds": 28
    },
    "month": {
-    "events_to_flex": 4854672,
-    "gb_to_flex": 6.1732,
-    "events_in_standard": 6465744,
+    "events_to_flex": 4860360,
+    "gb_to_flex": 6.1804,
+    "events_in_standard": 6460056,
     "events_offloaded": 0,
     "gb_ingested": 15.4715
    },
    "usd_per_month_at_list": {
     "standard_indexing_avoided": {
-     "15d_annual": 8.2529,
-     "15d_on_demand": 12.3794,
-     "30d_annual": 12.1367,
-     "30d_on_demand": 18.205
+     "15d_annual": 8.2626,
+     "15d_on_demand": 12.3939,
+     "30d_annual": 12.1509,
+     "30d_on_demand": 18.2264
     },
     "flex_storage_added": {
-     "annual": 0.2427,
-     "on_demand": 0.3641
+     "annual": 0.243,
+     "on_demand": 0.3645
     },
     "flex_starter_instead": {
-     "annual": 2.9128,
-     "on_demand": 4.3692
+     "annual": 2.9162,
+     "on_demand": 4.3743
     },
     "ingestion_unchanged": 1.5471
    },
    "flex_compute": {
-    "cumulative_events_stored_at_30_days": 4854672,
+    "cumulative_events_stored_at_30_days": 4860360,
     "tier": "Starter",
     "within_starter_monthly_limit": true,
     "price": "Contact Us for Pricing"
    },
    "custom_metrics": {
-    "count_default": 800,
+    "count_measured": 768,
+    "distinct_over_run": 1386,
+    "posts": 4,
+    "node_or_process_tags": [],
+    "host_field": [],
+    "tag_keys": [
+     "k8s_container",
+     "k8s_namespace",
+     "message_pattern",
+     "routeState",
+     "severity_level",
+     "statistic",
+     "tenx_hash",
+     "tenx_reported_name",
+     "tenx_user_service"
+    ],
     "top_series_default": 200,
     "bytes_share_of_top_series": 0.9876,
     "count_every_set_one_node": 10848,
@@ -200,18 +215,18 @@
     },
     "fleet": {
      "10": {
-      "default_above_pro_allotment": 0,
-      "default_usd_per_month": 0.0,
+      "measured_above_pro_allotment": 0,
+      "measured_usd_per_month": 0.0,
       "every_set_per_node_usd_per_month": 5374.0
      },
      "100": {
-      "default_above_pro_allotment": 0,
-      "default_usd_per_month": 0.0,
+      "measured_above_pro_allotment": 0,
+      "measured_usd_per_month": 0.0,
       "every_set_per_node_usd_per_month": 53740.0
      },
      "300": {
-      "default_above_pro_allotment": 0,
-      "default_usd_per_month": 0.0,
+      "measured_above_pro_allotment": 0,
+      "measured_usd_per_month": 0.0,
       "every_set_per_node_usd_per_month": 161220.0
      }
     }
@@ -312,12 +327,12 @@
     "bytes": 214881933,
     "by_route": {
      "pass": {
-      "events": 66540,
-      "bytes": 94081075
+      "events": 66673,
+      "bytes": 94243882
      },
      "tier_down": {
-      "events": 90688,
-      "bytes": 120800858
+      "events": 90555,
+      "bytes": 120638051
      }
     },
     "by_route_severity": {
@@ -335,12 +350,12 @@
        "bytes": 8594139
       },
       "INFO": {
-       "events": 56273,
-       "bytes": 66910428
+       "events": 56403,
+       "bytes": 67070415
       },
       "TRACE": {
-       "events": 2607,
-       "bytes": 2509090
+       "events": 2610,
+       "bytes": 2511910
       },
       "WARN": {
        "events": 217,
@@ -353,12 +368,12 @@
      },
      "tier_down": {
       "INFO": {
-       "events": 86182,
-       "bytes": 116504940
+       "events": 86052,
+       "bytes": 116344953
       },
       "TRACE": {
-       "events": 4506,
-       "bytes": 4295918
+       "events": 4503,
+       "bytes": 4293098
       }
      }
     },
@@ -369,64 +384,64 @@
       "container": "opentelemetry-collector",
       "severity": "INFO",
       "route": "tier_down",
-      "events": 29439,
-      "bytes": 37308069
+      "events": 29488,
+      "bytes": 37370170
      },
      {
       "pattern": "Logs",
       "container": "opentelemetry-collector",
       "severity": "INFO",
       "route": "tier_down",
-      "events": 28554,
-      "bytes": 36207578
+      "events": 28392,
+      "bytes": 36002146
      },
      {
       "pattern": "GetCartAsync_called_with_userId",
       "container": "cart",
       "severity": "INFO",
       "route": "tier_down",
-      "events": 10354,
-      "bytes": 17771248
+      "events": 10375,
+      "bytes": 17806738
      },
      {
       "pattern": "Metrics",
       "container": "opentelemetry-collector",
       "severity": "INFO",
       "route": "tier_down",
-      "events": 9575,
-      "bytes": 12404488
+      "events": 9514,
+      "bytes": 12325425
      },
      {
       "pattern": "AddItemAsync_called_with_userId_productId_quantity",
       "container": "cart",
       "severity": "INFO",
       "route": "tier_down",
-      "events": 5207,
-      "bytes": 9165222
+      "events": 5206,
+      "bytes": 9163459
      },
      {
       "pattern": "Receive_ListRecommendations_for_product_ids",
       "container": "recommendation",
       "severity": "INFO",
       "route": "tier_down",
-      "events": 3053,
-      "bytes": 3648335
+      "events": 3077,
+      "bytes": 3677015
      },
      {
       "pattern": "oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags",
       "container": "ad",
       "severity": "TRACE",
       "route": "tier_down",
-      "events": 2473,
-      "bytes": 2339458
+      "events": 2468,
+      "bytes": 2334728
      },
      {
       "pattern": "oteldemo_AdService_Targeted_ad_request_received_for",
       "container": "ad",
       "severity": "TRACE",
       "route": "tier_down",
-      "events": 2033,
-      "bytes": 1956460
+      "events": 2035,
+      "bytes": 1958370
      }
     ],
     "agreement": {
@@ -434,40 +449,55 @@
      "keys_compared": 2717,
      "joined_lines": 40202
     },
-    "replay_seconds": 34
+    "replay_seconds": 29
    },
    "month": {
-    "events_to_flex": 6529536,
-    "gb_to_flex": 8.6977,
-    "events_in_standard": 4790880,
+    "events_to_flex": 6519960,
+    "gb_to_flex": 8.6859,
+    "events_in_standard": 4800456,
     "events_offloaded": 0,
     "gb_ingested": 15.4715
    },
    "usd_per_month_at_list": {
     "standard_indexing_avoided": {
-     "15d_annual": 11.1002,
-     "15d_on_demand": 16.6503,
-     "30d_annual": 16.3238,
-     "30d_on_demand": 24.4858
+     "15d_annual": 11.0839,
+     "15d_on_demand": 16.6259,
+     "30d_annual": 16.2999,
+     "30d_on_demand": 24.4499
     },
     "flex_storage_added": {
-     "annual": 0.3265,
-     "on_demand": 0.4897
+     "annual": 0.326,
+     "on_demand": 0.489
     },
     "flex_starter_instead": {
-     "annual": 3.9177,
-     "on_demand": 5.8766
+     "annual": 3.912,
+     "on_demand": 5.868
     },
     "ingestion_unchanged": 1.5471
    },
    "flex_compute": {
-    "cumulative_events_stored_at_30_days": 6529536,
+    "cumulative_events_stored_at_30_days": 6519960,
     "tier": "Starter",
     "within_starter_monthly_limit": true,
     "price": "Contact Us for Pricing"
    },
    "custom_metrics": {
-    "count_default": 800,
+    "count_measured": 786,
+    "distinct_over_run": 1424,
+    "posts": 5,
+    "node_or_process_tags": [],
+    "host_field": [],
+    "tag_keys": [
+     "k8s_container",
+     "k8s_namespace",
+     "message_pattern",
+     "routeState",
+     "severity_level",
+     "statistic",
+     "tenx_hash",
+     "tenx_reported_name",
+     "tenx_user_service"
+    ],
     "top_series_default": 200,
     "bytes_share_of_top_series": 0.9875,
     "count_every_set_one_node": 10868,
@@ -477,18 +507,18 @@
     },
     "fleet": {
      "10": {
-      "default_above_pro_allotment": 0,
-      "default_usd_per_month": 0.0,
+      "measured_above_pro_allotment": 0,
+      "measured_usd_per_month": 0.0,
       "every_set_per_node_usd_per_month": 5384.0
      },
      "100": {
-      "default_above_pro_allotment": 0,
-      "default_usd_per_month": 0.0,
+      "measured_above_pro_allotment": 0,
+      "measured_usd_per_month": 0.0,
       "every_set_per_node_usd_per_month": 53840.0
      },
      "300": {
-      "default_above_pro_allotment": 0,
-      "default_usd_per_month": 0.0,
+      "measured_above_pro_allotment": 0,
+      "measured_usd_per_month": 0.0,
       "every_set_per_node_usd_per_month": 161520.0
      }
     }
@@ -1003,12 +1033,12 @@
     "bytes": 214881933,
     "by_route": {
      "pass": {
-      "events": 37343,
-      "bytes": 61826255
+      "events": 37395,
+      "bytes": 61877580
      },
      "tier_down": {
-      "events": 119885,
-      "bytes": 153055678
+      "events": 119833,
+      "bytes": 153004353
      }
     },
     "by_route_severity": {
@@ -1026,34 +1056,34 @@
        "bytes": 8594139
       },
       "INFO": {
-       "events": 29416,
-       "bytes": 36881017
+       "events": 29447,
+       "bytes": 36911833
       },
       "TRACE": {
-       "events": 788,
-       "bytes": 763240
+       "events": 820,
+       "bytes": 793787
       },
       "WARN": {
        "events": 217,
        "bytes": 285482
       },
       "none": {
-       "events": 566,
-       "bytes": 614624
+       "events": 555,
+       "bytes": 604586
       }
      },
      "tier_down": {
       "INFO": {
-       "events": 113039,
-       "bytes": 146534351
+       "events": 113008,
+       "bytes": 146503535
       },
       "TRACE": {
-       "events": 6325,
-       "bytes": 6041768
+       "events": 6293,
+       "bytes": 6011221
       },
       "none": {
-       "events": 521,
-       "bytes": 479559
+       "events": 532,
+       "bytes": 489597
       }
      }
     },
@@ -1064,80 +1094,80 @@
       "container": "opentelemetry-collector",
       "severity": "INFO",
       "route": "tier_down",
-      "events": 29498,
-      "bytes": 37382864
+      "events": 29490,
+      "bytes": 37372649
      },
      {
       "pattern": "Logs",
       "container": "opentelemetry-collector",
       "severity": "INFO",
       "route": "tier_down",
-      "events": 28450,
-      "bytes": 36075706
+      "events": 28413,
+      "bytes": 36028781
      },
      {
       "pattern": "GetCartAsync_called_with_userId",
       "container": "cart",
       "severity": "INFO",
       "route": "tier_down",
-      "events": 11279,
-      "bytes": 19357142
+      "events": 11306,
+      "bytes": 19403276
      },
      {
       "pattern": "Metrics",
       "container": "opentelemetry-collector",
       "severity": "INFO",
       "route": "tier_down",
-      "events": 9515,
-      "bytes": 12326754
+      "events": 9570,
+      "bytes": 12398031
      },
      {
       "pattern": "AddItemAsync_called_with_userId_productId_quantity",
       "container": "cart",
       "severity": "INFO",
       "route": "tier_down",
-      "events": 6061,
-      "bytes": 10668395
+      "events": 6036,
+      "bytes": 10624401
      },
      {
       "pattern": "oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags",
       "container": "ad",
       "severity": "TRACE",
       "route": "tier_down",
-      "events": 3186,
-      "bytes": 3013956
+      "events": 3161,
+      "bytes": 2990306
      },
      {
       "pattern": "Receive_ListRecommendations_for_product_ids",
       "container": "recommendation",
       "severity": "INFO",
       "route": "tier_down",
-      "events": 3099,
-      "bytes": 3703305
+      "events": 3107,
+      "bytes": 3712865
      },
      {
       "pattern": "oteldemo_AdService_Targeted_ad_request_received_for",
       "container": "ad",
       "severity": "TRACE",
       "route": "tier_down",
-      "events": 2715,
-      "bytes": 2612716
-     },
-     {
-      "pattern": "Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager",
-      "container": "kafka",
-      "severity": "INFO",
-      "route": "tier_down",
-      "events": 2166,
-      "bytes": 2235096
+      "events": 2719,
+      "bytes": 2616588
      },
      {
       "pattern": "Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
       "container": "kafka",
       "severity": "INFO",
       "route": "tier_down",
-      "events": 2154,
-      "bytes": 2138922
+      "events": 2150,
+      "bytes": 2134950
+     },
+     {
+      "pattern": "Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager",
+      "container": "kafka",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 2141,
+      "bytes": 2209296
      }
     ],
     "agreement": {
@@ -1145,40 +1175,55 @@
      "keys_compared": 2743,
      "joined_lines": 40202
     },
-    "replay_seconds": 33
+    "replay_seconds": 32
    },
    "month": {
-    "events_to_flex": 8631720,
-    "gb_to_flex": 11.02,
-    "events_in_standard": 2688696,
+    "events_to_flex": 8627976,
+    "gb_to_flex": 11.0163,
+    "events_in_standard": 2692440,
     "events_offloaded": 0,
     "gb_ingested": 15.4715
    },
    "usd_per_month_at_list": {
     "standard_indexing_avoided": {
-     "15d_annual": 14.6739,
-     "15d_on_demand": 22.0109,
-     "30d_annual": 21.5793,
-     "30d_on_demand": 32.3689
+     "15d_annual": 14.6676,
+     "15d_on_demand": 22.0013,
+     "30d_annual": 21.5699,
+     "30d_on_demand": 32.3549
     },
     "flex_storage_added": {
-     "annual": 0.4316,
-     "on_demand": 0.6474
+     "annual": 0.4314,
+     "on_demand": 0.6471
     },
     "flex_starter_instead": {
-     "annual": 5.179,
-     "on_demand": 7.7685
+     "annual": 5.1768,
+     "on_demand": 7.7652
     },
     "ingestion_unchanged": 1.5471
    },
    "flex_compute": {
-    "cumulative_events_stored_at_30_days": 8631720,
+    "cumulative_events_stored_at_30_days": 8627976,
     "tier": "Starter",
     "within_starter_monthly_limit": true,
     "price": "Contact Us for Pricing"
    },
    "custom_metrics": {
-    "count_default": 800,
+    "count_measured": 780,
+    "distinct_over_run": 1590,
+    "posts": 4,
+    "node_or_process_tags": [],
+    "host_field": [],
+    "tag_keys": [
+     "k8s_container",
+     "k8s_namespace",
+     "message_pattern",
+     "routeState",
+     "severity_level",
+     "statistic",
+     "tenx_hash",
+     "tenx_reported_name",
+     "tenx_user_service"
+    ],
     "top_series_default": 200,
     "bytes_share_of_top_series": 0.9873,
     "count_every_set_one_node": 10972,
@@ -1188,18 +1233,18 @@
     },
     "fleet": {
      "10": {
-      "default_above_pro_allotment": 0,
-      "default_usd_per_month": 0.0,
+      "measured_above_pro_allotment": 0,
+      "measured_usd_per_month": 0.0,
       "every_set_per_node_usd_per_month": 5436.0
      },
      "100": {
-      "default_above_pro_allotment": 0,
-      "default_usd_per_month": 0.0,
+      "measured_above_pro_allotment": 0,
+      "measured_usd_per_month": 0.0,
       "every_set_per_node_usd_per_month": 54360.0
      },
      "300": {
-      "default_above_pro_allotment": 0,
-      "default_usd_per_month": 0.0,
+      "measured_above_pro_allotment": 0,
+      "measured_usd_per_month": 0.0,
       "every_set_per_node_usd_per_month": 163080.0
      }
     }

@@ -2,8 +2,8 @@
 
 Computed from the engine's counts at Datadog list prices read 2026-10-11. Nothing here was metered by Datadog.
 
-- engine image: `log10x/pipeline-10x@sha256:e2db543265cddd30a959c729c19e61d5f1b97e8be74a8d8e65dcb71a6466491c`
-- MCP: log10x-mcp 1.30.47
+- engine image: `log10x/pipeline-10x@sha256:fd9c98384a775df13ed41921c2cf95ef1d1313f62f1300aac61da55ca64feb67`
+- MCP: log10x-mcp 1.30.48
 - capture: `otel-sample-200mb.log`, sha256 `aa79b9349a4123d88936fd064f5eccd9fd84f45a1fd03cff3f64c259715c2432`, 197,430 lines, 157,228 events after grouping, 0.215 GB, 10 hours; a month is 720 hours; 1 GB = 1,000,000,000 bytes
 
 ## What a moved event costs at list
@@ -26,9 +26,9 @@ Flex compute sizes by cumulative events stored, from Datadog's own table: Starte
 
 | Target | Patterns planned | Containers capped | Events the plan states | Events the engine marked tier_down | GB to Flex | Events in Standard | Errors and warnings to Flex | Custom metrics the output publishes |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 30% | 3 | 1 | 60,783 | 67,426 | 0.086 | 89,802 | 0 | 800 |
-| 50% | 7 | 4 | 82,585 | 90,688 | 0.121 | 66,540 | 0 | 800 |
-| 70% | 55 | 17 | 112,944 | 119,885 | 0.153 | 37,343 | 0 | 800 |
+| 30% | 3 | 1 | 60,783 | 67,505 | 0.086 | 89,723 | 0 | 768 |
+| 50% | 7 | 4 | 82,585 | 90,555 | 0.121 | 66,673 | 0 | 786 |
+| 70% | 55 | 17 | 112,944 | 119,833 | 0.153 | 37,395 | 0 | 780 |
 
 The engine moves each pattern's excess over its container's cap; the plan sets the cap at the largest pattern the container keeps and states the excess, less the share the severity floors keep. Ingestion is unchanged: every event is ingested once, at $0.10 per GB, before any index routing.
 
@@ -38,11 +38,11 @@ The capture's 10 hours scaled to a 720-hour month, at the rates above. The volum
 
 | Target | Events to Flex per month | Standard indexing avoided, 15-day annual | Flex storage added, annual | Flex compute tier | Ingestion, unchanged | Custom metrics above a Pro allotment, 10 to 300 nodes |
 |---:|---:|---:|---:|---|---:|---:|
-| 30% | 4,854,672 | $8.25 | $0.24 | Starter | $1.55 | $0.00 to $0.00 |
-| 50% | 6,529,536 | $11.10 | $0.33 | Starter | $1.55 | $0.00 to $0.00 |
-| 70% | 8,631,720 | $14.67 | $0.43 | Starter | $1.55 | $0.00 to $0.00 |
+| 30% | 4,860,360 | $8.26 | $0.24 | Starter | $1.55 | $0.00 to $0.00 |
+| 50% | 6,519,960 | $11.08 | $0.33 | Starter | $1.55 | $0.00 to $0.00 |
+| 70% | 8,627,976 | $14.67 | $0.43 | Starter | $1.55 | $0.00 to $0.00 |
 
-**Custom metrics.** The Datadog output tags each series with the pattern and where it ran and with nothing that names a node or a process, and publishes the 200 tag sets with the most bytes, each from both aggregators: 800 custom metrics from this capture whatever the node count, carrying 98.8% of the bytes. Above a Pro plan's allotment of 100 per host that is $0.00 a month at 10 nodes, $0.00 at 100 and $0.00 at 300. Every tag set from every node would be 10,848 per node: $5,374.00, $53,740.00 and $161,220.00 a month.
+**Custom metrics.** The engine's shipped Datadog output, posting to a local stand-in for Datadog's intake, tagged each series with the pattern and where it ran (`k8s_container`, `k8s_namespace`, `message_pattern`, `routeState`, `severity_level`, `statistic`, `tenx_hash`, `tenx_reported_name`, `tenx_user_service`) and with nothing that names a node or a process, and published the 200 tag sets with the most bytes, each from both aggregators: at most 768 series in one post, whatever the node count; the top 200 label sets carry 98.8% of the bytes. Above a Pro plan's allotment of 100 per host that is $0.00 a month at 10 nodes, $0.00 at 100 and $0.00 at 300. Every tag set from every node would be 10,848 per node: $5,374.00, $53,740.00 and $161,220.00 a month.
 
 ## Target 30%
 
@@ -56,35 +56,35 @@ container,action
 opentelemetry-collector,tier_down::MCP poc_from_local plan 30 pct
 ```
 
-**The engine.** 157,228 events replayed in 53 s; the records and the engine's aggregators agree on every one of 2,712 keys.
+**The engine.** 157,228 events replayed in 28 s; the records and the engine's aggregators agree on every one of 2,712 keys.
 
 | Route | Events | GB | Events by severity |
 |---|---:|---:|---|
-| pass | 89,802 | 0.129 | CRITICAL 2,324, DEBUG 2, ERROR 4,030, INFO 75,029, TRACE 7,113, WARN 217, none 1,087 |
-| tier_down | 67,426 | 0.086 | INFO 67,426 |
+| pass | 89,723 | 0.129 | CRITICAL 2,324, DEBUG 2, ERROR 4,030, INFO 74,950, TRACE 7,113, WARN 217, none 1,087 |
+| tier_down | 67,505 | 0.086 | INFO 67,505 |
 
 Errors and warnings marked tier_down: 0. The regulator keeps half of the ERROR and CRITICAL events over a cap and three tenths of the WARN events; the rest take the container's action.
 
 | Pattern moved | Container | Severity | Events | GB |
 |---|---|---|---:|---:|
-| `Traces` | `opentelemetry-collector` | INFO | 29,467 | 0.037 |
-| `Logs` | `opentelemetry-collector` | INFO | 28,417 | 0.036 |
-| `Metrics` | `opentelemetry-collector` | INFO | 9,542 | 0.012 |
+| `Traces` | `opentelemetry-collector` | INFO | 29,521 | 0.037 |
+| `Logs` | `opentelemetry-collector` | INFO | 28,460 | 0.036 |
+| `Metrics` | `opentelemetry-collector` | INFO | 9,524 | 0.012 |
 
-**A month at this volume, an illustration.** 4,854,672 events to Flex (6.173 GB), 6,465,744 in Standard, 15.472 GB ingested.
+**A month at this volume, an illustration.** 4,860,360 events to Flex (6.180 GB), 6,460,056 in Standard, 15.472 GB ingested.
 
 | Line | Per month |
 |---|---:|
-| Standard indexing avoided, 15-day, annual | $8.25 |
-| Standard indexing avoided, 15-day, on-demand | $12.38 |
-| Standard indexing avoided, 30-day, annual | $12.14 |
-| Standard indexing avoided, 30-day, on-demand | $18.20 |
+| Standard indexing avoided, 15-day, annual | $8.26 |
+| Standard indexing avoided, 15-day, on-demand | $12.39 |
+| Standard indexing avoided, 30-day, annual | $12.15 |
+| Standard indexing avoided, 30-day, on-demand | $18.23 |
 | Flex storage added, held 30 days, annual | $0.24 |
 | Flex storage added, held 30 days, on-demand | $0.36 |
-| Flex Starter instead of storage plus compute, annual | $2.91 |
-| Flex compute tier at 4,854,672 events stored | Starter, within Starter; Contact Us for Pricing for XS and above |
+| Flex Starter instead of storage plus compute, annual | $2.92 |
+| Flex compute tier at 4,860,360 events stored | Starter, within Starter; Contact Us for Pricing for XS and above |
 | Ingestion, unchanged | $1.55 |
-| Custom metrics from the engine's Datadog metric output | 800 series, the top 200 tag sets, each from both aggregators (98.8% of the bytes), the same from every node; above a Pro allotment $0.00 at 10 nodes, $0.00 at 300. Every tag set would be 10,848 per node |
+| Custom metrics from the engine's Datadog metric output, measured | at most 768 series in one of 4 posts, 1,386 distinct over the replay while ranks settle, the same from every node; above a Pro allotment $0.00 at 10 nodes, $0.00 at 300. Every tag set would be 10,848 per node |
 
 ## Target 50%
 
@@ -104,40 +104,40 @@ opentelemetry-collector,tier_down::MCP poc_from_local plan 50 pct
 recommendation,tier_down::MCP poc_from_local plan 50 pct
 ```
 
-**The engine.** 157,228 events replayed in 34 s; the records and the engine's aggregators agree on every one of 2,717 keys.
+**The engine.** 157,228 events replayed in 29 s; the records and the engine's aggregators agree on every one of 2,717 keys.
 
 | Route | Events | GB | Events by severity |
 |---|---:|---:|---|
-| pass | 66,540 | 0.094 | CRITICAL 2,324, DEBUG 2, ERROR 4,030, INFO 56,273, TRACE 2,607, WARN 217, none 1,087 |
-| tier_down | 90,688 | 0.121 | INFO 86,182, TRACE 4,506 |
+| pass | 66,673 | 0.094 | CRITICAL 2,324, DEBUG 2, ERROR 4,030, INFO 56,403, TRACE 2,610, WARN 217, none 1,087 |
+| tier_down | 90,555 | 0.121 | INFO 86,052, TRACE 4,503 |
 
 Errors and warnings marked tier_down: 0. The regulator keeps half of the ERROR and CRITICAL events over a cap and three tenths of the WARN events; the rest take the container's action.
 
 | Pattern moved | Container | Severity | Events | GB |
 |---|---|---|---:|---:|
-| `Traces` | `opentelemetry-collector` | INFO | 29,439 | 0.037 |
-| `Logs` | `opentelemetry-collector` | INFO | 28,554 | 0.036 |
-| `GetCartAsync_called_with_userId` | `cart` | INFO | 10,354 | 0.018 |
-| `Metrics` | `opentelemetry-collector` | INFO | 9,575 | 0.012 |
-| `AddItemAsync_called_with_userId_productId_quantity` | `cart` | INFO | 5,207 | 0.009 |
-| `Receive_ListRecommendations_for_product_ids` | `recommendation` | INFO | 3,053 | 0.004 |
-| `oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags` | `ad` | TRACE | 2,473 | 0.002 |
-| `oteldemo_AdService_Targeted_ad_request_received_for` | `ad` | TRACE | 2,033 | 0.002 |
+| `Traces` | `opentelemetry-collector` | INFO | 29,488 | 0.037 |
+| `Logs` | `opentelemetry-collector` | INFO | 28,392 | 0.036 |
+| `GetCartAsync_called_with_userId` | `cart` | INFO | 10,375 | 0.018 |
+| `Metrics` | `opentelemetry-collector` | INFO | 9,514 | 0.012 |
+| `AddItemAsync_called_with_userId_productId_quantity` | `cart` | INFO | 5,206 | 0.009 |
+| `Receive_ListRecommendations_for_product_ids` | `recommendation` | INFO | 3,077 | 0.004 |
+| `oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags` | `ad` | TRACE | 2,468 | 0.002 |
+| `oteldemo_AdService_Targeted_ad_request_received_for` | `ad` | TRACE | 2,035 | 0.002 |
 
-**A month at this volume, an illustration.** 6,529,536 events to Flex (8.698 GB), 4,790,880 in Standard, 15.472 GB ingested.
+**A month at this volume, an illustration.** 6,519,960 events to Flex (8.686 GB), 4,800,456 in Standard, 15.472 GB ingested.
 
 | Line | Per month |
 |---|---:|
-| Standard indexing avoided, 15-day, annual | $11.10 |
-| Standard indexing avoided, 15-day, on-demand | $16.65 |
-| Standard indexing avoided, 30-day, annual | $16.32 |
-| Standard indexing avoided, 30-day, on-demand | $24.49 |
+| Standard indexing avoided, 15-day, annual | $11.08 |
+| Standard indexing avoided, 15-day, on-demand | $16.63 |
+| Standard indexing avoided, 30-day, annual | $16.30 |
+| Standard indexing avoided, 30-day, on-demand | $24.45 |
 | Flex storage added, held 30 days, annual | $0.33 |
 | Flex storage added, held 30 days, on-demand | $0.49 |
-| Flex Starter instead of storage plus compute, annual | $3.92 |
-| Flex compute tier at 6,529,536 events stored | Starter, within Starter; Contact Us for Pricing for XS and above |
+| Flex Starter instead of storage plus compute, annual | $3.91 |
+| Flex compute tier at 6,519,960 events stored | Starter, within Starter; Contact Us for Pricing for XS and above |
 | Ingestion, unchanged | $1.55 |
-| Custom metrics from the engine's Datadog metric output | 800 series, the top 200 tag sets, each from both aggregators (98.8% of the bytes), the same from every node; above a Pro allotment $0.00 at 10 nodes, $0.00 at 300. Every tag set would be 10,868 per node |
+| Custom metrics from the engine's Datadog metric output, measured | at most 786 series in one of 5 posts, 1,424 distinct over the replay while ranks settle, the same from every node; above a Pro allotment $0.00 at 10 nodes, $0.00 at 300. Every tag set would be 10,868 per node |
 
 ## Target 70%
 
@@ -183,42 +183,42 @@ recommendation,tier_down::MCP poc_from_local plan 70 pct
 valkey-cart,tier_down::MCP poc_from_local plan 70 pct
 ```
 
-**The engine.** 157,228 events replayed in 33 s; the records and the engine's aggregators agree on every one of 2,743 keys.
+**The engine.** 157,228 events replayed in 32 s; the records and the engine's aggregators agree on every one of 2,743 keys.
 
 | Route | Events | GB | Events by severity |
 |---|---:|---:|---|
-| pass | 37,343 | 0.062 | CRITICAL 2,324, DEBUG 2, ERROR 4,030, INFO 29,416, TRACE 788, WARN 217, none 566 |
-| tier_down | 119,885 | 0.153 | INFO 113,039, TRACE 6,325, none 521 |
+| pass | 37,395 | 0.062 | CRITICAL 2,324, DEBUG 2, ERROR 4,030, INFO 29,447, TRACE 820, WARN 217, none 555 |
+| tier_down | 119,833 | 0.153 | INFO 113,008, TRACE 6,293, none 532 |
 
 Errors and warnings marked tier_down: 0. The regulator keeps half of the ERROR and CRITICAL events over a cap and three tenths of the WARN events; the rest take the container's action.
 
 | Pattern moved | Container | Severity | Events | GB |
 |---|---|---|---:|---:|
-| `Traces` | `opentelemetry-collector` | INFO | 29,498 | 0.037 |
-| `Logs` | `opentelemetry-collector` | INFO | 28,450 | 0.036 |
-| `GetCartAsync_called_with_userId` | `cart` | INFO | 11,279 | 0.019 |
-| `Metrics` | `opentelemetry-collector` | INFO | 9,515 | 0.012 |
-| `AddItemAsync_called_with_userId_productId_quantity` | `cart` | INFO | 6,061 | 0.011 |
-| `oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags` | `ad` | TRACE | 3,186 | 0.003 |
-| `Receive_ListRecommendations_for_product_ids` | `recommendation` | INFO | 3,099 | 0.004 |
-| `oteldemo_AdService_Targeted_ad_request_received_for` | `ad` | TRACE | 2,715 | 0.003 |
-| `Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager` | `kafka` | INFO | 2,166 | 0.002 |
-| `Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment` | `kafka` | INFO | 2,154 | 0.002 |
+| `Traces` | `opentelemetry-collector` | INFO | 29,490 | 0.037 |
+| `Logs` | `opentelemetry-collector` | INFO | 28,413 | 0.036 |
+| `GetCartAsync_called_with_userId` | `cart` | INFO | 11,306 | 0.019 |
+| `Metrics` | `opentelemetry-collector` | INFO | 9,570 | 0.012 |
+| `AddItemAsync_called_with_userId_productId_quantity` | `cart` | INFO | 6,036 | 0.011 |
+| `oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags` | `ad` | TRACE | 3,161 | 0.003 |
+| `Receive_ListRecommendations_for_product_ids` | `recommendation` | INFO | 3,107 | 0.004 |
+| `oteldemo_AdService_Targeted_ad_request_received_for` | `ad` | TRACE | 2,719 | 0.003 |
+| `Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment` | `kafka` | INFO | 2,150 | 0.002 |
+| `Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager` | `kafka` | INFO | 2,141 | 0.002 |
 
-**A month at this volume, an illustration.** 8,631,720 events to Flex (11.020 GB), 2,688,696 in Standard, 15.472 GB ingested.
+**A month at this volume, an illustration.** 8,627,976 events to Flex (11.016 GB), 2,692,440 in Standard, 15.472 GB ingested.
 
 | Line | Per month |
 |---|---:|
 | Standard indexing avoided, 15-day, annual | $14.67 |
-| Standard indexing avoided, 15-day, on-demand | $22.01 |
-| Standard indexing avoided, 30-day, annual | $21.58 |
-| Standard indexing avoided, 30-day, on-demand | $32.37 |
+| Standard indexing avoided, 15-day, on-demand | $22.00 |
+| Standard indexing avoided, 30-day, annual | $21.57 |
+| Standard indexing avoided, 30-day, on-demand | $32.35 |
 | Flex storage added, held 30 days, annual | $0.43 |
 | Flex storage added, held 30 days, on-demand | $0.65 |
 | Flex Starter instead of storage plus compute, annual | $5.18 |
-| Flex compute tier at 8,631,720 events stored | Starter, within Starter; Contact Us for Pricing for XS and above |
+| Flex compute tier at 8,627,976 events stored | Starter, within Starter; Contact Us for Pricing for XS and above |
 | Ingestion, unchanged | $1.55 |
-| Custom metrics from the engine's Datadog metric output | 800 series, the top 200 tag sets, each from both aggregators (98.7% of the bytes), the same from every node; above a Pro allotment $0.00 at 10 nodes, $0.00 at 300. Every tag set would be 10,972 per node |
+| Custom metrics from the engine's Datadog metric output, measured | at most 780 series in one of 4 posts, 1,590 distinct over the replay while ranks settle, the same from every node; above a Pro allotment $0.00 at 10 nodes, $0.00 at 300. Every tag set would be 10,972 per node |
 
 ## Custom metrics
 
@@ -239,7 +239,7 @@ The engine's Datadog metric output publishes two counters, event volume and byte
 ./run.sh plan replay     # some stages, in the order given
 ```
 
-Stages: `data plan control policy replay count report`. Needs Docker, Node 18 or later and about 1 GB of disk. `plan` installs the pinned log10x-mcp into `.mcp/` and asks it for a plan over MCP stdio; the server runs the pinned engine image for its own sampling. Every other stage runs the engine image on the capture. `ACCT_TARGETS` sets the targets (default `30 50 70`), `ACCT_WINDOW` the span the capture covers (default `10h`).
+Stages: `data plan control policy replay count metrics report`. Needs Docker, Node 18 or later and about 1 GB of disk. `plan` installs the pinned log10x-mcp into `.mcp/` and asks it for a plan over MCP stdio; the server runs the pinned engine image for its own sampling. Every other stage runs the engine image on the capture. `ACCT_TARGETS` sets the targets (default `30 50 70`), `ACCT_WINDOW` the span the capture covers (default `10h`).
 
 | File | What it is |
 |---|---|
@@ -250,6 +250,8 @@ Stages: `data plan control policy replay count report`. Needs Docker, Node 18 or
 | `../accounting-lib/replay.config.yaml` | the engine run: shipped enrichment, regulator and aggregators, file in, file out |
 | `../accounting-lib/policy.py` | the engine files the tool wrote, caps scaled to the one-window replay |
 | `../accounting-lib/count.py` | the two counts, records and aggregators, required to agree |
+| `../accounting-lib/ddcapture.py`, `datadog_config.py`, `datadog_series.py` | the `metrics` stage: a local stand-in for Datadog's intake, the shipped Datadog config with only its URI pointed at it, and the count of what was posted |
+| `results/datadog-series-<run>.json`, `results/datadog-config.diff` | the series each post carried, and the one line changed in the shipped config |
 | `results/plan-<target>.json` | the plan the MCP wrote, its notes and the caps row it rendered |
 | `results/policy-<target>.caps.csv`, `.actions.csv`, `.json` | the files the engine read |
 | `results/<target>.tally.json`, `results/control.tally.json` | the counts per route, container, severity and pattern |

@@ -1,5 +1,5 @@
 {
- "mcp_version": "1.30.47",
+ "mcp_version": "1.30.48",
  "args": {
   "source": "file",
   "path": "/private/tmp/claude-501/-Users-talweiss-eclipse-workspace-l1x-co-config/baa52925-177a-4f06-ab96-d9543f0e179f/scratchpad/acct/data/otel-sample-200mb.log",
@@ -8,7 +8,7 @@
   "target_percent_reduction": 50,
   "retriever_installed": true
  },
- "elapsed_ms": 19163,
+ "elapsed_ms": 20062,
  "summary": {
   "headline": "Target: cut 50% of the cloudwatch bill. This plan reaches 57%, keeping everything. Sampled 9,563 events from 30 files."
  },

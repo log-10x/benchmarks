@@ -106,23 +106,36 @@ def compute(results: pathlib.Path, prices: dict, targets: list, window_hours: fl
                 'within_starter_monthly_limit': within_starter,
                 'price': prices['flex_compute']['price'],
             },
-            'custom_metrics': {
-                # the output's default: the top tag sets by bytes, each from both aggregators, the same series from every node
-                'count_default': tl['series']['custom_metrics_default'],
-                'top_series_default': tl['series']['top_series_default'],
-                'bytes_share_of_top_series': tl['series']['bytes_share_of_top_series'],
-                # every tag set, as one node would publish them with topSeries 0
-                'count_every_set_one_node': cmc,
-                'label_sets': tl['series']['label_sets_per_aggregator'],
-                'fleet': {str(n): {
-                    'default_above_pro_allotment': max(0, tl['series']['custom_metrics_default'] - n * cm['allotment_per_host']['pro']),
-                    'default_usd_per_month': round(max(0, tl['series']['custom_metrics_default'] - n * cm['allotment_per_host']['pro']) / 100 * cm['per_100_per_month']['annual'], 2),
-                    'every_set_per_node_usd_per_month': round(max(0, cmc * n - n * cm['allotment_per_host']['pro']) / 100 * cm['per_100_per_month']['annual'], 2),
-                } for n in (10, 100, 300)},
-            },
+            'custom_metrics': custom_metrics(T.load(results / f'datadog-series-{t}.json'), tl, cmc, cm),
         }
     return out
 
+
+
+def custom_metrics(ds, tl, cmc, cm):
+    """What the shipped Datadog output posted on this run (datadog-series-<t>.json), priced at
+    10, 100 and 300 nodes: its series carry no node or process tag, so the count is the same
+    from every node. Every tag set from every node is the tally's label sets, for comparison."""
+    measured = ds['max_series_per_post']
+    allot = cm['allotment_per_host']['pro']
+    per100 = cm['per_100_per_month']['annual']
+    return {
+        'count_measured': measured,
+        'distinct_over_run': ds['distinct_series_over_run'],
+        'posts': len(ds['posts']),
+        'node_or_process_tags': ds['node_or_process_tags'],
+        'host_field': ds['host_field'],
+        'tag_keys': ds['tag_keys'],
+        'top_series_default': tl['series']['top_series_default'],
+        'bytes_share_of_top_series': tl['series']['bytes_share_of_top_series'],
+        'count_every_set_one_node': cmc,
+        'label_sets': tl['series']['label_sets_per_aggregator'],
+        'fleet': {str(n): {
+            'measured_above_pro_allotment': max(0, measured - n * allot),
+            'measured_usd_per_month': round(max(0, measured - n * allot) / 100 * per100, 2),
+            'every_set_per_node_usd_per_month': round(max(0, cmc * n - n * allot) / 100 * per100, 2),
+        } for n in (10, 100, 300)},
+    }
 
 def render(r: dict, prices: dict) -> str:
     idx = prices['indexed_per_million_events']
@@ -161,7 +174,7 @@ def render(r: dict, prices: dict) -> str:
     L.append('|---:|---:|---:|---:|---:|---:|---:|---:|---:|')
     for t, v in r['targets'].items():
         e, p = v['engine'], v['plan']
-        L.append(f'| {t}% | {len(p["planned_patterns"])} | {len(p["containers"])} | {T.fmt_int(p["stated_events_moved"])} | {T.fmt_int(e["by_route"].get("tier_down", {"events": 0})["events"])} | {T.fmt_gb(e["by_route"].get("tier_down", {"bytes": 0})["bytes"])} | {T.fmt_int(e["by_route"].get("pass", {"events": 0})["events"])} | {T.fmt_int(e["protected_moved_events"])} | {v["custom_metrics"]["count_default"]:,} |')
+        L.append(f'| {t}% | {len(p["planned_patterns"])} | {len(p["containers"])} | {T.fmt_int(p["stated_events_moved"])} | {T.fmt_int(e["by_route"].get("tier_down", {"events": 0})["events"])} | {T.fmt_gb(e["by_route"].get("tier_down", {"bytes": 0})["bytes"])} | {T.fmt_int(e["by_route"].get("pass", {"events": 0})["events"])} | {T.fmt_int(e["protected_moved_events"])} | {v["custom_metrics"]["count_measured"]:,} |')
     L.append('')
     L.append('The engine moves each pattern\'s excess over its container\'s cap; the plan sets the cap at the largest pattern the container keeps and states the excess, less the share the severity floors keep. Ingestion is unchanged: every event is ingested once, at '
              f'${prices["ingestion_per_gb"]["annual"]:.2f} per GB, before any index routing.')
@@ -174,11 +187,11 @@ def render(r: dict, prices: dict) -> str:
     L.append('|---:|---:|---:|---:|---|---:|---:|')
     for t, v in r['targets'].items():
         m, u, c = v['month'], v['usd_per_month_at_list'], v['custom_metrics']
-        L.append(f'| {t}% | {T.fmt_int(m["events_to_flex"])} | {T.fmt_usd(u["standard_indexing_avoided"]["15d_annual"])} | {T.fmt_usd(u["flex_storage_added"]["annual"])} | {v["flex_compute"]["tier"]} | {T.fmt_usd(u["ingestion_unchanged"])} | {T.fmt_usd(c["fleet"]["10"]["default_usd_per_month"])} to {T.fmt_usd(c["fleet"]["300"]["default_usd_per_month"])} |')
+        L.append(f'| {t}% | {T.fmt_int(m["events_to_flex"])} | {T.fmt_usd(u["standard_indexing_avoided"]["15d_annual"])} | {T.fmt_usd(u["flex_storage_added"]["annual"])} | {v["flex_compute"]["tier"]} | {T.fmt_usd(u["ingestion_unchanged"])} | {T.fmt_usd(c["fleet"]["10"]["measured_usd_per_month"])} to {T.fmt_usd(c["fleet"]["300"]["measured_usd_per_month"])} |')
     L.append('')
     c0 = r['targets'][str(r['targets_list'][0])]['custom_metrics'] if r.get('targets_list') else next(iter(r['targets'].values()))['custom_metrics']
-    L.append(f'**Custom metrics.** The Datadog output tags each series with the pattern and where it ran and with nothing that names a node or a process, and publishes the {c0["top_series_default"]} tag sets with the most bytes, each from both aggregators: {c0["count_default"]:,} custom metrics from this capture whatever the node count, carrying {c0["bytes_share_of_top_series"] * 100:.1f}% of the bytes. '
-             f'Above a Pro plan\'s allotment of 100 per host that is {T.fmt_usd(c0["fleet"]["10"]["default_usd_per_month"])} a month at 10 nodes, {T.fmt_usd(c0["fleet"]["100"]["default_usd_per_month"])} at 100 and {T.fmt_usd(c0["fleet"]["300"]["default_usd_per_month"])} at 300. '
+    L.append(f'**Custom metrics.** The engine\'s shipped Datadog output, posting to a local stand-in for Datadog\'s intake, tagged each series with the pattern and where it ran ({", ".join(f"`{k}`" for k in c0["tag_keys"])}) and with nothing that names a node or a process, and published the {c0["top_series_default"]} tag sets with the most bytes, each from both aggregators: at most {c0["count_measured"]:,} series in one post, whatever the node count; the top {c0["top_series_default"]} label sets carry {c0["bytes_share_of_top_series"] * 100:.1f}% of the bytes. '
+             f'Above a Pro plan\'s allotment of 100 per host that is {T.fmt_usd(c0["fleet"]["10"]["measured_usd_per_month"])} a month at 10 nodes, {T.fmt_usd(c0["fleet"]["100"]["measured_usd_per_month"])} at 100 and {T.fmt_usd(c0["fleet"]["300"]["measured_usd_per_month"])} at 300. '
              f'Every tag set from every node would be {c0["count_every_set_one_node"]:,} per node: {T.fmt_usd(c0["fleet"]["10"]["every_set_per_node_usd_per_month"])}, {T.fmt_usd(c0["fleet"]["100"]["every_set_per_node_usd_per_month"])} and {T.fmt_usd(c0["fleet"]["300"]["every_set_per_node_usd_per_month"])} a month.')
     L.append('')
     for t, v in r['targets'].items():
@@ -223,7 +236,7 @@ def render(r: dict, prices: dict) -> str:
         L.append(f'| Flex compute tier at {T.fmt_int(v["flex_compute"]["cumulative_events_stored_at_30_days"])} events stored | {v["flex_compute"]["tier"]}{", within Starter" if v["flex_compute"]["within_starter_monthly_limit"] else ""}; {v["flex_compute"]["price"]} for XS and above |')
         L.append(f'| Ingestion, unchanged | {T.fmt_usd(u["ingestion_unchanged"])} |')
         c = v['custom_metrics']
-        L.append(f'| Custom metrics from the engine\'s Datadog metric output | {c["count_default"]:,} series, the top {c["top_series_default"]} tag sets, each from both aggregators ({c["bytes_share_of_top_series"] * 100:.1f}% of the bytes), the same from every node; above a Pro allotment {T.fmt_usd(c["fleet"]["10"]["default_usd_per_month"])} at 10 nodes, {T.fmt_usd(c["fleet"]["300"]["default_usd_per_month"])} at 300. Every tag set would be {c["count_every_set_one_node"]:,} per node |')
+        L.append(f'| Custom metrics from the engine\'s Datadog metric output, measured | at most {c["count_measured"]:,} series in one of {c["posts"]} posts, {c["distinct_over_run"]:,} distinct over the replay while ranks settle, the same from every node; above a Pro allotment {T.fmt_usd(c["fleet"]["10"]["measured_usd_per_month"])} at 10 nodes, {T.fmt_usd(c["fleet"]["300"]["measured_usd_per_month"])} at 300. Every tag set would be {c["count_every_set_one_node"]:,} per node |')
         L.append('')
     L.append('## Custom metrics')
     L.append('')
@@ -247,7 +260,7 @@ def render(r: dict, prices: dict) -> str:
     L.append('./run.sh plan replay     # some stages, in the order given')
     L.append('```')
     L.append('')
-    L.append('Stages: `data plan control policy replay count report`. Needs Docker, Node 18 or later and about 1 GB of disk. `plan` installs the pinned log10x-mcp into `.mcp/` and asks it for a plan over MCP stdio; the server runs the pinned engine image for its own sampling. Every other stage runs the engine image on the capture. '
+    L.append('Stages: `data plan control policy replay count metrics report`. Needs Docker, Node 18 or later and about 1 GB of disk. `plan` installs the pinned log10x-mcp into `.mcp/` and asks it for a plan over MCP stdio; the server runs the pinned engine image for its own sampling. Every other stage runs the engine image on the capture. '
              '`ACCT_TARGETS` sets the targets (default `30 50 70`), `ACCT_WINDOW` the span the capture covers (default `10h`).')
     L.append('')
     L.append('| File | What it is |')
@@ -259,6 +272,8 @@ def render(r: dict, prices: dict) -> str:
     L.append('| `../accounting-lib/replay.config.yaml` | the engine run: shipped enrichment, regulator and aggregators, file in, file out |')
     L.append('| `../accounting-lib/policy.py` | the engine files the tool wrote, caps scaled to the one-window replay |')
     L.append('| `../accounting-lib/count.py` | the two counts, records and aggregators, required to agree |')
+    L.append('| `../accounting-lib/ddcapture.py`, `datadog_config.py`, `datadog_series.py` | the `metrics` stage: a local stand-in for Datadog\'s intake, the shipped Datadog config with only its URI pointed at it, and the count of what was posted |')
+    L.append('| `results/datadog-series-<run>.json`, `results/datadog-config.diff` | the series each post carried, and the one line changed in the shipped config |')
     L.append('| `results/plan-<target>.json` | the plan the MCP wrote, its notes and the caps row it rendered |')
     L.append('| `results/policy-<target>.caps.csv`, `.actions.csv`, `.json` | the files the engine read |')
     L.append('| `results/<target>.tally.json`, `results/control.tally.json` | the counts per route, container, severity and pattern |')

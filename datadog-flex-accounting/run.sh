@@ -7,14 +7,14 @@
 #   ./run.sh                  everything
 #   ./run.sh plan replay      some stages only, in the order given
 #
-# Stages: data plan control policy replay count report
+# Stages: data plan control policy replay count metrics report
 #
 # Environment:
 #   ACCT_TARGETS   percent targets to plan (default: "30 50 70")
 #   ACCT_WINDOW    the span the capture covers, passed to the MCP (default: 10h)
 #   ACCT_DATA_DIR  capture cache (default: <dir>/data)
-#   ACCT_IMAGE     engine image (default: log10x/pipeline-10x:1.1.139, by digest)
-#   ACCT_MCP       log10x-mcp version (default: 1.30.47)
+#   ACCT_IMAGE     engine image (default: log10x/pipeline-10x:1.1.140, by digest)
+#   ACCT_MCP       log10x-mcp version (default: 1.30.48)
 #   ACCT_MCP_TARBALL  a local `npm pack` of log10x-mcp to install instead (its version must match)
 
 set -euo pipefail
@@ -28,8 +28,8 @@ SIEM=datadog
 TARGETS="${ACCT_TARGETS:-30 50 70}"
 WINDOW="${ACCT_WINDOW:-10h}"
 DATA_DIR="${ACCT_DATA_DIR:-$HERE/data}"
-IMAGE="${ACCT_IMAGE:-log10x/pipeline-10x:1.1.139@sha256:e2db543265cddd30a959c729c19e61d5f1b97e8be74a8d8e65dcb71a6466491c}"
-MCP_VERSION="${ACCT_MCP:-1.30.47}"
+IMAGE="${ACCT_IMAGE:-log10x/pipeline-10x:1.1.140@sha256:fd9c98384a775df13ed41921c2cf95ef1d1313f62f1300aac61da55ca64feb67}"
+MCP_VERSION="${ACCT_MCP:-1.30.48}"
 MCP_TARBALL="${ACCT_MCP_TARBALL:-}"
 MCP_DIR="$HERE/.mcp"
 MCP_HOME="$HERE/.mcp/home"
@@ -75,6 +75,45 @@ stage_count() {
   done
 }
 
+# The engine's shipped Datadog metric output, posting to a local stand-in for Datadog's
+# intake (../accounting-lib/ddcapture.py). The one change to the image's own config is the
+# URI the output posts to; results/datadog-config.diff records it.
+CAPTURE_IMAGE="python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1"
+metrics_replay() {
+  local name="$1" caps="${2:-}" actions="${3:-}"
+  local out="$RUNS/metrics-$name" net="acct-dd" srv="acct-ddcapture-$name"
+  rm -rf "$out"; mkdir -p "$out/data" "$out/ddcfg"
+  docker run --rm --entrypoint cat "$IMAGE" /etc/tenx/config/pipelines/run/output/metric/datadog/config.yaml > "$out/ddcfg/config.yaml"
+  cp "$out/ddcfg/config.yaml" "$out/config.shipped.yaml"
+  python3 "$LIB/datadog_config.py" --shipped "$out/config.shipped.yaml" --out "$out/ddcfg/config.yaml" \
+    --replay "$LIB/replay.config.yaml" --replay-out "$out/replay.yaml"
+  diff "$out/config.shipped.yaml" "$out/ddcfg/config.yaml" > "$RESULTS/datadog-config.diff" || true
+  docker network create "$net" >/dev/null 2>&1 || true
+  docker rm -f "$srv" >/dev/null 2>&1 || true
+  docker run -d --name "$srv" --network "$net" --network-alias ddcapture \
+    -v "$LIB/ddcapture.py":/srv/ddcapture.py:ro -v "$out/data":/data "$CAPTURE_IMAGE" python /srv/ddcapture.py >/dev/null
+  sleep 2
+  local envs=(-e INPUT_FILE=/in/events.log -e OUTPUT_DIR=/out -e DD_API_KEY=not-a-key -e DD_APP_KEY=not-a-key)
+  local vols=(-v "$CAPTURE":/in/events.log:ro -v "$out":/out -v "$out/replay.yaml":/cfg/replay.yaml:ro
+              -v "$out/ddcfg/config.yaml":/etc/tenx/config/pipelines/run/output/metric/datadog/config.yaml:ro)
+  if [ -n "$caps" ]; then
+    mkdir -p "$out/policy"; cp "$caps" "$out/policy/caps.csv"; cp "$actions" "$out/policy/actions.csv"
+    envs+=(-e CAP_LOOKUP_FILE=/policy/caps.csv -e ACTION_LOOKUP_FILE=/policy/actions.csv)
+    vols+=(-v "$out/policy":/policy:ro)
+  fi
+  docker run --rm --network "$net" "${envs[@]}" "${vols[@]}" "$IMAGE" @/cfg/replay.yaml rateReceiverWarmupMs 0 \
+    > "$out/engine.log" 2>&1 || { docker rm -f "$srv" >/dev/null; tail -20 "$out/engine.log"; die "engine run failed"; }
+  sleep 3
+  docker rm -f "$srv" >/dev/null
+  python3 "$LIB/datadog_series.py" --posts "$out/data/posts.jsonl" --out "$RESULTS/datadog-series-$name.json"
+}
+
+stage_metrics() {
+  say "the Datadog metric output, posting to a local stand-in"
+  metrics_replay control
+  for t in $TARGETS; do metrics_replay "$t" "$RESULTS/policy-$t.caps.csv" "$RESULTS/policy-$t.actions.csv"; done
+}
+
 stage_report() {
   say "report"
   pull_engine >/dev/null
@@ -89,6 +128,6 @@ PY
   python3 "$HERE/report.py" --results "$RESULTS" --check
 }
 
-if [ "$#" -gt 0 ]; then STAGES=("$@"); else STAGES=(data plan control policy replay count report); fi
+if [ "$#" -gt 0 ]; then STAGES=("$@"); else STAGES=(data plan control policy replay count metrics report); fi
 for s in "${STAGES[@]}"; do "stage_$s"; done
 say "done. results in $RESULTS"

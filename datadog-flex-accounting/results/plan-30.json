@@ -1,5 +1,5 @@
 {
- "mcp_version": "1.30.47",
+ "mcp_version": "1.30.48",
  "args": {
   "source": "file",
   "path": "/private/tmp/claude-501/-Users-talweiss-eclipse-workspace-l1x-co-config/baa52925-177a-4f06-ab96-d9543f0e179f/scratchpad/acct/data/otel-sample-200mb.log",
@@ -7,7 +7,7 @@
   "window": "10h",
   "target_percent_reduction": 30
  },
- "elapsed_ms": 20024,
+ "elapsed_ms": 12381,
  "summary": {
   "headline": "Target: move 30% of the volume out of the Datadog Standard index. This plan moves 40%, keeping everything. Sampled 9,563 events from 30 files. Moves 60,783 events (0.1 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0.1/mo at $1.70 per million events (15-day retention). Flex storage added: $0/mo at $0.05 per million events stored per month, held 30 days. Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures. Datadog list prices, datadoghq.com/pricing, read 2026-09-30."
  },

@@ -20,7 +20,7 @@
 "custom_metrics_default": 800,
 "bytes_share_of_top_series": 0.9875
 },
-"replay_seconds": 34,
+"replay_seconds": 29,
 "by_key": [
 {
 "route": "pass",
@@ -545,10 +545,10 @@
 "severity": "TRACE",
 "pattern": "oteldemo_AdService_Targeted_ad_request_received_for",
 "hash": "xHrytxJfUdw",
-"events": 1023,
-"bytes": 984439,
-"lines": 1023,
-"line_bytes": 984439
+"events": 1021,
+"bytes": 982529,
+"lines": 1021,
+"line_bytes": 982529
 },
 {
 "route": "pass",
@@ -556,10 +556,10 @@
 "severity": "TRACE",
 "pattern": "oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags",
 "hash": "bz3kQNPdXvc",
-"events": 1082,
-"bytes": 1023572,
-"lines": 1082,
-"line_bytes": 1023572
+"events": 1087,
+"bytes": 1028302,
+"lines": 1087,
+"line_bytes": 1028302
 },
 {
 "route": "pass",
@@ -710,10 +710,10 @@
 "severity": "INFO",
 "pattern": "AddItemAsync_called_with_userId_productId_quantity",
 "hash": "eDSYlCMPqVY",
-"events": 1722,
-"bytes": 3031013,
-"lines": 3444,
-"line_bytes": 3029291
+"events": 1723,
+"bytes": 3032776,
+"lines": 3446,
+"line_bytes": 3031053
 },
 {
 "route": "pass",
@@ -743,10 +743,10 @@
 "severity": "INFO",
 "pattern": "GetCartAsync_called_with_userId",
 "hash": "YZplfQ4a1Xw",
-"events": 2355,
-"bytes": 4077287,
-"lines": 4765,
-"line_bytes": 4074877
+"events": 2334,
+"bytes": 4041797,
+"lines": 4723,
+"line_bytes": 4039408
 },
 {
 "route": "pass",
@@ -28672,10 +28672,10 @@
 "severity": "INFO",
 "pattern": "Logs",
 "hash": "KG8Fq0QFuoY",
-"events": 6667,
-"bytes": 8453988,
-"lines": 6667,
-"line_bytes": 8453988
+"events": 6829,
+"bytes": 8659420,
+"lines": 6829,
+"line_bytes": 8659420
 },
 {
 "route": "pass",
@@ -28694,10 +28694,10 @@
 "severity": "INFO",
 "pattern": "Metrics",
 "hash": "PuWB8kkVbfw",
-"events": 4548,
-"bytes": 5891958,
-"lines": 4548,
-"line_bytes": 5891958
+"events": 4609,
+"bytes": 5971021,
+"lines": 4609,
+"line_bytes": 5971021
 },
 {
 "route": "pass",
@@ -28804,10 +28804,10 @@
 "severity": "INFO",
 "pattern": "Traces",
 "hash": "Gl3Gtr_SH5w",
-"events": 6956,
-"bytes": 8815252,
-"lines": 6956,
-"line_bytes": 8815252
+"events": 6907,
+"bytes": 8753151,
+"lines": 6907,
+"line_bytes": 8753151
 },
 {
 "route": "pass",
@@ -29662,10 +29662,10 @@
 "severity": "INFO",
 "pattern": "Receive_ListRecommendations_for_product_ids",
 "hash": "bzLB1zZCTIw",
-"events": 377,
-"bytes": 450515,
-"lines": 377,
-"line_bytes": 450515
+"events": 353,
+"bytes": 421835,
+"lines": 353,
+"line_bytes": 421835
 },
 {
 "route": "pass",
@@ -29827,10 +29827,10 @@
 "severity": "TRACE",
 "pattern": "oteldemo_AdService_Targeted_ad_request_received_for",
 "hash": "xHrytxJfUdw",
-"events": 2033,
-"bytes": 1956460,
-"lines": 2033,
-"line_bytes": 1956460
+"events": 2035,
+"bytes": 1958370,
+"lines": 2035,
+"line_bytes": 1958370
 },
 {
 "route": "tier_down",
@@ -29838,10 +29838,10 @@
 "severity": "TRACE",
 "pattern": "oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags",
 "hash": "bz3kQNPdXvc",
-"events": 2473,
-"bytes": 2339458,
-"lines": 2473,
-"line_bytes": 2339458
+"events": 2468,
+"bytes": 2334728,
+"lines": 2468,
+"line_bytes": 2334728
 },
 {
 "route": "tier_down",
@@ -29849,10 +29849,10 @@
 "severity": "INFO",
 "pattern": "AddItemAsync_called_with_userId_productId_quantity",
 "hash": "eDSYlCMPqVY",
-"events": 5207,
-"bytes": 9165222,
-"lines": 10414,
-"line_bytes": 9160015
+"events": 5206,
+"bytes": 9163459,
+"lines": 10412,
+"line_bytes": 9158253
 },
 {
 "route": "tier_down",
@@ -29860,10 +29860,10 @@
 "severity": "INFO",
 "pattern": "GetCartAsync_called_with_userId",
 "hash": "YZplfQ4a1Xw",
-"events": 10354,
-"bytes": 17771248,
-"lines": 20708,
-"line_bytes": 17760894
+"events": 10375,
+"bytes": 17806738,
+"lines": 20750,
+"line_bytes": 17796363
 },
 {
 "route": "tier_down",
@@ -29871,10 +29871,10 @@
 "severity": "INFO",
 "pattern": "Logs",
 "hash": "KG8Fq0QFuoY",
-"events": 28554,
-"bytes": 36207578,
-"lines": 28554,
-"line_bytes": 36207578
+"events": 28392,
+"bytes": 36002146,
+"lines": 28392,
+"line_bytes": 36002146
 },
 {
 "route": "tier_down",
@@ -29882,10 +29882,10 @@
 "severity": "INFO",
 "pattern": "Metrics",
 "hash": "PuWB8kkVbfw",
-"events": 9575,
-"bytes": 12404488,
-"lines": 9575,
-"line_bytes": 12404488
+"events": 9514,
+"bytes": 12325425,
+"lines": 9514,
+"line_bytes": 12325425
 },
 {
 "route": "tier_down",
@@ -29893,10 +29893,10 @@
 "severity": "INFO",
 "pattern": "Traces",
 "hash": "Gl3Gtr_SH5w",
-"events": 29439,
-"bytes": 37308069,
-"lines": 29439,
-"line_bytes": 37308069
+"events": 29488,
+"bytes": 37370170,
+"lines": 29488,
+"line_bytes": 37370170
 },
 {
 "route": "tier_down",
@@ -29904,10 +29904,10 @@
 "severity": "INFO",
 "pattern": "Receive_ListRecommendations_for_product_ids",
 "hash": "bzLB1zZCTIw",
-"events": 3053,
-"bytes": 3648335,
-"lines": 3053,
-"line_bytes": 3648335
+"events": 3077,
+"bytes": 3677015,
+"lines": 3077,
+"line_bytes": 3677015
 }
 ]
 }

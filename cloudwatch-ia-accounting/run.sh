@@ -13,8 +13,8 @@
 #   ACCT_TARGETS   percent targets to plan (default: "30 50 70")
 #   ACCT_WINDOW    the span the capture covers, passed to the MCP (default: 10h)
 #   ACCT_DATA_DIR  capture cache (default: <dir>/data)
-#   ACCT_IMAGE     engine image (default: log10x/pipeline-10x:1.1.139, by digest)
-#   ACCT_MCP       log10x-mcp version (default: 1.30.47)
+#   ACCT_IMAGE     engine image (default: log10x/pipeline-10x:1.1.140, by digest)
+#   ACCT_MCP       log10x-mcp version (default: 1.30.48)
 #   ACCT_MCP_TARBALL  a local `npm pack` of log10x-mcp to install instead (its version must match)
 
 set -euo pipefail
@@ -28,8 +28,8 @@ SIEM=cloudwatch
 TARGETS="${ACCT_TARGETS:-30 50 70}"
 WINDOW="${ACCT_WINDOW:-10h}"
 DATA_DIR="${ACCT_DATA_DIR:-$HERE/data}"
-IMAGE="${ACCT_IMAGE:-log10x/pipeline-10x:1.1.139@sha256:e2db543265cddd30a959c729c19e61d5f1b97e8be74a8d8e65dcb71a6466491c}"
-MCP_VERSION="${ACCT_MCP:-1.30.47}"
+IMAGE="${ACCT_IMAGE:-log10x/pipeline-10x:1.1.140@sha256:fd9c98384a775df13ed41921c2cf95ef1d1313f62f1300aac61da55ca64feb67}"
+MCP_VERSION="${ACCT_MCP:-1.30.48}"
 MCP_TARBALL="${ACCT_MCP_TARBALL:-}"
 MCP_DIR="$HERE/.mcp"
 MCP_HOME="$HERE/.mcp/home"

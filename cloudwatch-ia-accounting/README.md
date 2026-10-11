@@ -11,7 +11,7 @@ Nothing was metered by AWS, and no AWS account is needed to rerun it.
 ## The result
 
 The OpenTelemetry demo capture, 197,430 lines, 157,228 events after grouping, 0.215 GB
-over ten hours. Engine `log10x/pipeline-10x:1.1.139`, log10x-mcp 1.30.47 with the S3
+over ten hours. Engine `log10x/pipeline-10x:1.1.140`, log10x-mcp 1.30.48 with the S3
 retriever declared installed, prices read 2026-10-11.
 
 **Dollars per GB at list.** Ingest: $0.50 Standard, $0.25 Infrequent Access. Storage: $0.03
