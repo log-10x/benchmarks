@@ -1,0 +1,5 @@
+container,action
+ad,tier_down::plan cloudwatch 30 pct
+kafka,tier_down::plan cloudwatch 30 pct
+opentelemetry-collector,tier_down::plan cloudwatch 30 pct
+recommendation,tier_down::plan cloudwatch 30 pct

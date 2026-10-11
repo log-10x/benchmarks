@@ -1,0 +1,590 @@
+{
+ "engine_image": "log10x/pipeline-10x@sha256:e2db543265cddd30a959c729c19e61d5f1b97e8be74a8d8e65dcb71a6466491c",
+ "mcp_version": "1.30.46",
+ "capture": {
+  "name": "otel-sample-200mb.log",
+  "sha256": "aa79b9349a4123d88936fd064f5eccd9fd84f45a1fd03cff3f64c259715c2432",
+  "bytes": 215039161,
+  "lines": 197430
+ },
+ "window_hours": 10.0,
+ "month_hours": 720,
+ "gb_definition": "1 GB = 1,000,000,000 bytes",
+ "prices_read_on": "2026-10-11",
+ "control": {
+  "events": 157228,
+  "bytes": 214881933,
+  "by_severity": {
+   "CRITICAL": 2324,
+   "DEBUG": 2,
+   "ERROR": 4030,
+   "INFO": 142455,
+   "TRACE": 7113,
+   "WARN": 217,
+   "none": 1087
+  },
+  "custom_metrics": 10836,
+  "label_sets": {
+   "all_events": 2709,
+   "emitted_events": 2709
+  }
+ },
+ "targets": {
+  "30": {
+   "plan": {
+    "target_pct": 30,
+    "achieved_pct_stated": 39.74,
+    "events_sampled": 9563,
+    "planned_patterns": [
+     {
+      "name": "Traces",
+      "action": "tier_down",
+      "severity": "INFO"
+     },
+     {
+      "name": "Logs",
+      "action": "tier_down",
+      "severity": "INFO"
+     }
+    ],
+    "tool_caps_row": "<container>,63128:tier_down:MCP poc_from_local soft",
+    "containers": {
+     "opentelemetry-collector": {
+      "action": "tier_down",
+      "patterns": [
+       "Traces",
+       "Logs"
+      ]
+     }
+    },
+    "cap_bytes_per_window": 63128,
+    "cap_bytes_replay": 9469200
+   },
+   "engine": {
+    "events": 157228,
+    "bytes": 214881933,
+    "by_route": {
+     "pass": {
+      "events": 100065,
+      "bytes": 142247934
+     },
+     "tier_down": {
+      "events": 57163,
+      "bytes": 72633999
+     }
+    },
+    "by_route_severity": {
+     "pass": {
+      "CRITICAL": {
+       "events": 2324,
+       "bytes": 14685666
+      },
+      "DEBUG": {
+       "events": 2,
+       "bytes": 2087
+      },
+      "ERROR": {
+       "events": 4030,
+       "bytes": 8594139
+      },
+      "INFO": {
+       "events": 85292,
+       "bytes": 110781369
+      },
+      "TRACE": {
+       "events": 7113,
+       "bytes": 6805008
+      },
+      "WARN": {
+       "events": 217,
+       "bytes": 285482
+      },
+      "none": {
+       "events": 1087,
+       "bytes": 1094183
+      }
+     },
+     "tier_down": {
+      "INFO": {
+       "events": 57163,
+       "bytes": 72633999
+      }
+     }
+    },
+    "protected_moved_events": 0,
+    "top_moved": [
+     {
+      "pattern": "Traces",
+      "container": "opentelemetry-collector",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 26017,
+      "bytes": 32971385
+     },
+     {
+      "pattern": "Logs",
+      "container": "opentelemetry-collector",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 25019,
+      "bytes": 31725038
+     },
+     {
+      "pattern": "Metrics",
+      "container": "opentelemetry-collector",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 6127,
+      "bytes": 7937576
+     }
+    ],
+    "agreement": {
+     "records_vs_engine_aggregators": "equal on every key: events, and bytes once the newlines joining a multi-line event are taken out",
+     "keys_compared": 2712,
+     "joined_lines": 40202
+    },
+    "replay_seconds": 24
+   },
+   "month": {
+    "events_to_flex": 4115736,
+    "gb_to_flex": 5.2296,
+    "events_in_standard": 7204680,
+    "events_offloaded": 0,
+    "gb_ingested": 15.4715
+   },
+   "usd_per_month_at_list": {
+    "standard_indexing_avoided": {
+     "15d_annual": 6.9968,
+     "15d_on_demand": 10.4951,
+     "30d_annual": 10.2893,
+     "30d_on_demand": 15.434
+    },
+    "flex_storage_added": {
+     "annual": 0.2058,
+     "on_demand": 0.3087
+    },
+    "flex_starter_instead": {
+     "annual": 2.4694,
+     "on_demand": 3.7042
+    },
+    "ingestion_unchanged": 1.5471
+   },
+   "flex_compute": {
+    "cumulative_events_stored_at_30_days": 4115736,
+    "tier": "Starter",
+    "within_starter_monthly_limit": true,
+    "price": "Contact Us for Pricing"
+   },
+   "custom_metrics": {
+    "count_one_node": 10848,
+    "label_sets": {
+     "all_events": 2712,
+     "emitted_events": 2712
+    },
+    "above_pro_allotment": 10748,
+    "above_enterprise_allotment": 10648,
+    "usd_per_month_above_pro": 537.4,
+    "usd_per_month_above_enterprise": 532.4
+   }
+  },
+  "50": {
+   "plan": {
+    "target_pct": 50,
+    "achieved_pct_stated": 57.02,
+    "events_sampled": 9563,
+    "planned_patterns": [
+     {
+      "name": "Traces",
+      "action": "tier_down",
+      "severity": "INFO"
+     },
+     {
+      "name": "Logs",
+      "action": "tier_down",
+      "severity": "INFO"
+     },
+     {
+      "name": "cart_cartstore_ValkeyCartStore",
+      "action": "tier_down",
+      "severity": "INFO"
+     },
+     {
+      "name": "Metrics",
+      "action": "tier_down",
+      "severity": "INFO"
+     }
+    ],
+    "tool_caps_row": "<container>,63128:tier_down:MCP poc_from_local soft",
+    "containers": {
+     "opentelemetry-collector": {
+      "action": "tier_down",
+      "patterns": [
+       "Traces",
+       "Logs",
+       "Metrics"
+      ]
+     }
+    },
+    "cap_bytes_per_window": 63128,
+    "cap_bytes_replay": 9469200
+   },
+   "engine": {
+    "events": 157228,
+    "bytes": 214881933,
+    "by_route": {
+     "pass": {
+      "events": 100035,
+      "bytes": 142209235
+     },
+     "tier_down": {
+      "events": 57193,
+      "bytes": 72672698
+     }
+    },
+    "by_route_severity": {
+     "pass": {
+      "CRITICAL": {
+       "events": 2324,
+       "bytes": 14685666
+      },
+      "DEBUG": {
+       "events": 2,
+       "bytes": 2087
+      },
+      "ERROR": {
+       "events": 4030,
+       "bytes": 8594139
+      },
+      "INFO": {
+       "events": 85262,
+       "bytes": 110742670
+      },
+      "TRACE": {
+       "events": 7113,
+       "bytes": 6805008
+      },
+      "WARN": {
+       "events": 217,
+       "bytes": 285482
+      },
+      "none": {
+       "events": 1087,
+       "bytes": 1094183
+      }
+     },
+     "tier_down": {
+      "INFO": {
+       "events": 57193,
+       "bytes": 72672698
+      }
+     }
+    },
+    "protected_moved_events": 0,
+    "top_moved": [
+     {
+      "pattern": "Traces",
+      "container": "opentelemetry-collector",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 26065,
+      "bytes": 33032249
+     },
+     {
+      "pattern": "Logs",
+      "container": "opentelemetry-collector",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 24978,
+      "bytes": 31673048
+     },
+     {
+      "pattern": "Metrics",
+      "container": "opentelemetry-collector",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 6150,
+      "bytes": 7967401
+     }
+    ],
+    "agreement": {
+     "records_vs_engine_aggregators": "equal on every key: events, and bytes once the newlines joining a multi-line event are taken out",
+     "keys_compared": 2712,
+     "joined_lines": 40202
+    },
+    "replay_seconds": 25
+   },
+   "month": {
+    "events_to_flex": 4117896,
+    "gb_to_flex": 5.2324,
+    "events_in_standard": 7202520,
+    "events_offloaded": 0,
+    "gb_ingested": 15.4715
+   },
+   "usd_per_month_at_list": {
+    "standard_indexing_avoided": {
+     "15d_annual": 7.0004,
+     "15d_on_demand": 10.5006,
+     "30d_annual": 10.2947,
+     "30d_on_demand": 15.4421
+    },
+    "flex_storage_added": {
+     "annual": 0.2059,
+     "on_demand": 0.3088
+    },
+    "flex_starter_instead": {
+     "annual": 2.4707,
+     "on_demand": 3.7061
+    },
+    "ingestion_unchanged": 1.5471
+   },
+   "flex_compute": {
+    "cumulative_events_stored_at_30_days": 4117896,
+    "tier": "Starter",
+    "within_starter_monthly_limit": true,
+    "price": "Contact Us for Pricing"
+   },
+   "custom_metrics": {
+    "count_one_node": 10848,
+    "label_sets": {
+     "all_events": 2712,
+     "emitted_events": 2712
+    },
+    "above_pro_allotment": 10748,
+    "above_enterprise_allotment": 10648,
+    "usd_per_month_above_pro": 537.4,
+    "usd_per_month_above_enterprise": 532.4
+   }
+  },
+  "70": {
+   "plan": {
+    "target_pct": 70,
+    "achieved_pct_stated": 70.35,
+    "events_sampled": 9563,
+    "planned_patterns": [
+     {
+      "name": "Traces",
+      "action": "tier_down",
+      "severity": "INFO"
+     },
+     {
+      "name": "Logs",
+      "action": "tier_down",
+      "severity": "INFO"
+     },
+     {
+      "name": "cart_cartstore_ValkeyCartStore",
+      "action": "tier_down",
+      "severity": "INFO"
+     },
+     {
+      "name": "Metrics",
+      "action": "tier_down",
+      "severity": "INFO"
+     },
+     {
+      "name": "Receive_ListRecommendations_for_product_ids",
+      "action": "tier_down",
+      "severity": "INFO"
+     },
+     {
+      "name": "oteldemo_AdService_Targeted_ad_request_received_for",
+      "action": "tier_down",
+      "severity": "TRACE"
+     },
+     {
+      "name": "oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags",
+      "action": "tier_down",
+      "severity": "TRACE"
+     },
+     {
+      "name": "Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+      "action": "tier_down",
+      "severity": "INFO"
+     },
+     {
+      "name": "Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager",
+      "action": "tier_down",
+      "severity": "INFO"
+     },
+     {
+      "name": "Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_kafka_UnifiedLog",
+      "action": "tier_down",
+      "severity": "INFO"
+     },
+     {
+      "name": "Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots",
+      "action": "tier_down",
+      "severity": "INFO"
+     },
+     {
+      "name": "Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile",
+      "action": "tier_down",
+      "severity": "INFO"
+     }
+    ],
+    "tool_caps_row": "<container>,63128:tier_down:MCP poc_from_local soft",
+    "containers": {
+     "ad": {
+      "action": "tier_down",
+      "patterns": [
+       "oteldemo_AdService_Targeted_ad_request_received_for",
+       "oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags"
+      ]
+     },
+     "kafka": {
+      "action": "tier_down",
+      "patterns": [
+       "Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+       "Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager",
+       "Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_kafka_UnifiedLog",
+       "Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots",
+       "Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile"
+      ]
+     },
+     "opentelemetry-collector": {
+      "action": "tier_down",
+      "patterns": [
+       "Traces",
+       "Logs",
+       "Metrics"
+      ]
+     },
+     "recommendation": {
+      "action": "tier_down",
+      "patterns": [
+       "Receive_ListRecommendations_for_product_ids"
+      ]
+     }
+    },
+    "cap_bytes_per_window": 63128,
+    "cap_bytes_replay": 9469200
+   },
+   "engine": {
+    "events": 157228,
+    "bytes": 214881933,
+    "by_route": {
+     "pass": {
+      "events": 99958,
+      "bytes": 142110657
+     },
+     "tier_down": {
+      "events": 57270,
+      "bytes": 72771276
+     }
+    },
+    "by_route_severity": {
+     "pass": {
+      "CRITICAL": {
+       "events": 2324,
+       "bytes": 14685666
+      },
+      "DEBUG": {
+       "events": 2,
+       "bytes": 2087
+      },
+      "ERROR": {
+       "events": 4030,
+       "bytes": 8594139
+      },
+      "INFO": {
+       "events": 85185,
+       "bytes": 110644092
+      },
+      "TRACE": {
+       "events": 7113,
+       "bytes": 6805008
+      },
+      "WARN": {
+       "events": 217,
+       "bytes": 285482
+      },
+      "none": {
+       "events": 1087,
+       "bytes": 1094183
+      }
+     },
+     "tier_down": {
+      "INFO": {
+       "events": 57270,
+       "bytes": 72771276
+      }
+     }
+    },
+    "protected_moved_events": 0,
+    "top_moved": [
+     {
+      "pattern": "Traces",
+      "container": "opentelemetry-collector",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 26131,
+      "bytes": 33115886
+     },
+     {
+      "pattern": "Logs",
+      "container": "opentelemetry-collector",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 24953,
+      "bytes": 31641358
+     },
+     {
+      "pattern": "Metrics",
+      "container": "opentelemetry-collector",
+      "severity": "INFO",
+      "route": "tier_down",
+      "events": 6186,
+      "bytes": 8014032
+     }
+    ],
+    "agreement": {
+     "records_vs_engine_aggregators": "equal on every key: events, and bytes once the newlines joining a multi-line event are taken out",
+     "keys_compared": 2712,
+     "joined_lines": 40202
+    },
+    "replay_seconds": 25
+   },
+   "month": {
+    "events_to_flex": 4123440,
+    "gb_to_flex": 5.2395,
+    "events_in_standard": 7196976,
+    "events_offloaded": 0,
+    "gb_ingested": 15.4715
+   },
+   "usd_per_month_at_list": {
+    "standard_indexing_avoided": {
+     "15d_annual": 7.0098,
+     "15d_on_demand": 10.5148,
+     "30d_annual": 10.3086,
+     "30d_on_demand": 15.4629
+    },
+    "flex_storage_added": {
+     "annual": 0.2062,
+     "on_demand": 0.3093
+    },
+    "flex_starter_instead": {
+     "annual": 2.4741,
+     "on_demand": 3.7111
+    },
+    "ingestion_unchanged": 1.5471
+   },
+   "flex_compute": {
+    "cumulative_events_stored_at_30_days": 4123440,
+    "tier": "Starter",
+    "within_starter_monthly_limit": true,
+    "price": "Contact Us for Pricing"
+   },
+   "custom_metrics": {
+    "count_one_node": 10848,
+    "label_sets": {
+     "all_events": 2712,
+     "emitted_events": 2712
+    },
+    "above_pro_allotment": 10748,
+    "above_enterprise_allotment": 10648,
+    "usd_per_month_above_pro": 537.4,
+    "usd_per_month_above_enterprise": 532.4
+   }
+  }
+ }
+}

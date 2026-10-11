@@ -1,0 +1,5 @@
+container,action
+ad,tier_down::plan datadog 70 pct
+kafka,tier_down::plan datadog 70 pct
+opentelemetry-collector,tier_down::plan datadog 70 pct
+recommendation,tier_down::plan datadog 70 pct

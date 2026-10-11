@@ -1,0 +1,5 @@
+container,cap
+ad,9469200::plan cloudwatch 30 pct; tool cap 63128 per 240 s window x 36000/240
+kafka,9469200::plan cloudwatch 30 pct; tool cap 63128 per 240 s window x 36000/240
+opentelemetry-collector,9469200::plan cloudwatch 30 pct; tool cap 63128 per 240 s window x 36000/240
+recommendation,9469200::plan cloudwatch 30 pct; tool cap 63128 per 240 s window x 36000/240

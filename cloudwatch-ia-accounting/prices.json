@@ -1,0 +1,81 @@
+{
+  "read_on": "2026-10-11",
+  "region": "us-east-1",
+  "pricing_page": "https://aws.amazon.com/cloudwatch/pricing/",
+  "price_list": {
+    "url": "https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonCloudWatch/current/us-east-1/index.json",
+    "publication_date": "2026-10-07T11:55:40Z"
+  },
+  "ingest_standard_per_gb": {
+    "price": 0.50,
+    "quote": "$0.50 per GB custom log data ingested in Standard log class - US East (Northern Virginia)",
+    "url": "https://aws.amazon.com/cloudwatch/pricing/"
+  },
+  "ingest_ia_per_gb": {
+    "price": 0.25,
+    "quote": "$0.25 per GB custom log data ingested in Infrequent Access log class -US East (Northern Virginia)",
+    "url": "https://aws.amazon.com/cloudwatch/pricing/"
+  },
+  "storage_per_gb_month": {
+    "price": 0.03,
+    "quote": "$0.03 per GB-mo of log storage - US East (Northern Virginia)",
+    "compression": "*0.15 compression ratio for each uncompressed byte",
+    "compression_ratio": 0.15,
+    "same_in_both_classes": "For charges, the Standard and Infrequent Access log classes differ in ingestion costs only. Storage charges and CloudWatch Logs Insights charges are the same in each log class.",
+    "url": "https://aws.amazon.com/cloudwatch/pricing/",
+    "classes_url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch_Logs_Log_Classes.html"
+  },
+  "insights_per_gb_scanned": {
+    "price": 0.005,
+    "quote": "$0.005 per GB log data scanned by CloudWatch Logs Insights queries - US East (Northern Virginia)",
+    "url": "https://aws.amazon.com/cloudwatch/pricing/"
+  },
+  "s3_standard_storage_per_gb_month": {
+    "price": 0.023,
+    "quote": "$0.023 per GB - first 50 TB / month of storage used",
+    "url": "https://aws.amazon.com/s3/pricing/"
+  },
+  "s3_put_per_1000": {
+    "price": 0.005,
+    "quote": "$0.005 per 1,000 PUT, COPY, POST, or LIST requests",
+    "url": "https://aws.amazon.com/s3/pricing/"
+  },
+  "put_log_events_overhead": {
+    "bytes_per_event": 26,
+    "quote": "The maximum batch size is 1,048,576 bytes. This size is calculated as the sum of all event messages in UTF-8, plus 26 bytes for each log event.",
+    "url": "https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutLogEvents.html",
+    "billed": "No sentence on the pricing page or the billing page says these bytes are billed; the billed usage type is DataProcessing-Bytes for PutLogEvents."
+  },
+  "class_immutable": "After a log group is created, its log class can't be changed.",
+  "ia_lacks": [
+    "Facets",
+    "Natural language query assist",
+    "CloudWatch Logs Anomaly Detection",
+    "Live Tail",
+    "Field indexing",
+    "Compare to previous time range",
+    "Subscription filters",
+    "Metric filters",
+    "Container Insights log ingestion",
+    "Lambda Insights log ingestion",
+    "Embedded metrics format",
+    "GetLogEvents and FilterLogEvents API operations",
+    "Logs Insights commands pattern, diff, filterIndex and unmask"
+  ],
+  "ia_has": [
+    "CloudWatch Logs Insights queries, most commands",
+    "CloudWatch pipelines",
+    "Export to Amazon S3",
+    "S3 Tables integration",
+    "Scheduled queries",
+    "Encryption with AWS KMS",
+    "Sensitive data protection with masking",
+    "Cross-account features"
+  ],
+  "ia_table_url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CloudWatch_Logs_Log_Classes.html",
+  "s3_output": {
+    "recipe": "the MCP's Fluent Bit S3 output: use_put_object On, one object per upload, total_file_size and upload_timeout at Fluent Bit's defaults of 100M and 10m",
+    "total_file_size_bytes": 100000000,
+    "upload_timeout_seconds": 600
+  }
+}

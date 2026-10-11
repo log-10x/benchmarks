@@ -1,0 +1,2 @@
+container,action
+opentelemetry-collector,tier_down::plan datadog 50 pct

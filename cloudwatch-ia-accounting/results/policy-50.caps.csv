@@ -1,0 +1,25 @@
+container,cap
+accounting,9469200::plan cloudwatch 50 pct; tool cap 63128 per 240 s window x 36000/240
+ad,9469200::plan cloudwatch 50 pct; tool cap 63128 per 240 s window x 36000/240
+aws-node,9469200::plan cloudwatch 50 pct; tool cap 63128 per 240 s window x 36000/240
+aws-vpc-cni-init,9469200::plan cloudwatch 50 pct; tool cap 63128 per 240 s window x 36000/240
+cart,9469200::plan cloudwatch 50 pct; tool cap 63128 per 240 s window x 36000/240
+coredns,9469200::plan cloudwatch 50 pct; tool cap 63128 per 240 s window x 36000/240
+email,9469200::plan cloudwatch 50 pct; tool cap 63128 per 240 s window x 36000/240
+flagd,9469200::plan cloudwatch 50 pct; tool cap 63128 per 240 s window x 36000/240
+flagd-ui,9469200::plan cloudwatch 50 pct; tool cap 63128 per 240 s window x 36000/240
+fluentd-10x,9469200::plan cloudwatch 50 pct; tool cap 63128 per 240 s window x 36000/240
+fraud-detection,9469200::plan cloudwatch 50 pct; tool cap 63128 per 240 s window x 36000/240
+frontend-proxy,9469200::plan cloudwatch 50 pct; tool cap 63128 per 240 s window x 36000/240
+grafana,9469200::plan cloudwatch 50 pct; tool cap 63128 per 240 s window x 36000/240
+grafana-sc-alerts,9469200::plan cloudwatch 50 pct; tool cap 63128 per 240 s window x 36000/240
+grafana-sc-dashboard,9469200::plan cloudwatch 50 pct; tool cap 63128 per 240 s window x 36000/240
+grafana-sc-datasources,9469200::plan cloudwatch 50 pct; tool cap 63128 per 240 s window x 36000/240
+image-provider,9469200::plan cloudwatch 50 pct; tool cap 63128 per 240 s window x 36000/240
+jaeger,9469200::plan cloudwatch 50 pct; tool cap 63128 per 240 s window x 36000/240
+kafka,9469200::plan cloudwatch 50 pct; tool cap 63128 per 240 s window x 36000/240
+opensearch,9469200::plan cloudwatch 50 pct; tool cap 63128 per 240 s window x 36000/240
+opentelemetry-collector,9469200::plan cloudwatch 50 pct; tool cap 63128 per 240 s window x 36000/240
+prometheus-server,9469200::plan cloudwatch 50 pct; tool cap 63128 per 240 s window x 36000/240
+recommendation,9469200::plan cloudwatch 50 pct; tool cap 63128 per 240 s window x 36000/240
+valkey-cart,9469200::plan cloudwatch 50 pct; tool cap 63128 per 240 s window x 36000/240

@@ -1,0 +1,56 @@
+# Replay a capture through the shipped Receiver enrichment and rate regulator, file in,
+# file out. Everything is the engine's own configuration; the caps and actions files are
+# the two files the regulator reads (CAP_LOOKUP_FILE, ACTION_LOOKUP_FILE).
+#
+# Two outputs, so the count can be checked two ways:
+#   routed.jsonl     one line per event, with the route the regulator marked, its size and
+#                    the number of source lines grouped into it;
+#   summaries.jsonl  the Receiver's own aggregators (all_events, emitted_events), the
+#                    records its metric outputs publish.
+tenx: run
+runtimeName: replay
+include:
+  - apps/shared
+  - run/initialize/inputField
+  - run/initialize/level
+  - run/initialize/group
+  - run/initialize/message
+  - run/initialize/httpCode
+  - run/initialize/lookup
+  - run/initialize/custom
+  - run/initialize/k8s
+  - run/receive/rate
+  - run/aggregate/receive
+  - run/modules/input/file
+  - run/modules/output/event/file
+inputFile:
+  - name: input
+    path: $=TenXEnv.get("INPUT_FILE")
+    printProgress: false
+    extractors: []
+    sourcePattern: null
+outputFile:
+  - path: $=TenXEnv.get("OUTPUT_DIR") + "/routed.jsonl"
+    encodeType: json
+    fields:
+      - routeState
+      - k8s_container
+      - severity_level
+      - message_pattern
+      - tenx_hash
+      - groupSize
+      - utf8Size()
+  - path: $=TenXEnv.get("OUTPUT_DIR") + "/summaries.jsonl"
+    encodeType: json
+    filter: isSummary
+    fields:
+      - inputName
+      - k8s_container
+      - severity_level
+      # A summary's own routeState is always pass; the bucket's value is encoded on it
+      # under the l1e_ prefix, which is what the metric outputs read.
+      - routeState=l1e_routeState
+      - message_pattern
+      - tenx_hash
+      - summaryVolume
+      - summaryBytes

@@ -180,3 +180,47 @@ jobs:
         run: |
           python intent/bench/summarize.py > /tmp/results.md
           diff -u intent/results/results.md /tmp/results.md
+
+  datadog-flex-accounting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # The run needs Docker, the engine image, the MCP server and the capture, so CI
+      # checks what it can without them.
+      - name: Syntax-check the harness
+        run: |
+          bash -n datadog-flex-accounting/run.sh accounting-lib/engine.sh
+          python -m py_compile datadog-flex-accounting/report.py accounting-lib/policy.py accounting-lib/count.py accounting-lib/tally.py
+          node --check accounting-lib/plan.mjs
+
+      # Every figure in results.md is arithmetic over the kept tallies, the plan files
+      # and prices.json. Recompute and fail if the committed results.json or the README
+      # headline disagrees.
+      - name: The committed figures follow from the kept tallies
+        run: python datadog-flex-accounting/report.py --check
+
+  cloudwatch-ia-accounting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Syntax-check the harness
+        run: |
+          bash -n cloudwatch-ia-accounting/run.sh accounting-lib/engine.sh
+          python -m py_compile cloudwatch-ia-accounting/report.py accounting-lib/policy.py accounting-lib/count.py accounting-lib/tally.py
+
+      - name: The committed figures follow from the kept tallies
+        run: python cloudwatch-ia-accounting/report.py --check

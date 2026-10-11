@@ -1,0 +1,35 @@
+{
+ "siem": "datadog",
+ "target_pct": 30,
+ "tool_caps_row": "<container>,63128:tier_down:MCP poc_from_local soft",
+ "tool_caps_key": "<container>",
+ "cap_bytes_per_window": 63128,
+ "window_seconds": 36000,
+ "reset_window_seconds": 240,
+ "cap_bytes_replay": 9469200,
+ "planned": [
+  {
+   "name": "Traces",
+   "action": "tier_down",
+   "severity": "INFO",
+   "container": "opentelemetry-collector",
+   "bytes_in_capture": 46123321
+  },
+  {
+   "name": "Logs",
+   "action": "tier_down",
+   "severity": "INFO",
+   "container": "opentelemetry-collector",
+   "bytes_in_capture": 44661566
+  }
+ ],
+ "containers": {
+  "opentelemetry-collector": {
+   "action": "tier_down",
+   "patterns": [
+    "Traces",
+    "Logs"
+   ]
+  }
+ }
+}
