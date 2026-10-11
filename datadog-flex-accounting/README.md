@@ -59,6 +59,33 @@ what carry.
 **Custom metrics.** The `metrics` stage replays the capture through the engine's shipped Datadog metric output, posting to a local stand-in for Datadog's intake; the one change to the image's config is the URI it posts to. Each series carried `k8s_container`, `k8s_namespace`, `message_pattern`, `routeState`, `severity_level`, `tenx_hash`, `tenx_reported_name`, `tenx_user_service`, and no host, pod or pipeline id, so every node posts the same series. The output keeps to the 200 tag sets with the most bytes, each from both aggregators: at most 776 series in one post without a move, and 768, 786 and 780 at 30, 50 and 70%. A Pro plan includes 100 custom metrics per host, so at 10, 100 and 300 nodes the line is $0. While ranks settle, tag sets enter and leave the top, and the replay, which delivers 10 hours in under a minute, saw 1,386 to 1,590 distinct series in all; on a live stream that settling happens once. Every tag set from every node would be 10,836 series per node, $5,368, $53,680 and $161,040 a month at $5 per 100.
 <!-- /generated:custom-metrics -->
 
+## Native filters at equal events
+
+The question a Datadog buyer asks is whether a per-pattern plan moves anything their own
+index filters would not. So each target has a control arm computed from the same capture,
+engine and counts: what a person writes in Datadog today, an index filter per service.
+
+**Selection rule, fixed before the run.** Datadog bills Standard indexing per million
+events, so the arms are matched on events, with bytes alongside. Per target, the control
+takes the fewest `service:<container>` filters, largest by events first, whose events reach
+at least the events the engine marked tier_down under the plan, and reports the overshoot
+without trimming it. A second variant adds `-status:(error OR warn)` to each filter, which
+leaves ERROR and WARN events in Standard; CRITICAL maps to Datadog's `critical` status and
+is not excluded by that clause. Errors and warnings are counted as the plan's column counts
+them: ERROR, WARN, CRITICAL and FATAL.
+
+**What would show the key adds nothing.** At a target, if the filters with the status
+exclusion move no more errors and warnings than the plan, and none of the events of the
+patterns the plan keeps under a container's cap (patterns in a capped container that the
+engine marked nothing of), then per-pattern control adds nothing on this capture at that
+target. The table is published as it comes out.
+
+<!-- generated:native-filters -->
+<!-- /generated:native-filters -->
+
+<!-- generated:native-verdict -->
+<!-- /generated:native-verdict -->
+
 ## Counting conditions
 
 - Datadog counts indexed events; with the shipped forwarder path one record is one event,
