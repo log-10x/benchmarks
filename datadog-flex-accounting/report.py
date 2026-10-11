@@ -107,7 +107,7 @@ def compute(results: pathlib.Path, prices: dict, targets: list, window_hours: fl
                 'price': prices['flex_compute']['price'],
             },
             'custom_metrics': {
-                # the output's default: the top tag sets by bytes per aggregator, the same series from every node
+                # the output's default: the top tag sets by bytes, each from both aggregators, the same series from every node
                 'count_default': tl['series']['custom_metrics_default'],
                 'top_series_default': tl['series']['top_series_default'],
                 'bytes_share_of_top_series': tl['series']['bytes_share_of_top_series'],
@@ -177,7 +177,7 @@ def render(r: dict, prices: dict) -> str:
         L.append(f'| {t}% | {T.fmt_int(m["events_to_flex"])} | {T.fmt_usd(u["standard_indexing_avoided"]["15d_annual"])} | {T.fmt_usd(u["flex_storage_added"]["annual"])} | {v["flex_compute"]["tier"]} | {T.fmt_usd(u["ingestion_unchanged"])} | {T.fmt_usd(c["fleet"]["10"]["default_usd_per_month"])} to {T.fmt_usd(c["fleet"]["300"]["default_usd_per_month"])} |')
     L.append('')
     c0 = r['targets'][str(r['targets_list'][0])]['custom_metrics'] if r.get('targets_list') else next(iter(r['targets'].values()))['custom_metrics']
-    L.append(f'**Custom metrics.** The Datadog output tags each series with the pattern and where it ran and with nothing that names a node or a process, and publishes the {c0["top_series_default"]} tag sets with the most bytes per aggregator: {c0["count_default"]:,} custom metrics from this capture whatever the node count, carrying {c0["bytes_share_of_top_series"] * 100:.1f}% of the bytes. '
+    L.append(f'**Custom metrics.** The Datadog output tags each series with the pattern and where it ran and with nothing that names a node or a process, and publishes the {c0["top_series_default"]} tag sets with the most bytes, each from both aggregators: {c0["count_default"]:,} custom metrics from this capture whatever the node count, carrying {c0["bytes_share_of_top_series"] * 100:.1f}% of the bytes. '
              f'Above a Pro plan\'s allotment of 100 per host that is {T.fmt_usd(c0["fleet"]["10"]["default_usd_per_month"])} a month at 10 nodes, {T.fmt_usd(c0["fleet"]["100"]["default_usd_per_month"])} at 100 and {T.fmt_usd(c0["fleet"]["300"]["default_usd_per_month"])} at 300. '
              f'Every tag set from every node would be {c0["count_every_set_one_node"]:,} per node: {T.fmt_usd(c0["fleet"]["10"]["every_set_per_node_usd_per_month"])}, {T.fmt_usd(c0["fleet"]["100"]["every_set_per_node_usd_per_month"])} and {T.fmt_usd(c0["fleet"]["300"]["every_set_per_node_usd_per_month"])} a month.')
     L.append('')
@@ -223,7 +223,7 @@ def render(r: dict, prices: dict) -> str:
         L.append(f'| Flex compute tier at {T.fmt_int(v["flex_compute"]["cumulative_events_stored_at_30_days"])} events stored | {v["flex_compute"]["tier"]}{", within Starter" if v["flex_compute"]["within_starter_monthly_limit"] else ""}; {v["flex_compute"]["price"]} for XS and above |')
         L.append(f'| Ingestion, unchanged | {T.fmt_usd(u["ingestion_unchanged"])} |')
         c = v['custom_metrics']
-        L.append(f'| Custom metrics from the engine\'s Datadog metric output | {c["count_default"]:,} series, the top {c["top_series_default"]} tag sets per aggregator ({c["bytes_share_of_top_series"] * 100:.1f}% of the bytes), the same from every node; above a Pro allotment {T.fmt_usd(c["fleet"]["10"]["default_usd_per_month"])} at 10 nodes, {T.fmt_usd(c["fleet"]["300"]["default_usd_per_month"])} at 300. Every tag set would be {c["count_every_set_one_node"]:,} per node |')
+        L.append(f'| Custom metrics from the engine\'s Datadog metric output | {c["count_default"]:,} series, the top {c["top_series_default"]} tag sets, each from both aggregators ({c["bytes_share_of_top_series"] * 100:.1f}% of the bytes), the same from every node; above a Pro allotment {T.fmt_usd(c["fleet"]["10"]["default_usd_per_month"])} at 10 nodes, {T.fmt_usd(c["fleet"]["300"]["default_usd_per_month"])} at 300. Every tag set would be {c["count_every_set_one_node"]:,} per node |')
         L.append('')
     L.append('## Custom metrics')
     L.append('')

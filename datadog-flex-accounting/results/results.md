@@ -42,7 +42,7 @@ The capture's 10 hours scaled to a 720-hour month, at the rates above. The volum
 | 50% | 6,529,536 | $11.10 | $0.33 | Starter | $1.55 | $0.00 to $0.00 |
 | 70% | 8,631,720 | $14.67 | $0.43 | Starter | $1.55 | $0.00 to $0.00 |
 
-**Custom metrics.** The Datadog output tags each series with the pattern and where it ran and with nothing that names a node or a process, and publishes the 200 tag sets with the most bytes per aggregator: 800 custom metrics from this capture whatever the node count, carrying 98.8% of the bytes. Above a Pro plan's allotment of 100 per host that is $0.00 a month at 10 nodes, $0.00 at 100 and $0.00 at 300. Every tag set from every node would be 10,848 per node: $5,374.00, $53,740.00 and $161,220.00 a month.
+**Custom metrics.** The Datadog output tags each series with the pattern and where it ran and with nothing that names a node or a process, and publishes the 200 tag sets with the most bytes, each from both aggregators: 800 custom metrics from this capture whatever the node count, carrying 98.8% of the bytes. Above a Pro plan's allotment of 100 per host that is $0.00 a month at 10 nodes, $0.00 at 100 and $0.00 at 300. Every tag set from every node would be 10,848 per node: $5,374.00, $53,740.00 and $161,220.00 a month.
 
 ## Target 30%
 
@@ -84,7 +84,7 @@ Errors and warnings marked tier_down: 0. The regulator keeps half of the ERROR a
 | Flex Starter instead of storage plus compute, annual | $2.91 |
 | Flex compute tier at 4,854,672 events stored | Starter, within Starter; Contact Us for Pricing for XS and above |
 | Ingestion, unchanged | $1.55 |
-| Custom metrics from the engine's Datadog metric output | 800 series, the top 200 tag sets per aggregator (98.8% of the bytes), the same from every node; above a Pro allotment $0.00 at 10 nodes, $0.00 at 300. Every tag set would be 10,848 per node |
+| Custom metrics from the engine's Datadog metric output | 800 series, the top 200 tag sets, each from both aggregators (98.8% of the bytes), the same from every node; above a Pro allotment $0.00 at 10 nodes, $0.00 at 300. Every tag set would be 10,848 per node |
 
 ## Target 50%
 
@@ -137,7 +137,7 @@ Errors and warnings marked tier_down: 0. The regulator keeps half of the ERROR a
 | Flex Starter instead of storage plus compute, annual | $3.92 |
 | Flex compute tier at 6,529,536 events stored | Starter, within Starter; Contact Us for Pricing for XS and above |
 | Ingestion, unchanged | $1.55 |
-| Custom metrics from the engine's Datadog metric output | 800 series, the top 200 tag sets per aggregator (98.8% of the bytes), the same from every node; above a Pro allotment $0.00 at 10 nodes, $0.00 at 300. Every tag set would be 10,868 per node |
+| Custom metrics from the engine's Datadog metric output | 800 series, the top 200 tag sets, each from both aggregators (98.8% of the bytes), the same from every node; above a Pro allotment $0.00 at 10 nodes, $0.00 at 300. Every tag set would be 10,868 per node |
 
 ## Target 70%
 
@@ -218,7 +218,7 @@ Errors and warnings marked tier_down: 0. The regulator keeps half of the ERROR a
 | Flex Starter instead of storage plus compute, annual | $5.18 |
 | Flex compute tier at 8,631,720 events stored | Starter, within Starter; Contact Us for Pricing for XS and above |
 | Ingestion, unchanged | $1.55 |
-| Custom metrics from the engine's Datadog metric output | 800 series, the top 200 tag sets per aggregator (98.7% of the bytes), the same from every node; above a Pro allotment $0.00 at 10 nodes, $0.00 at 300. Every tag set would be 10,972 per node |
+| Custom metrics from the engine's Datadog metric output | 800 series, the top 200 tag sets, each from both aggregators (98.7% of the bytes), the same from every node; above a Pro allotment $0.00 at 10 nodes, $0.00 at 300. Every tag set would be 10,972 per node |
 
 ## Custom metrics
 

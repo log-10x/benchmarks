@@ -55,7 +55,7 @@ what carry.
 **Custom metrics.** The engine's Datadog metric output tags each series with the pattern
 and where it ran (`message_pattern`, `tenx_hash`, `tenx_user_service`, `severity_level`,
 `routeState`, `k8s_container`, `k8s_namespace`) and with nothing that names a node or a
-process, and publishes the 200 tag sets with the most bytes per aggregator: 800 custom
+process, and publishes the 200 tag sets with the most bytes, each from both aggregators: 800 custom
 metrics from this capture whatever the node count, carrying 98.8% of the bytes. A Pro plan
 includes 100 custom metrics per host, so at 10, 100 and 300 nodes the line is $0. Every tag
 set from every node would be 10,848 per node, $5,374, $53,740 and $161,220 a month at $5

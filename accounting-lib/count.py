@@ -74,7 +74,7 @@ def main() -> int:
                'events': rec_ev[k], 'bytes': rec_by[k], 'lines': rec_lines[k], 'line_bytes': line_bytes[k]}
               for k in sorted(keys)]
     # Every aggregator publishes two counters per label set, event volume and bytes. The
-    # Datadog output publishes the TOP_SERIES label sets with the most bytes per aggregator
+    # Datadog output publishes the TOP_SERIES label sets with the most bytes, each from both aggregators
     # (its shipped `topSeries` default); the count of what it publishes and the share of
     # bytes those sets carry are taken on the all_events aggregator's label sets.
     series = {name: len(s) for name, s in sorted(tag_sets.items())}
