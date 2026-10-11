@@ -12,6 +12,7 @@ import sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent / 'accounting-lib'))
 import tally as T  # noqa: E402
 import readme as README  # noqa: E402
+import filters as F  # noqa: E402
 
 
 def compute(results: pathlib.Path, prices: dict, targets: list, window_hours: float, run: dict) -> dict:
@@ -110,6 +111,7 @@ def compute(results: pathlib.Path, prices: dict, targets: list, window_hours: fl
                 'price': prices['flex_compute']['price'],
             },
             'custom_metrics': custom_metrics(T.load(results / f'datadog-series-{t}.json'), tl, cmc, cm),
+            'native_filters': F.native_filters(control, tl, policy),
         }
     return out
 
@@ -226,6 +228,35 @@ def readme_blocks(r: dict, prices: dict) -> dict:
         f'delivers {r["window_hours"]:g} hours in under a minute, saw {min(distinct):,} to {max(distinct):,} distinct series in all; '
         f'on a live stream that settling happens once. Every tag set from every node would be {every:,} series per node, '
         f'{every_cost[0]}, {every_cost[1]} and {every_cost[2]} a month at ${per100:.0f} per 100.')
+    fmt_filters = lambda fs: ', '.join(f'`{f}`' for f in fs) if len(fs) <= 4 else f'{len(fs)} services, from ' + ', '.join(f'`{f}`' for f in fs[:3])
+    X = ['| Target | Arm | Index filters | Events moved | Over the plan | GB moved | Errors and warnings moved | Events of patterns the plan keeps under a cap | Events the plan moves that stay in Standard |',
+         '|---:|---|---|---:|---:|---:|---:|---:|---:|']
+    V = []
+    for t, v in r['targets'].items():
+        nf = v['native_filters']
+        pl = nf['plan']
+        X.append(f'| {t}% | per-pattern plan | caps on {len(pl["containers_capped"])} container{"s" if len(pl["containers_capped"]) != 1 else ""} | {pl["events"]:,} | 0 | '
+                 f'{T.gb(pl["bytes"]):.3f} | {pl["errors_and_warnings"]:,} | 0 | 0 |')
+        for label, a in (('service filters', nf['filters']), ('service filters, `-status:(error OR warn)`', nf['filters_without_errors_and_warnings'])):
+            X.append(f'| {t}% | {label} | {fmt_filters(a["filters"])} | {a["events"]:,} | {a["overshoot_events"]:+,} | {T.gb(a["bytes"]):.3f} | '
+                     f'{a["errors_and_warnings"]:,} | {a["kept_under_cap_events"]:,} | {a["plan_moved_left_events"]:,} |')
+        fs = nf['filters_without_errors_and_warnings']
+        tail = (f' They move {fs["overshoot_events"]:,} more events than the plan\'s {pl["events"]:,}, which the plan leaves in Standard' +
+                (f', and leave in Standard {fs["plan_moved_left_events"]:,} events the plan moves, in services they do not name.' if fs['plan_moved_left_events'] else '.'))
+        if nf['key_adds_nothing_at_this_target']:
+            V.append(f'- **{t}%**: the falsifier holds. With the status exclusion, the filters move {fs["errors_and_warnings"]:,} errors and warnings '
+                     f'against the plan\'s {pl["errors_and_warnings"]:,}, and none of the patterns the plan keeps under a cap: per-pattern control '
+                     f'adds nothing on this capture at this target.' + tail)
+        else:
+            why = []
+            if fs['errors_and_warnings'] > pl['errors_and_warnings']:
+                why.append(f'{fs["errors_and_warnings"]:,} errors and warnings against the plan\'s {pl["errors_and_warnings"]:,}')
+            if fs['kept_under_cap_events']:
+                why.append(f'{fs["kept_under_cap_events"]:,} events of {fs["kept_under_cap_patterns"]:,} pattern{"s" if fs["kept_under_cap_patterns"] != 1 else ""} '
+                           f'the plan keeps under a cap ({fs["kept_under_cap_events"] / fs["events"] * 100:.2f}% of the {fs["events"]:,} events the filters move)')
+            V.append(f'- **{t}%**: the falsifier does not hold. With the status exclusion, the filters move ' + ' and '.join(why) + '.' + tail)
+    B['native-filters'] = '\n'.join(X)
+    B['native-verdict'] = '\n'.join(V)
     return B
 
 def render(r: dict, prices: dict) -> str:
@@ -329,6 +360,30 @@ def render(r: dict, prices: dict) -> str:
         c = v['custom_metrics']
         L.append(f'| Custom metrics from the engine\'s Datadog metric output, measured | at most {c["count_measured"]:,} series in one of {c["posts"]} posts, {c["distinct_over_run"]:,} distinct over the replay while ranks settle, the same from every node; above a Pro allotment {T.fmt_usd(c["fleet"]["10"]["measured_usd_per_month"])} at 10 nodes, {T.fmt_usd(c["fleet"]["300"]["measured_usd_per_month"])} at 300. Every tag set would be {c["count_every_set_one_node"]:,} per node |')
         L.append('')
+    L.append('## Native filters at equal events')
+    L.append('')
+    L.append('Per target, the index filters a person writes in Datadog today, one per service, largest by events first until they reach the events the engine marked tier_down under the plan; the second variant adds `-status:(error OR warn)`. Computed from the control run\'s counts and each target\'s. The selection rule and the falsifier are in the README.')
+    L.append('')
+    for t, v in r['targets'].items():
+        nf = v['native_filters']
+        L.append(f'### {t}%')
+        L.append('')
+        L.append('| Arm | Filters | Events | Bytes | By severity |')
+        L.append('|---|---|---:|---:|---|')
+        L.append(f'| per-pattern plan | caps: {", ".join(f"`{c}`" for c in nf["plan"]["containers_capped"])} | {nf["plan"]["events"]:,} | {nf["plan"]["bytes"]:,} | '
+                 + ', '.join(f'{k} {n:,}' for k, n in nf['plan']['by_severity'].items()) + ' |')
+        for label, a in (('service filters', nf['filters']), ('with `-status:(error OR warn)`', nf['filters_without_errors_and_warnings'])):
+            L.append(f'| {label} | {", ".join(f"`{x}`" for x in a["filters"])} | {a["events"]:,} | {a["bytes"]:,} | '
+                     + ', '.join(f'{k} {n:,}' for k, n in a['by_severity'].items()) + ' |')
+        L.append('')
+        for label, a in (('Service filters', nf['filters']), ('With the status exclusion', nf['filters_without_errors_and_warnings'])):
+            if a['top_kept_under_cap_moved']:
+                L.append(f'{label}, the largest patterns the plan keeps under a cap that the filters move: '
+                         + '; '.join(f'`{x["container"]}` `{x["pattern"]}` {x["events"]:,}' for x in a['top_kept_under_cap_moved']) + '.')
+            if a['top_plan_moved_left']:
+                L.append(f'{label}, the largest patterns the plan moves that the filters leave in Standard: '
+                         + '; '.join(f'`{x["container"]}` `{x["pattern"]}` {x["events"]:,}' for x in a['top_plan_moved_left']) + '.')
+        L.append('')
     L.append('## Custom metrics')
     L.append('')
     c0 = r['control']
@@ -363,6 +418,7 @@ def render(r: dict, prices: dict) -> str:
     L.append('| `../accounting-lib/replay.config.yaml` | the engine run: shipped enrichment, regulator and aggregators, file in, file out |')
     L.append('| `../accounting-lib/policy.py` | the engine files the tool wrote, caps scaled to the one-window replay |')
     L.append('| `../accounting-lib/count.py` | the two counts, records and aggregators, required to agree |')
+    L.append('| `filters.py` | the native-filter control: service filters at the plan\'s events, from the control and target counts |')
     L.append('| `../accounting-lib/ddcapture.py`, `datadog_config.py`, `datadog_series.py` | the `metrics` stage: a local stand-in for Datadog\'s intake, the shipped Datadog config with only its URI pointed at it, and the count of what was posted |')
     L.append('| `results/datadog-series-<run>.json`, `results/datadog-config.diff` | the series each post carried, and the one line changed in the shipped config |')
     L.append('| `results/plan-<target>.json` | the plan the MCP wrote, its notes and the caps row it rendered |')

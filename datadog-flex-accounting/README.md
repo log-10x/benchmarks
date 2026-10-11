@@ -81,9 +81,23 @@ engine marked nothing of), then per-pattern control adds nothing on this capture
 target. The table is published as it comes out.
 
 <!-- generated:native-filters -->
+| Target | Arm | Index filters | Events moved | Over the plan | GB moved | Errors and warnings moved | Events of patterns the plan keeps under a cap | Events the plan moves that stay in Standard |
+|---:|---|---|---:|---:|---:|---:|---:|---:|
+| 30% | per-pattern plan | caps on 1 container | 67,505 | 0 | 0.086 | 0 | 0 | 0 |
+| 30% | service filters | `service:opentelemetry-collector` | 89,739 | +22,234 | 0.118 | 3,953 | 4,000 | 0 |
+| 30% | service filters, `-status:(error OR warn)` | `service:opentelemetry-collector` | 85,786 | +18,281 | 0.109 | 0 | 47 | 0 |
+| 50% | per-pattern plan | caps on 4 containers | 90,555 | 0 | 0.121 | 0 | 0 | 0 |
+| 50% | service filters | `service:opentelemetry-collector`, `service:kafka` | 118,778 | +28,223 | 0.149 | 3,954 | 4,000 | 23,161 |
+| 50% | service filters, `-status:(error OR warn)` | `service:opentelemetry-collector`, `service:kafka` | 114,824 | +24,269 | 0.140 | 0 | 47 | 23,161 |
+| 70% | per-pattern plan | caps on 17 containers | 119,833 | 0 | 0.153 | 0 | 0 | 0 |
+| 70% | service filters | `service:opentelemetry-collector`, `service:kafka`, `service:cart` | 138,424 | +18,591 | 0.183 | 3,955 | 4,795 | 11,181 |
+| 70% | service filters, `-status:(error OR warn)` | `service:opentelemetry-collector`, `service:kafka`, `service:cart` | 134,469 | +14,636 | 0.174 | 0 | 840 | 11,181 |
 <!-- /generated:native-filters -->
 
 <!-- generated:native-verdict -->
+- **30%**: the falsifier does not hold. With the status exclusion, the filters move 47 events of 22 patterns the plan keeps under a cap (0.05% of the 85,786 events the filters move). They move 18,281 more events than the plan's 67,505, which the plan leaves in Standard.
+- **50%**: the falsifier does not hold. With the status exclusion, the filters move 47 events of 22 patterns the plan keeps under a cap (0.04% of the 114,824 events the filters move). They move 24,269 more events than the plan's 90,555, which the plan leaves in Standard, and leave in Standard 23,161 events the plan moves, in services they do not name.
+- **70%**: the falsifier does not hold. With the status exclusion, the filters move 840 events of 435 patterns the plan keeps under a cap (0.62% of the 134,469 events the filters move). They move 14,636 more events than the plan's 119,833, which the plan leaves in Standard, and leave in Standard 11,181 events the plan moves, in services they do not name.
 <!-- /generated:native-verdict -->
 
 ## Counting conditions
