@@ -190,15 +190,31 @@
     "price": "Contact Us for Pricing"
    },
    "custom_metrics": {
-    "count_one_node": 10848,
+    "count_default": 800,
+    "top_series_default": 200,
+    "bytes_share_of_top_series": 0.9876,
+    "count_every_set_one_node": 10848,
     "label_sets": {
      "all_events": 2712,
      "emitted_events": 2712
     },
-    "above_pro_allotment": 10748,
-    "above_enterprise_allotment": 10648,
-    "usd_per_month_above_pro": 537.4,
-    "usd_per_month_above_enterprise": 532.4
+    "fleet": {
+     "10": {
+      "default_above_pro_allotment": 0,
+      "default_usd_per_month": 0.0,
+      "every_set_per_node_usd_per_month": 5374.0
+     },
+     "100": {
+      "default_above_pro_allotment": 0,
+      "default_usd_per_month": 0.0,
+      "every_set_per_node_usd_per_month": 53740.0
+     },
+     "300": {
+      "default_above_pro_allotment": 0,
+      "default_usd_per_month": 0.0,
+      "every_set_per_node_usd_per_month": 161220.0
+     }
+    }
    }
   },
   "50": {
@@ -451,15 +467,31 @@
     "price": "Contact Us for Pricing"
    },
    "custom_metrics": {
-    "count_one_node": 10868,
+    "count_default": 800,
+    "top_series_default": 200,
+    "bytes_share_of_top_series": 0.9875,
+    "count_every_set_one_node": 10868,
     "label_sets": {
      "all_events": 2717,
      "emitted_events": 2717
     },
-    "above_pro_allotment": 10768,
-    "above_enterprise_allotment": 10668,
-    "usd_per_month_above_pro": 538.4,
-    "usd_per_month_above_enterprise": 533.4
+    "fleet": {
+     "10": {
+      "default_above_pro_allotment": 0,
+      "default_usd_per_month": 0.0,
+      "every_set_per_node_usd_per_month": 5384.0
+     },
+     "100": {
+      "default_above_pro_allotment": 0,
+      "default_usd_per_month": 0.0,
+      "every_set_per_node_usd_per_month": 53840.0
+     },
+     "300": {
+      "default_above_pro_allotment": 0,
+      "default_usd_per_month": 0.0,
+      "every_set_per_node_usd_per_month": 161520.0
+     }
+    }
    }
   },
   "70": {
@@ -1146,15 +1178,31 @@
     "price": "Contact Us for Pricing"
    },
    "custom_metrics": {
-    "count_one_node": 10972,
+    "count_default": 800,
+    "top_series_default": 200,
+    "bytes_share_of_top_series": 0.9873,
+    "count_every_set_one_node": 10972,
     "label_sets": {
      "all_events": 2743,
      "emitted_events": 2743
     },
-    "above_pro_allotment": 10872,
-    "above_enterprise_allotment": 10772,
-    "usd_per_month_above_pro": 543.6,
-    "usd_per_month_above_enterprise": 538.6
+    "fleet": {
+     "10": {
+      "default_above_pro_allotment": 0,
+      "default_usd_per_month": 0.0,
+      "every_set_per_node_usd_per_month": 5436.0
+     },
+     "100": {
+      "default_above_pro_allotment": 0,
+      "default_usd_per_month": 0.0,
+      "every_set_per_node_usd_per_month": 54360.0
+     },
+     "300": {
+      "default_above_pro_allotment": 0,
+      "default_usd_per_month": 0.0,
+      "every_set_per_node_usd_per_month": 163080.0
+     }
+    }
    }
   }
  }

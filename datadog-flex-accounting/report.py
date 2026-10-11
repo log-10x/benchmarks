@@ -107,12 +107,18 @@ def compute(results: pathlib.Path, prices: dict, targets: list, window_hours: fl
                 'price': prices['flex_compute']['price'],
             },
             'custom_metrics': {
-                'count_one_node': cmc,
+                # the output's default: the top tag sets by bytes per aggregator, the same series from every node
+                'count_default': tl['series']['custom_metrics_default'],
+                'top_series_default': tl['series']['top_series_default'],
+                'bytes_share_of_top_series': tl['series']['bytes_share_of_top_series'],
+                # every tag set, as one node would publish them with topSeries 0
+                'count_every_set_one_node': cmc,
                 'label_sets': tl['series']['label_sets_per_aggregator'],
-                'above_pro_allotment': max(0, cmc - cm['allotment_per_host']['pro']),
-                'above_enterprise_allotment': max(0, cmc - cm['allotment_per_host']['enterprise']),
-                'usd_per_month_above_pro': round(max(0, cmc - cm['allotment_per_host']['pro']) / 100 * cm['per_100_per_month']['annual'], 2),
-                'usd_per_month_above_enterprise': round(max(0, cmc - cm['allotment_per_host']['enterprise']) / 100 * cm['per_100_per_month']['annual'], 2),
+                'fleet': {str(n): {
+                    'default_above_pro_allotment': max(0, tl['series']['custom_metrics_default'] - n * cm['allotment_per_host']['pro']),
+                    'default_usd_per_month': round(max(0, tl['series']['custom_metrics_default'] - n * cm['allotment_per_host']['pro']) / 100 * cm['per_100_per_month']['annual'], 2),
+                    'every_set_per_node_usd_per_month': round(max(0, cmc * n - n * cm['allotment_per_host']['pro']) / 100 * cm['per_100_per_month']['annual'], 2),
+                } for n in (10, 100, 300)},
             },
         }
     return out
@@ -151,11 +157,11 @@ def render(r: dict, prices: dict) -> str:
     L.append('')
     L.append('## What moves, per target')
     L.append('')
-    L.append('| Target | Patterns planned | Containers capped | Events the plan states | Events the engine marked tier_down | GB to Flex | Events in Standard | Errors and warnings to Flex | Custom metrics, one node |')
+    L.append('| Target | Patterns planned | Containers capped | Events the plan states | Events the engine marked tier_down | GB to Flex | Events in Standard | Errors and warnings to Flex | Custom metrics the output publishes |')
     L.append('|---:|---:|---:|---:|---:|---:|---:|---:|---:|')
     for t, v in r['targets'].items():
         e, p = v['engine'], v['plan']
-        L.append(f'| {t}% | {len(p["planned_patterns"])} | {len(p["containers"])} | {T.fmt_int(p["stated_events_moved"])} | {T.fmt_int(e["by_route"].get("tier_down", {"events": 0})["events"])} | {T.fmt_gb(e["by_route"].get("tier_down", {"bytes": 0})["bytes"])} | {T.fmt_int(e["by_route"].get("pass", {"events": 0})["events"])} | {T.fmt_int(e["protected_moved_events"])} | {v["custom_metrics"]["count_one_node"]:,} |')
+        L.append(f'| {t}% | {len(p["planned_patterns"])} | {len(p["containers"])} | {T.fmt_int(p["stated_events_moved"])} | {T.fmt_int(e["by_route"].get("tier_down", {"events": 0})["events"])} | {T.fmt_gb(e["by_route"].get("tier_down", {"bytes": 0})["bytes"])} | {T.fmt_int(e["by_route"].get("pass", {"events": 0})["events"])} | {T.fmt_int(e["protected_moved_events"])} | {v["custom_metrics"]["count_default"]:,} |')
     L.append('')
     L.append('The engine moves each pattern\'s excess over its container\'s cap; the plan sets the cap at the largest pattern the container keeps and states the excess, less the share the severity floors keep. Ingestion is unchanged: every event is ingested once, at '
              f'${prices["ingestion_per_gb"]["annual"]:.2f} per GB, before any index routing.')
@@ -164,11 +170,16 @@ def render(r: dict, prices: dict) -> str:
     L.append('')
     L.append(f'The capture\'s {r["window_hours"]:g} hours scaled to a {r["month_hours"]}-hour month, at the rates above. The volume is one small demo cluster\'s; the rates are what carry.')
     L.append('')
-    L.append('| Target | Events to Flex per month | Standard indexing avoided, 15-day annual | Flex storage added, annual | Flex compute tier | Ingestion, unchanged | Custom metrics above a Pro host\'s allotment, one node |')
+    L.append('| Target | Events to Flex per month | Standard indexing avoided, 15-day annual | Flex storage added, annual | Flex compute tier | Ingestion, unchanged | Custom metrics above a Pro allotment, 10 to 300 nodes |')
     L.append('|---:|---:|---:|---:|---|---:|---:|')
     for t, v in r['targets'].items():
         m, u, c = v['month'], v['usd_per_month_at_list'], v['custom_metrics']
-        L.append(f'| {t}% | {T.fmt_int(m["events_to_flex"])} | {T.fmt_usd(u["standard_indexing_avoided"]["15d_annual"])} | {T.fmt_usd(u["flex_storage_added"]["annual"])} | {v["flex_compute"]["tier"]} | {T.fmt_usd(u["ingestion_unchanged"])} | {T.fmt_usd(c["usd_per_month_above_pro"])} |')
+        L.append(f'| {t}% | {T.fmt_int(m["events_to_flex"])} | {T.fmt_usd(u["standard_indexing_avoided"]["15d_annual"])} | {T.fmt_usd(u["flex_storage_added"]["annual"])} | {v["flex_compute"]["tier"]} | {T.fmt_usd(u["ingestion_unchanged"])} | {T.fmt_usd(c["fleet"]["10"]["default_usd_per_month"])} to {T.fmt_usd(c["fleet"]["300"]["default_usd_per_month"])} |')
+    L.append('')
+    c0 = r['targets'][str(r['targets_list'][0])]['custom_metrics'] if r.get('targets_list') else next(iter(r['targets'].values()))['custom_metrics']
+    L.append(f'**Custom metrics.** The Datadog output tags each series with the pattern and where it ran and with nothing that names a node or a process, and publishes the {c0["top_series_default"]} tag sets with the most bytes per aggregator: {c0["count_default"]:,} custom metrics from this capture whatever the node count, carrying {c0["bytes_share_of_top_series"] * 100:.1f}% of the bytes. '
+             f'Above a Pro plan\'s allotment of 100 per host that is {T.fmt_usd(c0["fleet"]["10"]["default_usd_per_month"])} a month at 10 nodes, {T.fmt_usd(c0["fleet"]["100"]["default_usd_per_month"])} at 100 and {T.fmt_usd(c0["fleet"]["300"]["default_usd_per_month"])} at 300. '
+             f'Every tag set from every node would be {c0["count_every_set_one_node"]:,} per node: {T.fmt_usd(c0["fleet"]["10"]["every_set_per_node_usd_per_month"])}, {T.fmt_usd(c0["fleet"]["100"]["every_set_per_node_usd_per_month"])} and {T.fmt_usd(c0["fleet"]["300"]["every_set_per_node_usd_per_month"])} a month.')
     L.append('')
     for t, v in r['targets'].items():
         p, e, m, u = v['plan'], v['engine'], v['month'], v['usd_per_month_at_list']
@@ -212,7 +223,7 @@ def render(r: dict, prices: dict) -> str:
         L.append(f'| Flex compute tier at {T.fmt_int(v["flex_compute"]["cumulative_events_stored_at_30_days"])} events stored | {v["flex_compute"]["tier"]}{", within Starter" if v["flex_compute"]["within_starter_monthly_limit"] else ""}; {v["flex_compute"]["price"]} for XS and above |')
         L.append(f'| Ingestion, unchanged | {T.fmt_usd(u["ingestion_unchanged"])} |')
         c = v['custom_metrics']
-        L.append(f'| Custom metrics from the engine\'s Datadog metric output, one node | {c["count_one_node"]:,} series; {c["above_pro_allotment"]:,} above a Pro host\'s allotment ({T.fmt_usd(c["usd_per_month_above_pro"])}), {c["above_enterprise_allotment"]:,} above Enterprise ({T.fmt_usd(c["usd_per_month_above_enterprise"])}) |')
+        L.append(f'| Custom metrics from the engine\'s Datadog metric output | {c["count_default"]:,} series, the top {c["top_series_default"]} tag sets per aggregator ({c["bytes_share_of_top_series"] * 100:.1f}% of the bytes), the same from every node; above a Pro allotment {T.fmt_usd(c["fleet"]["10"]["default_usd_per_month"])} at 10 nodes, {T.fmt_usd(c["fleet"]["300"]["default_usd_per_month"])} at 300. Every tag set would be {c["count_every_set_one_node"]:,} per node |')
         L.append('')
     L.append('## Custom metrics')
     L.append('')

@@ -15,7 +15,10 @@
 "emitted_events": 2712
 },
 "counters_per_label_set": 2,
-"custom_metrics": 10848
+"custom_metrics": 10848,
+"top_series_default": 200,
+"custom_metrics_default": 800,
+"bytes_share_of_top_series": 0.9876
 },
 "replay_seconds": 53,
 "by_key": [

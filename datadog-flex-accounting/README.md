@@ -46,17 +46,20 @@ files.
 720-hour month, at the rates above. The volume is one small demo cluster's; the rates are
 what carry.
 
-| Target | Events to Flex per month | Standard indexing avoided, 15-day annual | Flex storage added, annual | Flex compute tier | Custom metrics above a Pro host's allotment, one node |
+| Target | Events to Flex per month | Standard indexing avoided, 15-day annual | Flex storage added, annual | Flex compute tier | Custom metrics above a Pro allotment, 10 to 300 nodes |
 |---:|---:|---:|---:|---|---:|
-| 30% | 4,854,672 | $8.25 | $0.24 | Starter | $537.40 |
-| 50% | 6,529,536 | $11.10 | $0.33 | Starter | $538.40 |
-| 70% | 8,631,720 | $14.67 | $0.43 | Starter | $543.60 |
+| 30% | 4,854,672 | $8.25 | $0.24 | Starter | $0 |
+| 50% | 6,529,536 | $11.10 | $0.33 | Starter | $0 |
+| 70% | 8,631,720 | $14.67 | $0.43 | Starter | $0 |
 
-**Custom metrics.** The engine's Datadog metric output publishes two counters for every
-label set of two aggregators. On this capture that is 10,848 to 10,972 custom metrics from
-one node, about 10,750 above a Pro host's allotment of 100: $537 to $544 a month at $5 per
-100, if every series reports every hour. This line is larger than every other line in the
-table.
+**Custom metrics.** The engine's Datadog metric output tags each series with the pattern
+and where it ran (`message_pattern`, `tenx_hash`, `tenx_user_service`, `severity_level`,
+`routeState`, `k8s_container`, `k8s_namespace`) and with nothing that names a node or a
+process, and publishes the 200 tag sets with the most bytes per aggregator: 800 custom
+metrics from this capture whatever the node count, carrying 98.8% of the bytes. A Pro plan
+includes 100 custom metrics per host, so at 10, 100 and 300 nodes the line is $0. Every tag
+set from every node would be 10,848 per node, $5,374, $53,740 and $161,220 a month at $5
+per 100.
 
 ## Counting conditions
 

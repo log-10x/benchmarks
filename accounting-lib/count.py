@@ -26,6 +26,9 @@ def one(v):
     return '' if v is None else v
 
 
+TOP_SERIES = 200
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument('--routed', required=True)
@@ -70,8 +73,16 @@ def main() -> int:
     by_key = [{'route': k[0], 'container': k[1], 'severity': k[2], 'pattern': k[3], 'hash': k[4],
                'events': rec_ev[k], 'bytes': rec_by[k], 'lines': rec_lines[k], 'line_bytes': line_bytes[k]}
               for k in sorted(keys)]
-    # Every aggregator publishes two counters per label set, event volume and bytes.
+    # Every aggregator publishes two counters per label set, event volume and bytes. The
+    # Datadog output publishes the TOP_SERIES label sets with the most bytes per aggregator
+    # (its shipped `topSeries` default); the count of what it publishes and the share of
+    # bytes those sets carry are taken on the all_events aggregator's label sets.
     series = {name: len(s) for name, s in sorted(tag_sets.items())}
+    ranked = sorted(((rec_by[k], k) for k in keys), reverse=True)
+    total_bytes = sum(rec_by.values())
+    top_sets = min(TOP_SERIES, len(ranked))
+    top_bytes = sum(b for b, _ in ranked[:top_sets])
+    default_metrics = sum(min(TOP_SERIES, n) for n in series.values()) * 2
     out = {
         'events': sum(rec_ev.values()),
         'bytes': sum(rec_by.values()),
@@ -81,7 +92,10 @@ def main() -> int:
         'agreement': {'records_vs_engine_aggregators': 'equal on every key: events, and bytes once the newlines joining a multi-line event are taken out',
                       'keys_compared': len(keys), 'joined_lines': sum(rec_lines.values()) - sum(rec_ev.values())},
         'series': {'label_sets_per_aggregator': series, 'counters_per_label_set': 2,
-                   'custom_metrics': 2 * sum(series.values())},
+                   'custom_metrics': 2 * sum(series.values()),
+                   'top_series_default': TOP_SERIES,
+                   'custom_metrics_default': default_metrics,
+                   'bytes_share_of_top_series': round(top_bytes / total_bytes, 4) if total_bytes else 0},
         'replay_seconds': a.seconds,
         'by_key': by_key,
     }
