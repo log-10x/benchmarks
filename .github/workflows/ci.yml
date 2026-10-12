@@ -157,6 +157,26 @@ jobs:
       - name: The same check on the 2026-10-10 run
         run: python splunk-license/report.py --dir splunk-license --data splunk-license/data --results splunk-license/results-2026-10-10 --check
 
+  loghub-compaction:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      # The run needs Docker, the engine image and 5 GB of public archives, so CI checks
+      # what it can without them.
+      - name: Syntax-check the harness
+        run: |
+          bash -n loghub-compaction/run.sh
+          python -m py_compile loghub-compaction/*.py
+
+      # The table and totals are arithmetic over the per-corpus records the run kept.
+      - name: The committed figures follow from the per-corpus records
+        run: python loghub-compaction/report.py --check
+
   intent:
     runs-on: ubuntu-latest
     steps:

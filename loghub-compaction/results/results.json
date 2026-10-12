@@ -1,0 +1,288 @@
+{
+ "image": "log10x/pipeline-10x:1.1.133@sha256:fe3dcdefdc2f42fa7117c4f63fe97b28508fbf1356725422703f0dfab55f2360",
+ "config_sha256": "6a296895dd1be56d190a74499740109e71a251149343e64c5ad32cbc4e657e51",
+ "corpora": [
+  {
+   "corpus": "Hadoop",
+   "input_files": 978,
+   "raw_lines": 394310,
+   "events": 186697,
+   "input_bytes": 48595595,
+   "encoded_bytes": 19855508,
+   "templates_bytes": 356855,
+   "compact_bytes": 20212363,
+   "reduction_pct": 58.407,
+   "ratio": 2.4,
+   "templates": 931,
+   "sha256_encoded": "aec90d0a66d80bb5d33d8754647a472efcb80762767c9b92795b3fca8ca7488a",
+   "sha256_templates": "c5ca018369a0bff2e73168fd291d34f4a922b19e6bdb591867f683a9f935d764",
+   "differs_from_ledger": {
+    "events": [
+     186697,
+     186695
+    ],
+    "compact_bytes": [
+     20212363,
+     20198860
+    ],
+    "templates": [
+     931,
+     888
+    ]
+   }
+  },
+  {
+   "corpus": "Spark",
+   "input_files": 3852,
+   "raw_lines": 33236604,
+   "events": 32952127,
+   "input_bytes": 2941224304,
+   "encoded_bytes": 1246902535,
+   "templates_bytes": 1703558,
+   "compact_bytes": 1248606093,
+   "reduction_pct": 57.5481,
+   "ratio": 2.36,
+   "templates": 3370,
+   "sha256_encoded": "4b9a5943e0c94d162bd7d624dc706ab80ee42af743af4d9484a146b9ae995e1f",
+   "sha256_templates": "f7ebe0aad901a91ffd5d3c04cef5d2918d028d7575ae51af7fdc6a1675a45d50",
+   "differs_from_ledger": {
+    "events": [
+     32952127,
+     32952122
+    ],
+    "compact_bytes": [
+     1248606093,
+     1248618288
+    ],
+    "templates": [
+     3370,
+     3377
+    ]
+   }
+  },
+  {
+   "corpus": "Apache",
+   "input_files": 1,
+   "raw_lines": 56482,
+   "events": 52004,
+   "input_bytes": 5135876,
+   "encoded_bytes": 2175473,
+   "templates_bytes": 120456,
+   "compact_bytes": 2295929,
+   "reduction_pct": 55.2963,
+   "ratio": 2.24,
+   "templates": 371,
+   "sha256_encoded": "e67e350212c3f7e26566e1d09e09a3caad165f93292437d8312d853a8f3e05d4",
+   "sha256_templates": "e8e9e5903b4893484b4084689c9d3a5b7c9e6247ace076e6517cc4e68c7d6ded",
+   "differs_from_ledger": {}
+  },
+  {
+   "corpus": "OpenSSH",
+   "input_files": 1,
+   "raw_lines": 655147,
+   "events": 655147,
+   "input_bytes": 73417506,
+   "encoded_bytes": 36458144,
+   "templates_bytes": 396153,
+   "compact_bytes": 36854297,
+   "reduction_pct": 49.8018,
+   "ratio": 1.99,
+   "templates": 3032,
+   "sha256_encoded": "bab9f48fa4bef0ab307fc598601ffa8ef1384e12fbc4aa7820d5ca818d9b0898",
+   "sha256_templates": "e0530f16377237cfba93e81a791055f59087213d3a0c352ff3161b68f3e5c518",
+   "differs_from_ledger": {}
+  },
+  {
+   "corpus": "Proxifier",
+   "input_files": 1,
+   "raw_lines": 21329,
+   "events": 21329,
+   "input_bytes": 2541814,
+   "encoded_bytes": 1065276,
+   "templates_bytes": 288542,
+   "compact_bytes": 1353818,
+   "reduction_pct": 46.7381,
+   "ratio": 1.88,
+   "templates": 1854,
+   "sha256_encoded": "e48ad19d7cd75ee97cfd1ee3915a8b3f8cf1e2ff66e865e8865d933e9976ce3c",
+   "sha256_templates": "d6f6039ce45dd70d8f3b5543753a5744301eb7272e9e596b0cfe6832b4178f4c",
+   "differs_from_ledger": {}
+  },
+  {
+   "corpus": "Zookeeper",
+   "input_files": 1,
+   "raw_lines": 74380,
+   "events": 74380,
+   "input_bytes": 10426438,
+   "encoded_bytes": 5644199,
+   "templates_bytes": 29087,
+   "compact_bytes": 5673286,
+   "reduction_pct": 45.5875,
+   "ratio": 1.84,
+   "templates": 157,
+   "sha256_encoded": "d6dc63811dfd8773a1ef156e04b90bd75de2009f81d580e68e08591f1da1e86a",
+   "sha256_templates": "77b354d787da1560d70fb1e81518ad698b799684e235a88f580f5040c1736be4",
+   "differs_from_ledger": {}
+  },
+  {
+   "corpus": "Linux",
+   "input_files": 1,
+   "raw_lines": 25567,
+   "events": 25567,
+   "input_bytes": 2349686,
+   "encoded_bytes": 1127139,
+   "templates_bytes": 176728,
+   "compact_bytes": 1303867,
+   "reduction_pct": 44.5089,
+   "ratio": 1.8,
+   "templates": 1262,
+   "sha256_encoded": "757be2eab4d569faa9901b4b424b786f6c500d8168715fb7f4dc13c6121e0c37",
+   "sha256_templates": "3f4890d986d4e7207b0b852541dd11bf2075a9215e301cec2fb9c9bce37919c2",
+   "differs_from_ledger": {
+    "compact_bytes": [
+     1303867,
+     1304303
+    ],
+    "templates": [
+     1262,
+     1266
+    ]
+   }
+  },
+  {
+   "corpus": "HPC",
+   "input_files": 1,
+   "raw_lines": 433490,
+   "events": 330461,
+   "input_bytes": 33553503,
+   "encoded_bytes": 18864439,
+   "templates_bytes": 1620897,
+   "compact_bytes": 20485336,
+   "reduction_pct": 38.9473,
+   "ratio": 1.64,
+   "templates": 2045,
+   "sha256_encoded": "6e31834dced95054e992b5434ef627a70148dcdba97fb2b43684372d47200b9e",
+   "sha256_templates": "5dd14712f36fb3cd09340c606bbf8871b7f106cc3d506fcc0dcfc77041a0cd9b",
+   "differs_from_ledger": {}
+  },
+  {
+   "corpus": "BGL",
+   "input_files": 1,
+   "raw_lines": 4747963,
+   "events": 4728216,
+   "input_bytes": 743185031,
+   "encoded_bytes": 456401472,
+   "templates_bytes": 25949952,
+   "compact_bytes": 482351424,
+   "reduction_pct": 35.0967,
+   "ratio": 1.54,
+   "templates": 136461,
+   "sha256_encoded": "4908109ff9b92c0a3e71743ec930891ff3bee69ee20e691e3df0ce626f8a82c6",
+   "sha256_templates": "089a72ca9a73ee79ceea27cfcd8330c25f59aeac92608aeaef53fe5ed0bfee1a",
+   "differs_from_ledger": {}
+  },
+  {
+   "corpus": "Mac",
+   "input_files": 1,
+   "raw_lines": 117283,
+   "events": 107220,
+   "input_bytes": 16879552,
+   "encoded_bytes": 10899612,
+   "templates_bytes": 491481,
+   "compact_bytes": 11391093,
+   "reduction_pct": 32.5154,
+   "ratio": 1.48,
+   "templates": 2466,
+   "sha256_encoded": "982e102e482a5fb5d64ebf8c1c38113c731fd7513f67b353b12759925c4b4dc3",
+   "sha256_templates": "f884f0906f13225dad86cc2ace8b923e2512a05e28edee0b10c62e9bffb0a13e",
+   "differs_from_ledger": {}
+  },
+  {
+   "corpus": "OpenStack",
+   "input_files": 3,
+   "raw_lines": 207820,
+   "events": 207820,
+   "input_bytes": 61442082,
+   "encoded_bytes": 40775270,
+   "templates_bytes": 1888550,
+   "compact_bytes": 42663820,
+   "reduction_pct": 30.5625,
+   "ratio": 1.44,
+   "templates": 8134,
+   "sha256_encoded": "318f05bc6eaef0a6f73c2b9f6607cc339e2661486300edc4e09a08699e92ef80",
+   "sha256_templates": "1bb6ea6c315e46a1eaca0652e821ab75d8956a4a58ebe203d79d0aeb091c7cd8",
+   "differs_from_ledger": {
+    "compact_bytes": [
+     42663820,
+     42663612
+    ],
+    "templates": [
+     8134,
+     8133
+    ]
+   }
+  },
+  {
+   "corpus": "HDFS",
+   "input_files": 1,
+   "raw_lines": 11175629,
+   "events": 11175629,
+   "input_bytes": 1577982906,
+   "encoded_bytes": 1117971042,
+   "templates_bytes": 37885,
+   "compact_bytes": 1118008927,
+   "reduction_pct": 29.1495,
+   "ratio": 1.41,
+   "templates": 279,
+   "sha256_encoded": "4835a79b8523e86d05958d78f15d357a315e4e60316cfa7ba803778213d6e16b",
+   "sha256_templates": "ae4c544e83353a95f7894391f4cf400804e569eed071541e49e2c2ef024e1ec7",
+   "differs_from_ledger": {}
+  },
+  {
+   "corpus": "Android",
+   "input_files": 1,
+   "raw_lines": 1555005,
+   "events": 1555005,
+   "input_bytes": 192270829,
+   "encoded_bytes": 149280515,
+   "templates_bytes": 4550332,
+   "compact_bytes": 153830847,
+   "reduction_pct": 19.9926,
+   "ratio": 1.25,
+   "templates": 29400,
+   "sha256_encoded": "5c84293126f63ab351e763e7e71586ee0302f549fce0f936c3f4c7ee79845aa1",
+   "sha256_templates": "063395813271c113fe39f5693b239416774f9f82dd3254b8f2335def7ab7132f",
+   "differs_from_ledger": {}
+  },
+  {
+   "corpus": "HealthApp",
+   "input_files": 1,
+   "raw_lines": 253395,
+   "events": 204648,
+   "input_bytes": 23529930,
+   "encoded_bytes": 21638860,
+   "templates_bytes": 793934,
+   "compact_bytes": 22432794,
+   "reduction_pct": 4.6627,
+   "ratio": 1.05,
+   "templates": 1341,
+   "sha256_encoded": "cc157eacdb5b7aebf9d357ae1fd3baa7dc676b183ca023ccf070902bac6d991e",
+   "sha256_templates": "ec1fc636d9de3edaacdd4a322ba2d7fdcd1509b74d7424822dae78938d03bce9",
+   "differs_from_ledger": {}
+  }
+ ],
+ "aggregate": {
+  "events": 52276250,
+  "input_bytes": 5732535052,
+  "compact_bytes": 3167463894,
+  "reduction_pct": 44.7458,
+  "over_100mb": [
+   "Spark",
+   "BGL",
+   "HDFS",
+   "Android"
+  ],
+  "over_100mb_reduction_pct": 44.9499
+ },
+ "ledger_source": "dotcom blog/inventories/compaction-ledger.md, section \"Engine 1.1.133 measurement (2026-10-05)\""
+}

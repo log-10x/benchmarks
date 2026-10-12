@@ -1,0 +1,14 @@
+{
+ "corpus": "Hadoop",
+ "source": "https://zenodo.org/records/3227177/files/Hadoop.tar.gz",
+ "image": "log10x/pipeline-10x:1.1.133@sha256:fe3dcdefdc2f42fa7117c4f63fe97b28508fbf1356725422703f0dfab55f2360",
+ "input_files": 978,
+ "raw_lines": 394310,
+ "input_bytes": 48595595,
+ "events": 186697,
+ "encoded_bytes": 19855508,
+ "templates_bytes": 356855,
+ "templates": 931,
+ "sha256_encoded": "aec90d0a66d80bb5d33d8754647a472efcb80762767c9b92795b3fca8ca7488a",
+ "sha256_templates": "c5ca018369a0bff2e73168fd291d34f4a922b19e6bdb591867f683a9f935d764"
+}

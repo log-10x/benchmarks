@@ -1,0 +1,14 @@
+{
+ "corpus": "Zookeeper",
+ "source": "https://zenodo.org/records/3227177/files/Zookeeper.tar.gz",
+ "image": "log10x/pipeline-10x:1.1.133@sha256:fe3dcdefdc2f42fa7117c4f63fe97b28508fbf1356725422703f0dfab55f2360",
+ "input_files": 1,
+ "raw_lines": 74380,
+ "input_bytes": 10426438,
+ "events": 74380,
+ "encoded_bytes": 5644199,
+ "templates_bytes": 29087,
+ "templates": 157,
+ "sha256_encoded": "d6dc63811dfd8773a1ef156e04b90bd75de2009f81d580e68e08591f1da1e86a",
+ "sha256_templates": "77b354d787da1560d70fb1e81518ad698b799684e235a88f580f5040c1736be4"
+}

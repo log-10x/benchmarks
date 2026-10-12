@@ -1,0 +1,14 @@
+{
+ "corpus": "Apache",
+ "source": "https://zenodo.org/records/3227177/files/Apache.tar.gz",
+ "image": "log10x/pipeline-10x:1.1.133@sha256:fe3dcdefdc2f42fa7117c4f63fe97b28508fbf1356725422703f0dfab55f2360",
+ "input_files": 1,
+ "raw_lines": 56482,
+ "input_bytes": 5135876,
+ "events": 52004,
+ "encoded_bytes": 2175473,
+ "templates_bytes": 120456,
+ "templates": 371,
+ "sha256_encoded": "e67e350212c3f7e26566e1d09e09a3caad165f93292437d8312d853a8f3e05d4",
+ "sha256_templates": "e8e9e5903b4893484b4084689c9d3a5b7c9e6247ace076e6517cc4e68c7d6ded"
+}

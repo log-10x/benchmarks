@@ -1,0 +1,14 @@
+{
+ "corpus": "OpenSSH",
+ "source": "https://zenodo.org/records/3227177/files/SSH.tar.gz",
+ "image": "log10x/pipeline-10x:1.1.133@sha256:fe3dcdefdc2f42fa7117c4f63fe97b28508fbf1356725422703f0dfab55f2360",
+ "input_files": 1,
+ "raw_lines": 655147,
+ "input_bytes": 73417506,
+ "events": 655147,
+ "encoded_bytes": 36458144,
+ "templates_bytes": 396153,
+ "templates": 3032,
+ "sha256_encoded": "bab9f48fa4bef0ab307fc598601ffa8ef1384e12fbc4aa7820d5ca818d9b0898",
+ "sha256_templates": "e0530f16377237cfba93e81a791055f59087213d3a0c352ff3161b68f3e5c518"
+}

@@ -1,0 +1,14 @@
+{
+ "corpus": "Mac",
+ "source": "https://zenodo.org/records/3227177/files/Mac.tar.gz",
+ "image": "log10x/pipeline-10x:1.1.133@sha256:fe3dcdefdc2f42fa7117c4f63fe97b28508fbf1356725422703f0dfab55f2360",
+ "input_files": 1,
+ "raw_lines": 117283,
+ "input_bytes": 16879552,
+ "events": 107220,
+ "encoded_bytes": 10899612,
+ "templates_bytes": 491481,
+ "templates": 2466,
+ "sha256_encoded": "982e102e482a5fb5d64ebf8c1c38113c731fd7513f67b353b12759925c4b4dc3",
+ "sha256_templates": "f884f0906f13225dad86cc2ace8b923e2512a05e28edee0b10c62e9bffb0a13e"
+}

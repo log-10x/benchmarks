@@ -1,0 +1,14 @@
+{
+ "corpus": "HPC",
+ "source": "https://zenodo.org/records/3227177/files/HPC.tar.gz",
+ "image": "log10x/pipeline-10x:1.1.133@sha256:fe3dcdefdc2f42fa7117c4f63fe97b28508fbf1356725422703f0dfab55f2360",
+ "input_files": 1,
+ "raw_lines": 433490,
+ "input_bytes": 33553503,
+ "events": 330461,
+ "encoded_bytes": 18864439,
+ "templates_bytes": 1620897,
+ "templates": 2045,
+ "sha256_encoded": "6e31834dced95054e992b5434ef627a70148dcdba97fb2b43684372d47200b9e",
+ "sha256_templates": "5dd14712f36fb3cd09340c606bbf8871b7f106cc3d506fcc0dcfc77041a0cd9b"
+}
