@@ -35,7 +35,7 @@ The capture's 10 hours scaled to a 720-hour month, at the rates above. The volum
 
 | Target | GB to IA per month | Ingest at the IA rate | Ingest at Standard the same GB would cost | GB offloaded per month | Ingest avoided by offload |
 |---:|---:|---:|---:|---:|---:|
-| 30% | 10.776 | $2.69 | $5.39 | 0.000 | $0.00 |
+| 30% | 10.776 | $2.69 | $5.39 | 0.000 | $0 |
 | 50% | 4.832 | $1.21 | $2.42 | 7.150 | $3.58 |
 | 70% | 0.127 | $0.03 | $0.06 | 11.895 | $5.95 |
 
@@ -88,11 +88,11 @@ Errors and warnings moved: 0. The regulator keeps half of the ERROR and CRITICAL
 | Ingest, Standard, for what stays | $2.35 |
 | Ingest, Infrequent Access, for the moved slice | $2.69 |
 | Ingest at Standard, what the moved slice would have cost | $5.39 |
-| Ingest avoided by offload | $0.00 |
+| Ingest avoided by offload | $0 |
 | Storage for one month of data held one month, both classes, compressed at AWS's stated ratio | $0.07 |
 | Logs Insights, one full scan of the IA slice | $0.05 |
-| S3 storage for one month of offloaded data held one month | $0.00 |
-| S3 PUT, 0 objects | $0.0000 |
+| S3 storage for one month of offloaded data held one month | $0 |
+| S3 PUT, 0 objects | $0 |
 | PutLogEvents batch-size rule, 26 bytes per event, for the IA slice | 217,850,256 bytes; not a billed quantity on any AWS page read |
 
 ## Target 50%
@@ -252,7 +252,7 @@ Errors and warnings moved: 51. The regulator keeps half of the ERROR and CRITICA
 | Ingest at Standard, what the moved slice would have cost | $0.06 |
 | Ingest avoided by offload | $5.95 |
 | Storage for one month of data held one month, both classes, compressed at AWS's stated ratio | $0.02 |
-| Logs Insights, one full scan of the IA slice | $0.00 |
+| Logs Insights, one full scan of the IA slice | $0 |
 | S3 storage for one month of offloaded data held one month | $0.27 |
 | S3 PUT, 4,320 objects | $0.0216 |
 | PutLogEvents batch-size rule, 26 bytes per event, for the IA slice | 3,341,520 bytes; not a billed quantity on any AWS page read |

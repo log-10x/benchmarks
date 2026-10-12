@@ -11,12 +11,14 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent / 'accounting-lib'))
 import tally as T  # noqa: E402
+import readme as README  # noqa: E402
 
 
 def compute(results: pathlib.Path, prices: dict, targets: list, window_hours: float, run: dict) -> dict:
     control = T.load(results / 'control.tally.json')
     out = {
         'engine_image': run['engine_image'],
+        'engine_tag': run.get('engine_tag', ''),
         'mcp_version': run['mcp_version'],
         'capture': run['capture'],
         'window_hours': window_hours,
@@ -29,6 +31,7 @@ def compute(results: pathlib.Path, prices: dict, targets: list, window_hours: fl
             'by_severity': {s: v['events'] for s, v in T.by_route_severity(control).get('pass', {}).items()},
             'custom_metrics': control['series']['custom_metrics'],
             'label_sets': control['series']['label_sets_per_aggregator'],
+            'datadog_series': datadog_series_summary(T.load(results / 'datadog-series-control.json')),
         },
         'targets': {},
     }
@@ -136,6 +139,94 @@ def custom_metrics(ds, tl, cmc, cm):
             'every_set_per_node_usd_per_month': round(max(0, cmc * n - n * allot) / 100 * per100, 2),
         } for n in (10, 100, 300)},
     }
+
+
+def datadog_series_summary(ds):
+    return {'max_series_per_post': ds['max_series_per_post'], 'distinct_series_over_run': ds['distinct_series_over_run'],
+            'posts': len(ds['posts']), 'tag_keys': ds['tag_keys'], 'node_or_process_tags': ds['node_or_process_tags'],
+            'host_field': ds['host_field']}
+
+
+def readme_blocks(r: dict, prices: dict) -> dict:
+    """Every figure the README quotes from this run, rendered from results.json and prices.json."""
+    c, cap = r['control'], r['capture']
+    idx = prices['indexed_per_million_events']
+    flex = prices['flex_storage_per_million_events_month']
+    starter = prices['flex_starter_per_million_events_month']
+    ing = prices['ingestion_per_gb']
+    cmp = prices['custom_metrics']
+    usd = lambda v: f'${v:,.0f}' if v == int(v) else f'${v:,.2f}'
+    B = {}
+    B['run'] = (f'The OpenTelemetry demo capture, {cap["lines"]:,} lines, {c["events"]:,} events after grouping, {T.gb(c["bytes"]):.3f} GB '
+                f'over {r["window_hours"]:g} hours. Engine `log10x/pipeline-10x:{r["engine_tag"]}`, log10x-mcp {r["mcp_version"]}, '
+                f'prices read {r["prices_read_on"]}.')
+    B['rates'] = (f'**What a moved event costs at list.** Standard indexing avoided: ${idx["15d"]["annual"]:.2f} per million events '
+                  f'at 15-day retention and ${idx["30d"]["annual"]:.2f} at 30-day, annual; ${idx["15d"]["on_demand"]:.2f} and '
+                  f'${idx["30d"]["on_demand"]:.2f} on demand. Flex storage added: ${flex["annual"]:.2f} per million events stored per month, '
+                  f'annual, ${flex["on_demand"]:.3f} on demand, billed for at least 30 days. Flex Starter, compute bundled, for volumes '
+                  f'below {prices["flex_compute"]["starter_monthly_limit_events"] / 1e9:g} billion events a month: ${starter["annual"]:.2f} '
+                  f'per million stored per month. Flex compute above Starter: "{prices["flex_compute"]["price"]}". Ingestion, '
+                  f'${ing["annual"]:.2f} per GB, is paid once on every event and unchanged by a move. The full rate table with every URL '
+                  f'is in [`results/results.md`](results/results.md).')
+    L = ['| Target | Patterns planned | Containers capped | Events the plan states | Events the engine marked tier_down | Share of the volume the plan states | Share of the bytes the engine moved | Events in Standard | Errors and warnings to Flex |',
+         '|---:|---:|---:|---:|---:|---:|---:|---:|---:|']
+    for t, v in r['targets'].items():
+        p, e = v['plan'], v['engine']['by_route']
+        tot = sum(x['bytes'] for x in e.values())
+        td = e.get('tier_down', {'events': 0, 'bytes': 0})
+        L.append(f'| {t}% | {len(p["planned_patterns"])} | {len(p["containers"])} | {p["stated_events_moved"]:,} | {td["events"]:,} | '
+                 f'{p["achieved_pct_stated"]:.1f}% | {td["bytes"] / tot * 100:.1f}% | {e.get("pass", {"events": 0})["events"]:,} | '
+                 f'{v["engine"]["protected_moved_events"]:,} |')
+    B['moves'] = '\n'.join(L)
+    N = []
+    for t, v in r['targets'].items():
+        p = v['plan']
+        by_c = {}
+        for x in p['planned_patterns']:
+            by_c.setdefault(x['container'] or '(no container)', []).append(x['name'])
+        n = len(p['planned_patterns'])
+        if n <= 8:
+            where = '; '.join(f'`{c}`: ' + ', '.join(f'`{x}`' for x in names) for c, names in by_c.items())
+            line = f'- **{t}%**: {n} pattern{"s" if n != 1 else ""} in {len(p["containers"])} container{"s" if len(p["containers"]) != 1 else ""} ({where})'
+        else:
+            line = f'- **{t}%**: {n} patterns in {len(p["containers"])} containers'
+        if p['unattributed_planned']:
+            line += f'; {p["unattributed_planned"]} planned pattern{"s" if p["unattributed_planned"] != 1 else ""} carried no container and {"are" if p["unattributed_planned"] != 1 else "is"} not in the files'
+        N.append(line + '.')
+    B['moves-notes'] = '\n'.join(N)
+    M = ['| Target | Events to Flex per month | Standard indexing avoided, 15-day annual | Flex storage added, annual | Flex compute tier | Custom metrics above a Pro allotment, 10 to 300 nodes |',
+         '|---:|---:|---:|---:|---|---:|']
+    for t, v in r['targets'].items():
+        m, u, cm = v['month'], v['usd_per_month_at_list'], v['custom_metrics']
+        lo, hi = cm['fleet']['10']['measured_usd_per_month'], cm['fleet']['300']['measured_usd_per_month']
+        fleet = usd(lo) if lo == hi else f'{usd(lo)} to {usd(hi)}'
+        M.append(f'| {t}% | {m["events_to_flex"]:,} | ${u["standard_indexing_avoided"]["15d_annual"]:.2f} | ${u["flex_storage_added"]["annual"]:.2f} | '
+                 f'{v["flex_compute"]["tier"]} | {fleet} |')
+    B['month'] = '\n'.join(M)
+    ds = c['datadog_series']
+    per_target = [v['custom_metrics'] for v in r['targets'].values()]
+    distinct = [ds['distinct_series_over_run']] + [x['distinct_over_run'] for x in per_target]
+    targets = list(r['targets'])
+    every = c['custom_metrics']
+    allot, per100 = cmp['allotment_per_host']['pro'], cmp['per_100_per_month']['annual']
+    every_cost = [usd(max(0, every * n - n * allot) / 100 * per100) for n in (10, 100, 300)]
+    measured_cost = sorted({usd(x['fleet'][str(n)]['measured_usd_per_month']) for x in per_target for n in (10, 100, 300)})
+    tags = [k for k in ds['tag_keys'] if k != 'statistic']
+    B['custom-metrics'] = (
+        f'**Custom metrics.** The `metrics` stage replays the capture through the engine\'s shipped Datadog metric output, posting to '
+        f'a local stand-in for Datadog\'s intake; the one change to the image\'s config is the URI it posts to. Each series carried '
+        + ', '.join(f'`{k}`' for k in tags) +
+        (', and no host, pod or pipeline id' if not ds['node_or_process_tags'] and not ds['host_field'] else
+         f', and {", ".join(ds["node_or_process_tags"] + ds["host_field"])}') +
+        f', so every node posts the same series. The output keeps to the {per_target[0]["top_series_default"]} tag sets with the most '
+        f'bytes, each from both aggregators: at most {ds["max_series_per_post"]:,} series in one post without a move, and '
+        + ', '.join(f'{x["count_measured"]:,}' for x in per_target[:-1]) + f' and {per_target[-1]["count_measured"]:,} at '
+        + ', '.join(targets[:-1]) + f' and {targets[-1]}%. A Pro plan includes {allot} custom metrics per host, so at 10, 100 and 300 '
+        f'nodes the line is {" to ".join(measured_cost)}. While ranks settle, tag sets enter and leave the top, and the replay, which '
+        f'delivers {r["window_hours"]:g} hours in under a minute, saw {min(distinct):,} to {max(distinct):,} distinct series in all; '
+        f'on a live stream that settling happens once. Every tag set from every node would be {every:,} series per node, '
+        f'{every_cost[0]}, {every_cost[1]} and {every_cost[2]} a month at ${per100:.0f} per 100.')
+    return B
 
 def render(r: dict, prices: dict) -> str:
     idx = prices['indexed_per_million_events']
@@ -297,11 +388,9 @@ def main() -> int:
     r = compute(results, prices, run['targets'], run['window_hours'], run)
     if a.check:
         committed = json.load(open(results / 'results.json'))
-        readme = open(here / 'README.md').read()
-        for t, v in r['targets'].items():
-            cell = f'{v["engine"]["by_route"].get("tier_down", {"events": 0})["events"]:,}'
-            if f'| {t}% |' not in readme or f'| {cell} |' not in readme:
-                raise SystemExit(f'README.md does not carry the {t}% figure {cell}')
+        stale = README.differing(open(here / 'README.md').read(), readme_blocks(r, prices))
+        if stale:
+            raise SystemExit(f'README.md differs from the results in: {", ".join(stale)}; run report.py to rewrite them')
         if committed != r:
             for k in r:
                 if committed.get(k) != r[k]:
@@ -312,7 +401,9 @@ def main() -> int:
         return 0
     json.dump(r, open(results / 'results.json', 'w'), indent=1)
     open(results / 'results.md', 'w').write(render(r, prices))
-    print(f'wrote {results / "results.md"}')
+    readme = here / 'README.md'
+    readme.write_text(README.apply(readme.read_text(), readme_blocks(r, prices)))
+    print(f'wrote {results / "results.md"} and the README\'s generated blocks')
     return 0
 
 

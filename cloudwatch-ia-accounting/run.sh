@@ -78,10 +78,10 @@ stage_count() {
 stage_report() {
   say "report"
   pull_engine >/dev/null
-  python3 - "$RESULTS/run.json" "$IMAGE_DIGEST" "$MCP_VERSION" "$ASSET" "$ASSET_SHA256" "$ASSET_BYTES" "$ASSET_LINES" "$WINDOW_SECONDS" $TARGETS <<'PY'
+  python3 - "$RESULTS/run.json" "$IMAGE_DIGEST" "${IMAGE%@*}" "$MCP_VERSION" "$ASSET" "$ASSET_SHA256" "$ASSET_BYTES" "$ASSET_LINES" "$WINDOW_SECONDS" $TARGETS <<'PY'
 import json, sys
-out, image, mcp, asset, sha, b, n, w, *targets = sys.argv[1:]
-json.dump({'engine_image': image, 'mcp_version': mcp,
+out, image, ref, mcp, asset, sha, b, n, w, *targets = sys.argv[1:]
+json.dump({'engine_image': image, 'engine_tag': ref.rsplit(':', 1)[-1], 'mcp_version': mcp,
            'capture': {'name': asset, 'sha256': sha, 'bytes': int(b), 'lines': int(n)},
            'window_hours': int(w) / 3600, 'targets': [int(t) for t in targets]}, open(out, 'w'), indent=1)
 PY

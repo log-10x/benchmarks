@@ -39,8 +39,9 @@ The 2026-09-18 run's compact arm also carried the app's searchable copy of each 
 the engine: 74,338,244 metered bytes of compact events against 75,017,247.
 
 Splunk's own dated figure for its own tool is "customers using Edge Processor can routinely
-reduce ingest volumes by 30-50% without losing analytical value" (2026-04-20). Both runs are
-above that range on this capture.
+reduce ingest volumes by 30-50% without losing analytical value" ([Splunk blog, "From Data
+Chaos to Clarity: The Complete Guide to Splunk Data Management", 2026-04-20](https://www.splunk.com/en_us/blog/platform/the-complete-guide-to-splunk-data-management.html)).
+Both runs are above that range on this capture.
 
 **Every compact event expands back to its original text.** In both runs all 157,228 come back
 byte-identical, in UTC and in any other timezone, read through the app's own macro and
