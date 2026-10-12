@@ -220,6 +220,47 @@ Errors and warnings marked tier_down: 0. The regulator keeps half of the ERROR a
 | Ingestion, unchanged | $1.55 |
 | Custom metrics from the engine's Datadog metric output, measured | at most 780 series in one of 4 posts, 1,590 distinct over the replay while ranks settle, the same from every node; above a Pro allotment $0 at 10 nodes, $0 at 300. Every tag set would be 10,972 per node |
 
+## Native filters at equal events
+
+Per target, the index filters a person writes in Datadog today, one per service, largest by events first until they reach the events the engine marked tier_down under the plan; the second variant adds `-status:(error OR warn)`. Computed from the control run's counts and each target's. The selection rule and the falsifier are in the README.
+
+### 30%
+
+| Arm | Filters | Events | Bytes | By severity |
+|---|---|---:|---:|---|
+| per-pattern plan | caps: `opentelemetry-collector` | 67,505 | 85,838,649 | INFO 67,505 |
+| service filters | `service:opentelemetry-collector` | 89,739 | 117,637,691 | ERROR 3,883, INFO 85,786, WARN 70 |
+| with `-status:(error OR warn)` | `service:opentelemetry-collector` | 85,786 | 109,148,873 | INFO 85,786 |
+
+Service filters, the largest patterns the plan keeps under a cap that the filters move: `opentelemetry-collector` `failed_to_upload_metrics_Post_https_otel_collector_http_server_gave_HTTP_response_HTTPS_client` 3,745; `opentelemetry-collector` `error_Request_failed` 62; `opentelemetry-collector` `error_internal_Exporting_failed_Rejecting_data_Try_enabling_sending_queue_to_survive_temporary_failures` 62; `opentelemetry-collector` `Sender_failed` 62; `opentelemetry-collector` `internal_Exporting_failed_Will_retry_the_request_after_interval` 24.
+With the status exclusion, the largest patterns the plan keeps under a cap that the filters move: `opentelemetry-collector` `internal_Exporting_failed_Will_retry_the_request_after_interval` 24; `opentelemetry-collector` `kube_ks_filtering` 3; `opentelemetry-collector` `Building_spanmetrics_connector` 1; `opentelemetry-collector` `Everything_is_ready_Begin_running_and_processing_data` 1; `opentelemetry-collector` `Memory_limiter_configured` 1.
+
+### 50%
+
+| Arm | Filters | Events | Bytes | By severity |
+|---|---|---:|---:|---|
+| per-pattern plan | caps: `ad`, `cart`, `opentelemetry-collector`, `recommendation` | 90,555 | 120,638,051 | INFO 86,052, TRACE 4,503 |
+| service filters | `service:opentelemetry-collector`, `service:kafka` | 118,778 | 148,835,881 | ERROR 3,883, INFO 114,570, WARN 71, none 254 |
+| with `-status:(error OR warn)` | `service:opentelemetry-collector`, `service:kafka` | 114,824 | 140,346,161 | INFO 114,570, none 254 |
+
+Service filters, the largest patterns the plan keeps under a cap that the filters move: `opentelemetry-collector` `failed_to_upload_metrics_Post_https_otel_collector_http_server_gave_HTTP_response_HTTPS_client` 3,745; `opentelemetry-collector` `error_Request_failed` 62; `opentelemetry-collector` `error_internal_Exporting_failed_Rejecting_data_Try_enabling_sending_queue_to_survive_temporary_failures` 62; `opentelemetry-collector` `Sender_failed` 62; `opentelemetry-collector` `internal_Exporting_failed_Will_retry_the_request_after_interval` 24.
+Service filters, the largest patterns the plan moves that the filters leave in Standard: `cart` `GetCartAsync_called_with_userId` 10,375; `cart` `AddItemAsync_called_with_userId_productId_quantity` 5,206; `recommendation` `Receive_ListRecommendations_for_product_ids` 3,077; `ad` `oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags` 2,468; `ad` `oteldemo_AdService_Targeted_ad_request_received_for` 2,035.
+With the status exclusion, the largest patterns the plan keeps under a cap that the filters move: `opentelemetry-collector` `internal_Exporting_failed_Will_retry_the_request_after_interval` 24; `opentelemetry-collector` `kube_ks_filtering` 3; `opentelemetry-collector` `Building_spanmetrics_connector` 1; `opentelemetry-collector` `Everything_is_ready_Begin_running_and_processing_data` 1; `opentelemetry-collector` `Memory_limiter_configured` 1.
+With the status exclusion, the largest patterns the plan moves that the filters leave in Standard: `cart` `GetCartAsync_called_with_userId` 10,375; `cart` `AddItemAsync_called_with_userId_productId_quantity` 5,206; `recommendation` `Receive_ListRecommendations_for_product_ids` 3,077; `ad` `oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags` 2,468; `ad` `oteldemo_AdService_Targeted_ad_request_received_for` 2,035.
+
+### 70%
+
+| Arm | Filters | Events | Bytes | By severity |
+|---|---|---:|---:|---|
+| per-pattern plan | caps: `accounting`, `ad`, `aws-node`, `cart`, `coredns`, `email`, `flagd`, `fluentd-10x`, `fraud-detection`, `frontend-proxy`, `image-provider`, `jaeger`, `kafka`, `opensearch`, `opentelemetry-collector`, `recommendation`, `valkey-cart` | 119,833 | 153,004,353 | INFO 113,008, TRACE 6,293, none 532 |
+| service filters | `service:opentelemetry-collector`, `service:kafka`, `service:cart` | 138,424 | 182,894,358 | ERROR 3,883, INFO 134,215, WARN 72, none 254 |
+| with `-status:(error OR warn)` | `service:opentelemetry-collector`, `service:kafka`, `service:cart` | 134,469 | 174,402,862 | INFO 134,215, none 254 |
+
+Service filters, the largest patterns the plan keeps under a cap that the filters move: `opentelemetry-collector` `failed_to_upload_metrics_Post_https_otel_collector_http_server_gave_HTTP_response_HTTPS_client` 3,745; `opentelemetry-collector` `error_Request_failed` 62; `opentelemetry-collector` `error_internal_Exporting_failed_Rejecting_data_Try_enabling_sending_queue_to_survive_temporary_failures` 62; `opentelemetry-collector` `Sender_failed` 62; `kafka` `Loading_producer_state_till_offset_with_message_format_version_kafka_log_UnifiedLog` 52.
+Service filters, the largest patterns the plan moves that the filters leave in Standard: `ad` `oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags` 3,161; `recommendation` `Receive_ListRecommendations_for_product_ids` 3,107; `ad` `oteldemo_AdService_Targeted_ad_request_received_for` 2,719; `fluentd-10x` `stats_cache_size_pod_api_updates_id_miss` 982; `ad` `oteldemo_AdService_Non_targeted_ad_request_received_preparing_random_response_trace_id_span_flags` 413.
+With the status exclusion, the largest patterns the plan keeps under a cap that the filters move: `kafka` `Loading_producer_state_till_offset_with_message_format_version_kafka_log_UnifiedLog` 52; `kafka` `Created_log_for_partition_consumer_in_tmp_kafka_logs_with_properties_LogManager` 50; `kafka` `Elected_as_the_group_coordinator_for_partition_in_epoch_kafka_GroupCoordinator` 50; `kafka` `Log_loaded_for_partition_consumer_with_initial_high_watermark_kafka_cluster_Partition` 50; `kafka` `No_checkpointed_highwatermark_is_found_for_partition_consumer_kafka_cluster_Partition` 50.
+With the status exclusion, the largest patterns the plan moves that the filters leave in Standard: `ad` `oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags` 3,161; `recommendation` `Receive_ListRecommendations_for_product_ids` 3,107; `ad` `oteldemo_AdService_Targeted_ad_request_received_for` 2,719; `fluentd-10x` `stats_cache_size_pod_api_updates_id_miss` 982; `ad` `oteldemo_AdService_Non_targeted_ad_request_received_preparing_random_response_trace_id_span_flags` 413.
+
 ## Custom metrics
 
 The engine's Datadog metric output publishes two counters, event volume and bytes, for each label set of two aggregators, `all_events` and `emitted_events`. A custom metric is uniquely identified by a combination of a metric name and tag values (including the host tag). On this capture the control run produced 2,709 label sets in `all_events` and 2,709 in `emitted_events`, 10,836 custom metrics from one node. A move splits label sets by route, so each target's count is in its table. Custom metrics are counted hourly and averaged monthly across your entire account, not on a per-host basis. Metrics created from ingested logs are billed as Custom Metrics.
@@ -250,6 +291,7 @@ Stages: `data plan control policy replay count metrics report`. Needs Docker, No
 | `../accounting-lib/replay.config.yaml` | the engine run: shipped enrichment, regulator and aggregators, file in, file out |
 | `../accounting-lib/policy.py` | the engine files the tool wrote, caps scaled to the one-window replay |
 | `../accounting-lib/count.py` | the two counts, records and aggregators, required to agree |
+| `filters.py` | the native-filter control: service filters at the plan's events, from the control and target counts |
 | `../accounting-lib/ddcapture.py`, `datadog_config.py`, `datadog_series.py` | the `metrics` stage: a local stand-in for Datadog's intake, the shipped Datadog config with only its URI pointed at it, and the count of what was posted |
 | `results/datadog-series-<run>.json`, `results/datadog-config.diff` | the series each post carried, and the one line changed in the shipped config |
 | `results/plan-<target>.json` | the plan the MCP wrote, its notes and the caps row it rendered |

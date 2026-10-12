@@ -249,6 +249,111 @@
       "every_set_per_node_usd_per_month": 161220.0
      }
     }
+   },
+   "native_filters": {
+    "plan": {
+     "events": 67505,
+     "bytes": 85838649,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 67505
+     },
+     "containers_capped": [
+      "opentelemetry-collector"
+     ],
+     "patterns_kept_under_a_cap": 31
+    },
+    "filters": {
+     "filters": [
+      "service:opentelemetry-collector"
+     ],
+     "events": 89739,
+     "bytes": 117637691,
+     "overshoot_events": 22234,
+     "errors_and_warnings": 3953,
+     "by_severity": {
+      "ERROR": 3883,
+      "INFO": 85786,
+      "WARN": 70
+     },
+     "kept_under_cap_events": 4000,
+     "kept_under_cap_patterns": 31,
+     "plan_moved_left_events": 0,
+     "plan_moved_left_patterns": 0,
+     "top_kept_under_cap_moved": [
+      {
+       "container": "opentelemetry-collector",
+       "pattern": "failed_to_upload_metrics_Post_https_otel_collector_http_server_gave_HTTP_response_HTTPS_client",
+       "events": 3745
+      },
+      {
+       "container": "opentelemetry-collector",
+       "pattern": "error_Request_failed",
+       "events": 62
+      },
+      {
+       "container": "opentelemetry-collector",
+       "pattern": "error_internal_Exporting_failed_Rejecting_data_Try_enabling_sending_queue_to_survive_temporary_failures",
+       "events": 62
+      },
+      {
+       "container": "opentelemetry-collector",
+       "pattern": "Sender_failed",
+       "events": 62
+      },
+      {
+       "container": "opentelemetry-collector",
+       "pattern": "internal_Exporting_failed_Will_retry_the_request_after_interval",
+       "events": 24
+      }
+     ],
+     "top_plan_moved_left": []
+    },
+    "filters_without_errors_and_warnings": {
+     "filters": [
+      "service:opentelemetry-collector"
+     ],
+     "events": 85786,
+     "bytes": 109148873,
+     "overshoot_events": 18281,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 85786
+     },
+     "kept_under_cap_events": 47,
+     "kept_under_cap_patterns": 22,
+     "plan_moved_left_events": 0,
+     "plan_moved_left_patterns": 0,
+     "top_kept_under_cap_moved": [
+      {
+       "container": "opentelemetry-collector",
+       "pattern": "internal_Exporting_failed_Will_retry_the_request_after_interval",
+       "events": 24
+      },
+      {
+       "container": "opentelemetry-collector",
+       "pattern": "kube_ks_filtering",
+       "events": 3
+      },
+      {
+       "container": "opentelemetry-collector",
+       "pattern": "Building_spanmetrics_connector",
+       "events": 1
+      },
+      {
+       "container": "opentelemetry-collector",
+       "pattern": "Everything_is_ready_Begin_running_and_processing_data",
+       "events": 1
+      },
+      {
+       "container": "opentelemetry-collector",
+       "pattern": "Memory_limiter_configured",
+       "events": 1
+      }
+     ],
+     "top_plan_moved_left": []
+    },
+    "key_adds_nothing_at_this_target": false
    }
   },
   "50": {
@@ -541,6 +646,171 @@
       "every_set_per_node_usd_per_month": 161520.0
      }
     }
+   },
+   "native_filters": {
+    "plan": {
+     "events": 90555,
+     "bytes": 120638051,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 86052,
+      "TRACE": 4503
+     },
+     "containers_capped": [
+      "ad",
+      "cart",
+      "opentelemetry-collector",
+      "recommendation"
+     ],
+     "patterns_kept_under_a_cap": 46
+    },
+    "filters": {
+     "filters": [
+      "service:opentelemetry-collector",
+      "service:kafka"
+     ],
+     "events": 118778,
+     "bytes": 148835881,
+     "overshoot_events": 28223,
+     "errors_and_warnings": 3954,
+     "by_severity": {
+      "ERROR": 3883,
+      "INFO": 114570,
+      "WARN": 71,
+      "none": 254
+     },
+     "kept_under_cap_events": 4000,
+     "kept_under_cap_patterns": 31,
+     "plan_moved_left_events": 23161,
+     "plan_moved_left_patterns": 5,
+     "top_kept_under_cap_moved": [
+      {
+       "container": "opentelemetry-collector",
+       "pattern": "failed_to_upload_metrics_Post_https_otel_collector_http_server_gave_HTTP_response_HTTPS_client",
+       "events": 3745
+      },
+      {
+       "container": "opentelemetry-collector",
+       "pattern": "error_Request_failed",
+       "events": 62
+      },
+      {
+       "container": "opentelemetry-collector",
+       "pattern": "error_internal_Exporting_failed_Rejecting_data_Try_enabling_sending_queue_to_survive_temporary_failures",
+       "events": 62
+      },
+      {
+       "container": "opentelemetry-collector",
+       "pattern": "Sender_failed",
+       "events": 62
+      },
+      {
+       "container": "opentelemetry-collector",
+       "pattern": "internal_Exporting_failed_Will_retry_the_request_after_interval",
+       "events": 24
+      }
+     ],
+     "top_plan_moved_left": [
+      {
+       "container": "cart",
+       "pattern": "GetCartAsync_called_with_userId",
+       "events": 10375
+      },
+      {
+       "container": "cart",
+       "pattern": "AddItemAsync_called_with_userId_productId_quantity",
+       "events": 5206
+      },
+      {
+       "container": "recommendation",
+       "pattern": "Receive_ListRecommendations_for_product_ids",
+       "events": 3077
+      },
+      {
+       "container": "ad",
+       "pattern": "oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags",
+       "events": 2468
+      },
+      {
+       "container": "ad",
+       "pattern": "oteldemo_AdService_Targeted_ad_request_received_for",
+       "events": 2035
+      }
+     ]
+    },
+    "filters_without_errors_and_warnings": {
+     "filters": [
+      "service:opentelemetry-collector",
+      "service:kafka"
+     ],
+     "events": 114824,
+     "bytes": 140346161,
+     "overshoot_events": 24269,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 114570,
+      "none": 254
+     },
+     "kept_under_cap_events": 47,
+     "kept_under_cap_patterns": 22,
+     "plan_moved_left_events": 23161,
+     "plan_moved_left_patterns": 5,
+     "top_kept_under_cap_moved": [
+      {
+       "container": "opentelemetry-collector",
+       "pattern": "internal_Exporting_failed_Will_retry_the_request_after_interval",
+       "events": 24
+      },
+      {
+       "container": "opentelemetry-collector",
+       "pattern": "kube_ks_filtering",
+       "events": 3
+      },
+      {
+       "container": "opentelemetry-collector",
+       "pattern": "Building_spanmetrics_connector",
+       "events": 1
+      },
+      {
+       "container": "opentelemetry-collector",
+       "pattern": "Everything_is_ready_Begin_running_and_processing_data",
+       "events": 1
+      },
+      {
+       "container": "opentelemetry-collector",
+       "pattern": "Memory_limiter_configured",
+       "events": 1
+      }
+     ],
+     "top_plan_moved_left": [
+      {
+       "container": "cart",
+       "pattern": "GetCartAsync_called_with_userId",
+       "events": 10375
+      },
+      {
+       "container": "cart",
+       "pattern": "AddItemAsync_called_with_userId_productId_quantity",
+       "events": 5206
+      },
+      {
+       "container": "recommendation",
+       "pattern": "Receive_ListRecommendations_for_product_ids",
+       "events": 3077
+      },
+      {
+       "container": "ad",
+       "pattern": "oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags",
+       "events": 2468
+      },
+      {
+       "container": "ad",
+       "pattern": "oteldemo_AdService_Targeted_ad_request_received_for",
+       "events": 2035
+      }
+     ]
+    },
+    "key_adds_nothing_at_this_target": false
    }
   },
   "70": {
@@ -1267,6 +1537,187 @@
       "every_set_per_node_usd_per_month": 163080.0
      }
     }
+   },
+   "native_filters": {
+    "plan": {
+     "events": 119833,
+     "bytes": 153004353,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 113008,
+      "TRACE": 6293,
+      "none": 532
+     },
+     "containers_capped": [
+      "accounting",
+      "ad",
+      "aws-node",
+      "cart",
+      "coredns",
+      "email",
+      "flagd",
+      "fluentd-10x",
+      "fraud-detection",
+      "frontend-proxy",
+      "image-provider",
+      "jaeger",
+      "kafka",
+      "opensearch",
+      "opentelemetry-collector",
+      "recommendation",
+      "valkey-cart"
+     ],
+     "patterns_kept_under_a_cap": 1010
+    },
+    "filters": {
+     "filters": [
+      "service:opentelemetry-collector",
+      "service:kafka",
+      "service:cart"
+     ],
+     "events": 138424,
+     "bytes": 182894358,
+     "overshoot_events": 18591,
+     "errors_and_warnings": 3955,
+     "by_severity": {
+      "ERROR": 3883,
+      "INFO": 134215,
+      "WARN": 72,
+      "none": 254
+     },
+     "kept_under_cap_events": 4795,
+     "kept_under_cap_patterns": 446,
+     "plan_moved_left_events": 11181,
+     "plan_moved_left_patterns": 16,
+     "top_kept_under_cap_moved": [
+      {
+       "container": "opentelemetry-collector",
+       "pattern": "failed_to_upload_metrics_Post_https_otel_collector_http_server_gave_HTTP_response_HTTPS_client",
+       "events": 3745
+      },
+      {
+       "container": "opentelemetry-collector",
+       "pattern": "error_Request_failed",
+       "events": 62
+      },
+      {
+       "container": "opentelemetry-collector",
+       "pattern": "error_internal_Exporting_failed_Rejecting_data_Try_enabling_sending_queue_to_survive_temporary_failures",
+       "events": 62
+      },
+      {
+       "container": "opentelemetry-collector",
+       "pattern": "Sender_failed",
+       "events": 62
+      },
+      {
+       "container": "kafka",
+       "pattern": "Loading_producer_state_till_offset_with_message_format_version_kafka_log_UnifiedLog",
+       "events": 52
+      }
+     ],
+     "top_plan_moved_left": [
+      {
+       "container": "ad",
+       "pattern": "oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags",
+       "events": 3161
+      },
+      {
+       "container": "recommendation",
+       "pattern": "Receive_ListRecommendations_for_product_ids",
+       "events": 3107
+      },
+      {
+       "container": "ad",
+       "pattern": "oteldemo_AdService_Targeted_ad_request_received_for",
+       "events": 2719
+      },
+      {
+       "container": "fluentd-10x",
+       "pattern": "stats_cache_size_pod_api_updates_id_miss",
+       "events": 982
+      },
+      {
+       "container": "ad",
+       "pattern": "oteldemo_AdService_Non_targeted_ad_request_received_preparing_random_response_trace_id_span_flags",
+       "events": 413
+      }
+     ]
+    },
+    "filters_without_errors_and_warnings": {
+     "filters": [
+      "service:opentelemetry-collector",
+      "service:kafka",
+      "service:cart"
+     ],
+     "events": 134469,
+     "bytes": 174402862,
+     "overshoot_events": 14636,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 134215,
+      "none": 254
+     },
+     "kept_under_cap_events": 840,
+     "kept_under_cap_patterns": 435,
+     "plan_moved_left_events": 11181,
+     "plan_moved_left_patterns": 16,
+     "top_kept_under_cap_moved": [
+      {
+       "container": "kafka",
+       "pattern": "Loading_producer_state_till_offset_with_message_format_version_kafka_log_UnifiedLog",
+       "events": 52
+      },
+      {
+       "container": "kafka",
+       "pattern": "Created_log_for_partition_consumer_in_tmp_kafka_logs_with_properties_LogManager",
+       "events": 50
+      },
+      {
+       "container": "kafka",
+       "pattern": "Elected_as_the_group_coordinator_for_partition_in_epoch_kafka_GroupCoordinator",
+       "events": 50
+      },
+      {
+       "container": "kafka",
+       "pattern": "Log_loaded_for_partition_consumer_with_initial_high_watermark_kafka_cluster_Partition",
+       "events": 50
+      },
+      {
+       "container": "kafka",
+       "pattern": "No_checkpointed_highwatermark_is_found_for_partition_consumer_kafka_cluster_Partition",
+       "events": 50
+      }
+     ],
+     "top_plan_moved_left": [
+      {
+       "container": "ad",
+       "pattern": "oteldemo_AdService_no_baggage_found_in_context_trace_id_span_flags",
+       "events": 3161
+      },
+      {
+       "container": "recommendation",
+       "pattern": "Receive_ListRecommendations_for_product_ids",
+       "events": 3107
+      },
+      {
+       "container": "ad",
+       "pattern": "oteldemo_AdService_Targeted_ad_request_received_for",
+       "events": 2719
+      },
+      {
+       "container": "fluentd-10x",
+       "pattern": "stats_cache_size_pod_api_updates_id_miss",
+       "events": 982
+      },
+      {
+       "container": "ad",
+       "pattern": "oteldemo_AdService_Non_targeted_ad_request_received_preparing_random_response_trace_id_span_flags",
+       "events": 413
+      }
+     ]
+    },
+    "key_adds_nothing_at_this_target": false
    }
   }
  }
