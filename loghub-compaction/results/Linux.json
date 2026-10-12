@@ -1,0 +1,14 @@
+{
+ "corpus": "Linux",
+ "source": "https://zenodo.org/records/3227177/files/Linux.tar.gz",
+ "image": "log10x/pipeline-10x:1.1.133@sha256:fe3dcdefdc2f42fa7117c4f63fe97b28508fbf1356725422703f0dfab55f2360",
+ "input_files": 1,
+ "raw_lines": 25567,
+ "input_bytes": 2349686,
+ "events": 25567,
+ "encoded_bytes": 1127139,
+ "templates_bytes": 176728,
+ "templates": 1262,
+ "sha256_encoded": "757be2eab4d569faa9901b4b424b786f6c500d8168715fb7f4dc13c6121e0c37",
+ "sha256_templates": "3f4890d986d4e7207b0b852541dd11bf2075a9215e301cec2fb9c9bce37919c2"
+}

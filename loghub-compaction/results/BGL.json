@@ -1,0 +1,14 @@
+{
+ "corpus": "BGL",
+ "source": "https://zenodo.org/records/3227177/files/BGL.tar.gz",
+ "image": "log10x/pipeline-10x:1.1.133@sha256:fe3dcdefdc2f42fa7117c4f63fe97b28508fbf1356725422703f0dfab55f2360",
+ "input_files": 1,
+ "raw_lines": 4747963,
+ "input_bytes": 743185031,
+ "events": 4728216,
+ "encoded_bytes": 456401472,
+ "templates_bytes": 25949952,
+ "templates": 136461,
+ "sha256_encoded": "4908109ff9b92c0a3e71743ec930891ff3bee69ee20e691e3df0ce626f8a82c6",
+ "sha256_templates": "089a72ca9a73ee79ceea27cfcd8330c25f59aeac92608aeaef53fe5ed0bfee1a"
+}

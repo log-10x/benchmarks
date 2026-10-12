@@ -1,0 +1,21 @@
+{
+ "source": "dotcom blog/inventories/compaction-ledger.md, section \"Engine 1.1.133 measurement (2026-10-05)\"",
+ "note": "The figures the compaction post carries. Linux's template count varies run to run (1,261 to 1,271 on the same engine and library) because two-digit days match both MMM d and MMM dd; its reduction is the same each time.",
+ "corpora": {
+  "Hadoop": {"events": 186695, "input_bytes": 48595595, "compact_bytes": 20198860, "templates": 888},
+  "Spark": {"events": 32952122, "input_bytes": 2941224304, "compact_bytes": 1248618288, "templates": 3377},
+  "Apache": {"events": 52004, "input_bytes": 5135876, "compact_bytes": 2295929, "templates": 371},
+  "OpenSSH": {"events": 655147, "input_bytes": 73417506, "compact_bytes": 36854297, "templates": 3032},
+  "Proxifier": {"events": 21329, "input_bytes": 2541814, "compact_bytes": 1353818, "templates": 1854},
+  "Zookeeper": {"events": 74380, "input_bytes": 10426438, "compact_bytes": 5673286, "templates": 157},
+  "Linux": {"events": 25567, "input_bytes": 2349686, "compact_bytes": 1304303, "templates": 1266},
+  "HPC": {"events": 330461, "input_bytes": 33553503, "compact_bytes": 20485336, "templates": 2045},
+  "BGL": {"events": 4728216, "input_bytes": 743185031, "compact_bytes": 482351424, "templates": 136461},
+  "Mac": {"events": 107220, "input_bytes": 16879552, "compact_bytes": 11391093, "templates": 2466},
+  "OpenStack": {"events": 207820, "input_bytes": 61442082, "compact_bytes": 42663612, "templates": 8133},
+  "HDFS": {"events": 11175629, "input_bytes": 1577982906, "compact_bytes": 1118008927, "templates": 279},
+  "Android": {"events": 1555005, "input_bytes": 192270829, "compact_bytes": 153830847, "templates": 29400},
+  "HealthApp": {"events": 204648, "input_bytes": 23529930, "compact_bytes": 22432794, "templates": 1341}
+ },
+ "aggregate": {"events": 52276243, "input_bytes": 5732535052, "compact_bytes": 3167462814, "reduction_pct": 44.7, "over_100mb_reduction_pct": 45}
+}

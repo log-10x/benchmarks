@@ -1,0 +1,14 @@
+{
+ "corpus": "HDFS",
+ "source": "https://zenodo.org/records/3227177/files/HDFS_1.tar.gz",
+ "image": "log10x/pipeline-10x:1.1.133@sha256:fe3dcdefdc2f42fa7117c4f63fe97b28508fbf1356725422703f0dfab55f2360",
+ "input_files": 1,
+ "raw_lines": 11175629,
+ "input_bytes": 1577982906,
+ "events": 11175629,
+ "encoded_bytes": 1117971042,
+ "templates_bytes": 37885,
+ "templates": 279,
+ "sha256_encoded": "4835a79b8523e86d05958d78f15d357a315e4e60316cfa7ba803778213d6e16b",
+ "sha256_templates": "ae4c544e83353a95f7894391f4cf400804e569eed071541e49e2c2ef024e1ec7"
+}

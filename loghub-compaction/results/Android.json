@@ -1,0 +1,14 @@
+{
+ "corpus": "Android",
+ "source": "https://zenodo.org/records/3227177/files/Android.tar.gz",
+ "image": "log10x/pipeline-10x:1.1.133@sha256:fe3dcdefdc2f42fa7117c4f63fe97b28508fbf1356725422703f0dfab55f2360",
+ "input_files": 1,
+ "raw_lines": 1555005,
+ "input_bytes": 192270829,
+ "events": 1555005,
+ "encoded_bytes": 149280515,
+ "templates_bytes": 4550332,
+ "templates": 29400,
+ "sha256_encoded": "5c84293126f63ab351e763e7e71586ee0302f549fce0f936c3f4c7ee79845aa1",
+ "sha256_templates": "063395813271c113fe39f5693b239416774f9f82dd3254b8f2335def7ab7132f"
+}

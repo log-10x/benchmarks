@@ -1,0 +1,14 @@
+{
+ "corpus": "HealthApp",
+ "source": "https://zenodo.org/records/3227177/files/HealthApp.tar.gz",
+ "image": "log10x/pipeline-10x:1.1.133@sha256:fe3dcdefdc2f42fa7117c4f63fe97b28508fbf1356725422703f0dfab55f2360",
+ "input_files": 1,
+ "raw_lines": 253395,
+ "input_bytes": 23529930,
+ "events": 204648,
+ "encoded_bytes": 21638860,
+ "templates_bytes": 793934,
+ "templates": 1341,
+ "sha256_encoded": "cc157eacdb5b7aebf9d357ae1fd3baa7dc676b183ca023ccf070902bac6d991e",
+ "sha256_templates": "ec1fc636d9de3edaacdd4a322ba2d7fdcd1509b74d7424822dae78938d03bce9"
+}

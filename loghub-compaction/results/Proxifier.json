@@ -1,0 +1,14 @@
+{
+ "corpus": "Proxifier",
+ "source": "https://zenodo.org/records/3227177/files/Proxifier.tar.gz",
+ "image": "log10x/pipeline-10x:1.1.133@sha256:fe3dcdefdc2f42fa7117c4f63fe97b28508fbf1356725422703f0dfab55f2360",
+ "input_files": 1,
+ "raw_lines": 21329,
+ "input_bytes": 2541814,
+ "events": 21329,
+ "encoded_bytes": 1065276,
+ "templates_bytes": 288542,
+ "templates": 1854,
+ "sha256_encoded": "e48ad19d7cd75ee97cfd1ee3915a8b3f8cf1e2ff66e865e8865d933e9976ce3c",
+ "sha256_templates": "d6f6039ce45dd70d8f3b5543753a5744301eb7272e9e596b0cfe6832b4178f4c"
+}

@@ -1,0 +1,14 @@
+{
+ "corpus": "OpenStack",
+ "source": "https://zenodo.org/records/3227177/files/OpenStack.tar.gz",
+ "image": "log10x/pipeline-10x:1.1.133@sha256:fe3dcdefdc2f42fa7117c4f63fe97b28508fbf1356725422703f0dfab55f2360",
+ "input_files": 3,
+ "raw_lines": 207820,
+ "input_bytes": 61442082,
+ "events": 207820,
+ "encoded_bytes": 40775270,
+ "templates_bytes": 1888550,
+ "templates": 8134,
+ "sha256_encoded": "318f05bc6eaef0a6f73c2b9f6607cc339e2661486300edc4e09a08699e92ef80",
+ "sha256_templates": "1bb6ea6c315e46a1eaca0652e821ab75d8956a4a58ebe203d79d0aeb091c7cd8"
+}

@@ -1,0 +1,14 @@
+{
+ "corpus": "Spark",
+ "source": "https://zenodo.org/records/3227177/files/Spark.tar.gz",
+ "image": "log10x/pipeline-10x:1.1.133@sha256:fe3dcdefdc2f42fa7117c4f63fe97b28508fbf1356725422703f0dfab55f2360",
+ "input_files": 3852,
+ "raw_lines": 33236604,
+ "input_bytes": 2941224304,
+ "events": 32952127,
+ "encoded_bytes": 1246902535,
+ "templates_bytes": 1703558,
+ "templates": 3370,
+ "sha256_encoded": "4b9a5943e0c94d162bd7d624dc706ab80ee42af743af4d9484a146b9ae995e1f",
+ "sha256_templates": "f7ebe0aad901a91ffd5d3c04cef5d2918d028d7575ae51af7fdc6a1675a45d50"
+}

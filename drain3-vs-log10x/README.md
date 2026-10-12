@@ -11,7 +11,8 @@ It feeds the **same raw log lines** to both tools across the 16
    reduced form?
 
 Representation size / compression is out of scope: this benchmark is about stability and
-reversibility, not storage cost.
+reversibility, not storage cost. The compaction measurement on the 14 full LogHub datasets,
+with this folder's encode config, is in [`loghub-compaction/`](../loghub-compaction/).
 
 Reference results are committed in [`bench/facts.json`](bench/facts.json) (canonical roll-up)
 and [`bench/results.json`](bench/results.json) (per-dataset). Rerunning should reproduce them.
