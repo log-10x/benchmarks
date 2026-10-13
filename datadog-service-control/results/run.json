@@ -1,0 +1,23 @@
+{
+ "engine_image": "log10x/pipeline-10x@sha256:fd9c98384a775df13ed41921c2cf95ef1d1313f62f1300aac61da55ca64feb67",
+ "engine_tag": "1.1.140",
+ "mcp_version": "1.30.49",
+ "captures": {
+  "A": {
+   "name": "otel-sample-200mb.log",
+   "sha256": "aa79b9349a4123d88936fd064f5eccd9fd84f45a1fd03cff3f64c259715c2432",
+   "span_seconds": 36000
+  },
+  "B": {
+   "name": "rec1155.log",
+   "sha256": "df78e200d929bc57f826a396fb8e1764717bf6b61544970261f3647163351b77",
+   "span_seconds": 7200
+  }
+ },
+ "targets": [
+  30,
+  50,
+  70,
+  90
+ ]
+}

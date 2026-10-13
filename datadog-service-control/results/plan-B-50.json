@@ -1,0 +1,4881 @@
+{
+ "mcp_version": "1.30.49",
+ "args": {
+  "source": "file",
+  "path": "/private/tmp/claude-501/-Users-talweiss-eclipse-workspace-l1x-co-config/baa52925-177a-4f06-ab96-d9543f0e179f/scratchpad/svc/data/kafka-B.log",
+  "siem": "datadog",
+  "window": "2h",
+  "target_percent_reduction": 50
+ },
+ "elapsed_ms": 10861,
+ "summary": {
+  "headline": "Target: move 50% of the volume out of the Datadog Standard index. This plan moves 68%, keeping everything. Sampled 6,225 events from 1 file. Moves 4,220 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0.01/mo at $1.70 per million events (15-day retention). Flex storage added: $0/mo at $0.05 per million events stored per month, held 30 days. Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures. Datadog list prices, datadoghq.com/pricing, read 2026-09-30."
+ },
+ "notes": [
+  "wrapped-JSON normalization applied: 6230 of 6230 lines decoded; analysed bytes count the unwrapped payload, raw file size is 6569531 bytes."
+ ],
+ "events_pulled": 6225,
+ "total_bytes": 1260449,
+ "distinct_patterns": 361,
+ "feasibility": {
+  "feasible": true,
+  "target_percent_reduction": 50,
+  "max_achievable_percent": 77.6,
+  "reason": "Total sample bytes 1.26 MB across 1 pod(s). Ladder plan on datadog: tier_down first; achieved 68% of the volume out of the Standard index keeping everything; keep-everything ceiling 78%. Moves 4,220 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0.01/mo at $1.70 per million events (15-day retention). Flex storage added: $0/mo at $0.05 per million events stored per month, held 30 days. Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures. Datadog list prices, datadoghq.com/pricing, read 2026-09-30. Achievable 77.6% of the volume out of the Standard index meets target 50%.",
+  "exception_services": [],
+  "exception_share_of_bytes": 0
+ },
+ "plan": {
+  "destination": "datadog",
+  "retrieverInstalled": false,
+  "scope": "all",
+  "target": {
+   "kind": "percent",
+   "value": 50
+  },
+  "targetPct": 50,
+  "percentBasis": "standard_index_volume",
+  "billUsd": 0.0164211075,
+  "keepEverythingLever": "tier_down",
+  "keepEverythingCeilingPct": 77.57808357323037,
+  "achievedPct": 67.79976624597334,
+  "met": true,
+  "totalSavedUsd": 0.007174442777150513,
+  "totalAddedUsd": 0.000211013022857368,
+  "perEventMove": {
+   "tier": "Datadog Flex Logs",
+   "events_moved": 4220.260457147359,
+   "gb_moved": 0.0044533889999999994,
+   "events_basis": "measured",
+   "standard_indexing_avoided_usd": 0.00717444277715051,
+   "tier_storage_added_usd": 0.00021101302285736796,
+   "tier_retention_months": 1,
+   "unpriced": "Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures",
+   "text": "Moves 4,220 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0.01/mo at $1.70 per million events (15-day retention). Flex storage added: $0/mo at $0.05 per million events stored per month, held 30 days. Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures. Datadog list prices, datadoghq.com/pricing, read 2026-09-30."
+  },
+  "rateBasis": "datadog default rate: all-in $2.5/GB, Datadog Flex Logs priced per event at list: Standard indexing avoided $1.70 per million events (15-day retention), Flex storage added $0.05 per million events stored per month, Flex compute unpriced and excluded (Datadog list prices, datadoghq.com/pricing, read 2026-09-30)",
+  "rateSource": "list_price",
+  "modeled": false,
+  "prerequisites": [
+   "Flex Logs enabled on the Datadog account, and a Flex index whose filter keys on @routeState:tier_down"
+  ],
+  "bytesInMonthly": 6568443,
+  "containerCaps": {
+   "kafka": {
+    "action": "tier_down",
+    "capBytesMonthly": 55939,
+    "keptMaxPattern": "loading_offsets_consumer_epoch_which_milliseconds_was_spent_in_the_scheduler_kafka_coordinator_group_GroupMetadataManager_Finished"
+   }
+  },
+  "planned": [
+   {
+    "hash": "VnqlcNA_PIM",
+    "name": "Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager",
+    "displayName": "Wrote snapshot offset producer ids ms org apache kafka storage internals log ProducerStateManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0012936825,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ProducerStateManager partition=__cluster_metadata$] Wrote producer snapshot at offset $ with $ producer ids in $1 ms. (org.apache.kafka.storage.internals.log.ProducerStateManager)",
+    "action": "tier_down",
+    "movedBytesMonthly": 415380.60000000003,
+    "savedUsd": 0.0006577403335826218,
+    "addedUsd": 0.00001934530392890064,
+    "perEventMove": {
+     "tier": "Datadog Flex Logs",
+     "events_moved": 386.9060785780128,
+     "gb_moved": 0.0004153806,
+     "events_basis": "measured",
+     "standard_indexing_avoided_usd": 0.0006577403335826218,
+     "tier_storage_added_usd": 0.00001934530392890064,
+     "tier_retention_months": 1,
+     "unpriced": "Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures",
+     "text": "Moves 387 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex storage added: $0/mo at $0.05 per million events stored per month, held 30 days. Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures. Datadog list prices, datadoghq.com/pricing, read 2026-09-30."
+    },
+    "keepsEverything": true
+   },
+   {
+    "hash": "AMFi23Ga9wY",
+    "name": "Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile",
+    "displayName": "Deleted producer state snapshot tmp kafka logs cluster org apache storage internals log SnapshotFile",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0012177025,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Deleted producer state snapshot //tmp//kafka-logs//__cluster_metadata$//$.snapshot.deleted (org.apache.kafka.storage.internals.log.SnapshotFile)",
+    "action": "tier_down",
+    "movedBytesMonthly": 388027.8,
+    "savedUsd": 0.0006324518312559922,
+    "addedUsd": 0.000018601524448705655,
+    "perEventMove": {
+     "tier": "Datadog Flex Logs",
+     "events_moved": 372.0304889741131,
+     "gb_moved": 0.0003880278,
+     "events_basis": "measured",
+     "standard_indexing_avoided_usd": 0.0006324518312559922,
+     "tier_storage_added_usd": 0.000018601524448705655,
+     "tier_retention_months": 1,
+     "unpriced": "Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures",
+     "text": "Moves 372 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex storage added: $0/mo at $0.05 per million events stored per month, held 30 days. Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures. Datadog list prices, datadoghq.com/pricing, read 2026-09-30."
+    },
+    "keepsEverything": true
+   },
+   {
+    "hash": "7CaEeIJhG-8",
+    "name": "Rolled_new_log_segment_at_offset_in_ms_kafka_LocalLog",
+    "displayName": "Rolled new log segment at offset in ms kafka LocalLog",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0012108175,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [LocalLog partition=__cluster_metadata$, dir=//tmp//kafka-logs] Rolled new log segment at offset $ in $ ms. (kafka.log.LocalLog)",
+    "action": "tier_down",
+    "movedBytesMonthly": 385549.2,
+    "savedUsd": 0.0006468713904448853,
+    "addedUsd": 0.000019025629130731925,
+    "perEventMove": {
+     "tier": "Datadog Flex Logs",
+     "events_moved": 380.51258261463846,
+     "gb_moved": 0.0003855492,
+     "events_basis": "measured",
+     "standard_indexing_avoided_usd": 0.0006468713904448853,
+     "tier_storage_added_usd": 0.000019025629130731925,
+     "tier_retention_months": 1,
+     "unpriced": "Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures",
+     "text": "Moves 381 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex storage added: $0/mo at $0.05 per million events stored per month, held 30 days. Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures. Datadog list prices, datadoghq.com/pricing, read 2026-09-30."
+    },
+    "keepsEverything": true
+   },
+   {
+    "hash": "q20KpyVGjSM",
+    "name": "Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+    "displayName": "Deleted index tmp cluster org apache kafka storage internals log LogSegment",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0012051,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Deleted time index //tmp//kafka-logs//__cluster_metadata$//$.timeindex.deleted. (org.apache.kafka.storage.internals.log.LogSegment)",
+    "action": "tier_down",
+    "movedBytesMonthly": 383490.9,
+    "savedUsd": 0.000632946145631068,
+    "addedUsd": 0.000018616063106796118,
+    "perEventMove": {
+     "tier": "Datadog Flex Logs",
+     "events_moved": 372.3212621359223,
+     "gb_moved": 0.00038349090000000004,
+     "events_basis": "measured",
+     "standard_indexing_avoided_usd": 0.000632946145631068,
+     "tier_storage_added_usd": 0.000018616063106796118,
+     "tier_retention_months": 1,
+     "unpriced": "Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures",
+     "text": "Moves 372 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex storage added: $0/mo at $0.05 per million events stored per month, held 30 days. Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures. Datadog list prices, datadoghq.com/pricing, read 2026-09-30."
+    },
+    "keepsEverything": true
+   },
+   {
+    "hash": "hl_fK-uzMu8",
+    "name": "Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+    "displayName": "Deleted offset index tmp cluster org apache kafka storage internals log LogSegment",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00120276,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Deleted offset index //tmp//kafka-logs//__cluster_metadata$//$.index.deleted. (org.apache.kafka.storage.internals.log.LogSegment)",
+    "action": "tier_down",
+    "movedBytesMonthly": 382648.5,
+    "savedUsd": 0.0006327844844357976,
+    "addedUsd": 0.000018611308365758755,
+    "perEventMove": {
+     "tier": "Datadog Flex Logs",
+     "events_moved": 372.2261673151751,
+     "gb_moved": 0.0003826485,
+     "events_basis": "measured",
+     "standard_indexing_avoided_usd": 0.0006327844844357976,
+     "tier_storage_added_usd": 0.000018611308365758755,
+     "tier_retention_months": 1,
+     "unpriced": "Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures",
+     "text": "Moves 372 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex storage added: $0/mo at $0.05 per million events stored per month, held 30 days. Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures. Datadog list prices, datadoghq.com/pricing, read 2026-09-30."
+    },
+    "keepsEverything": true
+   },
+   {
+    "hash": "WlIY0QjIiEg",
+    "name": "Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+    "displayName": "Deleted tmp cluster org apache kafka storage internals log LogSegment",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0011898899999999999,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Deleted log //tmp//kafka-logs//__cluster_metadata$//$.log.deleted. (org.apache.kafka.storage.internals.log.LogSegment)",
+    "action": "tier_down",
+    "movedBytesMonthly": 378015.3,
+    "savedUsd": 0.0006318839823008849,
+    "addedUsd": 0.000018584823008849558,
+    "perEventMove": {
+     "tier": "Datadog Flex Logs",
+     "events_moved": 371.69646017699114,
+     "gb_moved": 0.0003780153,
+     "events_basis": "measured",
+     "standard_indexing_avoided_usd": 0.0006318839823008849,
+     "tier_storage_added_usd": 0.000018584823008849558,
+     "tier_retention_months": 1,
+     "unpriced": "Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures",
+     "text": "Moves 372 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex storage added: $0/mo at $0.05 per million events stored per month, held 30 days. Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures. Datadog list prices, datadoghq.com/pricing, read 2026-09-30."
+    },
+    "keepsEverything": true
+   },
+   {
+    "hash": "O4QwlwcKPUE",
+    "name": "Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_kafka_UnifiedLog",
+    "displayName": "Deleting segments due to log start offset breach LogSegment baseOffset size lastModifiedTime kafka UnifiedLog",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00105901,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [UnifiedLog partition=__cluster_metadata$, dir=//tmp//kafka-logs] Deleting segments due to log start offset $ breach: LogSegment(baseOffset=$, size=$, lastModifiedTime=$(+%s), $=$(+%s)) (kafka.log.UnifiedLog)",
+    "action": "tier_down",
+    "movedBytesMonthly": 330898.5,
+    "savedUsd": 0.0004820480079272151,
+    "addedUsd": 0.000014177882586094562,
+    "perEventMove": {
+     "tier": "Datadog Flex Logs",
+     "events_moved": 283.5576517218912,
+     "gb_moved": 0.0003308985,
+     "events_basis": "measured",
+     "standard_indexing_avoided_usd": 0.0004820480079272151,
+     "tier_storage_added_usd": 0.000014177882586094562,
+     "tier_retention_months": 1,
+     "unpriced": "Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures",
+     "text": "Moves 284 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex storage added: $0/mo at $0.05 per million events stored per month, held 30 days. Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures. Datadog list prices, datadoghq.com/pricing, read 2026-09-30."
+    },
+    "keepsEverything": true
+   },
+   {
+    "hash": "aPPa_aNvpwA",
+    "name": "older_than_the_retention_kafka",
+    "displayName": "older than the retention kafka",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.001024775,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [$ partition=__cluster_metadata$, nodeId=$] Marking snapshot $0(offset=$, epoch=$3) for deletion because its timestamp ($(+%s)) is now ($(+%s)) older than the retention ($) (kafka.raft.$)",
+    "action": "tier_down",
+    "movedBytesMonthly": 318573.9,
+    "savedUsd": 0.0004795978475519017,
+    "addedUsd": 0.00001410581904564417,
+    "perEventMove": {
+     "tier": "Datadog Flex Logs",
+     "events_moved": 282.11638091288336,
+     "gb_moved": 0.00031857390000000004,
+     "events_basis": "measured",
+     "standard_indexing_avoided_usd": 0.0004795978475519017,
+     "tier_storage_added_usd": 0.00001410581904564417,
+     "tier_retention_months": 1,
+     "unpriced": "Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures",
+     "text": "Moves 282 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex storage added: $0/mo at $0.05 per million events stored per month, held 30 days. Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures. Datadog list prices, datadoghq.com/pricing, read 2026-09-30."
+    },
+    "keepsEverything": true
+   },
+   {
+    "hash": "TxSKKm13VKE",
+    "name": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_kafka_LocalLog",
+    "displayName": "Deleting segment files LogSegment baseOffset size lastModifiedTime kafka LocalLog",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0010187825000000001,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [LocalLog partition=__cluster_metadata$, dir=//tmp//kafka-logs] Deleting segment files LogSegment(baseOffset=$, size=$, lastModifiedTime=$(+%s), $=$(+%s)) (kafka.log.LocalLog/$)",
+    "action": "tier_down",
+    "movedBytesMonthly": 316416.60000000003,
+    "savedUsd": 0.0004751921023378396,
+    "addedUsd": 0.000013976238304054105,
+    "perEventMove": {
+     "tier": "Datadog Flex Logs",
+     "events_moved": 279.5247660810821,
+     "gb_moved": 0.0003164166,
+     "events_basis": "measured",
+     "standard_indexing_avoided_usd": 0.0004751921023378396,
+     "tier_storage_added_usd": 0.000013976238304054105,
+     "tier_retention_months": 1,
+     "unpriced": "Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures",
+     "text": "Moves 280 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex storage added: $0/mo at $0.05 per million events stored per month, held 30 days. Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures. Datadog list prices, datadoghq.com/pricing, read 2026-09-30."
+    },
+    "keepsEverything": true
+   },
+   {
+    "hash": "YJTvxN0rObQ",
+    "name": "Creating_new_KRaft_snapshot_file_because_we_have_replayed_at_least_bytes_org_apache_kafka_image_publisher_SnapshotGenerator",
+    "displayName": "Creating new KRaft snapshot file because we have replayed at least bytes org apache kafka image publisher SnapshotGenerator",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0009963,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [SnapshotGenerator id=$] Creating new KRaft snapshot file snapshot $$ because we have replayed at least $ bytes. (org.apache.kafka.image.publisher.SnapshotGenerator)",
+    "action": "tier_down",
+    "movedBytesMonthly": 308322.9,
+    "savedUsd": 0.0004853230833333334,
+    "addedUsd": 0.000014274208333333336,
+    "perEventMove": {
+     "tier": "Datadog Flex Logs",
+     "events_moved": 285.4841666666667,
+     "gb_moved": 0.0003083229,
+     "events_basis": "measured",
+     "standard_indexing_avoided_usd": 0.0004853230833333334,
+     "tier_storage_added_usd": 0.000014274208333333336,
+     "tier_retention_months": 1,
+     "unpriced": "Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures",
+     "text": "Moves 285 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex storage added: $0/mo at $0.05 per million events stored per month, held 30 days. Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures. Datadog list prices, datadoghq.com/pricing, read 2026-09-30."
+    },
+    "keepsEverything": true
+   },
+   {
+    "hash": "JlanVdU0Z_U",
+    "name": "Incremented_log_start_offset_to_due_snapshot_generated_kafka_UnifiedLog",
+    "displayName": "Incremented log start offset to due snapshot generated kafka UnifiedLog",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0009376625,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [UnifiedLog partition=__cluster_metadata$, dir=//tmp//kafka-logs] Incremented log start offset to $ due to snapshot generated (kafka.log.UnifiedLog)",
+    "action": "tier_down",
+    "movedBytesMonthly": 287213.4,
+    "savedUsd": 0.00047255646125338266,
+    "addedUsd": 0.000013898719448628903,
+    "perEventMove": {
+     "tier": "Datadog Flex Logs",
+     "events_moved": 277.9743889725781,
+     "gb_moved": 0.0002872134,
+     "events_basis": "measured",
+     "standard_indexing_avoided_usd": 0.00047255646125338266,
+     "tier_storage_added_usd": 0.000013898719448628903,
+     "tier_retention_months": 1,
+     "unpriced": "Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures",
+     "text": "Moves 278 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex storage added: $0/mo at $0.05 per million events stored per month, held 30 days. Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures. Datadog list prices, datadoghq.com/pricing, read 2026-09-30."
+    },
+    "keepsEverything": true
+   },
+   {
+    "hash": "TM6TaR-b4oE",
+    "name": "Successfully_wrote_snapshot_org_apache_kafka_image_publisher_SnapshotEmitter",
+    "displayName": "Successfully wrote snapshot org apache kafka image publisher SnapshotEmitter",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0009372600000000001,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [SnapshotEmitter id=$] Successfully wrote snapshot $$ (org.apache.kafka.image.publisher.SnapshotEmitter)",
+    "action": "tier_down",
+    "movedBytesMonthly": 287068.5,
+    "savedUsd": 0.0004803311515748031,
+    "addedUsd": 0.000014127386811023621,
+    "perEventMove": {
+     "tier": "Datadog Flex Logs",
+     "events_moved": 282.5477362204724,
+     "gb_moved": 0.0002870685,
+     "events_basis": "measured",
+     "standard_indexing_avoided_usd": 0.0004803311515748031,
+     "tier_storage_added_usd": 0.000014127386811023621,
+     "tier_retention_months": 1,
+     "unpriced": "Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures",
+     "text": "Moves 283 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex storage added: $0/mo at $0.05 per million events stored per month, held 30 days. Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures. Datadog list prices, datadoghq.com/pricing, read 2026-09-30."
+    },
+    "keepsEverything": true
+   },
+   {
+    "hash": "uZa7Kr7RvMY",
+    "name": "Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots",
+    "displayName": "Deleted snapshot files for offset epoch org apache kafka Snapshots",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0008948000000000001,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Deleted snapshot files for snapshot $0(offset=$, epoch=$). (org.apache.kafka.snapshot.Snapshots)",
+    "action": "tier_down",
+    "movedBytesMonthly": 271782.9,
+    "savedUsd": 0.00046471595552078683,
+    "addedUsd": 0.000013668116338846673,
+    "perEventMove": {
+     "tier": "Datadog Flex Logs",
+     "events_moved": 273.36232677693346,
+     "gb_moved": 0.0002717829,
+     "events_basis": "measured",
+     "standard_indexing_avoided_usd": 0.00046471595552078683,
+     "tier_storage_added_usd": 0.000013668116338846673,
+     "tier_retention_months": 1,
+     "unpriced": "Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures",
+     "text": "Moves 273 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex storage added: $0/mo at $0.05 per million events stored per month, held 30 days. Flex compute is unpriced (Datadog quotes compute sizes on request) and is excluded from both figures. Datadog list prices, datadoghq.com/pricing, read 2026-09-30."
+    },
+    "keepsEverything": true
+   }
+  ],
+  "kept": [
+   {
+    "hash": "f3UX5ZweKSU",
+    "name": "loading_offsets_consumer_epoch_which_milliseconds_was_spent_in_the_scheduler_kafka_coordinator_group_GroupMetadataManager_Finished",
+    "displayName": "loading offsets consumer epoch which milliseconds was spent in the scheduler kafka coordinator group GroupMetadataManager Finished",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0001398475,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [GroupMetadataManager brokerId=$] Finished loading offsets and group metadata from __consumer_offsets$ in $ milliseconds for epoch $, of which $2 milliseconds was spent in the scheduler. (kafka.coordinator.group.GroupMetadataManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "8WIj_NSG3DU",
+    "name": "Created_log_for_partition_consumer_in_tmp_kafka_logs_with_properties_LogManager",
+    "displayName": "Created log for partition consumer in tmp kafka logs with properties LogManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000136325,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Created log for partition __consumer_offsets$ in //tmp//kafka-logs//__consumer_offsets$1 with properties {cleanup.policy=compact, compression.type=\"producer\", segment.bytes=$} (kafka.log.LogManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "CLMPrg8RHnE",
+    "name": "Loading_producer_state_till_offset_with_message_format_version_kafka_log_UnifiedLog",
+    "displayName": "Loading producer state till offset with message format version kafka log UnifiedLog",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00013488,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [LogLoader partition=__consumer_offsets$, dir=//tmp//kafka-logs] Loading producer state till offset $ with message format version $ (kafka.log.UnifiedLog/$)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "Jt3lg7lp6vQ",
+    "name": "Finished_unloading_consumer_for_coordinator_epoch_OptionalInt_Removed_cached_offsets_groups_kafka_group_GroupMetadataManager",
+    "displayName": "Finished unloading consumer for coordinator epoch OptionalInt Removed cached offsets groups kafka group GroupMetadataManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00013325499999999998,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [GroupMetadataManager brokerId=$] Finished unloading __consumer_offsets$ for coordinator epoch OptionalInt[$2]. Removed $ cached offsets and $1 cached groups. (kafka.coordinator.group.GroupMetadataManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "WQhY8qgdXFs",
+    "name": "Scheduling_loading_of_offsets_and_group_metadata_from_consumer_for_epoch_kafka_coordinator_GroupMetadataManager",
+    "displayName": "Scheduling loading of offsets and group metadata from consumer for epoch kafka coordinator GroupMetadataManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00013135,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [GroupMetadataManager brokerId=$] Scheduling loading of offsets and group metadata from __consumer_offsets$ for epoch $ (kafka.coordinator.group.GroupMetadataManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "4yD45Zig_hI",
+    "name": "Scheduling_unloading_of_offsets_and_group_metadata_from_consumer_kafka_coordinator_GroupMetadataManager",
+    "displayName": "Scheduling unloading of offsets and group metadata from consumer kafka coordinator GroupMetadataManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00013010000000000002,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [GroupMetadataManager brokerId=$] Scheduling unloading of offsets and group metadata from __consumer_offsets$ (kafka.coordinator.group.GroupMetadataManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "bJijN8Jaadg",
+    "name": "Log_loaded_for_partition_consumer_with_initial_high_watermark_kafka_cluster_Partition",
+    "displayName": "Log loaded for partition consumer with initial high watermark kafka cluster Partition",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00012845,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [Partition __consumer_offsets$ broker=$] Log loaded for partition __consumer_offsets$2 with initial high watermark $ (kafka.cluster.Partition)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "Fx_Pqd7HRiM",
+    "name": "No_checkpointed_highwatermark_is_found_for_partition_consumer_kafka_cluster_Partition",
+    "displayName": "No checkpointed highwatermark is found for partition consumer kafka cluster Partition",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0001282,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [Partition __consumer_offsets$ broker=$] No checkpointed highwatermark is found for partition __consumer_offsets$2 (kafka.cluster.Partition)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "lPcwo-mPmxI",
+    "name": "Resigned_as_the_group_coordinator_for_partition_in_epoch_OptionalInt_kafka_GroupCoordinator",
+    "displayName": "Resigned as the group coordinator for partition in epoch OptionalInt kafka GroupCoordinator",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000127725,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [GroupCoordinator $]: Resigned as the group coordinator for partition $ in epoch OptionalInt[$2] (kafka.coordinator.group.GroupCoordinator)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "f6kvKBhYbio",
+    "name": "Elected_as_the_group_coordinator_for_partition_in_epoch_kafka_GroupCoordinator",
+    "displayName": "Elected as the group coordinator for partition in epoch kafka GroupCoordinator",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00012597499999999999,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [GroupCoordinator $]: Elected as the group coordinator for partition $ in epoch $ (kafka.coordinator.group.GroupCoordinator)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "EmfCzXhEyRc",
+    "name": "transaction_abort_timed_out_cleanup_interval_ms_max_timeout_partition_verification_enable_true_remove_expired_state_log_load",
+    "displayName": "transaction abort timed out cleanup interval ms max timeout partition verification enable true remove expired state log load",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000368675,
+    "skeleton": "JDcV9_nVP@",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "MOTBZhYpBiE",
+    "name": "Shutdown_completed_kafka_server_DelayedOperationPurgatory_ExpiredOperationReaper",
+    "displayName": "Shutdown completed kafka server DelayedOperationPurgatory ExpiredOperationReaper",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000224375,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [$-1-$]: Shutdown completed (kafka.server.DelayedOperationPurgatory/$ExpiredOperationReaper)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "FHJ11lwKp4g",
+    "name": "Shutting_down_kafka_server_DelayedOperationPurgatory_ExpiredOperationReaper",
+    "displayName": "Shutting down kafka server DelayedOperationPurgatory ExpiredOperationReaper",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000022324999999999997,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [$-1-$]: Shutting down (kafka.server.DelayedOperationPurgatory/$ExpiredOperationReaper)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "wMnQlWy-3QM",
+    "name": "Starting_kafka_server_DelayedOperationPurgatory_ExpiredOperationReaper",
+    "displayName": "Starting kafka server DelayedOperationPurgatory ExpiredOperationReaper",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000222125,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [$-1-$]: Starting (kafka.server.DelayedOperationPurgatory/$ExpiredOperationReaper)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "ZC1JrtvcA_g",
+    "name": "Stopped_kafka_server_DelayedOperationPurgatory_ExpiredOperationReaper",
+    "displayName": "Stopped kafka server DelayedOperationPurgatory ExpiredOperationReaper",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00002219,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [$-1-$]: Stopped (kafka.server.DelayedOperationPurgatory/$ExpiredOperationReaper)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "G19ii0l6VBo",
+    "name": "Shutdown_completed_kafka_server_ClientQuotaManager_ThrottledChannelReaper",
+    "displayName": "Shutdown completed kafka server ClientQuotaManager ThrottledChannelReaper",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000020105,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [broker-1-ThrottledChannelReaper-Fetch]: Shutdown completed (kafka.server.ClientQuotaManager/$ThrottledChannelReaper)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "tol1pQerdyI",
+    "name": "Shutting_down_kafka_server_ClientQuotaManager_ThrottledChannelReaper",
+    "displayName": "Shutting down kafka server ClientQuotaManager ThrottledChannelReaper",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000020005000000000002,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [broker-1-ThrottledChannelReaper-Fetch]: Shutting down (kafka.server.ClientQuotaManager/$ThrottledChannelReaper)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "pN_9Xm3h6oo",
+    "name": "Starting_kafka_server_ClientQuotaManager_ThrottledChannelReaper",
+    "displayName": "Starting kafka server ClientQuotaManager ThrottledChannelReaper",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000019905,
+    "skeleton": ":pu8?z8WwF",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "rt2rNQFCECY",
+    "name": "Stopped_kafka_server_ClientQuotaManager_ThrottledChannelReaper",
+    "displayName": "Stopped kafka server ClientQuotaManager ThrottledChannelReaper",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000019885,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [broker-1-ThrottledChannelReaper-Fetch]: Stopped (kafka.server.ClientQuotaManager/$ThrottledChannelReaper)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "8li0_Boc6MA",
+    "name": "closed_event_queue_org_apache_kafka_KafkaEventQueue",
+    "displayName": "closed event queue org apache kafka KafkaEventQueue",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000019597500000000003,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ControllerRegistrationManager id=$ incarnation=$--$] closed event queue. (org.apache.kafka.queue.KafkaEventQueue)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "qPPBT7EbGIE",
+    "name": "Shutdown_completed_kafka_server_NodeToControllerRequestThread",
+    "displayName": "Shutdown completed kafka server NodeToControllerRequestThread",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000015052499999999999,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [controller-1-to-controller-registration-channel-manager]: Shutdown completed (kafka.server.NodeToControllerRequestThread)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "ic4iIenVQak",
+    "name": "Shutting_down_kafka_server_NodeToControllerRequestThread",
+    "displayName": "Shutting down kafka server NodeToControllerRequestThread",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000124775,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [broker-1-to-controller-heartbeat-channel-manager]: Shutting down (kafka.server.NodeToControllerRequestThread)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "aInspvoZgxQ",
+    "name": "Starting_kafka_server_NodeToControllerRequestThread",
+    "displayName": "Starting kafka server NodeToControllerRequestThread",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000012415,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [controller-1-to-controller-registration-channel-manager]: Starting (kafka.server.NodeToControllerRequestThread)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "si6VVHFwBzo",
+    "name": "Stopped_kafka_server_NodeToControllerRequestThread",
+    "displayName": "Stopped kafka server NodeToControllerRequestThread",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000012402499999999999,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [broker-1-to-controller-heartbeat-channel-manager]: Stopped (kafka.server.NodeToControllerRequestThread)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "FhACu0pa6N4",
+    "name": "Recorded_new_KRaft_controller_from_now_on_will_use_node_kafka_id_rack_null_server_NodeToControllerRequestThread",
+    "displayName": "Recorded new KRaft controller from now on will use node kafka id rack null server NodeToControllerRequestThread",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000107225,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [controller-1-to-controller-registration-channel-manager]: Recorded new KRaft controller, from now on will use node kafka:$ (id: $ rack: null) (kafka.server.NodeToControllerRequestThread)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "KGObOmVvD8I",
+    "name": "javaagent_shaded_instrumentation_jmx_Created_Gauge_for",
+    "displayName": "javaagent shaded instrumentation jmx Created Gauge for",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000010425,
+    "skeleton": "[otel.javaagent $(yyyy-MM-dd HH:mm:ss):$ +$] [jmx_bean_finder] INFO io.opentelemetry.javaagent.shaded.instrumentation.jmx.engine.$ - Created Gauge for kafka.request.time.$",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "7_GYrt6RpAc",
+    "name": "beginShutdown_shutting_down_event_queue_org_apache_kafka_KafkaEventQueue",
+    "displayName": "beginShutdown shutting down event queue org apache kafka KafkaEventQueue",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000010022500000000001,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerLifecycleManager id=$] beginShutdown: shutting down event queue. (org.apache.kafka.queue.KafkaEventQueue)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "N_sHvZTU4LE",
+    "name": "Sent_auto_creation_request_for_Set_orders_to_the_active_controller_kafka_server_DefaultAutoTopicCreationManager",
+    "displayName": "Sent auto creation request for Set orders to the active controller kafka server DefaultAutoTopicCreationManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000007485,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Sent auto-creation request for Set(orders) to the active controller. (kafka.server.DefaultAutoTopicCreationManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "9mGBq2Md794",
+    "name": "Removed_fetcher_for_partitions_HashSet_consumer_kafka_server_ReplicaAlterLogDirsManager",
+    "displayName": "Removed fetcher for partitions HashSet consumer kafka server ReplicaAlterLogDirsManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000005385,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ReplicaAlterLogDirsManager on broker $] Removed fetcher for partitions HashSet(__consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, orders$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets-1, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$) (kafka.server.ReplicaAlterLogDirsManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "dKFvLTtUQZE",
+    "name": "Removed_fetcher_for_partitions_HashSet_consumer_kafka_server_ReplicaFetcherManager",
+    "displayName": "Removed fetcher for partitions HashSet consumer kafka server ReplicaFetcherManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000536,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ReplicaFetcherManager on broker $] Removed fetcher for partitions HashSet(__consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, orders$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets-1, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$, __consumer_offsets$) (kafka.server.ReplicaFetcherManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "Q40AUb4IlZM",
+    "name": "Removed_fetcher_for_partitions_Set_consumer_kafka_server_ReplicaFetcherManager",
+    "displayName": "Removed fetcher for partitions Set consumer kafka server ReplicaFetcherManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000005325,
+    "skeleton": "-9]K#_gIvSa",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "19H5nHiIURs",
+    "name": "javaagent_shaded_instrumentation_jmx_Created_UpDownCounter_for_kafka_isr_operation_count",
+    "displayName": "javaagent shaded instrumentation jmx Created UpDownCounter for kafka isr operation count",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000052600000000000005,
+    "skeleton": "[otel.javaagent $(yyyy-MM-dd HH:mm:ss):$ +$] [jmx_bean_finder] INFO io.opentelemetry.javaagent.shaded.instrumentation.jmx.engine.$ - Created UpDownCounter for kafka.isr.operation.count",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "RKhiTdySLso",
+    "name": "javaagent_shaded_instrumentation_jmx_Created_Counter_kafka_request_failed",
+    "displayName": "javaagent shaded instrumentation jmx Created Counter kafka request failed",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000005205,
+    "skeleton": "[otel.javaagent $(yyyy-MM-dd HH:mm:ss):$ +$] [jmx_bean_finder] INFO io.opentelemetry.javaagent.shaded.instrumentation.jmx.engine.$ - Created Counter for kafka.request.failed",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "5XAIb7gGrB8",
+    "name": "javaagent_shaded_instrumentation_jmx_Created_Counter_kafka_request_count",
+    "displayName": "javaagent shaded instrumentation jmx Created Counter kafka request count",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000052,
+    "skeleton": "[otel.javaagent $(yyyy-MM-dd HH:mm:ss):$ +$] [jmx_bean_finder] INFO io.opentelemetry.javaagent.shaded.instrumentation.jmx.engine.$ - Created Counter for kafka.request.count",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "Nha8mJTFUZ0",
+    "name": "javaagent_shaded_instrumentation_jmx_Created_Counter_kafka_network_io",
+    "displayName": "javaagent shaded instrumentation jmx Created Counter kafka network io",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000005185,
+    "skeleton": "[otel.javaagent $(yyyy-MM-dd HH:mm:ss):$ +$] [jmx_bean_finder] INFO io.opentelemetry.javaagent.shaded.instrumentation.jmx.engine.$ - Created Counter for kafka.network.io",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "Wavkw9x4sNs",
+    "name": "Stopping_socket_server_request_processors_kafka_network_SocketServer",
+    "displayName": "Stopping socket server request processors kafka network SocketServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000049999999999999996,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [SocketServer listenerType=BROKER, nodeId=$] Stopping socket server request processors (kafka.network.SocketServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "WTxSmi4cWJ4",
+    "name": "Stopped_socket_server_request_processors_kafka_network_SocketServer",
+    "displayName": "Stopped socket server request processors kafka network SocketServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000049950000000000005,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [SocketServer listenerType=BROKER, nodeId=$] Stopped socket server request processors (kafka.network.SocketServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "32n9YngnbiQ",
+    "name": "Node_disconnected_org_apache_kafka_clients_NetworkClient",
+    "displayName": "Node disconnected org apache kafka clients NetworkClient",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000049950000000000005,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [NodeToControllerChannelManager id=$ name=registration] Node $1 disconnected. (org.apache.kafka.clients.NetworkClient)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "qAS89hdovB0",
+    "name": "Node_to_controller_channel_manager_for_registration_shutdown_kafka_server_NodeToControllerChannelManagerImpl",
+    "displayName": "Node to controller channel manager for registration shutdown kafka server NodeToControllerChannelManagerImpl",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000004965000000000001,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Node to controller channel manager for registration shutdown (kafka.server.NodeToControllerChannelManagerImpl)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "j_Xy1OYLhuU",
+    "name": "shut_down_completely_kafka_server_KafkaRequestHandlerPool",
+    "displayName": "shut down completely kafka server KafkaRequestHandlerPool",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000495,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [data-plane Kafka Request Handler on Broker $], shut down completely (kafka.server.KafkaRequestHandlerPool)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "a0JUhXhRr_o",
+    "name": "Updated_accept_max_connection_creation_rate_to_kafka_network_ConnectionQuotas",
+    "displayName": "Updated accept max connection creation rate to kafka network ConnectionQuotas",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000004945,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Updated connection-accept-rate max connection creation rate to $ (kafka.network.ConnectionQuotas)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "vCtGwH_tZI4",
+    "name": "Enabling_request_processing_kafka_network_SocketServer",
+    "displayName": "Enabling request processing kafka network SocketServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000004935,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [SocketServer listenerType=CONTROLLER, nodeId=$] Enabling request processing. (kafka.network.SocketServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "8pOobRJ3S1c",
+    "name": "Shutting_down_socket_server_kafka_network_SocketServer",
+    "displayName": "Shutting down socket server kafka network SocketServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000493,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [SocketServer listenerType=BROKER, nodeId=$] Shutting down socket server (kafka.network.SocketServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "vwZICIbppR4",
+    "name": "shutting_down_kafka_server_KafkaRequestHandlerPool",
+    "displayName": "shutting down kafka server KafkaRequestHandlerPool",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000049149999999999995,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [data-plane Kafka Request Handler on Broker $], shutting down (kafka.server.KafkaRequestHandlerPool)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "jBsBtFXmv4s",
+    "name": "Shutdown_completed_kafka_network_SocketServer",
+    "displayName": "Shutdown completed kafka network SocketServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000004885,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [SocketServer listenerType=BROKER, nodeId=$] Shutdown completed (kafka.network.SocketServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "FFi7EJaGQnE",
+    "name": "App_server_unregistered_org_apache_kafka_common_utils_AppInfoParser",
+    "displayName": "App server unregistered org apache kafka common utils AppInfoParser",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000004845,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO App info kafka.server for $ unregistered (org.apache.kafka.common.utils.AppInfoParser)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "Au57G_OyoqM",
+    "name": "Awaiting_socket_connections_on_kafka_network_DataPlaneAcceptor",
+    "displayName": "Awaiting socket connections on kafka network DataPlaneAcceptor",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000004805,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Awaiting socket connections on $.$1.$1.$1:$. (kafka.network.DataPlaneAcceptor)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "5_dP1LLn7jA",
+    "name": "Kafka_org_apache_kafka_common_utils_AppInfoParser",
+    "displayName": "Kafka org apache kafka common utils AppInfoParser",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000004775,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Kafka version: $.$.$ (org.apache.kafka.common.utils.AppInfoParser)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "M_14e8NMMJY",
+    "name": "Attempting_durable_transition_to_Leader_ReplicaKey_id_directoryId_Optional_epoch_epochStartOffset_highWatermark_empty_voterStates",
+    "displayName": "Attempting durable transition to Leader ReplicaKey id directoryId Optional epoch epochStartOffset highWatermark empty voterStates",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000381,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [RaftManager id=$] Attempting durable transition to Leader($=ReplicaKey(id=$2, directoryId=Optional[$]), epoch=$3, epochStartOffset=$, highWatermark=Optional.empty, voterStates={$4=ReplicaState(replicaKey=ReplicaKey(id=$4, directoryId=Optional.empty), endOffset=Optional.empty, lastFetchTimestamp=-1, lastCaughtUpTimestamp=-1, hasAcknowledgedLeader=true)}) from CandidateState(localId=$4, localDirectoryId=$2,epoch=$4, retries=$4, $={$5=org.apache.kafka.raft.CandidateState/$$@$}, highWatermark=Optional.empty, electionTimeoutMs=$) (org.apache.kafka.raft.QuorumState)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "G_DwCEMpNYQ",
+    "name": "Completed_transition_to_Leader_ReplicaKey_id_directoryId_Optional_epoch_epochStartOffset_highWatermark_empty_voterStates_CandidateState",
+    "displayName": "Completed transition to Leader ReplicaKey id directoryId Optional epoch epochStartOffset highWatermark empty voterStates CandidateState",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000037874999999999997,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [RaftManager id=$] Completed transition to Leader($=ReplicaKey(id=$2, directoryId=Optional[$]), epoch=$3, epochStartOffset=$, highWatermark=Optional.empty, voterStates={$4=ReplicaState(replicaKey=ReplicaKey(id=$4, directoryId=Optional.empty), endOffset=Optional.empty, lastFetchTimestamp=-1, lastCaughtUpTimestamp=-1, hasAcknowledgedLeader=true)}) from CandidateState(localId=$4, localDirectoryId=$2,epoch=$4, retries=$4, $={$5=org.apache.kafka.raft.CandidateState/$$@$}, highWatermark=Optional.empty, electionTimeoutMs=$) (org.apache.kafka.raft.QuorumState)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "isrNZ_qJHO0",
+    "name": "sendControllerRegistration_attempting_to_send_controllerId_incarnationId_false_listeners_features_kafka_server_ControllerRegistrationManager",
+    "displayName": "sendControllerRegistration attempting to send controllerId incarnationId false listeners features kafka server ControllerRegistrationManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000003575,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ControllerRegistrationManager id=$ incarnation=$] sendControllerRegistration: attempting to send $0(controllerId=$3, incarnationId=$2, $=false, listeners=[Listener(name='CONTROLLER', host='kafka-$-$', port=$, securityProtocol=$)], features=[Feature(name='kraft.version', $=$2, maxSupportedVersion=$9), Feature(name='metadata.version', $1=$9, maxSupportedVersion=$)]) (kafka.server.ControllerRegistrationManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "hd77Czw1xqI",
+    "name": "High_watermark_set_to_LogOffsetMetadata_offset_metadata_Optional_first_epoch_based_indexOfHw_voters_apache_kafka_raft_LeaderState",
+    "displayName": "High watermark set to LogOffsetMetadata offset metadata Optional first epoch based indexOfHw voters apache kafka raft LeaderState",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000003475,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [RaftManager id=$] High watermark set to LogOffsetMetadata(offset=$1, metadata=Optional[($=$,$=$)]) for the first time for epoch $5 based on indexOfHw $3 and voters [ReplicaState(replicaKey=ReplicaKey(id=$5, directoryId=Optional.empty), endOffset=Optional[LogOffsetMetadata(offset=$5, metadata=Optional[($4=$3,$2=$1)])], lastFetchTimestamp=-1, lastCaughtUpTimestamp=-1, hasAcknowledgedLeader=true)] (org.apache.kafka.raft.LeaderState)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "7MlZtYSqvK0",
+    "name": "PreparingRebalance_old_generation_Adding_new_group_None_client_reason_need_to_re_join_with_the_given_member_id_consumer_fraud_kafka",
+    "displayName": "PreparingRebalance old generation Adding new group None client reason need to re join with the given member id consumer fraud kafka",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000327,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [GroupCoordinator $]: Preparing to rebalance group fraud-detection in state PreparingRebalance with old generation $ (__consumer_offsets$) (reason: Adding new member consumer-fraud-detection-1-$-$-$-$-$ with group instance id None; client reason: need to re-join with the given member-id: consumer-fraud-detection-1-$5-$4-$3-$2-$1) (kafka.coordinator.group.GroupCoordinator)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "6I2gvb1ww6U",
+    "name": "Attempting_durable_transition_to_CandidateState_localId_localDirectoryId_epoch_retries_highWatermark_Optional_empty_electionTimeoutMs",
+    "displayName": "Attempting durable transition to CandidateState localId localDirectoryId epoch retries highWatermark Optional empty electionTimeoutMs",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000032225,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [RaftManager id=$] Attempting durable transition to CandidateState(localId=$1, localDirectoryId=$,epoch=$2, retries=$2, $={$3=org.apache.kafka.raft.CandidateState/$$@$}, highWatermark=Optional.empty, electionTimeoutMs=$) from Unattached(epoch=$, votedKey=null, voters=[$7], electionTimeoutMs=$, highWatermark=Optional.empty) (org.apache.kafka.raft.QuorumState)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "D9cLoXyP27A",
+    "name": "Completed_transition_to_CandidateState_localId_localDirectoryId_epoch_retries_highWatermark_Optional_empty_electionTimeoutMs",
+    "displayName": "Completed transition to CandidateState localId localDirectoryId epoch retries highWatermark Optional empty electionTimeoutMs",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000032,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [RaftManager id=$] Completed transition to CandidateState(localId=$1, localDirectoryId=$,epoch=$2, retries=$2, $={$3=org.apache.kafka.raft.CandidateState/$$@$}, highWatermark=Optional.empty, electionTimeoutMs=$) from Unattached(epoch=$, votedKey=null, voters=[$7], electionTimeoutMs=$, highWatermark=Optional.empty) (org.apache.kafka.raft.QuorumState)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "cvTT27wAKyg",
+    "name": "Starting_voters_are_VoterSet_apache_kafka_raft_KafkaRaftClient",
+    "displayName": "Starting voters are VoterSet apache kafka raft KafkaRaftClient",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000030175000000000003,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [RaftManager id=$] Starting voters are VoterSet(voters={$1=VoterNode(voterKey=ReplicaKey(id=$1, directoryId=Optional.empty), listeners=Endpoints(endpoints={ListenerName(CONTROLLER)=kafka//$.$.$.$:$}), supportedKRaftVersion=SupportedVersionRange[min_version:$, max_version:$1])}) (org.apache.kafka.raft.KafkaRaftClient)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "eFIAZ6KeHv4",
+    "name": "Preparing_to_rebalance_group_accounting_in_state_PreparingRebalance_with_old_generation_consumer_reason_Adding_new_member",
+    "displayName": "Preparing to rebalance group accounting in state PreparingRebalance with old generation consumer reason Adding new member",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000029775,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [GroupCoordinator $]: Preparing to rebalance group accounting in state PreparingRebalance with old generation $ (__consumer_offsets$) (reason: Adding new member rdkafka-$-$-$-$-$ with group instance id None; client reason: not provided) (kafka.coordinator.group.GroupCoordinator)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "fwizozRAYJI",
+    "name": "Dynamic_member_with_unknown_id_joins_group_fraud_detection_in_Empty_state_Created_a_new_consumer_and_request_the_to_rejoin",
+    "displayName": "Dynamic member with unknown id joins group fraud detection in Empty state Created a new consumer and request the to rejoin",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000291,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [GroupCoordinator $]: Dynamic member with unknown member id joins group fraud-detection in Empty state. Created a new member id consumer-fraud-detection-1-$-$-$-$-$ and request the member to rejoin with this id. (kafka.coordinator.group.GroupCoordinator)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "NzF_xrHKSOU",
+    "name": "Dynamic_member_with_unknown_id_joins_group_accounting_in_Empty_state_Created_a_new_and_request_the_to_rejoin_this_kafka_coordinator",
+    "displayName": "Dynamic member with unknown id joins group accounting in Empty state Created a new and request the to rejoin this kafka coordinator",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000028500000000000002,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [GroupCoordinator $]: Dynamic member with unknown member id joins group accounting in Empty state. Created a new member id rdkafka-$-$-$-$-$ and request the member to rejoin with this id. (kafka.coordinator.group.GroupCoordinator)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "3sPFIdF0vqg",
+    "name": "received_leader_consumer_fraud_detection_generation_The_group_has_members_of_which_are_static_kafka_coordinator_GroupCoordinator",
+    "displayName": "received leader consumer fraud detection generation The group has members of which are static kafka coordinator GroupCoordinator",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000028375,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [GroupCoordinator $]: Assignment received from leader consumer-fraud-detection-1-$-$-$-$-$ for group fraud-detection for generation $6. The group has $6 members, $ of which are static. (kafka.coordinator.group.GroupCoordinator)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "Knub9VAFoRk",
+    "name": "Assignment_received_leader_accounting_generation_The_group_has_members_of_which_are_static_kafka_coordinator_GroupCoordinator",
+    "displayName": "Assignment received leader accounting generation The group has members of which are static kafka coordinator GroupCoordinator",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000027775,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [GroupCoordinator $]: Assignment received from leader rdkafka-$-$-$-$-$ for group accounting for generation $6. The group has $6 members, $ of which are static. (kafka.coordinator.group.GroupCoordinator)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "gpepnvI48HE",
+    "name": "Updating_topic_consumer_offsets_with_new_configuration_compression_type_producer_cleanup_policy_compact_segment_bytes_kafka",
+    "displayName": "Updating topic consumer offsets with new configuration compression type producer cleanup policy compact segment bytes kafka",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000027674999999999998,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [DynamicConfigPublisher broker id=$] Updating topic __consumer_offsets with new configuration : compression.type -> producer,cleanup.policy -> compact,segment.bytes -> $ (kafka.server.metadata.DynamicConfigPublisher)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "4pMfcEqUV2g",
+    "name": "maybePublishMetadata_LOG_DELTA_The_loader_is_still_catching_up_because_we_have_not_loaded_a_controller_record_as_of_offset_and",
+    "displayName": "maybePublishMetadata LOG DELTA The loader is still catching up because we have not loaded a controller record as of offset and",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000027575000000000003,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [MetadataLoader id=$] maybePublishMetadata(LOG_DELTA): The loader is still catching up because we have not loaded a controller record as of offset $ and high water mark is $2 (org.apache.kafka.image.loader.MetadataLoader)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "JbnbyRfhMCc",
+    "name": "Loaded_new_metadata_Features_metadataVersion_finalizedFeatures_finalizedFeaturesEpoch_apache_kafka_publisher_FeaturesPublisher",
+    "displayName": "Loaded new metadata Features metadataVersion finalizedFeatures finalizedFeaturesEpoch apache kafka publisher FeaturesPublisher",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000271,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ControllerServer id=$] Loaded new metadata Features(metadataVersion=$.$-IV0, finalizedFeatures={metadata.version=$}, finalizedFeaturesEpoch=$). (org.apache.kafka.metadata.publisher.FeaturesPublisher)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "QlNBvfBq0VM",
+    "name": "RegistrationResponseHandler_controller_acknowledged_ControllerRegistrationRequest_kafka_server_ControllerRegistrationManager",
+    "displayName": "RegistrationResponseHandler controller acknowledged ControllerRegistrationRequest kafka server ControllerRegistrationManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000027075,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ControllerRegistrationManager id=$ incarnation=$] RegistrationResponseHandler: controller acknowledged ControllerRegistrationRequest. (kafka.server.ControllerRegistrationManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "VOdbvFR8Ya4",
+    "name": "Attempting_durable_transition_to_Unattached_epoch_votedKey_null_voters_electionTimeoutMs_highWatermark_Optional_empty_apache",
+    "displayName": "Attempting durable transition to Unattached epoch votedKey null voters electionTimeoutMs highWatermark Optional empty apache",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000027025,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [RaftManager id=$] Attempting durable transition to Unattached(epoch=$, votedKey=null, voters=[$2], electionTimeoutMs=$, highWatermark=Optional.empty) from null (org.apache.kafka.raft.QuorumState)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "s50qZ-W_8kY",
+    "name": "offset_controller_QuorumController_QuorumMetaLogListener_since_there_are_no_snapshots_org_apache_kafka_raft_KafkaRaftClient",
+    "displayName": "offset controller QuorumController QuorumMetaLogListener since there are no snapshots org apache kafka raft KafkaRaftClient",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000027,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [RaftManager id=$] Setting the next offset of org.apache.kafka.controller.QuorumController/$QuorumMetaLogListener@$ to $ since there are no snapshots (org.apache.kafka.raft.KafkaRaftClient)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "KnPQjmMCCS4",
+    "name": "Completed_transition_to_Unattached_epoch_votedKey_null_voters_electionTimeoutMs_highWatermark_Optional_empty_apache_kafka",
+    "displayName": "Completed transition to Unattached epoch votedKey null voters electionTimeoutMs highWatermark Optional empty apache kafka",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000268,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [RaftManager id=$] Completed transition to Unattached(epoch=$, votedKey=null, voters=[$2], electionTimeoutMs=$, highWatermark=Optional.empty) from null (org.apache.kafka.raft.QuorumState)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "-#E}mPl<rG@",
+    "name": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [broker-1-to-controller-forwarding-channel-manager]: Recorded new KRaft controller, from now on will use node kafka:$ (id: $ rack: null) (kafka.server.NodeToControllerRequestThread)",
+    "displayName": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [broker-1-to-controller-forwarding-channel-manager]: Recorded new KRaft controller, from now on will use node kafka:$ (id: $ rack: null) (kafka.server.NodeToControllerRequestThread)",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "",
+    "billUsd": 0.0000026675,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [broker-1-to-controller-forwarding-channel-manager]: Recorded new KRaft controller, from now on will use node kafka:$ (id: $ rack: null) (kafka.server.NodeToControllerRequestThread)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "Sl1vh43pkyc",
+    "name": "Producer_state_recovery_took_for_snapshot_load_and_segment_from_offset_kafka_log_UnifiedLog",
+    "displayName": "Producer state recovery took for snapshot load and segment from offset kafka log UnifiedLog",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000026600000000000004,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [LogLoader partition=__cluster_metadata$, dir=//tmp//kafka-logs] Producer state recovery took $ for snapshot load and $1 for segment recovery from offset $ (kafka.log.UnifiedLog/$)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "94ROHzSPI04",
+    "name": "Publishing_initial_metadata_at_offset_epoch_with_version_kafka_server_BrokerMetadataPublisher",
+    "displayName": "Publishing initial metadata at offset epoch with version kafka server BrokerMetadataPublisher",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000026600000000000004,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerMetadataPublisher id=$] Publishing initial metadata at offset $0(offset=$, epoch=$3) with metadata.version $.$-IV0. (kafka.server.metadata.BrokerMetadataPublisher)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "-K2f5GK_ORi",
+    "name": "initializeNewPublishers_the_loader_is_still_catching_up_because_we_don_t_know_high_water_mark_yet_org_apache_kafka_image_MetadataLoaderManager/$ThrottledChannelReaper)\"}",
+    "displayName": "initializeNewPublishers the loader is still catching up because we don t know high water mark yet org apache kafka image MetadataLoaderManager/$ThrottledChannelReaper)\"}",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "",
+    "billUsd": 0.0000026525000000000004,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [MetadataLoader id=$] initializeNewPublishers: the loader is still catching up because we still don't know the high water mark yet. (org.apache.kafka.image.loader.MetadataLoader)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "tiMuhxmPG8U",
+    "name": "InitializeNewPublishers_initializing_DynamicClientQuotaPublisher_controller_id_with_a_snapshot_at_offset_org_apache_kafka",
+    "displayName": "InitializeNewPublishers initializing DynamicClientQuotaPublisher controller id with a snapshot at offset org apache kafka",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000026525000000000004,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [MetadataLoader id=$] InitializeNewPublishers: initializing DynamicClientQuotaPublisher controller id=$1 with a snapshot at offset $ (org.apache.kafka.image.loader.MetadataLoader)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "dOpoIU28TQQ",
+    "name": "Setting_next_offset_image_loader_MetadataLoader_since_there_are_no_snapshots_org_apache_kafka_raft_KafkaRaftClient",
+    "displayName": "Setting next offset image loader MetadataLoader since there are no snapshots org apache kafka raft KafkaRaftClient",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002645,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [RaftManager id=$] Setting the next offset of org.apache.kafka.image.loader.MetadataLoader@$ to $ since there are no snapshots (org.apache.kafka.raft.KafkaRaftClient)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "rUfXZtBhcus",
+    "name": "InitializeNewPublishers_initializing_DelegationTokenPublisher_controller_id_with_a_snapshot_at_offset_org_apache_kafka_image",
+    "displayName": "InitializeNewPublishers initializing DelegationTokenPublisher controller id with a snapshot at offset org apache kafka image",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002645,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [MetadataLoader id=$] InitializeNewPublishers: initializing DelegationTokenPublisher controller id=$1 with a snapshot at offset $ (org.apache.kafka.image.loader.MetadataLoader)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "qv615zJ2xtM",
+    "name": "javaagent_shaded_instrumentation_jmx_Created_UpDownCounter_for_kafka",
+    "displayName": "javaagent shaded instrumentation jmx Created UpDownCounter for kafka",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002645,
+    "skeleton": "[otel.javaagent $(yyyy-MM-dd HH:mm:ss):$ +$] [jmx_bean_finder] INFO io.opentelemetry.javaagent.shaded.instrumentation.jmx.engine.$ - Created UpDownCounter for kafka.partition.$",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "t1Xq3gcKEY4",
+    "name": "InitializeNewPublishers_initializing_DynamicConfigPublisher_controller_id_with_a_snapshot_at_offset_org_apache_kafka_image",
+    "displayName": "InitializeNewPublishers initializing DynamicConfigPublisher controller id with a snapshot at offset org apache kafka image",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000026399999999999997,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [MetadataLoader id=$] InitializeNewPublishers: initializing DynamicConfigPublisher controller id=$1 with a snapshot at offset $ (org.apache.kafka.image.loader.MetadataLoader)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "J5DUhlh2kF4",
+    "name": "Our_registration_has_been_persisted_to_the_metadata_log_kafka_server_ControllerRegistrationManager",
+    "displayName": "Our registration has been persisted to the metadata log kafka server ControllerRegistrationManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000026399999999999997,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ControllerRegistrationManager id=$ incarnation=$] Our registration has been persisted to the metadata log. (kafka.server.ControllerRegistrationManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "WTF24XzN0f8",
+    "name": "javaagent_shaded_instrumentation_jmx_Created_UpDownCounter_for_kafka_controller_active_count",
+    "displayName": "javaagent shaded instrumentation jmx Created UpDownCounter for kafka controller active count",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000026399999999999997,
+    "skeleton": "[otel.javaagent $(yyyy-MM-dd HH:mm:ss):$ +$] [jmx_bean_finder] INFO io.opentelemetry.javaagent.shaded.instrumentation.jmx.engine.$ - Created UpDownCounter for kafka.controller.active.count",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "0CAUCg3F_yY",
+    "name": "javaagent_shaded_instrumentation_jmx_Created_Counter_for_kafka_leaderElection_unclean_count",
+    "displayName": "javaagent shaded instrumentation jmx Created Counter for kafka leaderElection unclean count",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000026375,
+    "skeleton": "[otel.javaagent $(yyyy-MM-dd HH:mm:ss):$ +$] [jmx_bean_finder] INFO io.opentelemetry.javaagent.shaded.instrumentation.jmx.engine.$ - Created Counter for kafka.leaderElection.unclean.count",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "Tijq81ha2Rc",
+    "name": "InitializeNewPublishers_initializing_ControllerMetadataMetricsPublisher_with_a_snapshot_at_offset_org_apache_kafka_image_loader",
+    "displayName": "InitializeNewPublishers initializing ControllerMetadataMetricsPublisher with a snapshot at offset org apache kafka image loader",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000026300000000000002,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [MetadataLoader id=$] InitializeNewPublishers: initializing ControllerMetadataMetricsPublisher with a snapshot at offset $ (org.apache.kafka.image.loader.MetadataLoader)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "FFpOdzj4SvY",
+    "name": "InitializeNewPublishers_initializing_ControllerRegistrationsPublisher_with_a_snapshot_at_offset_org_apache_kafka_image_loader",
+    "displayName": "InitializeNewPublishers initializing ControllerRegistrationsPublisher with a snapshot at offset org apache kafka image loader",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002625,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [MetadataLoader id=$] InitializeNewPublishers: initializing ControllerRegistrationsPublisher with a snapshot at offset $ (org.apache.kafka.image.loader.MetadataLoader)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "8b89EIYcbv4",
+    "name": "javaagent_shaded_instrumentation_jmx_Created_UpDownCounter_kafka_partition_offline",
+    "displayName": "javaagent shaded instrumentation jmx Created UpDownCounter kafka partition offline",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002625,
+    "skeleton": "[otel.javaagent $(yyyy-MM-dd HH:mm:ss):$ +$] [jmx_bean_finder] INFO io.opentelemetry.javaagent.shaded.instrumentation.jmx.engine.$ - Created UpDownCounter for kafka.partition.offline",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "HrUZFJjTdD4",
+    "name": "InitializeNewPublishers_initializing_BrokerRegistrationTracker_id_with_a_snapshot_at_offset_org_apache_kafka_image_loader",
+    "displayName": "InitializeNewPublishers initializing BrokerRegistrationTracker id with a snapshot at offset org apache kafka image loader",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000026225,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [MetadataLoader id=$] InitializeNewPublishers: initializing BrokerRegistrationTracker(id=$1) with a snapshot at offset $ (org.apache.kafka.image.loader.MetadataLoader)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "oZfkDytqnCs",
+    "name": "InitializeNewPublishers_initializing_ScramPublisher_controller_id_with_a_snapshot_at_offset_org_apache_kafka_image_loader",
+    "displayName": "InitializeNewPublishers initializing ScramPublisher controller id with a snapshot at offset org apache kafka image loader",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000262,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [MetadataLoader id=$] InitializeNewPublishers: initializing ScramPublisher controller id=$1 with a snapshot at offset $ (org.apache.kafka.image.loader.MetadataLoader)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "xE_LNZArYK0",
+    "name": "Incarnation_broker_cluster_is_now_STARTING_kafka_server_BrokerLifecycleManager",
+    "displayName": "Incarnation broker cluster is now STARTING kafka server BrokerLifecycleManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000262,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerLifecycleManager id=$] Incarnation $_$ of broker $3 in cluster $-$ is now STARTING. (kafka.server.BrokerLifecycleManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "QseXDY1NJO8",
+    "name": "InitializeNewPublishers_initializing_id_with_a_snapshot_at_offset_org_apache_kafka_image_loader_MetadataLoader",
+    "displayName": "InitializeNewPublishers initializing id with a snapshot at offset org apache kafka image loader MetadataLoader",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000262,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [MetadataLoader id=$] InitializeNewPublishers: initializing $0(id=$2) with a snapshot at offset $ (org.apache.kafka.image.loader.MetadataLoader)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "0cnbaFqcQdU",
+    "name": "javaagent_shaded_instrumentation_jmx_Created_UpDownCounter_kafka_partition_count",
+    "displayName": "javaagent shaded instrumentation jmx Created UpDownCounter kafka partition count",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000262,
+    "skeleton": "[otel.javaagent $(yyyy-MM-dd HH:mm:ss):$ +$] [jmx_bean_finder] INFO io.opentelemetry.javaagent.shaded.instrumentation.jmx.engine.$ - Created UpDownCounter for kafka.partition.count",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "XI-sqsOGDZs",
+    "name": "Reloading_from_producer_snapshot_and_rebuilding_state_offset_kafka_log_UnifiedLog",
+    "displayName": "Reloading from producer snapshot and rebuilding state offset kafka log UnifiedLog",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000026175000000000004,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [LogLoader partition=__cluster_metadata$, dir=//tmp//kafka-logs] Reloading from producer snapshot and rebuilding producer state from offset $ (kafka.log.UnifiedLog/$)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "M1gKTI3nQyI",
+    "name": "InitializeNewPublishers_initializing_ControllerRegistrationManager_with_a_snapshot_at_offset_org_apache_kafka_image_loader",
+    "displayName": "InitializeNewPublishers initializing ControllerRegistrationManager with a snapshot at offset org apache kafka image loader",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000026175000000000004,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [MetadataLoader id=$] InitializeNewPublishers: initializing ControllerRegistrationManager with a snapshot at offset $ (org.apache.kafka.image.loader.MetadataLoader)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "vT7Zo45RnFA",
+    "name": "javaagent_shaded_instrumentation_jmx_Created_UpDownCounter_for_kafka_purgatory_size",
+    "displayName": "javaagent shaded instrumentation jmx Created UpDownCounter for kafka purgatory size",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000026175000000000004,
+    "skeleton": "[otel.javaagent $(yyyy-MM-dd HH:mm:ss):$ +$] [jmx_bean_finder] INFO io.opentelemetry.javaagent.shaded.instrumentation.jmx.engine.$ - Created UpDownCounter for kafka.purgatory.size",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "-Ctj3ChCmPA",
+    "name": "InitializeNewPublishers_initializing_AclPublisher_controller_id_with_a_snapshot_at_offset_org_apache_kafka_image_loader_MetadataLoader",
+    "displayName": "InitializeNewPublishers initializing AclPublisher controller id with a snapshot at offset org apache kafka image loader MetadataLoader",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002615,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [MetadataLoader id=$] InitializeNewPublishers: initializing AclPublisher controller id=$1 with a snapshot at offset $ (org.apache.kafka.image.loader.MetadataLoader)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "HBN8BcJbTBU",
+    "name": "javaagent_shaded_instrumentation_jmx_Created_UpDownCounter_for_kafka_request_queue",
+    "displayName": "javaagent shaded instrumentation jmx Created UpDownCounter for kafka request queue",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002615,
+    "skeleton": "[otel.javaagent $(yyyy-MM-dd HH:mm:ss):$ +$] [jmx_bean_finder] INFO io.opentelemetry.javaagent.shaded.instrumentation.jmx.engine.$ - Created UpDownCounter for kafka.request.queue",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "3nJ5-DOhukA",
+    "name": "InitializeNewPublishers_initializing_KRaftMetadataCachePublisher_with_a_snapshot_at_offset_org_apache_kafka_image_loader_MetadataLoader",
+    "displayName": "InitializeNewPublishers initializing KRaftMetadataCachePublisher with a snapshot at offset org apache kafka image loader MetadataLoader",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000026125,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [MetadataLoader id=$] InitializeNewPublishers: initializing KRaftMetadataCachePublisher with a snapshot at offset $ (org.apache.kafka.image.loader.MetadataLoader)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "u2P0CZaNQHw",
+    "name": "javaagent_shaded_instrumentation_jmx_Created_Counter_for_kafka_request_time_total",
+    "displayName": "javaagent shaded instrumentation jmx Created Counter for kafka request time total",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000026125,
+    "skeleton": "[otel.javaagent $(yyyy-MM-dd HH:mm:ss):$ +$] [jmx_bean_finder] INFO io.opentelemetry.javaagent.shaded.instrumentation.jmx.engine.$ - Created Counter for kafka.request.time.total",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "fdnk6tXtVkY",
+    "name": "initializeNewPublishers_The_loader_finished_catching_up_to_the_current_high_water_mark_of_org_apache_kafka_image_MetadataLoader",
+    "displayName": "initializeNewPublishers The loader finished catching up to the current high water mark of org apache kafka image MetadataLoader",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000026100000000000004,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [MetadataLoader id=$] initializeNewPublishers: The loader finished catching up to the current high water mark of $1 (org.apache.kafka.image.loader.MetadataLoader)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "BxRAItCVyWU",
+    "name": "The_broker_is_in_PENDING_CONTROLLED_SHUTDOWN_state_still_waiting_for_the_active_controller_kafka_server_BrokerLifecycleManager",
+    "displayName": "The broker is in PENDING CONTROLLED SHUTDOWN state still waiting for the active controller kafka server BrokerLifecycleManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000026075,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerLifecycleManager id=$] The broker is in PENDING_CONTROLLED_SHUTDOWN state, still waiting for the active controller. (kafka.server.BrokerLifecycleManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "c0zSqvwAWDE",
+    "name": "Attempting_close_that_has_already_been_closed_org_apache_kafka_clients_NetworkClient",
+    "displayName": "Attempting close that has already been closed org apache kafka clients NetworkClient",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "WARN",
+    "billUsd": 0.0000026075,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] WARN [NodeToControllerChannelManager id=$ name=registration] Attempting to close NetworkClient that has already been closed. (org.apache.kafka.clients.NetworkClient)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "aBTqO7vuduM",
+    "name": "Created_data_plane_acceptor_and_processors_for_endpoint_ListenerName_CONTROLLER_kafka_network_SocketServer",
+    "displayName": "Created data plane acceptor and processors for endpoint ListenerName CONTROLLER kafka network SocketServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000026075,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [SocketServer listenerType=CONTROLLER, nodeId=$] Created data-plane acceptor and processors for endpoint : ListenerName(CONTROLLER) (kafka.network.SocketServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "cuHK8n9Tfmk",
+    "name": "Registered_the_listener_org_apache_kafka_controller_QuorumController_QuorumMetaLogListener_raft_KafkaRaftClient",
+    "displayName": "Registered the listener org apache kafka controller QuorumController QuorumMetaLogListener raft KafkaRaftClient",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000026075,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [RaftManager id=$] Registered the listener org.apache.kafka.controller.QuorumController/$QuorumMetaLogListener@$ (org.apache.kafka.raft.KafkaRaftClient)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "jcixjOJaiUY",
+    "name": "javaagent_shaded_instrumentation_jmx_Created_Counter_for_kafka_logs_flush_Count",
+    "displayName": "javaagent shaded instrumentation jmx Created Counter for kafka logs flush Count",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000026075,
+    "skeleton": "[otel.javaagent $(yyyy-MM-dd HH:mm:ss):$ +$] [jmx_bean_finder] INFO io.opentelemetry.javaagent.shaded.instrumentation.jmx.engine.$ - Created Counter for kafka.logs.flush.Count",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "oX25DEEZxas",
+    "name": "InitializeNewPublishers_initializing_BrokerMetadataPublisher_with_a_snapshot_at_offset_org_apache_kafka_image_loader_MetadataLoader",
+    "displayName": "InitializeNewPublishers initializing BrokerMetadataPublisher with a snapshot at offset org apache kafka image loader MetadataLoader",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000026025,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [MetadataLoader id=$] InitializeNewPublishers: initializing BrokerMetadataPublisher with a snapshot at offset $ (org.apache.kafka.image.loader.MetadataLoader)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "ajWSej9EbVo",
+    "name": "javaagent_shaded_instrumentation_jmx_Created_Counter_for_kafka_message_count",
+    "displayName": "javaagent shaded instrumentation jmx Created Counter for kafka message count",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000026,
+    "skeleton": "[otel.javaagent $(yyyy-MM-dd HH:mm:ss):$ +$] [jmx_bean_finder] INFO io.opentelemetry.javaagent.shaded.instrumentation.jmx.engine.$ - Created Counter for kafka.message.count",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "06eLIaOcF6E",
+    "name": "Created_data_plane_acceptor_and_processors_for_endpoint_ListenerName_PLAINTEXT_kafka_network_SocketServer",
+    "displayName": "Created data plane acceptor and processors for endpoint ListenerName PLAINTEXT kafka network SocketServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002595,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [SocketServer listenerType=BROKER, nodeId=$] Created data-plane acceptor and processors for endpoint : ListenerName(PLAINTEXT) (kafka.network.SocketServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "OmzXHhpu1sk",
+    "name": "InitializeNewPublishers_initializing_SnapshotGenerator_with_a_snapshot_at_offset_org_apache_kafka_image_loader_MetadataLoader",
+    "displayName": "InitializeNewPublishers initializing SnapshotGenerator with a snapshot at offset org apache kafka image loader MetadataLoader",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000025875000000000002,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [MetadataLoader id=$] InitializeNewPublishers: initializing SnapshotGenerator with a snapshot at offset $ (org.apache.kafka.image.loader.MetadataLoader)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "N4tQmnu9udU",
+    "name": "InitializeNewPublishers_initializing_FeaturesPublisher_with_a_snapshot_at_offset_org_apache_kafka_image_loader_MetadataLoader",
+    "displayName": "InitializeNewPublishers initializing FeaturesPublisher with a snapshot at offset org apache kafka image loader MetadataLoader",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000025875000000000002,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [MetadataLoader id=$] InitializeNewPublishers: initializing FeaturesPublisher with a snapshot at offset $ (org.apache.kafka.image.loader.MetadataLoader)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "Q-xmwXt_h6s",
+    "name": "Stabilized_group_fraud_detection_generation_consumer_with_members_kafka_coordinator_GroupCoordinator",
+    "displayName": "Stabilized group fraud detection generation consumer with members kafka coordinator GroupCoordinator",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000258,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [GroupCoordinator $]: Stabilized group fraud-detection generation $1 (__consumer_offsets$) with $2 members (kafka.coordinator.group.GroupCoordinator)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "vY6TQRMm-l8",
+    "name": "javaagent_shaded_instrumentation_jmx_Created_Gauge_for_kafka_lag_max",
+    "displayName": "javaagent shaded instrumentation jmx Created Gauge for kafka lag max",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000258,
+    "skeleton": "[otel.javaagent $(yyyy-MM-dd HH:mm:ss):$ +$] [jmx_bean_finder] INFO io.opentelemetry.javaagent.shaded.instrumentation.jmx.engine.$ - Created Gauge for kafka.lag.max",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "JM0bhuYm01k",
+    "name": "initialized_channel_manager_kafka_server_ControllerRegistrationManager",
+    "displayName": "initialized channel manager kafka server ControllerRegistrationManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000257,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ControllerRegistrationManager id=$ incarnation=$] initialized channel manager. (kafka.server.ControllerRegistrationManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "Bf_ov0j46aw",
+    "name": "Stabilized_group_accounting_generation_consumer_with_members_kafka_coordinator_GroupCoordinator",
+    "displayName": "Stabilized group accounting generation consumer with members kafka coordinator GroupCoordinator",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000025675000000000004,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [GroupCoordinator $]: Stabilized group accounting generation $1 (__consumer_offsets$) with $2 members (kafka.coordinator.group.GroupCoordinator)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "9cbo8mF1J8E",
+    "name": "Setting_jdk_true_to_disable_client_initiated_TLS_renegotiation",
+    "displayName": "Setting jdk true to disable client initiated TLS renegotiation",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002565,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Setting -$ jdk.tls.$=true to disable client-initiated TLS renegotiation (org.apache.zookeeper.common.X509Util)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "fCRVOCe31kU",
+    "name": "Registered_the_listener_org_apache_kafka_image_loader_MetadataLoader_raft_KafkaRaftClient",
+    "displayName": "Registered the listener org apache kafka image loader MetadataLoader raft KafkaRaftClient",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000025525,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [RaftManager id=$] Registered the listener org.apache.kafka.image.loader.MetadataLoader@$ (org.apache.kafka.raft.KafkaRaftClient)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "4zWtyc9BZvA",
+    "name": "The_broker_has_been_unfenced_Transitioning_from_RECOVERY_to_RUNNING_kafka_server_BrokerLifecycleManager",
+    "displayName": "The broker has been unfenced Transitioning from RECOVERY to RUNNING kafka server BrokerLifecycleManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000255,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerLifecycleManager id=$] The broker has been unfenced. Transitioning from RECOVERY to RUNNING. (kafka.server.BrokerLifecycleManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "eEaDNa5TsWA",
+    "name": "Starting_request_manager_with_static_voters_apache_kafka_raft_KafkaRaftClient",
+    "displayName": "Starting request manager with static voters apache kafka raft KafkaRaftClient",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002545,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [RaftManager id=$] Starting request manager with static voters: [kafka:$ (id: $2 rack: null)] (org.apache.kafka.raft.KafkaRaftClient)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "oonoFvdhxM0",
+    "name": "The_broker_has_caught_up_Transitioning_from_STARTING_to_RECOVERY_kafka_server_BrokerLifecycleManager",
+    "displayName": "The broker has caught up Transitioning from STARTING to RECOVERY kafka server BrokerLifecycleManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000025425,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerLifecycleManager id=$] The broker has caught up. Transitioning from STARTING to RECOVERY. (kafka.server.BrokerLifecycleManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "dKr9Q4LQtaI",
+    "name": "Transitioning_from_PENDING_CONTROLLED_SHUTDOWN_to_SHUTTING_DOWN_kafka_server_BrokerLifecycleManager",
+    "displayName": "Transitioning from PENDING CONTROLLED SHUTDOWN to SHUTTING DOWN kafka server BrokerLifecycleManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000025375,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerLifecycleManager id=$] Transitioning from PENDING_CONTROLLED_SHUTDOWN to SHUTTING_DOWN. (kafka.server.BrokerLifecycleManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "NaONQVJXlvg",
+    "name": "shutting_down_kafka_server_ControllerRegistrationManager",
+    "displayName": "shutting down kafka server ControllerRegistrationManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002535,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ControllerRegistrationManager id=$ incarnation=$--$] shutting down. (kafka.server.ControllerRegistrationManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "rX2EXbzsQg4",
+    "name": "authorizerStart_completed_endpoint_CONTROLLER_Endpoint_is_now_READY_org_apache_kafka_server_network_EndpointReadyFutures",
+    "displayName": "authorizerStart completed endpoint CONTROLLER Endpoint is now READY org apache kafka server network EndpointReadyFutures",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000025275,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO authorizerStart completed for endpoint CONTROLLER. Endpoint is now READY. (org.apache.kafka.server.network.EndpointReadyFutures)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "QA_5LiMxqk8",
+    "name": "Unloading_group_metadata_for_fraud_detection_with_generation_kafka_coordinator_GroupCoordinator",
+    "displayName": "Unloading group metadata for fraud detection with generation kafka coordinator GroupCoordinator",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000025250000000000004,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [GroupCoordinator $]: Unloading group metadata for fraud-detection with generation $1 (kafka.coordinator.group.GroupCoordinator)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "U3Y6wihPq7g",
+    "name": "Finished_waiting_for_the_controller_metadata_publishers_to_be_installed_kafka_server_ControllerServer",
+    "displayName": "Finished waiting for the controller metadata publishers to be installed kafka server ControllerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000025250000000000004,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ControllerServer id=$] Finished waiting for the controller metadata publishers to be installed (kafka.server.ControllerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "qfqdZkUZgNU",
+    "name": "authorizerStart_completed_endpoint_PLAINTEXT_Endpoint_is_now_READY_org_apache_kafka_server_network_EndpointReadyFutures",
+    "displayName": "authorizerStart completed endpoint PLAINTEXT Endpoint is now READY org apache kafka server network EndpointReadyFutures",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000025250000000000004,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO authorizerStart completed for endpoint PLAINTEXT. Endpoint is now READY. (org.apache.kafka.server.network.EndpointReadyFutures)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "gqMai4UgWpw",
+    "name": "Sent_auto_creation_request_for_Set_consumer_offsets_to_the_active_controller_kafka_server_DefaultAutoTopicCreationManager",
+    "displayName": "Sent auto creation request for Set consumer offsets to the active controller kafka server DefaultAutoTopicCreationManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000025250000000000004,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Sent auto-creation request for Set(__consumer_offsets) to the active controller. (kafka.server.DefaultAutoTopicCreationManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "QXwcWN59nWU",
+    "name": "The_controller_has_asked_us_to_exit_controlled_shutdown_kafka_server_BrokerLifecycleManager",
+    "displayName": "The controller has asked us to exit controlled shutdown kafka server BrokerLifecycleManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000025175,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerLifecycleManager id=$] The controller has asked us to exit controlled shutdown. (kafka.server.BrokerLifecycleManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "mnpLKA7S2u8",
+    "name": "Finished_waiting_for_all_of_the_SocketServer_Acceptors_to_be_started_kafka_server_ControllerServer",
+    "displayName": "Finished waiting for all of the SocketServer Acceptors to be started kafka server ControllerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000025175,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ControllerServer id=$] Finished waiting for all of the SocketServer Acceptors to be started (kafka.server.ControllerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "kpQ2W-4BGrw",
+    "name": "QuorumControllerbeginShutdown_shutting_down_event_queue_org_apache_kafka_KafkaEventQueue",
+    "displayName": "QuorumControllerbeginShutdown shutting down event queue org apache kafka KafkaEventQueue",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002515,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [QuorumController id=$] QuorumController#beginShutdown: shutting down event queue. (org.apache.kafka.queue.KafkaEventQueue)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "2ofeGpM4OdU",
+    "name": "Unloading_group_metadata_for_accounting_with_generation_kafka_coordinator_GroupCoordinator",
+    "displayName": "Unloading group metadata for accounting with generation kafka coordinator GroupCoordinator",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000025124999999999997,
+    "skeleton": "!KWIRqO8j5",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "V8Hn4ArLXoU",
+    "name": "Finished_waiting_for_all_of_the_authorizer_futures_to_be_completed_kafka_server_ControllerServer",
+    "displayName": "Finished waiting for all of the authorizer futures to be completed kafka server ControllerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000025124999999999997,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ControllerServer id=$] Finished waiting for all of the authorizer futures to be completed (kafka.server.ControllerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "6G60oYRTpFw",
+    "name": "javaagent_tooling_VersionLogger_opentelemetry_version",
+    "displayName": "javaagent tooling VersionLogger opentelemetry version",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000025075,
+    "skeleton": "[otel.javaagent $(yyyy-MM-dd HH:mm:ss):$ +$] [main] INFO io.opentelemetry.javaagent.tooling.VersionLogger - opentelemetry-javaagent - version: $.$.$",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "RPIWgyq41Jw",
+    "name": "Successfully_registered_broker_with_epoch_kafka_server_BrokerLifecycleManager",
+    "displayName": "Successfully registered broker with epoch kafka server BrokerLifecycleManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000025075,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerLifecycleManager id=$] Successfully registered broker $1 with broker epoch $ (kafka.server.BrokerLifecycleManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "EyqotDzEqVw",
+    "name": "Finished_waiting_for_the_controller_to_acknowledge_that_we_are_caught_up_kafka_server_BrokerServer",
+    "displayName": "Finished waiting for the controller to acknowledge that we are caught up kafka server BrokerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000025075,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerServer id=$] Finished waiting for the controller to acknowledge that we are caught up (kafka.server.BrokerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "O_yKGl4YF98",
+    "name": "Node_to_controller_channel_manager_for_directory_assignments_shutdown_kafka_server_NodeToControllerChannelManagerImpl",
+    "displayName": "Node to controller channel manager for directory assignments shutdown kafka server NodeToControllerChannelManagerImpl",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002505,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Node to controller channel manager for directory-assignments shutdown (kafka.server.NodeToControllerChannelManagerImpl)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "PkLgPI2D6Cc",
+    "name": "Reading_KRaft_snapshot_and_log_as_part_of_the_initialization_org_apache_kafka_raft_KafkaRaftClient",
+    "displayName": "Reading KRaft snapshot and log as part of the initialization org apache kafka raft KafkaRaftClient",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002505,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [RaftManager id=$] Reading KRaft snapshot and log as part of the initialization (org.apache.kafka.raft.KafkaRaftClient)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "HopsyJf_iKU",
+    "name": "Finished_waiting_for_the_initial_broker_metadata_update_to_be_published_kafka_server_BrokerServer",
+    "displayName": "Finished waiting for the initial broker metadata update to be published kafka server BrokerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002505,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerServer id=$] Finished waiting for the initial broker metadata update to be published (kafka.server.BrokerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "_YK-0KUwgAY",
+    "name": "Log_loaded_for_partition_with_initial_high_watermark_kafka_cluster_Partition",
+    "displayName": "Log loaded for partition with initial high watermark kafka cluster Partition",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002505,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [Partition orders$ broker=$] Log loaded for partition orders$2 with initial high watermark $ (kafka.cluster.Partition)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "hLFL0Zw7JQ0",
+    "name": "Waiting_the_controller_metadata_publishers_to_be_installed_kafka_server_ControllerServer",
+    "displayName": "Waiting the controller metadata publishers to be installed kafka server ControllerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000025025,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ControllerServer id=$] Waiting for the controller metadata publishers to be installed (kafka.server.ControllerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "hOshzbMhWU8",
+    "name": "Removed_fetcher_for_partitions_Set_kafka_server_ReplicaFetcherManager",
+    "displayName": "Removed fetcher for partitions Set kafka server ReplicaFetcherManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024999999999999998,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ReplicaFetcherManager on broker $] Removed fetcher for partitions Set(orders$) (kafka.server.ReplicaFetcherManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "cIbS1XX63IE",
+    "name": "No_checkpointed_highwatermark_is_found_for_partition_kafka_cluster_Partition",
+    "displayName": "No checkpointed highwatermark is found for partition kafka cluster Partition",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024999999999999998,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [Partition orders$ broker=$] No checkpointed highwatermark is found for partition orders$2 (kafka.cluster.Partition)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "BsIj8ld1rQs",
+    "name": "Finished_waiting_for_all_of_the_SocketServer_Acceptors_to_be_started_kafka_server_BrokerServer",
+    "displayName": "Finished waiting for all of the SocketServer Acceptors to be started kafka server BrokerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024975000000000002,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerServer id=$] Finished waiting for all of the SocketServer Acceptors to be started (kafka.server.BrokerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "QnvorjeP1Yc",
+    "name": "KafkaEventQueueclose_shutting_down_event_queue_org_apache_kafka_KafkaEventQueue",
+    "displayName": "KafkaEventQueueclose shutting down event queue org apache kafka KafkaEventQueue",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002495,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [AssignmentsManager id=$]KafkaEventQueue#close: shutting down event queue. (org.apache.kafka.queue.KafkaEventQueue)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "C7wGMvfRPu0",
+    "name": "Initialized_snapshots_with_IDs_SortedSet_from_tmp_kafka_logs_cluster",
+    "displayName": "Initialized snapshots with IDs SortedSet from tmp kafka logs cluster",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002495,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Initialized snapshots with IDs SortedSet() from //tmp//kafka-logs//__cluster_metadata$ (kafka.raft.$/$)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "yWFqJH9DPOk",
+    "name": "Waiting_for_all_of_the_SocketServer_Acceptors_to_be_started_kafka_server_ControllerServer",
+    "displayName": "Waiting for all of the SocketServer Acceptors to be started kafka server ControllerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002495,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ControllerServer id=$] Waiting for all of the SocketServer Acceptors to be started (kafka.server.ControllerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "pzOh4klNNTU",
+    "name": "Finished_waiting_for_the_broker_metadata_publishers_to_be_installed_kafka_server_BrokerServer",
+    "displayName": "Finished waiting for the broker metadata publishers to be installed kafka server BrokerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002495,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerServer id=$] Finished waiting for the broker metadata publishers to be installed (kafka.server.BrokerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "BtxbA9kQgY8",
+    "name": "Finished_waiting_for_all_of_the_authorizer_futures_to_be_completed_kafka_server_BrokerServer",
+    "displayName": "Finished waiting for all of the authorizer futures to be completed kafka server BrokerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024925,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerServer id=$] Finished waiting for all of the authorizer futures to be completed (kafka.server.BrokerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "O40UPtNUoM0",
+    "name": "Node_to_controller_channel_manager_for_alter_partition_shutdown_kafka_server_NodeToControllerChannelManagerImpl",
+    "displayName": "Node to controller channel manager for alter partition shutdown kafka server NodeToControllerChannelManagerImpl",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024900000000000003,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Node to controller channel manager for alter-partition shutdown (kafka.server.NodeToControllerChannelManagerImpl)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "apBXcsFEsvg",
+    "name": "Shutdown_completed_org_apache_kafka_raft_KafkaNetworkChannel_SendThread",
+    "displayName": "Shutdown completed org apache kafka raft KafkaNetworkChannel SendThread",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024900000000000003,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [kafka-1-raft-outbound-request-thread]: Shutdown completed (org.apache.kafka.raft.KafkaNetworkChannel/$SendThread)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "AskTXtziGFw",
+    "name": "Waiting_for_all_of_the_authorizer_futures_to_be_completed_kafka_server_ControllerServer",
+    "displayName": "Waiting for all of the authorizer futures to be completed kafka server ControllerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024900000000000003,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ControllerServer id=$] Waiting for all of the authorizer futures to be completed (kafka.server.ControllerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "UJ-jDyssr4I",
+    "name": "Waiting_the_controller_to_acknowledge_that_we_are_caught_up_kafka_server_BrokerServer",
+    "displayName": "Waiting the controller to acknowledge that we are caught up kafka server BrokerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002485,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerServer id=$] Waiting for the controller to acknowledge that we are caught up (kafka.server.BrokerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "iIUhSlwuCFI",
+    "name": "Waiting_the_initial_broker_metadata_update_to_be_published_kafka_server_BrokerServer",
+    "displayName": "Waiting the initial broker metadata update to be published kafka server BrokerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024825000000000004,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerServer id=$] Waiting for the initial broker metadata update to be published (kafka.server.BrokerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "3kcPiOJFzJs",
+    "name": "Shutdown_completed_kafka_coordinator_transaction_TransactionMarkerChannelManager",
+    "displayName": "Shutdown completed kafka coordinator transaction TransactionMarkerChannelManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000248,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [$-1]: Shutdown completed (kafka.coordinator.transaction.TransactionMarkerChannelManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "efSznUVnWig",
+    "name": "Shutdown_completed_kafka_raft_TimingWheelExpirationService_ExpiredOperationReaper",
+    "displayName": "Shutdown completed kafka raft TimingWheelExpirationService ExpiredOperationReaper",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000248,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [raft-expiration-reaper]: Shutdown completed (kafka.raft.TimingWheelExpirationService/$ExpiredOperationReaper)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "Bmdh1LC0FOM",
+    "name": "Node_to_controller_channel_manager_for_forwarding_shutdown_kafka_server_NodeToControllerChannelManagerImpl",
+    "displayName": "Node to controller channel manager for forwarding shutdown kafka server NodeToControllerChannelManagerImpl",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024774999999999996,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Node to controller channel manager for forwarding shutdown (kafka.server.NodeToControllerChannelManagerImpl)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "WzBUGNTCHx0",
+    "name": "Shutting_down_org_apache_kafka_raft_KafkaNetworkChannel_SendThread",
+    "displayName": "Shutting down org apache kafka raft KafkaNetworkChannel SendThread",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024774999999999996,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [kafka-1-raft-outbound-request-thread]: Shutting down (org.apache.kafka.raft.KafkaNetworkChannel/$SendThread)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "ufAP7x_C8bE",
+    "name": "Finished_waiting_controller_quorum_voters_future_kafka_server_ControllerServer",
+    "displayName": "Finished waiting controller quorum voters future kafka server ControllerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024774999999999996,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ControllerServer id=$] Finished waiting for controller quorum voters future (kafka.server.ControllerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "gKUqwOtQ8II",
+    "name": "Node_to_controller_channel_manager_for_heartbeat_shutdown_kafka_server_NodeToControllerChannelManagerImpl",
+    "displayName": "Node to controller channel manager for heartbeat shutdown kafka server NodeToControllerChannelManagerImpl",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002475,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Node to controller channel manager for heartbeat shutdown (kafka.server.NodeToControllerChannelManagerImpl)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "cjicSW-bXUI",
+    "name": "Waiting_for_all_of_the_SocketServer_Acceptors_to_be_started_kafka_server_BrokerServer",
+    "displayName": "Waiting for all of the SocketServer Acceptors to be started kafka server BrokerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002475,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerServer id=$] Waiting for all of the SocketServer Acceptors to be started (kafka.server.BrokerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "iG5yLOCtXXs",
+    "name": "Completed_graceful_shutdown_of_RaftClient_org_apache_kafka_raft_KafkaRaftClientDriver",
+    "displayName": "Completed graceful shutdown of RaftClient org apache kafka raft KafkaRaftClientDriver",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024725,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [RaftManager id=$] Completed graceful shutdown of RaftClient (org.apache.kafka.raft.KafkaRaftClientDriver)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "PnsYPqc2ZhM",
+    "name": "Waiting_the_broker_metadata_publishers_to_be_installed_kafka_server_BrokerServer",
+    "displayName": "Waiting the broker metadata publishers to be installed kafka server BrokerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024725,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerServer id=$] Waiting for the broker metadata publishers to be installed (kafka.server.BrokerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "nfUw44Tu4-U",
+    "name": "Shutdown_completed_org_apache_kafka_server_util_timer_SystemTimerReaper_Reaper",
+    "displayName": "Shutdown completed org apache kafka server util timer SystemTimerReaper Reaper",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024699999999999996,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [client-metrics-reaper]: Shutdown completed (org.apache.kafka.server.util.timer.SystemTimerReaper/$Reaper)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "ghPON9Z2mPc",
+    "name": "Waiting_for_all_of_the_authorizer_futures_to_be_completed_kafka_server_BrokerServer",
+    "displayName": "Waiting for all of the authorizer futures to be completed kafka server BrokerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024699999999999996,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerServer id=$] Waiting for all of the authorizer futures to be completed (kafka.server.BrokerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "-fkx43U8vDE",
+    "name": "Shutdown_complete_kafka_coordinator_transaction_TransactionStateManager",
+    "displayName": "Shutdown complete kafka coordinator transaction TransactionStateManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024675,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [Transaction State Manager $]: Shutdown complete (kafka.coordinator.transaction.TransactionStateManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "UVMygnHWMH0",
+    "name": "Shutting_down_kafka_coordinator_transaction_TransactionMarkerChannelManager",
+    "displayName": "Shutting down kafka coordinator transaction TransactionMarkerChannelManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024675,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [$-1]: Shutting down (kafka.coordinator.transaction.TransactionMarkerChannelManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "Kx9Ia4oau_s",
+    "name": "Shutting_down_kafka_raft_TimingWheelExpirationService_ExpiredOperationReaper",
+    "displayName": "Shutting down kafka raft TimingWheelExpirationService ExpiredOperationReaper",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024675,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [raft-expiration-reaper]: Shutting down (kafka.raft.TimingWheelExpirationService/$ExpiredOperationReaper)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "0tFKsEz2pVM",
+    "name": "Created_log_for_partition_in_tmp_kafka_logs_with_properties_LogManager",
+    "displayName": "Created log for partition in tmp kafka logs with properties LogManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024675,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Created log for partition orders$ in //tmp//kafka-logs//orders$1 with properties {} (kafka.log.LogManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "ixW2PhsKDx0",
+    "name": "Shutdown_complete_kafka_coordinator_transaction_TransactionCoordinator",
+    "displayName": "Shutdown complete kafka coordinator transaction TransactionCoordinator",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002465,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [TransactionCoordinator id=$] Shutdown complete. (kafka.coordinator.transaction.TransactionCoordinator)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "9uJFjB0Nn1I",
+    "name": "Starting_org_apache_kafka_raft_KafkaNetworkChannel_SendThread",
+    "displayName": "Starting org apache kafka raft KafkaNetworkChannel SendThread",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002465,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [kafka-1-raft-outbound-request-thread]: Starting (org.apache.kafka.raft.KafkaNetworkChannel/$SendThread)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "xZx-7XbOg94",
+    "name": "Stopped_org_apache_kafka_raft_KafkaNetworkChannel_SendThread",
+    "displayName": "Stopped org apache kafka raft KafkaNetworkChannel SendThread",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024625,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [kafka-1-raft-outbound-request-thread]: Stopped (org.apache.kafka.raft.KafkaNetworkChannel/$SendThread)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "mDQdHzbno_A",
+    "name": "Closing_reporter_org_apache_kafka_common_metrics_JmxReporter_Metrics",
+    "displayName": "Closing reporter org apache kafka common metrics JmxReporter Metrics",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024625,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Closing reporter org.apache.kafka.common.metrics.JmxReporter (org.apache.kafka.common.metrics.Metrics)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "hW3BDK3hMHk",
+    "name": "Startup_complete_kafka_coordinator_transaction_TransactionCoordinator",
+    "displayName": "Startup complete kafka coordinator transaction TransactionCoordinator",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024625,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [TransactionCoordinator id=$] Startup complete. (kafka.coordinator.transaction.TransactionCoordinator)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "xIAhauQSw40",
+    "name": "shutdown_completed_kafka_server_ReplicaAlterLogDirsManager",
+    "displayName": "shutdown completed kafka server ReplicaAlterLogDirsManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000246,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ReplicaAlterLogDirsManager on broker $] shutdown completed (kafka.server.ReplicaAlterLogDirsManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "mvRGl2Nzykg",
+    "name": "CONTROLLER_resolved_wildcard_host_to_org_apache_kafka_metadata_ListenerInfo",
+    "displayName": "CONTROLLER resolved wildcard host to org apache kafka metadata ListenerInfo",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000246,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO CONTROLLER: resolved wildcard host to kafka-$-$ (org.apache.kafka.metadata.ListenerInfo)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "bqOObl9QudI",
+    "name": "Shutting_down_org_apache_kafka_server_util_timer_SystemTimerReaper_Reaper",
+    "displayName": "Shutting down org apache kafka server util timer SystemTimerReaper Reaper",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024574999999999998,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [client-metrics-reaper]: Shutting down (org.apache.kafka.server.util.timer.SystemTimerReaper/$Reaper)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "xPdek65bdHo",
+    "name": "Finished_waiting_controller_quorum_voters_future_kafka_server_BrokerServer",
+    "displayName": "Finished waiting controller quorum voters future kafka server BrokerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024574999999999998,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerServer id=$] Finished waiting for controller quorum voters future (kafka.server.BrokerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "JstYp_abAWc",
+    "name": "Shutting_down_kafka_coordinator_transaction_TransactionCoordinator",
+    "displayName": "Shutting down kafka coordinator transaction TransactionCoordinator",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024550000000000002,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [TransactionCoordinator id=$] Shutting down. (kafka.coordinator.transaction.TransactionCoordinator)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "4GJoHmw8IfI",
+    "name": "Starting_kafka_raft_TimingWheelExpirationService_ExpiredOperationReaper",
+    "displayName": "Starting kafka raft TimingWheelExpirationService ExpiredOperationReaper",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024550000000000002,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [raft-expiration-reaper]: Starting (kafka.raft.TimingWheelExpirationService/$ExpiredOperationReaper)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "VC9Uqa3j-eQ",
+    "name": "Waiting_controller_quorum_voters_future_kafka_server_ControllerServer",
+    "displayName": "Waiting controller quorum voters future kafka server ControllerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024550000000000002,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ControllerServer id=$] Waiting for controller quorum voters future (kafka.server.ControllerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "8wtATIo-U34",
+    "name": "Starting_kafka_coordinator_transaction_TransactionMarkerChannelManager",
+    "displayName": "Starting kafka coordinator transaction TransactionMarkerChannelManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024550000000000002,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [$-1]: Starting (kafka.coordinator.transaction.TransactionMarkerChannelManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "LPcbYuoTVGc",
+    "name": "Beginning_controlled_shutdown_kafka_server_BrokerLifecycleManager",
+    "displayName": "Beginning controlled shutdown kafka server BrokerLifecycleManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024525,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerLifecycleManager id=$] Beginning controlled shutdown. (kafka.server.BrokerLifecycleManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "RI0HJf6Mu+",
+    "name": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [$-1]: Stopped (kafka.coordinator.transaction.TransactionMarkerChannelManager)",
+    "displayName": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [$-1]: Stopped (kafka.coordinator.transaction.TransactionMarkerChannelManager)",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "",
+    "billUsd": 0.0000024525,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [$-1]: Stopped (kafka.coordinator.transaction.TransactionMarkerChannelManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "DDZNri4rBLs",
+    "name": "Stopped_kafka_raft_TimingWheelExpirationService_ExpiredOperationReaper",
+    "displayName": "Stopped kafka raft TimingWheelExpirationService ExpiredOperationReaper",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024525,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [raft-expiration-reaper]: Stopped (kafka.raft.TimingWheelExpirationService/$ExpiredOperationReaper)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "1H_TxVDR8w0",
+    "name": "Registered_signal_handlers_for_TERM_INT_HUP_org_apache_kafka_common_utils_LoggingSignalHandler",
+    "displayName": "Registered signal handlers for TERM INT HUP org apache kafka common utils LoggingSignalHandler",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024525,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Registered signal handlers for TERM, INT, HUP (org.apache.kafka.common.utils.LoggingSignalHandler)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "2eS6jGgQcuU",
+    "name": "OpenJDK_Server_VM_Sharing_only_supported_for_boot_loader_classes_because_bootstrap_classpath_has_been_appended",
+    "displayName": "OpenJDK Server VM Sharing only supported for boot loader classes because bootstrap classpath has been appended",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "WARN",
+    "billUsd": 0.0000024525,
+    "skeleton": "OpenJDK $-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "7IbgKHvdVuY",
+    "name": "Starting_up_kafka_coordinator_transaction_TransactionCoordinator",
+    "displayName": "Starting up kafka coordinator transaction TransactionCoordinator",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000245,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [TransactionCoordinator id=$] Starting up. (kafka.coordinator.transaction.TransactionCoordinator)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "mUFt0oMv6TQ",
+    "name": "shutting_down_kafka_server_ReplicaAlterLogDirsManager",
+    "displayName": "shutting down kafka server ReplicaAlterLogDirsManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024475000000000003,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ReplicaAlterLogDirsManager on broker $] shutting down (kafka.server.ReplicaAlterLogDirsManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "B08SdKX2IpQ",
+    "name": "Shutdown_completed_kafka_server_AddPartitionsToTxnManager",
+    "displayName": "Shutdown completed kafka server AddPartitionsToTxnManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002445,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [$-1]: Shutdown completed (kafka.server.AddPartitionsToTxnManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "eJRbansnWck",
+    "name": "Starting_org_apache_kafka_server_util_timer_SystemTimerReaper_Reaper",
+    "displayName": "Starting org apache kafka server util timer SystemTimerReaper Reaper",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002445,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [client-metrics-reaper]: Starting (org.apache.kafka.server.util.timer.SystemTimerReaper/$Reaper)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "ooYTMqfnV4M",
+    "name": "Terminating_process_due_to_signal_SIGTERM_org_apache_kafka_common_utils_LoggingSignalHandler",
+    "displayName": "Terminating process due to signal SIGTERM org apache kafka common utils LoggingSignalHandler",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024425,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Terminating process due to signal SIGTERM (org.apache.kafka.common.utils.LoggingSignalHandler)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "Ixu4P71CDn4",
+    "name": "Stopped_org_apache_kafka_server_util_timer_SystemTimerReaper_Reaper",
+    "displayName": "Stopped org apache kafka server util timer SystemTimerReaper Reaper",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024425,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [client-metrics-reaper]: Stopped (org.apache.kafka.server.util.timer.SystemTimerReaper/$Reaper)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "kzVM91PoBJs",
+    "name": "The_broker_is_in_RECOVERY_kafka_server_BrokerLifecycleManager",
+    "displayName": "The broker is in RECOVERY kafka server BrokerLifecycleManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024425,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerLifecycleManager id=$] The broker is in RECOVERY. (kafka.server.BrokerLifecycleManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "wn-5BqC0Py4",
+    "name": "Finished_waiting_for_the_broker_to_be_unfenced_kafka_server_BrokerServer",
+    "displayName": "Finished waiting for the broker to be unfenced kafka server BrokerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024425,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerServer id=$] Finished waiting for the broker to be unfenced (kafka.server.BrokerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "dFgbxbC2LZk",
+    "name": "Shutdown_completed_kafka_server_ReplicaManager_LogDirFailureHandler",
+    "displayName": "Shutdown completed kafka server ReplicaManager LogDirFailureHandler",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024400000000000004,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [LogDirFailureHandler]: Shutdown completed (kafka.server.ReplicaManager/$LogDirFailureHandler)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "WM9zpOnRNkA",
+    "name": "Registered_kafka_type_MBean",
+    "displayName": "Registered kafka type MBean",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024375,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Registered kafka:type=kafka.Log4jController MBean (kafka.utils.Log4jControllerRegistration/$)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "eRIDM3bMhfs",
+    "name": "Starting_log_flusher_with_a_default_period_of_ms_kafka_LogManager",
+    "displayName": "Starting log flusher with a default period of ms kafka LogManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024375,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Starting log flusher with a default period of $ ms. (kafka.log.LogManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "IDzn31VV19Y",
+    "name": "shutdown_completed_kafka_server_ReplicaFetcherManager",
+    "displayName": "shutdown completed kafka server ReplicaFetcherManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024349999999999996,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ReplicaFetcherManager on broker $] shutdown completed (kafka.server.ReplicaFetcherManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "HnHp08fh154",
+    "name": "Waiting_controller_quorum_voters_future_kafka_server_BrokerServer",
+    "displayName": "Waiting controller quorum voters future kafka server BrokerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024349999999999996,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerServer id=$] Waiting for controller quorum voters future (kafka.server.BrokerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "IckJqrFbkCg",
+    "name": "Shutting_down_kafka_server_AddPartitionsToTxnManager",
+    "displayName": "Shutting down kafka server AddPartitionsToTxnManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024325,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [$-1]: Shutting down (kafka.server.AddPartitionsToTxnManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "zRl7bosH9_Q",
+    "name": "Shutdown_completed_org_apache_kafka_raft_KafkaRaftClientDriver",
+    "displayName": "Shutdown completed org apache kafka raft KafkaRaftClientDriver",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024325,
+    "skeleton": "6uM/Sn[*Xa",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "iLY2ONUOf34",
+    "name": "Transition_from_SHUTTING_DOWN_to_SHUTDOWN_kafka_server_BrokerServer",
+    "displayName": "Transition from SHUTTING DOWN to SHUTDOWN kafka server BrokerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000243,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerServer id=$] Transition from SHUTTING_DOWN to SHUTDOWN (kafka.server.BrokerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "eGES0nOFpQM",
+    "name": "Transition_from_STARTED_to_SHUTTING_DOWN_kafka_server_BrokerServer",
+    "displayName": "Transition from STARTED to SHUTTING DOWN kafka server BrokerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024275,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerServer id=$] Transition from STARTED to SHUTTING_DOWN (kafka.server.BrokerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "M0YUlMSmBY0",
+    "name": "Shutting_down_kafka_server_ReplicaManager_LogDirFailureHandler",
+    "displayName": "Shutting down kafka server ReplicaManager LogDirFailureHandler",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024275,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [LogDirFailureHandler]: Shutting down (kafka.server.ReplicaManager/$LogDirFailureHandler)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "Kp5mK2H38UE",
+    "name": "shutting_down_kafka_server_ReplicaFetcherManager",
+    "displayName": "shutting down kafka server ReplicaFetcherManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024225,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ReplicaFetcherManager on broker $] shutting down (kafka.server.ReplicaFetcherManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "QRVebZmb9qs",
+    "name": "Beginning_graceful_shutdown_org_apache_kafka_raft_KafkaRaftClient",
+    "displayName": "Beginning graceful shutdown org apache kafka raft KafkaRaftClient",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024225,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [RaftManager id=$] Beginning graceful shutdown (org.apache.kafka.raft.KafkaRaftClient)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "S-y_hwPkXJw",
+    "name": "Graceful_shutdown_completed_org_apache_kafka_raft_KafkaRaftClient",
+    "displayName": "Graceful shutdown completed org apache kafka raft KafkaRaftClient",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024225,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [RaftManager id=$] Graceful shutdown completed (org.apache.kafka.raft.KafkaRaftClient)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "bVqSsCwIpgM",
+    "name": "shutting_down_org_apache_kafka_server_AssignmentsManager",
+    "displayName": "shutting down org apache kafka server AssignmentsManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000242,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [AssignmentsManager id=$] shutting down. (org.apache.kafka.server.AssignmentsManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "1XotXYW7i3g",
+    "name": "Shutdown_completed_kafka_log_LogCleaner_CleanerThread",
+    "displayName": "Shutdown completed kafka log LogCleaner CleanerThread",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000242,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [kafka-log-cleaner-thread$]: Shutdown completed (kafka.log.LogCleaner/$CleanerThread)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "2p5zzoCOuCQ",
+    "name": "Shutting_down_org_apache_kafka_raft_KafkaRaftClientDriver",
+    "displayName": "Shutting down org apache kafka raft KafkaRaftClientDriver",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000242,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [kafka-1-raft-io-thread]: Shutting down (org.apache.kafka.raft.KafkaRaftClientDriver)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "0a5rsaj55wg",
+    "name": "Starting_kafka_server_AddPartitionsToTxnManager",
+    "displayName": "Starting kafka server AddPartitionsToTxnManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000242,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [$-1]: Starting (kafka.server.AddPartitionsToTxnManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "qCD9YYKttog",
+    "name": "Waiting_the_broker_to_be_unfenced_kafka_server_BrokerServer",
+    "displayName": "Waiting the broker to be unfenced kafka server BrokerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000242,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerServer id=$] Waiting for the broker to be unfenced (kafka.server.BrokerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "JsSQ4ZiuZwA",
+    "name": "Stopped_kafka_server_AddPartitionsToTxnManager",
+    "displayName": "Stopped kafka server AddPartitionsToTxnManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024175,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [$-1]: Stopped (kafka.server.AddPartitionsToTxnManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "DqxGb64d4Y4",
+    "name": "Transition_from_SHUTDOWN_to_STARTING_kafka_server_BrokerServer",
+    "displayName": "Transition from SHUTDOWN to STARTING kafka server BrokerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024175,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerServer id=$] Transition from SHUTDOWN to STARTING (kafka.server.BrokerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "KIe7SUD9zdU",
+    "name": "Shutdown_complete_kafka_coordinator_group_GroupCoordinator",
+    "displayName": "Shutdown complete kafka coordinator group GroupCoordinator",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024149999999999997,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [GroupCoordinator $]: Shutdown complete. (kafka.coordinator.group.GroupCoordinator)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "HC2hxzUrOUE",
+    "name": "Starting_kafka_server_ReplicaManager_LogDirFailureHandler",
+    "displayName": "Starting kafka server ReplicaManager LogDirFailureHandler",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024149999999999997,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [LogDirFailureHandler]: Starting (kafka.server.ReplicaManager/$LogDirFailureHandler)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "wo4cIPLmSnc",
+    "name": "Transition_from_STARTING_to_STARTED_kafka_server_BrokerServer",
+    "displayName": "Transition from STARTING to STARTED kafka server BrokerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024149999999999997,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerServer id=$] Transition from STARTING to STARTED (kafka.server.BrokerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "xvsR4g-05wU",
+    "name": "Stopped_kafka_server_ReplicaManager_LogDirFailureHandler",
+    "displayName": "Stopped kafka server ReplicaManager LogDirFailureHandler",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024125,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [LogDirFailureHandler]: Stopped (kafka.server.ReplicaManager/$LogDirFailureHandler)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "jKsU5ra-Dvc",
+    "name": "Startup_complete_kafka_coordinator_group_GroupCoordinator",
+    "displayName": "Startup complete kafka coordinator group GroupCoordinator",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024125,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [GroupCoordinator $]: Startup complete. (kafka.coordinator.group.GroupCoordinator)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "0o9KuNlT7QM",
+    "name": "Shutting_down_kafka_log_LogCleaner_CleanerThread",
+    "displayName": "Shutting down kafka log LogCleaner CleanerThread",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024075,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [kafka-log-cleaner-thread$]: Shutting down (kafka.log.LogCleaner/$CleanerThread)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "FrVc0k5PQ3Y",
+    "name": "Starting_org_apache_kafka_raft_KafkaRaftClientDriver",
+    "displayName": "Starting org apache kafka raft KafkaRaftClientDriver",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024075,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [kafka-1-raft-io-thread]: Starting (org.apache.kafka.raft.KafkaRaftClientDriver)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "Ngs25o_VXwg",
+    "name": "Shutting_down_kafka_coordinator_group_GroupCoordinator",
+    "displayName": "Shutting down kafka coordinator group GroupCoordinator",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024050000000000003,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [GroupCoordinator $]: Shutting down. (kafka.coordinator.group.GroupCoordinator)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "iAD60hu2N-4",
+    "name": "Stopped_org_apache_kafka_raft_KafkaRaftClientDriver",
+    "displayName": "Stopped org apache kafka raft KafkaRaftClientDriver",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024050000000000003,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [kafka-1-raft-io-thread]: Stopped (org.apache.kafka.raft.KafkaRaftClientDriver)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "rhHmnQ9_EDw",
+    "name": "Loading_logs_from_log_dirs_ArrayBuffer_tmp_kafka_LogManager",
+    "displayName": "Loading logs from log dirs ArrayBuffer tmp kafka LogManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024025,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Loading logs from log dirs ArrayBuffer(//tmp//kafka-logs) (kafka.log.LogManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "B4JzFnQdpaQ",
+    "name": "Kafka_Server_started_kafka_server_KafkaRaftServer",
+    "displayName": "Kafka Server started kafka server KafkaRaftServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024025,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [KafkaRaftServer nodeId=$] Kafka Server started (kafka.server.KafkaRaftServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "HZRfJtXQyH8",
+    "name": "org_apache_kafka_common_utils_AppInfoParser",
+    "displayName": "org apache kafka common utils AppInfoParser",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024025,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Kafka startTimeMs: $(+%s) (org.apache.kafka.common.utils.AppInfoParser)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "MmQd2bZFsgg",
+    "name": "Starting_up_kafka_coordinator_group_GroupCoordinator",
+    "displayName": "Starting up kafka coordinator group GroupCoordinator",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000024,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [GroupCoordinator $]: Starting up. (kafka.coordinator.group.GroupCoordinator)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "8TNQ_EQXPM8",
+    "name": "Shut_down_completely_kafka_server_ReplicaManager",
+    "displayName": "Shut down completely kafka server ReplicaManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000023975000000000003,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ReplicaManager broker=$] Shut down completely (kafka.server.ReplicaManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "hOf5_9g8Nnk",
+    "name": "Starting_controller_kafka_server_ControllerServer",
+    "displayName": "Starting controller kafka server ControllerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002395,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ControllerServer id=$] Starting controller (kafka.server.ControllerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "DDPbVWA7jjA",
+    "name": "Starting_kafka_log_LogCleaner_CleanerThread",
+    "displayName": "Starting kafka log LogCleaner CleanerThread",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002395,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [kafka-log-cleaner-thread$]: Starting (kafka.log.LogCleaner/$CleanerThread)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "MuFeB6jBK5w",
+    "name": "Stopped_kafka_log_LogCleaner_CleanerThread",
+    "displayName": "Stopped kafka log LogCleaner CleanerThread",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000023924999999999995,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [kafka-log-cleaner-thread$]: Stopped (kafka.log.LogCleaner/$CleanerThread)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "EDhLc9XFbxA",
+    "name": "Unable_to_read_the_broker_epoch_in_tmp_kafka_logs_log_LogManager",
+    "displayName": "Unable to read the broker epoch in tmp kafka logs log LogManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000023924999999999995,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Unable to read the broker epoch in //tmp//kafka-logs. (kafka.log.LogManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "xL3ST93SMI8",
+    "name": "Running_in_KRaft_mode_Launching_Using_provided_cluster_id",
+    "displayName": "Running in KRaft mode Launching Using provided cluster id",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "",
+    "billUsd": 0.00000239,
+    "skeleton": "Running in KRaft mode... ===> Launching ...  ===> Using provided cluster id $-$ ...",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "-S2T7nNOkQo",
+    "name": "Starting_log_cleanup_with_a_period_of_ms_kafka_LogManager",
+    "displayName": "Starting log cleanup with a period of ms kafka LogManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002385,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Starting log cleanup with a period of $ ms. (kafka.log.LogManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "cy5GCaBF_IA",
+    "name": "Shutting_down_kafka_server_ReplicaManager",
+    "displayName": "Shutting down kafka server ReplicaManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000238,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ReplicaManager broker=$] Shutting down (kafka.server.ReplicaManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "vsyrJbNea88",
+    "name": "shutting_down_kafka_server_ControllerServer",
+    "displayName": "shutting down kafka server ControllerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000238,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ControllerServer id=$] shutting down (kafka.server.ControllerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "n1qBfu8AmTg",
+    "name": "Stopping_SharedServer_kafka_server",
+    "displayName": "Stopping SharedServer kafka server",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000238,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [SharedServer id=$] Stopping SharedServer (kafka.server.SharedServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "UFce107xNIA",
+    "name": "Starting_SharedServer_kafka_server",
+    "displayName": "Starting SharedServer kafka server",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000238,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [SharedServer id=$] Starting SharedServer (kafka.server.SharedServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "21gv4n-j7t4",
+    "name": "No_logs_found_to_be_loaded_in_tmp_kafka_log_LogManager",
+    "displayName": "No logs found to be loaded in tmp kafka log LogManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000023775,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO No logs found to be loaded in //tmp//kafka-logs (kafka.log.LogManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "g1GK-2bZalM",
+    "name": "shut_down_completed_kafka_server_BrokerServer",
+    "displayName": "shut down completed kafka server BrokerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.000002375,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerServer id=$] shut down completed (kafka.server.BrokerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "P3W28GASTng",
+    "name": "Metrics_scheduler_closed_org_apache_kafka_common_metrics",
+    "displayName": "Metrics scheduler closed org apache kafka common metrics",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000023725,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Metrics scheduler closed (org.apache.kafka.common.metrics.Metrics)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "zszV5BjtfuU",
+    "name": "Metrics_reporters_closed_org_apache_kafka_common_metrics",
+    "displayName": "Metrics reporters closed org apache kafka common metrics",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000023725,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Metrics reporters closed (org.apache.kafka.common.metrics.Metrics)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "_v1yfgLYR24",
+    "name": "Starting_broker_kafka_server_BrokerServer",
+    "displayName": "Starting broker kafka server BrokerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000023650000000000002,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerServer id=$] Starting broker (kafka.server.BrokerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "nWkjbvPuApI",
+    "name": "shutting_down_kafka_server_BrokerServer",
+    "displayName": "shutting down kafka server BrokerServer",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000236,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [BrokerServer id=$] shutting down (kafka.server.BrokerServer)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "sa68fyQxIsY",
+    "name": "Broker_and_topic_stats_closed_kafka_server_BrokerTopicStats",
+    "displayName": "Broker and topic stats closed kafka server BrokerTopicStats",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000236,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Broker and topic stats closed (kafka.server.BrokerTopicStats)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "ewmNR0fhGkE",
+    "name": "Shutdown_complete_kafka_server_KafkaApis",
+    "displayName": "Shutdown complete kafka server KafkaApis",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000023475,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [KafkaApi-1] Shutdown complete. (kafka.server.KafkaApis)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "I6s4Y5HAHYA",
+    "name": "Loaded_logs_in_kafka_log_LogManager",
+    "displayName": "Loaded logs in kafka log LogManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000023175,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Loaded $ logs in $ (kafka.log.LogManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "METxfRqJTEQ",
+    "name": "Shutdown_complete_kafka_log_LogManager",
+    "displayName": "Shutdown complete kafka log LogManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.00000231,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Shutdown complete. (kafka.log.LogManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   },
+   {
+    "hash": "ZCZNZX6nNX4",
+    "name": "Shutting_down_kafka_log_LogManager",
+    "displayName": "Shutting down kafka log LogManager",
+    "dominantService": "kafka",
+    "serviceMix": [
+     {
+      "service": "kafka",
+      "sharePct": 100
+     }
+    ],
+    "severity": "INFO",
+    "billUsd": 0.0000023,
+    "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Shutting down. (kafka.log.LogManager)",
+    "action": "pass",
+    "savedUsd": 0,
+    "keepsEverything": true
+   }
+  ],
+  "gap": null
+ },
+ "tool_caps_csv": "container,cap\nkafka,3729::MCP poc_from_local plan 50 pct\n",
+ "tool_actions_csv": "container,action\nkafka,tier_down::MCP poc_from_local plan 50 pct\n",
+ "engine_policy": {
+  "caps_csv": "container,cap\nkafka,3729::MCP poc_from_local plan 50 pct\n",
+  "actions_csv": "container,action\nkafka,tier_down::MCP poc_from_local plan 50 pct\n",
+  "span_seconds": 3600,
+  "reset_window_seconds": 240,
+  "unattributed_planned": 0
+ },
+ "markdown": "# Log10x POC — local source (file)\n\n_Pulled 6.2K log lines (1.26 MB) across 1 file (tail-sampled; the `window` parameter does not apply to files)._\n\n## Sample composition\n\nThese files produced the bytes in the sample. **Confirm this looks like your production mix before trusting the projection** — if 70% of your real-prod bytes come from a service that is NOT in this list, the savings projection is meaningless to you. Widen `paths` or raise `max_pods` (the file cap) if anything looks off.\n\n| File | Bytes | Lines | % of sample |\n|---|---|---|---|\n| `kafka` | 1.26 MB | 6.2K | 100% |\n\n## Projected savings at default rates\n\n_Rates: the vendor's list price where it sells logs per GB, and a per-GB default, marked \"default rate\", where it bills in other units or publishes no per-GB price. Pass `effective_ingest_per_gb` on `log10x_estimate_savings` or `log10x_savings` once your real $/GB is known to convert these projections into a customer-specific quote._\n\nIf your full ingest mix matches this sample, ~86% of your byte volume is non-error high-frequency patterns — candidates for compacting, tiering down or offloading, each of which keeps every line.\n\n**Projected daily ingest** (extrapolated from sample): 15.1 MB.\n\n_File tails carry no time span of their own; the daily projection assumes the sampled bytes cover `2h` (the `window` argument). Pass the window the files actually span to make this projection honest._\n\n_These are list prices and default rates, not predictions of your specific bill: use them to size the order of magnitude, not to negotiate with procurement._\n\n| Log analyzer | Rate | Annual cost | Annual savings |\n|---|---|---|---|\n| Datadog | $2.50/GB (default rate, a blend of Datadog's two meters, which datadoghq.com/pricing/list gives as $0.10 per GB ingested and $2.50 per million events indexed at 30-day retention, billed annually) | $13 | $11 |\n| Splunk | $6.00/GB (default rate, not a Splunk list price) | $31 | $27 |\n| CloudWatch Logs | $0.50/GB (ingestion + first-month storage) | $2.6 | $2.2 |\n| Azure Monitor | $2.30/GB (Analytics tier ingest, list price) | $12 | $10 |\n| Sumo Logic | $2.50/GB (default rate, not a Sumo Logic list price) | $13 | $11 |\n| Elasticsearch | $1.00/GB (default rate, an estimate of self-managed infrastructure per GB) | $5.1 | $4.4 |\n| Coralogix | $1.15/GB (Frequent Search (High) priority, list price) | $5.9 | $5.1 |\n| Elastic Cloud Serverless | $0.07/GB (Logs Essentials ingest floor; retention billed separately) | $0.36 | $0.31 |\n| OpenSearch | $0.10/GB (self-hosted compute baseline (no canonical list rate)) | $0.51 | $0.44 |\n\n## Top patterns in the sample\n\n| # | Identity | Events | % | Bytes |\n|---|---|---|---|---|\n| 1 | `[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [LocalLog partition=__clu…` | 478 | 8% | 77.1 KB |\n| 2 | `[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Deleted log //tmp//kafka-…` | 468 | 8% | 77.2 KB |\n| 3 | `[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Deleted offset index //tm…` | 468 | 8% | 82.4 KB |\n| 4 | `[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Deleted time index //tmp/…` | 468 | 8% | 83.3 KB |\n| 5 | `[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Deleted producer state sn…` | 467 | 8% | 89.2 KB |\n| 6 | `[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ProducerStateManager par…` | 413 | 7% | 88.5 KB |\n| 7 | `[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [SnapshotGenerator id=$] …` | 369 | 6% | 84.1 KB |\n| 8 | `[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [SnapshotEmitter id=$] Su…` | 369 | 6% | 60.5 KB |\n| 9 | `[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [UnifiedLog partition=__c…` | 363 | 6% | 65.8 KB |\n| 10 | `[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [$ partition=__cluster_me…` | 363 | 6% | 0.1 MB |\n\n_For native stack exclusion configs, paste-ready Receiver YAML, and the full 9-section report, run `log10x_poc_from_siem` once you have credentials available._\n\n## Notes\n- wrapped-JSON normalization applied: 6230 of 6230 lines decoded; analysed bytes count the unwrapped payload, raw file size is 6569531 bytes.\n\n---\n\n_This POC read local files on a machine with network access. The same POC runs with no network at all. To run it offline, see `actions[]` for `log10x_emit_sample_plan`, or the [offline POC guide](https://github.com/log-10x/log10x-mcp/blob/main/docs/fenced-poc.md)._"
+}
