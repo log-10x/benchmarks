@@ -11,11 +11,11 @@ metered by Datadog, and no Datadog account is needed to rerun it.
 ## The result
 
 <!-- generated:run -->
-The OpenTelemetry demo capture, 197,430 lines, 157,228 events after grouping, 0.215 GB over 10 hours. Engine `log10x/pipeline-10x:1.1.140`, log10x-mcp 1.30.48, prices read 2026-10-11.
+The OpenTelemetry demo capture, 197,430 lines, 157,228 events after grouping, 0.215 GB over 10 hours. Engine `log10x/pipeline-10x:1.1.140`, log10x-mcp 1.30.48, prices read 2026-10-13.
 <!-- /generated:run -->
 
 <!-- generated:rates -->
-**What a moved event costs at list.** Standard indexing avoided: $1.70 per million events at 15-day retention and $2.50 at 30-day, annual; $2.55 and $3.75 on demand. Flex storage added: $0.05 per million events stored per month, annual, $0.075 on demand, billed for at least 30 days. Flex Starter, compute bundled, for volumes below 2 billion events a month: $0.60 per million stored per month. Flex compute above Starter: "Contact Us for Pricing". Ingestion, $0.10 per GB, is paid once on every event and unchanged by a move. The full rate table with every URL is in [`results/results.md`](results/results.md).
+**What a moved event costs at list.** Standard indexing avoided: $1.70 per million events at 15-day retention and $2.50 at 30-day, annual; $2.55 and $3.75 on demand. What Flex adds depends on the tier the volume falls in. Within Flex Starter, below 2 billion events a month and 10 billion stored, storage and compute are billed together at $0.60 per million stored per month, annual ($0.90 on demand), for at least 3 months: Datadog's Flex docs give 3, 6, 12 or 15 months and its price list 6, 12 or 15. A moved event held 3 months costs at least $1.80 per million over its life. On the scalable tiers above Starter, XS to L, storage is $0.05 per million stored per month, annual ($0.075 on demand), held at least 30 days, plus a flat compute tier Datadog prices on request ("Contact Us for Pricing"). At this capture's volume every target falls in Starter, and tier down to Flex Starter costs more than the 15-day indexing it avoids and less than the 30-day indexing. Ingestion, $0.10 per GB, is paid once on every event and unchanged by a move. The full rate table with every URL is in [`results/results.md`](results/results.md).
 <!-- /generated:rates -->
 
 **What moves, per target.** The MCP's plan applied as written, its `caps.csv` and
@@ -44,15 +44,18 @@ severity floors keep. Its figure runs above the plan's because the plan is state
 container capped at one byte (nothing kept) moves every pattern it has.
 
 **A month at this capture's volume, an illustration.** The capture's span scaled to a
-720-hour month, at the rates above. The volume is one small demo cluster's; the rates are
-what carry.
+720-hour month, at the rates above, with every moved event held the shortest retention its
+Flex tier sells. The volume is one small demo cluster's; what carries is the rate at the tier
+a volume falls in.
 
 <!-- generated:month -->
-| Target | Events to Flex per month | Standard indexing avoided, 15-day annual | Flex storage added, annual | Flex compute tier | Custom metrics above a Pro allotment, 10 to 300 nodes |
-|---:|---:|---:|---:|---|---:|
-| 30% | 4,860,360 | $8.26 | $0.24 | Starter | $0 |
-| 50% | 6,519,960 | $11.08 | $0.33 | Starter | $0 |
-| 70% | 8,627,976 | $14.67 | $0.43 | Starter | $0 |
+| Target | Events to Flex per month | Flex tier | Flex added at that tier, annual | Standard indexing avoided, 15-day annual | Net, 15-day | Standard indexing avoided, 30-day annual | Net, 30-day | Custom metrics above a Pro allotment, 10 to 300 nodes |
+|---:|---:|---|---:|---:|---:|---:|---:|---:|
+| 30% | 4,860,360 | Starter | $8.75, held 3 months | $8.26 | -$0.49 | $12.15 | +$3.40 | $0 |
+| 50% | 6,519,960 | Starter | $11.74, held 3 months | $11.08 | -$0.66 | $16.30 | +$4.56 | $0 |
+| 70% | 8,627,976 | Starter | $15.53, held 3 months | $14.67 | -$0.86 | $21.57 | +$6.04 | $0 |
+
+Net is the indexing avoided less what Flex adds; a minus sign means the move costs more than it saves. At 6 months, the shortest Starter retention on Datadog's price list, the Starter rows cost $17.50 at 30%, $23.47 at 50% and $31.06 at 70% a month.
 <!-- /generated:month -->
 
 <!-- generated:custom-metrics -->

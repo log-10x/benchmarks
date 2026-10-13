@@ -11,7 +11,7 @@
  "window_hours": 10.0,
  "month_hours": 720,
  "gb_definition": "1 GB = 1,000,000,000 bytes",
- "prices_read_on": "2026-10-11",
+ "prices_read_on": "2026-10-13",
  "control": {
   "events": 157228,
   "bytes": 214881933,
@@ -192,14 +192,21 @@
      "30d_annual": 12.1509,
      "30d_on_demand": 18.2264
     },
-    "flex_storage_added": {
-     "annual": 0.243,
-     "on_demand": 0.3645
+    "flex_added": {
+     "tier": "Starter",
+     "starter_minimum_months": 3,
+     "starter_minimum_annual": 8.7486,
+     "starter_minimum_on_demand": 13.123,
+     "starter_price_list_months": 6,
+     "starter_price_list_annual": 17.4973,
+     "scalable_30_days_annual": 0.243,
+     "scalable_30_days_on_demand": 0.3645,
+     "scalable_compute": "Contact Us for Pricing",
+     "at_tier_annual": 8.7486,
+     "at_tier_excludes_compute": false
     },
-    "flex_starter_instead": {
-     "annual": 2.9162,
-     "on_demand": 4.3743
-    },
+    "net_against_15d_annual": -0.49,
+    "net_against_30d_annual": 3.4,
     "ingestion_unchanged": 1.5471
    },
    "flex_compute": {
@@ -589,14 +596,21 @@
      "30d_annual": 16.2999,
      "30d_on_demand": 24.4499
     },
-    "flex_storage_added": {
-     "annual": 0.326,
-     "on_demand": 0.489
+    "flex_added": {
+     "tier": "Starter",
+     "starter_minimum_months": 3,
+     "starter_minimum_annual": 11.7359,
+     "starter_minimum_on_demand": 17.6039,
+     "starter_price_list_months": 6,
+     "starter_price_list_annual": 23.4719,
+     "scalable_30_days_annual": 0.326,
+     "scalable_30_days_on_demand": 0.489,
+     "scalable_compute": "Contact Us for Pricing",
+     "at_tier_annual": 11.7359,
+     "at_tier_excludes_compute": false
     },
-    "flex_starter_instead": {
-     "annual": 3.912,
-     "on_demand": 5.868
-    },
+    "net_against_15d_annual": -0.66,
+    "net_against_30d_annual": 4.56,
     "ingestion_unchanged": 1.5471
    },
    "flex_compute": {
@@ -1480,14 +1494,21 @@
      "30d_annual": 21.5699,
      "30d_on_demand": 32.3549
     },
-    "flex_storage_added": {
-     "annual": 0.4314,
-     "on_demand": 0.6471
+    "flex_added": {
+     "tier": "Starter",
+     "starter_minimum_months": 3,
+     "starter_minimum_annual": 15.5304,
+     "starter_minimum_on_demand": 23.2955,
+     "starter_price_list_months": 6,
+     "starter_price_list_annual": 31.0607,
+     "scalable_30_days_annual": 0.4314,
+     "scalable_30_days_on_demand": 0.6471,
+     "scalable_compute": "Contact Us for Pricing",
+     "at_tier_annual": 15.5304,
+     "at_tier_excludes_compute": false
     },
-    "flex_starter_instead": {
-     "annual": 5.1768,
-     "on_demand": 7.7652
-    },
+    "net_against_15d_annual": -0.86,
+    "net_against_30d_annual": 6.04,
     "ingestion_unchanged": 1.5471
    },
    "flex_compute": {

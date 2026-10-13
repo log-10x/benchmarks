@@ -78,3 +78,9 @@ def fmt_usd(x, places=2):
 
 def fmt_gb(b):
     return f'{gb(b):.3f}'
+
+
+def join_and(items):
+    """a, b and c."""
+    items = list(items)
+    return items[0] if len(items) == 1 else ', '.join(items[:-1]) + ' and ' + items[-1]

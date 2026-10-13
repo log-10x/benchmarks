@@ -1,6 +1,6 @@
 # Datadog Flex Logs accounting
 
-Computed from the engine's counts at Datadog list prices read 2026-10-11. Nothing here was metered by Datadog.
+Computed from the engine's counts at Datadog list prices read 2026-10-13. Nothing here was metered by Datadog.
 
 - engine image: `log10x/pipeline-10x@sha256:fd9c98384a775df13ed41921c2cf95ef1d1313f62f1300aac61da55ca64feb67`
 - MCP: log10x-mcp 1.30.48
@@ -10,17 +10,17 @@ Computed from the engine's counts at Datadog list prices read 2026-10-11. Nothin
 
 | Line | Annual | On-demand | Datadog's wording | Read |
 |---|---:|---:|---|---|
-| Standard indexing avoided, 3-day retention, per million events | $1.06 | $1.59 | Per 1M indexed logs (3-day retention), per month | [2026-10-11](https://www.datadoghq.com/pricing/list/) |
-| Standard indexing avoided, 7-day retention, per million events | $1.27 | $1.91 | Per 1M indexed logs (7-day retention), per month | [2026-10-11](https://www.datadoghq.com/pricing/list/) |
-| Standard indexing avoided, 15-day retention, per million events | $1.70 | $2.55 | Per 1M indexed logs (15-day retention), per month | [2026-10-11](https://www.datadoghq.com/pricing/list/) |
-| Standard indexing avoided, 30-day retention, per million events | $2.50 | $3.75 | Per 1M indexed logs (30-day retention), per month | [2026-10-11](https://www.datadoghq.com/pricing/list/) |
-| Flex storage added, per million events stored per month | $0.05 | $0.075 | Per 1 M events stored, per month; Each million events stored is billed for a minimum of 30 days, or a minimum of $0.05. | [2026-10-11](https://www.datadoghq.com/pricing/list/) |
-| Flex Starter, per million events stored per month, compute bundled | $0.60 | $0.90 | Per 1 M events stored (6, 12 or 15 months retention), per month; Bundled Starter Compute for log volumes below 2B per month (10B total stored) | [2026-10-11](https://www.datadoghq.com/pricing/list/) |
-| Flex compute, XS to L | Contact Us for Pricing | Contact Us for Pricing | Per instance-hour, per month | [2026-10-11](https://www.datadoghq.com/pricing/?product=log-management) |
-| Ingestion, per GB, unchanged by a move | $0.10 | $0.10 | Per ingested logs (1GB), per month | [2026-10-11](https://www.datadoghq.com/pricing/list/) |
-| Custom metrics, per 100 per month above the allotment | $5.00 | $5.00 | Per 100 custom metrics, per month; Pro: 100 ingested custom metrics per host and 100 indexed custom metrics per host; Enterprise: 200 ingested custom metrics per host and 200 indexed custom metrics per host | [2026-10-11](https://www.datadoghq.com/pricing/list/) |
+| Standard indexing avoided, 3-day retention, per million events | $1.06 | $1.59 | Per 1M indexed logs (3-day retention), per month | [2026-10-13](https://www.datadoghq.com/pricing/list/) |
+| Standard indexing avoided, 7-day retention, per million events | $1.27 | $1.91 | Per 1M indexed logs (7-day retention), per month | [2026-10-13](https://www.datadoghq.com/pricing/list/) |
+| Standard indexing avoided, 15-day retention, per million events | $1.70 | $2.55 | Per 1M indexed logs (15-day retention), per month | [2026-10-13](https://www.datadoghq.com/pricing/list/) |
+| Standard indexing avoided, 30-day retention, per million events | $2.50 | $3.75 | Per 1M indexed logs (30-day retention), per month | [2026-10-13](https://www.datadoghq.com/pricing/list/) |
+| Flex storage, scalable tiers XS to L, per million events stored per month, held at least 30 days; compute priced apart | $0.05 | $0.075 | Per 1 M events stored, per month; Each million events stored is billed for a minimum of 30 days, or a minimum of $0.05. "With a scalable compute option, you can store logs for 30-450 days." | [2026-10-13](https://www.datadoghq.com/pricing/list/), [docs](https://docs.datadoghq.com/logs/log_configuration/flex_logs/) |
+| Flex Starter, storage and compute bundled, per million events stored per month, held at least 3 months | $0.60 | $0.90 | Per 1 M events stored (6, 12 or 15 months retention), per month; Bundled Starter Compute for log volumes below 2B per month (10B total stored). "With Flex Logs Starter, you can store logs for 3, 6, 12, or 15 months." "Flex Logs Starter is billed at a bundled storage+compute rate." The price list gives 6, 12 or 15 months and the Flex docs 3, 6, 12 or 15. The shorter, 3, is used as the minimum, and the price list's 6 is shown beside it. | [2026-10-13](https://www.datadoghq.com/pricing/list/), [docs](https://docs.datadoghq.com/logs/log_configuration/flex_logs/) |
+| Flex compute, XS to L | Contact Us for Pricing | Contact Us for Pricing | Per instance-hour, per month | [2026-10-13](https://www.datadoghq.com/pricing/?product=log-management) |
+| Ingestion, per GB, unchanged by a move | $0.10 | $0.10 | Per ingested logs (1GB), per month | [2026-10-13](https://www.datadoghq.com/pricing/list/) |
+| Custom metrics, per 100 per month above the allotment | $5.00 | $5.00 | Per 100 custom metrics, per month; Pro: 100 ingested custom metrics per host and 100 indexed custom metrics per host; Enterprise: 200 ingested custom metrics per host and 200 indexed custom metrics per host | [2026-10-13](https://www.datadoghq.com/pricing/list/) |
 
-Flex compute sizes by cumulative events stored, from Datadog's own table: Starter under 10 billion, XS 10 to 50 billion, XS+ 50 to 100 billion, S 100 to 200 billion, M 200 to 500 billion, L 500 to 1000 billion. Starter is bundled storage and compute for volumes below 2 billion events a month. [2026-10-11](https://docs.datadoghq.com/logs/log_configuration/flex_logs/)
+Flex compute sizes by cumulative events stored, from Datadog's own table: Starter under 10 billion, XS 10 to 50 billion, XS+ 50 to 100 billion, S 100 to 200 billion, M 200 to 500 billion, L 500 to 1000 billion. Starter is bundled storage and compute for volumes below 2 billion events a month. [2026-10-13](https://docs.datadoghq.com/logs/log_configuration/flex_logs/)
 
 ## What moves, per target
 
@@ -36,11 +36,13 @@ The engine moves each pattern's excess over its container's cap; the plan sets t
 
 The capture's 10 hours scaled to a 720-hour month, at the rates above. The volume is one small demo cluster's; the rates are what carry.
 
-| Target | Events to Flex per month | Standard indexing avoided, 15-day annual | Flex storage added, annual | Flex compute tier | Ingestion, unchanged | Custom metrics above a Pro allotment, 10 to 300 nodes |
-|---:|---:|---:|---:|---|---:|---:|
-| 30% | 4,860,360 | $8.26 | $0.24 | Starter | $1.55 | $0 to $0 |
-| 50% | 6,519,960 | $11.08 | $0.33 | Starter | $1.55 | $0 to $0 |
-| 70% | 8,627,976 | $14.67 | $0.43 | Starter | $1.55 | $0 to $0 |
+| Target | Events to Flex per month | Flex tier | Flex added at that tier, annual | Standard indexing avoided, 15-day annual | Net, 15-day | Standard indexing avoided, 30-day annual | Net, 30-day | Ingestion, unchanged | Custom metrics above a Pro allotment, 10 to 300 nodes |
+|---:|---:|---|---:|---:|---:|---:|---:|---:|---:|
+| 30% | 4,860,360 | Starter | $8.75, held 3 months | $8.26 | -$0.49 | $12.15 | +$3.40 | $1.55 | $0 |
+| 50% | 6,519,960 | Starter | $11.74, held 3 months | $11.08 | -$0.66 | $16.30 | +$4.56 | $1.55 | $0 |
+| 70% | 8,627,976 | Starter | $15.53, held 3 months | $14.67 | -$0.86 | $21.57 | +$6.04 | $1.55 | $0 |
+
+Net is the indexing avoided less what Flex adds; a minus sign means the move costs more than it saves. At 6 months, the shortest Starter retention on Datadog's price list, the Starter rows cost $17.50 at 30%, $23.47 at 50% and $31.06 at 70% a month.
 
 **Custom metrics.** The engine's shipped Datadog output, posting to a local stand-in for Datadog's intake, tagged each series with the pattern and where it ran (`k8s_container`, `k8s_namespace`, `message_pattern`, `routeState`, `severity_level`, `statistic`, `tenx_hash`, `tenx_reported_name`, `tenx_user_service`) and with nothing that names a node or a process, and published the 200 tag sets with the most bytes, each from both aggregators: at most 768 series in one post, whatever the node count; the top 200 label sets carry 98.8% of the bytes. Above a Pro plan's allotment of 100 per host that is $0 a month at 10 nodes, $0 at 100 and $0 at 300. Every tag set from every node would be 10,848 per node: $5,374, $53,740 and $161,220 a month.
 
@@ -79,10 +81,13 @@ Errors and warnings marked tier_down: 0. The regulator keeps half of the ERROR a
 | Standard indexing avoided, 15-day, on-demand | $12.39 |
 | Standard indexing avoided, 30-day, annual | $12.15 |
 | Standard indexing avoided, 30-day, on-demand | $18.23 |
-| Flex storage added, held 30 days, annual | $0.24 |
-| Flex storage added, held 30 days, on-demand | $0.36 |
-| Flex Starter instead of storage plus compute, annual | $2.92 |
-| Flex compute tier at 4,860,360 events stored | Starter, within Starter; Contact Us for Pricing for XS and above |
+| Flex tier for 4,860,360 events a month | Starter |
+| Flex Starter, storage and compute, held 3 months, annual | $8.75 |
+| Flex Starter, storage and compute, held 3 months, on-demand | $13.12 |
+| Flex Starter, held 6 months, the price list's shortest, annual | $17.50 |
+| Flex storage on a scalable tier above Starter, held 30 days, annual, compute apart (Contact Us for Pricing) | $0.24 |
+| Net against 15-day Standard, annual, at the Starter tier | -$0.49 |
+| Net against 30-day Standard, annual, at the Starter tier | +$3.40 |
 | Ingestion, unchanged | $1.55 |
 | Custom metrics from the engine's Datadog metric output, measured | at most 768 series in one of 4 posts, 1,386 distinct over the replay while ranks settle, the same from every node; above a Pro allotment $0 at 10 nodes, $0 at 300. Every tag set would be 10,848 per node |
 
@@ -132,10 +137,13 @@ Errors and warnings marked tier_down: 0. The regulator keeps half of the ERROR a
 | Standard indexing avoided, 15-day, on-demand | $16.63 |
 | Standard indexing avoided, 30-day, annual | $16.30 |
 | Standard indexing avoided, 30-day, on-demand | $24.45 |
-| Flex storage added, held 30 days, annual | $0.33 |
-| Flex storage added, held 30 days, on-demand | $0.49 |
-| Flex Starter instead of storage plus compute, annual | $3.91 |
-| Flex compute tier at 6,519,960 events stored | Starter, within Starter; Contact Us for Pricing for XS and above |
+| Flex tier for 6,519,960 events a month | Starter |
+| Flex Starter, storage and compute, held 3 months, annual | $11.74 |
+| Flex Starter, storage and compute, held 3 months, on-demand | $17.60 |
+| Flex Starter, held 6 months, the price list's shortest, annual | $23.47 |
+| Flex storage on a scalable tier above Starter, held 30 days, annual, compute apart (Contact Us for Pricing) | $0.33 |
+| Net against 15-day Standard, annual, at the Starter tier | -$0.66 |
+| Net against 30-day Standard, annual, at the Starter tier | +$4.56 |
 | Ingestion, unchanged | $1.55 |
 | Custom metrics from the engine's Datadog metric output, measured | at most 786 series in one of 5 posts, 1,424 distinct over the replay while ranks settle, the same from every node; above a Pro allotment $0 at 10 nodes, $0 at 300. Every tag set would be 10,868 per node |
 
@@ -213,10 +221,13 @@ Errors and warnings marked tier_down: 0. The regulator keeps half of the ERROR a
 | Standard indexing avoided, 15-day, on-demand | $22 |
 | Standard indexing avoided, 30-day, annual | $21.57 |
 | Standard indexing avoided, 30-day, on-demand | $32.35 |
-| Flex storage added, held 30 days, annual | $0.43 |
-| Flex storage added, held 30 days, on-demand | $0.65 |
-| Flex Starter instead of storage plus compute, annual | $5.18 |
-| Flex compute tier at 8,627,976 events stored | Starter, within Starter; Contact Us for Pricing for XS and above |
+| Flex tier for 8,627,976 events a month | Starter |
+| Flex Starter, storage and compute, held 3 months, annual | $15.53 |
+| Flex Starter, storage and compute, held 3 months, on-demand | $23.30 |
+| Flex Starter, held 6 months, the price list's shortest, annual | $31.06 |
+| Flex storage on a scalable tier above Starter, held 30 days, annual, compute apart (Contact Us for Pricing) | $0.43 |
+| Net against 15-day Standard, annual, at the Starter tier | -$0.86 |
+| Net against 30-day Standard, annual, at the Starter tier | +$6.04 |
 | Ingestion, unchanged | $1.55 |
 | Custom metrics from the engine's Datadog metric output, measured | at most 780 series in one of 4 posts, 1,590 distinct over the replay while ranks settle, the same from every node; above a Pro allotment $0 at 10 nodes, $0 at 300. Every tag set would be 10,972 per node |
 
@@ -267,7 +278,7 @@ The engine's Datadog metric output publishes two counters, event volume and byte
 
 ## Counting conditions
 
-- Datadog counts indexed events: "At the end of the month, Datadog computes the total number of log events that have been indexed" ([2026-10-11](https://docs.datadoghq.com/account_management/billing/log_management/)). With the shipped forwarder path one record is one event; the Receiver groups the lines of a multi-line event into one record, and the engine counted 157,228 records from 197,430 lines here.
+- Datadog counts indexed events: "At the end of the month, Datadog computes the total number of log events that have been indexed" ([2026-10-13](https://docs.datadoghq.com/account_management/billing/log_management/)). With the shipped forwarder path one record is one event; the Receiver groups the lines of a multi-line event into one record, and the engine counted 157,228 records from 197,430 lines here.
 - The Flex route is the documented index filter on `@routeState:tier_down`, applied to a Flex index listed before the Standard one. Every event the engine marks `tier_down` carries that field to Datadog.
 - The regulator caps each pattern's bytes per container per 240 s window; an event over its pattern's cap takes the container's action. Patterns under 5% of their container's bytes in the window are not capped, the first 5 events of a pattern in a window pass, and the severity floors keep a share of each level: a tenth of INFO, DEBUG and TRACE, three tenths of WARN, half of ERROR and CRITICAL. The kept share is drawn at random per event, so a rerun differs within that noise.
 - The replay delivers the capture inside one window; each cap the plan wrote is multiplied by the span the plan covers over 240 s, and nothing else in the plan's files is changed. `results/policy-*.json` records the files and the factor.
