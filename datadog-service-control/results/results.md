@@ -360,3 +360,50 @@ Events the plan moves that stay in Standard:
 | `LocalLog$` | `Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_kafka_LocalLog` | 192 |
 | `Snapshots` | `Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots` | 121 |
 
+## The floor: bucket 3's moved patterns
+
+Capture A:
+
+| Container | Pattern | Events in the floor | Marked tier_down | Pattern events in the capture | Band | Selected by | Native cell | Patterns in the cell |
+|---|---|---:|---:|---:|---|---|---|---:|
+| `recommendation` | `Receive_ListRecommendations_for_product_ids` | 3,430 | 3,073 | 3,430 | over 1,000 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 2 |
+| `fluentd-10x` | `stats_cache_size_pod_api_updates_id_miss` | 1,117 | 973 | 1,117 | over 1,000 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 109 |
+| `opensearch` | `Running_full_sweep` | 124 | 98 | 124 | 101 to 1,000 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 177 |
+| `valkey-cart` | `changes_seconds_Saving` | 120 | 109 | 120 | 101 to 1,000 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 11 |
+| `valkey-cart` | `DB_saved_on_disk` | 120 | 105 | 120 | 101 to 1,000 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 11 |
+| `valkey-cart` | `Background_saving_started_by_pid` | 120 | 105 | 120 | 101 to 1,000 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 11 |
+| `valkey-cart` | `Fork_CoW_RDB_current_peak_MB_average` | 120 | 108 | 120 | 101 to 1,000 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 11 |
+| `valkey-cart` | `Background_saving_terminated_with_success` | 120 | 105 | 120 | 101 to 1,000 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 11 |
+| `fluentd-10x` | `stats_cache_size_pod_api_updates_id_miss_host_namespace` | 119 | 96 | 119 | 101 to 1,000 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 109 |
+| `fluentd-10x` | `following_tail_of` | 47 | 33 | 47 | 11 to 100 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 109 |
+| `opensearch` | `Finished_housekeeping_task_for_auto_refresh_streaming_jobs` | 41 | 17 | 41 | 11 to 100 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 177 |
+| `opensearch` | `Starting_housekeeping_task_for_auto_refresh_streaming_jobs` | 41 | 19 | 41 | 11 to 100 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 177 |
+| `opensearch` | `onIndexModule_index_otel` | 20 | 1 | 20 | 11 to 100 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 177 |
+
+Capture B:
+
+| Container | Pattern | Events in the floor | Marked tier_down | Pattern events in the capture | Band | Selected by | Native cell | Patterns in the cell |
+|---|---|---:|---:|---:|---|---|---|---:|
+| `recommendation` | `Receive_ListRecommendations_for_product_ids` | 602 | 541 | 602 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 2 |
+| `llm` | `POST_chat_completions_HTTP` | 450 | 348 | 450 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 30 |
+| `product-reviews` | `HTTP_Request_POST_http_llm_OK` | 450 | 204 | 450 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 71 |
+| `product-reviews` | `Receive_GetProductReviews_for_product_id` | 409 | 160 | 409 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 71 |
+| `email` | `POST_send_order_confirmation_HTTP` | 391 | 355 | 391 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 2 |
+| `quote` | `POST_getquote_HTTP` | 391 | 342 | 391 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 2 |
+| `llm` | `app_Received_chat_completion_request` | 225 | 162 | 225 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 30 |
+| `llm` | `app_Processing_tool_call_with_args` | 225 | 142 | 225 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 30 |
+| `llm` | `app_llmInaccurateResponse_feature_flag_False` | 225 | 144 | 225 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 30 |
+| `llm` | `app_The_model_is_astronomy_llm` | 225 | 144 | 225 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 30 |
+| `llm` | `app_last_Based_on_the_tool_results_answer_original_question_about_product_ID_Keep_response_brief_with_no_more_than_sentences` | 225 | 150 | 225 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 30 |
+| `llm` | `app_last_Answer_the_following_question_about_product_ID_Can_you_summarize_reviews` | 225 | 149 | 225 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 30 |
+| `llm` | `app_Received_chat_completion_request_requesting_tool_call_calls_fetch_product_reviews` | 225 | 186 | 225 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 30 |
+| `product-reviews` | `Invoking_the_LLM_with_following_messages` | 225 | 118 | 225 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 71 |
+| `product-reviews` | `Function_response_fetch_product_reviews` | 225 | 81 | 225 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 71 |
+| `postgresql` | `LOG_checkpoint_complete_wrote_buffers_WAL_file_s_added_removed_recycled_write_sync_total_files_longest_average_distance_kB` | 25 | 15 | 25 | 11 to 100 | id only | host=ip-10-0-49-218.ec2.internal, postgres.error_severity=LOG, status=info | 14 |
+| `valkey-cart` | `DB_saved_on_disk` | 24 | 16 | 24 | 11 to 100 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 14 |
+| `postgresql` | `LOG_checkpoint_starting_time` | 23 | 12 | 23 | 11 to 100 | alone | host=ip-10-0-49-218.ec2.internal, postgres.error_severity=LOG, postgres.message=checkpoint starting: time, postgres.pid=64, status=info | 1 |
+| `valkey-cart` | `changes_seconds_Saving` | 23 | 17 | 23 | 11 to 100 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 14 |
+| `valkey-cart` | `Background_saving_started_by_pid` | 23 | 14 | 23 | 11 to 100 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 14 |
+| `valkey-cart` | `Fork_CoW_RDB_current_peak_MB_average` | 23 | 16 | 23 | 11 to 100 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 14 |
+| `valkey-cart` | `Background_saving_terminated_with_success` | 23 | 15 | 23 | 11 to 100 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 14 |
+

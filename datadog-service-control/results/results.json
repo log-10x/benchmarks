@@ -2261,5 +2261,1510 @@
     }
    }
   }
+ },
+ "floor": {
+  "target": 70,
+  "filtered_services": [
+   "opentelemetry-collector",
+   "kafka",
+   "cart"
+  ],
+  "dropped": [
+   "DEBUG",
+   "TRACE"
+  ],
+  "captures": {
+   "A": {
+    "capture": {
+     "events": 157228,
+     "bytes": 214881933
+    },
+    "floor": {
+     "events": 15644,
+     "bytes": 33671976,
+     "share": 0.0995
+    },
+    "floor_by_service": {
+     "opentelemetry-collector": 3953,
+     "recommendation": 3432,
+     "grafana": 2474,
+     "frontend": 2317,
+     "fluentd-10x": 1429,
+     "valkey-cart": 607,
+     "opensearch": 516,
+     "kube-proxy": 287,
+     "prometheus-server": 152,
+     "frontend-proxy": 113,
+     "jaeger": 86,
+     "accounting": 69,
+     "coredns": 43,
+     "metrics-server": 35,
+     "postgresql": 33,
+     "grafana-sc-dashboard": 14,
+     "init-config": 14,
+     "grafana-sc-alerts": 10,
+     "grafana-sc-datasources": 10,
+     "flagd": 9,
+     "image-provider": 8,
+     "aws-vpc-cni-init": 7,
+     "load-generator": 5,
+     "aws-node": 4,
+     "email": 3,
+     "flagd-ui": 3,
+     "fraud-detection": 3,
+     "ad": 2,
+     "aws-eks-nodeagent": 1,
+     "cart": 1,
+     "currency": 1,
+     "kafka": 1,
+     "payment": 1,
+     "quote": 1
+    },
+    "buckets": {
+     "1": {
+      "events": 6571,
+      "bytes": 23565287,
+      "share": 0.0418,
+      "patterns": 67,
+      "bands": {
+       "seen once": 38,
+       "2 to 10": 69,
+       "11 to 100": 281,
+       "101 to 1,000": 126,
+       "over 1,000": 6057
+      }
+     },
+     "2a": {
+      "events": 0,
+      "bytes": 0,
+      "share": 0.0,
+      "patterns": 0,
+      "bands": {
+       "seen once": 0,
+       "2 to 10": 0,
+       "11 to 100": 0,
+       "101 to 1,000": 0,
+       "over 1,000": 0
+      }
+     },
+     "2b": {
+      "events": 3120,
+      "bytes": 3392966,
+      "share": 0.0198,
+      "patterns": 1882,
+      "bands": {
+       "seen once": 1699,
+       "2 to 10": 439,
+       "11 to 100": 359,
+       "101 to 1,000": 623,
+       "over 1,000": 0
+      }
+     },
+     "3_moved": {
+      "events": 5539,
+      "bytes": 6200586,
+      "share": 0.0352,
+      "patterns": 13,
+      "bands": {
+       "seen once": 0,
+       "2 to 10": 0,
+       "11 to 100": 149,
+       "101 to 1,000": 843,
+       "over 1,000": 4547
+      }
+     },
+     "3_kept": {
+      "events": 414,
+      "bytes": 513137,
+      "share": 0.0026,
+      "patterns": 286,
+      "bands": {
+       "seen once": 247,
+       "2 to 10": 148,
+       "11 to 100": 19,
+       "101 to 1,000": 0,
+       "over 1,000": 0
+      }
+     },
+     "4_alone": {
+      "events": 0,
+      "bytes": 0,
+      "share": 0.0,
+      "patterns": 0,
+      "bands": {
+       "seen once": 0,
+       "2 to 10": 0,
+       "11 to 100": 0,
+       "101 to 1,000": 0,
+       "over 1,000": 0
+      }
+     },
+     "4_with_moved_only": {
+      "events": 0,
+      "bytes": 0,
+      "share": 0.0,
+      "patterns": 0,
+      "bands": {
+       "seen once": 0,
+       "2 to 10": 0,
+       "11 to 100": 0,
+       "101 to 1,000": 0,
+       "over 1,000": 0
+      }
+     },
+     "4_id_only": {
+      "events": 5539,
+      "bytes": 6200586,
+      "share": 0.0352,
+      "patterns": 13,
+      "bands": {
+       "seen once": 0,
+       "2 to 10": 0,
+       "11 to 100": 149,
+       "101 to 1,000": 843,
+       "over 1,000": 4547
+      }
+     }
+    },
+    "tier_down_in_3_moved": 4842,
+    "services": {
+     "accounting": {
+      "bucket": "2b",
+      "events": 69,
+      "moved_events": 0,
+      "kept_events": 69,
+      "moved_patterns": 0,
+      "kept_patterns": 43,
+      "capped": true
+     },
+     "ad": {
+      "bucket": "2b",
+      "events": 1,
+      "moved_events": 0,
+      "kept_events": 1,
+      "moved_patterns": 0,
+      "kept_patterns": 1,
+      "capped": true
+     },
+     "aws-eks-nodeagent": {
+      "bucket": "2b",
+      "events": 1,
+      "moved_events": 0,
+      "kept_events": 1,
+      "moved_patterns": 0,
+      "kept_patterns": 1,
+      "capped": false
+     },
+     "aws-node": {
+      "bucket": "2b",
+      "events": 4,
+      "moved_events": 0,
+      "kept_events": 4,
+      "moved_patterns": 0,
+      "kept_patterns": 4,
+      "capped": true
+     },
+     "aws-vpc-cni-init": {
+      "bucket": "2b",
+      "events": 7,
+      "moved_events": 0,
+      "kept_events": 7,
+      "moved_patterns": 0,
+      "kept_patterns": 7,
+      "capped": false
+     },
+     "coredns": {
+      "bucket": "2b",
+      "events": 35,
+      "moved_events": 0,
+      "kept_events": 35,
+      "moved_patterns": 0,
+      "kept_patterns": 4,
+      "capped": true
+     },
+     "email": {
+      "bucket": "2b",
+      "events": 1,
+      "moved_events": 0,
+      "kept_events": 1,
+      "moved_patterns": 0,
+      "kept_patterns": 1,
+      "capped": true
+     },
+     "flagd": {
+      "bucket": "2b",
+      "events": 9,
+      "moved_events": 0,
+      "kept_events": 9,
+      "moved_patterns": 0,
+      "kept_patterns": 9,
+      "capped": true
+     },
+     "flagd-ui": {
+      "bucket": "2b",
+      "events": 3,
+      "moved_events": 0,
+      "kept_events": 3,
+      "moved_patterns": 0,
+      "kept_patterns": 3,
+      "capped": false
+     },
+     "fluentd-10x": {
+      "bucket": "3",
+      "events": 1427,
+      "moved_events": 1283,
+      "kept_events": 144,
+      "moved_patterns": 3,
+      "kept_patterns": 106,
+      "capped": true
+     },
+     "fraud-detection": {
+      "bucket": "2b",
+      "events": 2,
+      "moved_events": 0,
+      "kept_events": 2,
+      "moved_patterns": 0,
+      "kept_patterns": 2,
+      "capped": true
+     },
+     "frontend": {
+      "bucket": "2b",
+      "events": 1,
+      "moved_events": 0,
+      "kept_events": 1,
+      "moved_patterns": 0,
+      "kept_patterns": 1,
+      "capped": false
+     },
+     "frontend-proxy": {
+      "bucket": "2b",
+      "events": 112,
+      "moved_events": 0,
+      "kept_events": 112,
+      "moved_patterns": 0,
+      "kept_patterns": 112,
+      "capped": true
+     },
+     "grafana": {
+      "bucket": "2b",
+      "events": 2334,
+      "moved_events": 0,
+      "kept_events": 2334,
+      "moved_patterns": 0,
+      "kept_patterns": 1424,
+      "capped": false
+     },
+     "grafana-sc-alerts": {
+      "bucket": "2b",
+      "events": 10,
+      "moved_events": 0,
+      "kept_events": 10,
+      "moved_patterns": 0,
+      "kept_patterns": 10,
+      "capped": false
+     },
+     "grafana-sc-dashboard": {
+      "bucket": "2b",
+      "events": 14,
+      "moved_events": 0,
+      "kept_events": 14,
+      "moved_patterns": 0,
+      "kept_patterns": 13,
+      "capped": false
+     },
+     "grafana-sc-datasources": {
+      "bucket": "2b",
+      "events": 10,
+      "moved_events": 0,
+      "kept_events": 10,
+      "moved_patterns": 0,
+      "kept_patterns": 10,
+      "capped": false
+     },
+     "image-provider": {
+      "bucket": "2b",
+      "events": 8,
+      "moved_events": 0,
+      "kept_events": 8,
+      "moved_patterns": 0,
+      "kept_patterns": 8,
+      "capped": true
+     },
+     "init-config": {
+      "bucket": "2b",
+      "events": 14,
+      "moved_events": 0,
+      "kept_events": 14,
+      "moved_patterns": 0,
+      "kept_patterns": 10,
+      "capped": false
+     },
+     "jaeger": {
+      "bucket": "2b",
+      "events": 82,
+      "moved_events": 0,
+      "kept_events": 82,
+      "moved_patterns": 0,
+      "kept_patterns": 55,
+      "capped": true
+     },
+     "kube-proxy": {
+      "bucket": "2b",
+      "events": 286,
+      "moved_events": 0,
+      "kept_events": 286,
+      "moved_patterns": 0,
+      "kept_patterns": 89,
+      "capped": false
+     },
+     "metrics-server": {
+      "bucket": "2b",
+      "events": 28,
+      "moved_events": 0,
+      "kept_events": 28,
+      "moved_patterns": 0,
+      "kept_patterns": 14,
+      "capped": false
+     },
+     "opensearch": {
+      "bucket": "3",
+      "events": 489,
+      "moved_events": 226,
+      "kept_events": 263,
+      "moved_patterns": 4,
+      "kept_patterns": 173,
+      "capped": true
+     },
+     "payment": {
+      "bucket": "2b",
+      "events": 1,
+      "moved_events": 0,
+      "kept_events": 1,
+      "moved_patterns": 0,
+      "kept_patterns": 1,
+      "capped": false
+     },
+     "postgresql": {
+      "bucket": "2b",
+      "events": 32,
+      "moved_events": 0,
+      "kept_events": 32,
+      "moved_patterns": 0,
+      "kept_patterns": 23,
+      "capped": false
+     },
+     "prometheus-server": {
+      "bucket": "2b",
+      "events": 55,
+      "moved_events": 0,
+      "kept_events": 55,
+      "moved_patterns": 0,
+      "kept_patterns": 36,
+      "capped": false
+     },
+     "quote": {
+      "bucket": "2b",
+      "events": 1,
+      "moved_events": 0,
+      "kept_events": 1,
+      "moved_patterns": 0,
+      "kept_patterns": 1,
+      "capped": false
+     },
+     "recommendation": {
+      "bucket": "3",
+      "events": 3431,
+      "moved_events": 3430,
+      "kept_events": 1,
+      "moved_patterns": 1,
+      "kept_patterns": 1,
+      "capped": true
+     },
+     "valkey-cart": {
+      "bucket": "3",
+      "events": 606,
+      "moved_events": 600,
+      "kept_events": 6,
+      "moved_patterns": 5,
+      "kept_patterns": 6,
+      "capped": true
+     }
+    },
+    "moved_patterns": [
+     {
+      "container": "recommendation",
+      "hash": "bzLB1zZCTIw",
+      "pattern": "Receive_ListRecommendations_for_product_ids",
+      "events": 3430,
+      "pattern_events": 3430,
+      "band": "over 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 2,
+      "tier_down_events": 3073
+     },
+     {
+      "container": "fluentd-10x",
+      "hash": "048Qg0CfkTE",
+      "pattern": "stats_cache_size_pod_api_updates_id_miss",
+      "events": 1117,
+      "pattern_events": 1117,
+      "band": "over 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 109,
+      "tier_down_events": 973
+     },
+     {
+      "container": "opensearch",
+      "hash": "JXF4ol7eprg",
+      "pattern": "Running_full_sweep",
+      "events": 124,
+      "pattern_events": 124,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 177,
+      "tier_down_events": 98
+     },
+     {
+      "container": "valkey-cart",
+      "hash": "CqVDqv2uuq4",
+      "pattern": "changes_seconds_Saving",
+      "events": 120,
+      "pattern_events": 120,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 11,
+      "tier_down_events": 109
+     },
+     {
+      "container": "valkey-cart",
+      "hash": "INXTRKqNcG8",
+      "pattern": "DB_saved_on_disk",
+      "events": 120,
+      "pattern_events": 120,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 11,
+      "tier_down_events": 105
+     },
+     {
+      "container": "valkey-cart",
+      "hash": "cSWpKn5pAUI",
+      "pattern": "Background_saving_started_by_pid",
+      "events": 120,
+      "pattern_events": 120,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 11,
+      "tier_down_events": 105
+     },
+     {
+      "container": "valkey-cart",
+      "hash": "kodKFTs6ZHw",
+      "pattern": "Fork_CoW_RDB_current_peak_MB_average",
+      "events": 120,
+      "pattern_events": 120,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 11,
+      "tier_down_events": 108
+     },
+     {
+      "container": "valkey-cart",
+      "hash": "sX9OKFLN168",
+      "pattern": "Background_saving_terminated_with_success",
+      "events": 120,
+      "pattern_events": 120,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 11,
+      "tier_down_events": 105
+     },
+     {
+      "container": "fluentd-10x",
+      "hash": "xll0jY-tlX0",
+      "pattern": "stats_cache_size_pod_api_updates_id_miss_host_namespace",
+      "events": 119,
+      "pattern_events": 119,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 109,
+      "tier_down_events": 96
+     },
+     {
+      "container": "fluentd-10x",
+      "hash": "Su7dCk30trM",
+      "pattern": "following_tail_of",
+      "events": 47,
+      "pattern_events": 47,
+      "band": "11 to 100",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 109,
+      "tier_down_events": 33
+     },
+     {
+      "container": "opensearch",
+      "hash": "7bhr-zj-AmQ",
+      "pattern": "Finished_housekeeping_task_for_auto_refresh_streaming_jobs",
+      "events": 41,
+      "pattern_events": 41,
+      "band": "11 to 100",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 177,
+      "tier_down_events": 17
+     },
+     {
+      "container": "opensearch",
+      "hash": "9lxEKTmO2yY",
+      "pattern": "Starting_housekeeping_task_for_auto_refresh_streaming_jobs",
+      "events": 41,
+      "pattern_events": 41,
+      "band": "11 to 100",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 177,
+      "tier_down_events": 19
+     },
+     {
+      "container": "opensearch",
+      "hash": "KQZT1jFIdhM",
+      "pattern": "onIndexModule_index_otel",
+      "events": 20,
+      "pattern_events": 20,
+      "band": "11 to 100",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 177,
+      "tier_down_events": 1
+     }
+    ],
+    "flip": {
+     "rule": "bucket 3 moved >= 5% of the capture and more than half of it selectable only by the ID",
+     "bucket_3_moved_share": 0.0352,
+     "id_only_share_of_bucket_3_moved": 1.0,
+     "flips": false,
+     "with_single_kept_event_services_moved_whole": {
+      "services": [
+       "recommendation"
+      ],
+      "bucket_3_moved_events": 2109,
+      "bucket_3_moved_share": 0.0134,
+      "id_only_share": 1.0,
+      "flips": false
+     }
+    },
+    "plan": {
+     "target_pct": 70,
+     "achieved_pct": 68.4,
+     "met": false,
+     "ceiling_pct": 68.4,
+     "patterns_planned": 55,
+     "events_sampled": 9563,
+     "containers_capped": 17
+    }
+   },
+   "B": {
+    "capture": {
+     "events": 41573,
+     "bytes": 51398216
+    },
+    "floor": {
+     "events": 10892,
+     "bytes": 14673830,
+     "share": 0.262
+    },
+    "floor_by_service": {
+     "product-reviews": 4931,
+     "llm": 2477,
+     "accounting": 949,
+     "payment": 781,
+     "recommendation": 604,
+     "email": 392,
+     "quote": 392,
+     "valkey-cart": 126,
+     "frontend-proxy": 114,
+     "postgresql": 83,
+     "flagd": 14,
+     "image-provider": 8,
+     "opentelemetry-collector": 6,
+     "flagd-ui": 5,
+     "ad": 2,
+     "fraud-detection": 2,
+     "init-config": 2,
+     "kafka": 2,
+     "cart": 1,
+     "frontend": 1
+    },
+    "buckets": {
+     "1": {
+      "events": 582,
+      "bytes": 581928,
+      "share": 0.014,
+      "patterns": 21,
+      "bands": {
+       "seen once": 16,
+       "2 to 10": 13,
+       "11 to 100": 0,
+       "101 to 1,000": 553,
+       "over 1,000": 0
+      }
+     },
+     "2a": {
+      "events": 0,
+      "bytes": 0,
+      "share": 0.0,
+      "patterns": 0,
+      "bands": {
+       "seen once": 0,
+       "2 to 10": 0,
+       "11 to 100": 0,
+       "101 to 1,000": 0,
+       "over 1,000": 0
+      }
+     },
+     "2b": {
+      "events": 1314,
+      "bytes": 2579099,
+      "share": 0.0316,
+      "patterns": 146,
+      "bands": {
+       "seen once": 141,
+       "2 to 10": 4,
+       "11 to 100": 0,
+       "101 to 1,000": 1169,
+       "over 1,000": 0
+      }
+     },
+     "3_moved": {
+      "events": 4882,
+      "bytes": 6201475,
+      "share": 0.1174,
+      "patterns": 22,
+      "bands": {
+       "seen once": 0,
+       "2 to 10": 0,
+       "11 to 100": 164,
+       "101 to 1,000": 4718,
+       "over 1,000": 0
+      }
+     },
+     "3_kept": {
+      "events": 4114,
+      "bytes": 5311328,
+      "share": 0.099,
+      "patterns": 120,
+      "bands": {
+       "seen once": 24,
+       "2 to 10": 20,
+       "11 to 100": 2720,
+       "101 to 1,000": 1350,
+       "over 1,000": 0
+      }
+     },
+     "4_alone": {
+      "events": 23,
+      "bytes": 21620,
+      "share": 0.0006,
+      "patterns": 1,
+      "bands": {
+       "seen once": 0,
+       "2 to 10": 0,
+       "11 to 100": 23,
+       "101 to 1,000": 0,
+       "over 1,000": 0
+      }
+     },
+     "4_with_moved_only": {
+      "events": 0,
+      "bytes": 0,
+      "share": 0.0,
+      "patterns": 0,
+      "bands": {
+       "seen once": 0,
+       "2 to 10": 0,
+       "11 to 100": 0,
+       "101 to 1,000": 0,
+       "over 1,000": 0
+      }
+     },
+     "4_id_only": {
+      "events": 4859,
+      "bytes": 6179855,
+      "share": 0.1169,
+      "patterns": 21,
+      "bands": {
+       "seen once": 0,
+       "2 to 10": 0,
+       "11 to 100": 141,
+       "101 to 1,000": 4718,
+       "over 1,000": 0
+      }
+     }
+    },
+    "tier_down_in_3_moved": 3331,
+    "services": {
+     "accounting": {
+      "bucket": "2b",
+      "events": 391,
+      "moved_events": 0,
+      "kept_events": 391,
+      "moved_patterns": 0,
+      "kept_patterns": 3,
+      "capped": false
+     },
+     "ad": {
+      "bucket": "2b",
+      "events": 1,
+      "moved_events": 0,
+      "kept_events": 1,
+      "moved_patterns": 0,
+      "kept_patterns": 1,
+      "capped": true
+     },
+     "email": {
+      "bucket": "3",
+      "events": 392,
+      "moved_events": 391,
+      "kept_events": 1,
+      "moved_patterns": 1,
+      "kept_patterns": 1,
+      "capped": true
+     },
+     "flagd": {
+      "bucket": "2b",
+      "events": 13,
+      "moved_events": 0,
+      "kept_events": 13,
+      "moved_patterns": 0,
+      "kept_patterns": 12,
+      "capped": false
+     },
+     "flagd-ui": {
+      "bucket": "2b",
+      "events": 4,
+      "moved_events": 0,
+      "kept_events": 4,
+      "moved_patterns": 0,
+      "kept_patterns": 4,
+      "capped": false
+     },
+     "fraud-detection": {
+      "bucket": "2b",
+      "events": 1,
+      "moved_events": 0,
+      "kept_events": 1,
+      "moved_patterns": 0,
+      "kept_patterns": 1,
+      "capped": true
+     },
+     "frontend": {
+      "bucket": "2b",
+      "events": 1,
+      "moved_events": 0,
+      "kept_events": 1,
+      "moved_patterns": 0,
+      "kept_patterns": 1,
+      "capped": false
+     },
+     "frontend-proxy": {
+      "bucket": "2b",
+      "events": 112,
+      "moved_events": 0,
+      "kept_events": 112,
+      "moved_patterns": 0,
+      "kept_patterns": 112,
+      "capped": false
+     },
+     "image-provider": {
+      "bucket": "2b",
+      "events": 8,
+      "moved_events": 0,
+      "kept_events": 8,
+      "moved_patterns": 0,
+      "kept_patterns": 8,
+      "capped": false
+     },
+     "init-config": {
+      "bucket": "2b",
+      "events": 2,
+      "moved_events": 0,
+      "kept_events": 2,
+      "moved_patterns": 0,
+      "kept_patterns": 1,
+      "capped": false
+     },
+     "llm": {
+      "bucket": "3",
+      "events": 2477,
+      "moved_events": 2025,
+      "kept_events": 452,
+      "moved_patterns": 8,
+      "kept_patterns": 22,
+      "capped": true
+     },
+     "payment": {
+      "bucket": "2b",
+      "events": 781,
+      "moved_events": 0,
+      "kept_events": 781,
+      "moved_patterns": 0,
+      "kept_patterns": 3,
+      "capped": false
+     },
+     "postgresql": {
+      "bucket": "3",
+      "events": 77,
+      "moved_events": 48,
+      "kept_events": 29,
+      "moved_patterns": 2,
+      "kept_patterns": 19,
+      "capped": true
+     },
+     "product-reviews": {
+      "bucket": "3",
+      "events": 4930,
+      "moved_events": 1309,
+      "kept_events": 3621,
+      "moved_patterns": 4,
+      "kept_patterns": 67,
+      "capped": true
+     },
+     "quote": {
+      "bucket": "3",
+      "events": 392,
+      "moved_events": 391,
+      "kept_events": 1,
+      "moved_patterns": 1,
+      "kept_patterns": 1,
+      "capped": true
+     },
+     "recommendation": {
+      "bucket": "3",
+      "events": 603,
+      "moved_events": 602,
+      "kept_events": 1,
+      "moved_patterns": 1,
+      "kept_patterns": 1,
+      "capped": true
+     },
+     "valkey-cart": {
+      "bucket": "3",
+      "events": 125,
+      "moved_events": 116,
+      "kept_events": 9,
+      "moved_patterns": 5,
+      "kept_patterns": 9,
+      "capped": true
+     }
+    },
+    "moved_patterns": [
+     {
+      "container": "recommendation",
+      "hash": "bzLB1zZCTIw",
+      "pattern": "Receive_ListRecommendations_for_product_ids",
+      "events": 602,
+      "pattern_events": 602,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 2,
+      "tier_down_events": 541
+     },
+     {
+      "container": "llm",
+      "hash": "-xdHDxI6LUI",
+      "pattern": "POST_chat_completions_HTTP",
+      "events": 450,
+      "pattern_events": 450,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 30,
+      "tier_down_events": 348
+     },
+     {
+      "container": "product-reviews",
+      "hash": "D14oyKI8Zno",
+      "pattern": "HTTP_Request_POST_http_llm_OK",
+      "events": 450,
+      "pattern_events": 450,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 71,
+      "tier_down_events": 204
+     },
+     {
+      "container": "product-reviews",
+      "hash": "f1QH6AOmuNM",
+      "pattern": "Receive_GetProductReviews_for_product_id",
+      "events": 409,
+      "pattern_events": 409,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 71,
+      "tier_down_events": 160
+     },
+     {
+      "container": "email",
+      "hash": "1zhBPd1E9Bc",
+      "pattern": "POST_send_order_confirmation_HTTP",
+      "events": 391,
+      "pattern_events": 391,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 2,
+      "tier_down_events": 355
+     },
+     {
+      "container": "quote",
+      "hash": "c4yR2F2cVfk",
+      "pattern": "POST_getquote_HTTP",
+      "events": 391,
+      "pattern_events": 391,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 2,
+      "tier_down_events": 342
+     },
+     {
+      "container": "llm",
+      "hash": "51Vr2suQccY",
+      "pattern": "app_Received_chat_completion_request",
+      "events": 225,
+      "pattern_events": 225,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 30,
+      "tier_down_events": 162
+     },
+     {
+      "container": "llm",
+      "hash": "BiwrZZF3RPs",
+      "pattern": "app_Processing_tool_call_with_args",
+      "events": 225,
+      "pattern_events": 225,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 30,
+      "tier_down_events": 142
+     },
+     {
+      "container": "llm",
+      "hash": "Td6wtnktzo0",
+      "pattern": "app_llmInaccurateResponse_feature_flag_False",
+      "events": 225,
+      "pattern_events": 225,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 30,
+      "tier_down_events": 144
+     },
+     {
+      "container": "llm",
+      "hash": "WwveNoLjVjE",
+      "pattern": "app_The_model_is_astronomy_llm",
+      "events": 225,
+      "pattern_events": 225,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 30,
+      "tier_down_events": 144
+     },
+     {
+      "container": "llm",
+      "hash": "kCQtn3BqlIY",
+      "pattern": "app_last_Based_on_the_tool_results_answer_original_question_about_product_ID_Keep_response_brief_with_no_more_than_sentences",
+      "events": 225,
+      "pattern_events": 225,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 30,
+      "tier_down_events": 150
+     },
+     {
+      "container": "llm",
+      "hash": "ks_oruSPazg",
+      "pattern": "app_last_Answer_the_following_question_about_product_ID_Can_you_summarize_reviews",
+      "events": 225,
+      "pattern_events": 225,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 30,
+      "tier_down_events": 149
+     },
+     {
+      "container": "llm",
+      "hash": "rKZ9XzvDJqk",
+      "pattern": "app_Received_chat_completion_request_requesting_tool_call_calls_fetch_product_reviews",
+      "events": 225,
+      "pattern_events": 225,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 30,
+      "tier_down_events": 186
+     },
+     {
+      "container": "product-reviews",
+      "hash": "2USHVH5H9M0",
+      "pattern": "Invoking_the_LLM_with_following_messages",
+      "events": 225,
+      "pattern_events": 225,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 71,
+      "tier_down_events": 118
+     },
+     {
+      "container": "product-reviews",
+      "hash": "P1278BFmZX8",
+      "pattern": "Function_response_fetch_product_reviews",
+      "events": 225,
+      "pattern_events": 225,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 71,
+      "tier_down_events": 81
+     },
+     {
+      "container": "postgresql",
+      "hash": "35vHVh-fNIk",
+      "pattern": "LOG_checkpoint_complete_wrote_buffers_WAL_file_s_added_removed_recycled_write_sync_total_files_longest_average_distance_kB",
+      "events": 25,
+      "pattern_events": 25,
+      "band": "11 to 100",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "postgres.error_severity": "LOG",
+       "status": "info"
+      },
+      "cell_patterns": 14,
+      "tier_down_events": 15
+     },
+     {
+      "container": "valkey-cart",
+      "hash": "INXTRKqNcG8",
+      "pattern": "DB_saved_on_disk",
+      "events": 24,
+      "pattern_events": 24,
+      "band": "11 to 100",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 14,
+      "tier_down_events": 16
+     },
+     {
+      "container": "postgresql",
+      "hash": "uFiFj2oDd6k",
+      "pattern": "LOG_checkpoint_starting_time",
+      "events": 23,
+      "pattern_events": 23,
+      "band": "11 to 100",
+      "selected_by": "alone",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "postgres.error_severity": "LOG",
+       "postgres.message": "checkpoint starting: time",
+       "postgres.pid": "64",
+       "status": "info"
+      },
+      "cell_patterns": 1,
+      "tier_down_events": 12
+     },
+     {
+      "container": "valkey-cart",
+      "hash": "CqVDqv2uuq4",
+      "pattern": "changes_seconds_Saving",
+      "events": 23,
+      "pattern_events": 23,
+      "band": "11 to 100",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 14,
+      "tier_down_events": 17
+     },
+     {
+      "container": "valkey-cart",
+      "hash": "cSWpKn5pAUI",
+      "pattern": "Background_saving_started_by_pid",
+      "events": 23,
+      "pattern_events": 23,
+      "band": "11 to 100",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 14,
+      "tier_down_events": 14
+     },
+     {
+      "container": "valkey-cart",
+      "hash": "kodKFTs6ZHw",
+      "pattern": "Fork_CoW_RDB_current_peak_MB_average",
+      "events": 23,
+      "pattern_events": 23,
+      "band": "11 to 100",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 14,
+      "tier_down_events": 16
+     },
+     {
+      "container": "valkey-cart",
+      "hash": "sX9OKFLN168",
+      "pattern": "Background_saving_terminated_with_success",
+      "events": 23,
+      "pattern_events": 23,
+      "band": "11 to 100",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 14,
+      "tier_down_events": 15
+     }
+    ],
+    "flip": {
+     "rule": "bucket 3 moved >= 5% of the capture and more than half of it selectable only by the ID",
+     "bucket_3_moved_share": 0.1174,
+     "id_only_share_of_bucket_3_moved": 0.9953,
+     "flips": true,
+     "with_single_kept_event_services_moved_whole": {
+      "services": [
+       "email",
+       "quote",
+       "recommendation"
+      ],
+      "bucket_3_moved_events": 3498,
+      "bucket_3_moved_share": 0.0841,
+      "id_only_share": 0.9934,
+      "flips": true
+     }
+    },
+    "plan": {
+     "target_pct": 70,
+     "achieved_pct": 70.0,
+     "met": true,
+     "ceiling_pct": 70.3,
+     "patterns_planned": 46,
+     "events_sampled": 11708,
+     "containers_capped": 12
+    }
+   }
+  },
+  "growth": {
+   "floor_per_hour": {
+    "A": 1564.4,
+    "B": 5446.0
+   },
+   "new_services": {
+    "product-reviews": 2465.5,
+    "llm": 1238.5
+   },
+   "absent_from_b": {
+    "grafana": -247.4,
+    "fluentd-10x": -142.9,
+    "opensearch": -51.6,
+    "kube-proxy": -28.7,
+    "prometheus-server": -15.2,
+    "jaeger": -8.6,
+    "coredns": -4.3,
+    "metrics-server": -3.5,
+    "grafana-sc-dashboard": -1.4,
+    "grafana-sc-alerts": -1.0,
+    "grafana-sc-datasources": -1.0,
+    "aws-vpc-cni-init": -0.7,
+    "load-generator": -0.5,
+    "aws-node": -0.4,
+    "aws-eks-nodeagent": -0.1,
+    "currency": -0.1
+   },
+   "present": {
+    "accounting": {
+     "traffic": 0.4,
+     "statements_added": 474.0,
+     "statements_gone": -6.8
+    },
+    "opentelemetry-collector": {
+     "traffic": 1.8,
+     "statements_added": 0,
+     "statements_gone": -394.1
+    },
+    "payment": {
+     "traffic": 0,
+     "statements_added": 390.5,
+     "statements_gone": -0.1
+    },
+    "frontend": {
+     "traffic": 0.4,
+     "statements_added": 0,
+     "statements_gone": -231.6
+    },
+    "quote": {
+     "traffic": 0.4,
+     "statements_added": 195.5,
+     "statements_gone": 0
+    },
+    "email": {
+     "traffic": 0,
+     "statements_added": 196.0,
+     "statements_gone": -0.3
+    },
+    "frontend-proxy": {
+     "traffic": 44.8,
+     "statements_added": 1.0,
+     "statements_gone": -0.1
+    },
+    "recommendation": {
+     "traffic": -41.2,
+     "statements_added": 0,
+     "statements_gone": 0
+    },
+    "postgresql": {
+     "traffic": 35.5,
+     "statements_added": 3.5,
+     "statements_gone": -0.8
+    },
+    "flagd": {
+     "traffic": 2.8,
+     "statements_added": 3.5,
+     "statements_gone": -0.2
+    },
+    "image-provider": {
+     "traffic": 2.0,
+     "statements_added": 1.5,
+     "statements_gone": -0.3
+    },
+    "valkey-cart": {
+     "traffic": 0.8,
+     "statements_added": 1.5,
+     "statements_gone": 0
+    },
+    "flagd-ui": {
+     "traffic": 1.2,
+     "statements_added": 1.0,
+     "statements_gone": 0
+    },
+    "kafka": {
+     "traffic": 0,
+     "statements_added": 1.0,
+     "statements_gone": -0.1
+    },
+    "ad": {
+     "traffic": 0.8,
+     "statements_added": 0,
+     "statements_gone": 0
+    },
+    "fraud-detection": {
+     "traffic": 0.4,
+     "statements_added": 0.5,
+     "statements_gone": -0.2
+    },
+    "cart": {
+     "traffic": 0.4,
+     "statements_added": 0,
+     "statements_gone": 0
+    },
+    "init-config": {
+     "traffic": 0,
+     "statements_added": 1.0,
+     "statements_gone": -1.4
+    }
+   },
+   "sums": {
+    "new_services": 3704.0,
+    "absent_from_b": -507.4,
+    "traffic": 50.5,
+    "statements_added": 1270.5,
+    "statements_gone": -636.0
+   },
+   "renamed_inside_filtered_services": 0
+  },
+  "integrations": {
+   "read_on": "2026-10-13",
+   "rule": "Attributes a native Datadog index filter can name: service, status, source and host on every log; the attributes Datadog's documented integration pipeline parses for the container's source; and top-level JSON keys where the whole line is JSON.",
+   "containers": {
+    "kafka": {
+     "integration": "kafka",
+     "url": "https://docs.datadoghq.com/integrations/kafka/",
+     "parser": "log4j-logger",
+     "attributes": [
+      "logger.name"
+     ]
+    },
+    "postgresql": {
+     "integration": "postgres",
+     "url": "https://docs.datadoghq.com/integrations/postgres/",
+     "pipeline": "https://github.com/DataDog/integrations-core/blob/master/postgres/assets/logs/postgresql.yaml",
+     "parser": "postgresql-default",
+     "attributes": [
+      "postgres.pid",
+      "postgres.error_severity",
+      "postgres.message"
+     ]
+    },
+    "fluentd-10x": {
+     "integration": "fluentd",
+     "url": "https://docs.datadoghq.com/integrations/fluentd/",
+     "parser": null,
+     "note": "the page covers forwarding logs to Datadog through Fluentd; no pipeline for Fluentd's own log lines"
+    },
+    "opensearch": {
+     "integration": "opensearch",
+     "url": "https://docs.datadoghq.com/integrations/opensearch/",
+     "parser": null,
+     "note": "no integration page (404 on 2026-10-13)"
+    },
+    "valkey-cart": {
+     "integration": "valkey",
+     "url": "https://docs.datadoghq.com/integrations/valkey/",
+     "parser": null,
+     "note": "no integration page (404 on 2026-10-13)"
+    },
+    "recommendation": {
+     "integration": null,
+     "parser": null,
+     "note": "a demo application service, Python; Datadog's Python pages document attribute extraction for JSON logs only, and these lines are not JSON"
+    },
+    "product-reviews": {
+     "integration": null,
+     "parser": null,
+     "note": "a demo application service, Python; plain-text lines"
+    },
+    "llm": {
+     "integration": null,
+     "parser": null,
+     "note": "a demo application service, Python; plain-text lines"
+    },
+    "email": {
+     "integration": null,
+     "parser": null,
+     "note": "a demo application service, Ruby; plain-text lines"
+    },
+    "quote": {
+     "integration": null,
+     "parser": null,
+     "note": "a demo application service, PHP; plain-text lines"
+    }
+   }
+  }
  }
 }

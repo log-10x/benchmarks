@@ -7,10 +7,13 @@
 #   ./run.sh                  everything
 #   ./run.sh plan replay      some stages only, in the order given
 #
-# Stages: data plan control policy replay count report
+# Stages: data plan control policy replay count report       (one service, the kafka slices)
+#         floor-plan floor-replay floor-count                  (the floor, the whole captures)
 #
 # Environment:
-#   ACCT_TARGETS   percent targets to plan (default: "30 50 70 90")
+#   ACCT_TARGETS   percent targets to plan on the slices (default: "30 50 70 90")
+#   FLOOR_TARGET   the plan's target on the whole captures (default: 70, the target whose
+#                  service filters form the floor)
 #   ACCT_DATA_DIR  capture cache (default: <dir>/data)
 #   ACCT_IMAGE     engine image (default: log10x/pipeline-10x:1.1.140, by digest)
 #   ACCT_MCP       log10x-mcp version (default: 1.30.49)
@@ -26,6 +29,7 @@ LIB="$(cd "$HERE/../accounting-lib" && pwd)"
 SIEM=datadog
 CONTAINER=kafka
 TARGETS="${ACCT_TARGETS:-30 50 70 90}"
+FLOOR_TARGET="${FLOOR_TARGET:-70}"
 DATA_DIR="${ACCT_DATA_DIR:-$HERE/data}"
 IMAGE="${ACCT_IMAGE:-log10x/pipeline-10x:1.1.140@sha256:fd9c98384a775df13ed41921c2cf95ef1d1313f62f1300aac61da55ca64feb67}"
 MCP_VERSION="${ACCT_MCP:-1.30.49}"
@@ -139,13 +143,49 @@ stage_count() {
   done
 }
 
+# The floor: each whole capture after a buyer's own levers. The plan at FLOOR_TARGET on the
+# whole capture says which patterns it moves and keeps; the control run, with each event's
+# text, gives the attributes a native filter could name.
+capture_file() { [ "$1" = A ] && echo "$DATA_DIR/$ASSET" || echo "$DATA_DIR/$B_ASSET"; }
+
+stage_floor-plan() {
+  say "the MCP's plan on each whole capture, target $FLOOR_TARGET%"; install_mcp
+  CAPTURE="$(capture_file A)" WINDOW=10h plan "$SIEM" "$FLOOR_TARGET" "$RESULTS/plan-full-A-$FLOOR_TARGET.json"
+  CAPTURE="$(capture_file B)" WINDOW=2h plan "$SIEM" "$FLOOR_TARGET" "$RESULTS/plan-full-B-$FLOOR_TARGET.json"
+  for c in A B; do
+    python3 "$LIB/policy.py" --plan "$RESULTS/plan-full-$c-$FLOOR_TARGET.json" --out-prefix "$RESULTS/policy-full-$c-$FLOOR_TARGET"
+  done
+}
+
+stage_floor-replay() {
+  replay_config
+  for c in A B; do
+    say "capture $c whole: no cap, with each event's text; then the plan's files"
+    REPLAY_CONFIG="$REPLAY_CONFIG" replay "$(capture_file "$c")" "$RUNS/full-$c-control"
+    replay "$(capture_file "$c")" "$RUNS/full-$c-$FLOOR_TARGET" \
+      "$RESULTS/policy-full-$c-$FLOOR_TARGET.caps.csv" "$RESULTS/policy-full-$c-$FLOOR_TARGET.actions.csv"
+  done
+}
+
+stage_floor-count() {
+  say "count the whole captures, two ways, and each event's native attributes"
+  for c in A B; do
+    for r in "full-$c-control" "full-$c-$FLOOR_TARGET"; do
+      python3 "$LIB/count.py" --routed "$RUNS/$r/routed.jsonl" --summaries "$RUNS/$r/summaries.jsonl" \
+        --seconds "$(cat "$RUNS/$r/seconds.txt")" --out "$RESULTS/$r.tally.json"
+    done
+    python3 "$HERE/attrs.py" --routed "$RUNS/full-$c-control/routed.jsonl" --tally "$RESULTS/full-$c-control.tally.json" \
+      --integrations "$HERE/integrations.json" --out "$RESULTS/full-$c-control.attrs.json"
+  done
+}
+
 stage_report() {
   say "report"
   pull_engine >/dev/null
-  python3 - "$RESULTS/run.json" "$IMAGE_DIGEST" "${IMAGE%@*}" "$MCP_VERSION" "$ASSET" "$ASSET_SHA256" "$B_ASSET" "$B_SHA256" "$A_SPAN" "$B_SPAN" $TARGETS <<'PY'
+  python3 - "$RESULTS/run.json" "$IMAGE_DIGEST" "${IMAGE%@*}" "$MCP_VERSION" "$ASSET" "$ASSET_SHA256" "$B_ASSET" "$B_SHA256" "$A_SPAN" "$B_SPAN" "$FLOOR_TARGET" $TARGETS <<'PY'
 import json, sys
-out, image, ref, mcp, a, a_sha, b, b_sha, a_span, b_span, *targets = sys.argv[1:]
-json.dump({'engine_image': image, 'engine_tag': ref.rsplit(':', 1)[-1], 'mcp_version': mcp,
+out, image, ref, mcp, a, a_sha, b, b_sha, a_span, b_span, floor_target, *targets = sys.argv[1:]
+json.dump({'engine_image': image, 'engine_tag': ref.rsplit(':', 1)[-1], 'mcp_version': mcp, 'floor_target': int(floor_target),
            'captures': {'A': {'name': a, 'sha256': a_sha, 'span_seconds': int(a_span)},
                         'B': {'name': b, 'sha256': b_sha, 'span_seconds': int(b_span)}},
            'targets': [int(t) for t in targets]}, open(out, 'w'), indent=1)

@@ -1,0 +1,16 @@
+{
+  "read_on": "2026-10-13",
+  "rule": "Attributes a native Datadog index filter can name: service, status, source and host on every log; the attributes Datadog's documented integration pipeline parses for the container's source; and top-level JSON keys where the whole line is JSON.",
+  "containers": {
+    "kafka": {"integration": "kafka", "url": "https://docs.datadoghq.com/integrations/kafka/", "parser": "log4j-logger", "attributes": ["logger.name"]},
+    "postgresql": {"integration": "postgres", "url": "https://docs.datadoghq.com/integrations/postgres/", "pipeline": "https://github.com/DataDog/integrations-core/blob/master/postgres/assets/logs/postgresql.yaml", "parser": "postgresql-default", "attributes": ["postgres.pid", "postgres.error_severity", "postgres.message"]},
+    "fluentd-10x": {"integration": "fluentd", "url": "https://docs.datadoghq.com/integrations/fluentd/", "parser": null, "note": "the page covers forwarding logs to Datadog through Fluentd; no pipeline for Fluentd's own log lines"},
+    "opensearch": {"integration": "opensearch", "url": "https://docs.datadoghq.com/integrations/opensearch/", "parser": null, "note": "no integration page (404 on 2026-10-13)"},
+    "valkey-cart": {"integration": "valkey", "url": "https://docs.datadoghq.com/integrations/valkey/", "parser": null, "note": "no integration page (404 on 2026-10-13)"},
+    "recommendation": {"integration": null, "parser": null, "note": "a demo application service, Python; Datadog's Python pages document attribute extraction for JSON logs only, and these lines are not JSON"},
+    "product-reviews": {"integration": null, "parser": null, "note": "a demo application service, Python; plain-text lines"},
+    "llm": {"integration": null, "parser": null, "note": "a demo application service, Python; plain-text lines"},
+    "email": {"integration": null, "parser": null, "note": "a demo application service, Ruby; plain-text lines"},
+    "quote": {"integration": null, "parser": null, "note": "a demo application service, PHP; plain-text lines"}
+  }
+}

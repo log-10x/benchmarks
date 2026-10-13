@@ -131,6 +131,161 @@ The filters at 30%, 50%, 70%, 90%, largest first: `@logger.name:org.apache.kafka
 - **Close to a draw on events; what differs is the rule count.** 8 filters against one cap row. Held.
 <!-- /generated:prediction -->
 
+## The floor after a buyer's own levers
+
+A buyer reaches a per-pattern plan after the native levers, because the bill still grows.
+This section measures what is left for the plan once those levers are in place, on both
+whole captures.
+
+**The levers, applied as written.** An index filter per service with
+`-status:(error OR warn)` for `opentelemetry-collector`, `kafka` and `cart`, the set the
+service filters need at [`datadog-flex-accounting/`](../datadog-flex-accounting/)'s 70%
+target, and DEBUG and TRACE dropped everywhere. What stays in Standard is the floor.
+
+**The plan.** The MCP's plan at 70% on each whole capture, applied through the engine as
+written. It says which patterns the plan moves and which it keeps.
+
+**The buckets, defined before the count.** Every floor event is in exactly one:
+
+1. errors and warnings (ERROR, WARN, CRITICAL, FATAL), which both arms keep;
+2. INFO and unlevelled events in a service one more service filter could move whole: (2a)
+   the plan moves every such pattern of the service, or (2b) the plan moves none of it;
+3. INFO and unlevelled events in a mixed service, one with both patterns the plan moves and
+   patterns it keeps, split into the moved patterns (E, the events the plan moves beyond the
+   buyer's filters) and the kept ones;
+4. of bucket 3's moved patterns: those a native attribute cell selects alone, those a cell
+   selects only together with other moved patterns, and those only the pattern ID
+   (`@tenx_hash`) selects.
+
+**What a native filter can name, fixed before the count.** `service`, `status`, `source`
+and `host` on every log; the attributes Datadog's documented integration pipeline parses for
+the container; and the top-level keys of a line that is a JSON object. A pattern's cell is
+every attribute value all its events share, and a filter on the cell takes every pattern that
+falls in it. Exact values only. The containers that are mixed on either capture, and `kafka`:
+
+<!-- generated:floor-integrations -->
+| Container | Integration page | Attributes the pipeline parses |
+|---|---|---|
+| `kafka` | [kafka](https://docs.datadoghq.com/integrations/kafka/) | `logger.name` |
+| `postgresql` | [postgres](https://docs.datadoghq.com/integrations/postgres/) | `postgres.pid`, `postgres.error_severity`, `postgres.message` |
+| `fluentd-10x` | [fluentd](https://docs.datadoghq.com/integrations/fluentd/) | none: the page covers forwarding logs to Datadog through Fluentd; no pipeline for Fluentd's own log lines |
+| `opensearch` | [opensearch](https://docs.datadoghq.com/integrations/opensearch/) | none: no integration page (404 on 2026-10-13) |
+| `valkey-cart` | [valkey](https://docs.datadoghq.com/integrations/valkey/) | none: no integration page (404 on 2026-10-13) |
+| `recommendation` | none | none: a demo application service, Python; Datadog's Python pages document attribute extraction for JSON logs only, and these lines are not JSON |
+| `product-reviews` | none | none: a demo application service, Python; plain-text lines |
+| `llm` | none | none: a demo application service, Python; plain-text lines |
+| `email` | none | none: a demo application service, Ruby; plain-text lines |
+| `quote` | none | none: a demo application service, PHP; plain-text lines |
+<!-- /generated:floor-integrations -->
+
+Each bucket is shown with the frequency band of its patterns: each pattern's events over the
+whole capture, binned as [`pattern-identity/`](../pattern-identity/) bins them, so a claim
+that the money sits in high-volume lines can be checked against the floor rather than the
+whole stream.
+
+**The result that flips the verdict, stated before the run.** A buyer's assistant set its
+own condition on 2026-10-13: the one-day measurement must show E x (S - F x R) well above
+$1,490 a month, the list price of log10x's Growth tier for up to 300 nodes, where E is the
+events moved beyond the buyer's filters, S the Standard rate avoided, F the Flex rate and R
+the months retained. At its buyer's volume, about 21 billion indexed events a month, S - F x
+R at 15-day Standard on a scalable Flex tier is about $1.65 per million before compute, so E
+must exceed roughly 0.9 billion events a month, 4.3% of the indexed stream. In shares, which
+is all a demo capture can give: the verdict flips if bucket 3's moved patterns are 5% or
+more of the capture's events and more than half of them only the ID selects. Then the
+assistant's own condition sends the buyer to a canary. If bucket 3 is under 5%, or most of it
+is selectable natively, building in house stands on the demo.
+
+**Prediction, written before the run.** The floor on capture A is about 14.5% of events
+after the three service filters, less once DEBUG and TRACE are dropped (TRACE is mostly
+`ad`); about 6,500 of it is errors, warnings and criticals. The rest is small services:
+`recommendation` (one statement, movable whole), `grafana`, `frontend`, `fluentd-10x`,
+`valkey-cart`, `opensearch`. Bucket 3 is therefore a few thousand events, 2 to 4% of the
+capture, and part of that is isolable by a logfmt or class attribute where Datadog parses
+one. The prediction is that the floor does not flip the verdict on the public captures:
+building in house stands on the demo, narrowly, and the floor composition that would flip it
+belongs to a real estate. The tables are published as they come out.
+
+<!-- generated:floor -->
+**Capture A.** 157,228 events. The floor: 15,644 events, 0.034 GB, 10% of the capture. The plan at 70% caps 17 containers and plans 55 patterns.
+
+| Bucket | Events | Share of the capture | Patterns | seen once | 2 to 10 | 11 to 100 | 101 to 1,000 | over 1,000 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| 1. Errors and warnings | 6,571 | 4.2% | 67 | 38 | 69 | 281 | 126 | 6,057 |
+| 2a. INFO and unlevelled, a service whose every such pattern the plan moves | 0 | 0% | 0 | 0 | 0 | 0 | 0 | 0 |
+| 2b. INFO and unlevelled, a service the plan moves none of | 3,120 | 2% | 1,882 | 1,699 | 439 | 359 | 623 | 0 |
+| 3. Mixed service, patterns the plan moves (E) | 5,539 | 3.5% | 13 | 0 | 0 | 149 | 843 | 4,547 |
+| 3. Mixed service, patterns the plan keeps | 414 | 0.3% | 286 | 247 | 148 | 19 | 0 | 0 |
+| 4. Of E, a native cell holds the pattern alone | 0 | 0% | 0 | 0 | 0 | 0 | 0 | 0 |
+| 4. Of E, a native cell holds it with moved patterns only | 0 | 0% | 0 | 0 | 0 | 0 | 0 | 0 |
+| 4. Of E, only the ID selects it | 5,539 | 3.5% | 13 | 0 | 0 | 149 | 843 | 4,547 |
+
+**Capture B.** 41,573 events. The floor: 10,892 events, 0.015 GB, 26.2% of the capture. The plan at 70% caps 12 containers and plans 46 patterns.
+
+| Bucket | Events | Share of the capture | Patterns | seen once | 2 to 10 | 11 to 100 | 101 to 1,000 | over 1,000 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| 1. Errors and warnings | 582 | 1.4% | 21 | 16 | 13 | 0 | 553 | 0 |
+| 2a. INFO and unlevelled, a service whose every such pattern the plan moves | 0 | 0% | 0 | 0 | 0 | 0 | 0 | 0 |
+| 2b. INFO and unlevelled, a service the plan moves none of | 1,314 | 3.2% | 146 | 141 | 4 | 0 | 1,169 | 0 |
+| 3. Mixed service, patterns the plan moves (E) | 4,882 | 11.7% | 22 | 0 | 0 | 164 | 4,718 | 0 |
+| 3. Mixed service, patterns the plan keeps | 4,114 | 9.9% | 120 | 24 | 20 | 2,720 | 1,350 | 0 |
+| 4. Of E, a native cell holds the pattern alone | 23 | 0.1% | 1 | 0 | 0 | 23 | 0 | 0 |
+| 4. Of E, a native cell holds it with moved patterns only | 0 | 0% | 0 | 0 | 0 | 0 | 0 | 0 |
+| 4. Of E, only the ID selects it | 4,859 | 11.7% | 21 | 0 | 0 | 141 | 4,718 | 0 |
+<!-- /generated:floor -->
+
+The mixed services and what the plan does in each:
+
+<!-- generated:floor-services -->
+| Capture | Mixed service | Events the plan moves | Patterns | Events the plan keeps | Patterns |
+|---|---|---:|---:|---:|---:|
+| A | `recommendation` | 3,430 | 1 | 1 | 1 |
+| A | `fluentd-10x` | 1,283 | 3 | 144 | 106 |
+| A | `valkey-cart` | 600 | 5 | 6 | 6 |
+| A | `opensearch` | 226 | 4 | 263 | 173 |
+| B | `llm` | 2,025 | 8 | 452 | 22 |
+| B | `product-reviews` | 1,309 | 4 | 3,621 | 67 |
+| B | `recommendation` | 602 | 1 | 1 | 1 |
+| B | `email` | 391 | 1 | 1 | 1 |
+| B | `quote` | 391 | 1 | 1 | 1 |
+| B | `valkey-cart` | 116 | 5 | 9 | 9 |
+| B | `postgresql` | 48 | 2 | 29 | 19 |
+<!-- /generated:floor-services -->
+
+<!-- generated:floor-verdict -->
+- **Capture A**: the verdict does not flip. Bucket 3's moved patterns are 3.5% of the capture, and 100% of their events only the ID selects. Moving whole the mixed services where the plan keeps a single event (`recommendation`) leaves 1.3% of the capture in bucket 3's moved patterns, 100% of it ID-only: it does not flip.
+- **Capture B**: the verdict flips. Bucket 3's moved patterns are 11.7% of the capture, and 99.5% of their events only the ID selects. Moving whole the mixed services where the plan keeps a single event (`email`, `quote`, `recommendation`) leaves 8.4% of the capture in bucket 3's moved patterns, 99.3% of it ID-only: it still flips.
+<!-- /generated:floor-verdict -->
+
+**Growth from A to B.** A covers ten hours of demo 2.1.3 and B two hours of demo 2.2.0, so
+the floor is compared per hour. A service present only at the later tag is new code; inside
+a service present at both, a pattern seen in both captures moves with traffic and a pattern
+seen in one only is a statement added, removed or reworded.
+
+<!-- generated:floor-growth -->
+The floor per hour: 1,564 on A, 5,446 on B.
+
+| Change from A to B, floor events per hour | Events per hour | Where |
+|---|---:|---|
+| Services in B and not in A, new code | +3,704 | `product-reviews`, `llm` |
+| Services in A and not in B's capture | -507 | `grafana`, `fluentd-10x`, `opensearch`, `kube-proxy`, `prometheus-server`, `jaeger`, and others |
+| Services in both, patterns seen in both: traffic | +50 |  |
+| Services in both, patterns seen in B only: statements added or reworded | +1,270 | `accounting`, `payment`, `quote`, `email` |
+| Services in both, patterns seen in A only: statements gone or reworded | -636 | `opentelemetry-collector`, `frontend` |
+| Patterns inside the filtered services the filters no longer match | 0 | none: a service filter matches its service at both tags |
+<!-- /generated:floor-growth -->
+
+**Against the prediction.**
+
+<!-- generated:floor-prediction -->
+- **The floor on A is about 14.5% after the three service filters, less once DEBUG and TRACE are dropped, about 6,500 of it errors, warnings and criticals.** 10% with DEBUG and TRACE dropped; bucket 1 holds 6,571. Held.
+- **Bucket 3 is 2 to 4% of the capture.** A: 3.5%. B: 11.7%. Held on A, not on B.
+- **Part of it is isolable by a logfmt or class attribute.** Only `LOG_checkpoint_starting_time` in `postgresql` on B (23 events, by postgres.error_severity, postgres.message, postgres.pid) sits in a native cell without a kept pattern; every other moved pattern shares its cell with patterns the plan keeps. Held for 23 of the 10,421 events.
+- **The floor does not flip the verdict on the public captures.** A: does not flip. B: flips. Did not hold on B.
+<!-- /generated:floor-prediction -->
+
+`results/results.md` lists every one of bucket 3's moved patterns with its cell, its band and
+what selects it.
+
 ## Counting conditions
 
 - Datadog counts indexed events; with the shipped forwarder path one record is one event,
@@ -162,8 +317,9 @@ The filters at 30%, 50%, 70%, 90%, largest first: `@logger.name:org.apache.kafka
 ./run.sh plan replay      # some stages only, in the order given
 ```
 
-Stages: `data plan control policy replay count report`. Needs Docker, Node 18 or later and
-about 1 GB of disk; the whole run takes under ten minutes. `plan` installs the pinned
+Stages: `data plan control policy replay count report` for the kafka slices and
+`floor-plan floor-replay floor-count` for the floor. Needs Docker, Node 18 or later and
+about 2 GB of disk; the whole run takes under twenty minutes. `plan` installs the pinned
 log10x-mcp into `.mcp/` and asks it for a plan over MCP stdio; every other stage runs the
 pinned engine image on a slice. `ACCT_TARGETS` sets the targets (default `30 50 70 90`).
 
@@ -173,6 +329,9 @@ pinned engine image on a slice. `ACCT_TARGETS` sets the targets (default `30 50 
 | `slice.py` | one container's records from a capture, byte for byte |
 | `classes.py` | each event's logger class, read from its text, added to the counted rows |
 | `arms.py` | the selection rule and every arm, from the class rows |
+| `floor.py` | the floor, its buckets, the flip test and the growth split |
+| `attrs.py` | each pattern's native attribute cell on a whole capture |
+| `integrations.json` | the attributes each container's documented Datadog pipeline parses, with the pages read |
 | `report.py` | renders `results/results.md`, `results/results.json` and the tables above; `--check` fails CI if the committed figures do not follow from the kept outputs |
 | `../accounting-lib/` | the plan request, the replay, the policy scaling and the two counts, shared with the other accounting benchmarks |
 | `results/plan-<A or B>-<target>.json` | the plan the MCP wrote |

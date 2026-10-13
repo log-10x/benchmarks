@@ -15,6 +15,7 @@ sys.path.insert(0, str(HERE))
 import tally as T  # noqa: E402
 import readme as README  # noqa: E402
 import arms as ARMS  # noqa: E402
+import floor as FLOOR  # noqa: E402
 
 
 def _plan_info(p: dict) -> dict:
@@ -64,7 +65,24 @@ def compute(results: pathlib.Path) -> dict:
             'policy_b': _policy_info(L(f'policy-B-{t}.json')),
             **arms,
         }
+    ft = run.get('floor_target', 70)
+    floor = {}
+    for c in 'AB':
+        d = FLOOR.decompose(L(f'full-{c}-control.tally.json'), L(f'full-{c}-{ft}.tally.json'), L(f'policy-full-{c}-{ft}.json'),
+                            cells_by_pattern(L(f'full-{c}-control.attrs.json')))
+        pl = L(f'plan-full-{c}-{ft}.json')
+        d['plan'] = {**_plan_info(pl), 'containers_capped': len(L(f'policy-full-{c}-{ft}.json')['containers'])}
+        floor[c] = d
+    hours = {c: run['captures'][c]['span_seconds'] / 3600 for c in 'AB'}
+    out['floor'] = {'target': ft, 'filtered_services': list(FLOOR.FILTERED), 'dropped': list(FLOOR.DROPPED),
+                    'captures': floor,
+                    'growth': FLOOR.growth(L('full-A-control.tally.json'), L('full-B-control.tally.json'), hours['A'], hours['B']),
+                    'integrations': T.load(HERE / 'integrations.json')}
     return out
+
+
+def cells_by_pattern(attrs: dict) -> dict:
+    return {k: attrs['cells'][i] for k, i in attrs['pattern_cell'].items()}
 
 
 def n(x):
@@ -180,8 +198,119 @@ def run_block(r):
             f'and {c["B"]["classes"]} logger classes, two hours. Engine `log10x/pipeline-10x:{r["engine_tag"]}`, log10x-mcp {r["mcp_version"]}.')
 
 
+BUCKET_LABELS = [
+    ('1', '1. Errors and warnings'),
+    ('2a', '2a. INFO and unlevelled, a service whose every such pattern the plan moves'),
+    ('2b', '2b. INFO and unlevelled, a service the plan moves none of'),
+    ('3_moved', '3. Mixed service, patterns the plan moves (E)'),
+    ('3_kept', '3. Mixed service, patterns the plan keeps'),
+    ('4_alone', '4. Of E, a native cell holds the pattern alone'),
+    ('4_with_moved_only', '4. Of E, a native cell holds it with moved patterns only'),
+    ('4_id_only', '4. Of E, only the ID selects it'),
+]
+
+
+def pct(x):
+    text = f'{x * 100:.1f}'
+    return (text[:-2] if text.endswith('.0') else text) + '%'
+
+
+def floor_table(r):
+    f = r['floor']
+    L = []
+    for c in 'AB':
+        d = f['captures'][c]
+        L += [f'**Capture {c}.** {n(d["capture"]["events"])} events. The floor: {n(d["floor"]["events"])} events, '
+              f'{T.fmt_gb(d["floor"]["bytes"])} GB, {pct(d["floor"]["share"])} of the capture. The plan at {f["target"]}% '
+              f'caps {d["plan"]["containers_capped"]} containers and plans {d["plan"]["patterns_planned"]} patterns.', '',
+              '| Bucket | Events | Share of the capture | Patterns | ' + ' | '.join(lbl for _, _, lbl in FLOOR.BANDS) + ' |',
+              '|---|---:|---:|---:|' + '---:|' * len(FLOOR.BANDS)]
+        for key, label in BUCKET_LABELS:
+            b = d['buckets'][key]
+            L.append(f'| {label} | {n(b["events"])} | {pct(b["share"])} | {n(b["patterns"])} | ' +
+                     ' | '.join(n(b['bands'][lbl]) for _, _, lbl in FLOOR.BANDS) + ' |')
+        L.append('')
+    return '\n'.join(L).rstrip()
+
+
+def floor_services(r):
+    L = ['| Capture | Mixed service | Events the plan moves | Patterns | Events the plan keeps | Patterns |', '|---|---|---:|---:|---:|---:|']
+    for c in 'AB':
+        for s, v in sorted(r['floor']['captures'][c]['services'].items(), key=lambda kv: -kv[1]['moved_events']):
+            if v['bucket'] == '3':
+                L.append(f'| {c} | `{s}` | {n(v["moved_events"])} | {v["moved_patterns"]} | {n(v["kept_events"])} | {v["kept_patterns"]} |')
+    return '\n'.join(L)
+
+
+def floor_verdict(r):
+    L = []
+    for c in 'AB':
+        d = r['floor']['captures'][c]
+        fl, b = d['flip'], d['buckets']
+        s = fl['with_single_kept_event_services_moved_whole']
+        verdict = 'the verdict flips' if fl['flips'] else 'the verdict does not flip'
+        why = (f'bucket 3\'s moved patterns are {pct(fl["bucket_3_moved_share"])} of the capture, '
+               f'and {pct(fl["id_only_share_of_bucket_3_moved"])} of their events only the ID selects')
+        alt = (f' Moving whole the mixed services where the plan keeps a single event ({", ".join(f"`{x}`" for x in s["services"])}) '
+               f'leaves {pct(s["bucket_3_moved_share"])} of the capture in bucket 3\'s moved patterns, {pct(s["id_only_share"])} of it '
+               f'ID-only: {"it still flips" if s["flips"] else "it does not flip"}.') if s['services'] else ''
+        L.append(f'- **Capture {c}**: {verdict}. {why[0].upper() + why[1:]}.{alt}')
+    return '\n'.join(L)
+
+
+def floor_growth(r):
+    g = r['floor']['growth']
+    s = g['sums']
+    rows = [('Services in B and not in A, new code', s['new_services'], ', '.join(f'`{k}`' for k in g['new_services'])),
+            ('Services in A and not in B\'s capture', s['absent_from_b'], ', '.join(f'`{k}`' for k in list(g['absent_from_b'])[:6]) + (', and others' if len(g['absent_from_b']) > 6 else '')),
+            ('Services in both, patterns seen in both: traffic', s['traffic'], ''),
+            ('Services in both, patterns seen in B only: statements added or reworded', s['statements_added'], ', '.join(f'`{k}`' for k, v in g['present'].items() if v['statements_added'] >= 50)),
+            ('Services in both, patterns seen in A only: statements gone or reworded', s['statements_gone'], ', '.join(f'`{k}`' for k, v in g['present'].items() if v['statements_gone'] <= -50)),
+            ('Patterns inside the filtered services the filters no longer match', g['renamed_inside_filtered_services'], 'none: a service filter matches its service at both tags')]
+    L = [f'The floor per hour: {n(g["floor_per_hour"]["A"])} on A, {n(g["floor_per_hour"]["B"])} on B.', '',
+         '| Change from A to B, floor events per hour | Events per hour | Where |', '|---|---:|---|']
+    L += [f'| {a} | {b:+,.0f} | {w} |' if b else f'| {a} | 0 | {w} |' for a, b, w in rows]
+    return '\n'.join(L)
+
+
+def floor_prediction(r):
+    f = r['floor']['captures']
+    a, b = f['A'], f['B']
+    nat = sum(f[c]['buckets']['4_alone']['events'] + f[c]['buckets']['4_with_moved_only']['events'] for c in 'AB')
+    return '\n'.join([
+        f'- **The floor on A is about 14.5% after the three service filters, less once DEBUG and TRACE are dropped, about 6,500 of it errors, warnings and criticals.** '
+        f'{pct(a["floor"]["share"])} with DEBUG and TRACE dropped; bucket 1 holds {n(a["buckets"]["1"]["events"])}. Held.',
+        f'- **Bucket 3 is 2 to 4% of the capture.** A: {pct(a["buckets"]["3_moved"]["share"])}. B: {pct(b["buckets"]["3_moved"]["share"])}. '
+        f'{"Held on A, not on B." if a["buckets"]["3_moved"]["share"] <= 0.04 < b["buckets"]["3_moved"]["share"] else "See the tables."}',
+        f'- **Part of it is isolable by a logfmt or class attribute.** ' + isolable_text(f) + ' ' +
+        ('Did not hold.' if nat == 0 else f'Held for {n(nat)} of the {n(sum(f[c]["buckets"]["3_moved"]["events"] for c in "AB"))} events.'),
+        f'- **The floor does not flip the verdict on the public captures.** A: {"flips" if a["flip"]["flips"] else "does not flip"}. B: {"flips" if b["flip"]["flips"] else "does not flip"}. '
+        f'{"Held." if not (a["flip"]["flips"] or b["flip"]["flips"]) else "Did not hold on B."}',
+    ])
+
+
+def isolable_text(f):
+    alone = [(c, x) for c in 'AB' for x in f[c]['moved_patterns'] if x['selected_by'] != 'id_only']
+    if not alone:
+        return 'No moved pattern sits in a native cell without a kept pattern.'
+    named = ', '.join(f'`{x["pattern"]}` in `{x["container"]}` on {c} ({n(x["events"])} events, by {", ".join(k for k in x["cell"] if k not in ("host", "status")) or "status"})'
+                      for c, x in alone)
+    return f'Only {named} sits in a native cell without a kept pattern; every other moved pattern shares its cell with patterns the plan keeps.'
+
+
+def integrations_table(r):
+    L = ['| Container | Integration page | Attributes the pipeline parses |', '|---|---|---|']
+    for c, v in r['floor']['integrations']['containers'].items():
+        page = f'[{v["integration"]}]({v["url"]})' if v.get('url') else 'none'
+        attrs = ', '.join(f'`{a}`' for a in v.get('attributes', [])) or ('none: ' + v['note'] if v.get('note') else 'none')
+        L.append(f'| `{c}` | {page} | {attrs} |')
+    return '\n'.join(L)
+
+
 def readme_blocks(r):
-    return {'run': run_block(r), 'capture-a': table_a(r), 'capture-a-classes': classes_line(r), 'capture-a-verdict': verdict_a(r),
+    return {'floor': floor_table(r), 'floor-services': floor_services(r), 'floor-verdict': floor_verdict(r),
+            'floor-growth': floor_growth(r), 'floor-prediction': floor_prediction(r), 'floor-integrations': integrations_table(r),
+            'run': run_block(r), 'capture-a': table_a(r), 'capture-a-classes': classes_line(r), 'capture-a-verdict': verdict_a(r),
             'capture-b': table_b(r), 'capture-b-verdict': verdict_b(r), 'prediction': prediction(r)}
 
 
@@ -222,6 +351,15 @@ def render(r):
                 L += ['Events the plan moves that stay in Standard:', '', '| Class | Pattern | Events |', '|---|---|---:|']
                 L += [f'| {short(p["class"])} | `{p["pattern"]}` | {n(p["events"])} |' for p in x['plan_moved_left_patterns'][:15]]
                 L.append('')
+    L += ['## The floor: bucket 3\'s moved patterns', '']
+    for c in 'AB':
+        L += [f'Capture {c}:', '', '| Container | Pattern | Events in the floor | Marked tier_down | Pattern events in the capture | Band | Selected by | Native cell | Patterns in the cell |',
+              '|---|---|---:|---:|---:|---|---|---|---:|']
+        for x in r['floor']['captures'][c]['moved_patterns']:
+            cell = ', '.join(f'{k}={v}' for k, v in x['cell'].items()) or '(service only)'
+            L.append(f'| `{x["container"]}` | `{x["pattern"]}` | {n(x["events"])} | {n(x["tier_down_events"])} | {n(x["pattern_events"])} | {x["band"]} | '
+                     f'{x["selected_by"].replace("_", " ")} | {cell} | {x["cell_patterns"]} |')
+        L.append('')
     return '\n'.join(L) + '\n'
 
 

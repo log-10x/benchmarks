@@ -2,6 +2,7 @@
  "engine_image": "log10x/pipeline-10x@sha256:fd9c98384a775df13ed41921c2cf95ef1d1313f62f1300aac61da55ca64feb67",
  "engine_tag": "1.1.140",
  "mcp_version": "1.30.49",
+ "floor_target": 70,
  "captures": {
   "A": {
    "name": "otel-sample-200mb.log",

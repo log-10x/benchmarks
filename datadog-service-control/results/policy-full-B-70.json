@@ -1,0 +1,85 @@
+{
+ "target_pct": 70,
+ "tool_caps_csv": "container,cap\nad,462::MCP poc_from_local plan 70 pct\ncart,235::MCP poc_from_local plan 70 pct\nemail,1::MCP poc_from_local plan 70 pct\nfraud-detection,476::MCP poc_from_local plan 70 pct\nkafka,23657::MCP poc_from_local plan 70 pct\nllm,4160::MCP poc_from_local plan 70 pct\nopentelemetry-collector,46727::MCP poc_from_local plan 70 pct\npostgresql,679::MCP poc_from_local plan 70 pct\nproduct-reviews,18206::MCP poc_from_local plan 70 pct\nquote,205::MCP poc_from_local plan 70 pct\nrecommendation,1::MCP poc_from_local plan 70 pct\nvalkey-cart,246::MCP poc_from_local plan 70 pct\n",
+ "tool_actions_csv": "container,action\nad,tier_down::MCP poc_from_local plan 70 pct\ncart,tier_down::MCP poc_from_local plan 70 pct\nemail,tier_down::MCP poc_from_local plan 70 pct\nfraud-detection,tier_down::MCP poc_from_local plan 70 pct\nkafka,tier_down::MCP poc_from_local plan 70 pct\nllm,tier_down::MCP poc_from_local plan 70 pct\nopentelemetry-collector,tier_down::MCP poc_from_local plan 70 pct\npostgresql,tier_down::MCP poc_from_local plan 70 pct\nproduct-reviews,tier_down::MCP poc_from_local plan 70 pct\nquote,tier_down::MCP poc_from_local plan 70 pct\nrecommendation,tier_down::MCP poc_from_local plan 70 pct\nvalkey-cart,tier_down::MCP poc_from_local plan 70 pct\n",
+ "span_seconds": 3600,
+ "plan_span_seconds": 3600,
+ "replay_span_seconds": 3600,
+ "reset_window_seconds": 240,
+ "replay_factor": 15.0,
+ "unattributed_planned": 2,
+ "containers": {
+  "ad": {
+   "action": "tier_down",
+   "container": "ad",
+   "cap_bytes_per_window": 462,
+   "cap_bytes_replay": 6930
+  },
+  "cart": {
+   "action": "tier_down",
+   "container": "cart",
+   "cap_bytes_per_window": 235,
+   "cap_bytes_replay": 3525
+  },
+  "email": {
+   "action": "tier_down",
+   "container": "email",
+   "cap_bytes_per_window": 1,
+   "cap_bytes_replay": 15
+  },
+  "fraud-detection": {
+   "action": "tier_down",
+   "container": "fraud-detection",
+   "cap_bytes_per_window": 476,
+   "cap_bytes_replay": 7140
+  },
+  "kafka": {
+   "action": "tier_down",
+   "container": "kafka",
+   "cap_bytes_per_window": 23657,
+   "cap_bytes_replay": 354855
+  },
+  "llm": {
+   "action": "tier_down",
+   "container": "llm",
+   "cap_bytes_per_window": 4160,
+   "cap_bytes_replay": 62400
+  },
+  "opentelemetry-collector": {
+   "action": "tier_down",
+   "container": "opentelemetry-collector",
+   "cap_bytes_per_window": 46727,
+   "cap_bytes_replay": 700905
+  },
+  "postgresql": {
+   "action": "tier_down",
+   "container": "postgresql",
+   "cap_bytes_per_window": 679,
+   "cap_bytes_replay": 10185
+  },
+  "product-reviews": {
+   "action": "tier_down",
+   "container": "product-reviews",
+   "cap_bytes_per_window": 18206,
+   "cap_bytes_replay": 273090
+  },
+  "quote": {
+   "action": "tier_down",
+   "container": "quote",
+   "cap_bytes_per_window": 205,
+   "cap_bytes_replay": 3075
+  },
+  "recommendation": {
+   "action": "tier_down",
+   "container": "recommendation",
+   "cap_bytes_per_window": 1,
+   "cap_bytes_replay": 15
+  },
+  "valkey-cart": {
+   "action": "tier_down",
+   "container": "valkey-cart",
+   "cap_bytes_per_window": 246,
+   "cap_bytes_replay": 3690
+  }
+ }
+}
