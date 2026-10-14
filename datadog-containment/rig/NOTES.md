@@ -142,3 +142,18 @@ rate/module.yaml all equal).
 - Decision: restart the demo straight into the cap phase (images are on disk, nothing
   pulled), fleet default from the five quiet windows, same guard and floor. If the guard
   trips again the run stops there and results.md reports what exists.
+- Churn source (13:19 UTC): another chat's benchmark writes
+  /Users/talweiss/git/l1x-co/wt-bench-floor/datadog-service-control/runs/full-A-control/routed.jsonl
+  (257 MB and growing at that time); five session scratchpads under /private/tmp/claude-501
+  hold 173 to 856 MB each. None of it is this rig's. Docker.raw 24,305 MB.
+- 13:20 UTC restart: `run.sh up` with RIG_CAP=246736 (Receiver in cap mode from the
+  first event), then wait-healthy, a 3-minute settle, then the scheduler.
+- 13:21 UTC: the restart's `compose up` exited 1: kafka missed its health window
+  (`nc -z kafka 9092`, start_period 10 s, 10 retries at 5 s) because its JVM took about
+  three minutes to print its first line under CPU contention (Splunk 180%, ad 160%, kafka
+  240% of one core), so compose left checkout, accounting, fraud-detection, frontend,
+  frontend-proxy and load-generator in Created. The chain was stopped before its
+  `wait-healthy` timeout could start the scheduler on a partial demo. A second chain waits
+  for kafka healthy, runs `compose up -d` again, and refuses to start the scheduler while
+  any container is Created, Exited, unhealthy or starting. In run 1 kafka was healthy
+  within a minute; the difference is host load, not the rig.
