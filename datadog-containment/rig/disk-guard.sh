@@ -15,6 +15,14 @@ while true; do
     echo "$(date -u +%FT%TZ) rotated raw.jsonl to raw.$n.jsonl.gz" >> "$RESULTS/disk.log"
   fi
   if [ "$free_mb" -lt "$FLOOR_MB" ]; then
+    # Another process on this host writes and deletes about 1 GB in cycles; confirm the
+    # reading 60 s later before stopping, so a transient dip does not end the run.
+    echo "$(date -u +%FT%TZ) under floor (${free_mb} MB); confirming in 60 s" >> "$RESULTS/disk.log"
+    sleep 60
+    free_mb=$(( $(df -k / | awk 'NR==2{print $4}') / 1024 ))
+    echo "$(date -u +%FT%TZ) confirmation reading free_mb=$free_mb" >> "$RESULTS/disk.log"
+  fi
+  if [ "$free_mb" -lt "$FLOOR_MB" ]; then
     echo "$(date -u +%FT%TZ) FLOOR BREACH: free ${free_mb} MB < ${FLOOR_MB} MB; stopping the demo" >> "$RESULTS/disk.log"
     echo "{\"event\":\"disk_stop\",\"at\":\"$(date -u +%FT%TZ)\",\"epoch\":$(date +%s),\"free_mb\":$free_mb}" >> "$RESULTS/timeline.jsonl"
     "$HERE/run.sh" down >> "$RESULTS/disk.log" 2>&1 || true

@@ -1,0 +1,11 @@
+{"event": "receiver_ready", "at": "2026-10-14T12:50:40Z", "epoch": 1791982240, "cap": 0}
+{"event": "demo_up", "at": "2026-10-14T12:52:01Z", "epoch": 1791982322}
+{"event": "demo_healthy", "at": "2026-10-14T12:52:49Z", "epoch": 1791982369}
+{"event": "quiet_start", "at": "2026-10-14T12:54:22Z", "epoch": 1791982462}
+{"event": "disk_stop", "at": "2026-10-14T13:16:29Z", "epoch": 1791983789, "free_mb": 4400}
+{"event": "scheduler_stop", "at": "2026-10-14T13:16:34Z", "epoch": 1791983794}
+{"event": "run_end", "at": "2026-10-14T13:16:39Z", "epoch": 1791983799}
+{"event": "demo_down", "at": "2026-10-14T13:17:27Z", "epoch": 1791983847}
+{"event": "quiet_end", "at": "2026-10-14T13:16:29Z", "epoch": 1791983789, "note": "set to the disk_stop time; the waiter wrote 13:18:22 after the demo was down"}
+{"event":"restart","at":"2026-10-14T13:19:40Z","epoch":1791983980,"cap":246736}
+{"event":"receiver_ready","at":"2026-10-14T13:19:48Z","epoch":1791983988,"cap":246736}

@@ -130,3 +130,15 @@ rate/module.yaml all equal).
   (otel-collector, the debug exporter's `info Logs {...}` pattern, 240 events in the
   window), p99 122,961, p90 19,320, median 5,200; cap would be 246,726. frontend's pino
   JSON pattern is next at about 94 KB per window.
+
+## Disk stop and restart (13:16 to 13:20 UTC)
+- 13:15:29 the guard read 4340 MB, 13:16:29 the confirmation read 4400 MB: `run.sh down`
+  ran (scheduler stop 13:16:34, run_end 13:16:39, compose down finished 13:17:27). The
+  quiet run therefore covers 12:54:22 to 13:16:29: five full 4-minute windows.
+- The disk churn was not the rig's: Docker.raw stayed at 24.1 GB and the rig's data
+  files were 9 MB. This session's scratchpad holds 889 MB belonging to another agent's
+  rig (`dda/` with three 114 MB engine logs, `node_modules/`); those files are not mine
+  to remove. Free space read 5500 MB once that rig's containers were gone.
+- Decision: restart the demo straight into the cap phase (images are on disk, nothing
+  pulled), fleet default from the five quiet windows, same guard and floor. If the guard
+  trips again the run stops there and results.md reports what exists.

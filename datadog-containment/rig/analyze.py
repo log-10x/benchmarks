@@ -93,7 +93,7 @@ def pct(vals, p):
     return vals[lo] if lo == hi else vals[lo] + (vals[hi] - vals[lo]) * (k - lo)
 
 def quiet_run(passed, offloaded, mk):
-    qs, qe = mk['quiet_start'][0]['epoch'], mk['quiet_end'][0]['epoch']
+    qs, qe = mk['quiet_start'][-1]['epoch'], mk['quiet_end'][-1]['epoch']
     recs = [r for r in passed + offloaded if qs <= r['_ts'] < qe]
     cells = collections.Counter(); counts = collections.Counter(); sample = {}
     for r in recs:
@@ -130,8 +130,8 @@ def per_minute(recs, t0, t1, container):
     return out
 
 def incidents(raw, passed, offloaded, acts, mk, cap):
-    sched_start = mk['scheduler_start'][0]['epoch']
-    run_end = mk['run_end'][0]['epoch']
+    sched_start = mk['scheduler_start'][-1]['epoch']
+    run_end = mk['run_end'][-1]['epoch']
     all_ret = passed + offloaded
     containers = sorted({r['container_name'] for r in raw})
     results = []
@@ -187,7 +187,7 @@ def ts_iso(t):
     return datetime.datetime.fromtimestamp(t, datetime.timezone.utc).strftime('%H:%M:%S')
 
 def windows(raw, passed, offloaded, mk):
-    t0 = mk['scheduler_start'][0]['epoch']; t1 = mk['run_end'][0]['epoch']
+    t0 = mk['scheduler_start'][-1]['epoch']; t1 = mk['run_end'][-1]['epoch']
     agg = collections.defaultdict(lambda: [0, 0, 0, 0, 0])  # raw, pass, offload, bytes_pass, bytes_offload
     for src, recs in (('raw', raw), ('pass', passed), ('offload', offloaded)):
         for r in recs:
@@ -209,7 +209,7 @@ def windows(raw, passed, offloaded, mk):
     return {f'{w}:{c}': len(s) for (w, c), s in sorted(distinct.items())}
 
 def false_holds(offloaded, acts, mk):
-    t0 = mk['scheduler_start'][0]['epoch']; t1 = mk['run_end'][0]['epoch']
+    t0 = mk['scheduler_start'][-1]['epoch']; t1 = mk['run_end'][-1]['epoch']
     spans = [(a['on'], (a['off'] or t1) + WINDOW) for a in acts]
     quiet_s = 0.0
     # quiet seconds = scheduled run minus union of spans
