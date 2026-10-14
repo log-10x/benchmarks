@@ -42,7 +42,7 @@ The capture's 10 hours scaled to a 720-hour month, at the rates above. The volum
 | 50% | 6,519,960 | Starter | $11.74, held 3 months | $11.08 | -$0.66 | $16.30 | +$4.56 | $1.55 | $0 |
 | 70% | 8,627,976 | Starter | $15.53, held 3 months | $14.67 | -$0.86 | $21.57 | +$6.04 | $1.55 | $0 |
 
-Net is the indexing avoided less what Flex adds; a minus sign means the move costs more than it saves. At 6 months, the shortest Starter retention on Datadog's price list, the Starter rows cost $17.50 at 30%, $23.47 at 50% and $31.06 at 70% a month.
+Net is the indexing avoided less what Flex adds; a minus sign means the move costs more than it saves. At 6 months, the shortest Starter retention on Datadog's price-list page (its Flex Logs page and pricing page list 3, 6, 12 or 15 months, and the table above holds 3), the Starter rows cost $17.50 at 30%, $23.47 at 50% and $31.06 at 70% a month.
 
 **Custom metrics.** The engine's shipped Datadog output, posting to a local stand-in for Datadog's intake, tagged each series with the pattern and where it ran (`k8s_container`, `k8s_namespace`, `message_pattern`, `routeState`, `severity_level`, `statistic`, `tenx_hash`, `tenx_reported_name`, `tenx_user_service`) and with nothing that names a node or a process, and published the 200 tag sets with the most bytes, each from both aggregators: at most 768 series in one post, whatever the node count; the top 200 label sets carry 98.8% of the bytes. Above a Pro plan's allotment of 100 per host that is $0 a month at 10 nodes, $0 at 100 and $0 at 300. Every tag set from every node would be 10,848 per node: $5,374, $53,740 and $161,220 a month.
 
