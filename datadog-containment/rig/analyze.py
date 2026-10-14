@@ -24,6 +24,8 @@ ENGINE_FIELDS = {'tenx_hash', 'routeState', 'message_pattern', 'severity_level',
 
 def load(path):
     out = []
+    if not os.path.exists(path):
+        return out
     with open(path, encoding='utf-8', errors='replace') as f:
         for line in f:
             line = line.strip()

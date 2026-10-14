@@ -101,3 +101,32 @@ rate/module.yaml all equal).
 - Multi-line grouping: 6 returned kafka records covered 1,205 raw lines (the startup
   config dump), so delivery is measured in raw lines covered, not records.
 - Quiet run marked at 12:55 UTC, 24 minutes (6 full 4-minute windows), scheduler off.
+
+## Disk rules in force from 13:05 UTC (coordinator)
+- No further image pulls. `disk-guard.sh` logs free space every 5 minutes to
+  results/disk.log, gzip-rotates raw.jsonl past 1 GB, and under 4.5 GB free runs
+  `run.sh down` (scheduler stop, log snapshot, compose down, images kept) and marks
+  `disk_stop` in the timeline. Another agent's verification rig shares the host.
+
+## Open question under test (13:05 UTC)
+- shipping: the Receiver returned its first 7 lines (INFO, 12:50:56) and nothing after its
+  first ERROR line at 12:50:57 (`opentelemetry_sdk: name="BatchLogProcessor.ExportError"
+  error="Operation failed: HTTP export failed: network error"`), while 30+ later INFO
+  lines arrived in raw.jsonl. Every other container returns within seconds of its raw
+  lines. A replay of those exact lines through a standalone Receiver is running.
+- Answer (replay, 13:07 UTC, 30 shipping lines through a standalone Receiver): the first 7
+  INFO lines came back as 7 events with no `severity_level` (the Rust tracing format pads
+  the level to five characters, so the line reads `<ESC>[32m INFO` and the level term does
+  not match at the start of the word; `ERROR` is five characters and matches). The ERROR
+  line came back as ONE event of 23 lines: it opened a group and every following line,
+  having no recognised head, was appended to it. The group flushed once the sender went
+  idle. In the live rig shipping keeps logging, so the group stays open (the shipped
+  group transform has `maxSize 20000` and `flushTimeout 5s`; the timeout did not close
+  it while lines kept arriving) and shipping's returns arrive in large batches with the
+  ERROR line's pattern. No flag targets shipping; its lines are excluded from nothing,
+  and any shipping hold is reported as what it is. The raw path is left as the demo
+  produces it (no ANSI stripping in Fluent Bit).
+- Preview on the first 3 full quiet windows (13:09 UTC): 119 cells, max 123,363 bytes
+  (otel-collector, the debug exporter's `info Logs {...}` pattern, 240 events in the
+  window), p99 122,961, p90 19,320, median 5,200; cap would be 246,726. frontend's pino
+  JSON pattern is next at about 94 KB per window.

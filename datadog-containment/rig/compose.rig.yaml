@@ -48,6 +48,7 @@ services:
     command:
       - "@run/input/forwarder/fluentbit"
       - "@apps/receiver"
+      - "@run/output/metric/log"
       - rateReceiverCapLookupFile
       - /etc/tenx/lookups/caps.csv
       - rateReceiverAbsoluteCap

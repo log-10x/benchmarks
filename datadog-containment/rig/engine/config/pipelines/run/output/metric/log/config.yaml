@@ -59,4 +59,4 @@ simple:
     # 'step' sets the frequency in which metrics are logged to 'loggerName' in
     # ISO-8601 format. To learn more see:
     # https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html#parse-java.lang.CharSequence-
-    step: PT1S
+    step: PT60S
