@@ -9,7 +9,8 @@ FLOOR_MB=${FLOOR_MB:-4500}
 while true; do
   free_mb=$(( $(df -k / | awk 'NR==2{print $4}') / 1024 ))
   raw_mb=$(( $(stat -f %z "$DATA/raw.jsonl" 2>/dev/null || echo 0) / 1048576 ))
-  echo "$(date -u +%FT%TZ) free_mb=$free_mb raw_mb=$raw_mb data_mb=$(du -sm "$DATA" | cut -f1)" >> "$RESULTS/disk.log"
+  swap=$(sysctl -n vm.swapusage | awk '{print $6}')
+  echo "$(date -u +%FT%TZ) free_mb=$free_mb raw_mb=$raw_mb data_mb=$(du -sm "$DATA" | cut -f1) swap_used=$swap vm_volume_mb=$(df -m /System/Volumes/VM | awk 'NR==2{print $3}')" >> "$RESULTS/disk.log"
   if [ "$raw_mb" -ge 1024 ]; then
     n=$(date -u +%H%M%S); gzip -c "$DATA/raw.jsonl" > "$DATA/raw.$n.jsonl.gz" && : > "$DATA/raw.jsonl"
     echo "$(date -u +%FT%TZ) rotated raw.jsonl to raw.$n.jsonl.gz" >> "$RESULTS/disk.log"

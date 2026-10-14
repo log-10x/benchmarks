@@ -17,6 +17,8 @@ machine.
 | `lookups/caps.csv` | Header-only cap file; it loads the cap class so the fleet-wide `rateReceiverAbsoluteCap` applies. |
 | `scheduler.sh` | Starts, stops and reads the flagd-ui scheduler through the release's `rpc` entry point. |
 | `run.sh` | Phase commands: `up`, `wait-healthy`, `quiet-start`, `quiet-end`, `cap <bytes>`, `sched`, `logs`, `down`. |
+| `run-scheduled.sh` | The scheduled run end to end: Receiver with the cap, demo up (re-runs `compose up` once kafka is healthy), settle, seeded scheduler, stop after N completed activations plus one window or at a time limit. |
+| `run-planner.mjs` | Runs the log10x-mcp planner on the quiet capture (fleet default rule, step 2). |
 | `analyze.py` | Builds the fleet-default distribution, per-window counts, per-incident table, false holds and delivery check from the three files. |
 | `report.py` | Renders `results/results-tables.md` from analyze.py's outputs. |
 | `disk-guard.sh` | Free-disk log, raw-file rotation, clean stop under a floor. |
@@ -34,6 +36,26 @@ machine.
 Severity floors are all 0 in the copied `pipelines/run/receive/rate/config.yaml`.
 `outputOffload=true` and `TENX_AIRGAPPED=true` are container environment variables.
 
+## Fleet default rule
+
+The fleet default is the largest statement the plan keeps, fleet-wide, times 2, so that a
+statement the plan moves cannot set the cap.
+
+1. Quiet run: the demo with no flag active, every 4-minute window's bytes summed per
+   (container, pattern) (`analyze.py` writes `results/quiet-cells.csv`).
+2. Plan: log10x-mcp `poc_from_local` in file mode on the quiet run's raw capture,
+   `siem datadog`, `forwarder fluent-bit`, `target_percent_reduction 70`
+   (`run-planner.mjs`; the rig ran the published 1.30.49 package with the engine pinned
+   by `LOG10X_TENX_MODE=docker LOG10X_RUNTIME_IMAGE=log10x/edge-10x:1.1.140`).
+   The plan's `planned` patterns are moved; every other pattern is kept.
+3. Cap = 2 x the largest quiet-run cell of any kept (container, pattern).
+
+On this run the plan tiers down four patterns (otel-collector's debug-exporter `Logs`,
+`Traces` and `Metrics` lines and frontend's `API request completed` line), keeps the rest,
+and the largest kept cell is cart's `GetCartAsync called with userId` at 24,431 bytes, so
+the cap is 48,862 bytes (`results/fleet-default-kept.json`). The earlier max-based
+figure, 246,736 bytes, was set by a planned pattern.
+
 ## Reproduce
 
 Prerequisites: Docker Desktop with about 8 GB for the VM and 7 GB of free disk for the
@@ -45,14 +67,13 @@ and `fluent/fluent-bit:4.2` pulled.
 export DEMO=/path/to/opentelemetry-demo   # the 3.1.0 clone
 cd rig
 RIG_CAP=0 ./run.sh up && ./run.sh wait-healthy
-./run.sh quiet-start      # 24 minutes with no flag active
+./run.sh quiet-start      # 20+ minutes with no flag active
 ./run.sh quiet-end
-python3 analyze.py        # prints the quiet-run distribution; cap = 2 x max cell
-./run.sh cap <cap bytes>  # recreates the Receiver with the fleet default
-SEED=20261014 ./run.sh sched 900 240 480   # interval 15 min, hold 4 to 8 min, one flag at a time
-# run until four activations have reverted or two hours, whichever first
+python3 analyze.py        # writes results/quiet-cells.csv
+# plan on the quiet capture (see "Fleet default rule"), then cap = 2 x largest kept cell
 ./run.sh down
-python3 analyze.py
+RIG_CAP=48862 SEED=20261014 INTERVAL=600 MIN_HOLD=240 MAX_HOLD=480 ACTIVATIONS=4 MAX_MIN=75 ./run-scheduled.sh
+python3 analyze.py && python3 report.py
 ```
 
 `disk-guard.sh` (optional, run alongside) logs free disk every 5 minutes to

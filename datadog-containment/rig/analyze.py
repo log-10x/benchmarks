@@ -120,30 +120,46 @@ def quiet_run(passed, offloaded, mk):
     json.dump(out, open(os.path.join(RESULTS, 'fleet-default.json'), 'w'), indent=1)
     return out
 
-def per_minute(recs, t0, t1, container):
-    """{pattern: {minute_index: count}} for records of one container in [t0, t1)."""
+def planned_moves():
+    """Hashes the plan moves (results/fleet-default-kept.json, written from the planner run)."""
+    p = os.path.join(RESULTS, 'fleet-default-kept.json')
+    if not os.path.exists(p):
+        return set()
+    return {x['hash'] for x in json.load(open(p))['planner']['planned']}
+
+def by_container(recs):
+    out = collections.defaultdict(list)
+    for r in recs:
+        out[r['container_name']].append(r)
+    return out
+
+def per_minute(recs, t0, t1):
+    """{pattern: {minute_index: count}} for records in [t0, t1)."""
     out = collections.defaultdict(collections.Counter)
     for r in recs:
-        if r['container_name'] != container or not (t0 <= r['_ts'] < t1):
-            continue
-        out[pattern_of(r)][int((r['_ts'] - t0) // 60)] += 1
+        if t0 <= r['_ts'] < t1:
+            out[pattern_of(r)][int((r['_ts'] - t0) // 60)] += 1
     return out
 
 def incidents(raw, passed, offloaded, acts, mk, cap):
+    """Per activation and container. A hold is attributed to the incident when its
+    (container, pattern) had no offload record in the 10 minutes before the flag turned
+    on; holds of pairs already held before the flag (the plan's steady moves) are counted
+    separately as steady_held."""
     sched_start = mk['scheduler_start'][-1]['epoch']
     run_end = mk['run_end'][-1]['epoch']
-    all_ret = passed + offloaded
-    containers = sorted({r['container_name'] for r in raw})
+    R, P, O = by_container(raw), by_container(passed), by_container(offloaded)
     results = []
     for a in acts:
         on, off = a['on'], a['off'] or run_end
-        pre0 = max(sched_start, on - 600.0)
-        span_end = off + WINDOW   # one regulator window after the flag reverts
+        healthy = [e['epoch'] for e in mk.get('demo_healthy', []) if e['epoch'] <= on]
+        pre0 = max(healthy[-1] if healthy else sched_start, on - 600.0)
+        span_end = min(off + WINDOW, run_end)   # one regulator window after the flag reverts
         per_container = []
-        for c in containers:
-            pre = per_minute(raw, pre0, on, c)
+        for c in sorted(R):
+            pre = per_minute(R[c], pre0, on)
             pre_minutes = max(1, int((on - pre0) // 60))
-            during = per_minute(raw, on, span_end, c)
+            during = per_minute(R[c], on, span_end)
             noisy = None
             for pat, mins in during.items():
                 pre_rate = sum(pre[pat].values()) / pre_minutes
@@ -152,33 +168,42 @@ def incidents(raw, passed, offloaded, acts, mk, cap):
                         if noisy is None or m < noisy[0]:
                             noisy = (m, pat, mins[m], pre_rate)
                         break
-            held = [r for r in offloaded if r['container_name'] == c and on <= r['_ts'] < span_end]
-            kept = [r for r in passed if r['container_name'] == c and on <= r['_ts'] < span_end]
+            held_before = {pattern_of(r) for r in O.get(c, []) if pre0 <= r['_ts'] < on}
+            held_all = [r for r in O.get(c, []) if on <= r['_ts'] < span_end]
+            held = [r for r in held_all if pattern_of(r) not in held_before]
+            steady = [r for r in held_all if pattern_of(r) in held_before]
+            kept = [r for r in P.get(c, []) if on <= r['_ts'] < span_end]
             if not held and noisy is None:
                 continue
+            held_pats = {pattern_of(r) for r in held}
+            kept_same = [r for r in kept if pattern_of(r) in held_pats]
             first_held = min((r['_ts'] for r in held), default=None)
+            noisy_at = None if noisy is None else on + noisy[0] * 60
             held_by_pat = collections.Counter(pattern_of(r) for r in held)
             sev_by_pat = collections.defaultdict(collections.Counter)
-            sample_by_pat = {}
+            sample_by_pat, name_by_pat = {}, {}
             for r in held:
-                sev_by_pat[pattern_of(r)][r.get('severity_level', 'unknown')] += 1
+                sev_by_pat[pattern_of(r)][r.get('severity_level', 'none')] += 1
                 sample_by_pat.setdefault(pattern_of(r), str(r.get('log', ''))[:160])
+                name_by_pat.setdefault(pattern_of(r), r.get('message_pattern', ''))
             per_container.append({
                 'container': c,
                 'first_noisy_minute': None if noisy is None else noisy[0],
-                'first_noisy_at': None if noisy is None else on + noisy[0] * 60,
+                'first_noisy_at': noisy_at,
                 'noisy_pattern': None if noisy is None else noisy[1],
                 'noisy_minute_events': None if noisy is None else noisy[2],
                 'noisy_pre_rate_per_min': None if noisy is None else round(noisy[3], 2),
                 'first_held_at': first_held,
-                'noisy_to_held_min': None if (noisy is None or first_held is None) else round((first_held - (on + noisy[0] * 60)) / 60, 2),
+                'first_held_minute': None if first_held is None else int((first_held - on) // 60),
+                'noisy_to_held_min': None if (noisy_at is None or first_held is None) else round((first_held - noisy_at) / 60, 2),
                 'flag_on_to_held_min': None if first_held is None else round((first_held - on) / 60, 2),
-                'events_held': len(held), 'events_kept': len(kept),
-                'bytes_held': sum(r['_bytes'] for r in held), 'bytes_kept': sum(r['_bytes'] for r in kept),
-                'line_bytes_held': sum(r['_line_bytes'] for r in held), 'line_bytes_kept': sum(r['_line_bytes'] for r in kept),
-                'patterns_held': [{'pattern': p, 'events': n, 'severity': dict(sev_by_pat[p]), 'sample': sample_by_pat[p]} for p, n in held_by_pat.most_common()],
+                'events_held': len(held), 'events_kept_container': len(kept), 'events_kept_same_patterns': len(kept_same),
+                'bytes_held': sum(r['_bytes'] for r in held), 'line_bytes_held': sum(r['_line_bytes'] for r in held),
+                'bytes_kept_container': sum(r['_bytes'] for r in kept),
+                'steady_held': len(steady), 'steady_patterns': sorted({pattern_of(r) for r in steady}),
+                'patterns_held': [{'pattern': p, 'name': name_by_pat[p], 'events': n, 'severity': dict(sev_by_pat[p]), 'sample': sample_by_pat[p]} for p, n in held_by_pat.most_common()],
             })
-        per_container.sort(key=lambda x: -x['bytes_held'])
+        per_container.sort(key=lambda x: (-x['bytes_held'], x['first_noisy_at'] or 1e18))
         results.append({**a, 'on_iso': ts_iso(on), 'off_iso': ts_iso(off), 'span_end': span_end, 'containers': per_container})
     json.dump(results, open(os.path.join(RESULTS, 'incidents.json'), 'w'), indent=1)
     return results
@@ -209,39 +234,47 @@ def windows(raw, passed, offloaded, mk):
     return {f'{w}:{c}': len(s) for (w, c), s in sorted(distinct.items())}
 
 def false_holds(offloaded, acts, mk):
+    """Offload records during the scheduled run outside every activation span
+    (flag on to one window after its revert). Patterns the plan moves are held by design
+    and reported apart from the rest, which are the false holds."""
     t0 = mk['scheduler_start'][-1]['epoch']; t1 = mk['run_end'][-1]['epoch']
-    spans = [(a['on'], (a['off'] or t1) + WINDOW) for a in acts]
-    quiet_s = 0.0
-    # quiet seconds = scheduled run minus union of spans
-    cuts = sorted(spans); merged = []
-    for s, e in cuts:
-        if merged and s <= merged[-1][1]: merged[-1][1] = max(merged[-1][1], e)
-        else: merged.append([s, e])
-    quiet_s = (t1 - t0) - sum(min(e, t1) - max(s, t0) for s, e in merged if e > t0 and s < t1)
-    fh = collections.Counter(); sample = {}; first = {}
+    moves = planned_moves()
+    spans = sorted((a['on'], (a['off'] or t1) + WINDOW) for a in acts); merged = []
+    for s_, e in spans:
+        if merged and s_ <= merged[-1][1]: merged[-1][1] = max(merged[-1][1], e)
+        else: merged.append([s_, e])
+    quiet_s = (t1 - t0) - sum(min(e, t1) - max(s_, t0) for s_, e in merged if e > t0 and s_ < t1)
+    fh = collections.Counter(); sample = {}; first = {}; sev = collections.defaultdict(collections.Counter); byts = collections.Counter()
     for r in offloaded:
         if not (t0 <= r['_ts'] < t1): continue
-        if any(s <= r['_ts'] < e for s, e in merged): continue
-        k = (r['container_name'], pattern_of(r)); fh[k] += 1
+        if any(s_ <= r['_ts'] < e for s_, e in merged): continue
+        k = (r['container_name'], pattern_of(r)); fh[k] += 1; byts[k] += r['_bytes']
+        sev[k][r.get('severity_level', 'none')] += 1
         sample.setdefault(k, str(r.get('log', ''))[:160]); first.setdefault(k, r['_ts'])
     with open(os.path.join(RESULTS, 'false-holds.csv'), 'w', newline='') as f:
-        wr = csv.writer(f); wr.writerow(['container', 'pattern', 'events_held_while_quiet', 'per_minute', 'first_at_utc', 'sample'])
+        wr = csv.writer(f); wr.writerow(['container', 'pattern', 'planned_move', 'events_held_outside_incidents', 'bytes', 'per_minute', 'severity', 'first_at_utc', 'sample'])
         for k, n in fh.most_common():
-            wr.writerow([k[0], k[1], n, round(n / max(quiet_s / 60, 1e-9), 3), ts_iso(first[k]), sample[k]])
-    return {'quiet_seconds': quiet_s, 'held_while_quiet': sum(fh.values()), 'patterns': len(fh)}
+            wr.writerow([k[0], k[1], 'yes' if k[1] in moves else 'no', n, byts[k], round(n / max(quiet_s / 60, 1e-9), 3),
+                         '/'.join(f'{a}:{b}' for a, b in sev[k].items()), ts_iso(first[k]), sample[k]])
+    other = {k: n for k, n in fh.items() if k[1] not in moves}
+    return {'outside_incident_seconds': quiet_s, 'planned_move_holds': sum(n for k, n in fh.items() if k[1] in moves),
+            'false_holds': sum(other.values()), 'false_hold_pairs': len(other)}
 
-def delivery(raw, passed, offloaded):
-    """The Receiver joins continuation lines into one event, so compare raw LINES with the
-    lines the returned records cover (newlines inside the returned log field + 1)."""
+def delivery(raw, passed, offloaded, mk):
+    """Final run only (last receiver_ready to last run_end). The Receiver joins continuation
+    lines into one event, so compare raw LINES with the lines the returned records cover
+    (newlines inside the returned log field + 1)."""
+    t0 = mk['receiver_ready'][-1]['epoch']
+    t1 = mk['run_end'][-1]['epoch'] if 'run_end' in mk else 1e18
+    inside = lambda recs: [r for r in recs if t0 <= r['_ts'] < t1]
+    R, RET = by_container(inside(raw)), by_container(inside(passed) + inside(offloaded))
     out = {}
-    for c in sorted({r['container_name'] for r in raw}):
-        n_raw = sum(1 for r in raw if r['container_name'] == c)
-        ret = [r for r in passed + offloaded if r['container_name'] == c]
-        n_ret = len(ret)
+    for c in sorted(R):
+        ret = RET.get(c, [])
         lines = sum(str(r.get('log', '')).count('\n') + 1 for r in ret)
-        out[c] = {'raw_lines': n_raw, 'returned_records': n_ret, 'returned_lines': lines,
-                  'returned_pct': round(100.0 * lines / n_raw, 2) if n_raw else None}
-    json.dump(out, open(os.path.join(RESULTS, 'delivery.json'), 'w'), indent=1)
+        out[c] = {'raw_lines': len(R[c]), 'returned_records': len(ret), 'returned_lines': lines,
+                  'returned_pct': round(100.0 * lines / len(R[c]), 2) if R[c] else None}
+    json.dump({'span': [t0, t1], 'containers': out}, open(os.path.join(RESULTS, 'delivery.json'), 'w'), indent=1)
     return out
 
 def main():
@@ -255,6 +288,7 @@ def main():
         print('quiet run: cells', q['cells'], 'max', q['max'], 'p99', round(q['p99']), 'p90', round(q['p90']), 'median', round(q['median']), 'cap', q['cap_2x_max'])
     if 'scheduler_start' in mk and 'run_end' in mk:
         seed, acts = activations()
+        acts = [a for a in acts if a['on'] >= mk['scheduler_start'][-1]['epoch'] and a['on'] < mk['run_end'][-1]['epoch']]
         cap = [e for e in mk.get('receiver_ready', []) if e.get('cap', 0) > 0]
         cap = cap[-1]['cap'] if cap else 0
         inc = incidents(raw, passed, offloaded, acts, mk, cap)
@@ -262,8 +296,8 @@ def main():
         fh = false_holds(offloaded, acts, mk)
         print('seed', seed, 'activations', len(acts), 'false holds', fh)
         for i in inc:
-            print(i['flag'], i['variant'], i['on_iso'], '->', i['off_iso'], [(c['container'], c['events_held'], c['events_kept'], c['noisy_to_held_min']) for c in i['containers'][:3]])
-    print('delivery', delivery(raw, passed, offloaded))
+            print(i['flag'], i['variant'], i['on_iso'], '->', i['off_iso'], [(c['container'], c['events_held'], c['events_kept_container'], c['noisy_to_held_min']) for c in i['containers'][:3]])
+    print('delivery', delivery(raw, passed, offloaded, mk))
 
 if __name__ == '__main__':
     main()

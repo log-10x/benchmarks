@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Log10x &mdash; log volume action plan</title>
+<style>
+:root{--bg:#f2f4f6;--panel:#fff;--sunk:#eaeef2;--line:#dde3e9;--line2:#c8d1da;--ink:#161c23;--dim:#5d6773;--faint:#8b95a1;--val:#8a3f76;--val-bg:#f6ecf3;--bar:#2c3540;--ok:#2e6b4f;--ok-bg:#ddefe6;--wrn:#8a5c10;--skip:#8b95a1}
+@media (prefers-color-scheme:dark){:root{--bg:#101419;--panel:#171c22;--sunk:#12161b;--line:#242b34;--line2:#333c47;--ink:#dfe5ec;--dim:#8b96a4;--faint:#6a7481;--val:#d091c0;--val-bg:#2a1e28;--bar:#9aa6b4;--ok:#79b39c;--ok-bg:#1c2b25;--wrn:#d5a445;--skip:#6a7481}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:880px;margin:0 auto;padding:0 22px 90px}
+header{padding:44px 0 28px;border-bottom:2px solid var(--line2)}
+.eyebrow{display:flex;gap:8px;align-items:center;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin:0 0 12px;font-weight:600;flex-wrap:wrap}
+.stack{display:inline-flex;gap:6px;margin-left:auto;letter-spacing:.02em;text-transform:none}
+.stack span{background:var(--sunk);border:1px solid var(--line);border-radius:4px;padding:2px 8px;font-size:11px;color:var(--dim);font-weight:600}
+h1{font-size:clamp(26px,4.2vw,36px);line-height:1.12;letter-spacing:-.022em;font-weight:680;margin:0 0 14px;text-wrap:balance}
+.lede{max-width:64ch;color:var(--dim);font-size:14.5px;margin:0 0 8px}
+.lede b{color:var(--ink);font-weight:600}
+.totals{display:flex;flex-wrap:wrap;gap:28px;margin-top:24px}
+.tot b{display:block;font-size:23px;font-weight:660;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.15}
+.tot span{font-size:11.5px;color:var(--dim)}
+.verdict{margin:30px 0 0;padding:20px 22px;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--val);border-radius:5px}
+.verdict h3{margin:0 0 8px;font-size:16.5px;font-weight:650;letter-spacing:-.01em}
+.verdict p{margin:0;color:var(--dim);font-size:14px;max-width:72ch}
+.split{margin:14px 0 0;display:flex;flex-direction:column;gap:9px}
+.split-row{display:flex;align-items:baseline;gap:13px}
+.split-pct{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:650;font-size:19px;flex:0 0 auto;min-width:52px;font-variant-numeric:tabular-nums}
+.split-pct.lossless{color:var(--ok)}
+.split-pct.source{color:var(--wrn)}
+.split-lab{color:var(--dim);font-size:13.5px;line-height:1.4}
+h2{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);font-weight:650;margin:50px 0 6px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+.sub{max-width:66ch;color:var(--dim);font-size:13.5px;margin:12px 0 4px}
+.act{padding:26px 0;border-bottom:1px solid var(--line)}
+.ahead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.anum{flex:0 0 26px;height:26px;display:inline-flex;align-items:center;justify-content:center;background:var(--bar);color:var(--bg);border-radius:50%;font-size:13px;font-weight:700;align-self:center}
+.ahead h3{margin:0;font-size:17.5px;font-weight:650;letter-spacing:-.012em}
+.impact{margin-left:auto;font-size:14px;font-weight:650;font-variant-numeric:tabular-nums;color:var(--ok);background:var(--ok-bg);border-radius:4px;padding:3px 10px}
+.anote{max-width:70ch;color:var(--dim);font-size:13.5px;margin:10px 0 0}
+.annot{max-width:70ch;color:var(--dim);font-size:13px;font-style:italic;margin:6px 0 0}
+.alabel{font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--faint);font-weight:650;margin:16px 0 6px}
+.face{margin:0 0 4px;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--line2);border-radius:4px;padding:11px 13px;overflow-x:auto;font:12px/1.7 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.fl{display:block;white-space:pre}
+.fl.cont{padding-left:2.2em;color:var(--dim)}
+.face .v{font-style:normal;color:var(--val);background:var(--val-bg);border-radius:2px;padding:0 2.5px;font-weight:600}
+.face .tab{font-style:normal;color:var(--line2);padding:0 3px}
+.more{display:block;margin-top:4px;font-size:11px;color:var(--faint)}
+.evm{font-size:11.5px;color:var(--faint);margin:2px 0 10px;font-variant-numeric:tabular-nums}
+.evm code{font-size:11px}
+.cmd{margin:0;background:var(--sunk);border:1px solid var(--line);border-radius:4px;padding:11px 13px;overflow-x:auto;font:12px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink);white-space:pre}
+.cmd.rb{color:var(--dim)}
+code{font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.after{display:flex;gap:0;align-items:stretch;margin-top:16px;border:1px solid var(--line);border-radius:5px;overflow:hidden}
+.after>div{flex:1;padding:16px 18px;background:var(--panel)}
+.after>div+div{border-left:1px solid var(--line)}
+.after b{display:block;font-size:22px;font-weight:660;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.after span{font-size:11.5px;color:var(--dim)}
+.after .goal b{color:var(--ok)}
+.checks{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px;margin-top:14px}
+.chk{display:flex;gap:9px;align-items:baseline;background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:9px 12px;font-size:12.5px}
+.chk i{font-style:normal;font-weight:700}
+.chk.ok i{color:var(--ok)} .chk.warn i{color:var(--wrn)} .chk.skip i{color:var(--skip)}
+.chk span{color:var(--dim)}
+.chk.skip{opacity:.75}
+.kept{margin-top:14px;padding:14px 18px;background:var(--panel);border:1px solid var(--line);border-radius:5px;max-width:none}
+.kept p{margin:0;font-size:13.5px;color:var(--dim);max-width:72ch}
+.kept b{color:var(--ink);font-weight:600}
+footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-size:12.5px;color:var(--faint);max-width:72ch}
+footer p{margin:0 0 9px} footer b{color:var(--dim);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<p class="eyebrow">Log10x &middot; proof of concept, first run
+<span class="stack"><span>SIEM&nbsp;&middot;&nbsp;Datadog</span><span>forwarder&nbsp;&middot;&nbsp;fluent-bit</span></span></p>
+<h1>This log sample, 2 changes, 76% addressable</h1>
+<p class="lede">This window produced <b>7.1K events</b>. They resolve to <b>231 distinct log statements</b>; the plan below acts on <b>22 of them</b>.</p>
+<div class="totals">
+<div class="tot"><b>1.93 MB</b><span>ingested this window</span></div>
+<div class="tot"><b>1.07 MB</b><span>removable, this plan</span></div>
+<div class="tot"><b>55%</b><span>of current volume</span></div>
+<div class="tot"><b>294</b><span>errors and warnings kept, all of them</span></div>
+</div>
+<div class="verdict">
+<h3>21% of this window is one repeated output: Logs</h3>
+<p>2 statements in (unattributed) emit the same output on every occurrence. Action 1 routes low-severity statements off the ingest path; nothing is deleted. Action 2 cuts that repeated output at its source.</p>
+</div>
+
+<div class="split">
+<div class="split-row"><span class="split-pct lossless">55%</span><span class="split-lab">via 10x's lossless levers: offload, compact, or tier down. Nothing deleted.</span></div>
+<div class="split-row"><span class="split-pct source">21%</span><span class="split-lab">by turning down the repeated output at its source. The change is yours to make; 10x measures it.</span></div>
+</div>
+</header>
+
+<h2>Action plan</h2>
+<article class="act">
+<div class="ahead"><span class="anum">1</span><h3>Route low-severity statements to the retrievable tier</h3><span class="impact">&minus;1.07 MB this window</span></div>
+<p class="anote">15 low-severity statements carry 1.07 MB this window. They keep landing in your own bucket, retrievable on demand; they stop landing on the ingest path. Nothing is deleted.</p>
+<div class="alabel">evidence, from your window</div>
+<pre class="face"><span class="fl"><i class="v">$</i>(yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;)<i class="tab">&#8677;</i>info<i class="tab">&#8677;</i>Traces<i class="tab">&#8677;</i>{&quot;resource&quot;: {&quot;service.instance.id&quot;: &quot;<i class="v">$</i>-<i class="v">$</i>-<i class="v">$</i>-b64e<i class="v">$</i>&quot;, &quot;service.name&quot;: &quot;otelcol-contrib&quot;, &quot;service.version&quot;: &quot;<i class="v">$</i>.<i class="v">$</i>.<i class="v">$</i>2&quot;}, &quot;otelcol.component.id&quot;: &quot;debug&quot;, &quot;otelcol.component.kind&quot;: &quot;exporter&quot;, &quot;otelcol.signal&quot;: &quot;traces&quot;, &quot;resource spans&quot;: <i class="v">$</i>, &quot;spans&quot;: <i class="v">$</i>}</span></pre><p class="evm">1.0K events &middot; 311 bytes each &middot; identifier <code>Gl3Gtr_SH5w</code></p>
+<pre class="face"><span class="fl"><i class="v">$</i>(yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;)<i class="tab">&#8677;</i>info<i class="tab">&#8677;</i>Metrics<i class="tab">&#8677;</i>{&quot;resource&quot;: {&quot;service.instance.id&quot;: &quot;<i class="v">$</i>-<i class="v">$</i>-<i class="v">$</i>-b64e<i class="v">$</i>&quot;, &quot;service.name&quot;: &quot;otelcol-contrib&quot;, &quot;service.version&quot;: &quot;<i class="v">$</i>.<i class="v">$</i>.<i class="v">$</i>2&quot;}, &quot;otelcol.component.id&quot;: &quot;debug&quot;, &quot;otelcol.component.kind&quot;: &quot;exporter&quot;, &quot;otelcol.signal&quot;: &quot;metrics&quot;, &quot;resource metrics&quot;: <i class="v">$</i>, &quot;metrics&quot;: <i class="v">$</i>, &quot;data points&quot;: <i class="v">$</i>}</span></pre><p class="evm">889 events &middot; 338 bytes each &middot; identifier <code>PuWB8kkVbfw</code></p>
+<pre class="face"><span class="fl">{&quot;level&quot;:<i class="v">$</i>,&quot;time&quot;:<i class="v">$</i>(+%s),&quot;pid&quot;:<i class="v">$</i>,&quot;hostname&quot;:&quot;<i class="v">$</i>&quot;,&quot;trace_id&quot;:&quot;<i class="v">$</i>&quot;,&quot;span_id&quot;:&quot;<i class="v">$</i>&quot;,&quot;trace_flags&quot;:&quot;<i class="v">$</i>&quot;,&quot;http.request.method&quot;:&quot;GET&quot;,&quot;url.path&quot;:&quot;//api//products//<i class="v">$</i>&quot;,&quot;http.response.status_code&quot;:<i class="v">$</i>,&quot;msg&quot;:&quot;API request completed&quot;}</span></pre><p class="evm">387 events &middot; 289 bytes each &middot; identifier <code>INl44sUgFeY</code></p>
+<p class="evm">and 12 more statements in this class</p>
+<div class="alabel">the change</div>
+<pre class="cmd"># log10x-caps.csv — bytes a pattern may spend per 240s regulator window, keyed by container; log10x-actions.csv — the action a container&#39;s excess takes.
+# A tier_down cap is the largest pattern the container keeps, so the statements above exceed it and no other does.
+# the engine acts per container: every pattern over the cap in a routed container takes the action, at the share the severity floors leave; 4 planned statements carried no container and are not in these rows</pre>
+<div class="alabel">apply</div>
+<pre class="cmd rb"># no verified commands for this stack (datadog / fluent-bit / k8s) in this version; run log10x_advise_install</pre>
+<div class="alabel">undo</div>
+<pre class="cmd rb"># no verified commands for this stack (datadog / fluent-bit / k8s) in this version; run log10x_advise_install</pre>
+</article>
+<article class="act">
+<div class="ahead"><span class="anum">2</span><h3>Cut the repeated output driving 21% of this window</h3><span class="impact">operational</span></div>
+<p class="anote">7 statements emit the same output on every occurrence. Turning it down at the source (log level or exporter verbosity) removes the volume before it is ever ingested; the re-run measures it.</p>
+<div class="alabel">evidence, from your window</div>
+<pre class="face"><span class="fl">2026-10-14T12:54:22.346Z<i class="tab">&#8677;</i>info<i class="tab">&#8677;</i>Logs<i class="tab">&#8677;</i>{&quot;resource&quot;: {&quot;service.instance.id&quot;: &quot;fede5d45-b052-4f38-b64e-081185529085&quot;, &quot;service.name&quot;: &quot;otelcol-contrib&quot;, &quot;service.version&quot;: &quot;0.159.0&quot;}, &quot;otelcol.component.id&quot;: &quot;debug&quot;, &quot;otelcol.component.kind&quot;: &quot;exporter&quot;, &quot;otelcol.signal&quot;: &quot;logs&quot;, &quot;resource logs&quot;: 1, &quot;log records&quot;: 2}</span></pre><p class="evm">822 events &middot; 312 bytes each &middot; identifier <code>KG8Fq0QFuoY</code></p>
+<pre class="face"><span class="fl"><i class="v">$</i>(yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;)<i class="tab">&#8677;</i>info<i class="tab">&#8677;</i>Logs<i class="tab">&#8677;</i>{&quot;resource&quot;: {&quot;service.instance.id&quot;: &quot;<i class="v">$</i>-<i class="v">$</i>-<i class="v">$</i>-b64e<i class="v">$</i>&quot;, &quot;service.name&quot;: &quot;otelcol-contrib&quot;, &quot;service.version&quot;: &quot;<i class="v">$</i>.<i class="v">$</i>.<i class="v">$</i>2&quot;}, &quot;otelcol.component.id&quot;: &quot;debug&quot;, &quot;otelcol.component.kind&quot;: &quot;exporter&quot;, &quot;otelcol.signal&quot;: &quot;logs&quot;, &quot;resource logs&quot;: <i class="v">$</i>, &quot;log records&quot;: <i class="v">$</i>1}</span></pre><p class="evm">473 events &middot; 312 bytes each &middot; identifier <code>KG8Fq0QFuoY</code></p>
+<p class="evm">and 5 more statements in this class</p>
+</article>
+
+<h2>Expected result</h2>
+<div class="after">
+<div><b>1.93 MB</b><span>this window</span></div>
+<div class="goal"><b>0.865 MB</b><span>after the volume actions, same events</span></div>
+<div><b>0</b><span>events deleted</span></div>
+</div>
+<p class="sub">Apply, let one window pass, and run the analysis again: this report regenerates with a before and after column. That re-run, not this estimate, is the number to take to your team.</p>
+
+<h2>What was verified on this run</h2>
+<div class="checks">
+<div class="chk ok"><i>&#10003;</i><div>engine ran locally <span>&middot; docker:log10x/edge-10x:1.1.140</span></div></div>
+<div class="chk ok"><i>&#10003;</i><div>7.1K events resolved to 231 statements</div></div>
+<div class="chk ok"><i>&#10003;</i><div>multi-line statements welded <span>&middot; 130 statements arrive whole</span></div></div>
+<div class="chk ok"><i>&#10003;</i><div>severity attribution sufficient <span>&middot; 90% of statements</span></div></div>
+<div class="chk skip"><i>&ndash;</i><div>retrievable tier delivery <span>&middot; not configured in this window &middot; action 1 enables it</span></div></div>
+<div class="chk skip"><i>&ndash;</i><div>environment doctor <span>&middot; run log10x_doctor for engine + delivery checks &middot; not run on this pass</span></div></div>
+</div>
+<div class="kept">
+<p><b>What this plan does not touch:</b> every ERROR and WARN event (294 this window) stays on the ingest path in full. Statements routed by action 1 land in your own bucket and come back on demand with their statement identifier as the query key.</p>
+</div>
+
+<footer>
+<p><b>How to read this.</b> A statement is one line of code in one of your services, recognised across every line it produced. <i class="v" style="font-style:normal;color:var(--val);background:var(--val-bg);border-radius:2px;padding:0 2.5px;font-weight:600">$</i> marks a value that varied and was removed. The identifier on each statement is stable across restarts and deployments and works as a query key.</p>
+<p><b>Scope.</b> This log sample, analysed in place; no log data left the machine. Figures are this window's arithmetic, not an extrapolation. The re-run after applying is the authoritative measurement.</p>
+<p>template v1 &middot; generated 2026-10-14T13:47:21.004Z &middot; log10x-mcp 1.30.49 &middot; docker:log10x/edge-10x:1.1.140</p>
+</footer>
+</div>
+</body>
+</html>

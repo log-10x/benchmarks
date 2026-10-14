@@ -169,3 +169,38 @@ rate/module.yaml all equal).
 - The rig is complete and reproducible: `RIG_CAP=246736 ./run.sh up && ./run.sh
   wait-healthy && SEED=20261014 ./run.sh sched 900 240 480` restarts the scheduled run
   from the images already on disk once the host has room above the floor.
+
+## Correction 1: fleet default from the plan's kept set (13:44 to 13:50 UTC)
+- Ruling: the largest statement the PLAN KEEPS, fleet-wide, times 2.
+- Planner: log10x-mcp 1.30.49 from npm (= origin/main version; tarball sha256 a0548c7c...),
+  deps linked from the cached 1.30.21 npx install (same dependency list except
+  @aws-sdk/client-s3, which the planner's import graph does not reach). Engine pinned by
+  `LOG10X_TENX_MODE=docker LOG10X_RUNTIME_IMAGE=log10x/edge-10x:1.1.140`; the host's
+  /usr/local/bin/tenx is 1.1.45 and auto-detect would have picked it. No licence mint
+  (docker mode uses the image's built-in licence).
+- Input: the quiet capture (8,347 raw lines, 3.5 MB, 12:54:22 to 13:16:29). Call:
+  `poc_from_local {source: file, path, siem: datadog, forwarder: fluent-bit,
+  target_percent_reduction: 70}`.
+- Output: `met: false`, keep-everything lever tier_down, ceiling 47.5% of the Standard
+  index volume; planned (tier_down) KG8Fq0QFuoY, Gl3Gtr_SH5w, PuWB8kkVbfw (otel-collector
+  debug exporter Logs/Traces/Metrics) and INl44sUgFeY (frontend API request completed);
+  55 kept. Hashes match the Receiver's tenx_hash one for one.
+- Every pattern came back `(unattributed)`: the plan's `engine_policy` caps.csv and
+  actions.csv are header-only (`unattributed_planned: 4`) even though the file sniffed as
+  wrapped JSON and carries `container_name`.
+- Largest kept cell: cart YZplfQ4a1Xw (`GetCartAsync called with userId`) 24,431 bytes in
+  one window; cap 48,862. Sliding 240 s maximum of any kept pair over the quiet run:
+  26,412 bytes, so no kept pattern would have crossed the cap in any window phase.
+
+## Swap and disk (13:47 UTC on)
+- Swap on this Mac lives in 1 GB files on /System/Volumes/VM, which shares the APFS
+  container with /. At 13:47 swap was 7.5 GB used of 8 GB; at 13:51, 7.9 GB of 9 GB
+  (a fifth swap file added); the Docker VM process held 6.2 GB resident with the demo
+  down. The guard now logs swap use and the VM volume size with every reading.
+- Removed the eight anonymous volumes my demo runs left (132 MB); named volumes untouched.
+
+## Correction 2: rerun (13:52 UTC on)
+- `run-scheduled.sh` with RIG_CAP=48862, seed 20261014, interval 600 s, hold 240 to 480 s,
+  stop after 4 completed activations plus one window or 75 minutes. Kafka missed its
+  health window again (first `compose up` failed, the driver waited for kafka healthy and
+  re-ran it); demo healthy 14:01:54; 5-minute settle before the scheduler.
