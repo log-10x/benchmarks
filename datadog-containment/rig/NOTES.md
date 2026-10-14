@@ -157,3 +157,15 @@ rate/module.yaml all equal).
   for kafka healthy, runs `compose up -d` again, and refuses to start the scheduler while
   any container is Created, Exited, unhealthy or starting. In run 1 kafka was healthy
   within a minute; the difference is host load, not the rig.
+
+## Second disk stop (13:34 to 13:36 UTC)
+- Scheduler started 13:29:55 (seed 20261014; first planned activation cartFailure 100%
+  for 415 s inside the first 15-minute interval). 13:34:09 the guard read 3489 MB free
+  (6612 MB five minutes earlier), 13:35:09 the confirmation read 3478 MB: `run.sh down`
+  ran again. No flag had fired yet, so the scheduled run holds no incident. Free space on
+  this Mac moved by 3 GB in five minutes twice in 20 minutes, both times while the rig's
+  own files grew by under 5 MB and Docker's disk stayed flat; the writer is another chat's
+  benchmark under /Users/talweiss/git/l1x-co/wt-bench-floor and its session scratchpads.
+- The rig is complete and reproducible: `RIG_CAP=246736 ./run.sh up && ./run.sh
+  wait-healthy && SEED=20261014 ./run.sh sched 900 240 480` restarts the scheduled run
+  from the images already on disk once the host has room above the floor.

@@ -1,0 +1,24 @@
+%{
+  active: [],
+  running: false,
+  config: %{
+    flags: %{
+      "cartFailure" => ["100%"],
+      "emailMemoryLeak" => ["1000x"],
+      "kafkaQueueProblems" => ["on"],
+      "loadGeneratorFloodHomepage" => ["on"],
+      "paymentFailure" => ["100%"],
+      "recommendationCacheFailure" => ["on"]
+    },
+    seed: 20261014,
+    interval_ms: 900000,
+    concurrency: 1,
+    min_duration_ms: 240000,
+    max_duration_ms: 480000
+  },
+  history: [],
+  interval_count: 1,
+  next_up: [],
+  seed_used: 20261014,
+  next_trigger_at: nil
+}

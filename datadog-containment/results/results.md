@@ -15,7 +15,7 @@
   severity floors all 0, `rateReceiverDefaultAction offload` (new option, see the patch),
   `rateReceiverContainerField container_name`, `symbolMessageHashField tenx_hash`,
   `outputOffload=true`. The 4-minute regulator window is the shipped default.
-- The flagd-ui scheduler (demo 3.1.0) drove the incidents: seed SEED_PLACEHOLDER, interval
+- The flagd-ui scheduler (demo 3.1.0) drove the incidents: seed 20261014, interval
   900 s, hold 240 to 480 s, one flag at a time, flags kafkaQueueProblems (on),
   cartFailure (100%), paymentFailure (100%), recommendationCacheFailure (on),
   loadGeneratorFloodHomepage (on), emailMemoryLeak (1000x).
@@ -31,8 +31,8 @@
 | 13:19:48 | Receiver restarted with the fleet default (`rateReceiverAbsoluteCap 246736`); demo restarted, no images pulled |
 | 13:21:33 | first `compose up` exits 1: kafka missed its health window on the loaded host (its JVM took 3 minutes to start); six Kafka-dependent containers left in Created |
 | 13:25:34 | kafka healthy; second `compose up` starts the rest (13:26:15), all 25 containers healthy |
-| SCHED_START_PLACEHOLDER | scheduler started: seed 20261014, interval 900 s, hold 240 to 480 s, one flag at a time |
-| RUN_END_PLACEHOLDER | run ends |
+| 13:29:55 | scheduler started: seed 20261014, interval 900 s, hold 240 to 480 s, one flag at a time |
+| 13:34:09 | disk guard reads 3489 MB free (6612 MB at 13:29:09); 13:35:09 confirmation reads 3478 MB: scheduler stopped (13:35:58), logs snapshotted, `docker compose down`. No flag had fired yet (the first planned activation was cartFailure at 100% for 415 s inside the first 15-minute interval). |
 
 ## How the numbers are measured
 
@@ -94,7 +94,55 @@ Largest cell per container (bytes in one 4-minute window):
 
 The cap is set by otel-collector: with no observability layer the collector's debug exporter echoes every received batch to stdout as one `info Logs {...}` or `info Traces {...}` line, about 240 lines of 500 bytes per window. frontend's pino JSON request log is next at about 94 KB per window.
 
-INCIDENT_TABLES_PLACEHOLDER
+## Scheduled run: outcome
+
+The scheduled run lasted 5 minutes 14 seconds (13:29:55 to 13:35:09 UTC) and ended on the
+disk floor before the scheduler's first activation fired, so there is no incident to
+measure: no first noisy minute, no first held line, no events held during a flag. What the
+run does show is the Receiver running in cap mode on the live demo for 15 minutes
+(13:19:48 to 13:35:09) with the fleet default: the false-hold table below covers the
+5-minute scheduled phase and the delivery table covers both runs. The incident table is
+empty. The rig restarts the scheduled run from the images already on disk with
+`RIG_CAP=246736 ./run.sh up && ./run.sh wait-healthy && SEED=20261014 ./run.sh sched 900 240 480`
+once the host has room above the floor; the seed makes the flag sequence repeatable.
+
+## Incidents (none fired before the stop)
+
+| # | flag | variant | on (UTC) | off (UTC) | container | first noisy minute | first held | noisy to held (min) | events held | events kept | bytes never sent | patterns held |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+
+### Held patterns per incident (samples)
+
+## False holds (offload while no flag was active)
+
+None.
+
+## Delivery check (raw records received by Fluent Bit vs records returned by the Receiver)
+
+| container | raw lines | returned records | lines covered | covered % |
+|---|---|---|---|---|
+| accounting | 237 | 131 | 233 | 98.31 |
+| ad | 241 | 162 | 239 | 99.17 |
+| astronomy-db | 590 | 517 | 589 | 99.83 |
+| cart | 1638 | 817 | 1634 | 99.76 |
+| currency | 1 | 1 | 1 | 100.0 |
+| email | 214 | 116 | 213 | 99.53 |
+| flagd | 36 | 35 | 35 | 97.22 |
+| flagd-ui | 9 | 8 | 8 | 88.89 |
+| fraud-detection | 98 | 90 | 96 | 97.96 |
+| frontend | 1489 | 1477 | 1487 | 99.87 |
+| frontend-proxy | 269 | 254 | 268 | 99.63 |
+| image-provider | 82 | 81 | 81 | 98.78 |
+| kafka | 5260 | 2859 | 5257 | 99.94 |
+| otel-collector | 9901 | 7003 | 9895 | 99.94 |
+| payment | 172 | 168 | 170 | 98.84 |
+| product-catalog | 19 | 18 | 18 | 94.74 |
+| quote | 85 | 82 | 82 | 96.47 |
+| recommendation | 143 | 140 | 140 | 97.9 |
+| shipping | 272 | 83 | 83 | 30.51 |
+| telemetry-docs | 456 | 453 | 453 | 99.34 |
+| valkey-cart | 39 | 38 | 38 | 97.44 |
+
 
 ## Deviations from the brief
 

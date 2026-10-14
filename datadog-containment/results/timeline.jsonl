@@ -11,3 +11,8 @@
 {"event":"receiver_ready","at":"2026-10-14T13:19:48Z","epoch":1791983988,"cap":246736}
 {"event":"restart_chain_stopped","at":"2026-10-14T13:23:11Z","epoch":1791984191,"reason":"kafka unhealthy at compose up; six containers left Created"}
 {"event":"demo_healthy","at":"2026-10-14T13:26:43Z","epoch":1791984403}
+{"event":"scheduler_start","at":"2026-10-14T13:29:55Z","epoch":1791984595,"seed":20261014,"interval_s":900,"min_hold_s":240,"max_hold_s":480}
+{"event":"disk_stop","at":"2026-10-14T13:35:09Z","epoch":1791984909,"free_mb":3478}
+{"event":"scheduler_stop","at":"2026-10-14T13:35:58Z","epoch":1791984958}
+{"event":"run_end","at":"2026-10-14T13:36:49Z","epoch":1791985009}
+{"event":"demo_down","at":"2026-10-14T13:40:06Z","epoch":1791985206}

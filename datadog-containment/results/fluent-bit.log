@@ -1,0 +1,38 @@
+2026-10-14T13:19:42.238623978Z Fluent Bit v4.2.8
+2026-10-14T13:19:42.244389147Z * Copyright (C) 2015-2026 The Fluent Bit Authors
+2026-10-14T13:19:42.244416339Z * Fluent Bit is a CNCF graduated project under the Fluent organization
+2026-10-14T13:19:42.244421546Z * https://fluentbit.io
+2026-10-14T13:19:42.244425414Z 
+2026-10-14T13:19:42.244428922Z ______ _                  _    ______ _ _             ___   _____ 
+2026-10-14T13:19:42.244432599Z |  ___| |                | |   | ___ (_) |           /   | / __  \
+2026-10-14T13:19:42.244436357Z | |_  | |_   _  ___ _ __ | |_  | |_/ /_| |_  __   __/ /| | `' / /'
+2026-10-14T13:19:42.244448778Z |  _| | | | | |/ _ \ '_ \| __| | ___ \ | __| \ \ / / /_| |   / /  
+2026-10-14T13:19:42.244452770Z | |   | | |_| |  __/ | | | |_  | |_/ / | |_   \ V /\___  |_./ /___
+2026-10-14T13:19:42.244457457Z \_|   |_|\__,_|\___|_| |_|\__| \____/|_|\__|   \_/     |_(_)_____/
+2026-10-14T13:19:42.244461428Z                                                                   
+2026-10-14T13:19:42.244464876Z              Fluent Bit v4.2 – Direct Routes Ahead
+2026-10-14T13:19:42.244469427Z          Celebrating 10 Years of Open, Fluent Innovation!
+2026-10-14T13:19:42.244472941Z 
+2026-10-14T13:19:42.250731399Z [2026/10/14 13:19:42.247078048] [ info] [fluent bit] version=4.2.8, commit=419540c428, pid=1
+2026-10-14T13:19:42.250757661Z [2026/10/14 13:19:42.247922698] [ info] [storage] ver=1.5.4, type=memory, sync=normal, checksum=off, max_chunks_up=128
+2026-10-14T13:19:42.250762776Z [2026/10/14 13:19:42.247931659] [ info] [simd    ] SSE2
+2026-10-14T13:19:42.250766286Z [2026/10/14 13:19:42.247935710] [ info] [cmetrics] version=1.0.6
+2026-10-14T13:19:42.250769505Z [2026/10/14 13:19:42.247939616] [ info] [ctraces ] version=0.6.6
+2026-10-14T13:19:42.250772725Z [2026/10/14 13:19:42.248012188] [ info] [input:forward:forward.0] initializing
+2026-10-14T13:19:42.250776042Z [2026/10/14 13:19:42.248019224] [ info] [input:forward:forward.0] storage_strategy='memory' (memory only)
+2026-10-14T13:19:42.250779397Z [2026/10/14 13:19:42.248172866] [ info] [input:forward:forward.0] listening on 0.0.0.0:24224
+2026-10-14T13:19:42.250782902Z [2026/10/14 13:19:42.248712755] [ info] [input:forward:forward.1] initializing
+2026-10-14T13:19:42.250786270Z [2026/10/14 13:19:42.248725547] [ info] [input:forward:forward.1] storage_strategy='memory' (memory only)
+2026-10-14T13:19:42.250789595Z [2026/10/14 13:19:42.248768685] [ info] [input:forward:forward.1] listening on 0.0.0.0:24225
+2026-10-14T13:19:42.250792783Z [2026/10/14 13:19:42.250370695] [ info] [input:emitter:emitter_for_rewrite_tag.2] initializing
+2026-10-14T13:19:42.250997541Z [2026/10/14 13:19:42.250556081] [ info] [input:emitter:emitter_for_rewrite_tag.2] storage_strategy='memory' (memory only)
+2026-10-14T13:19:42.255820056Z [2026/10/14 13:19:42.255685696] [ info] [output:file:file.0] worker #0 started
+2026-10-14T13:19:42.255843957Z [2026/10/14 13:19:42.255685378] [ info] [output:forward:forward.1] worker #0 started
+2026-10-14T13:19:42.255873611Z [2026/10/14 13:19:42.255749917] [ info] [output:file:file.2] worker #0 started
+2026-10-14T13:19:42.257308156Z [2026/10/14 13:19:42.256379740] [ info] [output:file:file.3] worker #0 started
+2026-10-14T13:19:42.263305193Z [2026/10/14 13:19:42.262641917] [ info] [http_server] listen iface=0.0.0.0 tcp_port=2020
+2026-10-14T13:19:42.263325596Z [2026/10/14 13:19:42.262685460] [ info] [sp] stream processor started
+2026-10-14T13:19:42.263329780Z [2026/10/14 13:19:42.262773257] [ info] [engine] Shutdown Grace Period=10, Shutdown Input Grace Period=5
+2026-10-14T13:20:05.197929854Z [2026/10/14 13:20:05.197474661] [error] [output:forward:forward.1] no upstream connections available
+2026-10-14T13:20:05.201242191Z [2026/10/14 13:20:05.198339119] [ warn] [engine] failed to flush chunk '1-1791984004.971039070.flb', retry in 11 seconds: task_id=1, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-14T13:20:16.255001363Z [2026/10/14 13:20:16.205949475] [ info] [engine] flush chunk '1-1791984004.971039070.flb' succeeded at retry 1: task_id=1, input=forward.0 > output=forward.1 (out_id=1)
