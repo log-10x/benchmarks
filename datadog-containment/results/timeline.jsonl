@@ -9,3 +9,5 @@
 {"event": "quiet_end", "at": "2026-10-14T13:16:29Z", "epoch": 1791983789, "note": "set to the disk_stop time; the waiter wrote 13:18:22 after the demo was down"}
 {"event":"restart","at":"2026-10-14T13:19:40Z","epoch":1791983980,"cap":246736}
 {"event":"receiver_ready","at":"2026-10-14T13:19:48Z","epoch":1791983988,"cap":246736}
+{"event":"restart_chain_stopped","at":"2026-10-14T13:23:11Z","epoch":1791984191,"reason":"kafka unhealthy at compose up; six containers left Created"}
+{"event":"demo_healthy","at":"2026-10-14T13:26:43Z","epoch":1791984403}

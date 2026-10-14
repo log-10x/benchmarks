@@ -20,6 +20,20 @@
   cartFailure (100%), paymentFailure (100%), recommendationCacheFailure (on),
   loadGeneratorFloodHomepage (on), emailMemoryLeak (1000x).
 
+## Timeline (UTC, 2026-10-14)
+
+| Time | Event |
+|---|---|
+| 12:50:40 | Fluent Bit and Receiver up (cap 0), demo containers starting |
+| 12:52:49 | all 23 demo containers healthy |
+| 12:54:22 | quiet run starts (scheduler off) |
+| 13:16:29 | disk guard: free space confirmed under 4.5 GB (4400 MB); scheduler stopped, logs snapshotted, `docker compose down` (finished 13:17:27). Quiet run ends here: 5 full 4-minute windows. The churn was another benchmark on the same Mac writing a 257 MB file and several session scratchpads; Docker's disk stayed flat and the rig's own files were 9 MB. |
+| 13:19:48 | Receiver restarted with the fleet default (`rateReceiverAbsoluteCap 246736`); demo restarted, no images pulled |
+| 13:21:33 | first `compose up` exits 1: kafka missed its health window on the loaded host (its JVM took 3 minutes to start); six Kafka-dependent containers left in Created |
+| 13:25:34 | kafka healthy; second `compose up` starts the rest (13:26:15), all 25 containers healthy |
+| SCHED_START_PLACEHOLDER | scheduler started: seed 20261014, interval 900 s, hold 240 to 480 s, one flag at a time |
+| RUN_END_PLACEHOLDER | run ends |
+
 ## How the numbers are measured
 
 - A pattern is the Receiver's `tenx_hash` (the hash of `message_pattern`); a container is
