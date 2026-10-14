@@ -1,0 +1,3742 @@
+{
+"events": 157228,
+"mixed_services": [
+"fluentd-10x",
+"opensearch",
+"recommendation",
+"valkey-cart"
+],
+"services": {
+"fluentd-10x": {
+"events": 1429,
+"patterns": 110
+},
+"opensearch": {
+"events": 516,
+"patterns": 199
+},
+"recommendation": {
+"events": 3432,
+"patterns": 3
+},
+"valkey-cart": {
+"events": 607,
+"patterns": 12
+}
+},
+"families": {
+"fluentd-10x": {
+"frame:adding filter in": [
+"GTS749sEp24",
+"p6YZYTbP0jM"
+],
+"frame:adding match in": [
+"1fo0YclZWFc",
+"1ryN0PTplzc",
+"GOYdKNsRK_c",
+"VtbnTo91PoQ",
+"W5mUuUDwlM4",
+"_ab0Cot-DAY",
+"kcNFAZj5HSo"
+],
+"frame:adding match in KUBERNETES pattern": [
+"gX5ELsnYD44",
+"g_2T0FCHh2M"
+],
+"frame:adding source type": [
+"8O8bvydY1lI",
+"nfxVfnFYcEs",
+"rfaWOSOI-7M"
+],
+"frame:following tail of": [
+"Q-k8xDVMa8M",
+"Su7dCk30trM"
+],
+"frame:gem": [
+"0Cm3OytkNO0",
+"5oSk-Ijz2Dg",
+"8apgY3hsXwI",
+"9_oP7aIfbYU",
+"EbogMIRIoZw",
+"G9RrB0IebEc",
+"IgiFecdw5Po",
+"O-t_uinOLUs",
+"OElfX_TQW-w",
+"TFE1MF4Bso4",
+"diMhZejifGE",
+"n-zytRSJD-I",
+"tqjj_pLanlQ",
+"y7PUJ6hJSKE"
+]
+},
+"opensearch": {
+"frame:Cannot create type checker for function": [
+"9EAvxVL280E",
+"D5j1XgziEm0",
+"DJSaOL30GC0",
+"Klh5V-w2I4k",
+"KvoB8ekT9-M",
+"_jHeVZOvhYM",
+"bsRqexEHRRc",
+"dkmw8NKApO8",
+"jSCMdEvlQzQ",
+"l_iK6N0-www",
+"nZcJqSua6RA",
+"pdhKjkDUxKo",
+"s62jyx74II0"
+],
+"frame:Indexing": [
+"3pKYNYXgO5g",
+"PR6gYZGqDl8"
+],
+"frame:Loaded": [
+"03QhHHyejko",
+"1T9zMXZYPoI",
+"6RCK5VHh5t8",
+"8u9pu2Smi8k",
+"8y2ICXZABLM",
+"Ek6bPkpz8yY",
+"KPhT-0WBysQ",
+"MF04G9bqaDo",
+"Ri3CONbRMI8",
+"URsMGxMYtpg",
+"XEvjndkoBiA",
+"abnSaFfsiPE",
+"c_JFApWFpyA",
+"caHX5KfFFZc",
+"e8ejVbsaras",
+"kMaJm-AYfeI",
+"kTVEbHjv4a4",
+"lxZ87MKLWSc",
+"mhTWW5U7h8s",
+"n8p-8996lXA",
+"oD0YNSVKE3Q",
+"pG4cf0PlDCs",
+"sEPXCD_0TvM",
+"tehptGED5c8",
+"zM6_RVmNXdU"
+],
+"frame:Loaded scheduler extension": [
+"2kOUdQ0s5Aw",
+"KeZZp6j9f5c",
+"O8Za9D5T_TU",
+"W5vmBCOj5Qc",
+"hPCB3Lvm87U",
+"lP53I-XfRg8",
+"lsO7mVmZ83I"
+],
+"frame:loaded module": [
+"3aKwTfrFjVA",
+"6P9zb-kJIgc",
+"9NZZG2_3mFs",
+"9Zo54ymWCAo",
+"EWkKqw15Izs",
+"GZc_pstPSD0",
+"Hxk4fIPqaTw",
+"Liz27S6V80U",
+"PN8ROOFHqxY",
+"PvuCCMk0ZWk",
+"SHPIP5ob2co",
+"VwhWCY4pDD8",
+"WabJ6nCMMNw",
+"alE88eCsvzo",
+"gACXwTGwzT4",
+"jGvZXq8gqLg",
+"q0hh-aZXRjo",
+"siM1G4gdXSY",
+"suXe9g0wYWA",
+"v2MLzGRQ_Vg",
+"vyaEX_FEYVU",
+"wviFaSGoqb4"
+],
+"frame:loaded plugin": [
+"033kKwoW3UM",
+"2SY14Iv8FHk",
+"3nWEOgaAJ5c",
+"5eGYSbzpqXs",
+"BpIej5CEb7A",
+"FDLP-QZcNQA",
+"J6IL-UZWT1c",
+"LjvipjYS7Uk",
+"Ph77KvXoZ6k",
+"U4vq0syVxUg",
+"V3iuiUIfXXE",
+"YAKtGpALJZQ",
+"bw6grY-i-nE",
+"cIzrdfxuQzg",
+"ciPQ7vBUKV0",
+"fHD6A-nfmPw",
+"isA-kbCUWX8",
+"jL49kh8E-1Q",
+"jd-fSCi_Ub4",
+"k4hgmNYrgQQ",
+"lElU1BcxfeQ",
+"nJYlzA1rWVA",
+"shHfdDec-gU",
+"tZdQ-YHumns",
+"xS8qs5sDHX4",
+"zP60c0iMz-o"
+],
+"frame:onIndexModule index": [
+"KQZT1jFIdhM",
+"MqOGU-TAvLI",
+"dpklHOsTnww",
+"gnkVLDKSuu0",
+"hfRPObgOTlk"
+],
+"frame:sun misc Unsafe": [
+"0VzijcXel0k",
+"mUMtYt9p8rg"
+]
+},
+"recommendation": {},
+"valkey-cart": {}
+},
+"patterns": [
+{
+"container": "fluentd-10x",
+"hash": "048Qg0CfkTE",
+"pattern": "stats_cache_size_pod_api_updates_id_miss",
+"events": 1117,
+"moved": true,
+"head_events": 1117,
+"location": null,
+"families": [],
+"phrase": "0000 info 0 filter kube metadata stats namespace cache size 0 pod cache size",
+"phrase_words": 14,
+"matches": {}
+},
+{
+"container": "fluentd-10x",
+"hash": "0Cm1cRjecbI",
+"pattern": "template_8110eaee6084d36c",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "0Cm3OytkNO0",
+"pattern": "gem_fluent_plugin_systemd_version",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:gem"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "1O-yCZRqae4",
+"pattern": "template_409edcc11ca7abeb",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "1fo0YclZWFc",
+"pattern": "adding_match_in_OUTPUT_pattern_type_relabel",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:adding match in"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "1ryN0PTplzc",
+"pattern": "adding_match_in_pattern_type_relabel",
+"events": 4,
+"moved": false,
+"head_events": 4,
+"location": null,
+"families": [
+"frame:adding match in"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "1ysWkEL65Hc",
+"pattern": "template_a2a3771e27aed283",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "2lyVOQaPnc8",
+"pattern": "parsing_config_file_is_succeeded_path_fluentd_etc_fluent_conf",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "3PTdEOXx480",
+"pattern": "template_ab9b611b58cc4da8",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "3RJdPFjJMRg",
+"pattern": "template_57cc50c75a9168d8",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "3fYdPlEOZXE",
+"pattern": "template_1cc6278382ef2ea5",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "4vAo4i6syuc",
+"pattern": "Transforming_events_into_using_of_available_cores",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "51wmIj_ZSWk",
+"pattern": "template_f8b10ac537cd8276",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "5HmyC3noKHY",
+"pattern": "template_caa906336b30d329",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "5oSk-Ijz2Dg",
+"pattern": "gem_fluent_plugin_kubernetes_metadata_filter_version",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:gem"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "6I9L50nkVyI",
+"pattern": "HTTP_code_field_httpCode",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "7-7kvyiCDbk",
+"pattern": "template_f8bb44424bfd307b",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "8O8bvydY1lI",
+"pattern": "adding_source_type_unix",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:adding source type"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "8apgY3hsXwI",
+"pattern": "gem_fluent_plugin_json_in_version",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:gem"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "8mMcja8OSDQ",
+"pattern": "template_2b0b44e0efd1fc74",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "98_RFmomInY",
+"pattern": "Loading_from_data_templates_json_sample_output",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "9_oP7aIfbYU",
+"pattern": "gem_fluent_plugin_multi_format_parser_version",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:gem"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "9kwfiXtvlSc",
+"pattern": "template_f2911e22ce277e65",
+"events": 2,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "9llj42VXwq0",
+"pattern": "template_4b1f845fbee908ea",
+"events": 8,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "Bf5RTZT-D7c",
+"pattern": "starting_pid_ruby",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "Cp2OS1JFLcs",
+"pattern": "Reading_events_from_Fluentd_via_stdin",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "CpO-rS4PfKw",
+"pattern": "template_a3e4fc05718d7a54",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "D19hfe6CIO4",
+"pattern": "template_403593a85c7dbec0",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "ECcE1aiYqFQ",
+"pattern": "template_bed53fa96e084343",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "EbogMIRIoZw",
+"pattern": "gem_fluent_plugin_concat_version",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:gem"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "EsZgKp0HqfA",
+"pattern": "init_supervisor_logger_path_nil_rotate_age_size",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "FDwat9pgcZI",
+"pattern": "template_c3d0b6650e018a9d",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "FLhaHEu91Kk",
+"pattern": "template_f904612c8439cc68",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "FNQFPMZxxbY",
+"pattern": "Publishing_metrics_to_the_backend",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "F_2kr5kfdWs",
+"pattern": "template_c0381df9a2a4fb3d",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "Fuvf1OQ6xB4",
+"pattern": "template_dfdc7ffa33f0c11d",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "G9RrB0IebEc",
+"pattern": "gem_fluentd_version",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:gem"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "GBI0Au-evM4",
+"pattern": "template_104e697f4c678be5",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "GOYdKNsRK_c",
+"pattern": "adding_match_in_pattern_type_stdout",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:adding match in"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "GTS749sEp24",
+"pattern": "adding_filter_in_DISPATCH_pattern_type_prometheus",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:adding filter in"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "HaLscGgwjBs",
+"pattern": "template_2970a6914ea341aa",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "Hy2-q9A1TmM",
+"pattern": "init_logger_path_nil_rotate_age_size",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "IgiFecdw5Po",
+"pattern": "gem_fluent_plugin_prometheus_version",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:gem"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "JSJ-1SK6Gnw",
+"pattern": "template_5e94b7c3bb6d3dbe",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "KoIAOh6Ghgw",
+"pattern": "template_d530b0bdf426aad9",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "KqwipwJMlOo",
+"pattern": "ks_container_context_using",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "Ku36etqHeyg",
+"pattern": "field",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "LfYtibxfc38",
+"pattern": "Consolidating_multi_line_events_into_logical_groups",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "Lfa_WMzCpyQ",
+"pattern": "template_b9938307ea0f907a",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "M1MYIHEW8Uk",
+"pattern": "lookup_field_from_file_http_csv",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "MWAYXhuzg5g",
+"pattern": "engine_connected_to",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "MvAEHrDg2P0",
+"pattern": "Loading_symbol_libraries_from",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "NIpVoKMCy08",
+"pattern": "template_c7f5e80353490fce",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "O-t_uinOLUs",
+"pattern": "gem_fluent_plugin_rewrite_tag_filter_version",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:gem"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "OElfX_TQW-w",
+"pattern": "gem_fluent_plugin_grok_parser_version",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:gem"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "OHcWD-cu1V0",
+"pattern": "template_32499053e3713529",
+"events": 3,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "Oa4h0DaZFfg",
+"pattern": "template_dc7881e252aec1a2",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "PSPmuvO8GcI",
+"pattern": "template_d98417c5ce946748",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "PXynxphHR-4",
+"pattern": "Logging_to",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "Q-k8xDVMa8M",
+"pattern": "following_tail_of_var_log_containers",
+"events": 2,
+"moved": false,
+"head_events": 2,
+"location": null,
+"families": [
+"frame:following tail of"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "Q98D3Ta-yT0",
+"pattern": "template_ce776c9f11a72c23",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "Qra6wCgT_-4",
+"pattern": "template_d20d40bc85ca59f6",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "QsTwQsyyvNI",
+"pattern": "template_bc946f769577793f",
+"events": 5,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "RMUJXKxZwhQ",
+"pattern": "template_48180d0b4c1410c3",
+"events": 7,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "Su7dCk30trM",
+"pattern": "following_tail_of",
+"events": 47,
+"moved": true,
+"head_events": 47,
+"location": null,
+"families": [
+"frame:following tail of"
+],
+"phrase": "logs following tail of var log",
+"phrase_words": 6,
+"matches": {
+"Q-k8xDVMa8M": 2
+}
+},
+{
+"container": "fluentd-10x",
+"hash": "TFE1MF4Bso4",
+"pattern": "gem_fluent_plugin_parser_cri_version",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:gem"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "U7fDGcEvcCI",
+"pattern": "template_2fc5c4bb3bacc9b4",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "UNWBFSNqPhM",
+"pattern": "fluentd_worker_is_now_running",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "VSXBiiM4sa0",
+"pattern": "using_configuration_file_ROOT",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "VjPyPK9mg9U",
+"pattern": "listening_fluent_socket_on",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "VtbnTo91PoQ",
+"pattern": "adding_match_in_FINAL_OUTPUT_pattern_type_null",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:adding match in"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "W2ATafk5WjQ",
+"pattern": "\u2139_with_severity_field_level",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "W5mUuUDwlM4",
+"pattern": "adding_match_in_DISPATCH_pattern_type_relabel",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:adding match in"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "WBIXHGljO7Q",
+"pattern": "template_18500fd5dce381ce",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "WUxXi_SFZ6s",
+"pattern": "template_fc787b0a000ef394",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "WdFfBbfE22s",
+"pattern": "detected_rotation_of_waiting_seconds",
+"events": 3,
+"moved": false,
+"head_events": 3,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "X896QBjL5qk",
+"pattern": "template_27e19ef0e9354748",
+"events": 2,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "XHja8JhzzKA",
+"pattern": "template_023f1e5c4d877ee5",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "_ZyYZ9nECZg",
+"pattern": "Writing_field_encoded_encode_Fluentd",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "_ab0Cot-DAY",
+"pattern": "adding_match_in_pattern_type_null",
+"events": 3,
+"moved": false,
+"head_events": 3,
+"location": null,
+"families": [
+"frame:adding match in"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "_jwe5pOcRRs",
+"pattern": "template_d5e5afafb533f63e",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "boQovR9Lh_k",
+"pattern": "template_a73097eb6c8b9625",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "cyOCs95S-hc",
+"pattern": "template_5cd2a274f0f6482d",
+"events": 2,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "diMhZejifGE",
+"pattern": "gem_fluent_plugin_detect_exceptions_version",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:gem"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "dzZSX3dNUDw",
+"pattern": "template_7393c947031ccc28",
+"events": 2,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "e0SBlJTIgF0",
+"pattern": "ROOT",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "fO_TplF9Ip8",
+"pattern": "spawn_command_to_main_cmdline_usr_local_bin_ruby_c_fluentd_etc_fluent_conf_p_plugins_gemfile_Gemfile_r_under_supervisor",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "gX5ELsnYD44",
+"pattern": "adding_match_in_KUBERNETES_pattern_type_relabel",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:adding match in KUBERNETES pattern"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "g_2T0FCHh2M",
+"pattern": "adding_match_in_KUBERNETES_pattern_kubernetes_var_log_containers_fluentd_type_relabel",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:adding match in KUBERNETES pattern"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "h1BnR8ypv2Q",
+"pattern": "template_1d4b5136f316144e",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "ipBHcf7L_FU",
+"pattern": "template_8d9bcda244ecb07a",
+"events": 7,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "jkounDZiPZw",
+"pattern": "template_50d4ebde3a001092",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "kE7bh3qLd-A",
+"pattern": "template_787508c6ea01f316",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "kbZhqBvdz5A",
+"pattern": "template_92635e4a7cd791a3",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "kcNFAZj5HSo",
+"pattern": "adding_match_in_pattern_type_exec_filter",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:adding match in"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "lEPq3j6iV8c",
+"pattern": "template_00e8185f53cd67e0",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "n-zytRSJD-I",
+"pattern": "gem_fluent_plugin_record_modifier_version",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:gem"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "n80iYCJAe7c",
+"pattern": "The_environment_variable_is_not_set_to_the_node_name_which_can_affect_API_server_and_watch_efficiency",
+"events": 2,
+"moved": false,
+"head_events": 2,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "nfxVfnFYcEs",
+"pattern": "adding_source_type_prometheus",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:adding source type"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "nz_YVT8Jbos",
+"pattern": "starting_fluentd_worker_pid_ppid",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "oOLR4Oqu9dM",
+"pattern": "template_c43824cc8166a18f",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "p6YZYTbP0jM",
+"pattern": "adding_filter_in_KUBERNETES_pattern_kubernetes_type_metadata",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:adding filter in"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "rLZinwd5EKY",
+"pattern": "template_d28b8d916787a6c7",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "rfaWOSOI-7M",
+"pattern": "adding_source_type_tail",
+"events": 2,
+"moved": false,
+"head_events": 2,
+"location": null,
+"families": [
+"frame:adding source type"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "syGRhDwffNE",
+"pattern": "template_514eee31087a1f64",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "tfUhMCrLQUg",
+"pattern": "template_bc7601c7a1391ff8",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "tqjj_pLanlQ",
+"pattern": "gem_fluent_plugin_dedot_filter_version",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:gem"
+]
+},
+{
+"container": "fluentd-10x",
+"hash": "u0gmFiKV60Y",
+"pattern": "template_b25e5b78fcd36e28",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "fluentd-10x",
+"hash": "xll0jY-tlX0",
+"pattern": "stats_cache_size_pod_api_updates_id_miss_host_namespace",
+"events": 119,
+"moved": true,
+"head_events": 119,
+"location": null,
+"families": [],
+"phrase": "0000 info 0 filter kube metadata stats namespace cache size 4 pod cache size 32 pod cache api updates 41 id cache miss 41 pod cache host updates 32 namespace cache host updates 4",
+"phrase_words": 34,
+"matches": {}
+},
+{
+"container": "fluentd-10x",
+"hash": "y7PUJ6hJSKE",
+"pattern": "gem_fluent_plugin_elasticsearch_version",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:gem"
+]
+},
+{
+"container": "opensearch",
+"hash": "-4nIKJmdp0M",
+"pattern": "All_nodes_with_known_version",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "-DtusiUtbW8",
+"pattern": "ML_configuration_initialized_successfully",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "-UIOoUOhxCM",
+"pattern": "Tasks_batched_key_opensearch_cluster_coordination_JoinHelper_count_and_sample_tasks_elected_as_manager_nodes_joined_term_delta",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "033kKwoW3UM",
+"pattern": "loaded_plugin_opensearch_custom_codecs",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "opensearch",
+"hash": "03QhHHyejko",
+"pattern": "Loaded_others_web_logtype_json_log_type",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded"
+]
+},
+{
+"container": "opensearch",
+"hash": "0VzijcXel0k",
+"pattern": "sun_misc_Unsafe_objectFieldOffset_will_be_removed_in_a_future_release",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": [
+"frame:sun misc Unsafe"
+]
+},
+{
+"container": "opensearch",
+"hash": "1T9zMXZYPoI",
+"pattern": "Loaded_dns_logtype_json_log_type",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded"
+]
+},
+{
+"container": "opensearch",
+"hash": "1frk2Ivnw3s",
+"pattern": "Cluster_is_not_recovered_yet",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "2SY14Iv8FHk",
+"pattern": "loaded_plugin_opensearch_observability",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "opensearch",
+"hash": "2kOUdQ0s5Aw",
+"pattern": "Loaded_scheduler_extension_reports_index_definitions",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded scheduler extension"
+]
+},
+{
+"container": "opensearch",
+"hash": "3VG1proUToQ",
+"pattern": "using_discovery_type_single_node_and_seed_hosts_providers_settings",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "3aKwTfrFjVA",
+"pattern": "loaded_module_reindex",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded module"
+]
+},
+{
+"container": "opensearch",
+"hash": "3nWEOgaAJ5c",
+"pattern": "loaded_plugin_opensearch_notifications_core",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "opensearch",
+"hash": "3pKYNYXgO5g",
+"pattern": "Indexing_from",
+"events": 3,
+"moved": false,
+"head_events": 3,
+"location": null,
+"families": [
+"frame:Indexing"
+]
+},
+{
+"container": "opensearch",
+"hash": "4oSHe9tgtnY",
+"pattern": "Start_running_hourly_cron",
+"events": 10,
+"moved": false,
+"head_events": 10,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "5M7_sQzDpAk",
+"pattern": "No_Old_History_Indices_to_delete",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "5c95zMpsukY",
+"pattern": "Loading_builtin_types",
+"events": 3,
+"moved": false,
+"head_events": 3,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "5eGYSbzpqXs",
+"pattern": "loaded_plugin_opensearch_system_templates",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "opensearch",
+"hash": "6ONlI0vaQVI",
+"pattern": "Canceling_sweep_ism_plugin_version_job",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "6P9zb-kJIgc",
+"pattern": "loaded_module_search_pipeline_common",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded module"
+]
+},
+{
+"container": "opensearch",
+"hash": "6RCK5VHh5t8",
+"pattern": "Loaded_github_logtype_json_log_type",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded"
+]
+},
+{
+"container": "opensearch",
+"hash": "6cD8wWvtZFs",
+"pattern": "compressed_ordinary_object_pointers",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "6kf09-9O9eQ",
+"pattern": "Start_migrating_data",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "6p5F4YCakBc",
+"pattern": "local_node",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "7bhr-zj-AmQ",
+"pattern": "Finished_housekeeping_task_for_auto_refresh_streaming_jobs",
+"events": 41,
+"moved": true,
+"head_events": 41,
+"location": null,
+"families": [],
+"phrase": "info o o s s c flintstreamingjobhousekeepertask opensearch 0 finished housekeeping task for auto refresh streaming jobs",
+"phrase_words": 17,
+"matches": {}
+},
+{
+"container": "opensearch",
+"hash": "8u9pu2Smi8k",
+"pattern": "Loaded_apache_access_logtype_json_log_type",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded"
+]
+},
+{
+"container": "opensearch",
+"hash": "8y2ICXZABLM",
+"pattern": "Loaded_ad_ldap_logtype_json_log_type",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded"
+]
+},
+{
+"container": "opensearch",
+"hash": "9EAvxVL280E",
+"pattern": "Cannot_create_type_checker_for_function_JSON_EXTRACT_Will_skip_its_checking",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Cannot create type checker for function"
+]
+},
+{
+"container": "opensearch",
+"hash": "9NZZG2_3mFs",
+"pattern": "loaded_module_analysis_common",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded module"
+]
+},
+{
+"container": "opensearch",
+"hash": "9Zo54ymWCAo",
+"pattern": "loaded_module_cache_common",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded module"
+]
+},
+{
+"container": "opensearch",
+"hash": "9lxEKTmO2yY",
+"pattern": "Starting_housekeeping_task_for_auto_refresh_streaming_jobs",
+"events": 41,
+"moved": true,
+"head_events": 41,
+"location": null,
+"families": [],
+"phrase": "info o o s s c flintstreamingjobhousekeepertask opensearch 0 starting housekeeping task for auto refresh streaming jobs",
+"phrase_words": 17,
+"matches": {}
+},
+{
+"container": "opensearch",
+"hash": "A-iV35r31is",
+"pattern": "indices_into_cluster_state",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "AIwYfwytkEU",
+"pattern": "Loaded_external_query_converters_failed",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "BpIej5CEb7A",
+"pattern": "loaded_plugin_opensearch_neural_search",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "opensearch",
+"hash": "CDqabOUEnz0",
+"pattern": "OpenSearch_Security_plugin_installed_but_disabled_This_can_expose_your_configuration_including_passwords_to_the_public",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "D5j1XgziEm0",
+"pattern": "Cannot_create_type_checker_for_function_JSON_DELETE_Will_skip_its_checking",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Cannot create type checker for function"
+]
+},
+{
+"container": "opensearch",
+"hash": "DJSaOL30GC0",
+"pattern": "Cannot_create_type_checker_for_function_JSON_KEYS_Will_skip_its_checking",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Cannot create type checker for function"
+]
+},
+{
+"container": "opensearch",
+"hash": "EMxB2J3Uq5A",
+"pattern": "initialized",
+"events": 2,
+"moved": false,
+"head_events": 2,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "EOzPHh-XvTk",
+"pattern": "Enabled_false",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "EWkKqw15Izs",
+"pattern": "loaded_module_ingest_user_agent",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded module"
+]
+},
+{
+"container": "opensearch",
+"hash": "Ek6bPkpz8yY",
+"pattern": "Loaded_cloudtrail_logtype_json_log_type",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded"
+]
+},
+{
+"container": "opensearch",
+"hash": "EkgRqpVSEzY",
+"pattern": "Using_local_opensearch_cluster_as_metadata_store",
+"events": 3,
+"moved": false,
+"head_events": 3,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "EzbMPyd737Y",
+"pattern": "deprecated_To_promote_inclusive_language_please_use_role_instead",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "FDLP-QZcNQA",
+"pattern": "loaded_plugin_opensearch_notifications",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "opensearch",
+"hash": "FnnuVryHTls",
+"pattern": "Policy_attached_successfully_org_opensearch",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "GUbvh3LfOPo",
+"pattern": "Cluster_health_status_changed_from_reason",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "GXpfzAuSHW4",
+"pattern": "Node_added",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "GZc_pstPSD0",
+"pattern": "loaded_module_aggs_matrix_stats",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded module"
+]
+},
+{
+"container": "opensearch",
+"hash": "H0cfMV3M1_M",
+"pattern": "Config_cleanup_db_files_batch_metrics_retention_period_minutes_rpc_port_webservice",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "HBHMGhU8xHs",
+"pattern": "Registered_memory_breaker",
+"events": 2,
+"moved": false,
+"head_events": 2,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "H_ZAxCAJ5UY",
+"pattern": "Unknown_apache_arrow_memory_core_specified_add_opens",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "Hxk4fIPqaTw",
+"pattern": "loaded_module_lang_mustache",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded module"
+]
+},
+{
+"container": "opensearch",
+"hash": "I2WrAK_Bu9I",
+"pattern": "updating_number_of_replicas_to_indices",
+"events": 3,
+"moved": false,
+"head_events": 3,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "IXgQQXd44hU",
+"pattern": "java_lang_System_load_has_been_called_by_com_sun_jna_Native_in_an_unnamed_module_file_usr_share_opensearch_lib",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "J6IL-UZWT1c",
+"pattern": "loaded_plugin_opensearch_alerting",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "opensearch",
+"hash": "JNRM6VKyEME",
+"pattern": "FileNotFoundException_usr_share_config_opensearch_performance_analyzer_properties_No_such_file_or_directory_Disabling_plugin",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "JXF4ol7eprg",
+"pattern": "Running_full_sweep",
+"events": 124,
+"moved": true,
+"head_events": 124,
+"location": null,
+"families": [],
+"phrase": "info o o j s jobsweeper opensearch 0 running full sweep",
+"phrase_words": 11,
+"matches": {}
+},
+{
+"container": "opensearch",
+"hash": "Jj5L5aalHPM",
+"pattern": "gateway_auto_import_disabled_dangling_indices_will_not_be_automatically_detected_or_imported_and_must_managed_manually",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "JuuAfkBp4KA",
+"pattern": "Build_version_hash_ring_successfully",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "KPhT-0WBysQ",
+"pattern": "Loaded_network_logtype_json_log_type",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded"
+]
+},
+{
+"container": "opensearch",
+"hash": "KQZT1jFIdhM",
+"pattern": "onIndexModule_index_otel",
+"events": 20,
+"moved": true,
+"head_events": 20,
+"location": null,
+"families": [
+"frame:onIndexModule index"
+],
+"phrase": "info o o p pluginsservice opensearch 0 pluginservice onindexmodule index otel logs 2025 10",
+"phrase_words": 14,
+"matches": {}
+},
+{
+"container": "opensearch",
+"hash": "KcyAeg6nGd0",
+"pattern": "Please_consider_reporting_this_to_the_maintainers_of_class_net_bytebuddy_dynamic",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "KeZZp6j9f5c",
+"pattern": "Loaded_scheduler_extension_opensearch_time_series_analytics_index_detector_jobs",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded scheduler extension"
+]
+},
+{
+"container": "opensearch",
+"hash": "Klh5V-w2I4k",
+"pattern": "Cannot_create_type_checker_for_function_TRANSFORM_Will_skip_its_checking",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Cannot create type checker for function"
+]
+},
+{
+"container": "opensearch",
+"hash": "KvoB8ekT9-M",
+"pattern": "Cannot_create_type_checker_for_function_JSON_APPEND_Will_skip_its_checking",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Cannot create type checker for function"
+]
+},
+{
+"container": "opensearch",
+"hash": "L4cUCfZ27JQ",
+"pattern": "Setting_query_insights_index_template_priority_to",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "Liz27S6V80U",
+"pattern": "loaded_module_repository_url",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded module"
+]
+},
+{
+"container": "opensearch",
+"hash": "LjvipjYS7Uk",
+"pattern": "loaded_plugin_opensearch_search_relevance",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "opensearch",
+"hash": "MF04G9bqaDo",
+"pattern": "Loaded_others_compliance_logtype_json_log_type",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded"
+]
+},
+{
+"container": "opensearch",
+"hash": "MRLZSVTsmWY",
+"pattern": "cluster_manager_node_changed_term_reason_Publication",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "MTxk-jTfBIc",
+"pattern": "Restricted_methods_will_be_blocked_in_a_future_release_unless_native_access_is_enabled",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "MqOGU-TAvLI",
+"pattern": "onIndexModule_index_top",
+"events": 6,
+"moved": false,
+"head_events": 6,
+"location": null,
+"families": [
+"frame:onIndexModule index"
+]
+},
+{
+"container": "opensearch",
+"hash": "O8Za9D5T_TU",
+"pattern": "Loaded_scheduler_extension_management_index_config",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded scheduler extension"
+]
+},
+{
+"container": "opensearch",
+"hash": "ObkrYhQ4SMs",
+"pattern": "plugins_query_datasources_encryption_masterkey_config_opensearch_yml_all_cluster_nodes_More_details_can_be_found_here_https",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "Og9ktWYybnc",
+"pattern": "org_apache_lucene_internal_init",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "PN8ROOFHqxY",
+"pattern": "loaded_module_rule_framework",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded module"
+]
+},
+{
+"container": "opensearch",
+"hash": "PR6gYZGqDl8",
+"pattern": "Indexing",
+"events": 6,
+"moved": false,
+"head_events": 6,
+"location": null,
+"families": [
+"frame:Indexing"
+]
+},
+{
+"container": "opensearch",
+"hash": "Ph77KvXoZ6k",
+"pattern": "loaded_plugin_opensearch_cross_cluster_replication",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "opensearch",
+"hash": "PvuCCMk0ZWk",
+"pattern": "loaded_module_ingest_common",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded module"
+]
+},
+{
+"container": "opensearch",
+"hash": "R6Darz03OFo",
+"pattern": "Starting_ML_sync_up_job",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "Ri3CONbRMI8",
+"pattern": "Loaded_json_log_type",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded"
+]
+},
+{
+"container": "opensearch",
+"hash": "SHPIP5ob2co",
+"pattern": "loaded_module_rank_eval",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded module"
+]
+},
+{
+"container": "opensearch",
+"hash": "SLmgxG1mz58",
+"pattern": "SLFJ_Failed_to_load_class",
+"events": 2,
+"moved": false,
+"head_events": 2,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "U4vq0syVxUg",
+"pattern": "loaded_plugin_opensearch_security_analytics",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "opensearch",
+"hash": "UQI__U1mtlY",
+"pattern": "for_index_patterns",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "URsMGxMYtpg",
+"pattern": "Loaded_docs_successfully",
+"events": 3,
+"moved": false,
+"head_events": 3,
+"location": null,
+"families": [
+"frame:Loaded"
+]
+},
+{
+"container": "opensearch",
+"hash": "UUWgMPj01oY",
+"pattern": "ReindexPlugin_called",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "V3iuiUIfXXE",
+"pattern": "loaded_plugin_opensearch_geospatial",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "opensearch",
+"hash": "VwhWCY4pDD8",
+"pattern": "loaded_module_opensearch_dashboards",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded module"
+]
+},
+{
+"container": "opensearch",
+"hash": "W5vmBCOj5Qc",
+"pattern": "Loaded_scheduler_extension_index",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded scheduler extension"
+]
+},
+{
+"container": "opensearch",
+"hash": "WNIdr7ES3dM",
+"pattern": "Use_enable_native_access_ALL_UNNAMED_to_avoid_a_warning_for_callers_in_this_module",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "WabJ6nCMMNw",
+"pattern": "loaded_module_ingest_geoip",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded module"
+]
+},
+{
+"container": "opensearch",
+"hash": "WzQmtMf6fbw",
+"pattern": "started",
+"events": 2,
+"moved": false,
+"head_events": 2,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "XCij6lPSTcI",
+"pattern": "creating_index_cause_templates_shards",
+"events": 5,
+"moved": false,
+"head_events": 5,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "XCmVwhvvxKE",
+"pattern": "creating_NettyAllocator_with_the_following_configs",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "XEvjndkoBiA",
+"pattern": "Loaded_waf_logtype_json_log_type",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded"
+]
+},
+{
+"container": "opensearch",
+"hash": "YAKtGpALJZQ",
+"pattern": "loaded_plugin_query_insights",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "opensearch",
+"hash": "YGUCfJixwAg",
+"pattern": "SSL_dual_mode_is_disabled",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "YTcj7muhFv8",
+"pattern": "Index_not_found_performing_auto",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "_jHeVZOvhYM",
+"pattern": "Cannot_create_type_checker_for_function_ARRAY_Will_skip_its_checking",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Cannot create type checker for function"
+]
+},
+{
+"container": "opensearch",
+"hash": "_lweCS68B-0",
+"pattern": "Reflections_took_ms_to_scan_urls_producing_keys_and_values",
+"events": 2,
+"moved": false,
+"head_events": 2,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "aFfoU3c99jM",
+"pattern": "LogType_config_index_successfully_created_and_builtin_log_types_loaded",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "aJmwnruOFXA",
+"pattern": "Candidate_custom_result_indices_are_empty",
+"events": 2,
+"moved": false,
+"head_events": 2,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "aZgfTt4dQlY",
+"pattern": "deprecated_sun_misc_Unsafe_has_been_called",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "abnSaFfsiPE",
+"pattern": "Loaded_windows_logtype_json_log_type",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded"
+]
+},
+{
+"container": "opensearch",
+"hash": "alE88eCsvzo",
+"pattern": "loaded_module_geo",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded module"
+]
+},
+{
+"container": "opensearch",
+"hash": "bLZwBGrBt9s",
+"pattern": "starting",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "bVTi2Lki1OU",
+"pattern": "OpenSearch_Security_modules_loaded_so_far",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "bbEAAlB5B6M",
+"pattern": "SLFJ_Defaulting_to_no_operation_NOP_logger_implementation",
+"events": 2,
+"moved": false,
+"head_events": 2,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "bd8zwgWucaw",
+"pattern": "cluster_UUID_set_to",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "bsRqexEHRRc",
+"pattern": "Cannot_create_type_checker_for_function_EXISTS_Will_skip_its_checking",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Cannot create type checker for function"
+]
+},
+{
+"container": "opensearch",
+"hash": "bw6grY-i-nE",
+"pattern": "loaded_plugin_opensearch_ubi",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "opensearch",
+"hash": "cIzrdfxuQzg",
+"pattern": "loaded_plugin_opensearch_ml",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "opensearch",
+"hash": "c_JFApWFpyA",
+"pattern": "field_mapping_docs_successfully",
+"events": 3,
+"moved": false,
+"head_events": 3,
+"location": null,
+"families": [
+"frame:Loaded"
+]
+},
+{
+"container": "opensearch",
+"hash": "caHX5KfFFZc",
+"pattern": "Loaded_others_proxy_logtype_json_log_type",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded"
+]
+},
+{
+"container": "opensearch",
+"hash": "ciPQ7vBUKV0",
+"pattern": "loaded_plugin_opensearch_job_scheduler",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "opensearch",
+"hash": "cr_Oon4zbHs",
+"pattern": "No_Old_Alert_Indices_to_delete",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "dFArjn2Gxzk",
+"pattern": "Config_override_setting_update_called_empty_string_Ignoring",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "dHQY9Q9DZKI",
+"pattern": "create_index_plugins_ml_config",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "dhyzmjcuP-0",
+"pattern": "Remote_clusters_initialized_successfully",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "dkmw8NKApO8",
+"pattern": "Cannot_create_type_checker_for_function_JSON_Will_skip_its_checking",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Cannot create type checker for function"
+]
+},
+{
+"container": "opensearch",
+"hash": "dpklHOsTnww",
+"pattern": "onIndexModule_index_plugins_ml_config",
+"events": 2,
+"moved": false,
+"head_events": 2,
+"location": null,
+"families": [
+"frame:onIndexModule index"
+]
+},
+{
+"container": "opensearch",
+"hash": "e1vZGVSg0Nw",
+"pattern": "Registered_ML_memory_breaker",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "e8ejVbsaras",
+"pattern": "Loaded_others_cloud_logtype_json_log_type",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded"
+]
+},
+{
+"container": "opensearch",
+"hash": "fHD6A-nfmPw",
+"pattern": "loaded_plugin_opensearch_sql",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "opensearch",
+"hash": "fvZoeXYK5Y8",
+"pattern": "data_paths_mounts_using_usable_space_total_types",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "gACXwTGwzT4",
+"pattern": "loaded_module_transport_grpc",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded module"
+]
+},
+{
+"container": "opensearch",
+"hash": "gnkVLDKSuu0",
+"pattern": "onIndexModule_index_opensearch_sap_log_types_config",
+"events": 6,
+"moved": false,
+"head_events": 6,
+"location": null,
+"families": [
+"frame:onIndexModule index"
+]
+},
+{
+"container": "opensearch",
+"hash": "hK66rwHyBBg",
+"pattern": "Cache_cluster_manager_node_time",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "hPCB3Lvm87U",
+"pattern": "Loaded_scheduler_extension_job_index_opensearch_sap",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded scheduler extension"
+]
+},
+{
+"container": "opensearch",
+"hash": "hfRPObgOTlk",
+"pattern": "onIndexModule_index_validate",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:onIndexModule index"
+]
+},
+{
+"container": "opensearch",
+"hash": "huz12Kq6nV8",
+"pattern": "No_resource_usage_stats_available_for_node",
+"events": 3,
+"moved": false,
+"head_events": 3,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "hxNN8xdx61Q",
+"pattern": "Registered_built_in_query_converters",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "i0zgzAPy2Fs",
+"pattern": "Successfully_created_or_updated_template",
+"events": 3,
+"moved": false,
+"head_events": 3,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "isA-kbCUWX8",
+"pattern": "loaded_plugin_opensearch_ltr",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "opensearch",
+"hash": "jGvZXq8gqLg",
+"pattern": "loaded_module_parent_join",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded module"
+]
+},
+{
+"container": "opensearch",
+"hash": "jL49kh8E-1Q",
+"pattern": "loaded_plugin_opensearch_knn",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "opensearch",
+"hash": "jSCMdEvlQzQ",
+"pattern": "Cannot_create_type_checker_for_function_FORALL_Will_skip_its_checking",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Cannot create type checker for function"
+]
+},
+{
+"container": "opensearch",
+"hash": "jWgjai_98MY",
+"pattern": "Java_vector_incubator_API_enabled_uses_preferredBitSize_FMA",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "jd-fSCi_Ub4",
+"pattern": "loaded_plugin_opensearch_anomaly_detection",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "opensearch",
+"hash": "jhuhdH70qb0",
+"pattern": "Init_version_hash_ring_successfully",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "k4hgmNYrgQQ",
+"pattern": "loaded_plugin_opensearch_performance_analyzer",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "opensearch",
+"hash": "kMaJm-AYfeI",
+"pattern": "Loaded_linux_logtype_json_log_type",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded"
+]
+},
+{
+"container": "opensearch",
+"hash": "kTVEbHjv4a4",
+"pattern": "Loaded_azure_logtype_json_log_type",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded"
+]
+},
+{
+"container": "opensearch",
+"hash": "lElU1BcxfeQ",
+"pattern": "loaded_plugin_opensearch_skills",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "opensearch",
+"hash": "lP53I-XfRg8",
+"pattern": "Loaded_extension_query_scheduler_index_async",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded scheduler extension"
+]
+},
+{
+"container": "opensearch",
+"hash": "l_iK6N0-www",
+"pattern": "Cannot_create_type_checker_for_function_REDUCE_Will_skip_its_checking",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Cannot create type checker for function"
+]
+},
+{
+"container": "opensearch",
+"hash": "lsO7mVmZ83I",
+"pattern": "Loaded_scheduler_extension_opensearch_ml_commons_jobs_index_plugins",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded scheduler extension"
+]
+},
+{
+"container": "opensearch",
+"hash": "lxZ87MKLWSc",
+"pattern": "Loaded_test_windows_logtype_json_log_type",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded"
+]
+},
+{
+"container": "opensearch",
+"hash": "mUMtYt9p8rg",
+"pattern": "sun_misc_Unsafe_objectFieldOffset_has_been_called_by_net_bytebuddy_dynamic",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": [
+"frame:sun misc Unsafe"
+]
+},
+{
+"container": "opensearch",
+"hash": "mdIrQUXW3RI",
+"pattern": "SLFJ_See_for_further_details",
+"events": 2,
+"moved": false,
+"head_events": 2,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "mgl7w9scqrw",
+"pattern": "Registered_ML_native_memory_breaker",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "mhTWW5U7h8s",
+"pattern": "Loaded_others_macos_logtype_json_log_type",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded"
+]
+},
+{
+"container": "opensearch",
+"hash": "mmsYek6Rd2Q",
+"pattern": "INFO_o_o_s_info",
+"events": 4,
+"moved": false,
+"head_events": 4,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "n8p-8996lXA",
+"pattern": "Loaded_vpcflow_logtype_json_log_type",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded"
+]
+},
+{
+"container": "opensearch",
+"hash": "nJYlzA1rWVA",
+"pattern": "loaded_plugin_opensearch_reports_scheduler",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "opensearch",
+"hash": "nTrFHjDMEeY",
+"pattern": "Rebuild_hash_ring_for_realtime_with_cooldown_size",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "nZcJqSua6RA",
+"pattern": "Cannot_create_type_checker_for_function_JSON_SET_Will_skip_its_checking",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Cannot create type checker for function"
+]
+},
+{
+"container": "opensearch",
+"hash": "ncNRqPJdoXs",
+"pattern": "No_Old_Correlation_Indices_to_delete",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "oD0YNSVKE3Q",
+"pattern": "Loaded_netflow_logtype_json_log_type",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded"
+]
+},
+{
+"container": "opensearch",
+"hash": "oTEHzQkYBrc",
+"pattern": "Unable_to_find_any_implementation_for",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "pG4cf0PlDCs",
+"pattern": "Loaded_others_application_logtype_json_log_type",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded"
+]
+},
+{
+"container": "opensearch",
+"hash": "pdhKjkDUxKo",
+"pattern": "Cannot_create_type_checker_for_function_FILTER_Will_skip_its_checking",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Cannot create type checker for function"
+]
+},
+{
+"container": "opensearch",
+"hash": "pgemGqH67HU",
+"pattern": "Starting_cluster_manager_throttling_as_all_nodes_are_higher_than_or_equal_to",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "q0hh-aZXRjo",
+"pattern": "loaded_module_percolator",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded module"
+]
+},
+{
+"container": "opensearch",
+"hash": "qSiahA7gT10",
+"pattern": "publish_address_bound_addresses",
+"events": 2,
+"moved": false,
+"head_events": 2,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "rOuNJOfCTec",
+"pattern": "opensearch_javaagent_setPolicy",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "rYd9jWzQNyY",
+"pattern": "create_mapping",
+"events": 2,
+"moved": false,
+"head_events": 2,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "rf2xUaTJmFQ",
+"pattern": "setting_initial_configuration_to_VotingConfiguration",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "rlJxYA1VVvE",
+"pattern": "Hourly_maintenance_succeeds",
+"events": 10,
+"moved": false,
+"head_events": 10,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "s4AXFkYaiZc",
+"pattern": "restricted_java_lang_System_has_been_called",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "s62jyx74II0",
+"pattern": "Cannot_create_type_checker_for_function_JSON_EXTEND_Will_skip_its_checking",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Cannot create type checker for function"
+]
+},
+{
+"container": "opensearch",
+"hash": "sE-y2Tsst2c",
+"pattern": "Add_data_node_to_version_hash_ring",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "sEPXCD_0TvM",
+"pattern": "Loaded_others_apt_logtype_json_log_type",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded"
+]
+},
+{
+"container": "opensearch",
+"hash": "shHfdDec-gU",
+"pattern": "loaded_plugin_opensearch_asynchronous_search",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "opensearch",
+"hash": "siM1G4gdXSY",
+"pattern": "loaded_module_lang_painless",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded module"
+]
+},
+{
+"container": "opensearch",
+"hash": "sq91qkAohNM",
+"pattern": "Registered_ML_disk_breaker",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "suXe9g0wYWA",
+"pattern": "loaded_module_systemd",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded module"
+]
+},
+{
+"container": "opensearch",
+"hash": "t5tYCu5YrHo",
+"pattern": "job_index_doesn_t_exist_no_need_to_migrate",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "tCXnHmp1o5s",
+"pattern": "No_Old_Finding_Indices_to_delete",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "tZdQ-YHumns",
+"pattern": "loaded_plugin_opensearch_flow_framework",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "opensearch",
+"hash": "tehptGED5c8",
+"pattern": "Loaded_log_type",
+"events": 2,
+"moved": false,
+"head_events": 2,
+"location": null,
+"families": [
+"frame:Loaded"
+]
+},
+{
+"container": "opensearch",
+"hash": "tjwdxZthqYA",
+"pattern": "initialized_max_concurrent_tasks_processors",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "ttD-3M2xYts",
+"pattern": "Using_modules_jdk_incubator_vector",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "uiqEkrJbDtI",
+"pattern": "JVM_arguments",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "v2MLzGRQ_Vg",
+"pattern": "loaded_module_lang_expression",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded module"
+]
+},
+{
+"container": "opensearch",
+"hash": "vQic8PUqdRU",
+"pattern": "node_ID_cluster_roles",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "vyaEX_FEYVU",
+"pattern": "loaded_module_mapper_extras",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded module"
+]
+},
+{
+"container": "opensearch",
+"hash": "wDFPxJbpLDs",
+"pattern": "Start_to_maintain_running_historical_tasks",
+"events": 10,
+"moved": false,
+"head_events": 10,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "wviFaSGoqb4",
+"pattern": "loaded_module",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded module"
+]
+},
+{
+"container": "opensearch",
+"hash": "wwJVKVlOcqQ",
+"pattern": "Error_in_loading_metadata_for_usr_share_opensearch_config_performance_analyzer_plugin_stats",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "xKVKyToS6yI",
+"pattern": "template_9ae16a3b2f90404f",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "xS8qs5sDHX4",
+"pattern": "loaded_plugin_opensearch_security",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "opensearch",
+"hash": "y4zA3LQVsIE",
+"pattern": "using_bundled_JDK_JRE_JVM_home",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "y99eydP2F4g",
+"pattern": "No_Old_IOC_Findings_Indices_to_delete",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "yUzVAi-BF10",
+"pattern": "update_mapping",
+"events": 19,
+"moved": false,
+"head_events": 19,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "yakxwDdXDFw",
+"pattern": "build_OS_Linux_JVM_Eclipse_Adoptium_OpenJDK_Server",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "opensearch",
+"hash": "zM6_RVmNXdU",
+"pattern": "Loaded_okta_logtype_json_log_type",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:Loaded"
+]
+},
+{
+"container": "opensearch",
+"hash": "zP60c0iMz-o",
+"pattern": "loaded_plugin_opensearch_index_management",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": [
+"frame:loaded plugin"
+]
+},
+{
+"container": "recommendation",
+"hash": "EECfvV4aYmQ",
+"pattern": "Recommendation_service_started_listening_on_port",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": "recommendation_server.py:172",
+"families": []
+},
+{
+"container": "recommendation",
+"hash": "RasYUucXGZA",
+"pattern": "Overriding_current_LoggerProvider_is_not_allowed",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": "__init__.py:305",
+"families": []
+},
+{
+"container": "recommendation",
+"hash": "bzLB1zZCTIw",
+"pattern": "Receive_ListRecommendations_for_product_ids",
+"events": 3430,
+"moved": true,
+"head_events": 3430,
+"location": "recommendation_server.py:47",
+"families": [],
+"phrase": "resource service name recommendation trace sampled true receive listrecommendations for product ids",
+"phrase_words": 12,
+"matches": {}
+},
+{
+"container": "valkey-cart",
+"hash": "-ztqdCmqoww",
+"pattern": "Valkey_bits_commit_modified_just_started",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "valkey-cart",
+"hash": "CqVDqv2uuq4",
+"pattern": "changes_seconds_Saving",
+"events": 120,
+"moved": true,
+"head_events": 120,
+"location": null,
+"families": [],
+"phrase": "100 changes in 300 seconds saving",
+"phrase_words": 6,
+"matches": {}
+},
+{
+"container": "valkey-cart",
+"hash": "INXTRKqNcG8",
+"pattern": "DB_saved_on_disk",
+"events": 120,
+"moved": true,
+"head_events": 120,
+"location": null,
+"families": [],
+"phrase": "db saved on disk",
+"phrase_words": 4,
+"matches": {}
+},
+{
+"container": "valkey-cart",
+"hash": "JFGyLB3rePc",
+"pattern": "Running_mode_standalone_port",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "valkey-cart",
+"hash": "WKtgJCmsHRM",
+"pattern": "monotonic_clock_POSIX_gettime",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "valkey-cart",
+"hash": "XVZezHalrPc",
+"pattern": "Server_initialized",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "valkey-cart",
+"hash": "cSWpKn5pAUI",
+"pattern": "Background_saving_started_by_pid",
+"events": 120,
+"moved": true,
+"head_events": 120,
+"location": null,
+"families": [],
+"phrase": "background saving started by pid",
+"phrase_words": 5,
+"matches": {}
+},
+{
+"container": "valkey-cart",
+"hash": "kodKFTs6ZHw",
+"pattern": "Fork_CoW_RDB_current_peak_MB_average",
+"events": 120,
+"moved": true,
+"head_events": 120,
+"location": null,
+"families": [],
+"phrase": "fork cow for rdb current 0 mb peak 0 mb average 0 mb",
+"phrase_words": 13,
+"matches": {}
+},
+{
+"container": "valkey-cart",
+"hash": "sX9OKFLN168",
+"pattern": "Background_saving_terminated_with_success",
+"events": 120,
+"moved": true,
+"head_events": 120,
+"location": null,
+"families": [],
+"phrase": "background saving terminated with success",
+"phrase_words": 5,
+"matches": {}
+},
+{
+"container": "valkey-cart",
+"hash": "uZAJ9JoffuM",
+"pattern": "Ready_to_accept_connections_tcp",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "valkey-cart",
+"hash": "xXVNuZzITJk",
+"pattern": "Warning_no_config_file_specified_using_the_default_In_order_to_specify_a_use_valkey_server_path_conf",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "valkey-cart",
+"hash": "zm9Kp6o68PE",
+"pattern": "oOOoOOoOOo_Valkey_is_starting",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+}
+]
+}

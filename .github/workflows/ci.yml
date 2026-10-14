@@ -242,7 +242,7 @@ jobs:
       - name: Syntax-check the harness
         run: |
           bash -n datadog-service-control/run.sh accounting-lib/engine.sh
-          python -m py_compile datadog-service-control/report.py datadog-service-control/arms.py datadog-service-control/classes.py datadog-service-control/slice.py accounting-lib/policy.py accounting-lib/count.py accounting-lib/tally.py accounting-lib/readme.py
+          python -m py_compile datadog-service-control/report.py datadog-service-control/arms.py datadog-service-control/classes.py datadog-service-control/slice.py datadog-service-control/floor.py datadog-service-control/attrs.py datadog-service-control/text.py accounting-lib/policy.py accounting-lib/count.py accounting-lib/tally.py accounting-lib/readme.py
 
       # Every table is computed from the kept class rows, tallies, plans and policy files.
       # Recompute and fail if results.json, results.md or a README block disagrees.

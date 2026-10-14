@@ -360,3 +360,517 @@ Events the plan moves that stay in Standard:
 | `LocalLog$` | `Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_kafka_LocalLog` | 192 |
 | `Snapshots` | `Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots` | 121 |
 
+## The floor: bucket 3's moved patterns
+
+Selected by an attribute cell: `alone`, `with moved only` or `id only` (the cell also holds patterns the plan keeps). Selected by text: the longest run of words every event of the pattern shares, and what else `service:<container> "<phrase>"` matches.
+
+Capture A:
+
+| Container | Pattern | Events in the floor | Marked tier_down | Pattern events in the capture | Band | Attribute cell selects | Native cell | Patterns in the cell | Text phrase | Words | Text selects | Kept patterns the phrase also matches | Kept events |
+|---|---|---:|---:|---:|---|---|---|---:|---|---:|---|---:|---:|
+| `recommendation` | `Receive_ListRecommendations_for_product_ids` | 3,430 | 3,073 | 3,430 | over 1,000 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 2 | `resource service name recommendation trace sampled true receive listrecommendations for product ids` | 12 | alone | 0 | 0 |
+| `fluentd-10x` | `stats_cache_size_pod_api_updates_id_miss` | 1,117 | 973 | 1,117 | over 1,000 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 109 | `0000 info 0 filter kube metadata stats namespace cache size 0 pod cache size` | 14 | alone | 0 | 0 |
+| `opensearch` | `Running_full_sweep` | 124 | 98 | 124 | 101 to 1,000 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 177 | `info o o j s jobsweeper opensearch 0 running full sweep` | 11 | alone | 0 | 0 |
+| `valkey-cart` | `changes_seconds_Saving` | 120 | 109 | 120 | 101 to 1,000 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 11 | `100 changes in 300 seconds saving` | 6 | alone | 0 | 0 |
+| `valkey-cart` | `DB_saved_on_disk` | 120 | 105 | 120 | 101 to 1,000 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 11 | `db saved on disk` | 4 | alone | 0 | 0 |
+| `valkey-cart` | `Background_saving_started_by_pid` | 120 | 105 | 120 | 101 to 1,000 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 11 | `background saving started by pid` | 5 | alone | 0 | 0 |
+| `valkey-cart` | `Fork_CoW_RDB_current_peak_MB_average` | 120 | 108 | 120 | 101 to 1,000 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 11 | `fork cow for rdb current 0 mb peak 0 mb average 0 mb` | 13 | alone | 0 | 0 |
+| `valkey-cart` | `Background_saving_terminated_with_success` | 120 | 105 | 120 | 101 to 1,000 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 11 | `background saving terminated with success` | 5 | alone | 0 | 0 |
+| `fluentd-10x` | `stats_cache_size_pod_api_updates_id_miss_host_namespace` | 119 | 96 | 119 | 101 to 1,000 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 109 | `0000 info 0 filter kube metadata stats namespace cache size 4 pod cache size 32 pod cache api updates 41 id cache miss 41 pod cache host updates 32 namespace cache host updates 4` | 34 | alone | 0 | 0 |
+| `fluentd-10x` | `following_tail_of` | 47 | 33 | 47 | 11 to 100 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 109 | `logs following tail of var log` | 6 | collides | 1 | 2 |
+| `opensearch` | `Finished_housekeeping_task_for_auto_refresh_streaming_jobs` | 41 | 17 | 41 | 11 to 100 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 177 | `info o o s s c flintstreamingjobhousekeepertask opensearch 0 finished housekeeping task for auto refresh streaming jobs` | 17 | alone | 0 | 0 |
+| `opensearch` | `Starting_housekeeping_task_for_auto_refresh_streaming_jobs` | 41 | 19 | 41 | 11 to 100 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 177 | `info o o s s c flintstreamingjobhousekeepertask opensearch 0 starting housekeeping task for auto refresh streaming jobs` | 17 | alone | 0 | 0 |
+| `opensearch` | `onIndexModule_index_otel` | 20 | 1 | 20 | 11 to 100 | id only | host=ip-192-168-42-205.ec2.internal, status=info | 177 | `info o o p pluginsservice opensearch 0 pluginservice onindexmodule index otel logs 2025 10` | 14 | alone | 0 | 0 |
+
+Capture B:
+
+| Container | Pattern | Events in the floor | Marked tier_down | Pattern events in the capture | Band | Attribute cell selects | Native cell | Patterns in the cell | Text phrase | Words | Text selects | Kept patterns the phrase also matches | Kept events |
+|---|---|---:|---:|---:|---|---|---|---:|---|---:|---|---:|---:|
+| `recommendation` | `Receive_ListRecommendations_for_product_ids` | 602 | 541 | 602 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 2 | `resource service name recommendation trace sampled true receive listrecommendations for product ids` | 12 | alone | 0 | 0 |
+| `llm` | `POST_chat_completions_HTTP` | 450 | 348 | 450 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 30 | `post v1 chat completions http 1 1 200` | 8 | alone | 0 | 0 |
+| `product-reviews` | `HTTP_Request_POST_http_llm_OK` | 450 | 204 | 450 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 71 | `resource service name product reviews trace sampled true http request post http llm 8000 v1 chat completions http 1 1 200 ok` | 22 | alone | 0 | 0 |
+| `product-reviews` | `Receive_GetProductReviews_for_product_id` | 409 | 160 | 409 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 71 | `resource service name product reviews trace sampled true receive getproductreviews for product id` | 13 | alone | 0 | 0 |
+| `email` | `POST_send_order_confirmation_HTTP` | 391 | 355 | 391 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 2 | `0000 post send order confirmation http 1 1 200 0` | 10 | alone | 0 | 0 |
+| `quote` | `POST_getquote_HTTP` | 391 | 342 | 391 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 2 | `00 00 post getquote http 1 1 200` | 8 | alone | 0 | 0 |
+| `llm` | `app_Received_chat_completion_request` | 225 | 162 | 225 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 30 | `info in app received a chat completion request role system content you are a helpful assistant that answers related to a specific product use tools as needed to fetch the product reviews and product information keep the response brief with no more than 1 2 sentences if you don t know the answer just say you don t know role user content answer the following question about product id` | 69 | with moved only | 0 | 0 |
+| `llm` | `app_Processing_tool_call_with_args` | 225 | 142 | 225 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 30 | `info in app processing a tool call with args product id` | 11 | alone | 0 | 0 |
+| `llm` | `app_llmInaccurateResponse_feature_flag_False` | 225 | 144 | 225 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 30 | `info in app llminaccurateresponse feature flag false` | 7 | alone | 0 | 0 |
+| `llm` | `app_The_model_is_astronomy_llm` | 225 | 144 | 225 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 30 | `info in app the model is astronomy llm` | 8 | alone | 0 | 0 |
+| `llm` | `app_last_Based_on_the_tool_results_answer_original_question_about_product_ID_Keep_response_brief_with_no_more_than_sentences` | 225 | 150 | 225 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 30 | `info in app last message is based on the tool results answer the original question about product id` | 18 | alone | 0 | 0 |
+| `llm` | `app_last_Answer_the_following_question_about_product_ID_Can_you_summarize_reviews` | 225 | 149 | 225 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 30 | `info in app last message is answer the following question about product id` | 13 | alone | 0 | 0 |
+| `llm` | `app_Received_chat_completion_request_requesting_tool_call_calls_fetch_product_reviews` | 225 | 186 | 225 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 30 | `info in app received a chat completion request role system content you are a helpful assistant that answers related to a specific product use tools as needed to fetch the product reviews and product information keep the response brief with no more than 1 2 sentences if you don t know the answer just say you don t know role user content answer the following question about product id` | 69 | with moved only | 0 | 0 |
+| `product-reviews` | `Invoking_the_LLM_with_following_messages` | 225 | 118 | 225 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 71 | `resource service name product reviews trace sampled true invoking the llm with the following messages role system content you are a helpful assistant that answers related to a specific product use tools as needed to fetch the product reviews and product information keep the response brief with no more than 1 2 sentences if you don t know the answer just say you don t know role user content answer the following question about product id` | 76 | alone | 0 | 0 |
+| `product-reviews` | `Function_response_fetch_product_reviews` | 225 | 81 | 225 | 101 to 1,000 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 71 | `resource service name product reviews trace sampled true function response for fetch product reviews` | 14 | alone | 0 | 0 |
+| `postgresql` | `LOG_checkpoint_complete_wrote_buffers_WAL_file_s_added_removed_recycled_write_sync_total_files_longest_average_distance_kB` | 25 | 15 | 25 | 11 to 100 | id only | host=ip-10-0-49-218.ec2.internal, postgres.error_severity=LOG, status=info | 14 | `0 wal file s added 0 removed 0 recycled write` | 10 | alone | 0 | 0 |
+| `valkey-cart` | `DB_saved_on_disk` | 24 | 16 | 24 | 11 to 100 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 14 | `db saved on disk` | 4 | alone | 0 | 0 |
+| `postgresql` | `LOG_checkpoint_starting_time` | 23 | 12 | 23 | 11 to 100 | alone | host=ip-10-0-49-218.ec2.internal, postgres.error_severity=LOG, postgres.message=checkpoint starting: time, postgres.pid=64, status=info | 1 | `utc 64 log checkpoint starting time` | 6 | alone | 0 | 0 |
+| `valkey-cart` | `changes_seconds_Saving` | 23 | 17 | 23 | 11 to 100 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 14 | `100 changes in 300 seconds saving` | 6 | alone | 0 | 0 |
+| `valkey-cart` | `Background_saving_started_by_pid` | 23 | 14 | 23 | 11 to 100 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 14 | `background saving started by pid` | 5 | alone | 0 | 0 |
+| `valkey-cart` | `Fork_CoW_RDB_current_peak_MB_average` | 23 | 16 | 23 | 11 to 100 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 14 | `fork cow for rdb current 0 mb peak 0 mb average 0 mb` | 13 | alone | 0 | 0 |
+| `valkey-cart` | `Background_saving_terminated_with_success` | 23 | 15 | 23 | 11 to 100 | id only | host=ip-10-0-49-218.ec2.internal, status=info | 14 | `background saving terminated with success` | 5 | alone | 0 | 0 |
+
+## The floor: the kept side of each mixed service
+
+Each kept pattern with its split: `pieces` (shares a source location or a value frame with other patterns of the service), `byte_cap` (at least as many events as the smallest pattern the plan moves in the service) or `other`.
+
+Capture A, `recommendation`: kept events 1, patterns 1; pieces 0 in 0 families; byte cap 0 (smallest moved pattern: 3,430 events); other 1.
+
+| Pattern | Events in the floor | Pattern events in the capture | Split | Family | Events with a timestamp head |
+|---|---:|---:|---|---|---:|
+| `Recommendation_service_started_listening_on_port` | 1 | 1 | other |  | 1 |
+
+Capture A, `fluentd-10x`: kept events 144, patterns 106; pieces 36 in 6 families; byte cap 0 (smallest moved pattern: 47 events); other 108.
+
+| Pattern | Events in the floor | Pattern events in the capture | Split | Family | Events with a timestamp head |
+|---|---:|---:|---|---|---:|
+| `template_4b1f845fbee908ea` | 8 | 8 | other |  | 0 |
+| `template_48180d0b4c1410c3` | 7 | 7 | other |  | 0 |
+| `template_8d9bcda244ecb07a` | 7 | 7 | other |  | 0 |
+| `template_bc946f769577793f` | 5 | 5 | other |  | 0 |
+| `adding_match_in_pattern_type_relabel` | 4 | 4 | pieces | `frame:adding match in` | 4 |
+| `adding_match_in_pattern_type_null` | 3 | 3 | pieces | `frame:adding match in` | 3 |
+| `detected_rotation_of_waiting_seconds` | 3 | 3 | other |  | 3 |
+| `template_32499053e3713529` | 3 | 3 | other |  | 0 |
+| `adding_source_type_tail` | 2 | 2 | pieces | `frame:adding source type` | 2 |
+| `following_tail_of_var_log_containers` | 2 | 2 | pieces | `frame:following tail of` | 2 |
+| `template_27e19ef0e9354748` | 2 | 2 | other |  | 0 |
+| `template_5cd2a274f0f6482d` | 2 | 2 | other |  | 0 |
+| `template_7393c947031ccc28` | 2 | 2 | other |  | 0 |
+| `template_f2911e22ce277e65` | 2 | 2 | other |  | 0 |
+| `Consolidating_multi_line_events_into_logical_groups` | 1 | 1 | other |  | 1 |
+| `HTTP_code_field_httpCode` | 1 | 1 | other |  | 1 |
+| `Loading_from_data_templates_json_sample_output` | 1 | 1 | other |  | 1 |
+| `Loading_symbol_libraries_from` | 1 | 1 | other |  | 1 |
+| `Logging_to` | 1 | 1 | other |  | 1 |
+| `Publishing_metrics_to_the_backend` | 1 | 1 | other |  | 1 |
+| `ROOT` | 1 | 1 | other |  | 0 |
+| `Reading_events_from_Fluentd_via_stdin` | 1 | 1 | other |  | 1 |
+| `Transforming_events_into_using_of_available_cores` | 1 | 1 | other |  | 1 |
+| `Writing_field_encoded_encode_Fluentd` | 1 | 1 | other |  | 1 |
+| `adding_filter_in_DISPATCH_pattern_type_prometheus` | 1 | 1 | pieces | `frame:adding filter in` | 1 |
+| `adding_filter_in_KUBERNETES_pattern_kubernetes_type_metadata` | 1 | 1 | pieces | `frame:adding filter in` | 1 |
+| `adding_match_in_DISPATCH_pattern_type_relabel` | 1 | 1 | pieces | `frame:adding match in` | 1 |
+| `adding_match_in_FINAL_OUTPUT_pattern_type_null` | 1 | 1 | pieces | `frame:adding match in` | 1 |
+| `adding_match_in_KUBERNETES_pattern_kubernetes_var_log_containers_fluentd_type_relabel` | 1 | 1 | pieces | `frame:adding match in KUBERNETES pattern` | 1 |
+| `adding_match_in_KUBERNETES_pattern_type_relabel` | 1 | 1 | pieces | `frame:adding match in KUBERNETES pattern` | 1 |
+| `adding_match_in_OUTPUT_pattern_type_relabel` | 1 | 1 | pieces | `frame:adding match in` | 1 |
+| `adding_match_in_pattern_type_exec_filter` | 1 | 1 | pieces | `frame:adding match in` | 1 |
+| `adding_match_in_pattern_type_stdout` | 1 | 1 | pieces | `frame:adding match in` | 1 |
+| `adding_source_type_prometheus` | 1 | 1 | pieces | `frame:adding source type` | 1 |
+| `adding_source_type_unix` | 1 | 1 | pieces | `frame:adding source type` | 1 |
+| `engine_connected_to` | 1 | 1 | other |  | 1 |
+| `field` | 1 | 1 | other |  | 1 |
+| `fluentd_worker_is_now_running` | 1 | 1 | other |  | 1 |
+| `gem_fluent_plugin_concat_version` | 1 | 1 | pieces | `frame:gem` | 1 |
+| `gem_fluent_plugin_dedot_filter_version` | 1 | 1 | pieces | `frame:gem` | 1 |
+| `gem_fluent_plugin_detect_exceptions_version` | 1 | 1 | pieces | `frame:gem` | 1 |
+| `gem_fluent_plugin_elasticsearch_version` | 1 | 1 | pieces | `frame:gem` | 1 |
+| `gem_fluent_plugin_grok_parser_version` | 1 | 1 | pieces | `frame:gem` | 1 |
+| `gem_fluent_plugin_json_in_version` | 1 | 1 | pieces | `frame:gem` | 1 |
+| `gem_fluent_plugin_kubernetes_metadata_filter_version` | 1 | 1 | pieces | `frame:gem` | 1 |
+| `gem_fluent_plugin_multi_format_parser_version` | 1 | 1 | pieces | `frame:gem` | 1 |
+| `gem_fluent_plugin_parser_cri_version` | 1 | 1 | pieces | `frame:gem` | 1 |
+| `gem_fluent_plugin_prometheus_version` | 1 | 1 | pieces | `frame:gem` | 1 |
+| `gem_fluent_plugin_record_modifier_version` | 1 | 1 | pieces | `frame:gem` | 1 |
+| `gem_fluent_plugin_rewrite_tag_filter_version` | 1 | 1 | pieces | `frame:gem` | 1 |
+| `gem_fluent_plugin_systemd_version` | 1 | 1 | pieces | `frame:gem` | 1 |
+| `gem_fluentd_version` | 1 | 1 | pieces | `frame:gem` | 1 |
+| `init_logger_path_nil_rotate_age_size` | 1 | 1 | other |  | 1 |
+| `init_supervisor_logger_path_nil_rotate_age_size` | 1 | 1 | other |  | 1 |
+| `ks_container_context_using` | 1 | 1 | other |  | 1 |
+| `listening_fluent_socket_on` | 1 | 1 | other |  | 1 |
+| `lookup_field_from_file_http_csv` | 1 | 1 | other |  | 1 |
+| `parsing_config_file_is_succeeded_path_fluentd_etc_fluent_conf` | 1 | 1 | other |  | 1 |
+| `spawn_command_to_main_cmdline_usr_local_bin_ruby_c_fluentd_etc_fluent_conf_p_plugins_gemfile_Gemfile_r_under_supervisor` | 1 | 1 | other |  | 1 |
+| `starting_fluentd_worker_pid_ppid` | 1 | 1 | other |  | 1 |
+| `starting_pid_ruby` | 1 | 1 | other |  | 1 |
+| `template_00e8185f53cd67e0` | 1 | 1 | other |  | 0 |
+| `template_023f1e5c4d877ee5` | 1 | 1 | other |  | 0 |
+| `template_104e697f4c678be5` | 1 | 1 | other |  | 0 |
+| `template_18500fd5dce381ce` | 1 | 1 | other |  | 0 |
+| `template_1cc6278382ef2ea5` | 1 | 1 | other |  | 0 |
+| `template_1d4b5136f316144e` | 1 | 1 | other |  | 0 |
+| `template_2970a6914ea341aa` | 1 | 1 | other |  | 0 |
+| `template_2b0b44e0efd1fc74` | 1 | 1 | other |  | 0 |
+| `template_2fc5c4bb3bacc9b4` | 1 | 1 | other |  | 0 |
+| `template_403593a85c7dbec0` | 1 | 1 | other |  | 0 |
+| `template_409edcc11ca7abeb` | 1 | 1 | other |  | 0 |
+| `template_50d4ebde3a001092` | 1 | 1 | other |  | 0 |
+| `template_514eee31087a1f64` | 1 | 1 | other |  | 0 |
+| `template_57cc50c75a9168d8` | 1 | 1 | other |  | 0 |
+| `template_5e94b7c3bb6d3dbe` | 1 | 1 | other |  | 0 |
+| `template_787508c6ea01f316` | 1 | 1 | other |  | 0 |
+| `template_8110eaee6084d36c` | 1 | 1 | other |  | 0 |
+| `template_92635e4a7cd791a3` | 1 | 1 | other |  | 0 |
+| `template_a2a3771e27aed283` | 1 | 1 | other |  | 0 |
+| `template_a3e4fc05718d7a54` | 1 | 1 | other |  | 0 |
+| `template_a73097eb6c8b9625` | 1 | 1 | other |  | 0 |
+| `template_ab9b611b58cc4da8` | 1 | 1 | other |  | 0 |
+| `template_b25e5b78fcd36e28` | 1 | 1 | other |  | 0 |
+| `template_b9938307ea0f907a` | 1 | 1 | other |  | 0 |
+| `template_bc7601c7a1391ff8` | 1 | 1 | other |  | 0 |
+| `template_bed53fa96e084343` | 1 | 1 | other |  | 0 |
+| `template_c0381df9a2a4fb3d` | 1 | 1 | other |  | 0 |
+| `template_c3d0b6650e018a9d` | 1 | 1 | other |  | 0 |
+| `template_c43824cc8166a18f` | 1 | 1 | other |  | 0 |
+| `template_c7f5e80353490fce` | 1 | 1 | other |  | 0 |
+| `template_caa906336b30d329` | 1 | 1 | other |  | 0 |
+| `template_ce776c9f11a72c23` | 1 | 1 | other |  | 0 |
+| `template_d20d40bc85ca59f6` | 1 | 1 | other |  | 0 |
+| `template_d28b8d916787a6c7` | 1 | 1 | other |  | 0 |
+| `template_d530b0bdf426aad9` | 1 | 1 | other |  | 0 |
+| `template_d5e5afafb533f63e` | 1 | 1 | other |  | 0 |
+| `template_d98417c5ce946748` | 1 | 1 | other |  | 0 |
+| `template_dc7881e252aec1a2` | 1 | 1 | other |  | 0 |
+| `template_dfdc7ffa33f0c11d` | 1 | 1 | other |  | 0 |
+| `template_f8b10ac537cd8276` | 1 | 1 | other |  | 0 |
+| `template_f8bb44424bfd307b` | 1 | 1 | other |  | 0 |
+| `template_f904612c8439cc68` | 1 | 1 | other |  | 0 |
+| `template_fc787b0a000ef394` | 1 | 1 | other |  | 0 |
+| `using_configuration_file_ROOT` | 1 | 1 | other |  | 1 |
+| `ℹ_with_severity_field_level` | 1 | 1 | other |  | 1 |
+
+Capture A, `valkey-cart`: kept events 6, patterns 6; pieces 0 in 0 families; byte cap 0 (smallest moved pattern: 120 events); other 6.
+
+| Pattern | Events in the floor | Pattern events in the capture | Split | Family | Events with a timestamp head |
+|---|---:|---:|---|---|---:|
+| `Ready_to_accept_connections_tcp` | 1 | 1 | other |  | 1 |
+| `Running_mode_standalone_port` | 1 | 1 | other |  | 1 |
+| `Server_initialized` | 1 | 1 | other |  | 1 |
+| `Valkey_bits_commit_modified_just_started` | 1 | 1 | other |  | 1 |
+| `monotonic_clock_POSIX_gettime` | 1 | 1 | other |  | 1 |
+| `oOOoOOoOOo_Valkey_is_starting` | 1 | 1 | other |  | 1 |
+
+Capture A, `opensearch`: kept events 263, patterns 173; pieces 122 in 7 families; byte cap 0 (smallest moved pattern: 20 events); other 141.
+
+| Pattern | Events in the floor | Pattern events in the capture | Split | Family | Events with a timestamp head |
+|---|---:|---:|---|---|---:|
+| `update_mapping` | 19 | 19 | other |  | 19 |
+| `Hourly_maintenance_succeeds` | 10 | 10 | other |  | 10 |
+| `Start_running_hourly_cron` | 10 | 10 | other |  | 10 |
+| `Start_to_maintain_running_historical_tasks` | 10 | 10 | other |  | 10 |
+| `Indexing` | 6 | 6 | pieces | `frame:Indexing` | 6 |
+| `onIndexModule_index_opensearch_sap_log_types_config` | 6 | 6 | pieces | `frame:onIndexModule index` | 6 |
+| `onIndexModule_index_top` | 6 | 6 | pieces | `frame:onIndexModule index` | 6 |
+| `creating_index_cause_templates_shards` | 5 | 5 | other |  | 5 |
+| `INFO_o_o_s_info` | 4 | 4 | other |  | 4 |
+| `Indexing_from` | 3 | 3 | pieces | `frame:Indexing` | 3 |
+| `Loaded_docs_successfully` | 3 | 3 | pieces | `frame:Loaded` | 3 |
+| `Loading_builtin_types` | 3 | 3 | other |  | 3 |
+| `Successfully_created_or_updated_template` | 3 | 3 | other |  | 3 |
+| `Using_local_opensearch_cluster_as_metadata_store` | 3 | 3 | other |  | 3 |
+| `field_mapping_docs_successfully` | 3 | 3 | pieces | `frame:Loaded` | 3 |
+| `updating_number_of_replicas_to_indices` | 3 | 3 | other |  | 3 |
+| `Candidate_custom_result_indices_are_empty` | 2 | 2 | other |  | 2 |
+| `Loaded_log_type` | 2 | 2 | pieces | `frame:Loaded` | 2 |
+| `Reflections_took_ms_to_scan_urls_producing_keys_and_values` | 2 | 2 | other |  | 2 |
+| `Registered_memory_breaker` | 2 | 2 | other |  | 2 |
+| `create_mapping` | 2 | 2 | other |  | 2 |
+| `initialized` | 2 | 2 | other |  | 2 |
+| `onIndexModule_index_plugins_ml_config` | 2 | 2 | pieces | `frame:onIndexModule index` | 2 |
+| `publish_address_bound_addresses` | 2 | 2 | other |  | 2 |
+| `started` | 2 | 2 | other |  | 2 |
+| `Add_data_node_to_version_hash_ring` | 1 | 1 | other |  | 1 |
+| `All_nodes_with_known_version` | 1 | 1 | other |  | 1 |
+| `Build_version_hash_ring_successfully` | 1 | 1 | other |  | 1 |
+| `Cache_cluster_manager_node_time` | 1 | 1 | other |  | 1 |
+| `Canceling_sweep_ism_plugin_version_job` | 1 | 1 | other |  | 1 |
+| `Cannot_create_type_checker_for_function_ARRAY_Will_skip_its_checking` | 1 | 1 | pieces | `frame:Cannot create type checker for function` | 1 |
+| `Cannot_create_type_checker_for_function_EXISTS_Will_skip_its_checking` | 1 | 1 | pieces | `frame:Cannot create type checker for function` | 1 |
+| `Cannot_create_type_checker_for_function_FILTER_Will_skip_its_checking` | 1 | 1 | pieces | `frame:Cannot create type checker for function` | 1 |
+| `Cannot_create_type_checker_for_function_FORALL_Will_skip_its_checking` | 1 | 1 | pieces | `frame:Cannot create type checker for function` | 1 |
+| `Cannot_create_type_checker_for_function_JSON_APPEND_Will_skip_its_checking` | 1 | 1 | pieces | `frame:Cannot create type checker for function` | 1 |
+| `Cannot_create_type_checker_for_function_JSON_DELETE_Will_skip_its_checking` | 1 | 1 | pieces | `frame:Cannot create type checker for function` | 1 |
+| `Cannot_create_type_checker_for_function_JSON_EXTEND_Will_skip_its_checking` | 1 | 1 | pieces | `frame:Cannot create type checker for function` | 1 |
+| `Cannot_create_type_checker_for_function_JSON_EXTRACT_Will_skip_its_checking` | 1 | 1 | pieces | `frame:Cannot create type checker for function` | 1 |
+| `Cannot_create_type_checker_for_function_JSON_KEYS_Will_skip_its_checking` | 1 | 1 | pieces | `frame:Cannot create type checker for function` | 1 |
+| `Cannot_create_type_checker_for_function_JSON_SET_Will_skip_its_checking` | 1 | 1 | pieces | `frame:Cannot create type checker for function` | 1 |
+| `Cannot_create_type_checker_for_function_JSON_Will_skip_its_checking` | 1 | 1 | pieces | `frame:Cannot create type checker for function` | 1 |
+| `Cannot_create_type_checker_for_function_REDUCE_Will_skip_its_checking` | 1 | 1 | pieces | `frame:Cannot create type checker for function` | 1 |
+| `Cannot_create_type_checker_for_function_TRANSFORM_Will_skip_its_checking` | 1 | 1 | pieces | `frame:Cannot create type checker for function` | 1 |
+| `Cluster_health_status_changed_from_reason` | 1 | 1 | other |  | 1 |
+| `Cluster_is_not_recovered_yet` | 1 | 1 | other |  | 1 |
+| `Config_cleanup_db_files_batch_metrics_retention_period_minutes_rpc_port_webservice` | 1 | 1 | other |  | 1 |
+| `Enabled_false` | 1 | 1 | other |  | 1 |
+| `Index_not_found_performing_auto` | 1 | 1 | other |  | 1 |
+| `Init_version_hash_ring_successfully` | 1 | 1 | other |  | 1 |
+| `JVM_arguments` | 1 | 1 | other |  | 1 |
+| `Java_vector_incubator_API_enabled_uses_preferredBitSize_FMA` | 1 | 1 | other |  | 1 |
+| `Loaded_ad_ldap_logtype_json_log_type` | 1 | 1 | pieces | `frame:Loaded` | 1 |
+| `Loaded_apache_access_logtype_json_log_type` | 1 | 1 | pieces | `frame:Loaded` | 1 |
+| `Loaded_azure_logtype_json_log_type` | 1 | 1 | pieces | `frame:Loaded` | 1 |
+| `Loaded_cloudtrail_logtype_json_log_type` | 1 | 1 | pieces | `frame:Loaded` | 1 |
+| `Loaded_dns_logtype_json_log_type` | 1 | 1 | pieces | `frame:Loaded` | 1 |
+| `Loaded_extension_query_scheduler_index_async` | 1 | 1 | pieces | `frame:Loaded scheduler extension` | 1 |
+| `Loaded_external_query_converters_failed` | 1 | 1 | other |  | 1 |
+| `Loaded_github_logtype_json_log_type` | 1 | 1 | pieces | `frame:Loaded` | 1 |
+| `Loaded_json_log_type` | 1 | 1 | pieces | `frame:Loaded` | 1 |
+| `Loaded_linux_logtype_json_log_type` | 1 | 1 | pieces | `frame:Loaded` | 1 |
+| `Loaded_netflow_logtype_json_log_type` | 1 | 1 | pieces | `frame:Loaded` | 1 |
+| `Loaded_network_logtype_json_log_type` | 1 | 1 | pieces | `frame:Loaded` | 1 |
+| `Loaded_okta_logtype_json_log_type` | 1 | 1 | pieces | `frame:Loaded` | 1 |
+| `Loaded_others_application_logtype_json_log_type` | 1 | 1 | pieces | `frame:Loaded` | 1 |
+| `Loaded_others_apt_logtype_json_log_type` | 1 | 1 | pieces | `frame:Loaded` | 1 |
+| `Loaded_others_cloud_logtype_json_log_type` | 1 | 1 | pieces | `frame:Loaded` | 1 |
+| `Loaded_others_compliance_logtype_json_log_type` | 1 | 1 | pieces | `frame:Loaded` | 1 |
+| `Loaded_others_macos_logtype_json_log_type` | 1 | 1 | pieces | `frame:Loaded` | 1 |
+| `Loaded_others_proxy_logtype_json_log_type` | 1 | 1 | pieces | `frame:Loaded` | 1 |
+| `Loaded_others_web_logtype_json_log_type` | 1 | 1 | pieces | `frame:Loaded` | 1 |
+| `Loaded_scheduler_extension_index` | 1 | 1 | pieces | `frame:Loaded scheduler extension` | 1 |
+| `Loaded_scheduler_extension_job_index_opensearch_sap` | 1 | 1 | pieces | `frame:Loaded scheduler extension` | 1 |
+| `Loaded_scheduler_extension_management_index_config` | 1 | 1 | pieces | `frame:Loaded scheduler extension` | 1 |
+| `Loaded_scheduler_extension_opensearch_ml_commons_jobs_index_plugins` | 1 | 1 | pieces | `frame:Loaded scheduler extension` | 1 |
+| `Loaded_scheduler_extension_opensearch_time_series_analytics_index_detector_jobs` | 1 | 1 | pieces | `frame:Loaded scheduler extension` | 1 |
+| `Loaded_scheduler_extension_reports_index_definitions` | 1 | 1 | pieces | `frame:Loaded scheduler extension` | 1 |
+| `Loaded_test_windows_logtype_json_log_type` | 1 | 1 | pieces | `frame:Loaded` | 1 |
+| `Loaded_vpcflow_logtype_json_log_type` | 1 | 1 | pieces | `frame:Loaded` | 1 |
+| `Loaded_waf_logtype_json_log_type` | 1 | 1 | pieces | `frame:Loaded` | 1 |
+| `Loaded_windows_logtype_json_log_type` | 1 | 1 | pieces | `frame:Loaded` | 1 |
+| `LogType_config_index_successfully_created_and_builtin_log_types_loaded` | 1 | 1 | other |  | 1 |
+| `ML_configuration_initialized_successfully` | 1 | 1 | other |  | 1 |
+| `No_Old_Alert_Indices_to_delete` | 1 | 1 | other |  | 1 |
+| `No_Old_Correlation_Indices_to_delete` | 1 | 1 | other |  | 1 |
+| `No_Old_Finding_Indices_to_delete` | 1 | 1 | other |  | 1 |
+| `No_Old_History_Indices_to_delete` | 1 | 1 | other |  | 1 |
+| `No_Old_IOC_Findings_Indices_to_delete` | 1 | 1 | other |  | 1 |
+| `Node_added` | 1 | 1 | other |  | 1 |
+| `OpenSearch_Security_modules_loaded_so_far` | 1 | 1 | other |  | 1 |
+| `Policy_attached_successfully_org_opensearch` | 1 | 1 | other |  | 1 |
+| `Rebuild_hash_ring_for_realtime_with_cooldown_size` | 1 | 1 | other |  | 1 |
+| `Registered_ML_disk_breaker` | 1 | 1 | other |  | 1 |
+| `Registered_ML_memory_breaker` | 1 | 1 | other |  | 1 |
+| `Registered_ML_native_memory_breaker` | 1 | 1 | other |  | 1 |
+| `Registered_built_in_query_converters` | 1 | 1 | other |  | 1 |
+| `ReindexPlugin_called` | 1 | 1 | other |  | 1 |
+| `Remote_clusters_initialized_successfully` | 1 | 1 | other |  | 1 |
+| `SSL_dual_mode_is_disabled` | 1 | 1 | other |  | 1 |
+| `Setting_query_insights_index_template_priority_to` | 1 | 1 | other |  | 1 |
+| `Start_migrating_data` | 1 | 1 | other |  | 1 |
+| `Starting_ML_sync_up_job` | 1 | 1 | other |  | 1 |
+| `Starting_cluster_manager_throttling_as_all_nodes_are_higher_than_or_equal_to` | 1 | 1 | other |  | 1 |
+| `Tasks_batched_key_opensearch_cluster_coordination_JoinHelper_count_and_sample_tasks_elected_as_manager_nodes_joined_term_delta` | 1 | 1 | other |  | 1 |
+| `Unable_to_find_any_implementation_for` | 1 | 1 | other |  | 1 |
+| `build_OS_Linux_JVM_Eclipse_Adoptium_OpenJDK_Server` | 1 | 1 | other |  | 1 |
+| `cluster_UUID_set_to` | 1 | 1 | other |  | 1 |
+| `cluster_manager_node_changed_term_reason_Publication` | 1 | 1 | other |  | 1 |
+| `compressed_ordinary_object_pointers` | 1 | 1 | other |  | 1 |
+| `create_index_plugins_ml_config` | 1 | 1 | other |  | 1 |
+| `creating_NettyAllocator_with_the_following_configs` | 1 | 1 | other |  | 1 |
+| `data_paths_mounts_using_usable_space_total_types` | 1 | 1 | other |  | 1 |
+| `deprecated_To_promote_inclusive_language_please_use_role_instead` | 1 | 1 | other |  | 1 |
+| `for_index_patterns` | 1 | 1 | other |  | 1 |
+| `indices_into_cluster_state` | 1 | 1 | other |  | 1 |
+| `initialized_max_concurrent_tasks_processors` | 1 | 1 | other |  | 1 |
+| `job_index_doesn_t_exist_no_need_to_migrate` | 1 | 1 | other |  | 1 |
+| `loaded_module` | 1 | 1 | pieces | `frame:loaded module` | 1 |
+| `loaded_module_aggs_matrix_stats` | 1 | 1 | pieces | `frame:loaded module` | 1 |
+| `loaded_module_analysis_common` | 1 | 1 | pieces | `frame:loaded module` | 1 |
+| `loaded_module_cache_common` | 1 | 1 | pieces | `frame:loaded module` | 1 |
+| `loaded_module_geo` | 1 | 1 | pieces | `frame:loaded module` | 1 |
+| `loaded_module_ingest_common` | 1 | 1 | pieces | `frame:loaded module` | 1 |
+| `loaded_module_ingest_geoip` | 1 | 1 | pieces | `frame:loaded module` | 1 |
+| `loaded_module_ingest_user_agent` | 1 | 1 | pieces | `frame:loaded module` | 1 |
+| `loaded_module_lang_expression` | 1 | 1 | pieces | `frame:loaded module` | 1 |
+| `loaded_module_lang_mustache` | 1 | 1 | pieces | `frame:loaded module` | 1 |
+| `loaded_module_lang_painless` | 1 | 1 | pieces | `frame:loaded module` | 1 |
+| `loaded_module_mapper_extras` | 1 | 1 | pieces | `frame:loaded module` | 1 |
+| `loaded_module_opensearch_dashboards` | 1 | 1 | pieces | `frame:loaded module` | 1 |
+| `loaded_module_parent_join` | 1 | 1 | pieces | `frame:loaded module` | 1 |
+| `loaded_module_percolator` | 1 | 1 | pieces | `frame:loaded module` | 1 |
+| `loaded_module_rank_eval` | 1 | 1 | pieces | `frame:loaded module` | 1 |
+| `loaded_module_reindex` | 1 | 1 | pieces | `frame:loaded module` | 1 |
+| `loaded_module_repository_url` | 1 | 1 | pieces | `frame:loaded module` | 1 |
+| `loaded_module_rule_framework` | 1 | 1 | pieces | `frame:loaded module` | 1 |
+| `loaded_module_search_pipeline_common` | 1 | 1 | pieces | `frame:loaded module` | 1 |
+| `loaded_module_systemd` | 1 | 1 | pieces | `frame:loaded module` | 1 |
+| `loaded_module_transport_grpc` | 1 | 1 | pieces | `frame:loaded module` | 1 |
+| `loaded_plugin_opensearch_alerting` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `loaded_plugin_opensearch_anomaly_detection` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `loaded_plugin_opensearch_asynchronous_search` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `loaded_plugin_opensearch_cross_cluster_replication` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `loaded_plugin_opensearch_custom_codecs` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `loaded_plugin_opensearch_flow_framework` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `loaded_plugin_opensearch_geospatial` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `loaded_plugin_opensearch_index_management` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `loaded_plugin_opensearch_job_scheduler` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `loaded_plugin_opensearch_knn` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `loaded_plugin_opensearch_ltr` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `loaded_plugin_opensearch_ml` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `loaded_plugin_opensearch_neural_search` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `loaded_plugin_opensearch_notifications` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `loaded_plugin_opensearch_notifications_core` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `loaded_plugin_opensearch_observability` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `loaded_plugin_opensearch_performance_analyzer` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `loaded_plugin_opensearch_reports_scheduler` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `loaded_plugin_opensearch_search_relevance` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `loaded_plugin_opensearch_security` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `loaded_plugin_opensearch_security_analytics` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `loaded_plugin_opensearch_skills` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `loaded_plugin_opensearch_sql` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `loaded_plugin_opensearch_system_templates` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `loaded_plugin_opensearch_ubi` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `loaded_plugin_query_insights` | 1 | 1 | pieces | `frame:loaded plugin` | 1 |
+| `local_node` | 1 | 1 | other |  | 1 |
+| `node_ID_cluster_roles` | 1 | 1 | other |  | 1 |
+| `onIndexModule_index_validate` | 1 | 1 | pieces | `frame:onIndexModule index` | 1 |
+| `setting_initial_configuration_to_VotingConfiguration` | 1 | 1 | other |  | 1 |
+| `starting` | 1 | 1 | other |  | 1 |
+| `template_9ae16a3b2f90404f` | 1 | 1 | other |  | 0 |
+| `using_bundled_JDK_JRE_JVM_home` | 1 | 1 | other |  | 1 |
+| `using_discovery_type_single_node_and_seed_hosts_providers_settings` | 1 | 1 | other |  | 1 |
+
+Capture B, `llm`: kept events 452, patterns 22; pieces 450 in 2 families; byte cap 0 (smallest moved pattern: 225 events); other 2.
+
+| Pattern | Events in the floor | Pattern events in the capture | Split | Family | Events with a timestamp head |
+|---|---:|---:|---|---|---:|
+| `app_product_review_summary_is_The_V_as_a_dream_come_true_for_serious_deep_sky_offering_performance_and_detailed_images_Its` | 35 | 35 | pieces | `frame:app product review summary is` | 35 |
+| `times_while_exceptional_engineering_short_focal_length_make_it_an_incredibly_efficient_and_professional_piece_of_equipment` | 35 | 35 | pieces | `frame:app Processing a response` | 35 |
+| `app_Processing_a_response_This_dedicated_solar_scope_is_highly_for_its_perfect_performance_in_observations_and_eclipse_events_thanks` | 29 | 29 | pieces | `frame:app Processing a response` | 29 |
+| `app_product_review_summary_is_This_dedicated_solar_scope_highly_for_its_perfect_performance_in_observations_and_eclipse_events` | 29 | 29 | pieces | `frame:app product review summary is` | 29 |
+| `app_Processing_a_response_These_roof_binoculars_are_highly_rated_for_their_incredible_clarity_brightness_and_sharp_images_making` | 27 | 27 | pieces | `frame:app Processing a response` | 27 |
+| `app_product_review_summary_is_These_roof_binoculars_are_highly_rated_for_their_incredible_clarity_brightness_and_sharp_images` | 27 | 27 | pieces | `frame:app product review summary is` | 27 |
+| `app_product_review_summary_is_This_entry_level_telescope_highly_recommended_for_beginners_and_casual_viewing_offering_clear` | 24 | 24 | pieces | `frame:app product review summary is` | 24 |
+| `moon_brighter_Users_appreciate_its_portability_ease_setup_good_value_though_some_note_manual_controls_can_be_a_bit_tricky` | 24 | 24 | pieces | `frame:app Processing a response` | 24 |
+| `app_Processing_a_response_This_lens_cleaning_kit_is_highly_as_versatile_and_essential_tool_for_maintaining_various_optics_from` | 21 | 21 | pieces | `frame:app Processing a response` | 21 |
+| `app_Processing_a_response_This_solar_system_color_imager_is_highly_as_an_excellent_solution_for_both_beginners_and_serious_observers` | 21 | 21 | pieces | `frame:app Processing a response` | 21 |
+| `app_product_review_summary_is_This_lens_cleaning_kit_highly_as_a_versatile_and_essential_tool_for_maintaining_various_optics` | 21 | 21 | pieces | `frame:app product review summary is` | 21 |
+| `app_product_review_summary_is_This_solar_system_color_imager_highly_as_an_excellent_solution_for_both_beginners_and_serious` | 21 | 21 | pieces | `frame:app product review summary is` | 21 |
+| `app_Processing_a_response_This_device_is_highly_valued_by_users_for_its_essential_red_flashlight_mode_which_preserves_night_vision` | 19 | 19 | pieces | `frame:app Processing a response` | 19 |
+| `app_Processing_a_response_This_telescope_is_highly_for_its_and_integration_making_incredibly_easy_accurate_beginners_Users_highlight` | 19 | 19 | pieces | `frame:app Processing a response` | 19 |
+| `app_product_review_summary_is_This_device_highly_valued_by_users_for_its_essential_red_flashlight_mode_which_preserves_night` | 19 | 19 | pieces | `frame:app product review summary is` | 19 |
+| `product_review_summary_is_This_telescope_highly_for_its_app_and_integration_making_incredibly_easy_accurate_beginners_Users` | 19 | 19 | pieces | `frame:app product review summary is` | 19 |
+| `app_Processing_a_response_The_Comet_Book_is_highly_regarded_as_fascinating_and_historical_document_offering_glimpse_into_ancient_astronomical` | 17 | 17 | pieces | `frame:app Processing a response` | 17 |
+| `app_product_review_summary_is_The_Comet_Book_highly_regarded_as_a_fascinating_and_historical_document_offering_glimpse_into` | 17 | 17 | pieces | `frame:app product review summary is` | 17 |
+| `app_Processing_a_response_This_Solar_Filter_is_deemed_essential_for_safe_solar_viewing_providing_crystal_clear_and_secure_observations` | 13 | 13 | pieces | `frame:app Processing a response` | 13 |
+| `app_product_review_summary_is_This_Solar_Filter_deemed_essential_for_safe_solar_viewing_providing_crystal_clear_and_secure` | 13 | 13 | pieces | `frame:app product review summary is` | 13 |
+| `OpenAI_API_server_starting_on_http_localhost` | 1 | 1 | other |  | 1 |
+| `app` | 1 | 1 | other |  | 1 |
+
+Capture B, `product-reviews`: kept events 3,621, patterns 67; pieces 2,270 in 2 families; byte cap 1,350 (smallest moved pattern: 225 events); other 1.
+
+| Pattern | Events in the floor | Pattern events in the capture | Split | Family | Events with a timestamp head |
+|---|---:|---:|---|---|---:|
+| `Model_wants_to_call_tool_s` | 225 | 225 | byte cap |  | 225 |
+| `Processing_tool_call_fetch_product_reviews_with_arguments` | 225 | 225 | byte cap |  | 225 |
+| `Receive_AskProductAIAssistant_question_Can_you_summarize_the_product_reviews` | 225 | 225 | byte cap |  | 225 |
+| `Response_content_requesting_a_tool_call_refusal_None_role_assistant_annotations_audio_function_calls_fetch_product` | 225 | 225 | byte cap |  | 225 |
+| `llmInaccurateResponse_feature_flag_False` | 225 | 225 | byte cap |  | 225 |
+| `llmRateLimitError_feature_flag_False` | 225 | 225 | byte cap |  | 225 |
+| `username_clean_optics_description_This_kit_is_a_for_all_my_The_brush_and_work_perfectly_without_leaving_any_residue_My_have_never` | 54 | 54 | pieces | `location:product_reviews_server.py:127` | 54 |
+| `username_daily_cleaner_description_use_this_on_my_binoculars_camera_and_even_phone_screen_It_s_very_effective_gentle_versatile_cleaning` | 54 | 54 | pieces | `location:product_reviews_server.py:127` | 54 |
+| `username_description_Essential_for_any_photographer_or_telescope_owner_It_safely_removes_dust_and_fingerprints_high_quality_cleaning` | 54 | 54 | pieces | `location:product_reviews_server.py:127` | 54 |
+| `username_sharp_view_description_Works_as_advertised_my_telescope_views_are_much_clearer_after_using_this_The_fluid_and_cloth_excellent` | 54 | 54 | pieces | `location:product_reviews_server.py:127` | 54 |
+| `username_tech_maintenance_description_Great_value_for_money_The_different_cleaning_options_cover_all_needs_Keeps_my_expensive_equipment` | 54 | 54 | pieces | `location:product_reviews_server.py:127` | 54 |
+| `username_ancient_texts_description_Such_a_unique_and_intriguing_read_The_historical_context_is_It_offers_different_perspective` | 51 | 51 | pieces | `location:product_reviews_server.py:127` | 51 |
+| `username_bookworm_astro_description_Beautifully_presented_historical_document_It_s_amazing_to_see_how_were_understood_centuries` | 51 | 51 | pieces | `location:product_reviews_server.py:127` | 51 |
+| `username_celestial_history_description_love_historical_astronomy_and_this_book_delivers_It_s_provides_a_window_into_past_recommended` | 51 | 51 | pieces | `location:product_reviews_server.py:127` | 51 |
+| `username_history_buff_description_fascinating_glimpse_into_historical_astronomical_thought_The_content_is_incredibly_must_read` | 51 | 51 | pieces | `location:product_reviews_server.py:127` | 51 |
+| `username_rare_find_description_truly_special_book_for_enthusiasts_of_astronomical_history_The_details_about_ancient_are_very_interesting` | 51 | 51 | pieces | `location:product_reviews_server.py:127` | 51 |
+| `username_advanced_scope_description_every_for_the_quality_and_speed_it_offers_My_images_have_never_been_or_more_vibrant_truly_professional` | 47 | 47 | pieces | `location:product_reviews_server.py:127` | 47 |
+| `username_deep_sky_master_description_The_V_is_a_dream_come_true_for_imaging_f_speed_drastically_cuts_down_exposure_times_My_best_investment` | 47 | 47 | pieces | `location:product_reviews_server.py:127` | 47 |
+| `username_imaging_guru_description_This_OTA_is_a_The_fast_optics_mean_more_data_in_less_time_If_you_re_serious_about_deep_sky_this` | 47 | 47 | pieces | `location:product_reviews_server.py:127` | 47 |
+| `username_precision_optics_description_The_engineering_behind_this_is_exceptional_It_s_incredibly_efficient_for_capturing_faint_objects` | 47 | 47 | pieces | `location:product_reviews_server.py:127` | 47 |
+| `username_pro_astro_description_performance_wide_field_The_short_focal_length_makes_less_critical_Produces_detailed_images_score` | 47 | 47 | pieces | `location:product_reviews_server.py:127` | 47 |
+| `username_astro_accessory_description_Every_astronomer_needs_one_of_these_The_red_light_is_essential_and_the_hand_warmer_power_bank` | 45 | 45 | pieces | `location:product_reviews_server.py:127` | 45 |
+| `username_description_and_versatile_this_flashlight_is_great_for_camping_night_walks_The_hand_warmer_function_a_game_changer_on` | 45 | 45 | pieces | `location:product_reviews_server.py:127` | 45 |
+| `username_emergency_kit_description_fantastic_multi_tool_for_my_The_red_light_is_useful_and_the_power_bank_means_can_charge_phone` | 45 | 45 | pieces | `location:product_reviews_server.py:127` | 45 |
+| `username_night_walker_description_The_red_light_is_perfect_for_preserving_vision_during_astronomy_sessions_hand_warmer_an_unexpected` | 45 | 45 | pieces | `location:product_reviews_server.py:127` | 45 |
+| `username_star_description_This_flashlight_is_for_parties_The_red_mode_gentle_on_the_eyes_and_power_bank_feature_super_handy_Love` | 45 | 45 | pieces | `location:product_reviews_server.py:127` | 45 |
+| `username_beginner_astro_description_bit_tricky_to_get_used_the_manual_controls_but_once_you_do_it_s_very_Saw_Orion_for_first_time` | 42 | 42 | pieces | `location:product_reviews_server.py:127` | 42 |
+| `username_celestial_explorer_description_Perfect_for_camping_trips_It_s_lightweight_and_portable_making_it_easy_to_take_anywhere` | 42 | 42 | pieces | `location:product_reviews_server.py:127` | 42 |
+| `username_description_For_the_price_this_delivers_excellent_performance_was_able_to_see_Jupiter_s_clearly_fantastic_purchase_for_casual` | 42 | 42 | pieces | `location:product_reviews_server.py:127` | 42 |
+| `username_description_Great_entry_Easy_to_set_up_and_provides_clear_views_of_the_moon_brighter_recommend_for_new_score` | 42 | 42 | pieces | `location:product_reviews_server.py:127` | 42 |
+| `username_telescope_fan_description_Not_the_most_powerful_scope_but_it_s_great_for_kids_and_beginners_My_children_love_looking` | 42 | 42 | pieces | `location:product_reviews_server.py:127` | 42 |
+| `Easy_attach_provides_crystal_clear_safe_views_sun_The_build_quality_excellent_must_have_accessory_for_solar_enthusiasts_score` | 38 | 38 | pieces | `location:product_reviews_server.py:127` | 38 |
+| `username_eclipse_ready_description_this_for_the_upcoming_and_it_fits_perfectly_Tested_out_views_are_fantastic_safe_Very_happy_with` | 38 | 38 | pieces | `location:product_reviews_server.py:127` | 38 |
+| `username_filter_fan_description_Works_perfectly_with_my_scope_No_more_about_accidental_Great_product_for_protecting_your_eyes` | 38 | 38 | pieces | `location:product_reviews_server.py:127` | 38 |
+| `username_solar_safety_description_Essential_for_safe_viewing_with_my_telescope_The_ensure_it_stays_securely_in_place_Peace_of_mind` | 38 | 38 | pieces | `location:product_reviews_server.py:127` | 38 |
+| `username_telescope_upgrade_description_This_filter_is_a_perfect_addition_to_my_setup_The_ISO_compliance_crucial_recommend_for_anyone` | 38 | 38 | pieces | `location:product_reviews_server.py:127` | 38 |
+| `description_The_detail_can_capture_this_imager_incredible_It_integrates_well_various_software_must_have_for_serious_observers_score` | 36 | 36 | pieces | `location:product_reviews_server.py:127` | 36 |
+| `username_app_user_description_Amazing_technology_the_integration_works_ve_never_had_so_much_fun_exploring_night_sky_every_score` | 36 | 36 | pieces | `location:product_reviews_server.py:127` | 36 |
+| `username_description_Finally_a_telescope_that_takes_the_guesswork_out_of_The_real_time_positioning_is_incredibly_accurate_recommended` | 36 | 36 | pieces | `location:product_reviews_server.py:127` | 36 |
+| `username_description_Finally_capturing_images_of_and_The_makes_it_so_accessible_Great_for_beginners_in_score` | 36 | 36 | pieces | `location:product_reviews_server.py:127` | 36 |
+| `username_description_Setup_was_a_breeze_and_the_tutorials_in_app_are_very_helpful_The_views_crisp_clear_My_only_minor_is_battery` | 36 | 36 | pieces | `location:product_reviews_server.py:127` | 36 |
+| `username_description_This_imager_is_a_fantastic_step_up_for_photography_The_color_quality_superb_Easy_to_use_with_my_existing_telescope` | 36 | 36 | pieces | `location:product_reviews_server.py:127` | 36 |
+| `username_description_product_the_app_truly_guides_you_It_s_like_having_a_personal_astronomer_with_The_optical_quality_is_also_very` | 36 | 36 | pieces | `location:product_reviews_server.py:127` | 36 |
+| `username_digital_sky_description_solid_choice_for_getting_into_solar_system_imaging_The_setup_was_straightforward_Produces_beautiful` | 36 | 36 | pieces | `location:product_reviews_server.py:127` | 36 |
+| `username_imager_pro_description_Excellent_resolution_and_color_for_its_price_point_It_s_a_perfect_solution_those_looking_to_start` | 36 | 36 | pieces | `location:product_reviews_server.py:127` | 36 |
+| `username_tech_astro_description_The_app_is_It_made_finding_celestial_objects_incredibly_easy_This_telescope_a_game_changer_for_beginners` | 36 | 36 | pieces | `location:product_reviews_server.py:127` | 36 |
+| `times_while_exceptional_engineering_short_focal_length_make_it_an_incredibly_efficient_and_professional_piece_of_equipment` | 35 | 35 | pieces | `frame:Returning an AI assistant response`, `location:product_reviews_server.py:301` | 35 |
+| `astro_description_Excellent_travel_viewing_The_magnification_much_better_than_binoculars_sun_must_have_for_any_solar_score` | 32 | 32 | pieces | `location:product_reviews_server.py:127` | 32 |
+| `username_description_Compact_and_easy_to_carry_this_telescope_is_ideal_for_eclipse_events_The_included_backpack_a_nice_touch_Views` | 32 | 32 | pieces | `location:product_reviews_server.py:127` | 32 |
+| `username_description_Very_with_the_safety_features_and_clarity_Sharing_sun_family_has_never_been_easier_or_safer_Great_value_for` | 32 | 32 | pieces | `location:product_reviews_server.py:127` | 32 |
+| `username_safe_viewer_description_The_ISO_compliant_filter_is_It_s_a_well_designed_product_for_solar_observation_recommend_educational` | 32 | 32 | pieces | `location:product_reviews_server.py:127` | 32 |
+| `viewer_description_Perfect_solar_The_Solar_Safe_filter_gives_peace_mind_used_last_partial_eclipse_and_it_was_fantastic_score` | 32 | 32 | pieces | `location:product_reviews_server.py:127` | 32 |
+| `Returning_an_AI_assistant_response_This_dedicated_solar_scope_is_highly_for_its_perfect_performance_in_observations_and_eclipse_events` | 29 | 29 | pieces | `frame:Returning an AI assistant response`, `location:product_reviews_server.py:301` | 29 |
+| `Lightweight_durable_these_are_my_go_binoculars_hiking_The_wide_field_of_view_is_excellent_recommend_for_outdoor_enthusiasts_score` | 28 | 28 | pieces | `location:product_reviews_server.py:127` | 28 |
+| `username_bird_watcher_description_Incredible_clarity_and_brightness_perfect_for_watching_The_ED_glass_really_makes_a_difference` | 28 | 28 | pieces | `location:product_reviews_server.py:127` | 28 |
+| `username_nature_lover_description_These_binoculars_are_fantastic_for_observation_The_close_focus_is_a_huge_advantage_viewing_nearby` | 28 | 28 | pieces | `location:product_reviews_server.py:127` | 28 |
+| `username_outdoor_adventurer_description_Excellent_build_quality_and_optical_performance_They_feel_robust_provide_sharp_images_great_investment` | 28 | 28 | pieces | `location:product_reviews_server.py:127` | 28 |
+| `username_stadium_fan_description_Took_these_to_a_game_and_had_an_amazing_view_of_the_action_They_perform_great_in_various_lighting_conditions` | 28 | 28 | pieces | `location:product_reviews_server.py:127` | 28 |
+| `Returning_an_AI_assistant_response_These_roof_binoculars_are_highly_rated_for_their_incredible_clarity_brightness_and_sharp_images` | 27 | 27 | pieces | `frame:Returning an AI assistant response`, `location:product_reviews_server.py:301` | 27 |
+| `moon_brighter_Users_appreciate_its_portability_ease_setup_good_value_though_some_note_manual_controls_can_be_a_bit_tricky` | 24 | 24 | pieces | `frame:Returning an AI assistant response`, `location:product_reviews_server.py:301` | 24 |
+| `Returning_an_AI_assistant_response_This_lens_cleaning_kit_is_highly_as_a_versatile_and_essential_tool_for_maintaining_various_optics` | 21 | 21 | pieces | `frame:Returning an AI assistant response`, `location:product_reviews_server.py:301` | 21 |
+| `Returning_an_AI_assistant_response_This_solar_system_color_imager_is_highly_as_excellent_solution_for_both_beginners_and_serious_observers` | 21 | 21 | pieces | `frame:Returning an AI assistant response`, `location:product_reviews_server.py:301` | 21 |
+| `Returning_an_AI_assistant_response_This_device_is_highly_valued_by_users_for_its_essential_red_flashlight_mode_which_preserves_night` | 19 | 19 | pieces | `frame:Returning an AI assistant response`, `location:product_reviews_server.py:301` | 19 |
+| `Returning_an_AI_assistant_response_This_telescope_is_highly_for_its_app_and_integration_making_incredibly_easy_accurate_beginners` | 19 | 19 | pieces | `frame:Returning an AI assistant response`, `location:product_reviews_server.py:301` | 19 |
+| `Returning_an_AI_assistant_response_The_Comet_Book_is_highly_regarded_as_a_fascinating_and_historical_document_offering_glimpse` | 17 | 17 | pieces | `frame:Returning an AI assistant response`, `location:product_reviews_server.py:301` | 17 |
+| `Returning_an_AI_assistant_response_This_Solar_Filter_is_deemed_essential_for_safe_solar_viewing_providing_crystal_clear_and_secure_observations` | 13 | 13 | pieces | `frame:Returning an AI assistant response`, `location:product_reviews_server.py:301` | 13 |
+| `Product_reviews_service_started_listening_on_port` | 1 | 1 | other |  | 1 |
+
+Capture B, `recommendation`: kept events 1, patterns 1; pieces 0 in 0 families; byte cap 0 (smallest moved pattern: 602 events); other 1.
+
+| Pattern | Events in the floor | Pattern events in the capture | Split | Family | Events with a timestamp head |
+|---|---:|---:|---|---|---:|
+| `Recommendation_service_started_listening_on_port` | 1 | 1 | other |  | 1 |
+
+Capture B, `email`: kept events 1, patterns 1; pieces 0 in 0 families; byte cap 0 (smallest moved pattern: 391 events); other 1.
+
+| Pattern | Events in the floor | Pattern events in the capture | Split | Family | Events with a timestamp head |
+|---|---:|---:|---|---|---:|
+| `Use_Ctrl_C_to_stop` | 1 | 1 | other |  | 1 |
+
+Capture B, `quote`: kept events 1, patterns 1; pieces 0 in 0 families; byte cap 0 (smallest moved pattern: 391 events); other 1.
+
+| Pattern | Events in the floor | Pattern events in the capture | Split | Family | Events with a timestamp head |
+|---|---:|---:|---|---|---:|
+| `Listening_on` | 1 | 1 | other |  | 0 |
+
+Capture B, `valkey-cart`: kept events 9, patterns 9; pieces 0 in 0 families; byte cap 0 (smallest moved pattern: 23 events); other 9.
+
+| Pattern | Events in the floor | Pattern events in the capture | Split | Family | Events with a timestamp head |
+|---|---:|---:|---|---|---:|
+| `Ready_to_accept_connections_tcp` | 1 | 1 | other |  | 1 |
+| `Running_mode_standalone_port` | 1 | 1 | other |  | 1 |
+| `Saving_the_final_RDB_snapshot_before_exiting` | 1 | 1 | other |  | 1 |
+| `Server_initialized` | 1 | 1 | other |  | 1 |
+| `User_requested_shutdown` | 1 | 1 | other |  | 1 |
+| `Valkey_bits_commit_modified_just_started` | 1 | 1 | other |  | 1 |
+| `Valkey_is_now_ready_to_exit_bye` | 1 | 1 | other |  | 1 |
+| `monotonic_clock_POSIX_gettime` | 1 | 1 | other |  | 1 |
+| `oOOoOOoOOo_Valkey_is_starting` | 1 | 1 | other |  | 1 |
+
+Capture B, `postgresql`: kept events 29, patterns 19; pieces 2 in 1 families; byte cap 0 (smallest moved pattern: 23 events); other 27.
+
+| Pattern | Events in the floor | Pattern events in the capture | Split | Family | Events with a timestamp head |
+|---|---:|---:|---|---|---:|
+| `LOG_aborting_any_active_transactions` | 2 | 2 | other |  | 1 |
+| `LOG_background_worker_logical_replication_launcher_PID_exited_with_exit_code` | 2 | 2 | other |  | 2 |
+| `LOG_checkpoint_starting_shutdown_immediate` | 2 | 2 | pieces | `frame:LOG checkpoint starting` | 2 |
+| `LOG_database_system_is_ready_to_accept_connections` | 2 | 2 | other |  | 2 |
+| `LOG_database_system_is_shut_down` | 2 | 2 | other |  | 2 |
+| `LOG_database_system_was_shut_down_at` | 2 | 2 | other |  | 2 |
+| `LOG_listening_on_Unix_socket` | 2 | 2 | other |  | 2 |
+| `LOG_received_fast_shutdown_request` | 2 | 2 | other |  | 2 |
+| `LOG_shutting_down` | 2 | 2 | other |  | 2 |
+| `stream_stdout_docker` | 2 | 2 | other |  | 0 |
+| `Data_page_checksums_are_disabled` | 1 | 1 | other |  | 0 |
+| `LOG_listening_IPv_address_port` | 1 | 1 | other |  | 1 |
+| `LOG_listening_on_IPv_address_port` | 1 | 1 | other |  | 1 |
+| `LOG_starting_PostgreSQL_Debian_on_compiled_by_gcc` | 1 | 1 | other |  | 1 |
+| `Success_You_can_now_start_the_database_server_using` | 1 | 1 | other |  | 0 |
+| `The_database_cluster_will_be_initialized_with_locale` | 1 | 1 | other |  | 0 |
+| `fixing_permissions_on_existing_directory_var_lib_postgresql_data_ok` | 1 | 1 | other |  | 0 |
+| `pg_ctl_var_lib_postgresql_data_l_logfile_start` | 1 | 1 | other |  | 0 |
+| `waiting_for_server_to_start_LOG_starting_PostgreSQL_Debian_compiled_gcc` | 1 | 1 | other |  | 0 |
+

@@ -2261,5 +2261,6503 @@
     }
    }
   }
+ },
+ "floor": {
+  "target": 70,
+  "filtered_services": [
+   "opentelemetry-collector",
+   "kafka",
+   "cart"
+  ],
+  "dropped": [
+   "DEBUG",
+   "TRACE"
+  ],
+  "captures": {
+   "A": {
+    "capture": {
+     "events": 157228,
+     "bytes": 214881933
+    },
+    "floor": {
+     "events": 15644,
+     "bytes": 33671976,
+     "share": 0.0995
+    },
+    "floor_by_service": {
+     "opentelemetry-collector": 3953,
+     "recommendation": 3432,
+     "grafana": 2474,
+     "frontend": 2317,
+     "fluentd-10x": 1429,
+     "valkey-cart": 607,
+     "opensearch": 516,
+     "kube-proxy": 287,
+     "prometheus-server": 152,
+     "frontend-proxy": 113,
+     "jaeger": 86,
+     "accounting": 69,
+     "coredns": 43,
+     "metrics-server": 35,
+     "postgresql": 33,
+     "grafana-sc-dashboard": 14,
+     "init-config": 14,
+     "grafana-sc-alerts": 10,
+     "grafana-sc-datasources": 10,
+     "flagd": 9,
+     "image-provider": 8,
+     "aws-vpc-cni-init": 7,
+     "load-generator": 5,
+     "aws-node": 4,
+     "email": 3,
+     "flagd-ui": 3,
+     "fraud-detection": 3,
+     "ad": 2,
+     "aws-eks-nodeagent": 1,
+     "cart": 1,
+     "currency": 1,
+     "kafka": 1,
+     "payment": 1,
+     "quote": 1
+    },
+    "buckets": {
+     "1": {
+      "events": 6571,
+      "bytes": 23565287,
+      "share": 0.0418,
+      "patterns": 67,
+      "bands": {
+       "seen once": 38,
+       "2 to 10": 69,
+       "11 to 100": 281,
+       "101 to 1,000": 126,
+       "over 1,000": 6057
+      }
+     },
+     "2a": {
+      "events": 0,
+      "bytes": 0,
+      "share": 0.0,
+      "patterns": 0,
+      "bands": {
+       "seen once": 0,
+       "2 to 10": 0,
+       "11 to 100": 0,
+       "101 to 1,000": 0,
+       "over 1,000": 0
+      }
+     },
+     "2b": {
+      "events": 3120,
+      "bytes": 3392966,
+      "share": 0.0198,
+      "patterns": 1882,
+      "bands": {
+       "seen once": 1699,
+       "2 to 10": 439,
+       "11 to 100": 359,
+       "101 to 1,000": 623,
+       "over 1,000": 0
+      }
+     },
+     "3_moved": {
+      "events": 5539,
+      "bytes": 6200586,
+      "share": 0.0352,
+      "patterns": 13,
+      "bands": {
+       "seen once": 0,
+       "2 to 10": 0,
+       "11 to 100": 149,
+       "101 to 1,000": 843,
+       "over 1,000": 4547
+      }
+     },
+     "3_kept": {
+      "events": 414,
+      "bytes": 513137,
+      "share": 0.0026,
+      "patterns": 286,
+      "bands": {
+       "seen once": 247,
+       "2 to 10": 148,
+       "11 to 100": 19,
+       "101 to 1,000": 0,
+       "over 1,000": 0
+      }
+     },
+     "4_alone": {
+      "events": 0,
+      "bytes": 0,
+      "share": 0.0,
+      "patterns": 0,
+      "bands": {
+       "seen once": 0,
+       "2 to 10": 0,
+       "11 to 100": 0,
+       "101 to 1,000": 0,
+       "over 1,000": 0
+      }
+     },
+     "4_with_moved_only": {
+      "events": 0,
+      "bytes": 0,
+      "share": 0.0,
+      "patterns": 0,
+      "bands": {
+       "seen once": 0,
+       "2 to 10": 0,
+       "11 to 100": 0,
+       "101 to 1,000": 0,
+       "over 1,000": 0
+      }
+     },
+     "4_id_only": {
+      "events": 5539,
+      "bytes": 6200586,
+      "share": 0.0352,
+      "patterns": 13,
+      "bands": {
+       "seen once": 0,
+       "2 to 10": 0,
+       "11 to 100": 149,
+       "101 to 1,000": 843,
+       "over 1,000": 4547
+      }
+     }
+    },
+    "tier_down_in_3_moved": 4842,
+    "services": {
+     "accounting": {
+      "bucket": "2b",
+      "events": 69,
+      "moved_events": 0,
+      "kept_events": 69,
+      "moved_patterns": 0,
+      "kept_patterns": 43,
+      "capped": true
+     },
+     "ad": {
+      "bucket": "2b",
+      "events": 1,
+      "moved_events": 0,
+      "kept_events": 1,
+      "moved_patterns": 0,
+      "kept_patterns": 1,
+      "capped": true
+     },
+     "aws-eks-nodeagent": {
+      "bucket": "2b",
+      "events": 1,
+      "moved_events": 0,
+      "kept_events": 1,
+      "moved_patterns": 0,
+      "kept_patterns": 1,
+      "capped": false
+     },
+     "aws-node": {
+      "bucket": "2b",
+      "events": 4,
+      "moved_events": 0,
+      "kept_events": 4,
+      "moved_patterns": 0,
+      "kept_patterns": 4,
+      "capped": true
+     },
+     "aws-vpc-cni-init": {
+      "bucket": "2b",
+      "events": 7,
+      "moved_events": 0,
+      "kept_events": 7,
+      "moved_patterns": 0,
+      "kept_patterns": 7,
+      "capped": false
+     },
+     "coredns": {
+      "bucket": "2b",
+      "events": 35,
+      "moved_events": 0,
+      "kept_events": 35,
+      "moved_patterns": 0,
+      "kept_patterns": 4,
+      "capped": true
+     },
+     "email": {
+      "bucket": "2b",
+      "events": 1,
+      "moved_events": 0,
+      "kept_events": 1,
+      "moved_patterns": 0,
+      "kept_patterns": 1,
+      "capped": true
+     },
+     "flagd": {
+      "bucket": "2b",
+      "events": 9,
+      "moved_events": 0,
+      "kept_events": 9,
+      "moved_patterns": 0,
+      "kept_patterns": 9,
+      "capped": true
+     },
+     "flagd-ui": {
+      "bucket": "2b",
+      "events": 3,
+      "moved_events": 0,
+      "kept_events": 3,
+      "moved_patterns": 0,
+      "kept_patterns": 3,
+      "capped": false
+     },
+     "fluentd-10x": {
+      "bucket": "3",
+      "events": 1427,
+      "moved_events": 1283,
+      "kept_events": 144,
+      "moved_patterns": 3,
+      "kept_patterns": 106,
+      "capped": true
+     },
+     "fraud-detection": {
+      "bucket": "2b",
+      "events": 2,
+      "moved_events": 0,
+      "kept_events": 2,
+      "moved_patterns": 0,
+      "kept_patterns": 2,
+      "capped": true
+     },
+     "frontend": {
+      "bucket": "2b",
+      "events": 1,
+      "moved_events": 0,
+      "kept_events": 1,
+      "moved_patterns": 0,
+      "kept_patterns": 1,
+      "capped": false
+     },
+     "frontend-proxy": {
+      "bucket": "2b",
+      "events": 112,
+      "moved_events": 0,
+      "kept_events": 112,
+      "moved_patterns": 0,
+      "kept_patterns": 112,
+      "capped": true
+     },
+     "grafana": {
+      "bucket": "2b",
+      "events": 2334,
+      "moved_events": 0,
+      "kept_events": 2334,
+      "moved_patterns": 0,
+      "kept_patterns": 1424,
+      "capped": false
+     },
+     "grafana-sc-alerts": {
+      "bucket": "2b",
+      "events": 10,
+      "moved_events": 0,
+      "kept_events": 10,
+      "moved_patterns": 0,
+      "kept_patterns": 10,
+      "capped": false
+     },
+     "grafana-sc-dashboard": {
+      "bucket": "2b",
+      "events": 14,
+      "moved_events": 0,
+      "kept_events": 14,
+      "moved_patterns": 0,
+      "kept_patterns": 13,
+      "capped": false
+     },
+     "grafana-sc-datasources": {
+      "bucket": "2b",
+      "events": 10,
+      "moved_events": 0,
+      "kept_events": 10,
+      "moved_patterns": 0,
+      "kept_patterns": 10,
+      "capped": false
+     },
+     "image-provider": {
+      "bucket": "2b",
+      "events": 8,
+      "moved_events": 0,
+      "kept_events": 8,
+      "moved_patterns": 0,
+      "kept_patterns": 8,
+      "capped": true
+     },
+     "init-config": {
+      "bucket": "2b",
+      "events": 14,
+      "moved_events": 0,
+      "kept_events": 14,
+      "moved_patterns": 0,
+      "kept_patterns": 10,
+      "capped": false
+     },
+     "jaeger": {
+      "bucket": "2b",
+      "events": 82,
+      "moved_events": 0,
+      "kept_events": 82,
+      "moved_patterns": 0,
+      "kept_patterns": 55,
+      "capped": true
+     },
+     "kube-proxy": {
+      "bucket": "2b",
+      "events": 286,
+      "moved_events": 0,
+      "kept_events": 286,
+      "moved_patterns": 0,
+      "kept_patterns": 89,
+      "capped": false
+     },
+     "metrics-server": {
+      "bucket": "2b",
+      "events": 28,
+      "moved_events": 0,
+      "kept_events": 28,
+      "moved_patterns": 0,
+      "kept_patterns": 14,
+      "capped": false
+     },
+     "opensearch": {
+      "bucket": "3",
+      "events": 489,
+      "moved_events": 226,
+      "kept_events": 263,
+      "moved_patterns": 4,
+      "kept_patterns": 173,
+      "capped": true
+     },
+     "payment": {
+      "bucket": "2b",
+      "events": 1,
+      "moved_events": 0,
+      "kept_events": 1,
+      "moved_patterns": 0,
+      "kept_patterns": 1,
+      "capped": false
+     },
+     "postgresql": {
+      "bucket": "2b",
+      "events": 32,
+      "moved_events": 0,
+      "kept_events": 32,
+      "moved_patterns": 0,
+      "kept_patterns": 23,
+      "capped": false
+     },
+     "prometheus-server": {
+      "bucket": "2b",
+      "events": 55,
+      "moved_events": 0,
+      "kept_events": 55,
+      "moved_patterns": 0,
+      "kept_patterns": 36,
+      "capped": false
+     },
+     "quote": {
+      "bucket": "2b",
+      "events": 1,
+      "moved_events": 0,
+      "kept_events": 1,
+      "moved_patterns": 0,
+      "kept_patterns": 1,
+      "capped": false
+     },
+     "recommendation": {
+      "bucket": "3",
+      "events": 3431,
+      "moved_events": 3430,
+      "kept_events": 1,
+      "moved_patterns": 1,
+      "kept_patterns": 1,
+      "capped": true
+     },
+     "valkey-cart": {
+      "bucket": "3",
+      "events": 606,
+      "moved_events": 600,
+      "kept_events": 6,
+      "moved_patterns": 5,
+      "kept_patterns": 6,
+      "capped": true
+     }
+    },
+    "moved_patterns": [
+     {
+      "container": "recommendation",
+      "hash": "bzLB1zZCTIw",
+      "pattern": "Receive_ListRecommendations_for_product_ids",
+      "events": 3430,
+      "pattern_events": 3430,
+      "band": "over 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 2,
+      "tier_down_events": 3073,
+      "text": {
+       "phrase": "resource service name recommendation trace sampled true receive listrecommendations for product ids",
+       "phrase_words": 12,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "fluentd-10x",
+      "hash": "048Qg0CfkTE",
+      "pattern": "stats_cache_size_pod_api_updates_id_miss",
+      "events": 1117,
+      "pattern_events": 1117,
+      "band": "over 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 109,
+      "tier_down_events": 973,
+      "text": {
+       "phrase": "0000 info 0 filter kube metadata stats namespace cache size 0 pod cache size",
+       "phrase_words": 14,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "opensearch",
+      "hash": "JXF4ol7eprg",
+      "pattern": "Running_full_sweep",
+      "events": 124,
+      "pattern_events": 124,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 177,
+      "tier_down_events": 98,
+      "text": {
+       "phrase": "info o o j s jobsweeper opensearch 0 running full sweep",
+       "phrase_words": 11,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "valkey-cart",
+      "hash": "CqVDqv2uuq4",
+      "pattern": "changes_seconds_Saving",
+      "events": 120,
+      "pattern_events": 120,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 11,
+      "tier_down_events": 109,
+      "text": {
+       "phrase": "100 changes in 300 seconds saving",
+       "phrase_words": 6,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "valkey-cart",
+      "hash": "INXTRKqNcG8",
+      "pattern": "DB_saved_on_disk",
+      "events": 120,
+      "pattern_events": 120,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 11,
+      "tier_down_events": 105,
+      "text": {
+       "phrase": "db saved on disk",
+       "phrase_words": 4,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "valkey-cart",
+      "hash": "cSWpKn5pAUI",
+      "pattern": "Background_saving_started_by_pid",
+      "events": 120,
+      "pattern_events": 120,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 11,
+      "tier_down_events": 105,
+      "text": {
+       "phrase": "background saving started by pid",
+       "phrase_words": 5,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "valkey-cart",
+      "hash": "kodKFTs6ZHw",
+      "pattern": "Fork_CoW_RDB_current_peak_MB_average",
+      "events": 120,
+      "pattern_events": 120,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 11,
+      "tier_down_events": 108,
+      "text": {
+       "phrase": "fork cow for rdb current 0 mb peak 0 mb average 0 mb",
+       "phrase_words": 13,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "valkey-cart",
+      "hash": "sX9OKFLN168",
+      "pattern": "Background_saving_terminated_with_success",
+      "events": 120,
+      "pattern_events": 120,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 11,
+      "tier_down_events": 105,
+      "text": {
+       "phrase": "background saving terminated with success",
+       "phrase_words": 5,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "fluentd-10x",
+      "hash": "xll0jY-tlX0",
+      "pattern": "stats_cache_size_pod_api_updates_id_miss_host_namespace",
+      "events": 119,
+      "pattern_events": 119,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 109,
+      "tier_down_events": 96,
+      "text": {
+       "phrase": "0000 info 0 filter kube metadata stats namespace cache size 4 pod cache size 32 pod cache api updates 41 id cache miss 41 pod cache host updates 32 namespace cache host updates 4",
+       "phrase_words": 34,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "fluentd-10x",
+      "hash": "Su7dCk30trM",
+      "pattern": "following_tail_of",
+      "events": 47,
+      "pattern_events": 47,
+      "band": "11 to 100",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 109,
+      "tier_down_events": 33,
+      "text": {
+       "phrase": "logs following tail of var log",
+       "phrase_words": 6,
+       "selected_by": "collides",
+       "kept_patterns_matched": 1,
+       "kept_events_matched": 2,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {
+        "Q-k8xDVMa8M": 2
+       },
+       "kept_matches_are_own_pieces": true
+      }
+     },
+     {
+      "container": "opensearch",
+      "hash": "7bhr-zj-AmQ",
+      "pattern": "Finished_housekeeping_task_for_auto_refresh_streaming_jobs",
+      "events": 41,
+      "pattern_events": 41,
+      "band": "11 to 100",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 177,
+      "tier_down_events": 17,
+      "text": {
+       "phrase": "info o o s s c flintstreamingjobhousekeepertask opensearch 0 finished housekeeping task for auto refresh streaming jobs",
+       "phrase_words": 17,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "opensearch",
+      "hash": "9lxEKTmO2yY",
+      "pattern": "Starting_housekeeping_task_for_auto_refresh_streaming_jobs",
+      "events": 41,
+      "pattern_events": 41,
+      "band": "11 to 100",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 177,
+      "tier_down_events": 19,
+      "text": {
+       "phrase": "info o o s s c flintstreamingjobhousekeepertask opensearch 0 starting housekeeping task for auto refresh streaming jobs",
+       "phrase_words": 17,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "opensearch",
+      "hash": "KQZT1jFIdhM",
+      "pattern": "onIndexModule_index_otel",
+      "events": 20,
+      "pattern_events": 20,
+      "band": "11 to 100",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-192-168-42-205.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 177,
+      "tier_down_events": 1,
+      "text": {
+       "phrase": "info o o p pluginsservice opensearch 0 pluginservice onindexmodule index otel logs 2025 10",
+       "phrase_words": 14,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     }
+    ],
+    "flip": {
+     "rule": "bucket 3 moved >= 5% of the capture and more than half of it selectable only by the ID",
+     "bucket_3_moved_share": 0.0352,
+     "id_only_share_of_bucket_3_moved": 1.0,
+     "flips": false,
+     "with_single_kept_event_services_moved_whole": {
+      "services": [
+       "recommendation"
+      ],
+      "bucket_3_moved_events": 2109,
+      "bucket_3_moved_share": 0.0134,
+      "id_only_share": 1.0,
+      "flips": false
+     }
+    },
+    "text": {
+     "buckets": {
+      "4_text_alone": {
+       "events": 5492,
+       "bytes": 6151261,
+       "share": 0.0349,
+       "patterns": 12,
+       "bands": {
+        "seen once": 0,
+        "2 to 10": 0,
+        "11 to 100": 102,
+        "101 to 1,000": 843,
+        "over 1,000": 4547
+       }
+      },
+      "4_text_with_moved_only": {
+       "events": 0,
+       "bytes": 0,
+       "share": 0.0,
+       "patterns": 0,
+       "bands": {
+        "seen once": 0,
+        "2 to 10": 0,
+        "11 to 100": 0,
+        "101 to 1,000": 0,
+        "over 1,000": 0
+       }
+      },
+      "4_text_collides": {
+       "events": 47,
+       "bytes": 49325,
+       "share": 0.0003,
+       "patterns": 1,
+       "bands": {
+        "seen once": 0,
+        "2 to 10": 0,
+        "11 to 100": 47,
+        "101 to 1,000": 0,
+        "over 1,000": 0
+       }
+      },
+      "4_text_id_only": {
+       "events": 0,
+       "bytes": 0,
+       "share": 0.0,
+       "patterns": 0,
+       "bands": {
+        "seen once": 0,
+        "2 to 10": 0,
+        "11 to 100": 0,
+        "101 to 1,000": 0,
+        "over 1,000": 0
+       }
+      }
+     },
+     "flip": {
+      "bucket_3_moved_share": 0.0352,
+      "id_only_share_of_bucket_3_moved": 0.0,
+      "flips": false
+     },
+     "rules": {
+      "text_filters": 13,
+      "with_collisions": 1,
+      "kept_events_collided": 2
+     },
+     "services": {
+      "fluentd-10x": {
+       "kept_events": 144,
+       "kept_patterns": 106,
+       "pieces": {
+        "events": 36,
+        "patterns": 29,
+        "statements": 6,
+        "families": [
+         "frame:adding filter in",
+         "frame:adding match in",
+         "frame:adding match in KUBERNETES pattern",
+         "frame:adding source type",
+         "frame:following tail of",
+         "frame:gem"
+        ]
+       },
+       "byte_cap": {
+        "events": 0,
+        "patterns": 0,
+        "smallest_moved_pattern_events": 47
+       },
+       "other": {
+        "events": 108,
+        "patterns": 77,
+        "no_head_events": 82,
+        "seen_once_patterns": 67
+       },
+       "whole_filter_beyond_plan": {
+        "info_and_unlevelled": 144,
+        "criticals": 0,
+        "events": 144
+       },
+       "movable_whole": false,
+       "moved_events": 1283,
+       "kept_detail": [
+        {
+         "hash": "9llj42VXwq0",
+         "pattern": "template_4b1f845fbee908ea",
+         "events": 8,
+         "pattern_events": 8,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "RMUJXKxZwhQ",
+         "pattern": "template_48180d0b4c1410c3",
+         "events": 7,
+         "pattern_events": 7,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "ipBHcf7L_FU",
+         "pattern": "template_8d9bcda244ecb07a",
+         "events": 7,
+         "pattern_events": 7,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "QsTwQsyyvNI",
+         "pattern": "template_bc946f769577793f",
+         "events": 5,
+         "pattern_events": 5,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "1ryN0PTplzc",
+         "pattern": "adding_match_in_pattern_type_relabel",
+         "events": 4,
+         "pattern_events": 4,
+         "split": "pieces",
+         "families": [
+          "frame:adding match in"
+         ],
+         "head_events": 4
+        },
+        {
+         "hash": "_ab0Cot-DAY",
+         "pattern": "adding_match_in_pattern_type_null",
+         "events": 3,
+         "pattern_events": 3,
+         "split": "pieces",
+         "families": [
+          "frame:adding match in"
+         ],
+         "head_events": 3
+        },
+        {
+         "hash": "WdFfBbfE22s",
+         "pattern": "detected_rotation_of_waiting_seconds",
+         "events": 3,
+         "pattern_events": 3,
+         "split": "other",
+         "families": [],
+         "head_events": 3
+        },
+        {
+         "hash": "OHcWD-cu1V0",
+         "pattern": "template_32499053e3713529",
+         "events": 3,
+         "pattern_events": 3,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "rfaWOSOI-7M",
+         "pattern": "adding_source_type_tail",
+         "events": 2,
+         "pattern_events": 2,
+         "split": "pieces",
+         "families": [
+          "frame:adding source type"
+         ],
+         "head_events": 2
+        },
+        {
+         "hash": "Q-k8xDVMa8M",
+         "pattern": "following_tail_of_var_log_containers",
+         "events": 2,
+         "pattern_events": 2,
+         "split": "pieces",
+         "families": [
+          "frame:following tail of"
+         ],
+         "head_events": 2
+        },
+        {
+         "hash": "X896QBjL5qk",
+         "pattern": "template_27e19ef0e9354748",
+         "events": 2,
+         "pattern_events": 2,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "cyOCs95S-hc",
+         "pattern": "template_5cd2a274f0f6482d",
+         "events": 2,
+         "pattern_events": 2,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "dzZSX3dNUDw",
+         "pattern": "template_7393c947031ccc28",
+         "events": 2,
+         "pattern_events": 2,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "9kwfiXtvlSc",
+         "pattern": "template_f2911e22ce277e65",
+         "events": 2,
+         "pattern_events": 2,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "LfYtibxfc38",
+         "pattern": "Consolidating_multi_line_events_into_logical_groups",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "6I9L50nkVyI",
+         "pattern": "HTTP_code_field_httpCode",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "98_RFmomInY",
+         "pattern": "Loading_from_data_templates_json_sample_output",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "MvAEHrDg2P0",
+         "pattern": "Loading_symbol_libraries_from",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "PXynxphHR-4",
+         "pattern": "Logging_to",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "FNQFPMZxxbY",
+         "pattern": "Publishing_metrics_to_the_backend",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "e0SBlJTIgF0",
+         "pattern": "ROOT",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "Cp2OS1JFLcs",
+         "pattern": "Reading_events_from_Fluentd_via_stdin",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "4vAo4i6syuc",
+         "pattern": "Transforming_events_into_using_of_available_cores",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "_ZyYZ9nECZg",
+         "pattern": "Writing_field_encoded_encode_Fluentd",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "GTS749sEp24",
+         "pattern": "adding_filter_in_DISPATCH_pattern_type_prometheus",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:adding filter in"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "p6YZYTbP0jM",
+         "pattern": "adding_filter_in_KUBERNETES_pattern_kubernetes_type_metadata",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:adding filter in"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "W5mUuUDwlM4",
+         "pattern": "adding_match_in_DISPATCH_pattern_type_relabel",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:adding match in"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "VtbnTo91PoQ",
+         "pattern": "adding_match_in_FINAL_OUTPUT_pattern_type_null",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:adding match in"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "g_2T0FCHh2M",
+         "pattern": "adding_match_in_KUBERNETES_pattern_kubernetes_var_log_containers_fluentd_type_relabel",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:adding match in KUBERNETES pattern"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "gX5ELsnYD44",
+         "pattern": "adding_match_in_KUBERNETES_pattern_type_relabel",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:adding match in KUBERNETES pattern"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "1fo0YclZWFc",
+         "pattern": "adding_match_in_OUTPUT_pattern_type_relabel",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:adding match in"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "kcNFAZj5HSo",
+         "pattern": "adding_match_in_pattern_type_exec_filter",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:adding match in"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "GOYdKNsRK_c",
+         "pattern": "adding_match_in_pattern_type_stdout",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:adding match in"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "nfxVfnFYcEs",
+         "pattern": "adding_source_type_prometheus",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:adding source type"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "8O8bvydY1lI",
+         "pattern": "adding_source_type_unix",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:adding source type"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "MWAYXhuzg5g",
+         "pattern": "engine_connected_to",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "Ku36etqHeyg",
+         "pattern": "field",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "UNWBFSNqPhM",
+         "pattern": "fluentd_worker_is_now_running",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "EbogMIRIoZw",
+         "pattern": "gem_fluent_plugin_concat_version",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:gem"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "tqjj_pLanlQ",
+         "pattern": "gem_fluent_plugin_dedot_filter_version",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:gem"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "diMhZejifGE",
+         "pattern": "gem_fluent_plugin_detect_exceptions_version",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:gem"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "y7PUJ6hJSKE",
+         "pattern": "gem_fluent_plugin_elasticsearch_version",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:gem"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "OElfX_TQW-w",
+         "pattern": "gem_fluent_plugin_grok_parser_version",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:gem"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "8apgY3hsXwI",
+         "pattern": "gem_fluent_plugin_json_in_version",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:gem"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "5oSk-Ijz2Dg",
+         "pattern": "gem_fluent_plugin_kubernetes_metadata_filter_version",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:gem"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "9_oP7aIfbYU",
+         "pattern": "gem_fluent_plugin_multi_format_parser_version",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:gem"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "TFE1MF4Bso4",
+         "pattern": "gem_fluent_plugin_parser_cri_version",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:gem"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "IgiFecdw5Po",
+         "pattern": "gem_fluent_plugin_prometheus_version",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:gem"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "n-zytRSJD-I",
+         "pattern": "gem_fluent_plugin_record_modifier_version",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:gem"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "O-t_uinOLUs",
+         "pattern": "gem_fluent_plugin_rewrite_tag_filter_version",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:gem"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "0Cm3OytkNO0",
+         "pattern": "gem_fluent_plugin_systemd_version",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:gem"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "G9RrB0IebEc",
+         "pattern": "gem_fluentd_version",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:gem"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "Hy2-q9A1TmM",
+         "pattern": "init_logger_path_nil_rotate_age_size",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "EsZgKp0HqfA",
+         "pattern": "init_supervisor_logger_path_nil_rotate_age_size",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "KqwipwJMlOo",
+         "pattern": "ks_container_context_using",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "VjPyPK9mg9U",
+         "pattern": "listening_fluent_socket_on",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "M1MYIHEW8Uk",
+         "pattern": "lookup_field_from_file_http_csv",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "2lyVOQaPnc8",
+         "pattern": "parsing_config_file_is_succeeded_path_fluentd_etc_fluent_conf",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "fO_TplF9Ip8",
+         "pattern": "spawn_command_to_main_cmdline_usr_local_bin_ruby_c_fluentd_etc_fluent_conf_p_plugins_gemfile_Gemfile_r_under_supervisor",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "nz_YVT8Jbos",
+         "pattern": "starting_fluentd_worker_pid_ppid",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "Bf5RTZT-D7c",
+         "pattern": "starting_pid_ruby",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "lEPq3j6iV8c",
+         "pattern": "template_00e8185f53cd67e0",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "XHja8JhzzKA",
+         "pattern": "template_023f1e5c4d877ee5",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "GBI0Au-evM4",
+         "pattern": "template_104e697f4c678be5",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "WBIXHGljO7Q",
+         "pattern": "template_18500fd5dce381ce",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "3fYdPlEOZXE",
+         "pattern": "template_1cc6278382ef2ea5",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "h1BnR8ypv2Q",
+         "pattern": "template_1d4b5136f316144e",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "HaLscGgwjBs",
+         "pattern": "template_2970a6914ea341aa",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "8mMcja8OSDQ",
+         "pattern": "template_2b0b44e0efd1fc74",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "U7fDGcEvcCI",
+         "pattern": "template_2fc5c4bb3bacc9b4",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "D19hfe6CIO4",
+         "pattern": "template_403593a85c7dbec0",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "1O-yCZRqae4",
+         "pattern": "template_409edcc11ca7abeb",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "jkounDZiPZw",
+         "pattern": "template_50d4ebde3a001092",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "syGRhDwffNE",
+         "pattern": "template_514eee31087a1f64",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "3RJdPFjJMRg",
+         "pattern": "template_57cc50c75a9168d8",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "JSJ-1SK6Gnw",
+         "pattern": "template_5e94b7c3bb6d3dbe",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "kE7bh3qLd-A",
+         "pattern": "template_787508c6ea01f316",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "0Cm1cRjecbI",
+         "pattern": "template_8110eaee6084d36c",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "kbZhqBvdz5A",
+         "pattern": "template_92635e4a7cd791a3",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "1ysWkEL65Hc",
+         "pattern": "template_a2a3771e27aed283",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "CpO-rS4PfKw",
+         "pattern": "template_a3e4fc05718d7a54",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "boQovR9Lh_k",
+         "pattern": "template_a73097eb6c8b9625",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "3PTdEOXx480",
+         "pattern": "template_ab9b611b58cc4da8",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "u0gmFiKV60Y",
+         "pattern": "template_b25e5b78fcd36e28",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "Lfa_WMzCpyQ",
+         "pattern": "template_b9938307ea0f907a",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "tfUhMCrLQUg",
+         "pattern": "template_bc7601c7a1391ff8",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "ECcE1aiYqFQ",
+         "pattern": "template_bed53fa96e084343",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "F_2kr5kfdWs",
+         "pattern": "template_c0381df9a2a4fb3d",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "FDwat9pgcZI",
+         "pattern": "template_c3d0b6650e018a9d",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "oOLR4Oqu9dM",
+         "pattern": "template_c43824cc8166a18f",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "NIpVoKMCy08",
+         "pattern": "template_c7f5e80353490fce",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "5HmyC3noKHY",
+         "pattern": "template_caa906336b30d329",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "Q98D3Ta-yT0",
+         "pattern": "template_ce776c9f11a72c23",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "Qra6wCgT_-4",
+         "pattern": "template_d20d40bc85ca59f6",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "rLZinwd5EKY",
+         "pattern": "template_d28b8d916787a6c7",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "KoIAOh6Ghgw",
+         "pattern": "template_d530b0bdf426aad9",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "_jwe5pOcRRs",
+         "pattern": "template_d5e5afafb533f63e",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "PSPmuvO8GcI",
+         "pattern": "template_d98417c5ce946748",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "Oa4h0DaZFfg",
+         "pattern": "template_dc7881e252aec1a2",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "Fuvf1OQ6xB4",
+         "pattern": "template_dfdc7ffa33f0c11d",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "51wmIj_ZSWk",
+         "pattern": "template_f8b10ac537cd8276",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "7-7kvyiCDbk",
+         "pattern": "template_f8bb44424bfd307b",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "FLhaHEu91Kk",
+         "pattern": "template_f904612c8439cc68",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "WUxXi_SFZ6s",
+         "pattern": "template_fc787b0a000ef394",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "VSXBiiM4sa0",
+         "pattern": "using_configuration_file_ROOT",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "W2ATafk5WjQ",
+         "pattern": "\u2139_with_severity_field_level",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        }
+       ]
+      },
+      "opensearch": {
+       "kept_events": 263,
+       "kept_patterns": 173,
+       "pieces": {
+        "events": 122,
+        "patterns": 99,
+        "statements": 7,
+        "families": [
+         "frame:Cannot create type checker for function",
+         "frame:Indexing",
+         "frame:Loaded",
+         "frame:Loaded scheduler extension",
+         "frame:loaded module",
+         "frame:loaded plugin",
+         "frame:onIndexModule index"
+        ]
+       },
+       "byte_cap": {
+        "events": 0,
+        "patterns": 0,
+        "smallest_moved_pattern_events": 20
+       },
+       "other": {
+        "events": 141,
+        "patterns": 74,
+        "no_head_events": 1,
+        "seen_once_patterns": 57
+       },
+       "whole_filter_beyond_plan": {
+        "info_and_unlevelled": 263,
+        "criticals": 1,
+        "events": 264
+       },
+       "movable_whole": false,
+       "moved_events": 226,
+       "kept_detail": [
+        {
+         "hash": "yUzVAi-BF10",
+         "pattern": "update_mapping",
+         "events": 19,
+         "pattern_events": 19,
+         "split": "other",
+         "families": [],
+         "head_events": 19
+        },
+        {
+         "hash": "rlJxYA1VVvE",
+         "pattern": "Hourly_maintenance_succeeds",
+         "events": 10,
+         "pattern_events": 10,
+         "split": "other",
+         "families": [],
+         "head_events": 10
+        },
+        {
+         "hash": "4oSHe9tgtnY",
+         "pattern": "Start_running_hourly_cron",
+         "events": 10,
+         "pattern_events": 10,
+         "split": "other",
+         "families": [],
+         "head_events": 10
+        },
+        {
+         "hash": "wDFPxJbpLDs",
+         "pattern": "Start_to_maintain_running_historical_tasks",
+         "events": 10,
+         "pattern_events": 10,
+         "split": "other",
+         "families": [],
+         "head_events": 10
+        },
+        {
+         "hash": "PR6gYZGqDl8",
+         "pattern": "Indexing",
+         "events": 6,
+         "pattern_events": 6,
+         "split": "pieces",
+         "families": [
+          "frame:Indexing"
+         ],
+         "head_events": 6
+        },
+        {
+         "hash": "gnkVLDKSuu0",
+         "pattern": "onIndexModule_index_opensearch_sap_log_types_config",
+         "events": 6,
+         "pattern_events": 6,
+         "split": "pieces",
+         "families": [
+          "frame:onIndexModule index"
+         ],
+         "head_events": 6
+        },
+        {
+         "hash": "MqOGU-TAvLI",
+         "pattern": "onIndexModule_index_top",
+         "events": 6,
+         "pattern_events": 6,
+         "split": "pieces",
+         "families": [
+          "frame:onIndexModule index"
+         ],
+         "head_events": 6
+        },
+        {
+         "hash": "XCij6lPSTcI",
+         "pattern": "creating_index_cause_templates_shards",
+         "events": 5,
+         "pattern_events": 5,
+         "split": "other",
+         "families": [],
+         "head_events": 5
+        },
+        {
+         "hash": "mmsYek6Rd2Q",
+         "pattern": "INFO_o_o_s_info",
+         "events": 4,
+         "pattern_events": 4,
+         "split": "other",
+         "families": [],
+         "head_events": 4
+        },
+        {
+         "hash": "3pKYNYXgO5g",
+         "pattern": "Indexing_from",
+         "events": 3,
+         "pattern_events": 3,
+         "split": "pieces",
+         "families": [
+          "frame:Indexing"
+         ],
+         "head_events": 3
+        },
+        {
+         "hash": "URsMGxMYtpg",
+         "pattern": "Loaded_docs_successfully",
+         "events": 3,
+         "pattern_events": 3,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded"
+         ],
+         "head_events": 3
+        },
+        {
+         "hash": "5c95zMpsukY",
+         "pattern": "Loading_builtin_types",
+         "events": 3,
+         "pattern_events": 3,
+         "split": "other",
+         "families": [],
+         "head_events": 3
+        },
+        {
+         "hash": "i0zgzAPy2Fs",
+         "pattern": "Successfully_created_or_updated_template",
+         "events": 3,
+         "pattern_events": 3,
+         "split": "other",
+         "families": [],
+         "head_events": 3
+        },
+        {
+         "hash": "EkgRqpVSEzY",
+         "pattern": "Using_local_opensearch_cluster_as_metadata_store",
+         "events": 3,
+         "pattern_events": 3,
+         "split": "other",
+         "families": [],
+         "head_events": 3
+        },
+        {
+         "hash": "c_JFApWFpyA",
+         "pattern": "field_mapping_docs_successfully",
+         "events": 3,
+         "pattern_events": 3,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded"
+         ],
+         "head_events": 3
+        },
+        {
+         "hash": "I2WrAK_Bu9I",
+         "pattern": "updating_number_of_replicas_to_indices",
+         "events": 3,
+         "pattern_events": 3,
+         "split": "other",
+         "families": [],
+         "head_events": 3
+        },
+        {
+         "hash": "aJmwnruOFXA",
+         "pattern": "Candidate_custom_result_indices_are_empty",
+         "events": 2,
+         "pattern_events": 2,
+         "split": "other",
+         "families": [],
+         "head_events": 2
+        },
+        {
+         "hash": "tehptGED5c8",
+         "pattern": "Loaded_log_type",
+         "events": 2,
+         "pattern_events": 2,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded"
+         ],
+         "head_events": 2
+        },
+        {
+         "hash": "_lweCS68B-0",
+         "pattern": "Reflections_took_ms_to_scan_urls_producing_keys_and_values",
+         "events": 2,
+         "pattern_events": 2,
+         "split": "other",
+         "families": [],
+         "head_events": 2
+        },
+        {
+         "hash": "HBHMGhU8xHs",
+         "pattern": "Registered_memory_breaker",
+         "events": 2,
+         "pattern_events": 2,
+         "split": "other",
+         "families": [],
+         "head_events": 2
+        },
+        {
+         "hash": "rYd9jWzQNyY",
+         "pattern": "create_mapping",
+         "events": 2,
+         "pattern_events": 2,
+         "split": "other",
+         "families": [],
+         "head_events": 2
+        },
+        {
+         "hash": "EMxB2J3Uq5A",
+         "pattern": "initialized",
+         "events": 2,
+         "pattern_events": 2,
+         "split": "other",
+         "families": [],
+         "head_events": 2
+        },
+        {
+         "hash": "dpklHOsTnww",
+         "pattern": "onIndexModule_index_plugins_ml_config",
+         "events": 2,
+         "pattern_events": 2,
+         "split": "pieces",
+         "families": [
+          "frame:onIndexModule index"
+         ],
+         "head_events": 2
+        },
+        {
+         "hash": "qSiahA7gT10",
+         "pattern": "publish_address_bound_addresses",
+         "events": 2,
+         "pattern_events": 2,
+         "split": "other",
+         "families": [],
+         "head_events": 2
+        },
+        {
+         "hash": "WzQmtMf6fbw",
+         "pattern": "started",
+         "events": 2,
+         "pattern_events": 2,
+         "split": "other",
+         "families": [],
+         "head_events": 2
+        },
+        {
+         "hash": "sE-y2Tsst2c",
+         "pattern": "Add_data_node_to_version_hash_ring",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "-4nIKJmdp0M",
+         "pattern": "All_nodes_with_known_version",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "JuuAfkBp4KA",
+         "pattern": "Build_version_hash_ring_successfully",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "hK66rwHyBBg",
+         "pattern": "Cache_cluster_manager_node_time",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "6ONlI0vaQVI",
+         "pattern": "Canceling_sweep_ism_plugin_version_job",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "_jHeVZOvhYM",
+         "pattern": "Cannot_create_type_checker_for_function_ARRAY_Will_skip_its_checking",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Cannot create type checker for function"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "bsRqexEHRRc",
+         "pattern": "Cannot_create_type_checker_for_function_EXISTS_Will_skip_its_checking",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Cannot create type checker for function"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "pdhKjkDUxKo",
+         "pattern": "Cannot_create_type_checker_for_function_FILTER_Will_skip_its_checking",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Cannot create type checker for function"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "jSCMdEvlQzQ",
+         "pattern": "Cannot_create_type_checker_for_function_FORALL_Will_skip_its_checking",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Cannot create type checker for function"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "KvoB8ekT9-M",
+         "pattern": "Cannot_create_type_checker_for_function_JSON_APPEND_Will_skip_its_checking",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Cannot create type checker for function"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "D5j1XgziEm0",
+         "pattern": "Cannot_create_type_checker_for_function_JSON_DELETE_Will_skip_its_checking",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Cannot create type checker for function"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "s62jyx74II0",
+         "pattern": "Cannot_create_type_checker_for_function_JSON_EXTEND_Will_skip_its_checking",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Cannot create type checker for function"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "9EAvxVL280E",
+         "pattern": "Cannot_create_type_checker_for_function_JSON_EXTRACT_Will_skip_its_checking",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Cannot create type checker for function"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "DJSaOL30GC0",
+         "pattern": "Cannot_create_type_checker_for_function_JSON_KEYS_Will_skip_its_checking",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Cannot create type checker for function"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "nZcJqSua6RA",
+         "pattern": "Cannot_create_type_checker_for_function_JSON_SET_Will_skip_its_checking",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Cannot create type checker for function"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "dkmw8NKApO8",
+         "pattern": "Cannot_create_type_checker_for_function_JSON_Will_skip_its_checking",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Cannot create type checker for function"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "l_iK6N0-www",
+         "pattern": "Cannot_create_type_checker_for_function_REDUCE_Will_skip_its_checking",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Cannot create type checker for function"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "Klh5V-w2I4k",
+         "pattern": "Cannot_create_type_checker_for_function_TRANSFORM_Will_skip_its_checking",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Cannot create type checker for function"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "GUbvh3LfOPo",
+         "pattern": "Cluster_health_status_changed_from_reason",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "1frk2Ivnw3s",
+         "pattern": "Cluster_is_not_recovered_yet",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "H0cfMV3M1_M",
+         "pattern": "Config_cleanup_db_files_batch_metrics_retention_period_minutes_rpc_port_webservice",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "EOzPHh-XvTk",
+         "pattern": "Enabled_false",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "YTcj7muhFv8",
+         "pattern": "Index_not_found_performing_auto",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "jhuhdH70qb0",
+         "pattern": "Init_version_hash_ring_successfully",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "uiqEkrJbDtI",
+         "pattern": "JVM_arguments",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "jWgjai_98MY",
+         "pattern": "Java_vector_incubator_API_enabled_uses_preferredBitSize_FMA",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "8y2ICXZABLM",
+         "pattern": "Loaded_ad_ldap_logtype_json_log_type",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "8u9pu2Smi8k",
+         "pattern": "Loaded_apache_access_logtype_json_log_type",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "kTVEbHjv4a4",
+         "pattern": "Loaded_azure_logtype_json_log_type",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "Ek6bPkpz8yY",
+         "pattern": "Loaded_cloudtrail_logtype_json_log_type",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "1T9zMXZYPoI",
+         "pattern": "Loaded_dns_logtype_json_log_type",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "lP53I-XfRg8",
+         "pattern": "Loaded_extension_query_scheduler_index_async",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded scheduler extension"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "AIwYfwytkEU",
+         "pattern": "Loaded_external_query_converters_failed",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "6RCK5VHh5t8",
+         "pattern": "Loaded_github_logtype_json_log_type",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "Ri3CONbRMI8",
+         "pattern": "Loaded_json_log_type",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "kMaJm-AYfeI",
+         "pattern": "Loaded_linux_logtype_json_log_type",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "oD0YNSVKE3Q",
+         "pattern": "Loaded_netflow_logtype_json_log_type",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "KPhT-0WBysQ",
+         "pattern": "Loaded_network_logtype_json_log_type",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "zM6_RVmNXdU",
+         "pattern": "Loaded_okta_logtype_json_log_type",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "pG4cf0PlDCs",
+         "pattern": "Loaded_others_application_logtype_json_log_type",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "sEPXCD_0TvM",
+         "pattern": "Loaded_others_apt_logtype_json_log_type",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "e8ejVbsaras",
+         "pattern": "Loaded_others_cloud_logtype_json_log_type",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "MF04G9bqaDo",
+         "pattern": "Loaded_others_compliance_logtype_json_log_type",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "mhTWW5U7h8s",
+         "pattern": "Loaded_others_macos_logtype_json_log_type",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "caHX5KfFFZc",
+         "pattern": "Loaded_others_proxy_logtype_json_log_type",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "03QhHHyejko",
+         "pattern": "Loaded_others_web_logtype_json_log_type",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "W5vmBCOj5Qc",
+         "pattern": "Loaded_scheduler_extension_index",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded scheduler extension"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "hPCB3Lvm87U",
+         "pattern": "Loaded_scheduler_extension_job_index_opensearch_sap",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded scheduler extension"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "O8Za9D5T_TU",
+         "pattern": "Loaded_scheduler_extension_management_index_config",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded scheduler extension"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "lsO7mVmZ83I",
+         "pattern": "Loaded_scheduler_extension_opensearch_ml_commons_jobs_index_plugins",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded scheduler extension"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "KeZZp6j9f5c",
+         "pattern": "Loaded_scheduler_extension_opensearch_time_series_analytics_index_detector_jobs",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded scheduler extension"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "2kOUdQ0s5Aw",
+         "pattern": "Loaded_scheduler_extension_reports_index_definitions",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded scheduler extension"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "lxZ87MKLWSc",
+         "pattern": "Loaded_test_windows_logtype_json_log_type",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "n8p-8996lXA",
+         "pattern": "Loaded_vpcflow_logtype_json_log_type",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "XEvjndkoBiA",
+         "pattern": "Loaded_waf_logtype_json_log_type",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "abnSaFfsiPE",
+         "pattern": "Loaded_windows_logtype_json_log_type",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:Loaded"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "aFfoU3c99jM",
+         "pattern": "LogType_config_index_successfully_created_and_builtin_log_types_loaded",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "-DtusiUtbW8",
+         "pattern": "ML_configuration_initialized_successfully",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "cr_Oon4zbHs",
+         "pattern": "No_Old_Alert_Indices_to_delete",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "ncNRqPJdoXs",
+         "pattern": "No_Old_Correlation_Indices_to_delete",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "tCXnHmp1o5s",
+         "pattern": "No_Old_Finding_Indices_to_delete",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "5M7_sQzDpAk",
+         "pattern": "No_Old_History_Indices_to_delete",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "y99eydP2F4g",
+         "pattern": "No_Old_IOC_Findings_Indices_to_delete",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "GXpfzAuSHW4",
+         "pattern": "Node_added",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "bVTi2Lki1OU",
+         "pattern": "OpenSearch_Security_modules_loaded_so_far",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "FnnuVryHTls",
+         "pattern": "Policy_attached_successfully_org_opensearch",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "nTrFHjDMEeY",
+         "pattern": "Rebuild_hash_ring_for_realtime_with_cooldown_size",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "sq91qkAohNM",
+         "pattern": "Registered_ML_disk_breaker",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "e1vZGVSg0Nw",
+         "pattern": "Registered_ML_memory_breaker",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "mgl7w9scqrw",
+         "pattern": "Registered_ML_native_memory_breaker",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "hxNN8xdx61Q",
+         "pattern": "Registered_built_in_query_converters",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "UUWgMPj01oY",
+         "pattern": "ReindexPlugin_called",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "dhyzmjcuP-0",
+         "pattern": "Remote_clusters_initialized_successfully",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "YGUCfJixwAg",
+         "pattern": "SSL_dual_mode_is_disabled",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "L4cUCfZ27JQ",
+         "pattern": "Setting_query_insights_index_template_priority_to",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "6kf09-9O9eQ",
+         "pattern": "Start_migrating_data",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "R6Darz03OFo",
+         "pattern": "Starting_ML_sync_up_job",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "pgemGqH67HU",
+         "pattern": "Starting_cluster_manager_throttling_as_all_nodes_are_higher_than_or_equal_to",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "-UIOoUOhxCM",
+         "pattern": "Tasks_batched_key_opensearch_cluster_coordination_JoinHelper_count_and_sample_tasks_elected_as_manager_nodes_joined_term_delta",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "oTEHzQkYBrc",
+         "pattern": "Unable_to_find_any_implementation_for",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "yakxwDdXDFw",
+         "pattern": "build_OS_Linux_JVM_Eclipse_Adoptium_OpenJDK_Server",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "bd8zwgWucaw",
+         "pattern": "cluster_UUID_set_to",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "MRLZSVTsmWY",
+         "pattern": "cluster_manager_node_changed_term_reason_Publication",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "6cD8wWvtZFs",
+         "pattern": "compressed_ordinary_object_pointers",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "dHQY9Q9DZKI",
+         "pattern": "create_index_plugins_ml_config",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "XCmVwhvvxKE",
+         "pattern": "creating_NettyAllocator_with_the_following_configs",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "fvZoeXYK5Y8",
+         "pattern": "data_paths_mounts_using_usable_space_total_types",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "EzbMPyd737Y",
+         "pattern": "deprecated_To_promote_inclusive_language_please_use_role_instead",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "UQI__U1mtlY",
+         "pattern": "for_index_patterns",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "A-iV35r31is",
+         "pattern": "indices_into_cluster_state",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "tjwdxZthqYA",
+         "pattern": "initialized_max_concurrent_tasks_processors",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "t5tYCu5YrHo",
+         "pattern": "job_index_doesn_t_exist_no_need_to_migrate",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "wviFaSGoqb4",
+         "pattern": "loaded_module",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded module"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "GZc_pstPSD0",
+         "pattern": "loaded_module_aggs_matrix_stats",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded module"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "9NZZG2_3mFs",
+         "pattern": "loaded_module_analysis_common",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded module"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "9Zo54ymWCAo",
+         "pattern": "loaded_module_cache_common",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded module"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "alE88eCsvzo",
+         "pattern": "loaded_module_geo",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded module"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "PvuCCMk0ZWk",
+         "pattern": "loaded_module_ingest_common",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded module"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "WabJ6nCMMNw",
+         "pattern": "loaded_module_ingest_geoip",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded module"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "EWkKqw15Izs",
+         "pattern": "loaded_module_ingest_user_agent",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded module"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "v2MLzGRQ_Vg",
+         "pattern": "loaded_module_lang_expression",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded module"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "Hxk4fIPqaTw",
+         "pattern": "loaded_module_lang_mustache",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded module"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "siM1G4gdXSY",
+         "pattern": "loaded_module_lang_painless",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded module"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "vyaEX_FEYVU",
+         "pattern": "loaded_module_mapper_extras",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded module"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "VwhWCY4pDD8",
+         "pattern": "loaded_module_opensearch_dashboards",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded module"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "jGvZXq8gqLg",
+         "pattern": "loaded_module_parent_join",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded module"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "q0hh-aZXRjo",
+         "pattern": "loaded_module_percolator",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded module"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "SHPIP5ob2co",
+         "pattern": "loaded_module_rank_eval",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded module"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "3aKwTfrFjVA",
+         "pattern": "loaded_module_reindex",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded module"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "Liz27S6V80U",
+         "pattern": "loaded_module_repository_url",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded module"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "PN8ROOFHqxY",
+         "pattern": "loaded_module_rule_framework",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded module"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "6P9zb-kJIgc",
+         "pattern": "loaded_module_search_pipeline_common",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded module"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "suXe9g0wYWA",
+         "pattern": "loaded_module_systemd",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded module"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "gACXwTGwzT4",
+         "pattern": "loaded_module_transport_grpc",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded module"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "J6IL-UZWT1c",
+         "pattern": "loaded_plugin_opensearch_alerting",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "jd-fSCi_Ub4",
+         "pattern": "loaded_plugin_opensearch_anomaly_detection",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "shHfdDec-gU",
+         "pattern": "loaded_plugin_opensearch_asynchronous_search",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "Ph77KvXoZ6k",
+         "pattern": "loaded_plugin_opensearch_cross_cluster_replication",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "033kKwoW3UM",
+         "pattern": "loaded_plugin_opensearch_custom_codecs",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "tZdQ-YHumns",
+         "pattern": "loaded_plugin_opensearch_flow_framework",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "V3iuiUIfXXE",
+         "pattern": "loaded_plugin_opensearch_geospatial",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "zP60c0iMz-o",
+         "pattern": "loaded_plugin_opensearch_index_management",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "ciPQ7vBUKV0",
+         "pattern": "loaded_plugin_opensearch_job_scheduler",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "jL49kh8E-1Q",
+         "pattern": "loaded_plugin_opensearch_knn",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "isA-kbCUWX8",
+         "pattern": "loaded_plugin_opensearch_ltr",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "cIzrdfxuQzg",
+         "pattern": "loaded_plugin_opensearch_ml",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "BpIej5CEb7A",
+         "pattern": "loaded_plugin_opensearch_neural_search",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "FDLP-QZcNQA",
+         "pattern": "loaded_plugin_opensearch_notifications",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "3nWEOgaAJ5c",
+         "pattern": "loaded_plugin_opensearch_notifications_core",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "2SY14Iv8FHk",
+         "pattern": "loaded_plugin_opensearch_observability",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "k4hgmNYrgQQ",
+         "pattern": "loaded_plugin_opensearch_performance_analyzer",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "nJYlzA1rWVA",
+         "pattern": "loaded_plugin_opensearch_reports_scheduler",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "LjvipjYS7Uk",
+         "pattern": "loaded_plugin_opensearch_search_relevance",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "xS8qs5sDHX4",
+         "pattern": "loaded_plugin_opensearch_security",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "U4vq0syVxUg",
+         "pattern": "loaded_plugin_opensearch_security_analytics",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "lElU1BcxfeQ",
+         "pattern": "loaded_plugin_opensearch_skills",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "fHD6A-nfmPw",
+         "pattern": "loaded_plugin_opensearch_sql",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "5eGYSbzpqXs",
+         "pattern": "loaded_plugin_opensearch_system_templates",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "bw6grY-i-nE",
+         "pattern": "loaded_plugin_opensearch_ubi",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "YAKtGpALJZQ",
+         "pattern": "loaded_plugin_query_insights",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:loaded plugin"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "6p5F4YCakBc",
+         "pattern": "local_node",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "vQic8PUqdRU",
+         "pattern": "node_ID_cluster_roles",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "hfRPObgOTlk",
+         "pattern": "onIndexModule_index_validate",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "pieces",
+         "families": [
+          "frame:onIndexModule index"
+         ],
+         "head_events": 1
+        },
+        {
+         "hash": "rf2xUaTJmFQ",
+         "pattern": "setting_initial_configuration_to_VotingConfiguration",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "bLZwBGrBt9s",
+         "pattern": "starting",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "xKVKyToS6yI",
+         "pattern": "template_9ae16a3b2f90404f",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "y4zA3LQVsIE",
+         "pattern": "using_bundled_JDK_JRE_JVM_home",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "3VG1proUToQ",
+         "pattern": "using_discovery_type_single_node_and_seed_hosts_providers_settings",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        }
+       ]
+      },
+      "recommendation": {
+       "kept_events": 1,
+       "kept_patterns": 1,
+       "pieces": {
+        "events": 0,
+        "patterns": 0,
+        "statements": 0,
+        "families": []
+       },
+       "byte_cap": {
+        "events": 0,
+        "patterns": 0,
+        "smallest_moved_pattern_events": 3430
+       },
+       "other": {
+        "events": 1,
+        "patterns": 1,
+        "no_head_events": 0,
+        "seen_once_patterns": 1
+       },
+       "whole_filter_beyond_plan": {
+        "info_and_unlevelled": 1,
+        "criticals": 0,
+        "events": 1
+       },
+       "movable_whole": true,
+       "moved_events": 3430,
+       "kept_detail": [
+        {
+         "hash": "EECfvV4aYmQ",
+         "pattern": "Recommendation_service_started_listening_on_port",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        }
+       ]
+      },
+      "valkey-cart": {
+       "kept_events": 6,
+       "kept_patterns": 6,
+       "pieces": {
+        "events": 0,
+        "patterns": 0,
+        "statements": 0,
+        "families": []
+       },
+       "byte_cap": {
+        "events": 0,
+        "patterns": 0,
+        "smallest_moved_pattern_events": 120
+       },
+       "other": {
+        "events": 6,
+        "patterns": 6,
+        "no_head_events": 0,
+        "seen_once_patterns": 6
+       },
+       "whole_filter_beyond_plan": {
+        "info_and_unlevelled": 6,
+        "criticals": 0,
+        "events": 6
+       },
+       "movable_whole": true,
+       "moved_events": 600,
+       "kept_detail": [
+        {
+         "hash": "uZAJ9JoffuM",
+         "pattern": "Ready_to_accept_connections_tcp",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "JFGyLB3rePc",
+         "pattern": "Running_mode_standalone_port",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "XVZezHalrPc",
+         "pattern": "Server_initialized",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "-ztqdCmqoww",
+         "pattern": "Valkey_bits_commit_modified_just_started",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "WKtgJCmsHRM",
+         "pattern": "monotonic_clock_POSIX_gettime",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "zm9Kp6o68PE",
+         "pattern": "oOOoOOoOOo_Valkey_is_starting",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        }
+       ]
+      }
+     },
+     "e": {
+      "as_computed": {
+       "events": 5539,
+       "share": 0.0352
+      },
+      "movable_whole_moved": {
+       "services": [
+        "recommendation",
+        "valkey-cart"
+       ],
+       "events": 1509,
+       "share": 0.0096,
+       "events_a_whole_filter_moves_beyond_the_plan": 7
+      }
+     }
+    },
+    "plan": {
+     "target_pct": 70,
+     "achieved_pct": 68.4,
+     "met": false,
+     "ceiling_pct": 68.4,
+     "patterns_planned": 55,
+     "events_sampled": 9563,
+     "containers_capped": 17
+    }
+   },
+   "B": {
+    "capture": {
+     "events": 41573,
+     "bytes": 51398216
+    },
+    "floor": {
+     "events": 10892,
+     "bytes": 14673830,
+     "share": 0.262
+    },
+    "floor_by_service": {
+     "product-reviews": 4931,
+     "llm": 2477,
+     "accounting": 949,
+     "payment": 781,
+     "recommendation": 604,
+     "email": 392,
+     "quote": 392,
+     "valkey-cart": 126,
+     "frontend-proxy": 114,
+     "postgresql": 83,
+     "flagd": 14,
+     "image-provider": 8,
+     "opentelemetry-collector": 6,
+     "flagd-ui": 5,
+     "ad": 2,
+     "fraud-detection": 2,
+     "init-config": 2,
+     "kafka": 2,
+     "cart": 1,
+     "frontend": 1
+    },
+    "buckets": {
+     "1": {
+      "events": 582,
+      "bytes": 581928,
+      "share": 0.014,
+      "patterns": 21,
+      "bands": {
+       "seen once": 16,
+       "2 to 10": 13,
+       "11 to 100": 0,
+       "101 to 1,000": 553,
+       "over 1,000": 0
+      }
+     },
+     "2a": {
+      "events": 0,
+      "bytes": 0,
+      "share": 0.0,
+      "patterns": 0,
+      "bands": {
+       "seen once": 0,
+       "2 to 10": 0,
+       "11 to 100": 0,
+       "101 to 1,000": 0,
+       "over 1,000": 0
+      }
+     },
+     "2b": {
+      "events": 1314,
+      "bytes": 2579099,
+      "share": 0.0316,
+      "patterns": 146,
+      "bands": {
+       "seen once": 141,
+       "2 to 10": 4,
+       "11 to 100": 0,
+       "101 to 1,000": 1169,
+       "over 1,000": 0
+      }
+     },
+     "3_moved": {
+      "events": 4882,
+      "bytes": 6201475,
+      "share": 0.1174,
+      "patterns": 22,
+      "bands": {
+       "seen once": 0,
+       "2 to 10": 0,
+       "11 to 100": 164,
+       "101 to 1,000": 4718,
+       "over 1,000": 0
+      }
+     },
+     "3_kept": {
+      "events": 4114,
+      "bytes": 5311328,
+      "share": 0.099,
+      "patterns": 120,
+      "bands": {
+       "seen once": 24,
+       "2 to 10": 20,
+       "11 to 100": 2720,
+       "101 to 1,000": 1350,
+       "over 1,000": 0
+      }
+     },
+     "4_alone": {
+      "events": 23,
+      "bytes": 21620,
+      "share": 0.0006,
+      "patterns": 1,
+      "bands": {
+       "seen once": 0,
+       "2 to 10": 0,
+       "11 to 100": 23,
+       "101 to 1,000": 0,
+       "over 1,000": 0
+      }
+     },
+     "4_with_moved_only": {
+      "events": 0,
+      "bytes": 0,
+      "share": 0.0,
+      "patterns": 0,
+      "bands": {
+       "seen once": 0,
+       "2 to 10": 0,
+       "11 to 100": 0,
+       "101 to 1,000": 0,
+       "over 1,000": 0
+      }
+     },
+     "4_id_only": {
+      "events": 4859,
+      "bytes": 6179855,
+      "share": 0.1169,
+      "patterns": 21,
+      "bands": {
+       "seen once": 0,
+       "2 to 10": 0,
+       "11 to 100": 141,
+       "101 to 1,000": 4718,
+       "over 1,000": 0
+      }
+     }
+    },
+    "tier_down_in_3_moved": 3331,
+    "services": {
+     "accounting": {
+      "bucket": "2b",
+      "events": 391,
+      "moved_events": 0,
+      "kept_events": 391,
+      "moved_patterns": 0,
+      "kept_patterns": 3,
+      "capped": false
+     },
+     "ad": {
+      "bucket": "2b",
+      "events": 1,
+      "moved_events": 0,
+      "kept_events": 1,
+      "moved_patterns": 0,
+      "kept_patterns": 1,
+      "capped": true
+     },
+     "email": {
+      "bucket": "3",
+      "events": 392,
+      "moved_events": 391,
+      "kept_events": 1,
+      "moved_patterns": 1,
+      "kept_patterns": 1,
+      "capped": true
+     },
+     "flagd": {
+      "bucket": "2b",
+      "events": 13,
+      "moved_events": 0,
+      "kept_events": 13,
+      "moved_patterns": 0,
+      "kept_patterns": 12,
+      "capped": false
+     },
+     "flagd-ui": {
+      "bucket": "2b",
+      "events": 4,
+      "moved_events": 0,
+      "kept_events": 4,
+      "moved_patterns": 0,
+      "kept_patterns": 4,
+      "capped": false
+     },
+     "fraud-detection": {
+      "bucket": "2b",
+      "events": 1,
+      "moved_events": 0,
+      "kept_events": 1,
+      "moved_patterns": 0,
+      "kept_patterns": 1,
+      "capped": true
+     },
+     "frontend": {
+      "bucket": "2b",
+      "events": 1,
+      "moved_events": 0,
+      "kept_events": 1,
+      "moved_patterns": 0,
+      "kept_patterns": 1,
+      "capped": false
+     },
+     "frontend-proxy": {
+      "bucket": "2b",
+      "events": 112,
+      "moved_events": 0,
+      "kept_events": 112,
+      "moved_patterns": 0,
+      "kept_patterns": 112,
+      "capped": false
+     },
+     "image-provider": {
+      "bucket": "2b",
+      "events": 8,
+      "moved_events": 0,
+      "kept_events": 8,
+      "moved_patterns": 0,
+      "kept_patterns": 8,
+      "capped": false
+     },
+     "init-config": {
+      "bucket": "2b",
+      "events": 2,
+      "moved_events": 0,
+      "kept_events": 2,
+      "moved_patterns": 0,
+      "kept_patterns": 1,
+      "capped": false
+     },
+     "llm": {
+      "bucket": "3",
+      "events": 2477,
+      "moved_events": 2025,
+      "kept_events": 452,
+      "moved_patterns": 8,
+      "kept_patterns": 22,
+      "capped": true
+     },
+     "payment": {
+      "bucket": "2b",
+      "events": 781,
+      "moved_events": 0,
+      "kept_events": 781,
+      "moved_patterns": 0,
+      "kept_patterns": 3,
+      "capped": false
+     },
+     "postgresql": {
+      "bucket": "3",
+      "events": 77,
+      "moved_events": 48,
+      "kept_events": 29,
+      "moved_patterns": 2,
+      "kept_patterns": 19,
+      "capped": true
+     },
+     "product-reviews": {
+      "bucket": "3",
+      "events": 4930,
+      "moved_events": 1309,
+      "kept_events": 3621,
+      "moved_patterns": 4,
+      "kept_patterns": 67,
+      "capped": true
+     },
+     "quote": {
+      "bucket": "3",
+      "events": 392,
+      "moved_events": 391,
+      "kept_events": 1,
+      "moved_patterns": 1,
+      "kept_patterns": 1,
+      "capped": true
+     },
+     "recommendation": {
+      "bucket": "3",
+      "events": 603,
+      "moved_events": 602,
+      "kept_events": 1,
+      "moved_patterns": 1,
+      "kept_patterns": 1,
+      "capped": true
+     },
+     "valkey-cart": {
+      "bucket": "3",
+      "events": 125,
+      "moved_events": 116,
+      "kept_events": 9,
+      "moved_patterns": 5,
+      "kept_patterns": 9,
+      "capped": true
+     }
+    },
+    "moved_patterns": [
+     {
+      "container": "recommendation",
+      "hash": "bzLB1zZCTIw",
+      "pattern": "Receive_ListRecommendations_for_product_ids",
+      "events": 602,
+      "pattern_events": 602,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 2,
+      "tier_down_events": 541,
+      "text": {
+       "phrase": "resource service name recommendation trace sampled true receive listrecommendations for product ids",
+       "phrase_words": 12,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "llm",
+      "hash": "-xdHDxI6LUI",
+      "pattern": "POST_chat_completions_HTTP",
+      "events": 450,
+      "pattern_events": 450,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 30,
+      "tier_down_events": 348,
+      "text": {
+       "phrase": "post v1 chat completions http 1 1 200",
+       "phrase_words": 8,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "product-reviews",
+      "hash": "D14oyKI8Zno",
+      "pattern": "HTTP_Request_POST_http_llm_OK",
+      "events": 450,
+      "pattern_events": 450,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 71,
+      "tier_down_events": 204,
+      "text": {
+       "phrase": "resource service name product reviews trace sampled true http request post http llm 8000 v1 chat completions http 1 1 200 ok",
+       "phrase_words": 22,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "product-reviews",
+      "hash": "f1QH6AOmuNM",
+      "pattern": "Receive_GetProductReviews_for_product_id",
+      "events": 409,
+      "pattern_events": 409,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 71,
+      "tier_down_events": 160,
+      "text": {
+       "phrase": "resource service name product reviews trace sampled true receive getproductreviews for product id",
+       "phrase_words": 13,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "email",
+      "hash": "1zhBPd1E9Bc",
+      "pattern": "POST_send_order_confirmation_HTTP",
+      "events": 391,
+      "pattern_events": 391,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 2,
+      "tier_down_events": 355,
+      "text": {
+       "phrase": "0000 post send order confirmation http 1 1 200 0",
+       "phrase_words": 10,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "quote",
+      "hash": "c4yR2F2cVfk",
+      "pattern": "POST_getquote_HTTP",
+      "events": 391,
+      "pattern_events": 391,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 2,
+      "tier_down_events": 342,
+      "text": {
+       "phrase": "00 00 post getquote http 1 1 200",
+       "phrase_words": 8,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "llm",
+      "hash": "51Vr2suQccY",
+      "pattern": "app_Received_chat_completion_request",
+      "events": 225,
+      "pattern_events": 225,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 30,
+      "tier_down_events": 162,
+      "text": {
+       "phrase": "info in app received a chat completion request role system content you are a helpful assistant that answers related to a specific product use tools as needed to fetch the product reviews and product information keep the response brief with no more than 1 2 sentences if you don t know the answer just say you don t know role user content answer the following question about product id",
+       "phrase_words": 69,
+       "selected_by": "with_moved_only",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 1,
+       "moved_events_matched": 225,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "llm",
+      "hash": "BiwrZZF3RPs",
+      "pattern": "app_Processing_tool_call_with_args",
+      "events": 225,
+      "pattern_events": 225,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 30,
+      "tier_down_events": 142,
+      "text": {
+       "phrase": "info in app processing a tool call with args product id",
+       "phrase_words": 11,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "llm",
+      "hash": "Td6wtnktzo0",
+      "pattern": "app_llmInaccurateResponse_feature_flag_False",
+      "events": 225,
+      "pattern_events": 225,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 30,
+      "tier_down_events": 144,
+      "text": {
+       "phrase": "info in app llminaccurateresponse feature flag false",
+       "phrase_words": 7,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "llm",
+      "hash": "WwveNoLjVjE",
+      "pattern": "app_The_model_is_astronomy_llm",
+      "events": 225,
+      "pattern_events": 225,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 30,
+      "tier_down_events": 144,
+      "text": {
+       "phrase": "info in app the model is astronomy llm",
+       "phrase_words": 8,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "llm",
+      "hash": "kCQtn3BqlIY",
+      "pattern": "app_last_Based_on_the_tool_results_answer_original_question_about_product_ID_Keep_response_brief_with_no_more_than_sentences",
+      "events": 225,
+      "pattern_events": 225,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 30,
+      "tier_down_events": 150,
+      "text": {
+       "phrase": "info in app last message is based on the tool results answer the original question about product id",
+       "phrase_words": 18,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "llm",
+      "hash": "ks_oruSPazg",
+      "pattern": "app_last_Answer_the_following_question_about_product_ID_Can_you_summarize_reviews",
+      "events": 225,
+      "pattern_events": 225,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 30,
+      "tier_down_events": 149,
+      "text": {
+       "phrase": "info in app last message is answer the following question about product id",
+       "phrase_words": 13,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "llm",
+      "hash": "rKZ9XzvDJqk",
+      "pattern": "app_Received_chat_completion_request_requesting_tool_call_calls_fetch_product_reviews",
+      "events": 225,
+      "pattern_events": 225,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 30,
+      "tier_down_events": 186,
+      "text": {
+       "phrase": "info in app received a chat completion request role system content you are a helpful assistant that answers related to a specific product use tools as needed to fetch the product reviews and product information keep the response brief with no more than 1 2 sentences if you don t know the answer just say you don t know role user content answer the following question about product id",
+       "phrase_words": 69,
+       "selected_by": "with_moved_only",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 1,
+       "moved_events_matched": 225,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "product-reviews",
+      "hash": "2USHVH5H9M0",
+      "pattern": "Invoking_the_LLM_with_following_messages",
+      "events": 225,
+      "pattern_events": 225,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 71,
+      "tier_down_events": 118,
+      "text": {
+       "phrase": "resource service name product reviews trace sampled true invoking the llm with the following messages role system content you are a helpful assistant that answers related to a specific product use tools as needed to fetch the product reviews and product information keep the response brief with no more than 1 2 sentences if you don t know the answer just say you don t know role user content answer the following question about product id",
+       "phrase_words": 76,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "product-reviews",
+      "hash": "P1278BFmZX8",
+      "pattern": "Function_response_fetch_product_reviews",
+      "events": 225,
+      "pattern_events": 225,
+      "band": "101 to 1,000",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 71,
+      "tier_down_events": 81,
+      "text": {
+       "phrase": "resource service name product reviews trace sampled true function response for fetch product reviews",
+       "phrase_words": 14,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "postgresql",
+      "hash": "35vHVh-fNIk",
+      "pattern": "LOG_checkpoint_complete_wrote_buffers_WAL_file_s_added_removed_recycled_write_sync_total_files_longest_average_distance_kB",
+      "events": 25,
+      "pattern_events": 25,
+      "band": "11 to 100",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "postgres.error_severity": "LOG",
+       "status": "info"
+      },
+      "cell_patterns": 14,
+      "tier_down_events": 15,
+      "text": {
+       "phrase": "0 wal file s added 0 removed 0 recycled write",
+       "phrase_words": 10,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "valkey-cart",
+      "hash": "INXTRKqNcG8",
+      "pattern": "DB_saved_on_disk",
+      "events": 24,
+      "pattern_events": 24,
+      "band": "11 to 100",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 14,
+      "tier_down_events": 16,
+      "text": {
+       "phrase": "db saved on disk",
+       "phrase_words": 4,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "postgresql",
+      "hash": "uFiFj2oDd6k",
+      "pattern": "LOG_checkpoint_starting_time",
+      "events": 23,
+      "pattern_events": 23,
+      "band": "11 to 100",
+      "selected_by": "alone",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "postgres.error_severity": "LOG",
+       "postgres.message": "checkpoint starting: time",
+       "postgres.pid": "64",
+       "status": "info"
+      },
+      "cell_patterns": 1,
+      "tier_down_events": 12,
+      "text": {
+       "phrase": "utc 64 log checkpoint starting time",
+       "phrase_words": 6,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "valkey-cart",
+      "hash": "CqVDqv2uuq4",
+      "pattern": "changes_seconds_Saving",
+      "events": 23,
+      "pattern_events": 23,
+      "band": "11 to 100",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 14,
+      "tier_down_events": 17,
+      "text": {
+       "phrase": "100 changes in 300 seconds saving",
+       "phrase_words": 6,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "valkey-cart",
+      "hash": "cSWpKn5pAUI",
+      "pattern": "Background_saving_started_by_pid",
+      "events": 23,
+      "pattern_events": 23,
+      "band": "11 to 100",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 14,
+      "tier_down_events": 14,
+      "text": {
+       "phrase": "background saving started by pid",
+       "phrase_words": 5,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "valkey-cart",
+      "hash": "kodKFTs6ZHw",
+      "pattern": "Fork_CoW_RDB_current_peak_MB_average",
+      "events": 23,
+      "pattern_events": 23,
+      "band": "11 to 100",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 14,
+      "tier_down_events": 16,
+      "text": {
+       "phrase": "fork cow for rdb current 0 mb peak 0 mb average 0 mb",
+       "phrase_words": 13,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     },
+     {
+      "container": "valkey-cart",
+      "hash": "sX9OKFLN168",
+      "pattern": "Background_saving_terminated_with_success",
+      "events": 23,
+      "pattern_events": 23,
+      "band": "11 to 100",
+      "selected_by": "id_only",
+      "cell": {
+       "host": "ip-10-0-49-218.ec2.internal",
+       "status": "info"
+      },
+      "cell_patterns": 14,
+      "tier_down_events": 15,
+      "text": {
+       "phrase": "background saving terminated with success",
+       "phrase_words": 5,
+       "selected_by": "alone",
+       "kept_patterns_matched": 0,
+       "kept_events_matched": 0,
+       "moved_patterns_matched": 0,
+       "moved_events_matched": 0,
+       "kept_matches": {},
+       "kept_matches_are_own_pieces": false
+      }
+     }
+    ],
+    "flip": {
+     "rule": "bucket 3 moved >= 5% of the capture and more than half of it selectable only by the ID",
+     "bucket_3_moved_share": 0.1174,
+     "id_only_share_of_bucket_3_moved": 0.9953,
+     "flips": true,
+     "with_single_kept_event_services_moved_whole": {
+      "services": [
+       "email",
+       "quote",
+       "recommendation"
+      ],
+      "bucket_3_moved_events": 3498,
+      "bucket_3_moved_share": 0.0841,
+      "id_only_share": 0.9934,
+      "flips": true
+     }
+    },
+    "text": {
+     "buckets": {
+      "4_text_alone": {
+       "events": 4432,
+       "bytes": 5298995,
+       "share": 0.1066,
+       "patterns": 20,
+       "bands": {
+        "seen once": 0,
+        "2 to 10": 0,
+        "11 to 100": 164,
+        "101 to 1,000": 4268,
+        "over 1,000": 0
+       }
+      },
+      "4_text_with_moved_only": {
+       "events": 450,
+       "bytes": 902480,
+       "share": 0.0108,
+       "patterns": 2,
+       "bands": {
+        "seen once": 0,
+        "2 to 10": 0,
+        "11 to 100": 0,
+        "101 to 1,000": 450,
+        "over 1,000": 0
+       }
+      },
+      "4_text_collides": {
+       "events": 0,
+       "bytes": 0,
+       "share": 0.0,
+       "patterns": 0,
+       "bands": {
+        "seen once": 0,
+        "2 to 10": 0,
+        "11 to 100": 0,
+        "101 to 1,000": 0,
+        "over 1,000": 0
+       }
+      },
+      "4_text_id_only": {
+       "events": 0,
+       "bytes": 0,
+       "share": 0.0,
+       "patterns": 0,
+       "bands": {
+        "seen once": 0,
+        "2 to 10": 0,
+        "11 to 100": 0,
+        "101 to 1,000": 0,
+        "over 1,000": 0
+       }
+      }
+     },
+     "flip": {
+      "bucket_3_moved_share": 0.1174,
+      "id_only_share_of_bucket_3_moved": 0.0,
+      "flips": false
+     },
+     "rules": {
+      "text_filters": 22,
+      "with_collisions": 0,
+      "kept_events_collided": 0
+     },
+     "services": {
+      "email": {
+       "kept_events": 1,
+       "kept_patterns": 1,
+       "pieces": {
+        "events": 0,
+        "patterns": 0,
+        "statements": 0,
+        "families": []
+       },
+       "byte_cap": {
+        "events": 0,
+        "patterns": 0,
+        "smallest_moved_pattern_events": 391
+       },
+       "other": {
+        "events": 1,
+        "patterns": 1,
+        "no_head_events": 0,
+        "seen_once_patterns": 1
+       },
+       "whole_filter_beyond_plan": {
+        "info_and_unlevelled": 1,
+        "criticals": 0,
+        "events": 1
+       },
+       "movable_whole": true,
+       "moved_events": 391,
+       "kept_detail": [
+        {
+         "hash": "DJijoxnHh1Y",
+         "pattern": "Use_Ctrl_C_to_stop",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        }
+       ]
+      },
+      "llm": {
+       "kept_events": 452,
+       "kept_patterns": 22,
+       "pieces": {
+        "events": 450,
+        "patterns": 20,
+        "statements": 2,
+        "families": [
+         "frame:app Processing a response",
+         "frame:app product review summary is"
+        ]
+       },
+       "byte_cap": {
+        "events": 0,
+        "patterns": 0,
+        "smallest_moved_pattern_events": 225
+       },
+       "other": {
+        "events": 2,
+        "patterns": 2,
+        "no_head_events": 0,
+        "seen_once_patterns": 2
+       },
+       "whole_filter_beyond_plan": {
+        "info_and_unlevelled": 452,
+        "criticals": 0,
+        "events": 452
+       },
+       "movable_whole": true,
+       "moved_events": 2025,
+       "kept_detail": [
+        {
+         "hash": "Q9-K2sK7aXk",
+         "pattern": "app_product_review_summary_is_The_V_as_a_dream_come_true_for_serious_deep_sky_offering_performance_and_detailed_images_Its",
+         "events": 35,
+         "pattern_events": 35,
+         "split": "pieces",
+         "families": [
+          "frame:app product review summary is"
+         ],
+         "head_events": 35
+        },
+        {
+         "hash": "m88HP387a6o",
+         "pattern": "times_while_exceptional_engineering_short_focal_length_make_it_an_incredibly_efficient_and_professional_piece_of_equipment",
+         "events": 35,
+         "pattern_events": 35,
+         "split": "pieces",
+         "families": [
+          "frame:app Processing a response"
+         ],
+         "head_events": 35
+        },
+        {
+         "hash": "rbcq-MELM_E",
+         "pattern": "app_Processing_a_response_This_dedicated_solar_scope_is_highly_for_its_perfect_performance_in_observations_and_eclipse_events_thanks",
+         "events": 29,
+         "pattern_events": 29,
+         "split": "pieces",
+         "families": [
+          "frame:app Processing a response"
+         ],
+         "head_events": 29
+        },
+        {
+         "hash": "bmgUkutJ7gk",
+         "pattern": "app_product_review_summary_is_This_dedicated_solar_scope_highly_for_its_perfect_performance_in_observations_and_eclipse_events",
+         "events": 29,
+         "pattern_events": 29,
+         "split": "pieces",
+         "families": [
+          "frame:app product review summary is"
+         ],
+         "head_events": 29
+        },
+        {
+         "hash": "HBVgRYK2KI4",
+         "pattern": "app_Processing_a_response_These_roof_binoculars_are_highly_rated_for_their_incredible_clarity_brightness_and_sharp_images_making",
+         "events": 27,
+         "pattern_events": 27,
+         "split": "pieces",
+         "families": [
+          "frame:app Processing a response"
+         ],
+         "head_events": 27
+        },
+        {
+         "hash": "0sNb1ADjllA",
+         "pattern": "app_product_review_summary_is_These_roof_binoculars_are_highly_rated_for_their_incredible_clarity_brightness_and_sharp_images",
+         "events": 27,
+         "pattern_events": 27,
+         "split": "pieces",
+         "families": [
+          "frame:app product review summary is"
+         ],
+         "head_events": 27
+        },
+        {
+         "hash": "aCDJIqX2PL4",
+         "pattern": "app_product_review_summary_is_This_entry_level_telescope_highly_recommended_for_beginners_and_casual_viewing_offering_clear",
+         "events": 24,
+         "pattern_events": 24,
+         "split": "pieces",
+         "families": [
+          "frame:app product review summary is"
+         ],
+         "head_events": 24
+        },
+        {
+         "hash": "z98XFMSLyx4",
+         "pattern": "moon_brighter_Users_appreciate_its_portability_ease_setup_good_value_though_some_note_manual_controls_can_be_a_bit_tricky",
+         "events": 24,
+         "pattern_events": 24,
+         "split": "pieces",
+         "families": [
+          "frame:app Processing a response"
+         ],
+         "head_events": 24
+        },
+        {
+         "hash": "puHKebem0NY",
+         "pattern": "app_Processing_a_response_This_lens_cleaning_kit_is_highly_as_versatile_and_essential_tool_for_maintaining_various_optics_from",
+         "events": 21,
+         "pattern_events": 21,
+         "split": "pieces",
+         "families": [
+          "frame:app Processing a response"
+         ],
+         "head_events": 21
+        },
+        {
+         "hash": "t4-0iKnGTTg",
+         "pattern": "app_Processing_a_response_This_solar_system_color_imager_is_highly_as_an_excellent_solution_for_both_beginners_and_serious_observers",
+         "events": 21,
+         "pattern_events": 21,
+         "split": "pieces",
+         "families": [
+          "frame:app Processing a response"
+         ],
+         "head_events": 21
+        },
+        {
+         "hash": "_D18a__5zJo",
+         "pattern": "app_product_review_summary_is_This_lens_cleaning_kit_highly_as_a_versatile_and_essential_tool_for_maintaining_various_optics",
+         "events": 21,
+         "pattern_events": 21,
+         "split": "pieces",
+         "families": [
+          "frame:app product review summary is"
+         ],
+         "head_events": 21
+        },
+        {
+         "hash": "TRFN3rVWGRo",
+         "pattern": "app_product_review_summary_is_This_solar_system_color_imager_highly_as_an_excellent_solution_for_both_beginners_and_serious",
+         "events": 21,
+         "pattern_events": 21,
+         "split": "pieces",
+         "families": [
+          "frame:app product review summary is"
+         ],
+         "head_events": 21
+        },
+        {
+         "hash": "zk-TXhP0fL4",
+         "pattern": "app_Processing_a_response_This_device_is_highly_valued_by_users_for_its_essential_red_flashlight_mode_which_preserves_night_vision",
+         "events": 19,
+         "pattern_events": 19,
+         "split": "pieces",
+         "families": [
+          "frame:app Processing a response"
+         ],
+         "head_events": 19
+        },
+        {
+         "hash": "CT5nP8XElUw",
+         "pattern": "app_Processing_a_response_This_telescope_is_highly_for_its_and_integration_making_incredibly_easy_accurate_beginners_Users_highlight",
+         "events": 19,
+         "pattern_events": 19,
+         "split": "pieces",
+         "families": [
+          "frame:app Processing a response"
+         ],
+         "head_events": 19
+        },
+        {
+         "hash": "V27syrHB-4U",
+         "pattern": "app_product_review_summary_is_This_device_highly_valued_by_users_for_its_essential_red_flashlight_mode_which_preserves_night",
+         "events": 19,
+         "pattern_events": 19,
+         "split": "pieces",
+         "families": [
+          "frame:app product review summary is"
+         ],
+         "head_events": 19
+        },
+        {
+         "hash": "DH6-AhRp_0A",
+         "pattern": "product_review_summary_is_This_telescope_highly_for_its_app_and_integration_making_incredibly_easy_accurate_beginners_Users",
+         "events": 19,
+         "pattern_events": 19,
+         "split": "pieces",
+         "families": [
+          "frame:app product review summary is"
+         ],
+         "head_events": 19
+        },
+        {
+         "hash": "xbxx8ajmds0",
+         "pattern": "app_Processing_a_response_The_Comet_Book_is_highly_regarded_as_fascinating_and_historical_document_offering_glimpse_into_ancient_astronomical",
+         "events": 17,
+         "pattern_events": 17,
+         "split": "pieces",
+         "families": [
+          "frame:app Processing a response"
+         ],
+         "head_events": 17
+        },
+        {
+         "hash": "sU7w4nv2EC4",
+         "pattern": "app_product_review_summary_is_The_Comet_Book_highly_regarded_as_a_fascinating_and_historical_document_offering_glimpse_into",
+         "events": 17,
+         "pattern_events": 17,
+         "split": "pieces",
+         "families": [
+          "frame:app product review summary is"
+         ],
+         "head_events": 17
+        },
+        {
+         "hash": "E1-I2TcAlgI",
+         "pattern": "app_Processing_a_response_This_Solar_Filter_is_deemed_essential_for_safe_solar_viewing_providing_crystal_clear_and_secure_observations",
+         "events": 13,
+         "pattern_events": 13,
+         "split": "pieces",
+         "families": [
+          "frame:app Processing a response"
+         ],
+         "head_events": 13
+        },
+        {
+         "hash": "1lBTce2ZiVY",
+         "pattern": "app_product_review_summary_is_This_Solar_Filter_deemed_essential_for_safe_solar_viewing_providing_crystal_clear_and_secure",
+         "events": 13,
+         "pattern_events": 13,
+         "split": "pieces",
+         "families": [
+          "frame:app product review summary is"
+         ],
+         "head_events": 13
+        },
+        {
+         "hash": "J-jXiTqtHVc",
+         "pattern": "OpenAI_API_server_starting_on_http_localhost",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "MjW8Uy86cbA",
+         "pattern": "app",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        }
+       ]
+      },
+      "postgresql": {
+       "kept_events": 29,
+       "kept_patterns": 19,
+       "pieces": {
+        "events": 2,
+        "patterns": 1,
+        "statements": 1,
+        "families": [
+         "frame:LOG checkpoint starting"
+        ]
+       },
+       "byte_cap": {
+        "events": 0,
+        "patterns": 0,
+        "smallest_moved_pattern_events": 23
+       },
+       "other": {
+        "events": 27,
+        "patterns": 18,
+        "no_head_events": 9,
+        "seen_once_patterns": 9
+       },
+       "whole_filter_beyond_plan": {
+        "info_and_unlevelled": 29,
+        "criticals": 5,
+        "events": 34
+       },
+       "movable_whole": false,
+       "moved_events": 48,
+       "kept_detail": [
+        {
+         "hash": "Xyyh-8EZJNM",
+         "pattern": "LOG_aborting_any_active_transactions",
+         "events": 2,
+         "pattern_events": 2,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "K6ccXz_xc-I",
+         "pattern": "LOG_background_worker_logical_replication_launcher_PID_exited_with_exit_code",
+         "events": 2,
+         "pattern_events": 2,
+         "split": "other",
+         "families": [],
+         "head_events": 2
+        },
+        {
+         "hash": "13eRp6jnMLo",
+         "pattern": "LOG_checkpoint_starting_shutdown_immediate",
+         "events": 2,
+         "pattern_events": 2,
+         "split": "pieces",
+         "families": [
+          "frame:LOG checkpoint starting"
+         ],
+         "head_events": 2
+        },
+        {
+         "hash": "jN7cub9-7yM",
+         "pattern": "LOG_database_system_is_ready_to_accept_connections",
+         "events": 2,
+         "pattern_events": 2,
+         "split": "other",
+         "families": [],
+         "head_events": 2
+        },
+        {
+         "hash": "ZCtAEdcMGPo",
+         "pattern": "LOG_database_system_is_shut_down",
+         "events": 2,
+         "pattern_events": 2,
+         "split": "other",
+         "families": [],
+         "head_events": 2
+        },
+        {
+         "hash": "IeTp2YGtfE8",
+         "pattern": "LOG_database_system_was_shut_down_at",
+         "events": 2,
+         "pattern_events": 2,
+         "split": "other",
+         "families": [],
+         "head_events": 2
+        },
+        {
+         "hash": "flu9rVkt8s0",
+         "pattern": "LOG_listening_on_Unix_socket",
+         "events": 2,
+         "pattern_events": 2,
+         "split": "other",
+         "families": [],
+         "head_events": 2
+        },
+        {
+         "hash": "4dQgrKHedCw",
+         "pattern": "LOG_received_fast_shutdown_request",
+         "events": 2,
+         "pattern_events": 2,
+         "split": "other",
+         "families": [],
+         "head_events": 2
+        },
+        {
+         "hash": "wBpCRXC60no",
+         "pattern": "LOG_shutting_down",
+         "events": 2,
+         "pattern_events": 2,
+         "split": "other",
+         "families": [],
+         "head_events": 2
+        },
+        {
+         "hash": "mOS1RtNaYXg",
+         "pattern": "stream_stdout_docker",
+         "events": 2,
+         "pattern_events": 2,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "nTl0DWsO2JE",
+         "pattern": "Data_page_checksums_are_disabled",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "HTdewRzMQhQ",
+         "pattern": "LOG_listening_IPv_address_port",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "8YoDS7FrP60",
+         "pattern": "LOG_listening_on_IPv_address_port",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "1FQD_yuL5VQ",
+         "pattern": "LOG_starting_PostgreSQL_Debian_on_compiled_by_gcc",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "vPQEnjUyNSM",
+         "pattern": "Success_You_can_now_start_the_database_server_using",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "uQTbT7z4rhE",
+         "pattern": "The_database_cluster_will_be_initialized_with_locale",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "z_rEITb2ZoI",
+         "pattern": "fixing_permissions_on_existing_directory_var_lib_postgresql_data_ok",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "s9Na2WJpHGo",
+         "pattern": "pg_ctl_var_lib_postgresql_data_l_logfile_start",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        },
+        {
+         "hash": "6PZMBQvZCmo",
+         "pattern": "waiting_for_server_to_start_LOG_starting_PostgreSQL_Debian_compiled_gcc",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        }
+       ]
+      },
+      "product-reviews": {
+       "kept_events": 3621,
+       "kept_patterns": 67,
+       "pieces": {
+        "events": 2270,
+        "patterns": 60,
+        "statements": 2,
+        "families": [
+         "frame:Returning an AI assistant response",
+         "location:product_reviews_server.py:127",
+         "location:product_reviews_server.py:301"
+        ]
+       },
+       "byte_cap": {
+        "events": 1350,
+        "patterns": 6,
+        "smallest_moved_pattern_events": 225
+       },
+       "other": {
+        "events": 1,
+        "patterns": 1,
+        "no_head_events": 0,
+        "seen_once_patterns": 1
+       },
+       "whole_filter_beyond_plan": {
+        "info_and_unlevelled": 3621,
+        "criticals": 0,
+        "events": 3621
+       },
+       "movable_whole": true,
+       "moved_events": 1309,
+       "kept_detail": [
+        {
+         "hash": "3SJ-lT5vZoY",
+         "pattern": "Model_wants_to_call_tool_s",
+         "events": 225,
+         "pattern_events": 225,
+         "split": "byte_cap",
+         "families": [],
+         "head_events": 225
+        },
+        {
+         "hash": "u0eJIgyN8e4",
+         "pattern": "Processing_tool_call_fetch_product_reviews_with_arguments",
+         "events": 225,
+         "pattern_events": 225,
+         "split": "byte_cap",
+         "families": [],
+         "head_events": 225
+        },
+        {
+         "hash": "XCkSNYKD91A",
+         "pattern": "Receive_AskProductAIAssistant_question_Can_you_summarize_the_product_reviews",
+         "events": 225,
+         "pattern_events": 225,
+         "split": "byte_cap",
+         "families": [],
+         "head_events": 225
+        },
+        {
+         "hash": "xgjaGMq_irs",
+         "pattern": "Response_content_requesting_a_tool_call_refusal_None_role_assistant_annotations_audio_function_calls_fetch_product",
+         "events": 225,
+         "pattern_events": 225,
+         "split": "byte_cap",
+         "families": [],
+         "head_events": 225
+        },
+        {
+         "hash": "GEpWF7tg4LI",
+         "pattern": "llmInaccurateResponse_feature_flag_False",
+         "events": 225,
+         "pattern_events": 225,
+         "split": "byte_cap",
+         "families": [],
+         "head_events": 225
+        },
+        {
+         "hash": "d5ir5EBifH8",
+         "pattern": "llmRateLimitError_feature_flag_False",
+         "events": 225,
+         "pattern_events": 225,
+         "split": "byte_cap",
+         "families": [],
+         "head_events": 225
+        },
+        {
+         "hash": "0NKRiOdofAc",
+         "pattern": "username_clean_optics_description_This_kit_is_a_for_all_my_The_brush_and_work_perfectly_without_leaving_any_residue_My_have_never",
+         "events": 54,
+         "pattern_events": 54,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 54
+        },
+        {
+         "hash": "bvgM_Sbj_oU",
+         "pattern": "username_daily_cleaner_description_use_this_on_my_binoculars_camera_and_even_phone_screen_It_s_very_effective_gentle_versatile_cleaning",
+         "events": 54,
+         "pattern_events": 54,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 54
+        },
+        {
+         "hash": "HOtqPQGmvQI",
+         "pattern": "username_description_Essential_for_any_photographer_or_telescope_owner_It_safely_removes_dust_and_fingerprints_high_quality_cleaning",
+         "events": 54,
+         "pattern_events": 54,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 54
+        },
+        {
+         "hash": "YZ1GFw5K1CA",
+         "pattern": "username_sharp_view_description_Works_as_advertised_my_telescope_views_are_much_clearer_after_using_this_The_fluid_and_cloth_excellent",
+         "events": 54,
+         "pattern_events": 54,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 54
+        },
+        {
+         "hash": "J7kH3ayC8GU",
+         "pattern": "username_tech_maintenance_description_Great_value_for_money_The_different_cleaning_options_cover_all_needs_Keeps_my_expensive_equipment",
+         "events": 54,
+         "pattern_events": 54,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 54
+        },
+        {
+         "hash": "6Yomqui1oGM",
+         "pattern": "username_ancient_texts_description_Such_a_unique_and_intriguing_read_The_historical_context_is_It_offers_different_perspective",
+         "events": 51,
+         "pattern_events": 51,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 51
+        },
+        {
+         "hash": "nGf43dBdWPI",
+         "pattern": "username_bookworm_astro_description_Beautifully_presented_historical_document_It_s_amazing_to_see_how_were_understood_centuries",
+         "events": 51,
+         "pattern_events": 51,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 51
+        },
+        {
+         "hash": "heZKH7I_SJQ",
+         "pattern": "username_celestial_history_description_love_historical_astronomy_and_this_book_delivers_It_s_provides_a_window_into_past_recommended",
+         "events": 51,
+         "pattern_events": 51,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 51
+        },
+        {
+         "hash": "FfSX-gJ9SJo",
+         "pattern": "username_history_buff_description_fascinating_glimpse_into_historical_astronomical_thought_The_content_is_incredibly_must_read",
+         "events": 51,
+         "pattern_events": 51,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 51
+        },
+        {
+         "hash": "7m9W6Ga1RxA",
+         "pattern": "username_rare_find_description_truly_special_book_for_enthusiasts_of_astronomical_history_The_details_about_ancient_are_very_interesting",
+         "events": 51,
+         "pattern_events": 51,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 51
+        },
+        {
+         "hash": "oRgQGWLCip0",
+         "pattern": "username_advanced_scope_description_every_for_the_quality_and_speed_it_offers_My_images_have_never_been_or_more_vibrant_truly_professional",
+         "events": 47,
+         "pattern_events": 47,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 47
+        },
+        {
+         "hash": "vBZnB6JuTMY",
+         "pattern": "username_deep_sky_master_description_The_V_is_a_dream_come_true_for_imaging_f_speed_drastically_cuts_down_exposure_times_My_best_investment",
+         "events": 47,
+         "pattern_events": 47,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 47
+        },
+        {
+         "hash": "yjgFNEhlw2M",
+         "pattern": "username_imaging_guru_description_This_OTA_is_a_The_fast_optics_mean_more_data_in_less_time_If_you_re_serious_about_deep_sky_this",
+         "events": 47,
+         "pattern_events": 47,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 47
+        },
+        {
+         "hash": "YEIZ6R8PBuw",
+         "pattern": "username_precision_optics_description_The_engineering_behind_this_is_exceptional_It_s_incredibly_efficient_for_capturing_faint_objects",
+         "events": 47,
+         "pattern_events": 47,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 47
+        },
+        {
+         "hash": "47Jdh7060ug",
+         "pattern": "username_pro_astro_description_performance_wide_field_The_short_focal_length_makes_less_critical_Produces_detailed_images_score",
+         "events": 47,
+         "pattern_events": 47,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 47
+        },
+        {
+         "hash": "H3MbAYjuGbQ",
+         "pattern": "username_astro_accessory_description_Every_astronomer_needs_one_of_these_The_red_light_is_essential_and_the_hand_warmer_power_bank",
+         "events": 45,
+         "pattern_events": 45,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 45
+        },
+        {
+         "hash": "sDFOhCTX6Hs",
+         "pattern": "username_description_and_versatile_this_flashlight_is_great_for_camping_night_walks_The_hand_warmer_function_a_game_changer_on",
+         "events": 45,
+         "pattern_events": 45,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 45
+        },
+        {
+         "hash": "taTgGFYxlU8",
+         "pattern": "username_emergency_kit_description_fantastic_multi_tool_for_my_The_red_light_is_useful_and_the_power_bank_means_can_charge_phone",
+         "events": 45,
+         "pattern_events": 45,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 45
+        },
+        {
+         "hash": "sOSb9QFWLag",
+         "pattern": "username_night_walker_description_The_red_light_is_perfect_for_preserving_vision_during_astronomy_sessions_hand_warmer_an_unexpected",
+         "events": 45,
+         "pattern_events": 45,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 45
+        },
+        {
+         "hash": "VqIqa97TihE",
+         "pattern": "username_star_description_This_flashlight_is_for_parties_The_red_mode_gentle_on_the_eyes_and_power_bank_feature_super_handy_Love",
+         "events": 45,
+         "pattern_events": 45,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 45
+        },
+        {
+         "hash": "RLEJyjNf1Gk",
+         "pattern": "username_beginner_astro_description_bit_tricky_to_get_used_the_manual_controls_but_once_you_do_it_s_very_Saw_Orion_for_first_time",
+         "events": 42,
+         "pattern_events": 42,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 42
+        },
+        {
+         "hash": "ufqAscxv_JE",
+         "pattern": "username_celestial_explorer_description_Perfect_for_camping_trips_It_s_lightweight_and_portable_making_it_easy_to_take_anywhere",
+         "events": 42,
+         "pattern_events": 42,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 42
+        },
+        {
+         "hash": "f_upqcWKSWw",
+         "pattern": "username_description_For_the_price_this_delivers_excellent_performance_was_able_to_see_Jupiter_s_clearly_fantastic_purchase_for_casual",
+         "events": 42,
+         "pattern_events": 42,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 42
+        },
+        {
+         "hash": "lMxFfe49O5s",
+         "pattern": "username_description_Great_entry_Easy_to_set_up_and_provides_clear_views_of_the_moon_brighter_recommend_for_new_score",
+         "events": 42,
+         "pattern_events": 42,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 42
+        },
+        {
+         "hash": "gc0CvLp5gik",
+         "pattern": "username_telescope_fan_description_Not_the_most_powerful_scope_but_it_s_great_for_kids_and_beginners_My_children_love_looking",
+         "events": 42,
+         "pattern_events": 42,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 42
+        },
+        {
+         "hash": "tz2OTQmsZ7o",
+         "pattern": "Easy_attach_provides_crystal_clear_safe_views_sun_The_build_quality_excellent_must_have_accessory_for_solar_enthusiasts_score",
+         "events": 38,
+         "pattern_events": 38,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 38
+        },
+        {
+         "hash": "_kQdAJ1Ec4k",
+         "pattern": "username_eclipse_ready_description_this_for_the_upcoming_and_it_fits_perfectly_Tested_out_views_are_fantastic_safe_Very_happy_with",
+         "events": 38,
+         "pattern_events": 38,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 38
+        },
+        {
+         "hash": "sCmcN-wKzqc",
+         "pattern": "username_filter_fan_description_Works_perfectly_with_my_scope_No_more_about_accidental_Great_product_for_protecting_your_eyes",
+         "events": 38,
+         "pattern_events": 38,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 38
+        },
+        {
+         "hash": "oU4Z0T0JDSw",
+         "pattern": "username_solar_safety_description_Essential_for_safe_viewing_with_my_telescope_The_ensure_it_stays_securely_in_place_Peace_of_mind",
+         "events": 38,
+         "pattern_events": 38,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 38
+        },
+        {
+         "hash": "OVbOk0CgRjs",
+         "pattern": "username_telescope_upgrade_description_This_filter_is_a_perfect_addition_to_my_setup_The_ISO_compliance_crucial_recommend_for_anyone",
+         "events": 38,
+         "pattern_events": 38,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 38
+        },
+        {
+         "hash": "NvlUX58avhI",
+         "pattern": "description_The_detail_can_capture_this_imager_incredible_It_integrates_well_various_software_must_have_for_serious_observers_score",
+         "events": 36,
+         "pattern_events": 36,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 36
+        },
+        {
+         "hash": "r5cOo5rjDI0",
+         "pattern": "username_app_user_description_Amazing_technology_the_integration_works_ve_never_had_so_much_fun_exploring_night_sky_every_score",
+         "events": 36,
+         "pattern_events": 36,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 36
+        },
+        {
+         "hash": "gY1poaexL_c",
+         "pattern": "username_description_Finally_a_telescope_that_takes_the_guesswork_out_of_The_real_time_positioning_is_incredibly_accurate_recommended",
+         "events": 36,
+         "pattern_events": 36,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 36
+        },
+        {
+         "hash": "Rmv9MNTULpE",
+         "pattern": "username_description_Finally_capturing_images_of_and_The_makes_it_so_accessible_Great_for_beginners_in_score",
+         "events": 36,
+         "pattern_events": 36,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 36
+        },
+        {
+         "hash": "ie9F4GQ6KRY",
+         "pattern": "username_description_Setup_was_a_breeze_and_the_tutorials_in_app_are_very_helpful_The_views_crisp_clear_My_only_minor_is_battery",
+         "events": 36,
+         "pattern_events": 36,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 36
+        },
+        {
+         "hash": "d6wvkxxvWnI",
+         "pattern": "username_description_This_imager_is_a_fantastic_step_up_for_photography_The_color_quality_superb_Easy_to_use_with_my_existing_telescope",
+         "events": 36,
+         "pattern_events": 36,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 36
+        },
+        {
+         "hash": "pyvkYdbl1Fg",
+         "pattern": "username_description_product_the_app_truly_guides_you_It_s_like_having_a_personal_astronomer_with_The_optical_quality_is_also_very",
+         "events": 36,
+         "pattern_events": 36,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 36
+        },
+        {
+         "hash": "t8EgbkxUSTs",
+         "pattern": "username_digital_sky_description_solid_choice_for_getting_into_solar_system_imaging_The_setup_was_straightforward_Produces_beautiful",
+         "events": 36,
+         "pattern_events": 36,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 36
+        },
+        {
+         "hash": "Gjrq4Of94fo",
+         "pattern": "username_imager_pro_description_Excellent_resolution_and_color_for_its_price_point_It_s_a_perfect_solution_those_looking_to_start",
+         "events": 36,
+         "pattern_events": 36,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 36
+        },
+        {
+         "hash": "cgKFTlUb4P0",
+         "pattern": "username_tech_astro_description_The_app_is_It_made_finding_celestial_objects_incredibly_easy_This_telescope_a_game_changer_for_beginners",
+         "events": 36,
+         "pattern_events": 36,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 36
+        },
+        {
+         "hash": "m88HP387a6o",
+         "pattern": "times_while_exceptional_engineering_short_focal_length_make_it_an_incredibly_efficient_and_professional_piece_of_equipment",
+         "events": 35,
+         "pattern_events": 35,
+         "split": "pieces",
+         "families": [
+          "frame:Returning an AI assistant response",
+          "location:product_reviews_server.py:301"
+         ],
+         "head_events": 35
+        },
+        {
+         "hash": "duk__RlN0k4",
+         "pattern": "astro_description_Excellent_travel_viewing_The_magnification_much_better_than_binoculars_sun_must_have_for_any_solar_score",
+         "events": 32,
+         "pattern_events": 32,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 32
+        },
+        {
+         "hash": "TYX-u1N6w1A",
+         "pattern": "username_description_Compact_and_easy_to_carry_this_telescope_is_ideal_for_eclipse_events_The_included_backpack_a_nice_touch_Views",
+         "events": 32,
+         "pattern_events": 32,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 32
+        },
+        {
+         "hash": "YVgE1QoUtN4",
+         "pattern": "username_description_Very_with_the_safety_features_and_clarity_Sharing_sun_family_has_never_been_easier_or_safer_Great_value_for",
+         "events": 32,
+         "pattern_events": 32,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 32
+        },
+        {
+         "hash": "MZo0Pw4VFa4",
+         "pattern": "username_safe_viewer_description_The_ISO_compliant_filter_is_It_s_a_well_designed_product_for_solar_observation_recommend_educational",
+         "events": 32,
+         "pattern_events": 32,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 32
+        },
+        {
+         "hash": "wL9vLtsMcgE",
+         "pattern": "viewer_description_Perfect_solar_The_Solar_Safe_filter_gives_peace_mind_used_last_partial_eclipse_and_it_was_fantastic_score",
+         "events": 32,
+         "pattern_events": 32,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 32
+        },
+        {
+         "hash": "c2aNbL45hsg",
+         "pattern": "Returning_an_AI_assistant_response_This_dedicated_solar_scope_is_highly_for_its_perfect_performance_in_observations_and_eclipse_events",
+         "events": 29,
+         "pattern_events": 29,
+         "split": "pieces",
+         "families": [
+          "frame:Returning an AI assistant response",
+          "location:product_reviews_server.py:301"
+         ],
+         "head_events": 29
+        },
+        {
+         "hash": "o9FKXi1ZNnA",
+         "pattern": "Lightweight_durable_these_are_my_go_binoculars_hiking_The_wide_field_of_view_is_excellent_recommend_for_outdoor_enthusiasts_score",
+         "events": 28,
+         "pattern_events": 28,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 28
+        },
+        {
+         "hash": "NDiPd21xIag",
+         "pattern": "username_bird_watcher_description_Incredible_clarity_and_brightness_perfect_for_watching_The_ED_glass_really_makes_a_difference",
+         "events": 28,
+         "pattern_events": 28,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 28
+        },
+        {
+         "hash": "zYBW5MV2-HI",
+         "pattern": "username_nature_lover_description_These_binoculars_are_fantastic_for_observation_The_close_focus_is_a_huge_advantage_viewing_nearby",
+         "events": 28,
+         "pattern_events": 28,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 28
+        },
+        {
+         "hash": "oMcIERJBGB0",
+         "pattern": "username_outdoor_adventurer_description_Excellent_build_quality_and_optical_performance_They_feel_robust_provide_sharp_images_great_investment",
+         "events": 28,
+         "pattern_events": 28,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 28
+        },
+        {
+         "hash": "k565NY7_ZGg",
+         "pattern": "username_stadium_fan_description_Took_these_to_a_game_and_had_an_amazing_view_of_the_action_They_perform_great_in_various_lighting_conditions",
+         "events": 28,
+         "pattern_events": 28,
+         "split": "pieces",
+         "families": [
+          "location:product_reviews_server.py:127"
+         ],
+         "head_events": 28
+        },
+        {
+         "hash": "-8h4f6zzdCw",
+         "pattern": "Returning_an_AI_assistant_response_These_roof_binoculars_are_highly_rated_for_their_incredible_clarity_brightness_and_sharp_images",
+         "events": 27,
+         "pattern_events": 27,
+         "split": "pieces",
+         "families": [
+          "frame:Returning an AI assistant response",
+          "location:product_reviews_server.py:301"
+         ],
+         "head_events": 27
+        },
+        {
+         "hash": "z98XFMSLyx4",
+         "pattern": "moon_brighter_Users_appreciate_its_portability_ease_setup_good_value_though_some_note_manual_controls_can_be_a_bit_tricky",
+         "events": 24,
+         "pattern_events": 24,
+         "split": "pieces",
+         "families": [
+          "frame:Returning an AI assistant response",
+          "location:product_reviews_server.py:301"
+         ],
+         "head_events": 24
+        },
+        {
+         "hash": "aYnXzZ8X3WI",
+         "pattern": "Returning_an_AI_assistant_response_This_lens_cleaning_kit_is_highly_as_a_versatile_and_essential_tool_for_maintaining_various_optics",
+         "events": 21,
+         "pattern_events": 21,
+         "split": "pieces",
+         "families": [
+          "frame:Returning an AI assistant response",
+          "location:product_reviews_server.py:301"
+         ],
+         "head_events": 21
+        },
+        {
+         "hash": "3-X8d_keMvs",
+         "pattern": "Returning_an_AI_assistant_response_This_solar_system_color_imager_is_highly_as_excellent_solution_for_both_beginners_and_serious_observers",
+         "events": 21,
+         "pattern_events": 21,
+         "split": "pieces",
+         "families": [
+          "frame:Returning an AI assistant response",
+          "location:product_reviews_server.py:301"
+         ],
+         "head_events": 21
+        },
+        {
+         "hash": "cO3FnJGrnFA",
+         "pattern": "Returning_an_AI_assistant_response_This_device_is_highly_valued_by_users_for_its_essential_red_flashlight_mode_which_preserves_night",
+         "events": 19,
+         "pattern_events": 19,
+         "split": "pieces",
+         "families": [
+          "frame:Returning an AI assistant response",
+          "location:product_reviews_server.py:301"
+         ],
+         "head_events": 19
+        },
+        {
+         "hash": "KUq_MEj-0dc",
+         "pattern": "Returning_an_AI_assistant_response_This_telescope_is_highly_for_its_app_and_integration_making_incredibly_easy_accurate_beginners",
+         "events": 19,
+         "pattern_events": 19,
+         "split": "pieces",
+         "families": [
+          "frame:Returning an AI assistant response",
+          "location:product_reviews_server.py:301"
+         ],
+         "head_events": 19
+        },
+        {
+         "hash": "oqZQrm6K2AU",
+         "pattern": "Returning_an_AI_assistant_response_The_Comet_Book_is_highly_regarded_as_a_fascinating_and_historical_document_offering_glimpse",
+         "events": 17,
+         "pattern_events": 17,
+         "split": "pieces",
+         "families": [
+          "frame:Returning an AI assistant response",
+          "location:product_reviews_server.py:301"
+         ],
+         "head_events": 17
+        },
+        {
+         "hash": "YVt7XiTEcBo",
+         "pattern": "Returning_an_AI_assistant_response_This_Solar_Filter_is_deemed_essential_for_safe_solar_viewing_providing_crystal_clear_and_secure_observations",
+         "events": 13,
+         "pattern_events": 13,
+         "split": "pieces",
+         "families": [
+          "frame:Returning an AI assistant response",
+          "location:product_reviews_server.py:301"
+         ],
+         "head_events": 13
+        },
+        {
+         "hash": "jsCO9gKPm7c",
+         "pattern": "Product_reviews_service_started_listening_on_port",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        }
+       ]
+      },
+      "quote": {
+       "kept_events": 1,
+       "kept_patterns": 1,
+       "pieces": {
+        "events": 0,
+        "patterns": 0,
+        "statements": 0,
+        "families": []
+       },
+       "byte_cap": {
+        "events": 0,
+        "patterns": 0,
+        "smallest_moved_pattern_events": 391
+       },
+       "other": {
+        "events": 1,
+        "patterns": 1,
+        "no_head_events": 1,
+        "seen_once_patterns": 1
+       },
+       "whole_filter_beyond_plan": {
+        "info_and_unlevelled": 1,
+        "criticals": 0,
+        "events": 1
+       },
+       "movable_whole": true,
+       "moved_events": 391,
+       "kept_detail": [
+        {
+         "hash": "QRJNyeux6Vs",
+         "pattern": "Listening_on",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 0
+        }
+       ]
+      },
+      "recommendation": {
+       "kept_events": 1,
+       "kept_patterns": 1,
+       "pieces": {
+        "events": 0,
+        "patterns": 0,
+        "statements": 0,
+        "families": []
+       },
+       "byte_cap": {
+        "events": 0,
+        "patterns": 0,
+        "smallest_moved_pattern_events": 602
+       },
+       "other": {
+        "events": 1,
+        "patterns": 1,
+        "no_head_events": 0,
+        "seen_once_patterns": 1
+       },
+       "whole_filter_beyond_plan": {
+        "info_and_unlevelled": 1,
+        "criticals": 0,
+        "events": 1
+       },
+       "movable_whole": true,
+       "moved_events": 602,
+       "kept_detail": [
+        {
+         "hash": "EECfvV4aYmQ",
+         "pattern": "Recommendation_service_started_listening_on_port",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        }
+       ]
+      },
+      "valkey-cart": {
+       "kept_events": 9,
+       "kept_patterns": 9,
+       "pieces": {
+        "events": 0,
+        "patterns": 0,
+        "statements": 0,
+        "families": []
+       },
+       "byte_cap": {
+        "events": 0,
+        "patterns": 0,
+        "smallest_moved_pattern_events": 23
+       },
+       "other": {
+        "events": 9,
+        "patterns": 9,
+        "no_head_events": 0,
+        "seen_once_patterns": 9
+       },
+       "whole_filter_beyond_plan": {
+        "info_and_unlevelled": 9,
+        "criticals": 0,
+        "events": 9
+       },
+       "movable_whole": true,
+       "moved_events": 116,
+       "kept_detail": [
+        {
+         "hash": "uZAJ9JoffuM",
+         "pattern": "Ready_to_accept_connections_tcp",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "JFGyLB3rePc",
+         "pattern": "Running_mode_standalone_port",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "bBiclVh8G20",
+         "pattern": "Saving_the_final_RDB_snapshot_before_exiting",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "XVZezHalrPc",
+         "pattern": "Server_initialized",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "6pF4mScEd7Q",
+         "pattern": "User_requested_shutdown",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "-ztqdCmqoww",
+         "pattern": "Valkey_bits_commit_modified_just_started",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "Gp-W_Etn3a4",
+         "pattern": "Valkey_is_now_ready_to_exit_bye",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "WKtgJCmsHRM",
+         "pattern": "monotonic_clock_POSIX_gettime",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        },
+        {
+         "hash": "zm9Kp6o68PE",
+         "pattern": "oOOoOOoOOo_Valkey_is_starting",
+         "events": 1,
+         "pattern_events": 1,
+         "split": "other",
+         "families": [],
+         "head_events": 1
+        }
+       ]
+      }
+     },
+     "e": {
+      "as_computed": {
+       "events": 4882,
+       "share": 0.1174
+      },
+      "movable_whole_moved": {
+       "services": [
+        "email",
+        "llm",
+        "product-reviews",
+        "quote",
+        "recommendation",
+        "valkey-cart"
+       ],
+       "events": 48,
+       "share": 0.0012,
+       "events_a_whole_filter_moves_beyond_the_plan": 4085
+      }
+     }
+    },
+    "plan": {
+     "target_pct": 70,
+     "achieved_pct": 70.0,
+     "met": true,
+     "ceiling_pct": 70.3,
+     "patterns_planned": 46,
+     "events_sampled": 11708,
+     "containers_capped": 12
+    }
+   }
+  },
+  "growth": {
+   "floor_per_hour": {
+    "A": 1564.4,
+    "B": 5446.0
+   },
+   "new_services": {
+    "product-reviews": 2465.5,
+    "llm": 1238.5
+   },
+   "absent_from_b": {
+    "grafana": -247.4,
+    "fluentd-10x": -142.9,
+    "opensearch": -51.6,
+    "kube-proxy": -28.7,
+    "prometheus-server": -15.2,
+    "jaeger": -8.6,
+    "coredns": -4.3,
+    "metrics-server": -3.5,
+    "grafana-sc-dashboard": -1.4,
+    "grafana-sc-alerts": -1.0,
+    "grafana-sc-datasources": -1.0,
+    "aws-vpc-cni-init": -0.7,
+    "load-generator": -0.5,
+    "aws-node": -0.4,
+    "aws-eks-nodeagent": -0.1,
+    "currency": -0.1
+   },
+   "present": {
+    "accounting": {
+     "traffic": 0.4,
+     "statements_added": 474.0,
+     "statements_gone": -6.8
+    },
+    "opentelemetry-collector": {
+     "traffic": 1.8,
+     "statements_added": 0,
+     "statements_gone": -394.1
+    },
+    "payment": {
+     "traffic": 0,
+     "statements_added": 390.5,
+     "statements_gone": -0.1
+    },
+    "frontend": {
+     "traffic": 0.4,
+     "statements_added": 0,
+     "statements_gone": -231.6
+    },
+    "quote": {
+     "traffic": 0.4,
+     "statements_added": 195.5,
+     "statements_gone": 0
+    },
+    "email": {
+     "traffic": 0,
+     "statements_added": 196.0,
+     "statements_gone": -0.3
+    },
+    "frontend-proxy": {
+     "traffic": 44.8,
+     "statements_added": 1.0,
+     "statements_gone": -0.1
+    },
+    "recommendation": {
+     "traffic": -41.2,
+     "statements_added": 0,
+     "statements_gone": 0
+    },
+    "postgresql": {
+     "traffic": 35.5,
+     "statements_added": 3.5,
+     "statements_gone": -0.8
+    },
+    "flagd": {
+     "traffic": 2.8,
+     "statements_added": 3.5,
+     "statements_gone": -0.2
+    },
+    "image-provider": {
+     "traffic": 2.0,
+     "statements_added": 1.5,
+     "statements_gone": -0.3
+    },
+    "valkey-cart": {
+     "traffic": 0.8,
+     "statements_added": 1.5,
+     "statements_gone": 0
+    },
+    "flagd-ui": {
+     "traffic": 1.2,
+     "statements_added": 1.0,
+     "statements_gone": 0
+    },
+    "kafka": {
+     "traffic": 0,
+     "statements_added": 1.0,
+     "statements_gone": -0.1
+    },
+    "ad": {
+     "traffic": 0.8,
+     "statements_added": 0,
+     "statements_gone": 0
+    },
+    "fraud-detection": {
+     "traffic": 0.4,
+     "statements_added": 0.5,
+     "statements_gone": -0.2
+    },
+    "cart": {
+     "traffic": 0.4,
+     "statements_added": 0,
+     "statements_gone": 0
+    },
+    "init-config": {
+     "traffic": 0,
+     "statements_added": 1.0,
+     "statements_gone": -1.4
+    }
+   },
+   "sums": {
+    "new_services": 3704.0,
+    "absent_from_b": -507.4,
+    "traffic": 50.5,
+    "statements_added": 1270.5,
+    "statements_gone": -636.0
+   },
+   "renamed_inside_filtered_services": 0
+  },
+  "integrations": {
+   "read_on": "2026-10-13",
+   "rule": "Attributes a native Datadog index filter can name: service, status, source and host on every log; the attributes Datadog's documented integration pipeline parses for the container's source; and top-level JSON keys where the whole line is JSON.",
+   "containers": {
+    "kafka": {
+     "integration": "kafka",
+     "url": "https://docs.datadoghq.com/integrations/kafka/",
+     "parser": "log4j-logger",
+     "attributes": [
+      "logger.name"
+     ]
+    },
+    "postgresql": {
+     "integration": "postgres",
+     "url": "https://docs.datadoghq.com/integrations/postgres/",
+     "pipeline": "https://github.com/DataDog/integrations-core/blob/master/postgres/assets/logs/postgresql.yaml",
+     "parser": "postgresql-default",
+     "attributes": [
+      "postgres.pid",
+      "postgres.error_severity",
+      "postgres.message"
+     ]
+    },
+    "fluentd-10x": {
+     "integration": "fluentd",
+     "url": "https://docs.datadoghq.com/integrations/fluentd/",
+     "parser": null,
+     "note": "the page covers forwarding logs to Datadog through Fluentd; no pipeline for Fluentd's own log lines"
+    },
+    "opensearch": {
+     "integration": "opensearch",
+     "url": "https://docs.datadoghq.com/integrations/opensearch/",
+     "parser": null,
+     "note": "no integration page (404 on 2026-10-13)"
+    },
+    "valkey-cart": {
+     "integration": "valkey",
+     "url": "https://docs.datadoghq.com/integrations/valkey/",
+     "parser": null,
+     "note": "no integration page (404 on 2026-10-13)"
+    },
+    "recommendation": {
+     "integration": null,
+     "parser": null,
+     "note": "a demo application service, Python; Datadog's Python pages document attribute extraction for JSON logs only, and these lines are not JSON"
+    },
+    "product-reviews": {
+     "integration": null,
+     "parser": null,
+     "note": "a demo application service, Python; plain-text lines"
+    },
+    "llm": {
+     "integration": null,
+     "parser": null,
+     "note": "a demo application service, Python; plain-text lines"
+    },
+    "email": {
+     "integration": null,
+     "parser": null,
+     "note": "a demo application service, Ruby; plain-text lines"
+    },
+    "quote": {
+     "integration": null,
+     "parser": null,
+     "note": "a demo application service, PHP; plain-text lines"
+    }
+   }
+  }
  }
 }

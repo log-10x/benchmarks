@@ -1,0 +1,2563 @@
+{
+"events": 41573,
+"cells": [
+{
+"service": "accounting",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "info"
+},
+"members": [
+"FT74Nh_7cAc",
+"QrfOh3mCOos",
+"yeyxsjUCVFU"
+]
+},
+{
+"service": "accounting",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "critical"
+},
+"members": [
+"HVtgA3q2oS4"
+]
+},
+{
+"service": "accounting",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "error"
+},
+"members": [
+"KPTOnYrpd4Q",
+"uDZ64jlpwhY",
+"wOXHP7kImII"
+]
+},
+{
+"service": "ad",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "warn"
+},
+"members": [
+"2eS6jGgQcuU"
+]
+},
+{
+"service": "ad",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "info"
+},
+"members": [
+"6G60oYRTpFw"
+]
+},
+{
+"service": "ad",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "trace"
+},
+"members": [
+"ArH4D8mtI5Y",
+"MX9CPdAhBKE",
+"bz3kQNPdXvc",
+"jN_dDVWoa78",
+"xHrytxJfUdw"
+]
+},
+{
+"service": "cart",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "info"
+},
+"members": [
+"DbcIqTvrdiU",
+"DwfYUJg-1ZU",
+"G8Q_XY_zCyA",
+"Gws9RaWVpzU",
+"JfitXpOnEro",
+"R6kFHwvxVwc",
+"TjXRRNJljCo",
+"U9hvT4l-JS0",
+"YZplfQ4a1Xw",
+"cz0EQb-pnws",
+"eDSYlCMPqVY",
+"h3qY1nS1uxY",
+"hiEt6HjbuJY",
+"i8cWlXz5hEw",
+"l9l05K3xYIc"
+]
+},
+{
+"service": "cart",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "warn"
+},
+"members": [
+"PyHi4ZY6FQI"
+]
+},
+{
+"service": "email",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "info"
+},
+"members": [
+"1zhBPd1E9Bc",
+"DJijoxnHh1Y"
+]
+},
+{
+"service": "flagd",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "info"
+},
+"members": [
+"0-zBdIoKcSw",
+"3RDRqnRBa3o",
+"4V9LaF7rQQo",
+"ADThH7mt4KU",
+"AHP0Rjvr_0U",
+"GgFzzdqyh3c",
+"JcE9PJQjCtc",
+"ePJGbBba_k0",
+"h74yxvt2JMY",
+"knQ8wqV_mkE",
+"mOS1RtNaYXg",
+"z5cyy1VWWOo"
+]
+},
+{
+"service": "flagd",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "error"
+},
+"members": [
+"gBSOnoFxkwo"
+]
+},
+{
+"service": "flagd-ui",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "info"
+},
+"members": [
+"KGM01_6J1sk",
+"PZ9UJ1SvYy0",
+"ihdv__Lyh7w",
+"rgD2hlbOZXY"
+]
+},
+{
+"service": "flagd-ui",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "warn"
+},
+"members": [
+"vQUDdqzGQAA"
+]
+},
+{
+"service": "fraud-detection",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "warn"
+},
+"members": [
+"2eS6jGgQcuU"
+]
+},
+{
+"service": "fraud-detection",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "info"
+},
+"members": [
+"ArH4D8mtI5Y"
+]
+},
+{
+"service": "fraud-detection",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "trace"
+},
+"members": [
+"GKfNbCrpxxI"
+]
+},
+{
+"service": "frontend",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "info"
+},
+"members": [
+"PTTycH2j3fY"
+]
+},
+{
+"service": "frontend-proxy",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "info"
+},
+"members": [
+"-CvjNktWb1U",
+"-Nsrbs86WGw",
+"-bm0t5m1pRY",
+"27Nupic99Vk",
+"2EMevqWOAK0",
+"2prGo79vsIg",
+"2ua7a7A0LXc",
+"3h7IBAq7ZQQ",
+"486Y_nXjsHU",
+"4Bbn2xFpgSM",
+"55Hw8JfWw5c",
+"55KwmG4rVKQ",
+"5PjXxgdtmys",
+"5hjmdmVMTRo",
+"5w2kvFTitSI",
+"6BY1YHlmOtk",
+"6iyiAveRmN4",
+"780W3Bf8gT8",
+"80k7NjwdGtE",
+"82rkGsfPSPM",
+"8PKaMRxkjx4",
+"8QJ_q84oGyE",
+"B6-GWh70iAA",
+"B9_I6Qff00w",
+"CF-DhVUoFVw",
+"CKeV6L1YYZs",
+"CUZskUn1WjA",
+"D7BoFByIXTQ",
+"DUuE6CjqjS4",
+"EF1g28-Zg3Y",
+"ENucwAVhbTo",
+"FwOQppavfgQ",
+"ISZozAakU40",
+"JalemXc0B2k",
+"KBb5AEBGxSY",
+"KyoImgb0KBw",
+"LBplbeECHvY",
+"MuJJAafH0po",
+"N2PlfKvfl68",
+"N9q53HzeG4A",
+"PAXsX0H_Cp0",
+"PJ6395DACl4",
+"RFSQcT8gR8w",
+"RIrwloSbCeI",
+"RJYAw-hr4vc",
+"RkYkv-Au-Ow",
+"S2_o64uDvTA",
+"WO3jYyL2er8",
+"WWsJpr9LIsM",
+"WfBOmE3S7sg",
+"WkEtRNZBWr4",
+"WsjvQKPwFng",
+"X6OlMWt3KQ4",
+"XCvRza7Vato",
+"XE-gbN_RPNQ",
+"X_NekM0G2jU",
+"XzTt5I_HrqM",
+"ZKT3g1e1xXI",
+"_PsPrU763oU",
+"_cdU-4ZhnA8",
+"a4PTkVG0KLE",
+"ahZE4bs8OdM",
+"b298OmMyriE",
+"b7egtwGRblc",
+"bCdffno7vH4",
+"byjzC50M6uc",
+"e0K553A5wAw",
+"ePVhFzdX5qg",
+"eUJyGqak_bQ",
+"f08SFMuDELU",
+"f8vBG8rM0mM",
+"f_OAaZU_p2M",
+"gAo7N5Dk62U",
+"gArBUGRt2hc",
+"gzYG2WHlBLc",
+"h2JRBi2Z4BE",
+"ht1XjEfKiy0",
+"hvaZK-U74Pc",
+"ioClE70Jr5E",
+"jAcPdb7iCSg",
+"jb3rUBP62qk",
+"juCgJrxlZ-Y",
+"kmni78tGzRw",
+"kw0j05AU-ho",
+"mkj5Q3_Bc7s",
+"mx6BlWLp-VA",
+"nwnk122d2AY",
+"ork93uJDqm4",
+"p6X26sOb9_4",
+"pWVB0iIzGLw",
+"pi4GzGppMgQ",
+"q9PZJ9_Ewk0",
+"qOs1jnzLHng",
+"qvaX-YpeUwM",
+"sFMJ4Ssflxs",
+"tEGR237Zr7E",
+"taE2GVS3-KA",
+"tiKDz6fvu14",
+"tnab1K4pYhk",
+"u7moyukocbU",
+"uJLBZsdEN_w",
+"vFf0wDffy_8",
+"vrAsmt3CmPw",
+"w5D2ffR1haU",
+"waURmEMCiKE",
+"wxIt1qKtneY",
+"xujKilv5Irw",
+"yPUPb2bBHZY",
+"yowL9S3w1kA",
+"yupA-T8mb94",
+"zMMAEjrEzeI",
+"zzlf_MiBc3Y"
+]
+},
+{
+"service": "frontend-proxy",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "warn"
+},
+"members": [
+"8hD9EVNhNng",
+"Qq52w5daJDQ"
+]
+},
+{
+"service": "frontend-proxy",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "debug"
+},
+"members": [
+"eYBJVX4r2pA"
+]
+},
+{
+"service": "image-provider",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "info"
+},
+"members": [
+"57y6VtZLoLI",
+"GFlFKaazxwo",
+"L0HjsgdJMxI",
+"ON2dlsdXNLw",
+"Ur5srJGYv8s",
+"mOS1RtNaYXg",
+"ooRuWcWeE-k",
+"rcIqz783Gt4"
+]
+},
+{
+"service": "image-provider",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "trace"
+},
+"members": [
+"5KfcvfjzdzQ"
+]
+},
+{
+"service": "init-config",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"json.$schema": "https://flagd.dev/schema/v0/flags.json",
+"status": "info"
+},
+"members": [
+"5pu6UAqU7EQ"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "org.apache.kafka.image.loader.MetadataLoader",
+"status": "info"
+},
+"members": [
+"-Ctj3ChCmPA",
+"3nJ5-DOhukA",
+"4pMfcEqUV2g",
+"FFpOdzj4SvY",
+"HrUZFJjTdD4",
+"M1gKTI3nQyI",
+"N4tQmnu9udU",
+"OmzXHhpu1sk",
+"QseXDY1NJO8",
+"Tijq81ha2Rc",
+"fdnk6tXtVkY",
+"oX25DEEZxas",
+"oZfkDytqnCs",
+"rUfXZtBhcus",
+"snftEF93Qng",
+"t1Xq3gcKEY4",
+"tiMuhxmPG8U"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.log.LogManager",
+"status": "info"
+},
+"members": [
+"-S2T7nNOkQo",
+"0tFKsEz2pVM",
+"21gv4n-j7t4",
+"8WIj_NSG3DU",
+"EDhLc9XFbxA",
+"I6s4Y5HAHYA",
+"METxfRqJTEQ",
+"ZCZNZX6nNX4",
+"eRIDM3bMhfs",
+"rhHmnQ9_EDw"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.coordinator.transaction.TransactionStateManager",
+"status": "info"
+},
+"members": [
+"-fkx43U8vDE"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.network.SocketServer",
+"status": "info"
+},
+"members": [
+"06eLIaOcF6E",
+"8pOobRJ3S1c",
+"WTxSmi4cWJ4",
+"Wavkw9x4sNs",
+"aBTqO7vuduM",
+"jBsBtFXmv4s",
+"vCtGwH_tZI4"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "info"
+},
+"members": [
+"-Ctj3ChCmPA",
+"-S2T7nNOkQo",
+"-fkx43U8vDE",
+"06eLIaOcF6E",
+"0CAUCg3F_yY",
+"0a5rsaj55wg",
+"0cnbaFqcQdU",
+"0o9KuNlT7QM",
+"0tFKsEz2pVM",
+"19H5nHiIURs",
+"1H_TxVDR8w0",
+"1XotXYW7i3g",
+"21gv4n-j7t4",
+"2ofeGpM4OdU",
+"2p5zzoCOuCQ",
+"32n9YngnbiQ",
+"3kcPiOJFzJs",
+"3nJ5-DOhukA",
+"3sPFIdF0vqg",
+"4GJoHmw8IfI",
+"4pMfcEqUV2g",
+"4yD45Zig_hI",
+"4zWtyc9BZvA",
+"5FRboWoUhkA",
+"5XAIb7gGrB8",
+"5_dP1LLn7jA",
+"6G60oYRTpFw",
+"6I2gvb1ww6U",
+"7CaEeIJhG-8",
+"7IbgKHvdVuY",
+"7MlZtYSqvK0",
+"7_GYrt6RpAc",
+"8TNQ_EQXPM8",
+"8WIj_NSG3DU",
+"8b89EIYcbv4",
+"8li0_Boc6MA",
+"8pOobRJ3S1c",
+"8wtATIo-U34",
+"94ROHzSPI04",
+"9cbo8mF1J8E",
+"9mGBq2Md794",
+"9uJFjB0Nn1I",
+"AMFi23Ga9wY",
+"AskTXtziGFw",
+"Au57G_OyoqM",
+"B08SdKX2IpQ",
+"B4JzFnQdpaQ",
+"Bf_ov0j46aw",
+"Bmdh1LC0FOM",
+"BsIj8ld1rQs",
+"BtxbA9kQgY8",
+"BxRAItCVyWU",
+"C7wGMvfRPu0",
+"CLMPrg8RHnE",
+"D9cLoXyP27A",
+"DDPbVWA7jjA",
+"DDZNri4rBLs",
+"DqxGb64d4Y4",
+"EDhLc9XFbxA",
+"EyqotDzEqVw",
+"FFi7EJaGQnE",
+"FFpOdzj4SvY",
+"FHJ11lwKp4g",
+"FhACu0pa6N4",
+"FrVc0k5PQ3Y",
+"Fx_Pqd7HRiM",
+"G19ii0l6VBo",
+"G_DwCEMpNYQ",
+"HBN8BcJbTBU",
+"HC2hxzUrOUE",
+"HZRfJtXQyH8",
+"HnHp08fh154",
+"HopsyJf_iKU",
+"HrUZFJjTdD4",
+"I6s4Y5HAHYA",
+"IDzn31VV19Y",
+"IckJqrFbkCg",
+"Ixu4P71CDn4",
+"J5DUhlh2kF4",
+"JM0bhuYm01k",
+"JlanVdU0Z_U",
+"JsSQ4ZiuZwA",
+"JstYp_abAWc",
+"Jt3lg7lp6vQ",
+"KGObOmVvD8I",
+"KIe7SUD9zdU",
+"KnPQjmMCCS4",
+"Knub9VAFoRk",
+"Kp5mK2H38UE",
+"Kx9Ia4oau_s",
+"LPcbYuoTVGc",
+"M0YUlMSmBY0",
+"M1gKTI3nQyI",
+"METxfRqJTEQ",
+"MOTBZhYpBiE",
+"M_14e8NMMJY",
+"MmQd2bZFsgg",
+"MnFJDO1AmmQ",
+"MuFeB6jBK5w",
+"N4tQmnu9udU",
+"N_sHvZTU4LE",
+"NaONQVJXlvg",
+"Ngs25o_VXwg",
+"Nha8mJTFUZ0",
+"NzF_xrHKSOU",
+"O40UPtNUoM0",
+"O4QwlwcKPUE",
+"O_yKGl4YF98",
+"OmzXHhpu1sk",
+"P3W28GASTng",
+"PkLgPI2D6Cc",
+"PnsYPqc2ZhM",
+"Q-xmwXt_h6s",
+"Q40AUb4IlZM",
+"QA_5LiMxqk8",
+"QRVebZmb9qs",
+"QTxV2J9g6c0",
+"QXwcWN59nWU",
+"QlNBvfBq0VM",
+"QnvorjeP1Yc",
+"QseXDY1NJO8",
+"RKhiTdySLso",
+"RPIWgyq41Jw",
+"S-y_hwPkXJw",
+"Sl1vh43pkyc",
+"TM6TaR-b4oE",
+"Tijq81ha2Rc",
+"TxSKKm13VKE",
+"U3Y6wihPq7g",
+"UFce107xNIA",
+"UJ-jDyssr4I",
+"UVMygnHWMH0",
+"V8Hn4ArLXoU",
+"VC9Uqa3j-eQ",
+"VOdbvFR8Ya4",
+"VnqlcNA_PIM",
+"WM9zpOnRNkA",
+"WQhY8qgdXFs",
+"WTF24XzN0f8",
+"WTxSmi4cWJ4",
+"Wavkw9x4sNs",
+"WlIY0QjIiEg",
+"WzBUGNTCHx0",
+"XI-sqsOGDZs",
+"YJTvxN0rObQ",
+"ZC1JrtvcA_g",
+"ZCZNZX6nNX4",
+"_YK-0KUwgAY",
+"_v1yfgLYR24",
+"a0JUhXhRr_o",
+"aBTqO7vuduM",
+"aInspvoZgxQ",
+"ajWSej9EbVo",
+"apBXcsFEsvg",
+"b1KwJXAM66I",
+"bJijN8Jaadg",
+"bVqSsCwIpgM",
+"bqOObl9QudI",
+"cIbS1XX63IE",
+"cjicSW-bXUI",
+"cuHK8n9Tfmk",
+"cvTT27wAKyg",
+"cy5GCaBF_IA",
+"dFgbxbC2LZk",
+"dKFvLTtUQZE",
+"dKr9Q4LQtaI",
+"dOpoIU28TQQ",
+"eEaDNa5TsWA",
+"eFIAZ6KeHv4",
+"eGES0nOFpQM",
+"eJRbansnWck",
+"eRIDM3bMhfs",
+"efSznUVnWig",
+"ewmNR0fhGkE",
+"f3UX5ZweKSU",
+"f6kvKBhYbio",
+"fCRVOCe31kU",
+"fdnk6tXtVkY",
+"fwizozRAYJI",
+"g1GK-2bZalM",
+"gKUqwOtQ8II",
+"ghPON9Z2mPc",
+"gpepnvI48HE",
+"gqMai4UgWpw",
+"hLFL0Zw7JQ0",
+"hOf5_9g8Nnk",
+"hOshzbMhWU8",
+"hW3BDK3hMHk",
+"hd77Czw1xqI",
+"hl_fK-uzMu8",
+"iAD60hu2N-4",
+"iG5yLOCtXXs",
+"iIUhSlwuCFI",
+"iLY2ONUOf34",
+"ic4iIenVQak",
+"isrNZ_qJHO0",
+"ixW2PhsKDx0",
+"jBsBtFXmv4s",
+"jKsU5ra-Dvc",
+"j_Xy1OYLhuU",
+"jcixjOJaiUY",
+"kpQ2W-4BGrw",
+"kzVM91PoBJs",
+"lPcwo-mPmxI",
+"mDQdHzbno_A",
+"mUFt0oMv6TQ",
+"mnpLKA7S2u8",
+"mvRGl2Nzykg",
+"n1qBfu8AmTg",
+"nWkjbvPuApI",
+"nfUw44Tu4-U",
+"oX25DEEZxas",
+"oZfkDytqnCs",
+"ooYTMqfnV4M",
+"oonoFvdhxM0",
+"pN_9Xm3h6oo",
+"pzOh4klNNTU",
+"q20KpyVGjSM",
+"qAS89hdovB0",
+"qCD9YYKttog",
+"qPPBT7EbGIE",
+"qfqdZkUZgNU",
+"qv615zJ2xtM",
+"rUfXZtBhcus",
+"rX2EXbzsQg4",
+"rhHmnQ9_EDw",
+"rt2rNQFCECY",
+"s50qZ-W_8kY",
+"sa68fyQxIsY",
+"si6VVHFwBzo",
+"snftEF93Qng",
+"t1Xq3gcKEY4",
+"tiMuhxmPG8U",
+"tol1pQerdyI",
+"u2P0CZaNQHw",
+"uZa7Kr7RvMY",
+"ufAP7x_C8bE",
+"vCtGwH_tZI4",
+"vT7Zo45RnFA",
+"vY6TQRMm-l8",
+"vsyrJbNea88",
+"vwZICIbppR4",
+"wMnQlWy-3QM",
+"wn-5BqC0Py4",
+"wo4cIPLmSnc",
+"xE_LNZArYK0",
+"xIAhauQSw40",
+"xL3ST93SMI8",
+"xPdek65bdHo",
+"xZx-7XbOg94",
+"xvsR4g-05wU",
+"yWFqJH9DPOk",
+"zRl7bosH9_Q",
+"zszV5BjtfuU"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.server.AddPartitionsToTxnManager",
+"status": "info"
+},
+"members": [
+"0a5rsaj55wg",
+"B08SdKX2IpQ",
+"IckJqrFbkCg",
+"JsSQ4ZiuZwA"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.log.LogCleaner$CleanerThread",
+"status": "info"
+},
+"members": [
+"0o9KuNlT7QM",
+"1XotXYW7i3g",
+"DDPbVWA7jjA",
+"MuFeB6jBK5w"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "org.apache.kafka.common.utils.LoggingSignalHandler",
+"status": "info"
+},
+"members": [
+"1H_TxVDR8w0",
+"ooYTMqfnV4M"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "warn"
+},
+"members": [
+"2eS6jGgQcuU",
+"c0zSqvwAWDE"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.coordinator.group.GroupCoordinator",
+"status": "info"
+},
+"members": [
+"2ofeGpM4OdU",
+"3sPFIdF0vqg",
+"7MlZtYSqvK0",
+"Bf_ov0j46aw",
+"KIe7SUD9zdU",
+"Knub9VAFoRk",
+"MmQd2bZFsgg",
+"Ngs25o_VXwg",
+"NzF_xrHKSOU",
+"Q-xmwXt_h6s",
+"QA_5LiMxqk8",
+"eFIAZ6KeHv4",
+"f6kvKBhYbio",
+"fwizozRAYJI",
+"jKsU5ra-Dvc",
+"lPcwo-mPmxI"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "org.apache.kafka.raft.KafkaRaftClientDriver",
+"status": "info"
+},
+"members": [
+"2p5zzoCOuCQ",
+"FrVc0k5PQ3Y",
+"iAD60hu2N-4",
+"iG5yLOCtXXs",
+"zRl7bosH9_Q"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "org.apache.kafka.clients.NetworkClient",
+"status": "info"
+},
+"members": [
+"32n9YngnbiQ"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.coordinator.transaction.TransactionMarkerChannelManager",
+"status": "info"
+},
+"members": [
+"3kcPiOJFzJs",
+"8wtATIo-U34",
+"UVMygnHWMH0",
+"b1KwJXAM66I"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.raft.TimingWheelExpirationService$ExpiredOperationReaper",
+"status": "info"
+},
+"members": [
+"4GJoHmw8IfI",
+"DDZNri4rBLs",
+"Kx9Ia4oau_s",
+"efSznUVnWig"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.coordinator.group.GroupMetadataManager",
+"status": "info"
+},
+"members": [
+"4yD45Zig_hI",
+"Jt3lg7lp6vQ",
+"WQhY8qgdXFs",
+"f3UX5ZweKSU"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.server.BrokerLifecycleManager",
+"status": "info"
+},
+"members": [
+"4zWtyc9BZvA",
+"BxRAItCVyWU",
+"LPcbYuoTVGc",
+"QXwcWN59nWU",
+"RPIWgyq41Jw",
+"dKr9Q4LQtaI",
+"kzVM91PoBJs",
+"oonoFvdhxM0",
+"xE_LNZArYK0"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.server.KafkaConfig",
+"status": "info"
+},
+"members": [
+"5FRboWoUhkA"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "org.apache.kafka.common.utils.AppInfoParser",
+"status": "info"
+},
+"members": [
+"5_dP1LLn7jA",
+"FFi7EJaGQnE",
+"HZRfJtXQyH8"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "org.apache.kafka.raft.QuorumState",
+"status": "info"
+},
+"members": [
+"6I2gvb1ww6U",
+"D9cLoXyP27A",
+"G_DwCEMpNYQ",
+"KnPQjmMCCS4",
+"M_14e8NMMJY",
+"VOdbvFR8Ya4"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.log.LocalLog",
+"status": "info"
+},
+"members": [
+"7CaEeIJhG-8"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.coordinator.transaction.TransactionCoordinator",
+"status": "info"
+},
+"members": [
+"7IbgKHvdVuY",
+"JstYp_abAWc",
+"hW3BDK3hMHk",
+"ixW2PhsKDx0"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "org.apache.kafka.queue.KafkaEventQueue",
+"status": "info"
+},
+"members": [
+"7_GYrt6RpAc",
+"8li0_Boc6MA",
+"QnvorjeP1Yc",
+"kpQ2W-4BGrw"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.server.ReplicaManager",
+"status": "info"
+},
+"members": [
+"8TNQ_EQXPM8",
+"cy5GCaBF_IA"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.server.metadata.BrokerMetadataPublisher",
+"status": "info"
+},
+"members": [
+"94ROHzSPI04"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "org.apache.zookeeper.common.X509Util",
+"status": "info"
+},
+"members": [
+"9cbo8mF1J8E"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.server.ReplicaAlterLogDirsManager",
+"status": "info"
+},
+"members": [
+"9mGBq2Md794",
+"mUFt0oMv6TQ",
+"xIAhauQSw40"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "org.apache.kafka.raft.KafkaNetworkChannel$SendThread",
+"status": "info"
+},
+"members": [
+"9uJFjB0Nn1I",
+"WzBUGNTCHx0",
+"apBXcsFEsvg",
+"xZx-7XbOg94"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "org.apache.kafka.storage.internals.log.SnapshotFile",
+"status": "info"
+},
+"members": [
+"AMFi23Ga9wY"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.server.ControllerServer",
+"status": "info"
+},
+"members": [
+"AskTXtziGFw",
+"U3Y6wihPq7g",
+"V8Hn4ArLXoU",
+"VC9Uqa3j-eQ",
+"hLFL0Zw7JQ0",
+"hOf5_9g8Nnk",
+"mnpLKA7S2u8",
+"ufAP7x_C8bE",
+"vsyrJbNea88",
+"yWFqJH9DPOk"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.network.DataPlaneAcceptor",
+"status": "info"
+},
+"members": [
+"Au57G_OyoqM"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.server.KafkaRaftServer",
+"status": "info"
+},
+"members": [
+"B4JzFnQdpaQ"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.server.NodeToControllerChannelManagerImpl",
+"status": "info"
+},
+"members": [
+"Bmdh1LC0FOM",
+"O40UPtNUoM0",
+"O_yKGl4YF98",
+"gKUqwOtQ8II",
+"qAS89hdovB0"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.server.BrokerServer",
+"status": "info"
+},
+"members": [
+"BsIj8ld1rQs",
+"BtxbA9kQgY8",
+"DqxGb64d4Y4",
+"EyqotDzEqVw",
+"HnHp08fh154",
+"HopsyJf_iKU",
+"PnsYPqc2ZhM",
+"UJ-jDyssr4I",
+"_v1yfgLYR24",
+"cjicSW-bXUI",
+"eGES0nOFpQM",
+"g1GK-2bZalM",
+"ghPON9Z2mPc",
+"iIUhSlwuCFI",
+"iLY2ONUOf34",
+"nWkjbvPuApI",
+"pzOh4klNNTU",
+"qCD9YYKttog",
+"wn-5BqC0Py4",
+"wo4cIPLmSnc",
+"xPdek65bdHo"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.raft.KafkaMetadataLog$",
+"status": "info"
+},
+"members": [
+"C7wGMvfRPu0"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.log.UnifiedLog$",
+"status": "info"
+},
+"members": [
+"CLMPrg8RHnE",
+"Sl1vh43pkyc",
+"XI-sqsOGDZs"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper",
+"status": "info"
+},
+"members": [
+"FHJ11lwKp4g",
+"MOTBZhYpBiE",
+"ZC1JrtvcA_g",
+"wMnQlWy-3QM"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.server.NodeToControllerRequestThread",
+"status": "info"
+},
+"members": [
+"FhACu0pa6N4",
+"aInspvoZgxQ",
+"ic4iIenVQak",
+"qPPBT7EbGIE",
+"si6VVHFwBzo"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.cluster.Partition",
+"status": "info"
+},
+"members": [
+"Fx_Pqd7HRiM",
+"_YK-0KUwgAY",
+"bJijN8Jaadg",
+"cIbS1XX63IE"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.server.ClientQuotaManager$ThrottledChannelReaper",
+"status": "info"
+},
+"members": [
+"G19ii0l6VBo",
+"pN_9Xm3h6oo",
+"rt2rNQFCECY",
+"tol1pQerdyI"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.server.ReplicaManager$LogDirFailureHandler",
+"status": "info"
+},
+"members": [
+"HC2hxzUrOUE",
+"M0YUlMSmBY0",
+"dFgbxbC2LZk",
+"xvsR4g-05wU"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.server.ReplicaFetcherManager",
+"status": "info"
+},
+"members": [
+"IDzn31VV19Y",
+"Kp5mK2H38UE",
+"Q40AUb4IlZM",
+"dKFvLTtUQZE",
+"hOshzbMhWU8"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "org.apache.kafka.server.util.timer.SystemTimerReaper$Reaper",
+"status": "info"
+},
+"members": [
+"Ixu4P71CDn4",
+"bqOObl9QudI",
+"eJRbansnWck",
+"nfUw44Tu4-U"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.server.ControllerRegistrationManager",
+"status": "info"
+},
+"members": [
+"J5DUhlh2kF4",
+"JM0bhuYm01k",
+"NaONQVJXlvg",
+"QlNBvfBq0VM",
+"isrNZ_qJHO0"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.log.UnifiedLog",
+"status": "info"
+},
+"members": [
+"JlanVdU0Z_U",
+"O4QwlwcKPUE"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "org.apache.kafka.metadata.publisher.FeaturesPublisher",
+"status": "info"
+},
+"members": [
+"MnFJDO1AmmQ"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.server.DefaultAutoTopicCreationManager",
+"status": "info"
+},
+"members": [
+"N_sHvZTU4LE",
+"gqMai4UgWpw"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "org.apache.kafka.common.metrics.Metrics",
+"status": "info"
+},
+"members": [
+"P3W28GASTng",
+"mDQdHzbno_A",
+"zszV5BjtfuU"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "org.apache.kafka.raft.KafkaRaftClient",
+"status": "info"
+},
+"members": [
+"PkLgPI2D6Cc",
+"QRVebZmb9qs",
+"S-y_hwPkXJw",
+"cuHK8n9Tfmk",
+"cvTT27wAKyg",
+"dOpoIU28TQQ",
+"eEaDNa5TsWA",
+"fCRVOCe31kU",
+"s50qZ-W_8kY"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.raft.KafkaMetadataLog",
+"status": "info"
+},
+"members": [
+"QTxV2J9g6c0"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "org.apache.kafka.image.publisher.SnapshotEmitter",
+"status": "info"
+},
+"members": [
+"TM6TaR-b4oE"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.log.LocalLog$",
+"status": "info"
+},
+"members": [
+"TxSKKm13VKE"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.server.SharedServer",
+"status": "info"
+},
+"members": [
+"UFce107xNIA",
+"n1qBfu8AmTg"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "org.apache.kafka.storage.internals.log.ProducerStateManager",
+"status": "info"
+},
+"members": [
+"VnqlcNA_PIM"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.utils.Log4jControllerRegistration$",
+"status": "info"
+},
+"members": [
+"WM9zpOnRNkA"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "org.apache.kafka.storage.internals.log.LogSegment",
+"status": "info"
+},
+"members": [
+"WlIY0QjIiEg",
+"hl_fK-uzMu8",
+"q20KpyVGjSM"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "org.apache.kafka.image.publisher.SnapshotGenerator",
+"status": "info"
+},
+"members": [
+"YJTvxN0rObQ"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.network.ConnectionQuotas",
+"status": "info"
+},
+"members": [
+"a0JUhXhRr_o"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "org.apache.kafka.server.AssignmentsManager",
+"status": "info"
+},
+"members": [
+"bVqSsCwIpgM"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "org.apache.kafka.clients.NetworkClient",
+"status": "warn"
+},
+"members": [
+"c0zSqvwAWDE"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.server.KafkaApis",
+"status": "info"
+},
+"members": [
+"ewmNR0fhGkE"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.server.metadata.DynamicConfigPublisher",
+"status": "info"
+},
+"members": [
+"gpepnvI48HE"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "org.apache.kafka.raft.LeaderState",
+"status": "info"
+},
+"members": [
+"hd77Czw1xqI"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.server.KafkaRequestHandlerPool",
+"status": "info"
+},
+"members": [
+"j_Xy1OYLhuU",
+"vwZICIbppR4"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "org.apache.kafka.metadata.ListenerInfo",
+"status": "info"
+},
+"members": [
+"mvRGl2Nzykg"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "org.apache.kafka.server.network.EndpointReadyFutures",
+"status": "info"
+},
+"members": [
+"qfqdZkUZgNU",
+"rX2EXbzsQg4"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "kafka.server.BrokerTopicStats",
+"status": "info"
+},
+"members": [
+"sa68fyQxIsY"
+]
+},
+{
+"service": "kafka",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"logger.name": "org.apache.kafka.snapshot.Snapshots",
+"status": "info"
+},
+"members": [
+"uZa7Kr7RvMY"
+]
+},
+{
+"service": "llm",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "info"
+},
+"members": [
+"-xdHDxI6LUI",
+"0sNb1ADjllA",
+"1lBTce2ZiVY",
+"51Vr2suQccY",
+"BiwrZZF3RPs",
+"CT5nP8XElUw",
+"DH6-AhRp_0A",
+"E1-I2TcAlgI",
+"HBVgRYK2KI4",
+"J-jXiTqtHVc",
+"MjW8Uy86cbA",
+"Q9-K2sK7aXk",
+"TRFN3rVWGRo",
+"Td6wtnktzo0",
+"V27syrHB-4U",
+"WwveNoLjVjE",
+"_D18a__5zJo",
+"aCDJIqX2PL4",
+"bmgUkutJ7gk",
+"kCQtn3BqlIY",
+"ks_oruSPazg",
+"m88HP387a6o",
+"puHKebem0NY",
+"rKZ9XzvDJqk",
+"rbcq-MELM_E",
+"sU7w4nv2EC4",
+"t4-0iKnGTTg",
+"xbxx8ajmds0",
+"z98XFMSLyx4",
+"zk-TXhP0fL4"
+]
+},
+{
+"service": "opentelemetry-collector",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "info"
+},
+"members": [
+"Gl3Gtr_SH5w",
+"KG8Fq0QFuoY",
+"PuWB8kkVbfw",
+"o60Z5uGoNho",
+"wEilr-etEXE"
+]
+},
+{
+"service": "opentelemetry-collector",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "error"
+},
+"members": [
+"Ipdq6TWiEwg",
+"fhu6rrW86b4"
+]
+},
+{
+"service": "opentelemetry-collector",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "warn"
+},
+"members": [
+"P8Qvz3Rpqcw"
+]
+},
+{
+"service": "payment",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "info"
+},
+"members": [
+"TKjd_pkfvkg",
+"fVpmzOlan68",
+"vYrksEuVcEk"
+]
+},
+{
+"service": "postgresql",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"postgres.error_severity": "FATAL",
+"postgres.message": "terminating connection due to administrator command",
+"status": "critical"
+},
+"members": [
+"0Jk6XxvyoHg"
+]
+},
+{
+"service": "postgresql",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"postgres.error_severity": "LOG",
+"postgres.message": "checkpoint starting: shutdown immediate",
+"status": "info"
+},
+"members": [
+"13eRp6jnMLo"
+]
+},
+{
+"service": "postgresql",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"postgres.error_severity": "LOG",
+"postgres.message": "starting PostgreSQL 17.6 (Debian 17.6-2.pgdg13+1) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+"postgres.pid": "1",
+"status": "info"
+},
+"members": [
+"1FQD_yuL5VQ"
+]
+},
+{
+"service": "postgresql",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"postgres.error_severity": "LOG",
+"status": "info"
+},
+"members": [
+"13eRp6jnMLo",
+"1FQD_yuL5VQ",
+"35vHVh-fNIk",
+"4dQgrKHedCw",
+"8YoDS7FrP60",
+"HTdewRzMQhQ",
+"IeTp2YGtfE8",
+"K6ccXz_xc-I",
+"Xyyh-8EZJNM",
+"ZCtAEdcMGPo",
+"flu9rVkt8s0",
+"jN7cub9-7yM",
+"uFiFj2oDd6k",
+"wBpCRXC60no"
+]
+},
+{
+"service": "postgresql",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"postgres.error_severity": "LOG",
+"postgres.message": "received fast shutdown request",
+"status": "info"
+},
+"members": [
+"4dQgrKHedCw"
+]
+},
+{
+"service": "postgresql",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "info"
+},
+"members": [
+"13eRp6jnMLo",
+"1FQD_yuL5VQ",
+"35vHVh-fNIk",
+"4dQgrKHedCw",
+"6PZMBQvZCmo",
+"8YoDS7FrP60",
+"HTdewRzMQhQ",
+"IeTp2YGtfE8",
+"K6ccXz_xc-I",
+"Xyyh-8EZJNM",
+"ZCtAEdcMGPo",
+"flu9rVkt8s0",
+"jN7cub9-7yM",
+"mOS1RtNaYXg",
+"nTl0DWsO2JE",
+"s9Na2WJpHGo",
+"uFiFj2oDd6k",
+"uQTbT7z4rhE",
+"vPQEnjUyNSM",
+"wBpCRXC60no",
+"z_rEITb2ZoI"
+]
+},
+{
+"service": "postgresql",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"postgres.error_severity": "LOG",
+"postgres.message": "listening on IPv4 address \"0.0.0.0\", port 5432",
+"postgres.pid": "1",
+"status": "info"
+},
+"members": [
+"8YoDS7FrP60"
+]
+},
+{
+"service": "postgresql",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "warn"
+},
+"members": [
+"9lE5s3CD2EM"
+]
+},
+{
+"service": "postgresql",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"postgres.error_severity": "LOG",
+"postgres.message": "listening on IPv6 address \"::\", port 5432",
+"postgres.pid": "1",
+"status": "info"
+},
+"members": [
+"HTdewRzMQhQ"
+]
+},
+{
+"service": "postgresql",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"postgres.error_severity": "LOG",
+"postgres.message": "listening on Unix socket \"/var/run/postgresql/.s.PGSQL.5432\"",
+"status": "info"
+},
+"members": [
+"flu9rVkt8s0"
+]
+},
+{
+"service": "postgresql",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"postgres.error_severity": "LOG",
+"postgres.message": "checkpoint starting: time",
+"postgres.pid": "64",
+"status": "info"
+},
+"members": [
+"uFiFj2oDd6k"
+]
+},
+{
+"service": "postgresql",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"postgres.error_severity": "LOG",
+"postgres.message": "shutting down",
+"status": "info"
+},
+"members": [
+"wBpCRXC60no"
+]
+},
+{
+"service": "product-reviews",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "info"
+},
+"members": [
+"-8h4f6zzdCw",
+"0NKRiOdofAc",
+"2USHVH5H9M0",
+"3-X8d_keMvs",
+"3SJ-lT5vZoY",
+"47Jdh7060ug",
+"6Yomqui1oGM",
+"7m9W6Ga1RxA",
+"D14oyKI8Zno",
+"FfSX-gJ9SJo",
+"GEpWF7tg4LI",
+"Gjrq4Of94fo",
+"H3MbAYjuGbQ",
+"HOtqPQGmvQI",
+"J7kH3ayC8GU",
+"KUq_MEj-0dc",
+"MZo0Pw4VFa4",
+"NDiPd21xIag",
+"NvlUX58avhI",
+"OVbOk0CgRjs",
+"P1278BFmZX8",
+"RLEJyjNf1Gk",
+"Rmv9MNTULpE",
+"TYX-u1N6w1A",
+"VqIqa97TihE",
+"XCkSNYKD91A",
+"YEIZ6R8PBuw",
+"YVgE1QoUtN4",
+"YVt7XiTEcBo",
+"YZ1GFw5K1CA",
+"_kQdAJ1Ec4k",
+"aYnXzZ8X3WI",
+"bvgM_Sbj_oU",
+"c2aNbL45hsg",
+"cO3FnJGrnFA",
+"cgKFTlUb4P0",
+"d5ir5EBifH8",
+"d6wvkxxvWnI",
+"duk__RlN0k4",
+"f1QH6AOmuNM",
+"f_upqcWKSWw",
+"gY1poaexL_c",
+"gc0CvLp5gik",
+"heZKH7I_SJQ",
+"ie9F4GQ6KRY",
+"jsCO9gKPm7c",
+"k565NY7_ZGg",
+"lMxFfe49O5s",
+"m88HP387a6o",
+"nGf43dBdWPI",
+"o9FKXi1ZNnA",
+"oMcIERJBGB0",
+"oRgQGWLCip0",
+"oU4Z0T0JDSw",
+"oqZQrm6K2AU",
+"pyvkYdbl1Fg",
+"r5cOo5rjDI0",
+"sCmcN-wKzqc",
+"sDFOhCTX6Hs",
+"sOSb9QFWLag",
+"t8EgbkxUSTs",
+"taTgGFYxlU8",
+"tz2OTQmsZ7o",
+"u0eJIgyN8e4",
+"ufqAscxv_JE",
+"vBZnB6JuTMY",
+"wL9vLtsMcgE",
+"xgjaGMq_irs",
+"yjgFNEhlw2M",
+"z98XFMSLyx4",
+"zYBW5MV2-HI"
+]
+},
+{
+"service": "product-reviews",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "warn"
+},
+"members": [
+"RasYUucXGZA"
+]
+},
+{
+"service": "quote",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "info"
+},
+"members": [
+"QRJNyeux6Vs",
+"c4yR2F2cVfk"
+]
+},
+{
+"service": "recommendation",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "info"
+},
+"members": [
+"EECfvV4aYmQ",
+"bzLB1zZCTIw"
+]
+},
+{
+"service": "recommendation",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "warn"
+},
+"members": [
+"RasYUucXGZA"
+]
+},
+{
+"service": "valkey-cart",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "info"
+},
+"members": [
+"-ztqdCmqoww",
+"6pF4mScEd7Q",
+"CqVDqv2uuq4",
+"Gp-W_Etn3a4",
+"INXTRKqNcG8",
+"JFGyLB3rePc",
+"WKtgJCmsHRM",
+"XVZezHalrPc",
+"bBiclVh8G20",
+"cSWpKn5pAUI",
+"kodKFTs6ZHw",
+"sX9OKFLN168",
+"uZAJ9JoffuM",
+"zm9Kp6o68PE"
+]
+},
+{
+"service": "valkey-cart",
+"attributes": {
+"host": "ip-10-0-49-218.ec2.internal",
+"status": "warn"
+},
+"members": [
+"xXVNuZzITJk"
+]
+}
+],
+"pattern_cell": {
+"accounting\tFT74Nh_7cAc": 0,
+"accounting\tHVtgA3q2oS4": 1,
+"accounting\tKPTOnYrpd4Q": 2,
+"accounting\tQrfOh3mCOos": 0,
+"accounting\tuDZ64jlpwhY": 2,
+"accounting\twOXHP7kImII": 2,
+"accounting\tyeyxsjUCVFU": 0,
+"ad\t2eS6jGgQcuU": 3,
+"ad\t6G60oYRTpFw": 4,
+"ad\tArH4D8mtI5Y": 5,
+"ad\tMX9CPdAhBKE": 5,
+"ad\tbz3kQNPdXvc": 5,
+"ad\tjN_dDVWoa78": 5,
+"ad\txHrytxJfUdw": 5,
+"cart\tDbcIqTvrdiU": 6,
+"cart\tDwfYUJg-1ZU": 6,
+"cart\tG8Q_XY_zCyA": 6,
+"cart\tGws9RaWVpzU": 6,
+"cart\tJfitXpOnEro": 6,
+"cart\tPyHi4ZY6FQI": 7,
+"cart\tR6kFHwvxVwc": 6,
+"cart\tTjXRRNJljCo": 6,
+"cart\tU9hvT4l-JS0": 6,
+"cart\tYZplfQ4a1Xw": 6,
+"cart\tcz0EQb-pnws": 6,
+"cart\teDSYlCMPqVY": 6,
+"cart\th3qY1nS1uxY": 6,
+"cart\thiEt6HjbuJY": 6,
+"cart\ti8cWlXz5hEw": 6,
+"cart\tl9l05K3xYIc": 6,
+"email\t1zhBPd1E9Bc": 8,
+"email\tDJijoxnHh1Y": 8,
+"flagd\t0-zBdIoKcSw": 9,
+"flagd\t3RDRqnRBa3o": 9,
+"flagd\t4V9LaF7rQQo": 9,
+"flagd\tADThH7mt4KU": 9,
+"flagd\tAHP0Rjvr_0U": 9,
+"flagd\tGgFzzdqyh3c": 9,
+"flagd\tJcE9PJQjCtc": 9,
+"flagd\tePJGbBba_k0": 9,
+"flagd\tgBSOnoFxkwo": 10,
+"flagd\th74yxvt2JMY": 9,
+"flagd\tknQ8wqV_mkE": 9,
+"flagd\tmOS1RtNaYXg": 9,
+"flagd\tz5cyy1VWWOo": 9,
+"flagd-ui\tKGM01_6J1sk": 11,
+"flagd-ui\tPZ9UJ1SvYy0": 11,
+"flagd-ui\tihdv__Lyh7w": 11,
+"flagd-ui\trgD2hlbOZXY": 11,
+"flagd-ui\tvQUDdqzGQAA": 12,
+"fraud-detection\t2eS6jGgQcuU": 13,
+"fraud-detection\tArH4D8mtI5Y": 14,
+"fraud-detection\tGKfNbCrpxxI": 15,
+"frontend\tPTTycH2j3fY": 16,
+"frontend-proxy\t-CvjNktWb1U": 17,
+"frontend-proxy\t-Nsrbs86WGw": 17,
+"frontend-proxy\t-bm0t5m1pRY": 17,
+"frontend-proxy\t27Nupic99Vk": 17,
+"frontend-proxy\t2EMevqWOAK0": 17,
+"frontend-proxy\t2prGo79vsIg": 17,
+"frontend-proxy\t2ua7a7A0LXc": 17,
+"frontend-proxy\t3h7IBAq7ZQQ": 17,
+"frontend-proxy\t486Y_nXjsHU": 17,
+"frontend-proxy\t4Bbn2xFpgSM": 17,
+"frontend-proxy\t55Hw8JfWw5c": 17,
+"frontend-proxy\t55KwmG4rVKQ": 17,
+"frontend-proxy\t5PjXxgdtmys": 17,
+"frontend-proxy\t5hjmdmVMTRo": 17,
+"frontend-proxy\t5w2kvFTitSI": 17,
+"frontend-proxy\t6BY1YHlmOtk": 17,
+"frontend-proxy\t6iyiAveRmN4": 17,
+"frontend-proxy\t780W3Bf8gT8": 17,
+"frontend-proxy\t80k7NjwdGtE": 17,
+"frontend-proxy\t82rkGsfPSPM": 17,
+"frontend-proxy\t8PKaMRxkjx4": 17,
+"frontend-proxy\t8QJ_q84oGyE": 17,
+"frontend-proxy\t8hD9EVNhNng": 18,
+"frontend-proxy\tB6-GWh70iAA": 17,
+"frontend-proxy\tB9_I6Qff00w": 17,
+"frontend-proxy\tCF-DhVUoFVw": 17,
+"frontend-proxy\tCKeV6L1YYZs": 17,
+"frontend-proxy\tCUZskUn1WjA": 17,
+"frontend-proxy\tD7BoFByIXTQ": 17,
+"frontend-proxy\tDUuE6CjqjS4": 17,
+"frontend-proxy\tEF1g28-Zg3Y": 17,
+"frontend-proxy\tENucwAVhbTo": 17,
+"frontend-proxy\tFwOQppavfgQ": 17,
+"frontend-proxy\tISZozAakU40": 17,
+"frontend-proxy\tJalemXc0B2k": 17,
+"frontend-proxy\tKBb5AEBGxSY": 17,
+"frontend-proxy\tKyoImgb0KBw": 17,
+"frontend-proxy\tLBplbeECHvY": 17,
+"frontend-proxy\tMuJJAafH0po": 17,
+"frontend-proxy\tN2PlfKvfl68": 17,
+"frontend-proxy\tN9q53HzeG4A": 17,
+"frontend-proxy\tPAXsX0H_Cp0": 17,
+"frontend-proxy\tPJ6395DACl4": 17,
+"frontend-proxy\tQq52w5daJDQ": 18,
+"frontend-proxy\tRFSQcT8gR8w": 17,
+"frontend-proxy\tRIrwloSbCeI": 17,
+"frontend-proxy\tRJYAw-hr4vc": 17,
+"frontend-proxy\tRkYkv-Au-Ow": 17,
+"frontend-proxy\tS2_o64uDvTA": 17,
+"frontend-proxy\tWO3jYyL2er8": 17,
+"frontend-proxy\tWWsJpr9LIsM": 17,
+"frontend-proxy\tWfBOmE3S7sg": 17,
+"frontend-proxy\tWkEtRNZBWr4": 17,
+"frontend-proxy\tWsjvQKPwFng": 17,
+"frontend-proxy\tX6OlMWt3KQ4": 17,
+"frontend-proxy\tXCvRza7Vato": 17,
+"frontend-proxy\tXE-gbN_RPNQ": 17,
+"frontend-proxy\tX_NekM0G2jU": 17,
+"frontend-proxy\tXzTt5I_HrqM": 17,
+"frontend-proxy\tZKT3g1e1xXI": 17,
+"frontend-proxy\t_PsPrU763oU": 17,
+"frontend-proxy\t_cdU-4ZhnA8": 17,
+"frontend-proxy\ta4PTkVG0KLE": 17,
+"frontend-proxy\tahZE4bs8OdM": 17,
+"frontend-proxy\tb298OmMyriE": 17,
+"frontend-proxy\tb7egtwGRblc": 17,
+"frontend-proxy\tbCdffno7vH4": 17,
+"frontend-proxy\tbyjzC50M6uc": 17,
+"frontend-proxy\te0K553A5wAw": 17,
+"frontend-proxy\tePVhFzdX5qg": 17,
+"frontend-proxy\teUJyGqak_bQ": 17,
+"frontend-proxy\teYBJVX4r2pA": 19,
+"frontend-proxy\tf08SFMuDELU": 17,
+"frontend-proxy\tf8vBG8rM0mM": 17,
+"frontend-proxy\tf_OAaZU_p2M": 17,
+"frontend-proxy\tgAo7N5Dk62U": 17,
+"frontend-proxy\tgArBUGRt2hc": 17,
+"frontend-proxy\tgzYG2WHlBLc": 17,
+"frontend-proxy\th2JRBi2Z4BE": 17,
+"frontend-proxy\tht1XjEfKiy0": 17,
+"frontend-proxy\thvaZK-U74Pc": 17,
+"frontend-proxy\tioClE70Jr5E": 17,
+"frontend-proxy\tjAcPdb7iCSg": 17,
+"frontend-proxy\tjb3rUBP62qk": 17,
+"frontend-proxy\tjuCgJrxlZ-Y": 17,
+"frontend-proxy\tkmni78tGzRw": 17,
+"frontend-proxy\tkw0j05AU-ho": 17,
+"frontend-proxy\tmkj5Q3_Bc7s": 17,
+"frontend-proxy\tmx6BlWLp-VA": 17,
+"frontend-proxy\tnwnk122d2AY": 17,
+"frontend-proxy\tork93uJDqm4": 17,
+"frontend-proxy\tp6X26sOb9_4": 17,
+"frontend-proxy\tpWVB0iIzGLw": 17,
+"frontend-proxy\tpi4GzGppMgQ": 17,
+"frontend-proxy\tq9PZJ9_Ewk0": 17,
+"frontend-proxy\tqOs1jnzLHng": 17,
+"frontend-proxy\tqvaX-YpeUwM": 17,
+"frontend-proxy\tsFMJ4Ssflxs": 17,
+"frontend-proxy\ttEGR237Zr7E": 17,
+"frontend-proxy\ttaE2GVS3-KA": 17,
+"frontend-proxy\ttiKDz6fvu14": 17,
+"frontend-proxy\ttnab1K4pYhk": 17,
+"frontend-proxy\tu7moyukocbU": 17,
+"frontend-proxy\tuJLBZsdEN_w": 17,
+"frontend-proxy\tvFf0wDffy_8": 17,
+"frontend-proxy\tvrAsmt3CmPw": 17,
+"frontend-proxy\tw5D2ffR1haU": 17,
+"frontend-proxy\twaURmEMCiKE": 17,
+"frontend-proxy\twxIt1qKtneY": 17,
+"frontend-proxy\txujKilv5Irw": 17,
+"frontend-proxy\tyPUPb2bBHZY": 17,
+"frontend-proxy\tyowL9S3w1kA": 17,
+"frontend-proxy\tyupA-T8mb94": 17,
+"frontend-proxy\tzMMAEjrEzeI": 17,
+"frontend-proxy\tzzlf_MiBc3Y": 17,
+"image-provider\t57y6VtZLoLI": 20,
+"image-provider\t5KfcvfjzdzQ": 21,
+"image-provider\tGFlFKaazxwo": 20,
+"image-provider\tL0HjsgdJMxI": 20,
+"image-provider\tON2dlsdXNLw": 20,
+"image-provider\tUr5srJGYv8s": 20,
+"image-provider\tmOS1RtNaYXg": 20,
+"image-provider\tooRuWcWeE-k": 20,
+"image-provider\trcIqz783Gt4": 20,
+"init-config\t5pu6UAqU7EQ": 22,
+"kafka\t-Ctj3ChCmPA": 23,
+"kafka\t-S2T7nNOkQo": 24,
+"kafka\t-fkx43U8vDE": 25,
+"kafka\t06eLIaOcF6E": 26,
+"kafka\t0CAUCg3F_yY": 27,
+"kafka\t0a5rsaj55wg": 28,
+"kafka\t0cnbaFqcQdU": 27,
+"kafka\t0o9KuNlT7QM": 29,
+"kafka\t0tFKsEz2pVM": 24,
+"kafka\t19H5nHiIURs": 27,
+"kafka\t1H_TxVDR8w0": 30,
+"kafka\t1XotXYW7i3g": 29,
+"kafka\t21gv4n-j7t4": 24,
+"kafka\t2eS6jGgQcuU": 31,
+"kafka\t2ofeGpM4OdU": 32,
+"kafka\t2p5zzoCOuCQ": 33,
+"kafka\t32n9YngnbiQ": 34,
+"kafka\t3kcPiOJFzJs": 35,
+"kafka\t3nJ5-DOhukA": 23,
+"kafka\t3sPFIdF0vqg": 32,
+"kafka\t4GJoHmw8IfI": 36,
+"kafka\t4pMfcEqUV2g": 23,
+"kafka\t4yD45Zig_hI": 37,
+"kafka\t4zWtyc9BZvA": 38,
+"kafka\t5FRboWoUhkA": 39,
+"kafka\t5XAIb7gGrB8": 27,
+"kafka\t5_dP1LLn7jA": 40,
+"kafka\t6G60oYRTpFw": 27,
+"kafka\t6I2gvb1ww6U": 41,
+"kafka\t7CaEeIJhG-8": 42,
+"kafka\t7IbgKHvdVuY": 43,
+"kafka\t7MlZtYSqvK0": 32,
+"kafka\t7_GYrt6RpAc": 44,
+"kafka\t8TNQ_EQXPM8": 45,
+"kafka\t8WIj_NSG3DU": 24,
+"kafka\t8b89EIYcbv4": 27,
+"kafka\t8li0_Boc6MA": 44,
+"kafka\t8pOobRJ3S1c": 26,
+"kafka\t8wtATIo-U34": 35,
+"kafka\t94ROHzSPI04": 46,
+"kafka\t9cbo8mF1J8E": 47,
+"kafka\t9mGBq2Md794": 48,
+"kafka\t9uJFjB0Nn1I": 49,
+"kafka\tAMFi23Ga9wY": 50,
+"kafka\tAskTXtziGFw": 51,
+"kafka\tAu57G_OyoqM": 52,
+"kafka\tB08SdKX2IpQ": 28,
+"kafka\tB4JzFnQdpaQ": 53,
+"kafka\tBf_ov0j46aw": 32,
+"kafka\tBmdh1LC0FOM": 54,
+"kafka\tBsIj8ld1rQs": 55,
+"kafka\tBtxbA9kQgY8": 55,
+"kafka\tBxRAItCVyWU": 38,
+"kafka\tC7wGMvfRPu0": 56,
+"kafka\tCLMPrg8RHnE": 57,
+"kafka\tD9cLoXyP27A": 41,
+"kafka\tDDPbVWA7jjA": 29,
+"kafka\tDDZNri4rBLs": 36,
+"kafka\tDqxGb64d4Y4": 55,
+"kafka\tEDhLc9XFbxA": 24,
+"kafka\tEyqotDzEqVw": 55,
+"kafka\tFFi7EJaGQnE": 40,
+"kafka\tFFpOdzj4SvY": 23,
+"kafka\tFHJ11lwKp4g": 58,
+"kafka\tFhACu0pa6N4": 59,
+"kafka\tFrVc0k5PQ3Y": 33,
+"kafka\tFx_Pqd7HRiM": 60,
+"kafka\tG19ii0l6VBo": 61,
+"kafka\tG_DwCEMpNYQ": 41,
+"kafka\tHBN8BcJbTBU": 27,
+"kafka\tHC2hxzUrOUE": 62,
+"kafka\tHZRfJtXQyH8": 40,
+"kafka\tHnHp08fh154": 55,
+"kafka\tHopsyJf_iKU": 55,
+"kafka\tHrUZFJjTdD4": 23,
+"kafka\tI6s4Y5HAHYA": 24,
+"kafka\tIDzn31VV19Y": 63,
+"kafka\tIckJqrFbkCg": 28,
+"kafka\tIxu4P71CDn4": 64,
+"kafka\tJ5DUhlh2kF4": 65,
+"kafka\tJM0bhuYm01k": 65,
+"kafka\tJlanVdU0Z_U": 66,
+"kafka\tJsSQ4ZiuZwA": 28,
+"kafka\tJstYp_abAWc": 43,
+"kafka\tJt3lg7lp6vQ": 37,
+"kafka\tKGObOmVvD8I": 27,
+"kafka\tKIe7SUD9zdU": 32,
+"kafka\tKnPQjmMCCS4": 41,
+"kafka\tKnub9VAFoRk": 32,
+"kafka\tKp5mK2H38UE": 63,
+"kafka\tKx9Ia4oau_s": 36,
+"kafka\tLPcbYuoTVGc": 38,
+"kafka\tM0YUlMSmBY0": 62,
+"kafka\tM1gKTI3nQyI": 23,
+"kafka\tMETxfRqJTEQ": 24,
+"kafka\tMOTBZhYpBiE": 58,
+"kafka\tM_14e8NMMJY": 41,
+"kafka\tMmQd2bZFsgg": 32,
+"kafka\tMnFJDO1AmmQ": 67,
+"kafka\tMuFeB6jBK5w": 29,
+"kafka\tN4tQmnu9udU": 23,
+"kafka\tN_sHvZTU4LE": 68,
+"kafka\tNaONQVJXlvg": 65,
+"kafka\tNgs25o_VXwg": 32,
+"kafka\tNha8mJTFUZ0": 27,
+"kafka\tNzF_xrHKSOU": 32,
+"kafka\tO40UPtNUoM0": 54,
+"kafka\tO4QwlwcKPUE": 66,
+"kafka\tO_yKGl4YF98": 54,
+"kafka\tOmzXHhpu1sk": 23,
+"kafka\tP3W28GASTng": 69,
+"kafka\tPkLgPI2D6Cc": 70,
+"kafka\tPnsYPqc2ZhM": 55,
+"kafka\tQ-xmwXt_h6s": 32,
+"kafka\tQ40AUb4IlZM": 63,
+"kafka\tQA_5LiMxqk8": 32,
+"kafka\tQRVebZmb9qs": 70,
+"kafka\tQTxV2J9g6c0": 71,
+"kafka\tQXwcWN59nWU": 38,
+"kafka\tQlNBvfBq0VM": 65,
+"kafka\tQnvorjeP1Yc": 44,
+"kafka\tQseXDY1NJO8": 23,
+"kafka\tRKhiTdySLso": 27,
+"kafka\tRPIWgyq41Jw": 38,
+"kafka\tS-y_hwPkXJw": 70,
+"kafka\tSl1vh43pkyc": 57,
+"kafka\tTM6TaR-b4oE": 72,
+"kafka\tTijq81ha2Rc": 23,
+"kafka\tTxSKKm13VKE": 73,
+"kafka\tU3Y6wihPq7g": 51,
+"kafka\tUFce107xNIA": 74,
+"kafka\tUJ-jDyssr4I": 55,
+"kafka\tUVMygnHWMH0": 35,
+"kafka\tV8Hn4ArLXoU": 51,
+"kafka\tVC9Uqa3j-eQ": 51,
+"kafka\tVOdbvFR8Ya4": 41,
+"kafka\tVnqlcNA_PIM": 75,
+"kafka\tWM9zpOnRNkA": 76,
+"kafka\tWQhY8qgdXFs": 37,
+"kafka\tWTF24XzN0f8": 27,
+"kafka\tWTxSmi4cWJ4": 26,
+"kafka\tWavkw9x4sNs": 26,
+"kafka\tWlIY0QjIiEg": 77,
+"kafka\tWzBUGNTCHx0": 49,
+"kafka\tXI-sqsOGDZs": 57,
+"kafka\tYJTvxN0rObQ": 78,
+"kafka\tZC1JrtvcA_g": 58,
+"kafka\tZCZNZX6nNX4": 24,
+"kafka\t_YK-0KUwgAY": 60,
+"kafka\t_v1yfgLYR24": 55,
+"kafka\ta0JUhXhRr_o": 79,
+"kafka\taBTqO7vuduM": 26,
+"kafka\taInspvoZgxQ": 59,
+"kafka\tajWSej9EbVo": 27,
+"kafka\tapBXcsFEsvg": 49,
+"kafka\tb1KwJXAM66I": 35,
+"kafka\tbJijN8Jaadg": 60,
+"kafka\tbVqSsCwIpgM": 80,
+"kafka\tbqOObl9QudI": 64,
+"kafka\tc0zSqvwAWDE": 81,
+"kafka\tcIbS1XX63IE": 60,
+"kafka\tcjicSW-bXUI": 55,
+"kafka\tcuHK8n9Tfmk": 70,
+"kafka\tcvTT27wAKyg": 70,
+"kafka\tcy5GCaBF_IA": 45,
+"kafka\tdFgbxbC2LZk": 62,
+"kafka\tdKFvLTtUQZE": 63,
+"kafka\tdKr9Q4LQtaI": 38,
+"kafka\tdOpoIU28TQQ": 70,
+"kafka\teEaDNa5TsWA": 70,
+"kafka\teFIAZ6KeHv4": 32,
+"kafka\teGES0nOFpQM": 55,
+"kafka\teJRbansnWck": 64,
+"kafka\teRIDM3bMhfs": 24,
+"kafka\tefSznUVnWig": 36,
+"kafka\tewmNR0fhGkE": 82,
+"kafka\tf3UX5ZweKSU": 37,
+"kafka\tf6kvKBhYbio": 32,
+"kafka\tfCRVOCe31kU": 70,
+"kafka\tfdnk6tXtVkY": 23,
+"kafka\tfwizozRAYJI": 32,
+"kafka\tg1GK-2bZalM": 55,
+"kafka\tgKUqwOtQ8II": 54,
+"kafka\tghPON9Z2mPc": 55,
+"kafka\tgpepnvI48HE": 83,
+"kafka\tgqMai4UgWpw": 68,
+"kafka\thLFL0Zw7JQ0": 51,
+"kafka\thOf5_9g8Nnk": 51,
+"kafka\thOshzbMhWU8": 63,
+"kafka\thW3BDK3hMHk": 43,
+"kafka\thd77Czw1xqI": 84,
+"kafka\thl_fK-uzMu8": 77,
+"kafka\tiAD60hu2N-4": 33,
+"kafka\tiG5yLOCtXXs": 33,
+"kafka\tiIUhSlwuCFI": 55,
+"kafka\tiLY2ONUOf34": 55,
+"kafka\tic4iIenVQak": 59,
+"kafka\tisrNZ_qJHO0": 65,
+"kafka\tixW2PhsKDx0": 43,
+"kafka\tjBsBtFXmv4s": 26,
+"kafka\tjKsU5ra-Dvc": 32,
+"kafka\tj_Xy1OYLhuU": 85,
+"kafka\tjcixjOJaiUY": 27,
+"kafka\tkpQ2W-4BGrw": 44,
+"kafka\tkzVM91PoBJs": 38,
+"kafka\tlPcwo-mPmxI": 32,
+"kafka\tmDQdHzbno_A": 69,
+"kafka\tmUFt0oMv6TQ": 48,
+"kafka\tmnpLKA7S2u8": 51,
+"kafka\tmvRGl2Nzykg": 86,
+"kafka\tn1qBfu8AmTg": 74,
+"kafka\tnWkjbvPuApI": 55,
+"kafka\tnfUw44Tu4-U": 64,
+"kafka\toX25DEEZxas": 23,
+"kafka\toZfkDytqnCs": 23,
+"kafka\tooYTMqfnV4M": 30,
+"kafka\toonoFvdhxM0": 38,
+"kafka\tpN_9Xm3h6oo": 61,
+"kafka\tpzOh4klNNTU": 55,
+"kafka\tq20KpyVGjSM": 77,
+"kafka\tqAS89hdovB0": 54,
+"kafka\tqCD9YYKttog": 55,
+"kafka\tqPPBT7EbGIE": 59,
+"kafka\tqfqdZkUZgNU": 87,
+"kafka\tqv615zJ2xtM": 27,
+"kafka\trUfXZtBhcus": 23,
+"kafka\trX2EXbzsQg4": 87,
+"kafka\trhHmnQ9_EDw": 24,
+"kafka\trt2rNQFCECY": 61,
+"kafka\ts50qZ-W_8kY": 70,
+"kafka\tsa68fyQxIsY": 88,
+"kafka\tsi6VVHFwBzo": 59,
+"kafka\tsnftEF93Qng": 23,
+"kafka\tt1Xq3gcKEY4": 23,
+"kafka\ttiMuhxmPG8U": 23,
+"kafka\ttol1pQerdyI": 61,
+"kafka\tu2P0CZaNQHw": 27,
+"kafka\tuZa7Kr7RvMY": 89,
+"kafka\tufAP7x_C8bE": 51,
+"kafka\tvCtGwH_tZI4": 26,
+"kafka\tvT7Zo45RnFA": 27,
+"kafka\tvY6TQRMm-l8": 27,
+"kafka\tvsyrJbNea88": 51,
+"kafka\tvwZICIbppR4": 85,
+"kafka\twMnQlWy-3QM": 58,
+"kafka\twn-5BqC0Py4": 55,
+"kafka\two4cIPLmSnc": 55,
+"kafka\txE_LNZArYK0": 38,
+"kafka\txIAhauQSw40": 48,
+"kafka\txL3ST93SMI8": 27,
+"kafka\txPdek65bdHo": 55,
+"kafka\txZx-7XbOg94": 49,
+"kafka\txvsR4g-05wU": 62,
+"kafka\tyWFqJH9DPOk": 51,
+"kafka\tzRl7bosH9_Q": 33,
+"kafka\tzszV5BjtfuU": 69,
+"llm\t-xdHDxI6LUI": 90,
+"llm\t0sNb1ADjllA": 90,
+"llm\t1lBTce2ZiVY": 90,
+"llm\t51Vr2suQccY": 90,
+"llm\tBiwrZZF3RPs": 90,
+"llm\tCT5nP8XElUw": 90,
+"llm\tDH6-AhRp_0A": 90,
+"llm\tE1-I2TcAlgI": 90,
+"llm\tHBVgRYK2KI4": 90,
+"llm\tJ-jXiTqtHVc": 90,
+"llm\tMjW8Uy86cbA": 90,
+"llm\tQ9-K2sK7aXk": 90,
+"llm\tTRFN3rVWGRo": 90,
+"llm\tTd6wtnktzo0": 90,
+"llm\tV27syrHB-4U": 90,
+"llm\tWwveNoLjVjE": 90,
+"llm\t_D18a__5zJo": 90,
+"llm\taCDJIqX2PL4": 90,
+"llm\tbmgUkutJ7gk": 90,
+"llm\tkCQtn3BqlIY": 90,
+"llm\tks_oruSPazg": 90,
+"llm\tm88HP387a6o": 90,
+"llm\tpuHKebem0NY": 90,
+"llm\trKZ9XzvDJqk": 90,
+"llm\trbcq-MELM_E": 90,
+"llm\tsU7w4nv2EC4": 90,
+"llm\tt4-0iKnGTTg": 90,
+"llm\txbxx8ajmds0": 90,
+"llm\tz98XFMSLyx4": 90,
+"llm\tzk-TXhP0fL4": 90,
+"opentelemetry-collector\tGl3Gtr_SH5w": 91,
+"opentelemetry-collector\tIpdq6TWiEwg": 92,
+"opentelemetry-collector\tKG8Fq0QFuoY": 91,
+"opentelemetry-collector\tP8Qvz3Rpqcw": 93,
+"opentelemetry-collector\tPuWB8kkVbfw": 91,
+"opentelemetry-collector\tfhu6rrW86b4": 92,
+"opentelemetry-collector\to60Z5uGoNho": 91,
+"opentelemetry-collector\twEilr-etEXE": 91,
+"payment\tTKjd_pkfvkg": 94,
+"payment\tfVpmzOlan68": 94,
+"payment\tvYrksEuVcEk": 94,
+"postgresql\t0Jk6XxvyoHg": 95,
+"postgresql\t13eRp6jnMLo": 96,
+"postgresql\t1FQD_yuL5VQ": 97,
+"postgresql\t35vHVh-fNIk": 98,
+"postgresql\t4dQgrKHedCw": 99,
+"postgresql\t6PZMBQvZCmo": 100,
+"postgresql\t8YoDS7FrP60": 101,
+"postgresql\t9lE5s3CD2EM": 102,
+"postgresql\tHTdewRzMQhQ": 103,
+"postgresql\tIeTp2YGtfE8": 98,
+"postgresql\tK6ccXz_xc-I": 98,
+"postgresql\tXyyh-8EZJNM": 100,
+"postgresql\tZCtAEdcMGPo": 100,
+"postgresql\tflu9rVkt8s0": 104,
+"postgresql\tjN7cub9-7yM": 100,
+"postgresql\tmOS1RtNaYXg": 100,
+"postgresql\tnTl0DWsO2JE": 100,
+"postgresql\ts9Na2WJpHGo": 100,
+"postgresql\tuFiFj2oDd6k": 105,
+"postgresql\tuQTbT7z4rhE": 100,
+"postgresql\tvPQEnjUyNSM": 100,
+"postgresql\twBpCRXC60no": 106,
+"postgresql\tz_rEITb2ZoI": 100,
+"product-reviews\t-8h4f6zzdCw": 107,
+"product-reviews\t0NKRiOdofAc": 107,
+"product-reviews\t2USHVH5H9M0": 107,
+"product-reviews\t3-X8d_keMvs": 107,
+"product-reviews\t3SJ-lT5vZoY": 107,
+"product-reviews\t47Jdh7060ug": 107,
+"product-reviews\t6Yomqui1oGM": 107,
+"product-reviews\t7m9W6Ga1RxA": 107,
+"product-reviews\tD14oyKI8Zno": 107,
+"product-reviews\tFfSX-gJ9SJo": 107,
+"product-reviews\tGEpWF7tg4LI": 107,
+"product-reviews\tGjrq4Of94fo": 107,
+"product-reviews\tH3MbAYjuGbQ": 107,
+"product-reviews\tHOtqPQGmvQI": 107,
+"product-reviews\tJ7kH3ayC8GU": 107,
+"product-reviews\tKUq_MEj-0dc": 107,
+"product-reviews\tMZo0Pw4VFa4": 107,
+"product-reviews\tNDiPd21xIag": 107,
+"product-reviews\tNvlUX58avhI": 107,
+"product-reviews\tOVbOk0CgRjs": 107,
+"product-reviews\tP1278BFmZX8": 107,
+"product-reviews\tRLEJyjNf1Gk": 107,
+"product-reviews\tRasYUucXGZA": 108,
+"product-reviews\tRmv9MNTULpE": 107,
+"product-reviews\tTYX-u1N6w1A": 107,
+"product-reviews\tVqIqa97TihE": 107,
+"product-reviews\tXCkSNYKD91A": 107,
+"product-reviews\tYEIZ6R8PBuw": 107,
+"product-reviews\tYVgE1QoUtN4": 107,
+"product-reviews\tYVt7XiTEcBo": 107,
+"product-reviews\tYZ1GFw5K1CA": 107,
+"product-reviews\t_kQdAJ1Ec4k": 107,
+"product-reviews\taYnXzZ8X3WI": 107,
+"product-reviews\tbvgM_Sbj_oU": 107,
+"product-reviews\tc2aNbL45hsg": 107,
+"product-reviews\tcO3FnJGrnFA": 107,
+"product-reviews\tcgKFTlUb4P0": 107,
+"product-reviews\td5ir5EBifH8": 107,
+"product-reviews\td6wvkxxvWnI": 107,
+"product-reviews\tduk__RlN0k4": 107,
+"product-reviews\tf1QH6AOmuNM": 107,
+"product-reviews\tf_upqcWKSWw": 107,
+"product-reviews\tgY1poaexL_c": 107,
+"product-reviews\tgc0CvLp5gik": 107,
+"product-reviews\theZKH7I_SJQ": 107,
+"product-reviews\tie9F4GQ6KRY": 107,
+"product-reviews\tjsCO9gKPm7c": 107,
+"product-reviews\tk565NY7_ZGg": 107,
+"product-reviews\tlMxFfe49O5s": 107,
+"product-reviews\tm88HP387a6o": 107,
+"product-reviews\tnGf43dBdWPI": 107,
+"product-reviews\to9FKXi1ZNnA": 107,
+"product-reviews\toMcIERJBGB0": 107,
+"product-reviews\toRgQGWLCip0": 107,
+"product-reviews\toU4Z0T0JDSw": 107,
+"product-reviews\toqZQrm6K2AU": 107,
+"product-reviews\tpyvkYdbl1Fg": 107,
+"product-reviews\tr5cOo5rjDI0": 107,
+"product-reviews\tsCmcN-wKzqc": 107,
+"product-reviews\tsDFOhCTX6Hs": 107,
+"product-reviews\tsOSb9QFWLag": 107,
+"product-reviews\tt8EgbkxUSTs": 107,
+"product-reviews\ttaTgGFYxlU8": 107,
+"product-reviews\ttz2OTQmsZ7o": 107,
+"product-reviews\tu0eJIgyN8e4": 107,
+"product-reviews\tufqAscxv_JE": 107,
+"product-reviews\tvBZnB6JuTMY": 107,
+"product-reviews\twL9vLtsMcgE": 107,
+"product-reviews\txgjaGMq_irs": 107,
+"product-reviews\tyjgFNEhlw2M": 107,
+"product-reviews\tz98XFMSLyx4": 107,
+"product-reviews\tzYBW5MV2-HI": 107,
+"quote\tQRJNyeux6Vs": 109,
+"quote\tc4yR2F2cVfk": 109,
+"recommendation\tEECfvV4aYmQ": 110,
+"recommendation\tRasYUucXGZA": 111,
+"recommendation\tbzLB1zZCTIw": 110,
+"valkey-cart\t-ztqdCmqoww": 112,
+"valkey-cart\t6pF4mScEd7Q": 112,
+"valkey-cart\tCqVDqv2uuq4": 112,
+"valkey-cart\tGp-W_Etn3a4": 112,
+"valkey-cart\tINXTRKqNcG8": 112,
+"valkey-cart\tJFGyLB3rePc": 112,
+"valkey-cart\tWKtgJCmsHRM": 112,
+"valkey-cart\tXVZezHalrPc": 112,
+"valkey-cart\tbBiclVh8G20": 112,
+"valkey-cart\tcSWpKn5pAUI": 112,
+"valkey-cart\tkodKFTs6ZHw": 112,
+"valkey-cart\tsX9OKFLN168": 112,
+"valkey-cart\tuZAJ9JoffuM": 112,
+"valkey-cart\txXVNuZzITJk": 113,
+"valkey-cart\tzm9Kp6o68PE": 112
+}
+}
