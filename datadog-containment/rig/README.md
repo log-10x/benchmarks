@@ -18,6 +18,9 @@ machine.
 | `scheduler.sh` | Starts, stops and reads the flagd-ui scheduler through the release's `rpc` entry point. |
 | `run.sh` | Phase commands: `up`, `wait-healthy`, `quiet-start`, `quiet-end`, `cap <bytes>`, `sched`, `logs`, `down`. |
 | `analyze.py` | Builds the fleet-default distribution, per-window counts, per-incident table, false holds and delivery check from the three files. |
+| `report.py` | Renders `results/results-tables.md` from analyze.py's outputs. |
+| `disk-guard.sh` | Free-disk log, raw-file rotation, clean stop under a floor. |
+| `load-generator/Dockerfile` | The demo's load generator without the browser install (see results.md, deviations). |
 | `NOTES.md` | Working log: what each smoke test proved. |
 
 ## Receiver settings
@@ -51,6 +54,13 @@ SEED=20261014 ./run.sh sched 900 240 480   # interval 15 min, hold 4 to 8 min, o
 ./run.sh down
 python3 analyze.py
 ```
+
+`disk-guard.sh` (optional, run alongside) logs free disk every 5 minutes to
+`results/disk.log`, gzip-rotates `raw.jsonl` past 1 GB, and under `FLOOR_MB` (default
+4500) runs `run.sh down`. Kafka's health window in the demo is short (10 s start period,
+10 retries at 5 s); on a loaded host its JVM can miss it, `compose up` then exits 1 with
+"dependency failed to start" and leaves the Kafka-dependent containers in Created. Once
+`docker inspect kafka` reports healthy, run `up` again; it starts the rest.
 
 The scheduler is seeded (`SEED`), so the flag sequence repeats for the same seed and the
 same flag selection. Flags scheduled: kafkaQueueProblems (on), cartFailure (100%),
