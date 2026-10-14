@@ -168,7 +168,7 @@ stage_floor-replay() {
 }
 
 stage_floor-count() {
-  say "count the whole captures, two ways, and each event's native attributes"
+  say "count the whole captures, two ways, each event's native attributes and the text signals"
   for c in A B; do
     for r in "full-$c-control" "full-$c-$FLOOR_TARGET"; do
       python3 "$LIB/count.py" --routed "$RUNS/$r/routed.jsonl" --summaries "$RUNS/$r/summaries.jsonl" \
@@ -176,6 +176,8 @@ stage_floor-count() {
     done
     python3 "$HERE/attrs.py" --routed "$RUNS/full-$c-control/routed.jsonl" --tally "$RESULTS/full-$c-control.tally.json" \
       --integrations "$HERE/integrations.json" --out "$RESULTS/full-$c-control.attrs.json"
+    python3 "$HERE/text.py" --routed "$RUNS/full-$c-control/routed.jsonl" --tally "$RESULTS/full-$c-control.tally.json" \
+      --plan "$RESULTS/full-$c-$FLOOR_TARGET.tally.json" --out "$RESULTS/full-$c-control.text.json"
   done
 }
 

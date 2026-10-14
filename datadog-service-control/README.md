@@ -154,8 +154,8 @@ written. It says which patterns the plan moves and which it keeps.
    patterns it keeps, split into the moved patterns (E, the events the plan moves beyond the
    buyer's filters) and the kept ones;
 4. of bucket 3's moved patterns: those a native attribute cell selects alone, those a cell
-   selects only together with other moved patterns, and those only the pattern ID
-   (`@tenx_hash`) selects.
+   selects only together with other moved patterns, and those whose cell also holds patterns
+   the plan keeps.
 
 **What a native filter can name, fixed before the count.** `service`, `status`, `source`
 and `host` on every log; the attributes Datadog's documented integration pipeline parses for
@@ -177,6 +177,25 @@ falls in it. Exact values only. The containers that are mixed on either capture,
 | `email` | none | none: a demo application service, Ruby; plain-text lines |
 | `quote` | none | none: a demo application service, PHP; plain-text lines |
 <!-- /generated:floor-integrations -->
+
+**Message text, added 2026-10-13.** A Datadog index filter also takes plain terms and
+quoted phrases on the message; what it cannot take is the `*:` full-text syntax across all
+attributes ([log search syntax](https://docs.datadoghq.com/logs/explorer/search_syntax/),
+read 2026-10-13). So a person can write `service:kafka "Deleted log segment"` as an index
+filter once the pattern has been found in Log Patterns. The attribute split in bucket 4 was
+computed with message text counted as unavailable and stands as computed; bucket 4 is
+recomputed with text below the tables. A moved pattern is isolable by text when a phrase of
+its own constant words, the longest run of words every one of its events shares, read from
+the events and not from the pattern's name, selects its events and no other pattern's events
+in the service; a phrase that also selects events of a pattern the plan keeps is a collision,
+counted separately; a pattern whose events share no run of words is left to the ID. Words
+are runs of letters and digits, matched without regard to case, so a match here is at least
+as easy to get as in Datadog (`text.py`).
+
+The pattern ID, `@tenx_hash`, is one attribute value per statement, exact where a phrase can
+match another statement that shares its words, present from the first line with no discovery
+step, and the same key the cap, the metrics and the plan use. The ID is not the only way to
+select a pattern in Datadog.
 
 Each bucket is shown with the frequency band of its patterns: each pattern's events over the
 whole capture, binned as [`pattern-identity/`](../pattern-identity/) bins them, so a claim
@@ -215,9 +234,9 @@ belongs to a real estate. The tables are published as they come out.
 | 2b. INFO and unlevelled, a service the plan moves none of | 3,120 | 2% | 1,882 | 1,699 | 439 | 359 | 623 | 0 |
 | 3. Mixed service, patterns the plan moves (E) | 5,539 | 3.5% | 13 | 0 | 0 | 149 | 843 | 4,547 |
 | 3. Mixed service, patterns the plan keeps | 414 | 0.3% | 286 | 247 | 148 | 19 | 0 | 0 |
-| 4. Of E, a native cell holds the pattern alone | 0 | 0% | 0 | 0 | 0 | 0 | 0 | 0 |
-| 4. Of E, a native cell holds it with moved patterns only | 0 | 0% | 0 | 0 | 0 | 0 | 0 | 0 |
-| 4. Of E, only the ID selects it | 5,539 | 3.5% | 13 | 0 | 0 | 149 | 843 | 4,547 |
+| 4. Of E, an attribute cell holds the pattern alone | 0 | 0% | 0 | 0 | 0 | 0 | 0 | 0 |
+| 4. Of E, an attribute cell holds it with moved patterns only | 0 | 0% | 0 | 0 | 0 | 0 | 0 | 0 |
+| 4. Of E, its attribute cell also holds patterns the plan keeps | 5,539 | 3.5% | 13 | 0 | 0 | 149 | 843 | 4,547 |
 
 **Capture B.** 41,573 events. The floor: 10,892 events, 0.015 GB, 26.2% of the capture. The plan at 70% caps 12 containers and plans 46 patterns.
 
@@ -228,9 +247,9 @@ belongs to a real estate. The tables are published as they come out.
 | 2b. INFO and unlevelled, a service the plan moves none of | 1,314 | 3.2% | 146 | 141 | 4 | 0 | 1,169 | 0 |
 | 3. Mixed service, patterns the plan moves (E) | 4,882 | 11.7% | 22 | 0 | 0 | 164 | 4,718 | 0 |
 | 3. Mixed service, patterns the plan keeps | 4,114 | 9.9% | 120 | 24 | 20 | 2,720 | 1,350 | 0 |
-| 4. Of E, a native cell holds the pattern alone | 23 | 0.1% | 1 | 0 | 0 | 23 | 0 | 0 |
-| 4. Of E, a native cell holds it with moved patterns only | 0 | 0% | 0 | 0 | 0 | 0 | 0 | 0 |
-| 4. Of E, only the ID selects it | 4,859 | 11.7% | 21 | 0 | 0 | 141 | 4,718 | 0 |
+| 4. Of E, an attribute cell holds the pattern alone | 23 | 0.1% | 1 | 0 | 0 | 23 | 0 | 0 |
+| 4. Of E, an attribute cell holds it with moved patterns only | 0 | 0% | 0 | 0 | 0 | 0 | 0 | 0 |
+| 4. Of E, its attribute cell also holds patterns the plan keeps | 4,859 | 11.7% | 21 | 0 | 0 | 141 | 4,718 | 0 |
 <!-- /generated:floor -->
 
 The mixed services and what the plan does in each:
@@ -251,9 +270,33 @@ The mixed services and what the plan does in each:
 | B | `postgresql` | 48 | 2 | 29 | 19 |
 <!-- /generated:floor-services -->
 
+**Bucket 4 with text filters counted as native, recomputed 2026-10-13.** The same moved
+patterns, split by what a phrase of their own constant words selects. Each pattern's phrase,
+with the kept patterns it also matches, is in `results/results.md`.
+
+<!-- generated:floor-text -->
+**Capture A.** E: 5,539 events in 13 patterns.
+
+| Bucket | Events | Share of the capture | Patterns | seen once | 2 to 10 | 11 to 100 | 101 to 1,000 | over 1,000 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| 4. Of E, a text phrase selects the pattern alone | 5,492 | 3.5% | 12 | 0 | 0 | 102 | 843 | 4,547 |
+| 4. Of E, a text phrase selects it with moved patterns only | 0 | 0% | 0 | 0 | 0 | 0 | 0 | 0 |
+| 4. Of E, its phrase also selects patterns the plan keeps (collision) | 47 | 0% | 1 | 0 | 0 | 47 | 0 | 0 |
+| 4. Of E, no constant phrase: only the ID | 0 | 0% | 0 | 0 | 0 | 0 | 0 | 0 |
+
+**Capture B.** E: 4,882 events in 22 patterns.
+
+| Bucket | Events | Share of the capture | Patterns | seen once | 2 to 10 | 11 to 100 | 101 to 1,000 | over 1,000 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| 4. Of E, a text phrase selects the pattern alone | 4,432 | 10.7% | 20 | 0 | 0 | 164 | 4,268 | 0 |
+| 4. Of E, a text phrase selects it with moved patterns only | 450 | 1.1% | 2 | 0 | 0 | 0 | 450 | 0 |
+| 4. Of E, its phrase also selects patterns the plan keeps (collision) | 0 | 0% | 0 | 0 | 0 | 0 | 0 | 0 |
+| 4. Of E, no constant phrase: only the ID | 0 | 0% | 0 | 0 | 0 | 0 | 0 | 0 |
+<!-- /generated:floor-text -->
+
 <!-- generated:floor-verdict -->
-- **Capture A**: the verdict does not flip. Bucket 3's moved patterns are 3.5% of the capture, and 100% of their events only the ID selects. Moving whole the mixed services where the plan keeps a single event (`recommendation`) leaves 1.3% of the capture in bucket 3's moved patterns, 100% of it ID-only: it does not flip.
-- **Capture B**: the verdict flips. Bucket 3's moved patterns are 11.7% of the capture, and 99.5% of their events only the ID selects. Moving whole the mixed services where the plan keeps a single event (`email`, `quote`, `recommendation`) leaves 8.4% of the capture in bucket 3's moved patterns, 99.3% of it ID-only: it still flips.
+- **Capture A**: bucket 3's moved patterns are 3.5% of the capture, 13 patterns. A phrase of its own constant words selects 12 of them alone, 0 only with other moved patterns, 1 with a collision on patterns the plan keeps (`following_tail_of` in `fluentd-10x`, 2 kept events, pieces of the same statement), and 0 have no constant phrase. Natively that is 13 index filters, each written after its pattern is found, against one cap row; the collisions move 2 kept events. The pre-stated condition does not fire: 0% of E has only the ID.
+- **Capture B**: bucket 3's moved patterns are 11.7% of the capture, 22 patterns. A phrase of its own constant words selects 20 of them alone, 2 only with other moved patterns, 0 with a collision on patterns the plan keeps (none), and 0 have no constant phrase. Natively that is 22 index filters, each written after its pattern is found, against one cap row; the collisions move 0 kept events. The pre-stated condition does not fire: 0% of E has only the ID.
 <!-- /generated:floor-verdict -->
 
 **Growth from A to B.** A covers ten hours of demo 2.1.3 and B two hours of demo 2.2.0, so
@@ -280,11 +323,68 @@ The floor per hour: 1,564 on A, 5,446 on B.
 - **The floor on A is about 14.5% after the three service filters, less once DEBUG and TRACE are dropped, about 6,500 of it errors, warnings and criticals.** 10% with DEBUG and TRACE dropped; bucket 1 holds 6,571. Held.
 - **Bucket 3 is 2 to 4% of the capture.** A: 3.5%. B: 11.7%. Held on A, not on B.
 - **Part of it is isolable by a logfmt or class attribute.** Only `LOG_checkpoint_starting_time` in `postgresql` on B (23 events, by postgres.error_severity, postgres.message, postgres.pid) sits in a native cell without a kept pattern; every other moved pattern shares its cell with patterns the plan keeps. Held for 23 of the 10,421 events.
-- **The floor does not flip the verdict on the public captures.** A: does not flip. B: flips. Did not hold on B.
+- **The floor does not flip the verdict on the public captures.** A: does not flip with bucket 4 on attribute cells, does not flip with text filters counted as native. B: flips with bucket 4 on attribute cells, does not flip with text filters counted as native. Did not hold on B with bucket 4 on attribute cells; held once text filters count.
 <!-- /generated:floor-prediction -->
 
-`results/results.md` lists every one of bucket 3's moved patterns with its cell, its band and
-what selects it.
+## What the flip on B rests on
+
+The condition as computed fired on B because it trusted the plan's keep decisions. A service
+counted as mixed, and its moved patterns as E, whenever the plan kept any INFO or unlevelled
+pattern of it, and bucket 4 counted message text as unavailable, so every moved pattern of a
+mixed service fell to the ID. On B the two services that carry most of E, `product-reviews`
+and `llm`, keep patterns for two reasons the text shows. Pieces of one statement: a value
+made of words the engine's library knows (a review, a model's answer) enters the pattern's
+name, so one statement is named one pattern per value, and each piece sits under the cap, so
+the statement stays whole in Standard while statements with fewer bytes move. Short
+statements the byte cap keeps:
+the cap counts bytes per window while Datadog bills Standard per event, so a short statement
+with as many events as a moved one stays. A service filter with `-status:(error OR warn)` on
+such a service moves the whole of it, the fragmented statement included, and moves nothing the
+plan kept for a reason other than bytes.
+
+The kept side of every mixed service, split from the text by `text.py` and `floor.py`.
+Pieces of one statement: patterns whose events carry the same `[file:line]` source location
+as another pattern of the service, or whose text carries a run of words that opens the name
+of at least two patterns of the service and that the text follows with a delimited value (a
+bracket, brace, parenthesis, quote, `@` or `/`, or, after at least two words, a colon or an
+equals sign). A family is one such location or run; two statements that open the same way
+before their value fall in one family, so the family count is at most the statement count.
+Short statements the byte cap keeps: the rest with at least as many events in the capture as
+the smallest pattern the plan moves in the service. Other: what remains, with the events
+whose text carries no timestamp (a configuration dump in `fluentd-10x`, the installer's output
+in `postgresql`) counted beside it. A service is movable whole by one filter when its other
+patterns are all seen once in the capture. The last column is what that filter moves beyond
+the plan.
+
+<!-- generated:floor-flip -->
+**Capture B.**
+
+| Mixed service | Events the plan moves (E) | Events the plan keeps | Pieces of one statement | Families | Short statements the byte cap keeps | Other | Of other, no timestamp head | A whole-service filter moves beyond the plan | Movable whole |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| `llm` | 2,025 | 452 | 450 | 2 | 0 | 2 | 0 | 452 | yes |
+| `product-reviews` | 1,309 | 3,621 | 2,270 | 2 | 1,350 | 1 | 0 | 3,621 | yes |
+| `recommendation` | 602 | 1 | 0 | 0 | 0 | 1 | 0 | 1 | yes |
+| `email` | 391 | 1 | 0 | 0 | 0 | 1 | 0 | 1 | yes |
+| `quote` | 391 | 1 | 0 | 0 | 0 | 1 | 1 | 1 | yes |
+| `valkey-cart` | 116 | 9 | 0 | 0 | 0 | 9 | 0 | 9 | yes |
+| `postgresql` | 48 | 29 | 2 | 1 | 0 | 27 | 9 | 34 (5 critical) | no |
+
+E on B: 4,882 events, 11.7% of the capture, as computed. With the movable-whole services moved by one filter each (`email`, `llm`, `product-reviews`, `quote`, `recommendation`, `valkey-cart`): 48 events, 0.1%; those filters move 4,085 events the plan keeps.
+
+**Capture A.**
+
+| Mixed service | Events the plan moves (E) | Events the plan keeps | Pieces of one statement | Families | Short statements the byte cap keeps | Other | Of other, no timestamp head | A whole-service filter moves beyond the plan | Movable whole |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| `recommendation` | 3,430 | 1 | 0 | 0 | 0 | 1 | 0 | 1 | yes |
+| `fluentd-10x` | 1,283 | 144 | 36 | 6 | 0 | 108 | 82 | 144 | no |
+| `valkey-cart` | 600 | 6 | 0 | 0 | 0 | 6 | 0 | 6 | yes |
+| `opensearch` | 226 | 263 | 122 | 7 | 0 | 141 | 1 | 264 (1 critical) | no |
+
+E on A: 5,539 events, 3.5% of the capture, as computed. With the movable-whole services moved by one filter each (`recommendation`, `valkey-cart`): 1,509 events, 1%; those filters move 7 events the plan keeps.
+<!-- /generated:floor-flip -->
+
+`results/results.md` lists every one of bucket 3's moved patterns with its cell, its phrase,
+its band and what selects it, and every kept pattern of each mixed service with its split.
 
 ## Counting conditions
 
@@ -331,6 +431,7 @@ pinned engine image on a slice. `ACCT_TARGETS` sets the targets (default `30 50 
 | `arms.py` | the selection rule and every arm, from the class rows |
 | `floor.py` | the floor, its buckets, the flip test and the growth split |
 | `attrs.py` | each pattern's native attribute cell on a whole capture |
+| `text.py` | each pattern's constant phrase on a whole capture, what the phrase matches, and the statement signals in its text |
 | `integrations.json` | the attributes each container's documented Datadog pipeline parses, with the pages read |
 | `report.py` | renders `results/results.md`, `results/results.json` and the tables above; `--check` fails CI if the committed figures do not follow from the kept outputs |
 | `../accounting-lib/` | the plan request, the replay, the policy scaling and the two counts, shared with the other accounting benchmarks |

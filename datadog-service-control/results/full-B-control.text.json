@@ -1,0 +1,1874 @@
+{
+"events": 41573,
+"mixed_services": [
+"email",
+"llm",
+"postgresql",
+"product-reviews",
+"quote",
+"recommendation",
+"valkey-cart"
+],
+"services": {
+"email": {
+"events": 392,
+"patterns": 2
+},
+"llm": {
+"events": 2477,
+"patterns": 30
+},
+"postgresql": {
+"events": 83,
+"patterns": 23
+},
+"product-reviews": {
+"events": 4931,
+"patterns": 72
+},
+"quote": {
+"events": 392,
+"patterns": 2
+},
+"recommendation": {
+"events": 604,
+"patterns": 3
+},
+"valkey-cart": {
+"events": 126,
+"patterns": 15
+}
+},
+"families": {
+"email": {},
+"llm": {
+"frame:app Processing a response": [
+"CT5nP8XElUw",
+"E1-I2TcAlgI",
+"HBVgRYK2KI4",
+"m88HP387a6o",
+"puHKebem0NY",
+"rbcq-MELM_E",
+"t4-0iKnGTTg",
+"xbxx8ajmds0",
+"z98XFMSLyx4",
+"zk-TXhP0fL4"
+],
+"frame:app product review summary is": [
+"0sNb1ADjllA",
+"1lBTce2ZiVY",
+"DH6-AhRp_0A",
+"Q9-K2sK7aXk",
+"TRFN3rVWGRo",
+"V27syrHB-4U",
+"_D18a__5zJo",
+"aCDJIqX2PL4",
+"bmgUkutJ7gk",
+"sU7w4nv2EC4"
+]
+},
+"postgresql": {
+"frame:LOG checkpoint starting": [
+"13eRp6jnMLo",
+"uFiFj2oDd6k"
+]
+},
+"product-reviews": {
+"frame:Returning an AI assistant response": [
+"-8h4f6zzdCw",
+"3-X8d_keMvs",
+"KUq_MEj-0dc",
+"YVt7XiTEcBo",
+"aYnXzZ8X3WI",
+"c2aNbL45hsg",
+"cO3FnJGrnFA",
+"m88HP387a6o",
+"oqZQrm6K2AU",
+"z98XFMSLyx4"
+],
+"location:product_reviews_server.py:127": [
+"0NKRiOdofAc",
+"47Jdh7060ug",
+"6Yomqui1oGM",
+"7m9W6Ga1RxA",
+"FfSX-gJ9SJo",
+"Gjrq4Of94fo",
+"H3MbAYjuGbQ",
+"HOtqPQGmvQI",
+"J7kH3ayC8GU",
+"MZo0Pw4VFa4",
+"NDiPd21xIag",
+"NvlUX58avhI",
+"OVbOk0CgRjs",
+"RLEJyjNf1Gk",
+"Rmv9MNTULpE",
+"TYX-u1N6w1A",
+"VqIqa97TihE",
+"YEIZ6R8PBuw",
+"YVgE1QoUtN4",
+"YZ1GFw5K1CA",
+"_kQdAJ1Ec4k",
+"bvgM_Sbj_oU",
+"cgKFTlUb4P0",
+"d6wvkxxvWnI",
+"duk__RlN0k4",
+"f_upqcWKSWw",
+"gY1poaexL_c",
+"gc0CvLp5gik",
+"heZKH7I_SJQ",
+"ie9F4GQ6KRY",
+"k565NY7_ZGg",
+"lMxFfe49O5s",
+"nGf43dBdWPI",
+"o9FKXi1ZNnA",
+"oMcIERJBGB0",
+"oRgQGWLCip0",
+"oU4Z0T0JDSw",
+"pyvkYdbl1Fg",
+"r5cOo5rjDI0",
+"sCmcN-wKzqc",
+"sDFOhCTX6Hs",
+"sOSb9QFWLag",
+"t8EgbkxUSTs",
+"taTgGFYxlU8",
+"tz2OTQmsZ7o",
+"ufqAscxv_JE",
+"vBZnB6JuTMY",
+"wL9vLtsMcgE",
+"yjgFNEhlw2M",
+"zYBW5MV2-HI"
+],
+"location:product_reviews_server.py:301": [
+"-8h4f6zzdCw",
+"3-X8d_keMvs",
+"KUq_MEj-0dc",
+"YVt7XiTEcBo",
+"aYnXzZ8X3WI",
+"c2aNbL45hsg",
+"cO3FnJGrnFA",
+"m88HP387a6o",
+"oqZQrm6K2AU",
+"z98XFMSLyx4"
+]
+},
+"quote": {},
+"recommendation": {},
+"valkey-cart": {}
+},
+"patterns": [
+{
+"container": "email",
+"hash": "1zhBPd1E9Bc",
+"pattern": "POST_send_order_confirmation_HTTP",
+"events": 391,
+"moved": true,
+"head_events": 391,
+"location": null,
+"families": [],
+"phrase": "0000 post send order confirmation http 1 1 200 0",
+"phrase_words": 10,
+"matches": {}
+},
+{
+"container": "email",
+"hash": "DJijoxnHh1Y",
+"pattern": "Use_Ctrl_C_to_stop",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "llm",
+"hash": "-xdHDxI6LUI",
+"pattern": "POST_chat_completions_HTTP",
+"events": 450,
+"moved": true,
+"head_events": 450,
+"location": null,
+"families": [],
+"phrase": "post v1 chat completions http 1 1 200",
+"phrase_words": 8,
+"matches": {}
+},
+{
+"container": "llm",
+"hash": "0sNb1ADjllA",
+"pattern": "app_product_review_summary_is_These_roof_binoculars_are_highly_rated_for_their_incredible_clarity_brightness_and_sharp_images",
+"events": 27,
+"moved": false,
+"head_events": 27,
+"location": null,
+"families": [
+"frame:app product review summary is"
+]
+},
+{
+"container": "llm",
+"hash": "1lBTce2ZiVY",
+"pattern": "app_product_review_summary_is_This_Solar_Filter_deemed_essential_for_safe_solar_viewing_providing_crystal_clear_and_secure",
+"events": 13,
+"moved": false,
+"head_events": 13,
+"location": null,
+"families": [
+"frame:app product review summary is"
+]
+},
+{
+"container": "llm",
+"hash": "51Vr2suQccY",
+"pattern": "app_Received_chat_completion_request",
+"events": 225,
+"moved": true,
+"head_events": 225,
+"location": null,
+"families": [],
+"phrase": "info in app received a chat completion request role system content you are a helpful assistant that answers related to a specific product use tools as needed to fetch the product reviews and product information keep the response brief with no more than 1 2 sentences if you don t know the answer just say you don t know role user content answer the following question about product id",
+"phrase_words": 69,
+"matches": {
+"rKZ9XzvDJqk": 225
+}
+},
+{
+"container": "llm",
+"hash": "BiwrZZF3RPs",
+"pattern": "app_Processing_tool_call_with_args",
+"events": 225,
+"moved": true,
+"head_events": 225,
+"location": null,
+"families": [],
+"phrase": "info in app processing a tool call with args product id",
+"phrase_words": 11,
+"matches": {}
+},
+{
+"container": "llm",
+"hash": "CT5nP8XElUw",
+"pattern": "app_Processing_a_response_This_telescope_is_highly_for_its_and_integration_making_incredibly_easy_accurate_beginners_Users_highlight",
+"events": 19,
+"moved": false,
+"head_events": 19,
+"location": null,
+"families": [
+"frame:app Processing a response"
+]
+},
+{
+"container": "llm",
+"hash": "DH6-AhRp_0A",
+"pattern": "product_review_summary_is_This_telescope_highly_for_its_app_and_integration_making_incredibly_easy_accurate_beginners_Users",
+"events": 19,
+"moved": false,
+"head_events": 19,
+"location": null,
+"families": [
+"frame:app product review summary is"
+]
+},
+{
+"container": "llm",
+"hash": "E1-I2TcAlgI",
+"pattern": "app_Processing_a_response_This_Solar_Filter_is_deemed_essential_for_safe_solar_viewing_providing_crystal_clear_and_secure_observations",
+"events": 13,
+"moved": false,
+"head_events": 13,
+"location": null,
+"families": [
+"frame:app Processing a response"
+]
+},
+{
+"container": "llm",
+"hash": "HBVgRYK2KI4",
+"pattern": "app_Processing_a_response_These_roof_binoculars_are_highly_rated_for_their_incredible_clarity_brightness_and_sharp_images_making",
+"events": 27,
+"moved": false,
+"head_events": 27,
+"location": null,
+"families": [
+"frame:app Processing a response"
+]
+},
+{
+"container": "llm",
+"hash": "J-jXiTqtHVc",
+"pattern": "OpenAI_API_server_starting_on_http_localhost",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "llm",
+"hash": "MjW8Uy86cbA",
+"pattern": "app",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "llm",
+"hash": "Q9-K2sK7aXk",
+"pattern": "app_product_review_summary_is_The_V_as_a_dream_come_true_for_serious_deep_sky_offering_performance_and_detailed_images_Its",
+"events": 35,
+"moved": false,
+"head_events": 35,
+"location": null,
+"families": [
+"frame:app product review summary is"
+]
+},
+{
+"container": "llm",
+"hash": "TRFN3rVWGRo",
+"pattern": "app_product_review_summary_is_This_solar_system_color_imager_highly_as_an_excellent_solution_for_both_beginners_and_serious",
+"events": 21,
+"moved": false,
+"head_events": 21,
+"location": null,
+"families": [
+"frame:app product review summary is"
+]
+},
+{
+"container": "llm",
+"hash": "Td6wtnktzo0",
+"pattern": "app_llmInaccurateResponse_feature_flag_False",
+"events": 225,
+"moved": true,
+"head_events": 225,
+"location": null,
+"families": [],
+"phrase": "info in app llminaccurateresponse feature flag false",
+"phrase_words": 7,
+"matches": {}
+},
+{
+"container": "llm",
+"hash": "V27syrHB-4U",
+"pattern": "app_product_review_summary_is_This_device_highly_valued_by_users_for_its_essential_red_flashlight_mode_which_preserves_night",
+"events": 19,
+"moved": false,
+"head_events": 19,
+"location": null,
+"families": [
+"frame:app product review summary is"
+]
+},
+{
+"container": "llm",
+"hash": "WwveNoLjVjE",
+"pattern": "app_The_model_is_astronomy_llm",
+"events": 225,
+"moved": true,
+"head_events": 225,
+"location": null,
+"families": [],
+"phrase": "info in app the model is astronomy llm",
+"phrase_words": 8,
+"matches": {}
+},
+{
+"container": "llm",
+"hash": "_D18a__5zJo",
+"pattern": "app_product_review_summary_is_This_lens_cleaning_kit_highly_as_a_versatile_and_essential_tool_for_maintaining_various_optics",
+"events": 21,
+"moved": false,
+"head_events": 21,
+"location": null,
+"families": [
+"frame:app product review summary is"
+]
+},
+{
+"container": "llm",
+"hash": "aCDJIqX2PL4",
+"pattern": "app_product_review_summary_is_This_entry_level_telescope_highly_recommended_for_beginners_and_casual_viewing_offering_clear",
+"events": 24,
+"moved": false,
+"head_events": 24,
+"location": null,
+"families": [
+"frame:app product review summary is"
+]
+},
+{
+"container": "llm",
+"hash": "bmgUkutJ7gk",
+"pattern": "app_product_review_summary_is_This_dedicated_solar_scope_highly_for_its_perfect_performance_in_observations_and_eclipse_events",
+"events": 29,
+"moved": false,
+"head_events": 29,
+"location": null,
+"families": [
+"frame:app product review summary is"
+]
+},
+{
+"container": "llm",
+"hash": "kCQtn3BqlIY",
+"pattern": "app_last_Based_on_the_tool_results_answer_original_question_about_product_ID_Keep_response_brief_with_no_more_than_sentences",
+"events": 225,
+"moved": true,
+"head_events": 225,
+"location": null,
+"families": [],
+"phrase": "info in app last message is based on the tool results answer the original question about product id",
+"phrase_words": 18,
+"matches": {}
+},
+{
+"container": "llm",
+"hash": "ks_oruSPazg",
+"pattern": "app_last_Answer_the_following_question_about_product_ID_Can_you_summarize_reviews",
+"events": 225,
+"moved": true,
+"head_events": 225,
+"location": null,
+"families": [],
+"phrase": "info in app last message is answer the following question about product id",
+"phrase_words": 13,
+"matches": {}
+},
+{
+"container": "llm",
+"hash": "m88HP387a6o",
+"pattern": "times_while_exceptional_engineering_short_focal_length_make_it_an_incredibly_efficient_and_professional_piece_of_equipment",
+"events": 35,
+"moved": false,
+"head_events": 35,
+"location": null,
+"families": [
+"frame:app Processing a response"
+]
+},
+{
+"container": "llm",
+"hash": "puHKebem0NY",
+"pattern": "app_Processing_a_response_This_lens_cleaning_kit_is_highly_as_versatile_and_essential_tool_for_maintaining_various_optics_from",
+"events": 21,
+"moved": false,
+"head_events": 21,
+"location": null,
+"families": [
+"frame:app Processing a response"
+]
+},
+{
+"container": "llm",
+"hash": "rKZ9XzvDJqk",
+"pattern": "app_Received_chat_completion_request_requesting_tool_call_calls_fetch_product_reviews",
+"events": 225,
+"moved": true,
+"head_events": 225,
+"location": null,
+"families": [],
+"phrase": "info in app received a chat completion request role system content you are a helpful assistant that answers related to a specific product use tools as needed to fetch the product reviews and product information keep the response brief with no more than 1 2 sentences if you don t know the answer just say you don t know role user content answer the following question about product id",
+"phrase_words": 69,
+"matches": {
+"51Vr2suQccY": 225
+}
+},
+{
+"container": "llm",
+"hash": "rbcq-MELM_E",
+"pattern": "app_Processing_a_response_This_dedicated_solar_scope_is_highly_for_its_perfect_performance_in_observations_and_eclipse_events_thanks",
+"events": 29,
+"moved": false,
+"head_events": 29,
+"location": null,
+"families": [
+"frame:app Processing a response"
+]
+},
+{
+"container": "llm",
+"hash": "sU7w4nv2EC4",
+"pattern": "app_product_review_summary_is_The_Comet_Book_highly_regarded_as_a_fascinating_and_historical_document_offering_glimpse_into",
+"events": 17,
+"moved": false,
+"head_events": 17,
+"location": null,
+"families": [
+"frame:app product review summary is"
+]
+},
+{
+"container": "llm",
+"hash": "t4-0iKnGTTg",
+"pattern": "app_Processing_a_response_This_solar_system_color_imager_is_highly_as_an_excellent_solution_for_both_beginners_and_serious_observers",
+"events": 21,
+"moved": false,
+"head_events": 21,
+"location": null,
+"families": [
+"frame:app Processing a response"
+]
+},
+{
+"container": "llm",
+"hash": "xbxx8ajmds0",
+"pattern": "app_Processing_a_response_The_Comet_Book_is_highly_regarded_as_fascinating_and_historical_document_offering_glimpse_into_ancient_astronomical",
+"events": 17,
+"moved": false,
+"head_events": 17,
+"location": null,
+"families": [
+"frame:app Processing a response"
+]
+},
+{
+"container": "llm",
+"hash": "z98XFMSLyx4",
+"pattern": "moon_brighter_Users_appreciate_its_portability_ease_setup_good_value_though_some_note_manual_controls_can_be_a_bit_tricky",
+"events": 24,
+"moved": false,
+"head_events": 24,
+"location": null,
+"families": [
+"frame:app Processing a response"
+]
+},
+{
+"container": "llm",
+"hash": "zk-TXhP0fL4",
+"pattern": "app_Processing_a_response_This_device_is_highly_valued_by_users_for_its_essential_red_flashlight_mode_which_preserves_night_vision",
+"events": 19,
+"moved": false,
+"head_events": 19,
+"location": null,
+"families": [
+"frame:app Processing a response"
+]
+},
+{
+"container": "postgresql",
+"hash": "0Jk6XxvyoHg",
+"pattern": "terminating_connection_due_to_administrator_command",
+"events": 5,
+"moved": false,
+"head_events": 5,
+"location": null,
+"families": []
+},
+{
+"container": "postgresql",
+"hash": "13eRp6jnMLo",
+"pattern": "LOG_checkpoint_starting_shutdown_immediate",
+"events": 2,
+"moved": false,
+"head_events": 2,
+"location": null,
+"families": [
+"frame:LOG checkpoint starting"
+]
+},
+{
+"container": "postgresql",
+"hash": "1FQD_yuL5VQ",
+"pattern": "LOG_starting_PostgreSQL_Debian_on_compiled_by_gcc",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "postgresql",
+"hash": "35vHVh-fNIk",
+"pattern": "LOG_checkpoint_complete_wrote_buffers_WAL_file_s_added_removed_recycled_write_sync_total_files_longest_average_distance_kB",
+"events": 25,
+"moved": true,
+"head_events": 25,
+"location": null,
+"families": [],
+"phrase": "0 wal file s added 0 removed 0 recycled write",
+"phrase_words": 10,
+"matches": {}
+},
+{
+"container": "postgresql",
+"hash": "4dQgrKHedCw",
+"pattern": "LOG_received_fast_shutdown_request",
+"events": 2,
+"moved": false,
+"head_events": 2,
+"location": null,
+"families": []
+},
+{
+"container": "postgresql",
+"hash": "6PZMBQvZCmo",
+"pattern": "waiting_for_server_to_start_LOG_starting_PostgreSQL_Debian_compiled_gcc",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "postgresql",
+"hash": "8YoDS7FrP60",
+"pattern": "LOG_listening_on_IPv_address_port",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "postgresql",
+"hash": "9lE5s3CD2EM",
+"pattern": "initdb_enabling_trust_authentication_for_local_connections",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "postgresql",
+"hash": "HTdewRzMQhQ",
+"pattern": "LOG_listening_IPv_address_port",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "postgresql",
+"hash": "IeTp2YGtfE8",
+"pattern": "LOG_database_system_was_shut_down_at",
+"events": 2,
+"moved": false,
+"head_events": 2,
+"location": null,
+"families": []
+},
+{
+"container": "postgresql",
+"hash": "K6ccXz_xc-I",
+"pattern": "LOG_background_worker_logical_replication_launcher_PID_exited_with_exit_code",
+"events": 2,
+"moved": false,
+"head_events": 2,
+"location": null,
+"families": []
+},
+{
+"container": "postgresql",
+"hash": "Xyyh-8EZJNM",
+"pattern": "LOG_aborting_any_active_transactions",
+"events": 2,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "postgresql",
+"hash": "ZCtAEdcMGPo",
+"pattern": "LOG_database_system_is_shut_down",
+"events": 2,
+"moved": false,
+"head_events": 2,
+"location": null,
+"families": []
+},
+{
+"container": "postgresql",
+"hash": "flu9rVkt8s0",
+"pattern": "LOG_listening_on_Unix_socket",
+"events": 2,
+"moved": false,
+"head_events": 2,
+"location": null,
+"families": []
+},
+{
+"container": "postgresql",
+"hash": "jN7cub9-7yM",
+"pattern": "LOG_database_system_is_ready_to_accept_connections",
+"events": 2,
+"moved": false,
+"head_events": 2,
+"location": null,
+"families": []
+},
+{
+"container": "postgresql",
+"hash": "mOS1RtNaYXg",
+"pattern": "stream_stdout_docker",
+"events": 2,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "postgresql",
+"hash": "nTl0DWsO2JE",
+"pattern": "Data_page_checksums_are_disabled",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "postgresql",
+"hash": "s9Na2WJpHGo",
+"pattern": "pg_ctl_var_lib_postgresql_data_l_logfile_start",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "postgresql",
+"hash": "uFiFj2oDd6k",
+"pattern": "LOG_checkpoint_starting_time",
+"events": 23,
+"moved": true,
+"head_events": 23,
+"location": null,
+"families": [
+"frame:LOG checkpoint starting"
+],
+"phrase": "utc 64 log checkpoint starting time",
+"phrase_words": 6,
+"matches": {}
+},
+{
+"container": "postgresql",
+"hash": "uQTbT7z4rhE",
+"pattern": "The_database_cluster_will_be_initialized_with_locale",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "postgresql",
+"hash": "vPQEnjUyNSM",
+"pattern": "Success_You_can_now_start_the_database_server_using",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "postgresql",
+"hash": "wBpCRXC60no",
+"pattern": "LOG_shutting_down",
+"events": 2,
+"moved": false,
+"head_events": 2,
+"location": null,
+"families": []
+},
+{
+"container": "postgresql",
+"hash": "z_rEITb2ZoI",
+"pattern": "fixing_permissions_on_existing_directory_var_lib_postgresql_data_ok",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "product-reviews",
+"hash": "-8h4f6zzdCw",
+"pattern": "Returning_an_AI_assistant_response_These_roof_binoculars_are_highly_rated_for_their_incredible_clarity_brightness_and_sharp_images",
+"events": 27,
+"moved": false,
+"head_events": 27,
+"location": "product_reviews_server.py:301",
+"families": [
+"frame:Returning an AI assistant response",
+"location:product_reviews_server.py:301"
+]
+},
+{
+"container": "product-reviews",
+"hash": "0NKRiOdofAc",
+"pattern": "username_clean_optics_description_This_kit_is_a_for_all_my_The_brush_and_work_perfectly_without_leaving_any_residue_My_have_never",
+"events": 54,
+"moved": false,
+"head_events": 54,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "2USHVH5H9M0",
+"pattern": "Invoking_the_LLM_with_following_messages",
+"events": 225,
+"moved": true,
+"head_events": 225,
+"location": "product_reviews_server.py:290",
+"families": [],
+"phrase": "resource service name product reviews trace sampled true invoking the llm with the following messages role system content you are a helpful assistant that answers related to a specific product use tools as needed to fetch the product reviews and product information keep the response brief with no more than 1 2 sentences if you don t know the answer just say you don t know role user content answer the following question about product id",
+"phrase_words": 76,
+"matches": {}
+},
+{
+"container": "product-reviews",
+"hash": "3-X8d_keMvs",
+"pattern": "Returning_an_AI_assistant_response_This_solar_system_color_imager_is_highly_as_excellent_solution_for_both_beginners_and_serious_observers",
+"events": 21,
+"moved": false,
+"head_events": 21,
+"location": "product_reviews_server.py:301",
+"families": [
+"frame:Returning an AI assistant response",
+"location:product_reviews_server.py:301"
+]
+},
+{
+"container": "product-reviews",
+"hash": "3SJ-lT5vZoY",
+"pattern": "Model_wants_to_call_tool_s",
+"events": 225,
+"moved": false,
+"head_events": 225,
+"location": "product_reviews_server.py:232",
+"families": []
+},
+{
+"container": "product-reviews",
+"hash": "47Jdh7060ug",
+"pattern": "username_pro_astro_description_performance_wide_field_The_short_focal_length_makes_less_critical_Produces_detailed_images_score",
+"events": 47,
+"moved": false,
+"head_events": 47,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "6Yomqui1oGM",
+"pattern": "username_ancient_texts_description_Such_a_unique_and_intriguing_read_The_historical_context_is_It_offers_different_perspective",
+"events": 51,
+"moved": false,
+"head_events": 51,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "7m9W6Ga1RxA",
+"pattern": "username_rare_find_description_truly_special_book_for_enthusiasts_of_astronomical_history_The_details_about_ancient_are_very_interesting",
+"events": 51,
+"moved": false,
+"head_events": 51,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "D14oyKI8Zno",
+"pattern": "HTTP_Request_POST_http_llm_OK",
+"events": 450,
+"moved": true,
+"head_events": 450,
+"location": "_client.py:1025",
+"families": [],
+"phrase": "resource service name product reviews trace sampled true http request post http llm 8000 v1 chat completions http 1 1 200 ok",
+"phrase_words": 22,
+"matches": {}
+},
+{
+"container": "product-reviews",
+"hash": "FfSX-gJ9SJo",
+"pattern": "username_history_buff_description_fascinating_glimpse_into_historical_astronomical_thought_The_content_is_incredibly_must_read",
+"events": 51,
+"moved": false,
+"head_events": 51,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "GEpWF7tg4LI",
+"pattern": "llmInaccurateResponse_feature_flag_False",
+"events": 225,
+"moved": false,
+"head_events": 225,
+"location": "product_reviews_server.py:270",
+"families": []
+},
+{
+"container": "product-reviews",
+"hash": "Gjrq4Of94fo",
+"pattern": "username_imager_pro_description_Excellent_resolution_and_color_for_its_price_point_It_s_a_perfect_solution_those_looking_to_start",
+"events": 36,
+"moved": false,
+"head_events": 36,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "H3MbAYjuGbQ",
+"pattern": "username_astro_accessory_description_Every_astronomer_needs_one_of_these_The_red_light_is_essential_and_the_hand_warmer_power_bank",
+"events": 45,
+"moved": false,
+"head_events": 45,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "HOtqPQGmvQI",
+"pattern": "username_description_Essential_for_any_photographer_or_telescope_owner_It_safely_removes_dust_and_fingerprints_high_quality_cleaning",
+"events": 54,
+"moved": false,
+"head_events": 54,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "J7kH3ayC8GU",
+"pattern": "username_tech_maintenance_description_Great_value_for_money_The_different_cleaning_options_cover_all_needs_Keeps_my_expensive_equipment",
+"events": 54,
+"moved": false,
+"head_events": 54,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "KUq_MEj-0dc",
+"pattern": "Returning_an_AI_assistant_response_This_telescope_is_highly_for_its_app_and_integration_making_incredibly_easy_accurate_beginners",
+"events": 19,
+"moved": false,
+"head_events": 19,
+"location": "product_reviews_server.py:301",
+"families": [
+"frame:Returning an AI assistant response",
+"location:product_reviews_server.py:301"
+]
+},
+{
+"container": "product-reviews",
+"hash": "MZo0Pw4VFa4",
+"pattern": "username_safe_viewer_description_The_ISO_compliant_filter_is_It_s_a_well_designed_product_for_solar_observation_recommend_educational",
+"events": 32,
+"moved": false,
+"head_events": 32,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "NDiPd21xIag",
+"pattern": "username_bird_watcher_description_Incredible_clarity_and_brightness_perfect_for_watching_The_ED_glass_really_makes_a_difference",
+"events": 28,
+"moved": false,
+"head_events": 28,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "NvlUX58avhI",
+"pattern": "description_The_detail_can_capture_this_imager_incredible_It_integrates_well_various_software_must_have_for_serious_observers_score",
+"events": 36,
+"moved": false,
+"head_events": 36,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "OVbOk0CgRjs",
+"pattern": "username_telescope_upgrade_description_This_filter_is_a_perfect_addition_to_my_setup_The_ISO_compliance_crucial_recommend_for_anyone",
+"events": 38,
+"moved": false,
+"head_events": 38,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "P1278BFmZX8",
+"pattern": "Function_response_fetch_product_reviews",
+"events": 225,
+"moved": true,
+"head_events": 225,
+"location": "product_reviews_server.py:248",
+"families": [],
+"phrase": "resource service name product reviews trace sampled true function response for fetch product reviews",
+"phrase_words": 14,
+"matches": {}
+},
+{
+"container": "product-reviews",
+"hash": "RLEJyjNf1Gk",
+"pattern": "username_beginner_astro_description_bit_tricky_to_get_used_the_manual_controls_but_once_you_do_it_s_very_Saw_Orion_for_first_time",
+"events": 42,
+"moved": false,
+"head_events": 42,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "RasYUucXGZA",
+"pattern": "Overriding_current_LoggerProvider_is_not_allowed",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": "__init__.py:415",
+"families": []
+},
+{
+"container": "product-reviews",
+"hash": "Rmv9MNTULpE",
+"pattern": "username_description_Finally_capturing_images_of_and_The_makes_it_so_accessible_Great_for_beginners_in_score",
+"events": 36,
+"moved": false,
+"head_events": 36,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "TYX-u1N6w1A",
+"pattern": "username_description_Compact_and_easy_to_carry_this_telescope_is_ideal_for_eclipse_events_The_included_backpack_a_nice_touch_Views",
+"events": 32,
+"moved": false,
+"head_events": 32,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "VqIqa97TihE",
+"pattern": "username_star_description_This_flashlight_is_for_parties_The_red_mode_gentle_on_the_eyes_and_power_bank_feature_super_handy_Love",
+"events": 45,
+"moved": false,
+"head_events": 45,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "XCkSNYKD91A",
+"pattern": "Receive_AskProductAIAssistant_question_Can_you_summarize_the_product_reviews",
+"events": 225,
+"moved": false,
+"head_events": 225,
+"location": "product_reviews_server.py:104",
+"families": []
+},
+{
+"container": "product-reviews",
+"hash": "YEIZ6R8PBuw",
+"pattern": "username_precision_optics_description_The_engineering_behind_this_is_exceptional_It_s_incredibly_efficient_for_capturing_faint_objects",
+"events": 47,
+"moved": false,
+"head_events": 47,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "YVgE1QoUtN4",
+"pattern": "username_description_Very_with_the_safety_features_and_clarity_Sharing_sun_family_has_never_been_easier_or_safer_Great_value_for",
+"events": 32,
+"moved": false,
+"head_events": 32,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "YVt7XiTEcBo",
+"pattern": "Returning_an_AI_assistant_response_This_Solar_Filter_is_deemed_essential_for_safe_solar_viewing_providing_crystal_clear_and_secure_observations",
+"events": 13,
+"moved": false,
+"head_events": 13,
+"location": "product_reviews_server.py:301",
+"families": [
+"frame:Returning an AI assistant response",
+"location:product_reviews_server.py:301"
+]
+},
+{
+"container": "product-reviews",
+"hash": "YZ1GFw5K1CA",
+"pattern": "username_sharp_view_description_Works_as_advertised_my_telescope_views_are_much_clearer_after_using_this_The_fluid_and_cloth_excellent",
+"events": 54,
+"moved": false,
+"head_events": 54,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "_kQdAJ1Ec4k",
+"pattern": "username_eclipse_ready_description_this_for_the_upcoming_and_it_fits_perfectly_Tested_out_views_are_fantastic_safe_Very_happy_with",
+"events": 38,
+"moved": false,
+"head_events": 38,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "aYnXzZ8X3WI",
+"pattern": "Returning_an_AI_assistant_response_This_lens_cleaning_kit_is_highly_as_a_versatile_and_essential_tool_for_maintaining_various_optics",
+"events": 21,
+"moved": false,
+"head_events": 21,
+"location": "product_reviews_server.py:301",
+"families": [
+"frame:Returning an AI assistant response",
+"location:product_reviews_server.py:301"
+]
+},
+{
+"container": "product-reviews",
+"hash": "bvgM_Sbj_oU",
+"pattern": "username_daily_cleaner_description_use_this_on_my_binoculars_camera_and_even_phone_screen_It_s_very_effective_gentle_versatile_cleaning",
+"events": 54,
+"moved": false,
+"head_events": 54,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "c2aNbL45hsg",
+"pattern": "Returning_an_AI_assistant_response_This_dedicated_solar_scope_is_highly_for_its_perfect_performance_in_observations_and_eclipse_events",
+"events": 29,
+"moved": false,
+"head_events": 29,
+"location": "product_reviews_server.py:301",
+"families": [
+"frame:Returning an AI assistant response",
+"location:product_reviews_server.py:301"
+]
+},
+{
+"container": "product-reviews",
+"hash": "cO3FnJGrnFA",
+"pattern": "Returning_an_AI_assistant_response_This_device_is_highly_valued_by_users_for_its_essential_red_flashlight_mode_which_preserves_night",
+"events": 19,
+"moved": false,
+"head_events": 19,
+"location": "product_reviews_server.py:301",
+"families": [
+"frame:Returning an AI assistant response",
+"location:product_reviews_server.py:301"
+]
+},
+{
+"container": "product-reviews",
+"hash": "cgKFTlUb4P0",
+"pattern": "username_tech_astro_description_The_app_is_It_made_finding_celestial_objects_incredibly_easy_This_telescope_a_game_changer_for_beginners",
+"events": 36,
+"moved": false,
+"head_events": 36,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "d5ir5EBifH8",
+"pattern": "llmRateLimitError_feature_flag_False",
+"events": 225,
+"moved": false,
+"head_events": 225,
+"location": "product_reviews_server.py:165",
+"families": []
+},
+{
+"container": "product-reviews",
+"hash": "d6wvkxxvWnI",
+"pattern": "username_description_This_imager_is_a_fantastic_step_up_for_photography_The_color_quality_superb_Easy_to_use_with_my_existing_telescope",
+"events": 36,
+"moved": false,
+"head_events": 36,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "duk__RlN0k4",
+"pattern": "astro_description_Excellent_travel_viewing_The_magnification_much_better_than_binoculars_sun_must_have_for_any_solar_score",
+"events": 32,
+"moved": false,
+"head_events": 32,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "f1QH6AOmuNM",
+"pattern": "Receive_GetProductReviews_for_product_id",
+"events": 409,
+"moved": true,
+"head_events": 409,
+"location": "product_reviews_server.py:92",
+"families": [],
+"phrase": "resource service name product reviews trace sampled true receive getproductreviews for product id",
+"phrase_words": 13,
+"matches": {}
+},
+{
+"container": "product-reviews",
+"hash": "f_upqcWKSWw",
+"pattern": "username_description_For_the_price_this_delivers_excellent_performance_was_able_to_see_Jupiter_s_clearly_fantastic_purchase_for_casual",
+"events": 42,
+"moved": false,
+"head_events": 42,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "gY1poaexL_c",
+"pattern": "username_description_Finally_a_telescope_that_takes_the_guesswork_out_of_The_real_time_positioning_is_incredibly_accurate_recommended",
+"events": 36,
+"moved": false,
+"head_events": 36,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "gc0CvLp5gik",
+"pattern": "username_telescope_fan_description_Not_the_most_powerful_scope_but_it_s_great_for_kids_and_beginners_My_children_love_looking",
+"events": 42,
+"moved": false,
+"head_events": 42,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "heZKH7I_SJQ",
+"pattern": "username_celestial_history_description_love_historical_astronomy_and_this_book_delivers_It_s_provides_a_window_into_past_recommended",
+"events": 51,
+"moved": false,
+"head_events": 51,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "ie9F4GQ6KRY",
+"pattern": "username_description_Setup_was_a_breeze_and_the_tutorials_in_app_are_very_helpful_The_views_crisp_clear_My_only_minor_is_battery",
+"events": 36,
+"moved": false,
+"head_events": 36,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "jsCO9gKPm7c",
+"pattern": "Product_reviews_service_started_listening_on_port",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": "product_reviews_server.py:383",
+"families": []
+},
+{
+"container": "product-reviews",
+"hash": "k565NY7_ZGg",
+"pattern": "username_stadium_fan_description_Took_these_to_a_game_and_had_an_amazing_view_of_the_action_They_perform_great_in_various_lighting_conditions",
+"events": 28,
+"moved": false,
+"head_events": 28,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "lMxFfe49O5s",
+"pattern": "username_description_Great_entry_Easy_to_set_up_and_provides_clear_views_of_the_moon_brighter_recommend_for_new_score",
+"events": 42,
+"moved": false,
+"head_events": 42,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "m88HP387a6o",
+"pattern": "times_while_exceptional_engineering_short_focal_length_make_it_an_incredibly_efficient_and_professional_piece_of_equipment",
+"events": 35,
+"moved": false,
+"head_events": 35,
+"location": "product_reviews_server.py:301",
+"families": [
+"frame:Returning an AI assistant response",
+"location:product_reviews_server.py:301"
+]
+},
+{
+"container": "product-reviews",
+"hash": "nGf43dBdWPI",
+"pattern": "username_bookworm_astro_description_Beautifully_presented_historical_document_It_s_amazing_to_see_how_were_understood_centuries",
+"events": 51,
+"moved": false,
+"head_events": 51,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "o9FKXi1ZNnA",
+"pattern": "Lightweight_durable_these_are_my_go_binoculars_hiking_The_wide_field_of_view_is_excellent_recommend_for_outdoor_enthusiasts_score",
+"events": 28,
+"moved": false,
+"head_events": 28,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "oMcIERJBGB0",
+"pattern": "username_outdoor_adventurer_description_Excellent_build_quality_and_optical_performance_They_feel_robust_provide_sharp_images_great_investment",
+"events": 28,
+"moved": false,
+"head_events": 28,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "oRgQGWLCip0",
+"pattern": "username_advanced_scope_description_every_for_the_quality_and_speed_it_offers_My_images_have_never_been_or_more_vibrant_truly_professional",
+"events": 47,
+"moved": false,
+"head_events": 47,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "oU4Z0T0JDSw",
+"pattern": "username_solar_safety_description_Essential_for_safe_viewing_with_my_telescope_The_ensure_it_stays_securely_in_place_Peace_of_mind",
+"events": 38,
+"moved": false,
+"head_events": 38,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "oqZQrm6K2AU",
+"pattern": "Returning_an_AI_assistant_response_The_Comet_Book_is_highly_regarded_as_a_fascinating_and_historical_document_offering_glimpse",
+"events": 17,
+"moved": false,
+"head_events": 17,
+"location": "product_reviews_server.py:301",
+"families": [
+"frame:Returning an AI assistant response",
+"location:product_reviews_server.py:301"
+]
+},
+{
+"container": "product-reviews",
+"hash": "pyvkYdbl1Fg",
+"pattern": "username_description_product_the_app_truly_guides_you_It_s_like_having_a_personal_astronomer_with_The_optical_quality_is_also_very",
+"events": 36,
+"moved": false,
+"head_events": 36,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "r5cOo5rjDI0",
+"pattern": "username_app_user_description_Amazing_technology_the_integration_works_ve_never_had_so_much_fun_exploring_night_sky_every_score",
+"events": 36,
+"moved": false,
+"head_events": 36,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "sCmcN-wKzqc",
+"pattern": "username_filter_fan_description_Works_perfectly_with_my_scope_No_more_about_accidental_Great_product_for_protecting_your_eyes",
+"events": 38,
+"moved": false,
+"head_events": 38,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "sDFOhCTX6Hs",
+"pattern": "username_description_and_versatile_this_flashlight_is_great_for_camping_night_walks_The_hand_warmer_function_a_game_changer_on",
+"events": 45,
+"moved": false,
+"head_events": 45,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "sOSb9QFWLag",
+"pattern": "username_night_walker_description_The_red_light_is_perfect_for_preserving_vision_during_astronomy_sessions_hand_warmer_an_unexpected",
+"events": 45,
+"moved": false,
+"head_events": 45,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "t8EgbkxUSTs",
+"pattern": "username_digital_sky_description_solid_choice_for_getting_into_solar_system_imaging_The_setup_was_straightforward_Produces_beautiful",
+"events": 36,
+"moved": false,
+"head_events": 36,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "taTgGFYxlU8",
+"pattern": "username_emergency_kit_description_fantastic_multi_tool_for_my_The_red_light_is_useful_and_the_power_bank_means_can_charge_phone",
+"events": 45,
+"moved": false,
+"head_events": 45,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "tz2OTQmsZ7o",
+"pattern": "Easy_attach_provides_crystal_clear_safe_views_sun_The_build_quality_excellent_must_have_accessory_for_solar_enthusiasts_score",
+"events": 38,
+"moved": false,
+"head_events": 38,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "u0eJIgyN8e4",
+"pattern": "Processing_tool_call_fetch_product_reviews_with_arguments",
+"events": 225,
+"moved": false,
+"head_events": 225,
+"location": "product_reviews_server.py:242",
+"families": []
+},
+{
+"container": "product-reviews",
+"hash": "ufqAscxv_JE",
+"pattern": "username_celestial_explorer_description_Perfect_for_camping_trips_It_s_lightweight_and_portable_making_it_easy_to_take_anywhere",
+"events": 42,
+"moved": false,
+"head_events": 42,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "vBZnB6JuTMY",
+"pattern": "username_deep_sky_master_description_The_V_is_a_dream_come_true_for_imaging_f_speed_drastically_cuts_down_exposure_times_My_best_investment",
+"events": 47,
+"moved": false,
+"head_events": 47,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "wL9vLtsMcgE",
+"pattern": "viewer_description_Perfect_solar_The_Solar_Safe_filter_gives_peace_mind_used_last_partial_eclipse_and_it_was_fantastic_score",
+"events": 32,
+"moved": false,
+"head_events": 32,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "xgjaGMq_irs",
+"pattern": "Response_content_requesting_a_tool_call_refusal_None_role_assistant_annotations_audio_function_calls_fetch_product",
+"events": 225,
+"moved": false,
+"head_events": 225,
+"location": "product_reviews_server.py:228",
+"families": []
+},
+{
+"container": "product-reviews",
+"hash": "yjgFNEhlw2M",
+"pattern": "username_imaging_guru_description_This_OTA_is_a_The_fast_optics_mean_more_data_in_less_time_If_you_re_serious_about_deep_sky_this",
+"events": 47,
+"moved": false,
+"head_events": 47,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "product-reviews",
+"hash": "z98XFMSLyx4",
+"pattern": "moon_brighter_Users_appreciate_its_portability_ease_setup_good_value_though_some_note_manual_controls_can_be_a_bit_tricky",
+"events": 24,
+"moved": false,
+"head_events": 24,
+"location": "product_reviews_server.py:301",
+"families": [
+"frame:Returning an AI assistant response",
+"location:product_reviews_server.py:301"
+]
+},
+{
+"container": "product-reviews",
+"hash": "zYBW5MV2-HI",
+"pattern": "username_nature_lover_description_These_binoculars_are_fantastic_for_observation_The_close_focus_is_a_huge_advantage_viewing_nearby",
+"events": 28,
+"moved": false,
+"head_events": 28,
+"location": "product_reviews_server.py:127",
+"families": [
+"location:product_reviews_server.py:127"
+]
+},
+{
+"container": "quote",
+"hash": "QRJNyeux6Vs",
+"pattern": "Listening_on",
+"events": 1,
+"moved": false,
+"head_events": 0,
+"location": null,
+"families": []
+},
+{
+"container": "quote",
+"hash": "c4yR2F2cVfk",
+"pattern": "POST_getquote_HTTP",
+"events": 391,
+"moved": true,
+"head_events": 391,
+"location": null,
+"families": [],
+"phrase": "00 00 post getquote http 1 1 200",
+"phrase_words": 8,
+"matches": {}
+},
+{
+"container": "recommendation",
+"hash": "EECfvV4aYmQ",
+"pattern": "Recommendation_service_started_listening_on_port",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": "recommendation_server.py:172",
+"families": []
+},
+{
+"container": "recommendation",
+"hash": "RasYUucXGZA",
+"pattern": "Overriding_current_LoggerProvider_is_not_allowed",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": "__init__.py:415",
+"families": []
+},
+{
+"container": "recommendation",
+"hash": "bzLB1zZCTIw",
+"pattern": "Receive_ListRecommendations_for_product_ids",
+"events": 602,
+"moved": true,
+"head_events": 602,
+"location": "recommendation_server.py:47",
+"families": [],
+"phrase": "resource service name recommendation trace sampled true receive listrecommendations for product ids",
+"phrase_words": 12,
+"matches": {}
+},
+{
+"container": "valkey-cart",
+"hash": "-ztqdCmqoww",
+"pattern": "Valkey_bits_commit_modified_just_started",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "valkey-cart",
+"hash": "6pF4mScEd7Q",
+"pattern": "User_requested_shutdown",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "valkey-cart",
+"hash": "CqVDqv2uuq4",
+"pattern": "changes_seconds_Saving",
+"events": 23,
+"moved": true,
+"head_events": 23,
+"location": null,
+"families": [],
+"phrase": "100 changes in 300 seconds saving",
+"phrase_words": 6,
+"matches": {}
+},
+{
+"container": "valkey-cart",
+"hash": "Gp-W_Etn3a4",
+"pattern": "Valkey_is_now_ready_to_exit_bye",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "valkey-cart",
+"hash": "INXTRKqNcG8",
+"pattern": "DB_saved_on_disk",
+"events": 24,
+"moved": true,
+"head_events": 24,
+"location": null,
+"families": [],
+"phrase": "db saved on disk",
+"phrase_words": 4,
+"matches": {}
+},
+{
+"container": "valkey-cart",
+"hash": "JFGyLB3rePc",
+"pattern": "Running_mode_standalone_port",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "valkey-cart",
+"hash": "WKtgJCmsHRM",
+"pattern": "monotonic_clock_POSIX_gettime",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "valkey-cart",
+"hash": "XVZezHalrPc",
+"pattern": "Server_initialized",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "valkey-cart",
+"hash": "bBiclVh8G20",
+"pattern": "Saving_the_final_RDB_snapshot_before_exiting",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "valkey-cart",
+"hash": "cSWpKn5pAUI",
+"pattern": "Background_saving_started_by_pid",
+"events": 23,
+"moved": true,
+"head_events": 23,
+"location": null,
+"families": [],
+"phrase": "background saving started by pid",
+"phrase_words": 5,
+"matches": {}
+},
+{
+"container": "valkey-cart",
+"hash": "kodKFTs6ZHw",
+"pattern": "Fork_CoW_RDB_current_peak_MB_average",
+"events": 23,
+"moved": true,
+"head_events": 23,
+"location": null,
+"families": [],
+"phrase": "fork cow for rdb current 0 mb peak 0 mb average 0 mb",
+"phrase_words": 13,
+"matches": {}
+},
+{
+"container": "valkey-cart",
+"hash": "sX9OKFLN168",
+"pattern": "Background_saving_terminated_with_success",
+"events": 23,
+"moved": true,
+"head_events": 23,
+"location": null,
+"families": [],
+"phrase": "background saving terminated with success",
+"phrase_words": 5,
+"matches": {}
+},
+{
+"container": "valkey-cart",
+"hash": "uZAJ9JoffuM",
+"pattern": "Ready_to_accept_connections_tcp",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "valkey-cart",
+"hash": "xXVNuZzITJk",
+"pattern": "Warning_no_config_file_specified_using_the_default_In_order_to_specify_a_use_valkey_server_path_conf",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+},
+{
+"container": "valkey-cart",
+"hash": "zm9Kp6o68PE",
+"pattern": "oOOoOOoOOo_Valkey_is_starting",
+"events": 1,
+"moved": false,
+"head_events": 1,
+"location": null,
+"families": []
+}
+]
+}
