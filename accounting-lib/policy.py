@@ -6,7 +6,9 @@ time scale.
 The tool's `engine_policy` holds `caps.csv` and `actions.csv` as the engine reads them:
 a cap is bytes per pattern per 240 s regulator window, scaled by the tool from the span
 its plan covers. The replay delivers the whole capture inside one window, so every cap is
-multiplied by that span over 240 s; the actions file is copied as it is. Nothing else is
+multiplied by the span the tool took over 240 s. Applied to another capture, the cap is
+first carried from the planned capture's real span (--plan-span-seconds) to the replayed
+one's (--replay-span-seconds). The actions file is copied as it is. Nothing else is
 derived here.
 """
 import argparse
@@ -18,6 +20,10 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument('--plan', required=True, help='plan-<target>.json written by plan.mjs')
     ap.add_argument('--out-prefix', required=True)
+    ap.add_argument('--plan-span-seconds', type=int, default=None,
+                    help='the real span of the capture the plan was written on, when the tool took another')
+    ap.add_argument('--replay-span-seconds', type=int, default=None,
+                    help='the real span of the capture the files are replayed on, when it is not the planned one')
     a = ap.parse_args()
     plan_file = json.load(open(a.plan))
     policy = plan_file.get('engine_policy')
@@ -25,7 +31,11 @@ def main() -> int:
         raise SystemExit('the tool returned no engine_policy: the plan has no volume action')
     span = int(policy['span_seconds'])
     window = int(policy['reset_window_seconds'])
-    factor = span / window
+    plan_span = a.plan_span_seconds or span
+    replay_span = a.replay_span_seconds or plan_span
+    # span / window turns a cap back into the bytes it allows over the planned capture;
+    # replay_span / plan_span carries that rate onto the replayed capture's span.
+    factor = span / window * replay_span / plan_span
     caps_out = ['container,cap']
     rows = []
     for line in policy['caps_csv'].splitlines()[1:]:
@@ -46,6 +56,8 @@ def main() -> int:
         'tool_caps_csv': policy['caps_csv'],
         'tool_actions_csv': policy['actions_csv'],
         'span_seconds': span,
+        'plan_span_seconds': plan_span,
+        'replay_span_seconds': replay_span,
         'reset_window_seconds': window,
         'replay_factor': factor,
         'unattributed_planned': policy.get('unattributed_planned', 0),

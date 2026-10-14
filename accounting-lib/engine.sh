@@ -66,11 +66,12 @@ plan() {
 # replay <capture> <out_dir> [<caps.csv> <actions.csv>]
 # The regulator's warm-up is the only setting passed on the command line: a replay has no
 # warm-up period to wait out. Everything else is the image's shipped configuration.
+# REPLAY_CONFIG names another replay config (default: replay.config.yaml here).
 replay() {
   local capture="$1" out="$2" caps="${3:-}" actions="${4:-}"
   rm -rf "$out"; mkdir -p "$out"
   local envs=(-e INPUT_FILE=/in/events.log -e OUTPUT_DIR=/out)
-  local vols=(-v "$capture":/in/events.log:ro -v "$out":/out -v "$LIB/replay.config.yaml":/cfg/replay.yaml:ro)
+  local vols=(-v "$capture":/in/events.log:ro -v "$out":/out -v "${REPLAY_CONFIG:-$LIB/replay.config.yaml}":/cfg/replay.yaml:ro)
   if [ -n "$caps" ]; then
     mkdir -p "$out/policy"
     cp "$caps" "$out/policy/caps.csv"

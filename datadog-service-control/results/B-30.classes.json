@@ -1,0 +1,2695 @@
+{
+"rows": [
+{
+"route": "pass",
+"container": "kafka",
+"severity": "",
+"pattern": "Running_in_KRaft_mode_Launching_Using_provided_cluster_id",
+"hash": "xL3ST93SMI8",
+"class": "",
+"events": 1,
+"bytes": 955
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "App_server_unregistered_org_apache_kafka_common_utils_AppInfoParser",
+"hash": "FFi7EJaGQnE",
+"class": "org.apache.kafka.common.utils.AppInfoParser",
+"events": 2,
+"bytes": 1936
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Assignment_received_leader_accounting_generation_The_group_has_members_of_which_are_static_kafka_coordinator_GroupCoordinator",
+"hash": "Knub9VAFoRk",
+"class": "kafka.coordinator.group.GroupCoordinator",
+"events": 1,
+"bytes": 1110
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Attempting_durable_transition_to_CandidateState_localId_localDirectoryId_epoch_retries_highWatermark_Optional_empty_electionTimeoutMs",
+"hash": "6I2gvb1ww6U",
+"class": "org.apache.kafka.raft.QuorumState",
+"events": 1,
+"bytes": 1288
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Attempting_durable_transition_to_Leader_ReplicaKey_id_directoryId_Optional_epoch_epochStartOffset_highWatermark_empty_voterStates",
+"hash": "M_14e8NMMJY",
+"class": "org.apache.kafka.raft.QuorumState",
+"events": 1,
+"bytes": 1523
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Attempting_durable_transition_to_Unattached_epoch_votedKey_null_voters_electionTimeoutMs_highWatermark_Optional_empty_apache",
+"hash": "VOdbvFR8Ya4",
+"class": "org.apache.kafka.raft.QuorumState",
+"events": 1,
+"bytes": 1080
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Awaiting_socket_connections_on_kafka_network_DataPlaneAcceptor",
+"hash": "Au57G_OyoqM",
+"class": "kafka.network.DataPlaneAcceptor",
+"events": 2,
+"bytes": 1920
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Beginning_controlled_shutdown_kafka_server_BrokerLifecycleManager",
+"hash": "LPcbYuoTVGc",
+"class": "kafka.server.BrokerLifecycleManager",
+"events": 1,
+"bytes": 980
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Beginning_graceful_shutdown_org_apache_kafka_raft_KafkaRaftClient",
+"hash": "QRVebZmb9qs",
+"class": "org.apache.kafka.raft.KafkaRaftClient",
+"events": 1,
+"bytes": 968
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Broker_and_topic_stats_closed_kafka_server_BrokerTopicStats",
+"hash": "sa68fyQxIsY",
+"class": "kafka.server.BrokerTopicStats",
+"events": 1,
+"bytes": 943
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "CONTROLLER_resolved_wildcard_host_to_org_apache_kafka_metadata_ListenerInfo",
+"hash": "mvRGl2Nzykg",
+"class": "org.apache.kafka.metadata.ListenerInfo",
+"events": 1,
+"bytes": 983
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Closing_reporter_org_apache_kafka_common_metrics_JmxReporter_Metrics",
+"hash": "mDQdHzbno_A",
+"class": "org.apache.kafka.common.metrics.Metrics",
+"events": 1,
+"bytes": 984
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Completed_graceful_shutdown_of_RaftClient_org_apache_kafka_raft_KafkaRaftClientDriver",
+"hash": "iG5yLOCtXXs",
+"class": "org.apache.kafka.raft.KafkaRaftClientDriver",
+"events": 1,
+"bytes": 988
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Completed_transition_to_CandidateState_localId_localDirectoryId_epoch_retries_highWatermark_Optional_empty_electionTimeoutMs",
+"hash": "D9cLoXyP27A",
+"class": "org.apache.kafka.raft.QuorumState",
+"events": 1,
+"bytes": 1279
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Completed_transition_to_Leader_ReplicaKey_id_directoryId_Optional_epoch_epochStartOffset_highWatermark_empty_voterStates_CandidateState",
+"hash": "G_DwCEMpNYQ",
+"class": "org.apache.kafka.raft.QuorumState",
+"events": 1,
+"bytes": 1514
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Completed_transition_to_Unattached_epoch_votedKey_null_voters_electionTimeoutMs_highWatermark_Optional_empty_apache_kafka",
+"hash": "KnPQjmMCCS4",
+"class": "org.apache.kafka.raft.QuorumState",
+"events": 1,
+"bytes": 1071
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Created_data_plane_acceptor_and_processors_for_endpoint_ListenerName_CONTROLLER_kafka_network_SocketServer",
+"hash": "aBTqO7vuduM",
+"class": "kafka.network.SocketServer",
+"events": 1,
+"bytes": 1042
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Created_data_plane_acceptor_and_processors_for_endpoint_ListenerName_PLAINTEXT_kafka_network_SocketServer",
+"hash": "06eLIaOcF6E",
+"class": "kafka.network.SocketServer",
+"events": 1,
+"bytes": 1037
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Created_log_for_partition_consumer_in_tmp_kafka_logs_with_properties_LogManager",
+"hash": "8WIj_NSG3DU",
+"class": "kafka.log.LogManager",
+"events": 50,
+"bytes": 54480
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Created_log_for_partition_in_tmp_kafka_logs_with_properties_LogManager",
+"hash": "0tFKsEz2pVM",
+"class": "kafka.log.LogManager",
+"events": 1,
+"bytes": 986
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Creating_new_KRaft_snapshot_file_because_we_have_replayed_at_least_bytes_org_apache_kafka_image_publisher_SnapshotGenerator",
+"hash": "YJTvxN0rObQ",
+"class": "org.apache.kafka.image.publisher.SnapshotGenerator",
+"events": 161,
+"bytes": 173719
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+"hash": "q20KpyVGjSM",
+"class": "org.apache.kafka.storage.internals.log.LogSegment",
+"events": 152,
+"bytes": 156408
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+"hash": "hl_fK-uzMu8",
+"class": "org.apache.kafka.storage.internals.log.LogSegment",
+"events": 150,
+"bytes": 154050
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile",
+"hash": "AMFi23Ga9wY",
+"class": "org.apache.kafka.storage.internals.log.SnapshotFile",
+"events": 138,
+"bytes": 143796
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots",
+"hash": "uZa7Kr7RvMY",
+"class": "org.apache.kafka.snapshot.Snapshots",
+"events": 233,
+"bytes": 231353
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+"hash": "WlIY0QjIiEg",
+"class": "org.apache.kafka.storage.internals.log.LogSegment",
+"events": 147,
+"bytes": 149352
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_kafka_LocalLog",
+"hash": "TxSKKm13VKE",
+"class": "kafka.log.LocalLog$",
+"events": 166,
+"bytes": 187705
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_kafka_UnifiedLog",
+"hash": "O4QwlwcKPUE",
+"class": "kafka.log.UnifiedLog",
+"events": 142,
+"bytes": 165652
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Dynamic_member_with_unknown_id_joins_group_accounting_in_Empty_state_Created_a_new_and_request_the_to_rejoin_this_kafka_coordinator",
+"hash": "NzF_xrHKSOU",
+"class": "kafka.coordinator.group.GroupCoordinator",
+"events": 1,
+"bytes": 1139
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Dynamic_member_with_unknown_id_joins_group_fraud_detection_in_Empty_state_Created_a_new_consumer_and_request_the_to_rejoin",
+"hash": "fwizozRAYJI",
+"class": "kafka.coordinator.group.GroupCoordinator",
+"events": 1,
+"bytes": 1163
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Elected_as_the_group_coordinator_for_partition_in_epoch_kafka_GroupCoordinator",
+"hash": "f6kvKBhYbio",
+"class": "kafka.coordinator.group.GroupCoordinator",
+"events": 50,
+"bytes": 50340
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Enabling_request_processing_kafka_network_SocketServer",
+"hash": "vCtGwH_tZI4",
+"class": "kafka.network.SocketServer",
+"events": 2,
+"bytes": 1972
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Finished_unloading_consumer_for_coordinator_epoch_OptionalInt_Removed_cached_offsets_groups_kafka_group_GroupMetadataManager",
+"hash": "Jt3lg7lp6vQ",
+"class": "kafka.coordinator.group.GroupMetadataManager",
+"events": 50,
+"bytes": 54340
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Finished_waiting_controller_quorum_voters_future_kafka_server_BrokerServer",
+"hash": "xPdek65bdHo",
+"class": "kafka.server.BrokerServer",
+"events": 1,
+"bytes": 982
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Finished_waiting_controller_quorum_voters_future_kafka_server_ControllerServer",
+"hash": "ufAP7x_C8bE",
+"class": "kafka.server.ControllerServer",
+"events": 1,
+"bytes": 990
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Finished_waiting_for_all_of_the_SocketServer_Acceptors_to_be_started_kafka_server_BrokerServer",
+"hash": "BsIj8ld1rQs",
+"class": "kafka.server.BrokerServer",
+"events": 1,
+"bytes": 998
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Finished_waiting_for_all_of_the_SocketServer_Acceptors_to_be_started_kafka_server_ControllerServer",
+"hash": "mnpLKA7S2u8",
+"class": "kafka.server.ControllerServer",
+"events": 1,
+"bytes": 1006
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Finished_waiting_for_all_of_the_authorizer_futures_to_be_completed_kafka_server_BrokerServer",
+"hash": "BtxbA9kQgY8",
+"class": "kafka.server.BrokerServer",
+"events": 1,
+"bytes": 996
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Finished_waiting_for_all_of_the_authorizer_futures_to_be_completed_kafka_server_ControllerServer",
+"hash": "V8Hn4ArLXoU",
+"class": "kafka.server.ControllerServer",
+"events": 1,
+"bytes": 1004
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Finished_waiting_for_the_broker_metadata_publishers_to_be_installed_kafka_server_BrokerServer",
+"hash": "pzOh4klNNTU",
+"class": "kafka.server.BrokerServer",
+"events": 1,
+"bytes": 997
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Finished_waiting_for_the_broker_to_be_unfenced_kafka_server_BrokerServer",
+"hash": "wn-5BqC0Py4",
+"class": "kafka.server.BrokerServer",
+"events": 1,
+"bytes": 976
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Finished_waiting_for_the_controller_metadata_publishers_to_be_installed_kafka_server_ControllerServer",
+"hash": "U3Y6wihPq7g",
+"class": "kafka.server.ControllerServer",
+"events": 1,
+"bytes": 1009
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Finished_waiting_for_the_controller_to_acknowledge_that_we_are_caught_up_kafka_server_BrokerServer",
+"hash": "EyqotDzEqVw",
+"class": "kafka.server.BrokerServer",
+"events": 1,
+"bytes": 1002
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Finished_waiting_for_the_initial_broker_metadata_update_to_be_published_kafka_server_BrokerServer",
+"hash": "HopsyJf_iKU",
+"class": "kafka.server.BrokerServer",
+"events": 1,
+"bytes": 1001
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Graceful_shutdown_completed_org_apache_kafka_raft_KafkaRaftClient",
+"hash": "S-y_hwPkXJw",
+"class": "org.apache.kafka.raft.KafkaRaftClient",
+"events": 1,
+"bytes": 968
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "High_watermark_set_to_LogOffsetMetadata_offset_metadata_Optional_first_epoch_based_indexOfHw_voters_apache_kafka_raft_LeaderState",
+"hash": "hd77Czw1xqI",
+"class": "org.apache.kafka.raft.LeaderState",
+"events": 1,
+"bytes": 1389
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Incarnation_broker_cluster_is_now_STARTING_kafka_server_BrokerLifecycleManager",
+"hash": "xE_LNZArYK0",
+"class": "kafka.server.BrokerLifecycleManager",
+"events": 1,
+"bytes": 1047
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Incremented_log_start_offset_to_due_snapshot_generated_kafka_UnifiedLog",
+"hash": "JlanVdU0Z_U",
+"class": "kafka.log.UnifiedLog",
+"events": 201,
+"bytes": 207430
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "InitializeNewPublishers_initializing_AclPublisher_controller_id_with_a_snapshot_at_offset_org_apache_kafka_image_loader_MetadataLoader",
+"hash": "-Ctj3ChCmPA",
+"class": "org.apache.kafka.image.loader.MetadataLoader",
+"events": 1,
+"bytes": 1045
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "InitializeNewPublishers_initializing_BrokerMetadataPublisher_with_a_snapshot_at_offset_org_apache_kafka_image_loader_MetadataLoader",
+"hash": "oX25DEEZxas",
+"class": "org.apache.kafka.image.loader.MetadataLoader",
+"events": 1,
+"bytes": 1040
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "InitializeNewPublishers_initializing_BrokerRegistrationTracker_id_with_a_snapshot_at_offset_org_apache_kafka_image_loader",
+"hash": "HrUZFJjTdD4",
+"class": "org.apache.kafka.image.loader.MetadataLoader",
+"events": 1,
+"bytes": 1048
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "InitializeNewPublishers_initializing_ControllerMetadataMetricsPublisher_with_a_snapshot_at_offset_org_apache_kafka_image_loader",
+"hash": "Tijq81ha2Rc",
+"class": "org.apache.kafka.image.loader.MetadataLoader",
+"events": 1,
+"bytes": 1051
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "InitializeNewPublishers_initializing_ControllerRegistrationManager_with_a_snapshot_at_offset_org_apache_kafka_image_loader",
+"hash": "M1gKTI3nQyI",
+"class": "org.apache.kafka.image.loader.MetadataLoader",
+"events": 1,
+"bytes": 1046
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "InitializeNewPublishers_initializing_ControllerRegistrationsPublisher_with_a_snapshot_at_offset_org_apache_kafka_image_loader",
+"hash": "FFpOdzj4SvY",
+"class": "org.apache.kafka.image.loader.MetadataLoader",
+"events": 1,
+"bytes": 1049
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "InitializeNewPublishers_initializing_DelegationTokenPublisher_controller_id_with_a_snapshot_at_offset_org_apache_kafka_image",
+"hash": "rUfXZtBhcus",
+"class": "org.apache.kafka.image.loader.MetadataLoader",
+"events": 1,
+"bytes": 1057
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "InitializeNewPublishers_initializing_DynamicClientQuotaPublisher_controller_id_with_a_snapshot_at_offset_org_apache_kafka",
+"hash": "tiMuhxmPG8U",
+"class": "org.apache.kafka.image.loader.MetadataLoader",
+"events": 1,
+"bytes": 1060
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "InitializeNewPublishers_initializing_DynamicConfigPublisher_controller_id_with_a_snapshot_at_offset_org_apache_kafka_image",
+"hash": "t1Xq3gcKEY4",
+"class": "org.apache.kafka.image.loader.MetadataLoader",
+"events": 1,
+"bytes": 1055
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "InitializeNewPublishers_initializing_FeaturesPublisher_with_a_snapshot_at_offset_org_apache_kafka_image_loader_MetadataLoader",
+"hash": "N4tQmnu9udU",
+"class": "org.apache.kafka.image.loader.MetadataLoader",
+"events": 1,
+"bytes": 1034
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "InitializeNewPublishers_initializing_KRaftMetadataCachePublisher_with_a_snapshot_at_offset_org_apache_kafka_image_loader_MetadataLoader",
+"hash": "3nJ5-DOhukA",
+"class": "org.apache.kafka.image.loader.MetadataLoader",
+"events": 1,
+"bytes": 1044
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "InitializeNewPublishers_initializing_ScramPublisher_controller_id_with_a_snapshot_at_offset_org_apache_kafka_image_loader",
+"hash": "oZfkDytqnCs",
+"class": "org.apache.kafka.image.loader.MetadataLoader",
+"events": 1,
+"bytes": 1047
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "InitializeNewPublishers_initializing_SnapshotGenerator_with_a_snapshot_at_offset_org_apache_kafka_image_loader_MetadataLoader",
+"hash": "OmzXHhpu1sk",
+"class": "org.apache.kafka.image.loader.MetadataLoader",
+"events": 1,
+"bytes": 1034
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "InitializeNewPublishers_initializing_id_with_a_snapshot_at_offset_org_apache_kafka_image_loader_MetadataLoader",
+"hash": "QseXDY1NJO8",
+"class": "org.apache.kafka.image.loader.MetadataLoader",
+"events": 1,
+"bytes": 1047
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Initialized_snapshots_with_IDs_SortedSet_from_tmp_kafka_logs_cluster",
+"hash": "C7wGMvfRPu0",
+"class": "kafka.raft.KafkaMetadataLog$",
+"events": 1,
+"bytes": 997
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "KafkaEventQueueclose_shutting_down_event_queue_org_apache_kafka_KafkaEventQueue",
+"hash": "QnvorjeP1Yc",
+"class": "org.apache.kafka.queue.KafkaEventQueue",
+"events": 1,
+"bytes": 997
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Kafka_Server_started_kafka_server_KafkaRaftServer",
+"hash": "B4JzFnQdpaQ",
+"class": "kafka.server.KafkaRaftServer",
+"events": 1,
+"bytes": 960
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Kafka_org_apache_kafka_common_utils_AppInfoParser",
+"hash": "5_dP1LLn7jA",
+"class": "org.apache.kafka.common.utils.AppInfoParser",
+"events": 2,
+"bytes": 1908
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Loaded_logs_in_kafka_log_LogManager",
+"hash": "I6s4Y5HAHYA",
+"class": "kafka.log.LogManager",
+"events": 1,
+"bytes": 926
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Loading_logs_from_log_dirs_ArrayBuffer_tmp_kafka_LogManager",
+"hash": "rhHmnQ9_EDw",
+"class": "kafka.log.LogManager",
+"events": 1,
+"bytes": 960
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Loading_producer_state_till_offset_with_message_format_version_kafka_log_UnifiedLog",
+"hash": "CLMPrg8RHnE",
+"class": "kafka.log.UnifiedLog$",
+"events": 52,
+"bytes": 53900
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Log_loaded_for_partition_consumer_with_initial_high_watermark_kafka_cluster_Partition",
+"hash": "bJijN8Jaadg",
+"class": "kafka.cluster.Partition",
+"events": 50,
+"bytes": 51330
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Log_loaded_for_partition_with_initial_high_watermark_kafka_cluster_Partition",
+"hash": "_YK-0KUwgAY",
+"class": "kafka.cluster.Partition",
+"events": 1,
+"bytes": 1001
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Metrics_reporters_closed_org_apache_kafka_common_metrics",
+"hash": "zszV5BjtfuU",
+"class": "org.apache.kafka.common.metrics.Metrics",
+"events": 1,
+"bytes": 948
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Metrics_scheduler_closed_org_apache_kafka_common_metrics",
+"hash": "P3W28GASTng",
+"class": "org.apache.kafka.common.metrics.Metrics",
+"events": 1,
+"bytes": 948
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "No_checkpointed_highwatermark_is_found_for_partition_consumer_kafka_cluster_Partition",
+"hash": "Fx_Pqd7HRiM",
+"class": "kafka.cluster.Partition",
+"events": 50,
+"bytes": 51230
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "No_checkpointed_highwatermark_is_found_for_partition_kafka_cluster_Partition",
+"hash": "cIbS1XX63IE",
+"class": "kafka.cluster.Partition",
+"events": 1,
+"bytes": 999
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "No_logs_found_to_be_loaded_in_tmp_kafka_log_LogManager",
+"hash": "21gv4n-j7t4",
+"class": "kafka.log.LogManager",
+"events": 1,
+"bytes": 950
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Node_disconnected_org_apache_kafka_clients_NetworkClient",
+"hash": "32n9YngnbiQ",
+"class": "org.apache.kafka.clients.NetworkClient",
+"events": 2,
+"bytes": 1996
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Node_to_controller_channel_manager_for_alter_partition_shutdown_kafka_server_NodeToControllerChannelManagerImpl",
+"hash": "O40UPtNUoM0",
+"class": "kafka.server.NodeToControllerChannelManagerImpl",
+"events": 1,
+"bytes": 995
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Node_to_controller_channel_manager_for_directory_assignments_shutdown_kafka_server_NodeToControllerChannelManagerImpl",
+"hash": "O_yKGl4YF98",
+"class": "kafka.server.NodeToControllerChannelManagerImpl",
+"events": 1,
+"bytes": 1001
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Node_to_controller_channel_manager_for_forwarding_shutdown_kafka_server_NodeToControllerChannelManagerImpl",
+"hash": "Bmdh1LC0FOM",
+"class": "kafka.server.NodeToControllerChannelManagerImpl",
+"events": 1,
+"bytes": 990
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Node_to_controller_channel_manager_for_heartbeat_shutdown_kafka_server_NodeToControllerChannelManagerImpl",
+"hash": "gKUqwOtQ8II",
+"class": "kafka.server.NodeToControllerChannelManagerImpl",
+"events": 1,
+"bytes": 989
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Node_to_controller_channel_manager_for_registration_shutdown_kafka_server_NodeToControllerChannelManagerImpl",
+"hash": "qAS89hdovB0",
+"class": "kafka.server.NodeToControllerChannelManagerImpl",
+"events": 2,
+"bytes": 1984
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Our_registration_has_been_persisted_to_the_metadata_log_kafka_server_ControllerRegistrationManager",
+"hash": "J5DUhlh2kF4",
+"class": "kafka.server.ControllerRegistrationManager",
+"events": 1,
+"bytes": 1055
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "PreparingRebalance_old_generation_Adding_new_group_None_client_reason_need_to_re_join_with_the_given_member_id_consumer_fraud_kafka",
+"hash": "7MlZtYSqvK0",
+"class": "kafka.coordinator.group.GroupCoordinator",
+"events": 1,
+"bytes": 1307
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Preparing_to_rebalance_group_accounting_in_state_PreparingRebalance_with_old_generation_consumer_reason_Adding_new_member",
+"hash": "eFIAZ6KeHv4",
+"class": "kafka.coordinator.group.GroupCoordinator",
+"events": 1,
+"bytes": 1190
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Producer_state_recovery_took_for_snapshot_load_and_segment_from_offset_kafka_log_UnifiedLog",
+"hash": "Sl1vh43pkyc",
+"class": "kafka.log.UnifiedLog$",
+"events": 1,
+"bytes": 1063
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Publishing_initial_metadata_at_offset_epoch_with_version_kafka_server_BrokerMetadataPublisher",
+"hash": "94ROHzSPI04",
+"class": "kafka.server.metadata.BrokerMetadataPublisher",
+"events": 1,
+"bytes": 1063
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "QuorumControllerbeginShutdown_shutting_down_event_queue_org_apache_kafka_KafkaEventQueue",
+"hash": "kpQ2W-4BGrw",
+"class": "org.apache.kafka.queue.KafkaEventQueue",
+"events": 1,
+"bytes": 1005
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Reading_KRaft_snapshot_and_log_as_part_of_the_initialization_org_apache_kafka_raft_KafkaRaftClient",
+"hash": "PkLgPI2D6Cc",
+"class": "org.apache.kafka.raft.KafkaRaftClient",
+"events": 1,
+"bytes": 1001
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Recorded_new_KRaft_controller_from_now_on_will_use_node_kafka_id_rack_null_server_NodeToControllerRequestThread",
+"hash": "FhACu0pa6N4",
+"class": "kafka.server.NodeToControllerRequestThread",
+"events": 5,
+"bytes": 5351
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Registered_kafka_type_MBean",
+"hash": "WM9zpOnRNkA",
+"class": "kafka.utils.Log4jControllerRegistration$",
+"events": 1,
+"bytes": 974
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Registered_signal_handlers_for_TERM_INT_HUP_org_apache_kafka_common_utils_LoggingSignalHandler",
+"hash": "1H_TxVDR8w0",
+"class": "org.apache.kafka.common.utils.LoggingSignalHandler",
+"events": 1,
+"bytes": 980
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Registered_the_listener_org_apache_kafka_controller_QuorumController_QuorumMetaLogListener_raft_KafkaRaftClient",
+"hash": "cuHK8n9Tfmk",
+"class": "org.apache.kafka.raft.KafkaRaftClient",
+"events": 1,
+"bytes": 1042
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Registered_the_listener_org_apache_kafka_image_loader_MetadataLoader_raft_KafkaRaftClient",
+"hash": "fCRVOCe31kU",
+"class": "org.apache.kafka.raft.KafkaRaftClient",
+"events": 1,
+"bytes": 1020
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "RegistrationResponseHandler_controller_acknowledged_ControllerRegistrationRequest_kafka_server_ControllerRegistrationManager",
+"hash": "QlNBvfBq0VM",
+"class": "kafka.server.ControllerRegistrationManager",
+"events": 1,
+"bytes": 1082
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Reloading_from_producer_snapshot_and_rebuilding_state_offset_kafka_log_UnifiedLog",
+"hash": "XI-sqsOGDZs",
+"class": "kafka.log.UnifiedLog$",
+"events": 1,
+"bytes": 1046
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Removed_fetcher_for_partitions_HashSet_consumer_kafka_server_ReplicaAlterLogDirsManager",
+"hash": "9mGBq2Md794",
+"class": "kafka.server.ReplicaAlterLogDirsManager",
+"events": 1,
+"bytes": 2153
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Removed_fetcher_for_partitions_HashSet_consumer_kafka_server_ReplicaFetcherManager",
+"hash": "dKFvLTtUQZE",
+"class": "kafka.server.ReplicaFetcherManager",
+"events": 1,
+"bytes": 2143
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Removed_fetcher_for_partitions_Set_consumer_kafka_server_ReplicaFetcherManager",
+"hash": "Q40AUb4IlZM",
+"class": "kafka.server.ReplicaFetcherManager",
+"events": 1,
+"bytes": 2129
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Removed_fetcher_for_partitions_Set_kafka_server_ReplicaFetcherManager",
+"hash": "hOshzbMhWU8",
+"class": "kafka.server.ReplicaFetcherManager",
+"events": 1,
+"bytes": 999
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Resigned_as_the_group_coordinator_for_partition_in_epoch_OptionalInt_kafka_GroupCoordinator",
+"hash": "lPcwo-mPmxI",
+"class": "kafka.coordinator.group.GroupCoordinator",
+"events": 50,
+"bytes": 51040
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Rolled_new_log_segment_at_offset_in_ms_kafka_LocalLog",
+"hash": "7CaEeIJhG-8",
+"class": "kafka.log.LocalLog",
+"events": 135,
+"bytes": 136601
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Scheduling_loading_of_offsets_and_group_metadata_from_consumer_for_epoch_kafka_coordinator_GroupMetadataManager",
+"hash": "WQhY8qgdXFs",
+"class": "kafka.coordinator.group.GroupMetadataManager",
+"events": 50,
+"bytes": 52490
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Scheduling_unloading_of_offsets_and_group_metadata_from_consumer_kafka_coordinator_GroupMetadataManager",
+"hash": "4yD45Zig_hI",
+"class": "kafka.coordinator.group.GroupMetadataManager",
+"events": 50,
+"bytes": 51990
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Sent_auto_creation_request_for_Set_consumer_offsets_to_the_active_controller_kafka_server_DefaultAutoTopicCreationManager",
+"hash": "gqMai4UgWpw",
+"class": "kafka.server.DefaultAutoTopicCreationManager",
+"events": 1,
+"bytes": 1009
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Sent_auto_creation_request_for_Set_orders_to_the_active_controller_kafka_server_DefaultAutoTopicCreationManager",
+"hash": "N_sHvZTU4LE",
+"class": "kafka.server.DefaultAutoTopicCreationManager",
+"events": 3,
+"bytes": 2991
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Setting_jdk_true_to_disable_client_initiated_TLS_renegotiation",
+"hash": "9cbo8mF1J8E",
+"class": "org.apache.zookeeper.common.X509Util",
+"events": 1,
+"bytes": 1025
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Setting_next_offset_image_loader_MetadataLoader_since_there_are_no_snapshots_org_apache_kafka_raft_KafkaRaftClient",
+"hash": "dOpoIU28TQQ",
+"class": "org.apache.kafka.raft.KafkaRaftClient",
+"events": 1,
+"bytes": 1057
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shut_down_completely_kafka_server_ReplicaManager",
+"hash": "8TNQ_EQXPM8",
+"class": "kafka.server.ReplicaManager",
+"events": 1,
+"bytes": 958
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutdown_complete_kafka_coordinator_group_GroupCoordinator",
+"hash": "KIe7SUD9zdU",
+"class": "kafka.coordinator.group.GroupCoordinator",
+"events": 1,
+"bytes": 965
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutdown_complete_kafka_coordinator_transaction_TransactionCoordinator",
+"hash": "ixW2PhsKDx0",
+"class": "kafka.coordinator.transaction.TransactionCoordinator",
+"events": 1,
+"bytes": 985
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutdown_complete_kafka_coordinator_transaction_TransactionStateManager",
+"hash": "-fkx43U8vDE",
+"class": "kafka.coordinator.transaction.TransactionStateManager",
+"events": 1,
+"bytes": 986
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutdown_complete_kafka_log_LogManager",
+"hash": "METxfRqJTEQ",
+"class": "kafka.log.LogManager",
+"events": 1,
+"bytes": 923
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutdown_complete_kafka_server_KafkaApis",
+"hash": "ewmNR0fhGkE",
+"class": "kafka.server.KafkaApis",
+"events": 1,
+"bytes": 938
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutdown_completed_kafka_coordinator_transaction_TransactionMarkerChannelManager",
+"hash": "3kcPiOJFzJs",
+"class": "kafka.coordinator.transaction.TransactionMarkerChannelManager",
+"events": 1,
+"bytes": 991
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutdown_completed_kafka_log_LogCleaner_CleanerThread",
+"hash": "1XotXYW7i3g",
+"class": "kafka.log.LogCleaner$CleanerThread",
+"events": 1,
+"bytes": 967
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutdown_completed_kafka_network_SocketServer",
+"hash": "jBsBtFXmv4s",
+"class": "kafka.network.SocketServer",
+"events": 2,
+"bytes": 1952
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutdown_completed_kafka_raft_TimingWheelExpirationService_ExpiredOperationReaper",
+"hash": "efSznUVnWig",
+"class": "kafka.raft.TimingWheelExpirationService$ExpiredOperationReaper",
+"events": 1,
+"bytes": 991
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutdown_completed_kafka_server_AddPartitionsToTxnManager",
+"hash": "B08SdKX2IpQ",
+"class": "kafka.server.AddPartitionsToTxnManager",
+"events": 1,
+"bytes": 977
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutdown_completed_kafka_server_ClientQuotaManager_ThrottledChannelReaper",
+"hash": "G19ii0l6VBo",
+"class": "kafka.server.ClientQuotaManager$ThrottledChannelReaper",
+"events": 8,
+"bytes": 8034
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutdown_completed_kafka_server_DelayedOperationPurgatory_ExpiredOperationReaper",
+"hash": "MOTBZhYpBiE",
+"class": "kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper",
+"events": 9,
+"bytes": 8966
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutdown_completed_kafka_server_NodeToControllerRequestThread",
+"hash": "qPPBT7EbGIE",
+"class": "kafka.server.NodeToControllerRequestThread",
+"events": 6,
+"bytes": 6015
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutdown_completed_kafka_server_ReplicaManager_LogDirFailureHandler",
+"hash": "dFgbxbC2LZk",
+"class": "kafka.server.ReplicaManager$LogDirFailureHandler",
+"events": 1,
+"bytes": 975
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutdown_completed_org_apache_kafka_raft_KafkaNetworkChannel_SendThread",
+"hash": "apBXcsFEsvg",
+"class": "org.apache.kafka.raft.KafkaNetworkChannel$SendThread",
+"events": 1,
+"bytes": 995
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutdown_completed_org_apache_kafka_raft_KafkaRaftClientDriver",
+"hash": "zRl7bosH9_Q",
+"class": "org.apache.kafka.raft.KafkaRaftClientDriver",
+"events": 1,
+"bytes": 972
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutdown_completed_org_apache_kafka_server_util_timer_SystemTimerReaper_Reaper",
+"hash": "nfUw44Tu4-U",
+"class": "org.apache.kafka.server.util.timer.SystemTimerReaper$Reaper",
+"events": 1,
+"bytes": 987
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutting_down_kafka_coordinator_group_GroupCoordinator",
+"hash": "Ngs25o_VXwg",
+"class": "kafka.coordinator.group.GroupCoordinator",
+"events": 1,
+"bytes": 961
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutting_down_kafka_coordinator_transaction_TransactionCoordinator",
+"hash": "JstYp_abAWc",
+"class": "kafka.coordinator.transaction.TransactionCoordinator",
+"events": 1,
+"bytes": 981
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutting_down_kafka_coordinator_transaction_TransactionMarkerChannelManager",
+"hash": "UVMygnHWMH0",
+"class": "kafka.coordinator.transaction.TransactionMarkerChannelManager",
+"events": 1,
+"bytes": 986
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutting_down_kafka_log_LogCleaner_CleanerThread",
+"hash": "0o9KuNlT7QM",
+"class": "kafka.log.LogCleaner$CleanerThread",
+"events": 1,
+"bytes": 962
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutting_down_kafka_log_LogManager",
+"hash": "ZCZNZX6nNX4",
+"class": "kafka.log.LogManager",
+"events": 1,
+"bytes": 919
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutting_down_kafka_raft_TimingWheelExpirationService_ExpiredOperationReaper",
+"hash": "Kx9Ia4oau_s",
+"class": "kafka.raft.TimingWheelExpirationService$ExpiredOperationReaper",
+"events": 1,
+"bytes": 986
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutting_down_kafka_server_AddPartitionsToTxnManager",
+"hash": "IckJqrFbkCg",
+"class": "kafka.server.AddPartitionsToTxnManager",
+"events": 1,
+"bytes": 972
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutting_down_kafka_server_ClientQuotaManager_ThrottledChannelReaper",
+"hash": "tol1pQerdyI",
+"class": "kafka.server.ClientQuotaManager$ThrottledChannelReaper",
+"events": 8,
+"bytes": 7994
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutting_down_kafka_server_DelayedOperationPurgatory_ExpiredOperationReaper",
+"hash": "FHJ11lwKp4g",
+"class": "kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper",
+"events": 9,
+"bytes": 8921
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutting_down_kafka_server_NodeToControllerRequestThread",
+"hash": "ic4iIenVQak",
+"class": "kafka.server.NodeToControllerRequestThread",
+"events": 5,
+"bytes": 4986
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutting_down_kafka_server_ReplicaManager",
+"hash": "cy5GCaBF_IA",
+"class": "kafka.server.ReplicaManager",
+"events": 1,
+"bytes": 951
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutting_down_kafka_server_ReplicaManager_LogDirFailureHandler",
+"hash": "M0YUlMSmBY0",
+"class": "kafka.server.ReplicaManager$LogDirFailureHandler",
+"events": 1,
+"bytes": 970
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutting_down_org_apache_kafka_raft_KafkaNetworkChannel_SendThread",
+"hash": "WzBUGNTCHx0",
+"class": "org.apache.kafka.raft.KafkaNetworkChannel$SendThread",
+"events": 1,
+"bytes": 990
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutting_down_org_apache_kafka_raft_KafkaRaftClientDriver",
+"hash": "2p5zzoCOuCQ",
+"class": "org.apache.kafka.raft.KafkaRaftClientDriver",
+"events": 1,
+"bytes": 967
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutting_down_org_apache_kafka_server_util_timer_SystemTimerReaper_Reaper",
+"hash": "bqOObl9QudI",
+"class": "org.apache.kafka.server.util.timer.SystemTimerReaper$Reaper",
+"events": 1,
+"bytes": 982
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Shutting_down_socket_server_kafka_network_SocketServer",
+"hash": "8pOobRJ3S1c",
+"class": "kafka.network.SocketServer",
+"events": 2,
+"bytes": 1970
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Stabilized_group_accounting_generation_consumer_with_members_kafka_coordinator_GroupCoordinator",
+"hash": "Bf_ov0j46aw",
+"class": "kafka.coordinator.group.GroupCoordinator",
+"events": 1,
+"bytes": 1026
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Stabilized_group_fraud_detection_generation_consumer_with_members_kafka_coordinator_GroupCoordinator",
+"hash": "Q-xmwXt_h6s",
+"class": "kafka.coordinator.group.GroupCoordinator",
+"events": 1,
+"bytes": 1031
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Starting_SharedServer_kafka_server",
+"hash": "UFce107xNIA",
+"class": "kafka.server.SharedServer",
+"events": 1,
+"bytes": 951
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Starting_broker_kafka_server_BrokerServer",
+"hash": "_v1yfgLYR24",
+"class": "kafka.server.BrokerServer",
+"events": 1,
+"bytes": 945
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Starting_controller_kafka_server_ControllerServer",
+"hash": "hOf5_9g8Nnk",
+"class": "kafka.server.ControllerServer",
+"events": 1,
+"bytes": 957
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Starting_kafka_coordinator_transaction_TransactionMarkerChannelManager",
+"hash": "8wtATIo-U34",
+"class": "kafka.coordinator.transaction.TransactionMarkerChannelManager",
+"events": 1,
+"bytes": 981
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Starting_kafka_log_LogCleaner_CleanerThread",
+"hash": "DDPbVWA7jjA",
+"class": "kafka.log.LogCleaner$CleanerThread",
+"events": 1,
+"bytes": 957
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Starting_kafka_raft_TimingWheelExpirationService_ExpiredOperationReaper",
+"hash": "4GJoHmw8IfI",
+"class": "kafka.raft.TimingWheelExpirationService$ExpiredOperationReaper",
+"events": 1,
+"bytes": 981
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Starting_kafka_server_AddPartitionsToTxnManager",
+"hash": "0a5rsaj55wg",
+"class": "kafka.server.AddPartitionsToTxnManager",
+"events": 1,
+"bytes": 967
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Starting_kafka_server_ClientQuotaManager_ThrottledChannelReaper",
+"hash": "pN_9Xm3h6oo",
+"class": "kafka.server.ClientQuotaManager$ThrottledChannelReaper",
+"events": 8,
+"bytes": 7954
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Starting_kafka_server_DelayedOperationPurgatory_ExpiredOperationReaper",
+"hash": "wMnQlWy-3QM",
+"class": "kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper",
+"events": 9,
+"bytes": 8876
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Starting_kafka_server_NodeToControllerRequestThread",
+"hash": "aInspvoZgxQ",
+"class": "kafka.server.NodeToControllerRequestThread",
+"events": 5,
+"bytes": 4961
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Starting_kafka_server_ReplicaManager_LogDirFailureHandler",
+"hash": "HC2hxzUrOUE",
+"class": "kafka.server.ReplicaManager$LogDirFailureHandler",
+"events": 1,
+"bytes": 965
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Starting_log_cleanup_with_a_period_of_ms_kafka_LogManager",
+"hash": "-S2T7nNOkQo",
+"class": "kafka.log.LogManager",
+"events": 1,
+"bytes": 953
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Starting_log_flusher_with_a_default_period_of_ms_kafka_LogManager",
+"hash": "eRIDM3bMhfs",
+"class": "kafka.log.LogManager",
+"events": 1,
+"bytes": 974
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Starting_org_apache_kafka_raft_KafkaNetworkChannel_SendThread",
+"hash": "9uJFjB0Nn1I",
+"class": "org.apache.kafka.raft.KafkaNetworkChannel$SendThread",
+"events": 1,
+"bytes": 985
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Starting_org_apache_kafka_raft_KafkaRaftClientDriver",
+"hash": "FrVc0k5PQ3Y",
+"class": "org.apache.kafka.raft.KafkaRaftClientDriver",
+"events": 1,
+"bytes": 962
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Starting_org_apache_kafka_server_util_timer_SystemTimerReaper_Reaper",
+"hash": "eJRbansnWck",
+"class": "org.apache.kafka.server.util.timer.SystemTimerReaper$Reaper",
+"events": 1,
+"bytes": 977
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Starting_request_manager_with_static_voters_apache_kafka_raft_KafkaRaftClient",
+"hash": "eEaDNa5TsWA",
+"class": "org.apache.kafka.raft.KafkaRaftClient",
+"events": 1,
+"bytes": 1017
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Starting_up_kafka_coordinator_group_GroupCoordinator",
+"hash": "MmQd2bZFsgg",
+"class": "kafka.coordinator.group.GroupCoordinator",
+"events": 1,
+"bytes": 959
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Starting_up_kafka_coordinator_transaction_TransactionCoordinator",
+"hash": "7IbgKHvdVuY",
+"class": "kafka.coordinator.transaction.TransactionCoordinator",
+"events": 1,
+"bytes": 979
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Starting_voters_are_VoterSet_apache_kafka_raft_KafkaRaftClient",
+"hash": "cvTT27wAKyg",
+"class": "org.apache.kafka.raft.KafkaRaftClient",
+"events": 1,
+"bytes": 1206
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Startup_complete_kafka_coordinator_group_GroupCoordinator",
+"hash": "jKsU5ra-Dvc",
+"class": "kafka.coordinator.group.GroupCoordinator",
+"events": 1,
+"bytes": 964
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Startup_complete_kafka_coordinator_transaction_TransactionCoordinator",
+"hash": "hW3BDK3hMHk",
+"class": "kafka.coordinator.transaction.TransactionCoordinator",
+"events": 1,
+"bytes": 984
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Stopped_kafka_coordinator_transaction_TransactionMarkerChannelManager",
+"hash": "b1KwJXAM66I",
+"class": "kafka.coordinator.transaction.TransactionMarkerChannelManager",
+"events": 1,
+"bytes": 980
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Stopped_kafka_log_LogCleaner_CleanerThread",
+"hash": "MuFeB6jBK5w",
+"class": "kafka.log.LogCleaner$CleanerThread",
+"events": 1,
+"bytes": 956
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Stopped_kafka_raft_TimingWheelExpirationService_ExpiredOperationReaper",
+"hash": "DDZNri4rBLs",
+"class": "kafka.raft.TimingWheelExpirationService$ExpiredOperationReaper",
+"events": 1,
+"bytes": 980
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Stopped_kafka_server_AddPartitionsToTxnManager",
+"hash": "JsSQ4ZiuZwA",
+"class": "kafka.server.AddPartitionsToTxnManager",
+"events": 1,
+"bytes": 966
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Stopped_kafka_server_ClientQuotaManager_ThrottledChannelReaper",
+"hash": "rt2rNQFCECY",
+"class": "kafka.server.ClientQuotaManager$ThrottledChannelReaper",
+"events": 8,
+"bytes": 7946
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Stopped_kafka_server_DelayedOperationPurgatory_ExpiredOperationReaper",
+"hash": "ZC1JrtvcA_g",
+"class": "kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper",
+"events": 9,
+"bytes": 8867
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Stopped_kafka_server_NodeToControllerRequestThread",
+"hash": "si6VVHFwBzo",
+"class": "kafka.server.NodeToControllerRequestThread",
+"events": 5,
+"bytes": 4956
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Stopped_kafka_server_ReplicaManager_LogDirFailureHandler",
+"hash": "xvsR4g-05wU",
+"class": "kafka.server.ReplicaManager$LogDirFailureHandler",
+"events": 1,
+"bytes": 964
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Stopped_org_apache_kafka_raft_KafkaNetworkChannel_SendThread",
+"hash": "xZx-7XbOg94",
+"class": "org.apache.kafka.raft.KafkaNetworkChannel$SendThread",
+"events": 1,
+"bytes": 984
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Stopped_org_apache_kafka_raft_KafkaRaftClientDriver",
+"hash": "iAD60hu2N-4",
+"class": "org.apache.kafka.raft.KafkaRaftClientDriver",
+"events": 1,
+"bytes": 961
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Stopped_org_apache_kafka_server_util_timer_SystemTimerReaper_Reaper",
+"hash": "Ixu4P71CDn4",
+"class": "org.apache.kafka.server.util.timer.SystemTimerReaper$Reaper",
+"events": 1,
+"bytes": 976
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Stopped_socket_server_request_processors_kafka_network_SocketServer",
+"hash": "WTxSmi4cWJ4",
+"class": "kafka.network.SocketServer",
+"events": 2,
+"bytes": 1996
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Stopping_SharedServer_kafka_server",
+"hash": "n1qBfu8AmTg",
+"class": "kafka.server.SharedServer",
+"events": 1,
+"bytes": 951
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Stopping_socket_server_request_processors_kafka_network_SocketServer",
+"hash": "Wavkw9x4sNs",
+"class": "kafka.network.SocketServer",
+"events": 2,
+"bytes": 1998
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Successfully_registered_broker_with_epoch_kafka_server_BrokerLifecycleManager",
+"hash": "RPIWgyq41Jw",
+"class": "kafka.server.BrokerLifecycleManager",
+"events": 1,
+"bytes": 1002
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Successfully_wrote_snapshot_org_apache_kafka_image_publisher_SnapshotEmitter",
+"hash": "TM6TaR-b4oE",
+"class": "org.apache.kafka.image.publisher.SnapshotEmitter",
+"events": 188,
+"bytes": 190820
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Terminating_process_due_to_signal_SIGTERM_org_apache_kafka_common_utils_LoggingSignalHandler",
+"hash": "ooYTMqfnV4M",
+"class": "org.apache.kafka.common.utils.LoggingSignalHandler",
+"events": 1,
+"bytes": 976
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "The_broker_has_been_unfenced_Transitioning_from_RECOVERY_to_RUNNING_kafka_server_BrokerLifecycleManager",
+"hash": "4zWtyc9BZvA",
+"class": "kafka.server.BrokerLifecycleManager",
+"events": 1,
+"bytes": 1019
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "The_broker_has_caught_up_Transitioning_from_STARTING_to_RECOVERY_kafka_server_BrokerLifecycleManager",
+"hash": "oonoFvdhxM0",
+"class": "kafka.server.BrokerLifecycleManager",
+"events": 1,
+"bytes": 1016
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "The_broker_is_in_PENDING_CONTROLLED_SHUTDOWN_state_still_waiting_for_the_active_controller_kafka_server_BrokerLifecycleManager",
+"hash": "BxRAItCVyWU",
+"class": "kafka.server.BrokerLifecycleManager",
+"events": 1,
+"bytes": 1042
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "The_broker_is_in_RECOVERY_kafka_server_BrokerLifecycleManager",
+"hash": "kzVM91PoBJs",
+"class": "kafka.server.BrokerLifecycleManager",
+"events": 1,
+"bytes": 976
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "The_controller_has_asked_us_to_exit_controlled_shutdown_kafka_server_BrokerLifecycleManager",
+"hash": "QXwcWN59nWU",
+"class": "kafka.server.BrokerLifecycleManager",
+"events": 1,
+"bytes": 1006
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Transition_from_SHUTDOWN_to_STARTING_kafka_server_BrokerServer",
+"hash": "DqxGb64d4Y4",
+"class": "kafka.server.BrokerServer",
+"events": 1,
+"bytes": 966
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Transition_from_SHUTTING_DOWN_to_SHUTDOWN_kafka_server_BrokerServer",
+"hash": "iLY2ONUOf34",
+"class": "kafka.server.BrokerServer",
+"events": 1,
+"bytes": 971
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Transition_from_STARTED_to_SHUTTING_DOWN_kafka_server_BrokerServer",
+"hash": "eGES0nOFpQM",
+"class": "kafka.server.BrokerServer",
+"events": 1,
+"bytes": 970
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Transition_from_STARTING_to_STARTED_kafka_server_BrokerServer",
+"hash": "wo4cIPLmSnc",
+"class": "kafka.server.BrokerServer",
+"events": 1,
+"bytes": 965
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Transitioning_from_PENDING_CONTROLLED_SHUTDOWN_to_SHUTTING_DOWN_kafka_server_BrokerLifecycleManager",
+"hash": "dKr9Q4LQtaI",
+"class": "kafka.server.BrokerLifecycleManager",
+"events": 1,
+"bytes": 1014
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Unable_to_read_the_broker_epoch_in_tmp_kafka_logs_log_LogManager",
+"hash": "EDhLc9XFbxA",
+"class": "kafka.log.LogManager",
+"events": 1,
+"bytes": 956
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Unloading_group_metadata_for_accounting_with_generation_kafka_coordinator_GroupCoordinator",
+"hash": "2ofeGpM4OdU",
+"class": "kafka.coordinator.group.GroupCoordinator",
+"events": 1,
+"bytes": 1004
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Unloading_group_metadata_for_fraud_detection_with_generation_kafka_coordinator_GroupCoordinator",
+"hash": "QA_5LiMxqk8",
+"class": "kafka.coordinator.group.GroupCoordinator",
+"events": 1,
+"bytes": 1009
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Updated_accept_max_connection_creation_rate_to_kafka_network_ConnectionQuotas",
+"hash": "a0JUhXhRr_o",
+"class": "kafka.network.ConnectionQuotas",
+"events": 2,
+"bytes": 1976
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Updating_topic_consumer_offsets_with_new_configuration_compression_type_producer_cleanup_policy_compact_segment_bytes_kafka",
+"hash": "gpepnvI48HE",
+"class": "kafka.server.metadata.DynamicConfigPublisher",
+"events": 1,
+"bytes": 1106
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Waiting_controller_quorum_voters_future_kafka_server_BrokerServer",
+"hash": "HnHp08fh154",
+"class": "kafka.server.BrokerServer",
+"events": 1,
+"bytes": 973
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Waiting_controller_quorum_voters_future_kafka_server_ControllerServer",
+"hash": "VC9Uqa3j-eQ",
+"class": "kafka.server.ControllerServer",
+"events": 1,
+"bytes": 981
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Waiting_for_all_of_the_SocketServer_Acceptors_to_be_started_kafka_server_BrokerServer",
+"hash": "cjicSW-bXUI",
+"class": "kafka.server.BrokerServer",
+"events": 1,
+"bytes": 989
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Waiting_for_all_of_the_SocketServer_Acceptors_to_be_started_kafka_server_ControllerServer",
+"hash": "yWFqJH9DPOk",
+"class": "kafka.server.ControllerServer",
+"events": 1,
+"bytes": 997
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Waiting_for_all_of_the_authorizer_futures_to_be_completed_kafka_server_BrokerServer",
+"hash": "ghPON9Z2mPc",
+"class": "kafka.server.BrokerServer",
+"events": 1,
+"bytes": 987
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Waiting_for_all_of_the_authorizer_futures_to_be_completed_kafka_server_ControllerServer",
+"hash": "AskTXtziGFw",
+"class": "kafka.server.ControllerServer",
+"events": 1,
+"bytes": 995
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Waiting_the_broker_metadata_publishers_to_be_installed_kafka_server_BrokerServer",
+"hash": "PnsYPqc2ZhM",
+"class": "kafka.server.BrokerServer",
+"events": 1,
+"bytes": 988
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Waiting_the_broker_to_be_unfenced_kafka_server_BrokerServer",
+"hash": "qCD9YYKttog",
+"class": "kafka.server.BrokerServer",
+"events": 1,
+"bytes": 967
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Waiting_the_controller_metadata_publishers_to_be_installed_kafka_server_ControllerServer",
+"hash": "hLFL0Zw7JQ0",
+"class": "kafka.server.ControllerServer",
+"events": 1,
+"bytes": 1000
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Waiting_the_controller_to_acknowledge_that_we_are_caught_up_kafka_server_BrokerServer",
+"hash": "UJ-jDyssr4I",
+"class": "kafka.server.BrokerServer",
+"events": 1,
+"bytes": 993
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Waiting_the_initial_broker_metadata_update_to_be_published_kafka_server_BrokerServer",
+"hash": "iIUhSlwuCFI",
+"class": "kafka.server.BrokerServer",
+"events": 1,
+"bytes": 992
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager",
+"hash": "VnqlcNA_PIM",
+"class": "org.apache.kafka.storage.internals.log.ProducerStateManager",
+"events": 120,
+"bytes": 131331
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "authorizerStart_completed_endpoint_CONTROLLER_Endpoint_is_now_READY_org_apache_kafka_server_network_EndpointReadyFutures",
+"hash": "rX2EXbzsQg4",
+"class": "org.apache.kafka.server.network.EndpointReadyFutures",
+"events": 1,
+"bytes": 1010
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "authorizerStart_completed_endpoint_PLAINTEXT_Endpoint_is_now_READY_org_apache_kafka_server_network_EndpointReadyFutures",
+"hash": "qfqdZkUZgNU",
+"class": "org.apache.kafka.server.network.EndpointReadyFutures",
+"events": 1,
+"bytes": 1009
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "beginShutdown_shutting_down_event_queue_org_apache_kafka_KafkaEventQueue",
+"hash": "7_GYrt6RpAc",
+"class": "org.apache.kafka.queue.KafkaEventQueue",
+"events": 4,
+"bytes": 4005
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "closed_event_queue_org_apache_kafka_KafkaEventQueue",
+"hash": "8li0_Boc6MA",
+"class": "org.apache.kafka.queue.KafkaEventQueue",
+"events": 8,
+"bytes": 7831
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "finalizedFeaturesEpoch_org_apache_kafka_metadata_publisher_FeaturesPublisher",
+"hash": "MnFJDO1AmmQ",
+"class": "org.apache.kafka.metadata.publisher.FeaturesPublisher",
+"events": 1,
+"bytes": 1083
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "initializeNewPublishers_The_loader_finished_catching_up_to_the_current_high_water_mark_of_org_apache_kafka_image_MetadataLoader",
+"hash": "fdnk6tXtVkY",
+"class": "org.apache.kafka.image.loader.MetadataLoader",
+"events": 1,
+"bytes": 1043
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "initializeNewPublishers_the_loader_is_still_catching_up_because_we_don_t_know_high_water_mark_yet_org_apache_kafka_image_MetadataLoader",
+"hash": "snftEF93Qng",
+"class": "org.apache.kafka.image.loader.MetadataLoader",
+"events": 1,
+"bytes": 1060
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "initialized_channel_manager_kafka_server_ControllerRegistrationManager",
+"hash": "JM0bhuYm01k",
+"class": "kafka.server.ControllerRegistrationManager",
+"events": 1,
+"bytes": 1027
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "javaagent_shaded_instrumentation_jmx_Created_Counter_for_kafka_leaderElection_unclean_count",
+"hash": "0CAUCg3F_yY",
+"class": "",
+"events": 1,
+"bytes": 1054
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "javaagent_shaded_instrumentation_jmx_Created_Counter_for_kafka_logs_flush_Count",
+"hash": "jcixjOJaiUY",
+"class": "",
+"events": 1,
+"bytes": 1042
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "javaagent_shaded_instrumentation_jmx_Created_Counter_for_kafka_message_count",
+"hash": "ajWSej9EbVo",
+"class": "",
+"events": 1,
+"bytes": 1039
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "javaagent_shaded_instrumentation_jmx_Created_Counter_for_kafka_request_time_total",
+"hash": "u2P0CZaNQHw",
+"class": "",
+"events": 1,
+"bytes": 1044
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "javaagent_shaded_instrumentation_jmx_Created_Counter_kafka_network_io",
+"hash": "Nha8mJTFUZ0",
+"class": "",
+"events": 2,
+"bytes": 2072
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "javaagent_shaded_instrumentation_jmx_Created_Counter_kafka_request_count",
+"hash": "5XAIb7gGrB8",
+"class": "",
+"events": 2,
+"bytes": 2078
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "javaagent_shaded_instrumentation_jmx_Created_Counter_kafka_request_failed",
+"hash": "RKhiTdySLso",
+"class": "",
+"events": 2,
+"bytes": 2080
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "javaagent_shaded_instrumentation_jmx_Created_Gauge_for",
+"hash": "KGObOmVvD8I",
+"class": "",
+"events": 4,
+"bytes": 4166
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "javaagent_shaded_instrumentation_jmx_Created_Gauge_for_kafka_lag_max",
+"hash": "vY6TQRMm-l8",
+"class": "",
+"events": 1,
+"bytes": 1031
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "javaagent_shaded_instrumentation_jmx_Created_UpDownCounter_for_kafka",
+"hash": "qv615zJ2xtM",
+"class": "",
+"events": 1,
+"bytes": 1057
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "javaagent_shaded_instrumentation_jmx_Created_UpDownCounter_for_kafka_controller_active_count",
+"hash": "WTF24XzN0f8",
+"class": "",
+"events": 1,
+"bytes": 1055
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "javaagent_shaded_instrumentation_jmx_Created_UpDownCounter_for_kafka_isr_operation_count",
+"hash": "19H5nHiIURs",
+"class": "",
+"events": 2,
+"bytes": 2102
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "javaagent_shaded_instrumentation_jmx_Created_UpDownCounter_for_kafka_purgatory_size",
+"hash": "vT7Zo45RnFA",
+"class": "",
+"events": 1,
+"bytes": 1046
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "javaagent_shaded_instrumentation_jmx_Created_UpDownCounter_for_kafka_request_queue",
+"hash": "HBN8BcJbTBU",
+"class": "",
+"events": 1,
+"bytes": 1045
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "javaagent_shaded_instrumentation_jmx_Created_UpDownCounter_kafka_partition_count",
+"hash": "0cnbaFqcQdU",
+"class": "",
+"events": 1,
+"bytes": 1047
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "javaagent_shaded_instrumentation_jmx_Created_UpDownCounter_kafka_partition_offline",
+"hash": "8b89EIYcbv4",
+"class": "",
+"events": 1,
+"bytes": 1049
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "javaagent_tooling_VersionLogger_opentelemetry_version",
+"hash": "6G60oYRTpFw",
+"class": "",
+"events": 1,
+"bytes": 1002
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "loading_offsets_consumer_epoch_which_milliseconds_was_spent_in_the_scheduler_kafka_coordinator_group_GroupMetadataManager_Finished",
+"hash": "f3UX5ZweKSU",
+"class": "kafka.coordinator.group.GroupMetadataManager",
+"events": 50,
+"bytes": 55889
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "maybePublishMetadata_LOG_DELTA_The_loader_is_still_catching_up_because_we_have_not_loaded_a_controller_record_as_of_offset_and",
+"hash": "4pMfcEqUV2g",
+"class": "org.apache.kafka.image.loader.MetadataLoader",
+"events": 1,
+"bytes": 1102
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "offset_controller_QuorumController_QuorumMetaLogListener_since_there_are_no_snapshots_org_apache_kafka_raft_KafkaRaftClient",
+"hash": "s50qZ-W_8kY",
+"class": "org.apache.kafka.raft.KafkaRaftClient",
+"events": 1,
+"bytes": 1079
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "older_than_the",
+"hash": "QTxV2J9g6c0",
+"class": "kafka.raft.KafkaMetadataLog",
+"events": 156,
+"bytes": 175955
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "org_apache_kafka_common_utils_AppInfoParser",
+"hash": "HZRfJtXQyH8",
+"class": "org.apache.kafka.common.utils.AppInfoParser",
+"events": 1,
+"bytes": 960
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "received_leader_consumer_fraud_detection_generation_The_group_has_members_of_which_are_static_kafka_coordinator_GroupCoordinator",
+"hash": "3sPFIdF0vqg",
+"class": "kafka.coordinator.group.GroupCoordinator",
+"events": 1,
+"bytes": 1134
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "sendControllerRegistration_attempting_to_send_controllerId_incarnationId_false_listeners_features_kafka_server_ControllerRegistrationManager",
+"hash": "isrNZ_qJHO0",
+"class": "kafka.server.ControllerRegistrationManager",
+"events": 1,
+"bytes": 1429
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "shut_down_completed_kafka_server_BrokerServer",
+"hash": "g1GK-2bZalM",
+"class": "kafka.server.BrokerServer",
+"events": 1,
+"bytes": 949
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "shut_down_completely_kafka_server_KafkaRequestHandlerPool",
+"hash": "j_Xy1OYLhuU",
+"class": "kafka.server.KafkaRequestHandlerPool",
+"events": 2,
+"bytes": 1978
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "shutdown_completed_kafka_server_ReplicaAlterLogDirsManager",
+"hash": "xIAhauQSw40",
+"class": "kafka.server.ReplicaAlterLogDirsManager",
+"events": 1,
+"bytes": 983
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "shutdown_completed_kafka_server_ReplicaFetcherManager",
+"hash": "IDzn31VV19Y",
+"class": "kafka.server.ReplicaFetcherManager",
+"events": 1,
+"bytes": 973
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "shutting_down_kafka_server_BrokerServer",
+"hash": "nWkjbvPuApI",
+"class": "kafka.server.BrokerServer",
+"events": 1,
+"bytes": 943
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "shutting_down_kafka_server_ControllerRegistrationManager",
+"hash": "NaONQVJXlvg",
+"class": "kafka.server.ControllerRegistrationManager",
+"events": 1,
+"bytes": 1013
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "shutting_down_kafka_server_ControllerServer",
+"hash": "vsyrJbNea88",
+"class": "kafka.server.ControllerServer",
+"events": 1,
+"bytes": 951
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "shutting_down_kafka_server_KafkaRequestHandlerPool",
+"hash": "vwZICIbppR4",
+"class": "kafka.server.KafkaRequestHandlerPool",
+"events": 2,
+"bytes": 1964
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "shutting_down_kafka_server_ReplicaAlterLogDirsManager",
+"hash": "mUFt0oMv6TQ",
+"class": "kafka.server.ReplicaAlterLogDirsManager",
+"events": 1,
+"bytes": 978
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "shutting_down_kafka_server_ReplicaFetcherManager",
+"hash": "Kp5mK2H38UE",
+"class": "kafka.server.ReplicaFetcherManager",
+"events": 1,
+"bytes": 968
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "shutting_down_org_apache_kafka_server_AssignmentsManager",
+"hash": "bVqSsCwIpgM",
+"class": "org.apache.kafka.server.AssignmentsManager",
+"events": 1,
+"bytes": 967
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "transaction_abort_timed_out_cleanup_interval_ms_dirs_group_initial_rebalance_delay_cleaner_dedupe_buffer_size",
+"hash": "5FRboWoUhkA",
+"class": "kafka.server.KafkaConfig",
+"events": 1,
+"bytes": 14746
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "WARN",
+"pattern": "Attempting_close_that_has_already_been_closed_org_apache_kafka_clients_NetworkClient",
+"hash": "c0zSqvwAWDE",
+"class": "org.apache.kafka.clients.NetworkClient",
+"events": 1,
+"bytes": 1042
+},
+{
+"route": "pass",
+"container": "kafka",
+"severity": "WARN",
+"pattern": "OpenJDK_Server_VM_Sharing_only_supported_for_boot_loader_classes_because_bootstrap_classpath_has_been_appended",
+"hash": "2eS6jGgQcuU",
+"class": "",
+"events": 1,
+"bytes": 980
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Creating_new_KRaft_snapshot_file_because_we_have_replayed_at_least_bytes_org_apache_kafka_image_publisher_SnapshotGenerator",
+"hash": "YJTvxN0rObQ",
+"class": "org.apache.kafka.image.publisher.SnapshotGenerator",
+"events": 208,
+"bytes": 224432
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+"hash": "q20KpyVGjSM",
+"class": "org.apache.kafka.storage.internals.log.LogSegment",
+"events": 316,
+"bytes": 325164
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+"hash": "hl_fK-uzMu8",
+"class": "org.apache.kafka.storage.internals.log.LogSegment",
+"events": 318,
+"bytes": 326586
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile",
+"hash": "AMFi23Ga9wY",
+"class": "org.apache.kafka.storage.internals.log.SnapshotFile",
+"events": 329,
+"bytes": 342818
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots",
+"hash": "uZa7Kr7RvMY",
+"class": "org.apache.kafka.snapshot.Snapshots",
+"events": 127,
+"bytes": 126207
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+"hash": "WlIY0QjIiEg",
+"class": "org.apache.kafka.storage.internals.log.LogSegment",
+"events": 321,
+"bytes": 326136
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_kafka_LocalLog",
+"hash": "TxSKKm13VKE",
+"class": "kafka.log.LocalLog$",
+"events": 194,
+"bytes": 219448
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_kafka_UnifiedLog",
+"hash": "O4QwlwcKPUE",
+"class": "kafka.log.UnifiedLog",
+"events": 221,
+"bytes": 257589
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Incremented_log_start_offset_to_due_snapshot_generated_kafka_UnifiedLog",
+"hash": "JlanVdU0Z_U",
+"class": "kafka.log.UnifiedLog",
+"events": 162,
+"bytes": 167272
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Rolled_new_log_segment_at_offset_in_ms_kafka_LocalLog",
+"hash": "7CaEeIJhG-8",
+"class": "kafka.log.LocalLog",
+"events": 343,
+"bytes": 347248
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Successfully_wrote_snapshot_org_apache_kafka_image_publisher_SnapshotEmitter",
+"hash": "TM6TaR-b4oE",
+"class": "org.apache.kafka.image.publisher.SnapshotEmitter",
+"events": 181,
+"bytes": 183715
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager",
+"hash": "VnqlcNA_PIM",
+"class": "org.apache.kafka.storage.internals.log.ProducerStateManager",
+"events": 362,
+"bytes": 385660
+},
+{
+"route": "tier_down",
+"container": "kafka",
+"severity": "INFO",
+"pattern": "older_than_the",
+"hash": "QTxV2J9g6c0",
+"class": "kafka.raft.KafkaMetadataLog",
+"events": 207,
+"bytes": 233592
+}
+],
+"hashes_with_more_than_one_class": []
+}

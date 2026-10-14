@@ -1,0 +1,2265 @@
+{
+ "engine_image": "log10x/pipeline-10x@sha256:fd9c98384a775df13ed41921c2cf95ef1d1313f62f1300aac61da55ca64feb67",
+ "engine_tag": "1.1.140",
+ "mcp_version": "1.30.49",
+ "captures": {
+  "A": {
+   "name": "otel-sample-200mb.log",
+   "sha256": "aa79b9349a4123d88936fd064f5eccd9fd84f45a1fd03cff3f64c259715c2432",
+   "span_seconds": 36000
+  },
+  "B": {
+   "name": "rec1155.log",
+   "sha256": "df78e200d929bc57f826a396fb8e1764717bf6b61544970261f3647163351b77",
+   "span_seconds": 7200
+  }
+ },
+ "slices": {
+  "A": {
+   "container": "kafka",
+   "lines": 31029,
+   "bytes": 31230658,
+   "sha256": "eb6dea993e84a2d0519ef9f0ccbae7ea79599bec86602297751a806035b19557",
+   "capture_lines_not_json": 0
+  },
+  "B": {
+   "container": "kafka",
+   "lines": 6230,
+   "bytes": 6569531,
+   "sha256": "9d5c92ccca38e75c83d464731c85662f6d0f2199d3334b49ca358497a5dc69a5",
+   "capture_lines_not_json": 0
+  }
+ },
+ "control": {
+  "A": {
+   "events": 29043,
+   "lines": 31029,
+   "bytes": 31201615,
+   "patterns": 424,
+   "classes": 54,
+   "top_classes": [
+    {
+     "class": "org.apache.kafka.storage.internals.log.LogSegment",
+     "events": 7434,
+     "patterns": 3
+    },
+    {
+     "class": "kafka.log.UnifiedLog",
+     "events": 3818,
+     "patterns": 2
+    },
+    {
+     "class": "kafka.log.LocalLog",
+     "events": 2487,
+     "patterns": 1
+    },
+    {
+     "class": "org.apache.kafka.storage.internals.log.ProducerStateManager",
+     "events": 2487,
+     "patterns": 1
+    },
+    {
+     "class": "org.apache.kafka.storage.internals.log.SnapshotFile",
+     "events": 2477,
+     "patterns": 1
+    },
+    {
+     "class": "org.apache.kafka.image.publisher.SnapshotGenerator",
+     "events": 1914,
+     "patterns": 1
+    },
+    {
+     "class": "org.apache.kafka.image.publisher.SnapshotEmitter",
+     "events": 1914,
+     "patterns": 1
+    },
+    {
+     "class": "kafka.raft.KafkaMetadataLog",
+     "events": 1909,
+     "patterns": 1
+    },
+    {
+     "class": "org.apache.kafka.snapshot.Snapshots",
+     "events": 1906,
+     "patterns": 1
+    },
+    {
+     "class": "kafka.log.LocalLog$",
+     "events": 1906,
+     "patterns": 1
+    },
+    {
+     "class": "",
+     "events": 285,
+     "patterns": 278
+    },
+    {
+     "class": "kafka.cluster.Partition",
+     "events": 102,
+     "patterns": 4
+    },
+    {
+     "class": "kafka.coordinator.group.GroupMetadataManager",
+     "events": 100,
+     "patterns": 2
+    },
+    {
+     "class": "kafka.coordinator.group.GroupCoordinator",
+     "events": 60,
+     "patterns": 11
+    }
+   ]
+  },
+  "B": {
+   "events": 6226,
+   "lines": 6230,
+   "bytes": 6563305,
+   "patterns": 256,
+   "classes": 64,
+   "top_classes": [
+    {
+     "class": "org.apache.kafka.storage.internals.log.LogSegment",
+     "events": 1404,
+     "patterns": 3
+    },
+    {
+     "class": "kafka.log.UnifiedLog",
+     "events": 726,
+     "patterns": 2
+    },
+    {
+     "class": "org.apache.kafka.storage.internals.log.ProducerStateManager",
+     "events": 482,
+     "patterns": 1
+    },
+    {
+     "class": "kafka.log.LocalLog",
+     "events": 478,
+     "patterns": 1
+    },
+    {
+     "class": "org.apache.kafka.storage.internals.log.SnapshotFile",
+     "events": 467,
+     "patterns": 1
+    },
+    {
+     "class": "org.apache.kafka.image.publisher.SnapshotGenerator",
+     "events": 369,
+     "patterns": 1
+    },
+    {
+     "class": "org.apache.kafka.image.publisher.SnapshotEmitter",
+     "events": 369,
+     "patterns": 1
+    },
+    {
+     "class": "kafka.raft.KafkaMetadataLog",
+     "events": 363,
+     "patterns": 1
+    },
+    {
+     "class": "org.apache.kafka.snapshot.Snapshots",
+     "events": 360,
+     "patterns": 1
+    },
+    {
+     "class": "kafka.log.LocalLog$",
+     "events": 360,
+     "patterns": 1
+    },
+    {
+     "class": "kafka.coordinator.group.GroupMetadataManager",
+     "events": 200,
+     "patterns": 4
+    },
+    {
+     "class": "kafka.coordinator.group.GroupCoordinator",
+     "events": 114,
+     "patterns": 16
+    },
+    {
+     "class": "kafka.cluster.Partition",
+     "events": 102,
+     "patterns": 4
+    },
+    {
+     "class": "kafka.log.LogManager",
+     "events": 59,
+     "patterns": 10
+    }
+   ]
+  }
+ },
+ "targets": {
+  "30": {
+   "plan_a": {
+    "target_pct": 30,
+    "achieved_pct": 85.5,
+    "met": true,
+    "ceiling_pct": 88.5,
+    "patterns_planned": 13,
+    "events_sampled": 11089
+   },
+   "plan_b": {
+    "target_pct": 30,
+    "achieved_pct": 67.8,
+    "met": true,
+    "ceiling_pct": 77.6,
+    "patterns_planned": 13,
+    "events_sampled": 6225
+   },
+   "policy_a": {
+    "tool_cap_bytes_per_window": 4593,
+    "cap_bytes_replay": 68895,
+    "action": "tier_down",
+    "tool_span_seconds": 3600,
+    "replay_factor": 15.0
+   },
+   "policy_a_on_b": {
+    "tool_cap_bytes_per_window": 4593,
+    "cap_bytes_replay": 13779,
+    "action": "tier_down",
+    "tool_span_seconds": 3600,
+    "replay_factor": 3.0
+   },
+   "policy_b": {
+    "tool_cap_bytes_per_window": 3729,
+    "cap_bytes_replay": 55935,
+    "action": "tier_down",
+    "tool_span_seconds": 3600,
+    "replay_factor": 15.0
+   },
+   "a": {
+    "plan": {
+     "rules": [
+      "one cap row: kafka,4593"
+     ],
+     "events": 23905,
+     "bytes": 25766529,
+     "share_of_events": 0.8231,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 23905
+     },
+     "over_the_plan": 0
+    },
+    "classes": {
+     "rules": [
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.LogSegment",
+      "service:kafka @logger.name:kafka.log.UnifiedLog",
+      "service:kafka @logger.name:kafka.log.LocalLog",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.ProducerStateManager",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.SnapshotFile",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotEmitter",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotGenerator",
+      "service:kafka @logger.name:kafka.raft.KafkaMetadataLog"
+     ],
+     "classes": [
+      "org.apache.kafka.storage.internals.log.LogSegment",
+      "kafka.log.UnifiedLog",
+      "kafka.log.LocalLog",
+      "org.apache.kafka.storage.internals.log.ProducerStateManager",
+      "org.apache.kafka.storage.internals.log.SnapshotFile",
+      "org.apache.kafka.image.publisher.SnapshotEmitter",
+      "org.apache.kafka.image.publisher.SnapshotGenerator",
+      "kafka.raft.KafkaMetadataLog"
+     ],
+     "events": 24440,
+     "bytes": 26453701,
+     "share_of_events": 0.8415,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 24440
+     },
+     "over_the_plan": 535,
+     "kept_under_cap_events": 0,
+     "kept_under_cap_patterns": [],
+     "plan_moved_left_events": 3056,
+     "plan_moved_left_patterns": [
+      {
+       "pattern": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_kafka_LocalLog",
+       "hash": "TxSKKm13VKE",
+       "class": "kafka.log.LocalLog$",
+       "events": 1577
+      },
+      {
+       "pattern": "Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots",
+       "hash": "uZa7Kr7RvMY",
+       "class": "org.apache.kafka.snapshot.Snapshots",
+       "events": 1479
+      }
+     ]
+    },
+    "classes_status": {
+     "rules": [
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.LogSegment -status:(error OR warn)",
+      "service:kafka @logger.name:kafka.log.UnifiedLog -status:(error OR warn)",
+      "service:kafka @logger.name:kafka.log.LocalLog -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.ProducerStateManager -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.SnapshotFile -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotEmitter -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotGenerator -status:(error OR warn)",
+      "service:kafka @logger.name:kafka.raft.KafkaMetadataLog -status:(error OR warn)"
+     ],
+     "classes": [
+      "org.apache.kafka.storage.internals.log.LogSegment",
+      "kafka.log.UnifiedLog",
+      "kafka.log.LocalLog",
+      "org.apache.kafka.storage.internals.log.ProducerStateManager",
+      "org.apache.kafka.storage.internals.log.SnapshotFile",
+      "org.apache.kafka.image.publisher.SnapshotEmitter",
+      "org.apache.kafka.image.publisher.SnapshotGenerator",
+      "kafka.raft.KafkaMetadataLog"
+     ],
+     "events": 24440,
+     "bytes": 26453701,
+     "share_of_events": 0.8415,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 24440
+     },
+     "over_the_plan": 535,
+     "kept_under_cap_events": 0,
+     "kept_under_cap_patterns": [],
+     "plan_moved_left_events": 3056,
+     "plan_moved_left_patterns": [
+      {
+       "pattern": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_kafka_LocalLog",
+       "hash": "TxSKKm13VKE",
+       "class": "kafka.log.LocalLog$",
+       "events": 1577
+      },
+      {
+       "pattern": "Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots",
+       "hash": "uZa7Kr7RvMY",
+       "class": "org.apache.kafka.snapshot.Snapshots",
+       "events": 1479
+      }
+     ]
+    }
+   },
+   "b": {
+    "plan_b": {
+     "rules": [
+      "one cap row: kafka,3729"
+     ],
+     "events": 3289,
+     "bytes": 3465867,
+     "share_of_events": 0.5283,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 3289
+     },
+     "over_the_plan": 0,
+     "lifecycle_moved": 0
+    },
+    "cap_a": {
+     "rules": [
+      "the same cap row, carried to B's span"
+     ],
+     "events": 3505,
+     "bytes": 3695818,
+     "share_of_events": 0.563,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 3505
+     },
+     "over_the_plan": 216,
+     "kept_under_cap_events": 212,
+     "kept_under_cap_patterns": [
+      {
+       "pattern": "Finished_unloading_consumer_for_coordinator_epoch_OptionalInt_Removed_cached_offsets_groups_kafka_group_GroupMetadataManager",
+       "hash": "Jt3lg7lp6vQ",
+       "class": "kafka.coordinator.group.GroupMetadataManager",
+       "events": 37
+      },
+      {
+       "pattern": "Scheduling_unloading_of_offsets_and_group_metadata_from_consumer_kafka_coordinator_GroupMetadataManager",
+       "hash": "4yD45Zig_hI",
+       "class": "kafka.coordinator.group.GroupMetadataManager",
+       "events": 35
+      },
+      {
+       "pattern": "Resigned_as_the_group_coordinator_for_partition_in_epoch_OptionalInt_kafka_GroupCoordinator",
+       "hash": "lPcwo-mPmxI",
+       "class": "kafka.coordinator.group.GroupCoordinator",
+       "events": 31
+      },
+      {
+       "pattern": "Loading_producer_state_till_offset_with_message_format_version_kafka_log_UnifiedLog",
+       "hash": "CLMPrg8RHnE",
+       "class": "kafka.log.UnifiedLog$",
+       "events": 21
+      },
+      {
+       "pattern": "Created_log_for_partition_consumer_in_tmp_kafka_logs_with_properties_LogManager",
+       "hash": "8WIj_NSG3DU",
+       "class": "kafka.log.LogManager",
+       "events": 20
+      },
+      {
+       "pattern": "Log_loaded_for_partition_consumer_with_initial_high_watermark_kafka_cluster_Partition",
+       "hash": "bJijN8Jaadg",
+       "class": "kafka.cluster.Partition",
+       "events": 18
+      },
+      {
+       "pattern": "No_checkpointed_highwatermark_is_found_for_partition_consumer_kafka_cluster_Partition",
+       "hash": "Fx_Pqd7HRiM",
+       "class": "kafka.cluster.Partition",
+       "events": 18
+      },
+      {
+       "pattern": "loading_offsets_consumer_epoch_which_milliseconds_was_spent_in_the_scheduler_kafka_coordinator_group_GroupMetadataManager_Finished",
+       "hash": "f3UX5ZweKSU",
+       "class": "kafka.coordinator.group.GroupMetadataManager",
+       "events": 12
+      },
+      {
+       "pattern": "Scheduling_loading_of_offsets_and_group_metadata_from_consumer_for_epoch_kafka_coordinator_GroupMetadataManager",
+       "hash": "WQhY8qgdXFs",
+       "class": "kafka.coordinator.group.GroupMetadataManager",
+       "events": 11
+      },
+      {
+       "pattern": "Elected_as_the_group_coordinator_for_partition_in_epoch_kafka_GroupCoordinator",
+       "hash": "f6kvKBhYbio",
+       "class": "kafka.coordinator.group.GroupCoordinator",
+       "events": 9
+      }
+     ],
+     "plan_moved_left_events": 34,
+     "plan_moved_left_patterns": [
+      {
+       "pattern": "Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+       "hash": "WlIY0QjIiEg",
+       "class": "org.apache.kafka.storage.internals.log.LogSegment",
+       "events": 13
+      },
+      {
+       "pattern": "Successfully_wrote_snapshot_org_apache_kafka_image_publisher_SnapshotEmitter",
+       "hash": "TM6TaR-b4oE",
+       "class": "org.apache.kafka.image.publisher.SnapshotEmitter",
+       "events": 7
+      },
+      {
+       "pattern": "Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+       "hash": "hl_fK-uzMu8",
+       "class": "org.apache.kafka.storage.internals.log.LogSegment",
+       "events": 5
+      },
+      {
+       "pattern": "Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile",
+       "hash": "AMFi23Ga9wY",
+       "class": "org.apache.kafka.storage.internals.log.SnapshotFile",
+       "events": 4
+      },
+      {
+       "pattern": "Creating_new_KRaft_snapshot_file_because_we_have_replayed_at_least_bytes_org_apache_kafka_image_publisher_SnapshotGenerator",
+       "hash": "YJTvxN0rObQ",
+       "class": "org.apache.kafka.image.publisher.SnapshotGenerator",
+       "events": 3
+      },
+      {
+       "pattern": "Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots",
+       "hash": "uZa7Kr7RvMY",
+       "class": "org.apache.kafka.snapshot.Snapshots",
+       "events": 2
+      }
+     ],
+     "lifecycle_moved": 103
+    },
+    "classes": {
+     "rules": [
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.LogSegment",
+      "service:kafka @logger.name:kafka.log.UnifiedLog",
+      "service:kafka @logger.name:kafka.log.LocalLog",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.ProducerStateManager",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.SnapshotFile",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotEmitter",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotGenerator",
+      "service:kafka @logger.name:kafka.raft.KafkaMetadataLog"
+     ],
+     "events": 4658,
+     "bytes": 4905326,
+     "share_of_events": 0.7482,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 4658
+     },
+     "over_the_plan": 1369,
+     "kept_under_cap_events": 0,
+     "kept_under_cap_patterns": [],
+     "plan_moved_left_events": 321,
+     "plan_moved_left_patterns": [
+      {
+       "pattern": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_kafka_LocalLog",
+       "hash": "TxSKKm13VKE",
+       "class": "kafka.log.LocalLog$",
+       "events": 194
+      },
+      {
+       "pattern": "Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots",
+       "hash": "uZa7Kr7RvMY",
+       "class": "org.apache.kafka.snapshot.Snapshots",
+       "events": 127
+      }
+     ],
+     "lifecycle_moved": 0,
+     "classes_matching_nothing": []
+    },
+    "classes_status": {
+     "rules": [
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.LogSegment -status:(error OR warn)",
+      "service:kafka @logger.name:kafka.log.UnifiedLog -status:(error OR warn)",
+      "service:kafka @logger.name:kafka.log.LocalLog -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.ProducerStateManager -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.SnapshotFile -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotEmitter -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotGenerator -status:(error OR warn)",
+      "service:kafka @logger.name:kafka.raft.KafkaMetadataLog -status:(error OR warn)"
+     ],
+     "events": 4658,
+     "bytes": 4905326,
+     "share_of_events": 0.7482,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 4658
+     },
+     "over_the_plan": 1369,
+     "kept_under_cap_events": 0,
+     "kept_under_cap_patterns": [],
+     "plan_moved_left_events": 321,
+     "plan_moved_left_patterns": [
+      {
+       "pattern": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_kafka_LocalLog",
+       "hash": "TxSKKm13VKE",
+       "class": "kafka.log.LocalLog$",
+       "events": 194
+      },
+      {
+       "pattern": "Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots",
+       "hash": "uZa7Kr7RvMY",
+       "class": "org.apache.kafka.snapshot.Snapshots",
+       "events": 127
+      }
+     ],
+     "lifecycle_moved": 0,
+     "classes_matching_nothing": []
+    }
+   },
+   "totals": {
+    "a_events": 29043,
+    "b_events": 6226,
+    "plan_a_events": 23905,
+    "plan_b_events": 3289,
+    "lifecycle": {
+     "events": 317,
+     "patterns": 94,
+     "by_class": [
+      {
+       "class": "kafka.coordinator.group.GroupMetadataManager",
+       "events": 100
+      },
+      {
+       "class": "kafka.coordinator.group.GroupCoordinator",
+       "events": 54
+      },
+      {
+       "class": "kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper",
+       "events": 27
+      },
+      {
+       "class": "kafka.server.ClientQuotaManager$ThrottledChannelReaper",
+       "events": 24
+      },
+      {
+       "class": "kafka.server.NodeToControllerRequestThread",
+       "events": 16
+      },
+      {
+       "class": "org.apache.kafka.queue.KafkaEventQueue",
+       "events": 14
+      },
+      {
+       "class": "kafka.network.SocketServer",
+       "events": 8
+      },
+      {
+       "class": "kafka.server.NodeToControllerChannelManagerImpl",
+       "events": 6
+      },
+      {
+       "class": "kafka.server.BrokerLifecycleManager",
+       "events": 4
+      },
+      {
+       "class": "org.apache.kafka.raft.KafkaRaftClientDriver",
+       "events": 4
+      },
+      {
+       "class": "kafka.server.BrokerServer",
+       "events": 4
+      },
+      {
+       "class": "kafka.server.KafkaRequestHandlerPool",
+       "events": 4
+      },
+      {
+       "class": "org.apache.kafka.common.metrics.Metrics",
+       "events": 3
+      },
+      {
+       "class": "kafka.server.ReplicaAlterLogDirsManager",
+       "events": 3
+      },
+      {
+       "class": "kafka.server.ReplicaFetcherManager",
+       "events": 3
+      },
+      {
+       "class": "kafka.coordinator.transaction.TransactionMarkerChannelManager",
+       "events": 3
+      },
+      {
+       "class": "kafka.log.LogCleaner$CleanerThread",
+       "events": 3
+      },
+      {
+       "class": "kafka.raft.TimingWheelExpirationService$ExpiredOperationReaper",
+       "events": 3
+      },
+      {
+       "class": "kafka.server.AddPartitionsToTxnManager",
+       "events": 3
+      },
+      {
+       "class": "kafka.server.ReplicaManager$LogDirFailureHandler",
+       "events": 3
+      },
+      {
+       "class": "org.apache.kafka.raft.KafkaNetworkChannel$SendThread",
+       "events": 3
+      },
+      {
+       "class": "org.apache.kafka.server.util.timer.SystemTimerReaper$Reaper",
+       "events": 3
+      },
+      {
+       "class": "",
+       "events": 2
+      },
+      {
+       "class": "org.apache.kafka.common.utils.AppInfoParser",
+       "events": 2
+      },
+      {
+       "class": "org.apache.kafka.raft.KafkaRaftClient",
+       "events": 2
+      },
+      {
+       "class": "kafka.server.ReplicaManager",
+       "events": 2
+      },
+      {
+       "class": "kafka.coordinator.transaction.TransactionCoordinator",
+       "events": 2
+      },
+      {
+       "class": "kafka.log.LogManager",
+       "events": 2
+      },
+      {
+       "class": "kafka.server.BrokerTopicStats",
+       "events": 1
+      },
+      {
+       "class": "kafka.coordinator.transaction.TransactionStateManager",
+       "events": 1
+      },
+      {
+       "class": "kafka.server.KafkaApis",
+       "events": 1
+      },
+      {
+       "class": "kafka.server.SharedServer",
+       "events": 1
+      },
+      {
+       "class": "org.apache.kafka.common.utils.LoggingSignalHandler",
+       "events": 1
+      },
+      {
+       "class": "kafka.server.ControllerRegistrationManager",
+       "events": 1
+      },
+      {
+       "class": "kafka.server.ControllerServer",
+       "events": 1
+      },
+      {
+       "class": "org.apache.kafka.server.AssignmentsManager",
+       "events": 1
+      },
+      {
+       "class": "kafka.server.KafkaConfig",
+       "events": 1
+      },
+      {
+       "class": "org.apache.kafka.clients.NetworkClient",
+       "events": 1
+      }
+     ]
+    }
+   }
+  },
+  "50": {
+   "plan_a": {
+    "target_pct": 50,
+    "achieved_pct": 85.5,
+    "met": true,
+    "ceiling_pct": 88.5,
+    "patterns_planned": 13,
+    "events_sampled": 11089
+   },
+   "plan_b": {
+    "target_pct": 50,
+    "achieved_pct": 67.8,
+    "met": true,
+    "ceiling_pct": 77.6,
+    "patterns_planned": 13,
+    "events_sampled": 6225
+   },
+   "policy_a": {
+    "tool_cap_bytes_per_window": 4593,
+    "cap_bytes_replay": 68895,
+    "action": "tier_down",
+    "tool_span_seconds": 3600,
+    "replay_factor": 15.0
+   },
+   "policy_a_on_b": {
+    "tool_cap_bytes_per_window": 4593,
+    "cap_bytes_replay": 13779,
+    "action": "tier_down",
+    "tool_span_seconds": 3600,
+    "replay_factor": 3.0
+   },
+   "policy_b": {
+    "tool_cap_bytes_per_window": 3729,
+    "cap_bytes_replay": 55935,
+    "action": "tier_down",
+    "tool_span_seconds": 3600,
+    "replay_factor": 15.0
+   },
+   "a": {
+    "plan": {
+     "rules": [
+      "one cap row: kafka,4593"
+     ],
+     "events": 23836,
+     "bytes": 25710196,
+     "share_of_events": 0.8207,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 23836
+     },
+     "over_the_plan": 0
+    },
+    "classes": {
+     "rules": [
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.LogSegment",
+      "service:kafka @logger.name:kafka.log.UnifiedLog",
+      "service:kafka @logger.name:kafka.log.LocalLog",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.ProducerStateManager",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.SnapshotFile",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotEmitter",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotGenerator",
+      "service:kafka @logger.name:kafka.raft.KafkaMetadataLog"
+     ],
+     "classes": [
+      "org.apache.kafka.storage.internals.log.LogSegment",
+      "kafka.log.UnifiedLog",
+      "kafka.log.LocalLog",
+      "org.apache.kafka.storage.internals.log.ProducerStateManager",
+      "org.apache.kafka.storage.internals.log.SnapshotFile",
+      "org.apache.kafka.image.publisher.SnapshotEmitter",
+      "org.apache.kafka.image.publisher.SnapshotGenerator",
+      "kafka.raft.KafkaMetadataLog"
+     ],
+     "events": 24440,
+     "bytes": 26453701,
+     "share_of_events": 0.8415,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 24440
+     },
+     "over_the_plan": 604,
+     "kept_under_cap_events": 0,
+     "kept_under_cap_patterns": [],
+     "plan_moved_left_events": 3077,
+     "plan_moved_left_patterns": [
+      {
+       "pattern": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_kafka_LocalLog",
+       "hash": "TxSKKm13VKE",
+       "class": "kafka.log.LocalLog$",
+       "events": 1615
+      },
+      {
+       "pattern": "Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots",
+       "hash": "uZa7Kr7RvMY",
+       "class": "org.apache.kafka.snapshot.Snapshots",
+       "events": 1462
+      }
+     ]
+    },
+    "classes_status": {
+     "rules": [
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.LogSegment -status:(error OR warn)",
+      "service:kafka @logger.name:kafka.log.UnifiedLog -status:(error OR warn)",
+      "service:kafka @logger.name:kafka.log.LocalLog -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.ProducerStateManager -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.SnapshotFile -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotEmitter -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotGenerator -status:(error OR warn)",
+      "service:kafka @logger.name:kafka.raft.KafkaMetadataLog -status:(error OR warn)"
+     ],
+     "classes": [
+      "org.apache.kafka.storage.internals.log.LogSegment",
+      "kafka.log.UnifiedLog",
+      "kafka.log.LocalLog",
+      "org.apache.kafka.storage.internals.log.ProducerStateManager",
+      "org.apache.kafka.storage.internals.log.SnapshotFile",
+      "org.apache.kafka.image.publisher.SnapshotEmitter",
+      "org.apache.kafka.image.publisher.SnapshotGenerator",
+      "kafka.raft.KafkaMetadataLog"
+     ],
+     "events": 24440,
+     "bytes": 26453701,
+     "share_of_events": 0.8415,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 24440
+     },
+     "over_the_plan": 604,
+     "kept_under_cap_events": 0,
+     "kept_under_cap_patterns": [],
+     "plan_moved_left_events": 3077,
+     "plan_moved_left_patterns": [
+      {
+       "pattern": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_kafka_LocalLog",
+       "hash": "TxSKKm13VKE",
+       "class": "kafka.log.LocalLog$",
+       "events": 1615
+      },
+      {
+       "pattern": "Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots",
+       "hash": "uZa7Kr7RvMY",
+       "class": "org.apache.kafka.snapshot.Snapshots",
+       "events": 1462
+      }
+     ]
+    }
+   },
+   "b": {
+    "plan_b": {
+     "rules": [
+      "one cap row: kafka,3729"
+     ],
+     "events": 3303,
+     "bytes": 3481278,
+     "share_of_events": 0.5305,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 3303
+     },
+     "over_the_plan": 0,
+     "lifecycle_moved": 0
+    },
+    "cap_a": {
+     "rules": [
+      "the same cap row, carried to B's span"
+     ],
+     "events": 3531,
+     "bytes": 3720273,
+     "share_of_events": 0.5671,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 3531
+     },
+     "over_the_plan": 228,
+     "kept_under_cap_events": 213,
+     "kept_under_cap_patterns": [
+      {
+       "pattern": "Resigned_as_the_group_coordinator_for_partition_in_epoch_OptionalInt_kafka_GroupCoordinator",
+       "hash": "lPcwo-mPmxI",
+       "class": "kafka.coordinator.group.GroupCoordinator",
+       "events": 36
+      },
+      {
+       "pattern": "Scheduling_unloading_of_offsets_and_group_metadata_from_consumer_kafka_coordinator_GroupMetadataManager",
+       "hash": "4yD45Zig_hI",
+       "class": "kafka.coordinator.group.GroupMetadataManager",
+       "events": 33
+      },
+      {
+       "pattern": "Finished_unloading_consumer_for_coordinator_epoch_OptionalInt_Removed_cached_offsets_groups_kafka_group_GroupMetadataManager",
+       "hash": "Jt3lg7lp6vQ",
+       "class": "kafka.coordinator.group.GroupMetadataManager",
+       "events": 32
+      },
+      {
+       "pattern": "Created_log_for_partition_consumer_in_tmp_kafka_logs_with_properties_LogManager",
+       "hash": "8WIj_NSG3DU",
+       "class": "kafka.log.LogManager",
+       "events": 20
+      },
+      {
+       "pattern": "Loading_producer_state_till_offset_with_message_format_version_kafka_log_UnifiedLog",
+       "hash": "CLMPrg8RHnE",
+       "class": "kafka.log.UnifiedLog$",
+       "events": 19
+      },
+      {
+       "pattern": "No_checkpointed_highwatermark_is_found_for_partition_consumer_kafka_cluster_Partition",
+       "hash": "Fx_Pqd7HRiM",
+       "class": "kafka.cluster.Partition",
+       "events": 19
+      },
+      {
+       "pattern": "Log_loaded_for_partition_consumer_with_initial_high_watermark_kafka_cluster_Partition",
+       "hash": "bJijN8Jaadg",
+       "class": "kafka.cluster.Partition",
+       "events": 18
+      },
+      {
+       "pattern": "Elected_as_the_group_coordinator_for_partition_in_epoch_kafka_GroupCoordinator",
+       "hash": "f6kvKBhYbio",
+       "class": "kafka.coordinator.group.GroupCoordinator",
+       "events": 12
+      },
+      {
+       "pattern": "Scheduling_loading_of_offsets_and_group_metadata_from_consumer_for_epoch_kafka_coordinator_GroupMetadataManager",
+       "hash": "WQhY8qgdXFs",
+       "class": "kafka.coordinator.group.GroupMetadataManager",
+       "events": 12
+      },
+      {
+       "pattern": "loading_offsets_consumer_epoch_which_milliseconds_was_spent_in_the_scheduler_kafka_coordinator_group_GroupMetadataManager_Finished",
+       "hash": "f3UX5ZweKSU",
+       "class": "kafka.coordinator.group.GroupMetadataManager",
+       "events": 12
+      }
+     ],
+     "plan_moved_left_events": 26,
+     "plan_moved_left_patterns": [
+      {
+       "pattern": "Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile",
+       "hash": "AMFi23Ga9wY",
+       "class": "org.apache.kafka.storage.internals.log.SnapshotFile",
+       "events": 13
+      },
+      {
+       "pattern": "Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager",
+       "hash": "VnqlcNA_PIM",
+       "class": "org.apache.kafka.storage.internals.log.ProducerStateManager",
+       "events": 11
+      },
+      {
+       "pattern": "Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_kafka_UnifiedLog",
+       "hash": "O4QwlwcKPUE",
+       "class": "kafka.log.UnifiedLog",
+       "events": 2
+      }
+     ],
+     "lifecycle_moved": 101
+    },
+    "classes": {
+     "rules": [
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.LogSegment",
+      "service:kafka @logger.name:kafka.log.UnifiedLog",
+      "service:kafka @logger.name:kafka.log.LocalLog",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.ProducerStateManager",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.SnapshotFile",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotEmitter",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotGenerator",
+      "service:kafka @logger.name:kafka.raft.KafkaMetadataLog"
+     ],
+     "events": 4658,
+     "bytes": 4905326,
+     "share_of_events": 0.7482,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 4658
+     },
+     "over_the_plan": 1355,
+     "kept_under_cap_events": 0,
+     "kept_under_cap_patterns": [],
+     "plan_moved_left_events": 324,
+     "plan_moved_left_patterns": [
+      {
+       "pattern": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_kafka_LocalLog",
+       "hash": "TxSKKm13VKE",
+       "class": "kafka.log.LocalLog$",
+       "events": 199
+      },
+      {
+       "pattern": "Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots",
+       "hash": "uZa7Kr7RvMY",
+       "class": "org.apache.kafka.snapshot.Snapshots",
+       "events": 125
+      }
+     ],
+     "lifecycle_moved": 0,
+     "classes_matching_nothing": []
+    },
+    "classes_status": {
+     "rules": [
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.LogSegment -status:(error OR warn)",
+      "service:kafka @logger.name:kafka.log.UnifiedLog -status:(error OR warn)",
+      "service:kafka @logger.name:kafka.log.LocalLog -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.ProducerStateManager -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.SnapshotFile -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotEmitter -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotGenerator -status:(error OR warn)",
+      "service:kafka @logger.name:kafka.raft.KafkaMetadataLog -status:(error OR warn)"
+     ],
+     "events": 4658,
+     "bytes": 4905326,
+     "share_of_events": 0.7482,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 4658
+     },
+     "over_the_plan": 1355,
+     "kept_under_cap_events": 0,
+     "kept_under_cap_patterns": [],
+     "plan_moved_left_events": 324,
+     "plan_moved_left_patterns": [
+      {
+       "pattern": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_kafka_LocalLog",
+       "hash": "TxSKKm13VKE",
+       "class": "kafka.log.LocalLog$",
+       "events": 199
+      },
+      {
+       "pattern": "Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots",
+       "hash": "uZa7Kr7RvMY",
+       "class": "org.apache.kafka.snapshot.Snapshots",
+       "events": 125
+      }
+     ],
+     "lifecycle_moved": 0,
+     "classes_matching_nothing": []
+    }
+   },
+   "totals": {
+    "a_events": 29043,
+    "b_events": 6226,
+    "plan_a_events": 23836,
+    "plan_b_events": 3303,
+    "lifecycle": {
+     "events": 317,
+     "patterns": 94,
+     "by_class": [
+      {
+       "class": "kafka.coordinator.group.GroupMetadataManager",
+       "events": 100
+      },
+      {
+       "class": "kafka.coordinator.group.GroupCoordinator",
+       "events": 54
+      },
+      {
+       "class": "kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper",
+       "events": 27
+      },
+      {
+       "class": "kafka.server.ClientQuotaManager$ThrottledChannelReaper",
+       "events": 24
+      },
+      {
+       "class": "kafka.server.NodeToControllerRequestThread",
+       "events": 16
+      },
+      {
+       "class": "org.apache.kafka.queue.KafkaEventQueue",
+       "events": 14
+      },
+      {
+       "class": "kafka.network.SocketServer",
+       "events": 8
+      },
+      {
+       "class": "kafka.server.NodeToControllerChannelManagerImpl",
+       "events": 6
+      },
+      {
+       "class": "kafka.server.BrokerLifecycleManager",
+       "events": 4
+      },
+      {
+       "class": "org.apache.kafka.raft.KafkaRaftClientDriver",
+       "events": 4
+      },
+      {
+       "class": "kafka.server.BrokerServer",
+       "events": 4
+      },
+      {
+       "class": "kafka.server.KafkaRequestHandlerPool",
+       "events": 4
+      },
+      {
+       "class": "org.apache.kafka.common.metrics.Metrics",
+       "events": 3
+      },
+      {
+       "class": "kafka.server.ReplicaAlterLogDirsManager",
+       "events": 3
+      },
+      {
+       "class": "kafka.server.ReplicaFetcherManager",
+       "events": 3
+      },
+      {
+       "class": "kafka.coordinator.transaction.TransactionMarkerChannelManager",
+       "events": 3
+      },
+      {
+       "class": "kafka.log.LogCleaner$CleanerThread",
+       "events": 3
+      },
+      {
+       "class": "kafka.raft.TimingWheelExpirationService$ExpiredOperationReaper",
+       "events": 3
+      },
+      {
+       "class": "kafka.server.AddPartitionsToTxnManager",
+       "events": 3
+      },
+      {
+       "class": "kafka.server.ReplicaManager$LogDirFailureHandler",
+       "events": 3
+      },
+      {
+       "class": "org.apache.kafka.raft.KafkaNetworkChannel$SendThread",
+       "events": 3
+      },
+      {
+       "class": "org.apache.kafka.server.util.timer.SystemTimerReaper$Reaper",
+       "events": 3
+      },
+      {
+       "class": "",
+       "events": 2
+      },
+      {
+       "class": "org.apache.kafka.common.utils.AppInfoParser",
+       "events": 2
+      },
+      {
+       "class": "org.apache.kafka.raft.KafkaRaftClient",
+       "events": 2
+      },
+      {
+       "class": "kafka.server.ReplicaManager",
+       "events": 2
+      },
+      {
+       "class": "kafka.coordinator.transaction.TransactionCoordinator",
+       "events": 2
+      },
+      {
+       "class": "kafka.log.LogManager",
+       "events": 2
+      },
+      {
+       "class": "kafka.server.BrokerTopicStats",
+       "events": 1
+      },
+      {
+       "class": "kafka.coordinator.transaction.TransactionStateManager",
+       "events": 1
+      },
+      {
+       "class": "kafka.server.KafkaApis",
+       "events": 1
+      },
+      {
+       "class": "kafka.server.SharedServer",
+       "events": 1
+      },
+      {
+       "class": "org.apache.kafka.common.utils.LoggingSignalHandler",
+       "events": 1
+      },
+      {
+       "class": "kafka.server.ControllerRegistrationManager",
+       "events": 1
+      },
+      {
+       "class": "kafka.server.ControllerServer",
+       "events": 1
+      },
+      {
+       "class": "org.apache.kafka.server.AssignmentsManager",
+       "events": 1
+      },
+      {
+       "class": "kafka.server.KafkaConfig",
+       "events": 1
+      },
+      {
+       "class": "org.apache.kafka.clients.NetworkClient",
+       "events": 1
+      }
+     ]
+    }
+   }
+  },
+  "70": {
+   "plan_a": {
+    "target_pct": 70,
+    "achieved_pct": 85.5,
+    "met": true,
+    "ceiling_pct": 88.5,
+    "patterns_planned": 13,
+    "events_sampled": 11089
+   },
+   "plan_b": {
+    "target_pct": 70,
+    "achieved_pct": 75.1,
+    "met": true,
+    "ceiling_pct": 77.6,
+    "patterns_planned": 13,
+    "events_sampled": 6225
+   },
+   "policy_a": {
+    "tool_cap_bytes_per_window": 4593,
+    "cap_bytes_replay": 68895,
+    "action": "tier_down",
+    "tool_span_seconds": 3600,
+    "replay_factor": 15.0
+   },
+   "policy_a_on_b": {
+    "tool_cap_bytes_per_window": 4593,
+    "cap_bytes_replay": 13779,
+    "action": "tier_down",
+    "tool_span_seconds": 3600,
+    "replay_factor": 3.0
+   },
+   "policy_b": {
+    "tool_cap_bytes_per_window": 3729,
+    "cap_bytes_replay": 55935,
+    "action": "tier_down",
+    "tool_span_seconds": 3600,
+    "replay_factor": 15.0
+   },
+   "a": {
+    "plan": {
+     "rules": [
+      "one cap row: kafka,4593"
+     ],
+     "events": 23854,
+     "bytes": 25694183,
+     "share_of_events": 0.8213,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 23854
+     },
+     "over_the_plan": 0
+    },
+    "classes": {
+     "rules": [
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.LogSegment",
+      "service:kafka @logger.name:kafka.log.UnifiedLog",
+      "service:kafka @logger.name:kafka.log.LocalLog",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.ProducerStateManager",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.SnapshotFile",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotEmitter",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotGenerator",
+      "service:kafka @logger.name:kafka.raft.KafkaMetadataLog"
+     ],
+     "classes": [
+      "org.apache.kafka.storage.internals.log.LogSegment",
+      "kafka.log.UnifiedLog",
+      "kafka.log.LocalLog",
+      "org.apache.kafka.storage.internals.log.ProducerStateManager",
+      "org.apache.kafka.storage.internals.log.SnapshotFile",
+      "org.apache.kafka.image.publisher.SnapshotEmitter",
+      "org.apache.kafka.image.publisher.SnapshotGenerator",
+      "kafka.raft.KafkaMetadataLog"
+     ],
+     "events": 24440,
+     "bytes": 26453701,
+     "share_of_events": 0.8415,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 24440
+     },
+     "over_the_plan": 586,
+     "kept_under_cap_events": 0,
+     "kept_under_cap_patterns": [],
+     "plan_moved_left_events": 3046,
+     "plan_moved_left_patterns": [
+      {
+       "pattern": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_kafka_LocalLog",
+       "hash": "TxSKKm13VKE",
+       "class": "kafka.log.LocalLog$",
+       "events": 1583
+      },
+      {
+       "pattern": "Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots",
+       "hash": "uZa7Kr7RvMY",
+       "class": "org.apache.kafka.snapshot.Snapshots",
+       "events": 1463
+      }
+     ]
+    },
+    "classes_status": {
+     "rules": [
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.LogSegment -status:(error OR warn)",
+      "service:kafka @logger.name:kafka.log.UnifiedLog -status:(error OR warn)",
+      "service:kafka @logger.name:kafka.log.LocalLog -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.ProducerStateManager -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.SnapshotFile -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotEmitter -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotGenerator -status:(error OR warn)",
+      "service:kafka @logger.name:kafka.raft.KafkaMetadataLog -status:(error OR warn)"
+     ],
+     "classes": [
+      "org.apache.kafka.storage.internals.log.LogSegment",
+      "kafka.log.UnifiedLog",
+      "kafka.log.LocalLog",
+      "org.apache.kafka.storage.internals.log.ProducerStateManager",
+      "org.apache.kafka.storage.internals.log.SnapshotFile",
+      "org.apache.kafka.image.publisher.SnapshotEmitter",
+      "org.apache.kafka.image.publisher.SnapshotGenerator",
+      "kafka.raft.KafkaMetadataLog"
+     ],
+     "events": 24440,
+     "bytes": 26453701,
+     "share_of_events": 0.8415,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 24440
+     },
+     "over_the_plan": 586,
+     "kept_under_cap_events": 0,
+     "kept_under_cap_patterns": [],
+     "plan_moved_left_events": 3046,
+     "plan_moved_left_patterns": [
+      {
+       "pattern": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_kafka_LocalLog",
+       "hash": "TxSKKm13VKE",
+       "class": "kafka.log.LocalLog$",
+       "events": 1583
+      },
+      {
+       "pattern": "Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots",
+       "hash": "uZa7Kr7RvMY",
+       "class": "org.apache.kafka.snapshot.Snapshots",
+       "events": 1463
+      }
+     ]
+    }
+   },
+   "b": {
+    "plan_b": {
+     "rules": [
+      "one cap row: kafka,3729"
+     ],
+     "events": 3321,
+     "bytes": 3501707,
+     "share_of_events": 0.5334,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 3321
+     },
+     "over_the_plan": 0,
+     "lifecycle_moved": 0
+    },
+    "cap_a": {
+     "rules": [
+      "the same cap row, carried to B's span"
+     ],
+     "events": 3493,
+     "bytes": 3680797,
+     "share_of_events": 0.561,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 3493
+     },
+     "over_the_plan": 172,
+     "kept_under_cap_events": 205,
+     "kept_under_cap_patterns": [
+      {
+       "pattern": "Finished_unloading_consumer_for_coordinator_epoch_OptionalInt_Removed_cached_offsets_groups_kafka_group_GroupMetadataManager",
+       "hash": "Jt3lg7lp6vQ",
+       "class": "kafka.coordinator.group.GroupMetadataManager",
+       "events": 33
+      },
+      {
+       "pattern": "Resigned_as_the_group_coordinator_for_partition_in_epoch_OptionalInt_kafka_GroupCoordinator",
+       "hash": "lPcwo-mPmxI",
+       "class": "kafka.coordinator.group.GroupCoordinator",
+       "events": 31
+      },
+      {
+       "pattern": "Scheduling_unloading_of_offsets_and_group_metadata_from_consumer_kafka_coordinator_GroupMetadataManager",
+       "hash": "4yD45Zig_hI",
+       "class": "kafka.coordinator.group.GroupMetadataManager",
+       "events": 31
+      },
+      {
+       "pattern": "Created_log_for_partition_consumer_in_tmp_kafka_logs_with_properties_LogManager",
+       "hash": "8WIj_NSG3DU",
+       "class": "kafka.log.LogManager",
+       "events": 22
+      },
+      {
+       "pattern": "Loading_producer_state_till_offset_with_message_format_version_kafka_log_UnifiedLog",
+       "hash": "CLMPrg8RHnE",
+       "class": "kafka.log.UnifiedLog$",
+       "events": 21
+      },
+      {
+       "pattern": "Log_loaded_for_partition_consumer_with_initial_high_watermark_kafka_cluster_Partition",
+       "hash": "bJijN8Jaadg",
+       "class": "kafka.cluster.Partition",
+       "events": 19
+      },
+      {
+       "pattern": "No_checkpointed_highwatermark_is_found_for_partition_consumer_kafka_cluster_Partition",
+       "hash": "Fx_Pqd7HRiM",
+       "class": "kafka.cluster.Partition",
+       "events": 17
+      },
+      {
+       "pattern": "Scheduling_loading_of_offsets_and_group_metadata_from_consumer_for_epoch_kafka_coordinator_GroupMetadataManager",
+       "hash": "WQhY8qgdXFs",
+       "class": "kafka.coordinator.group.GroupMetadataManager",
+       "events": 11
+      },
+      {
+       "pattern": "Elected_as_the_group_coordinator_for_partition_in_epoch_kafka_GroupCoordinator",
+       "hash": "f6kvKBhYbio",
+       "class": "kafka.coordinator.group.GroupCoordinator",
+       "events": 10
+      },
+      {
+       "pattern": "loading_offsets_consumer_epoch_which_milliseconds_was_spent_in_the_scheduler_kafka_coordinator_group_GroupMetadataManager_Finished",
+       "hash": "f3UX5ZweKSU",
+       "class": "kafka.coordinator.group.GroupMetadataManager",
+       "events": 10
+      }
+     ],
+     "plan_moved_left_events": 50,
+     "plan_moved_left_patterns": [
+      {
+       "pattern": "older_than_the",
+       "hash": "QTxV2J9g6c0",
+       "class": "kafka.raft.KafkaMetadataLog",
+       "events": 12
+      },
+      {
+       "pattern": "Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+       "hash": "hl_fK-uzMu8",
+       "class": "org.apache.kafka.storage.internals.log.LogSegment",
+       "events": 11
+      },
+      {
+       "pattern": "Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile",
+       "hash": "AMFi23Ga9wY",
+       "class": "org.apache.kafka.storage.internals.log.SnapshotFile",
+       "events": 9
+      },
+      {
+       "pattern": "Successfully_wrote_snapshot_org_apache_kafka_image_publisher_SnapshotEmitter",
+       "hash": "TM6TaR-b4oE",
+       "class": "org.apache.kafka.image.publisher.SnapshotEmitter",
+       "events": 6
+      },
+      {
+       "pattern": "Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_kafka_UnifiedLog",
+       "hash": "O4QwlwcKPUE",
+       "class": "kafka.log.UnifiedLog",
+       "events": 5
+      },
+      {
+       "pattern": "Rolled_new_log_segment_at_offset_in_ms_kafka_LocalLog",
+       "hash": "7CaEeIJhG-8",
+       "class": "kafka.log.LocalLog",
+       "events": 5
+      },
+      {
+       "pattern": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_kafka_LocalLog",
+       "hash": "TxSKKm13VKE",
+       "class": "kafka.log.LocalLog$",
+       "events": 2
+      }
+     ],
+     "lifecycle_moved": 95
+    },
+    "classes": {
+     "rules": [
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.LogSegment",
+      "service:kafka @logger.name:kafka.log.UnifiedLog",
+      "service:kafka @logger.name:kafka.log.LocalLog",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.ProducerStateManager",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.SnapshotFile",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotEmitter",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotGenerator",
+      "service:kafka @logger.name:kafka.raft.KafkaMetadataLog"
+     ],
+     "events": 4658,
+     "bytes": 4905326,
+     "share_of_events": 0.7482,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 4658
+     },
+     "over_the_plan": 1337,
+     "kept_under_cap_events": 0,
+     "kept_under_cap_patterns": [],
+     "plan_moved_left_events": 328,
+     "plan_moved_left_patterns": [
+      {
+       "pattern": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_kafka_LocalLog",
+       "hash": "TxSKKm13VKE",
+       "class": "kafka.log.LocalLog$",
+       "events": 203
+      },
+      {
+       "pattern": "Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots",
+       "hash": "uZa7Kr7RvMY",
+       "class": "org.apache.kafka.snapshot.Snapshots",
+       "events": 125
+      }
+     ],
+     "lifecycle_moved": 0,
+     "classes_matching_nothing": []
+    },
+    "classes_status": {
+     "rules": [
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.LogSegment -status:(error OR warn)",
+      "service:kafka @logger.name:kafka.log.UnifiedLog -status:(error OR warn)",
+      "service:kafka @logger.name:kafka.log.LocalLog -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.ProducerStateManager -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.SnapshotFile -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotEmitter -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotGenerator -status:(error OR warn)",
+      "service:kafka @logger.name:kafka.raft.KafkaMetadataLog -status:(error OR warn)"
+     ],
+     "events": 4658,
+     "bytes": 4905326,
+     "share_of_events": 0.7482,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 4658
+     },
+     "over_the_plan": 1337,
+     "kept_under_cap_events": 0,
+     "kept_under_cap_patterns": [],
+     "plan_moved_left_events": 328,
+     "plan_moved_left_patterns": [
+      {
+       "pattern": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_kafka_LocalLog",
+       "hash": "TxSKKm13VKE",
+       "class": "kafka.log.LocalLog$",
+       "events": 203
+      },
+      {
+       "pattern": "Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots",
+       "hash": "uZa7Kr7RvMY",
+       "class": "org.apache.kafka.snapshot.Snapshots",
+       "events": 125
+      }
+     ],
+     "lifecycle_moved": 0,
+     "classes_matching_nothing": []
+    }
+   },
+   "totals": {
+    "a_events": 29043,
+    "b_events": 6226,
+    "plan_a_events": 23854,
+    "plan_b_events": 3321,
+    "lifecycle": {
+     "events": 317,
+     "patterns": 94,
+     "by_class": [
+      {
+       "class": "kafka.coordinator.group.GroupMetadataManager",
+       "events": 100
+      },
+      {
+       "class": "kafka.coordinator.group.GroupCoordinator",
+       "events": 54
+      },
+      {
+       "class": "kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper",
+       "events": 27
+      },
+      {
+       "class": "kafka.server.ClientQuotaManager$ThrottledChannelReaper",
+       "events": 24
+      },
+      {
+       "class": "kafka.server.NodeToControllerRequestThread",
+       "events": 16
+      },
+      {
+       "class": "org.apache.kafka.queue.KafkaEventQueue",
+       "events": 14
+      },
+      {
+       "class": "kafka.network.SocketServer",
+       "events": 8
+      },
+      {
+       "class": "kafka.server.NodeToControllerChannelManagerImpl",
+       "events": 6
+      },
+      {
+       "class": "kafka.server.BrokerLifecycleManager",
+       "events": 4
+      },
+      {
+       "class": "org.apache.kafka.raft.KafkaRaftClientDriver",
+       "events": 4
+      },
+      {
+       "class": "kafka.server.BrokerServer",
+       "events": 4
+      },
+      {
+       "class": "kafka.server.KafkaRequestHandlerPool",
+       "events": 4
+      },
+      {
+       "class": "org.apache.kafka.common.metrics.Metrics",
+       "events": 3
+      },
+      {
+       "class": "kafka.server.ReplicaAlterLogDirsManager",
+       "events": 3
+      },
+      {
+       "class": "kafka.server.ReplicaFetcherManager",
+       "events": 3
+      },
+      {
+       "class": "kafka.coordinator.transaction.TransactionMarkerChannelManager",
+       "events": 3
+      },
+      {
+       "class": "kafka.log.LogCleaner$CleanerThread",
+       "events": 3
+      },
+      {
+       "class": "kafka.raft.TimingWheelExpirationService$ExpiredOperationReaper",
+       "events": 3
+      },
+      {
+       "class": "kafka.server.AddPartitionsToTxnManager",
+       "events": 3
+      },
+      {
+       "class": "kafka.server.ReplicaManager$LogDirFailureHandler",
+       "events": 3
+      },
+      {
+       "class": "org.apache.kafka.raft.KafkaNetworkChannel$SendThread",
+       "events": 3
+      },
+      {
+       "class": "org.apache.kafka.server.util.timer.SystemTimerReaper$Reaper",
+       "events": 3
+      },
+      {
+       "class": "",
+       "events": 2
+      },
+      {
+       "class": "org.apache.kafka.common.utils.AppInfoParser",
+       "events": 2
+      },
+      {
+       "class": "org.apache.kafka.raft.KafkaRaftClient",
+       "events": 2
+      },
+      {
+       "class": "kafka.server.ReplicaManager",
+       "events": 2
+      },
+      {
+       "class": "kafka.coordinator.transaction.TransactionCoordinator",
+       "events": 2
+      },
+      {
+       "class": "kafka.log.LogManager",
+       "events": 2
+      },
+      {
+       "class": "kafka.server.BrokerTopicStats",
+       "events": 1
+      },
+      {
+       "class": "kafka.coordinator.transaction.TransactionStateManager",
+       "events": 1
+      },
+      {
+       "class": "kafka.server.KafkaApis",
+       "events": 1
+      },
+      {
+       "class": "kafka.server.SharedServer",
+       "events": 1
+      },
+      {
+       "class": "org.apache.kafka.common.utils.LoggingSignalHandler",
+       "events": 1
+      },
+      {
+       "class": "kafka.server.ControllerRegistrationManager",
+       "events": 1
+      },
+      {
+       "class": "kafka.server.ControllerServer",
+       "events": 1
+      },
+      {
+       "class": "org.apache.kafka.server.AssignmentsManager",
+       "events": 1
+      },
+      {
+       "class": "kafka.server.KafkaConfig",
+       "events": 1
+      },
+      {
+       "class": "org.apache.kafka.clients.NetworkClient",
+       "events": 1
+      }
+     ]
+    }
+   }
+  },
+  "90": {
+   "plan_a": {
+    "target_pct": 90,
+    "achieved_pct": 88.5,
+    "met": false,
+    "ceiling_pct": 88.5,
+    "patterns_planned": 15,
+    "events_sampled": 11089
+   },
+   "plan_b": {
+    "target_pct": 90,
+    "achieved_pct": 77.6,
+    "met": false,
+    "ceiling_pct": 77.6,
+    "patterns_planned": 13,
+    "events_sampled": 6225
+   },
+   "policy_a": {
+    "tool_cap_bytes_per_window": 4593,
+    "cap_bytes_replay": 68895,
+    "action": "tier_down",
+    "tool_span_seconds": 3600,
+    "replay_factor": 15.0
+   },
+   "policy_a_on_b": {
+    "tool_cap_bytes_per_window": 4593,
+    "cap_bytes_replay": 13779,
+    "action": "tier_down",
+    "tool_span_seconds": 3600,
+    "replay_factor": 3.0
+   },
+   "policy_b": {
+    "tool_cap_bytes_per_window": 3729,
+    "cap_bytes_replay": 55935,
+    "action": "tier_down",
+    "tool_span_seconds": 3600,
+    "replay_factor": 15.0
+   },
+   "a": {
+    "plan": {
+     "rules": [
+      "one cap row: kafka,4593"
+     ],
+     "events": 23901,
+     "bytes": 25778070,
+     "share_of_events": 0.823,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 23901
+     },
+     "over_the_plan": 0
+    },
+    "classes": {
+     "rules": [
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.LogSegment",
+      "service:kafka @logger.name:kafka.log.UnifiedLog",
+      "service:kafka @logger.name:kafka.log.LocalLog",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.ProducerStateManager",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.SnapshotFile",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotEmitter",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotGenerator",
+      "service:kafka @logger.name:kafka.raft.KafkaMetadataLog"
+     ],
+     "classes": [
+      "org.apache.kafka.storage.internals.log.LogSegment",
+      "kafka.log.UnifiedLog",
+      "kafka.log.LocalLog",
+      "org.apache.kafka.storage.internals.log.ProducerStateManager",
+      "org.apache.kafka.storage.internals.log.SnapshotFile",
+      "org.apache.kafka.image.publisher.SnapshotEmitter",
+      "org.apache.kafka.image.publisher.SnapshotGenerator",
+      "kafka.raft.KafkaMetadataLog"
+     ],
+     "events": 24440,
+     "bytes": 26453701,
+     "share_of_events": 0.8415,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 24440
+     },
+     "over_the_plan": 539,
+     "kept_under_cap_events": 0,
+     "kept_under_cap_patterns": [],
+     "plan_moved_left_events": 3059,
+     "plan_moved_left_patterns": [
+      {
+       "pattern": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_kafka_LocalLog",
+       "hash": "TxSKKm13VKE",
+       "class": "kafka.log.LocalLog$",
+       "events": 1594
+      },
+      {
+       "pattern": "Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots",
+       "hash": "uZa7Kr7RvMY",
+       "class": "org.apache.kafka.snapshot.Snapshots",
+       "events": 1465
+      }
+     ]
+    },
+    "classes_status": {
+     "rules": [
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.LogSegment -status:(error OR warn)",
+      "service:kafka @logger.name:kafka.log.UnifiedLog -status:(error OR warn)",
+      "service:kafka @logger.name:kafka.log.LocalLog -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.ProducerStateManager -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.SnapshotFile -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotEmitter -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotGenerator -status:(error OR warn)",
+      "service:kafka @logger.name:kafka.raft.KafkaMetadataLog -status:(error OR warn)"
+     ],
+     "classes": [
+      "org.apache.kafka.storage.internals.log.LogSegment",
+      "kafka.log.UnifiedLog",
+      "kafka.log.LocalLog",
+      "org.apache.kafka.storage.internals.log.ProducerStateManager",
+      "org.apache.kafka.storage.internals.log.SnapshotFile",
+      "org.apache.kafka.image.publisher.SnapshotEmitter",
+      "org.apache.kafka.image.publisher.SnapshotGenerator",
+      "kafka.raft.KafkaMetadataLog"
+     ],
+     "events": 24440,
+     "bytes": 26453701,
+     "share_of_events": 0.8415,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 24440
+     },
+     "over_the_plan": 539,
+     "kept_under_cap_events": 0,
+     "kept_under_cap_patterns": [],
+     "plan_moved_left_events": 3059,
+     "plan_moved_left_patterns": [
+      {
+       "pattern": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_kafka_LocalLog",
+       "hash": "TxSKKm13VKE",
+       "class": "kafka.log.LocalLog$",
+       "events": 1594
+      },
+      {
+       "pattern": "Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots",
+       "hash": "uZa7Kr7RvMY",
+       "class": "org.apache.kafka.snapshot.Snapshots",
+       "events": 1465
+      }
+     ]
+    }
+   },
+   "b": {
+    "plan_b": {
+     "rules": [
+      "one cap row: kafka,3729"
+     ],
+     "events": 3295,
+     "bytes": 3473595,
+     "share_of_events": 0.5292,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 3295
+     },
+     "over_the_plan": 0,
+     "lifecycle_moved": 0
+    },
+    "cap_a": {
+     "rules": [
+      "the same cap row, carried to B's span"
+     ],
+     "events": 3555,
+     "bytes": 3743521,
+     "share_of_events": 0.571,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 3555
+     },
+     "over_the_plan": 260,
+     "kept_under_cap_events": 214,
+     "kept_under_cap_patterns": [
+      {
+       "pattern": "Resigned_as_the_group_coordinator_for_partition_in_epoch_OptionalInt_kafka_GroupCoordinator",
+       "hash": "lPcwo-mPmxI",
+       "class": "kafka.coordinator.group.GroupCoordinator",
+       "events": 37
+      },
+      {
+       "pattern": "Finished_unloading_consumer_for_coordinator_epoch_OptionalInt_Removed_cached_offsets_groups_kafka_group_GroupMetadataManager",
+       "hash": "Jt3lg7lp6vQ",
+       "class": "kafka.coordinator.group.GroupMetadataManager",
+       "events": 36
+      },
+      {
+       "pattern": "Scheduling_unloading_of_offsets_and_group_metadata_from_consumer_kafka_coordinator_GroupMetadataManager",
+       "hash": "4yD45Zig_hI",
+       "class": "kafka.coordinator.group.GroupMetadataManager",
+       "events": 33
+      },
+      {
+       "pattern": "Created_log_for_partition_consumer_in_tmp_kafka_logs_with_properties_LogManager",
+       "hash": "8WIj_NSG3DU",
+       "class": "kafka.log.LogManager",
+       "events": 21
+      },
+      {
+       "pattern": "Loading_producer_state_till_offset_with_message_format_version_kafka_log_UnifiedLog",
+       "hash": "CLMPrg8RHnE",
+       "class": "kafka.log.UnifiedLog$",
+       "events": 20
+      },
+      {
+       "pattern": "Log_loaded_for_partition_consumer_with_initial_high_watermark_kafka_cluster_Partition",
+       "hash": "bJijN8Jaadg",
+       "class": "kafka.cluster.Partition",
+       "events": 17
+      },
+      {
+       "pattern": "No_checkpointed_highwatermark_is_found_for_partition_consumer_kafka_cluster_Partition",
+       "hash": "Fx_Pqd7HRiM",
+       "class": "kafka.cluster.Partition",
+       "events": 16
+      },
+      {
+       "pattern": "Scheduling_loading_of_offsets_and_group_metadata_from_consumer_for_epoch_kafka_coordinator_GroupMetadataManager",
+       "hash": "WQhY8qgdXFs",
+       "class": "kafka.coordinator.group.GroupMetadataManager",
+       "events": 13
+      },
+      {
+       "pattern": "Elected_as_the_group_coordinator_for_partition_in_epoch_kafka_GroupCoordinator",
+       "hash": "f6kvKBhYbio",
+       "class": "kafka.coordinator.group.GroupCoordinator",
+       "events": 11
+      },
+      {
+       "pattern": "loading_offsets_consumer_epoch_which_milliseconds_was_spent_in_the_scheduler_kafka_coordinator_group_GroupMetadataManager_Finished",
+       "hash": "f3UX5ZweKSU",
+       "class": "kafka.coordinator.group.GroupMetadataManager",
+       "events": 10
+      }
+     ],
+     "plan_moved_left_events": 20,
+     "plan_moved_left_patterns": [
+      {
+       "pattern": "Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_kafka_UnifiedLog",
+       "hash": "O4QwlwcKPUE",
+       "class": "kafka.log.UnifiedLog",
+       "events": 7
+      },
+      {
+       "pattern": "older_than_the",
+       "hash": "QTxV2J9g6c0",
+       "class": "kafka.raft.KafkaMetadataLog",
+       "events": 6
+      },
+      {
+       "pattern": "Creating_new_KRaft_snapshot_file_because_we_have_replayed_at_least_bytes_org_apache_kafka_image_publisher_SnapshotGenerator",
+       "hash": "YJTvxN0rObQ",
+       "class": "org.apache.kafka.image.publisher.SnapshotGenerator",
+       "events": 3
+      },
+      {
+       "pattern": "Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+       "hash": "WlIY0QjIiEg",
+       "class": "org.apache.kafka.storage.internals.log.LogSegment",
+       "events": 2
+      },
+      {
+       "pattern": "Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager",
+       "hash": "VnqlcNA_PIM",
+       "class": "org.apache.kafka.storage.internals.log.ProducerStateManager",
+       "events": 2
+      }
+     ],
+     "lifecycle_moved": 106
+    },
+    "classes": {
+     "rules": [
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.LogSegment",
+      "service:kafka @logger.name:kafka.log.UnifiedLog",
+      "service:kafka @logger.name:kafka.log.LocalLog",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.ProducerStateManager",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.SnapshotFile",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotEmitter",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotGenerator",
+      "service:kafka @logger.name:kafka.raft.KafkaMetadataLog"
+     ],
+     "events": 4658,
+     "bytes": 4905326,
+     "share_of_events": 0.7482,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 4658
+     },
+     "over_the_plan": 1363,
+     "kept_under_cap_events": 0,
+     "kept_under_cap_patterns": [],
+     "plan_moved_left_events": 313,
+     "plan_moved_left_patterns": [
+      {
+       "pattern": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_kafka_LocalLog",
+       "hash": "TxSKKm13VKE",
+       "class": "kafka.log.LocalLog$",
+       "events": 192
+      },
+      {
+       "pattern": "Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots",
+       "hash": "uZa7Kr7RvMY",
+       "class": "org.apache.kafka.snapshot.Snapshots",
+       "events": 121
+      }
+     ],
+     "lifecycle_moved": 0,
+     "classes_matching_nothing": []
+    },
+    "classes_status": {
+     "rules": [
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.LogSegment -status:(error OR warn)",
+      "service:kafka @logger.name:kafka.log.UnifiedLog -status:(error OR warn)",
+      "service:kafka @logger.name:kafka.log.LocalLog -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.ProducerStateManager -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.storage.internals.log.SnapshotFile -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotEmitter -status:(error OR warn)",
+      "service:kafka @logger.name:org.apache.kafka.image.publisher.SnapshotGenerator -status:(error OR warn)",
+      "service:kafka @logger.name:kafka.raft.KafkaMetadataLog -status:(error OR warn)"
+     ],
+     "events": 4658,
+     "bytes": 4905326,
+     "share_of_events": 0.7482,
+     "errors_and_warnings": 0,
+     "by_severity": {
+      "INFO": 4658
+     },
+     "over_the_plan": 1363,
+     "kept_under_cap_events": 0,
+     "kept_under_cap_patterns": [],
+     "plan_moved_left_events": 313,
+     "plan_moved_left_patterns": [
+      {
+       "pattern": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_kafka_LocalLog",
+       "hash": "TxSKKm13VKE",
+       "class": "kafka.log.LocalLog$",
+       "events": 192
+      },
+      {
+       "pattern": "Deleted_snapshot_files_for_offset_epoch_org_apache_kafka_Snapshots",
+       "hash": "uZa7Kr7RvMY",
+       "class": "org.apache.kafka.snapshot.Snapshots",
+       "events": 121
+      }
+     ],
+     "lifecycle_moved": 0,
+     "classes_matching_nothing": []
+    }
+   },
+   "totals": {
+    "a_events": 29043,
+    "b_events": 6226,
+    "plan_a_events": 23901,
+    "plan_b_events": 3295,
+    "lifecycle": {
+     "events": 317,
+     "patterns": 94,
+     "by_class": [
+      {
+       "class": "kafka.coordinator.group.GroupMetadataManager",
+       "events": 100
+      },
+      {
+       "class": "kafka.coordinator.group.GroupCoordinator",
+       "events": 54
+      },
+      {
+       "class": "kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper",
+       "events": 27
+      },
+      {
+       "class": "kafka.server.ClientQuotaManager$ThrottledChannelReaper",
+       "events": 24
+      },
+      {
+       "class": "kafka.server.NodeToControllerRequestThread",
+       "events": 16
+      },
+      {
+       "class": "org.apache.kafka.queue.KafkaEventQueue",
+       "events": 14
+      },
+      {
+       "class": "kafka.network.SocketServer",
+       "events": 8
+      },
+      {
+       "class": "kafka.server.NodeToControllerChannelManagerImpl",
+       "events": 6
+      },
+      {
+       "class": "kafka.server.BrokerLifecycleManager",
+       "events": 4
+      },
+      {
+       "class": "org.apache.kafka.raft.KafkaRaftClientDriver",
+       "events": 4
+      },
+      {
+       "class": "kafka.server.BrokerServer",
+       "events": 4
+      },
+      {
+       "class": "kafka.server.KafkaRequestHandlerPool",
+       "events": 4
+      },
+      {
+       "class": "org.apache.kafka.common.metrics.Metrics",
+       "events": 3
+      },
+      {
+       "class": "kafka.server.ReplicaAlterLogDirsManager",
+       "events": 3
+      },
+      {
+       "class": "kafka.server.ReplicaFetcherManager",
+       "events": 3
+      },
+      {
+       "class": "kafka.coordinator.transaction.TransactionMarkerChannelManager",
+       "events": 3
+      },
+      {
+       "class": "kafka.log.LogCleaner$CleanerThread",
+       "events": 3
+      },
+      {
+       "class": "kafka.raft.TimingWheelExpirationService$ExpiredOperationReaper",
+       "events": 3
+      },
+      {
+       "class": "kafka.server.AddPartitionsToTxnManager",
+       "events": 3
+      },
+      {
+       "class": "kafka.server.ReplicaManager$LogDirFailureHandler",
+       "events": 3
+      },
+      {
+       "class": "org.apache.kafka.raft.KafkaNetworkChannel$SendThread",
+       "events": 3
+      },
+      {
+       "class": "org.apache.kafka.server.util.timer.SystemTimerReaper$Reaper",
+       "events": 3
+      },
+      {
+       "class": "",
+       "events": 2
+      },
+      {
+       "class": "org.apache.kafka.common.utils.AppInfoParser",
+       "events": 2
+      },
+      {
+       "class": "org.apache.kafka.raft.KafkaRaftClient",
+       "events": 2
+      },
+      {
+       "class": "kafka.server.ReplicaManager",
+       "events": 2
+      },
+      {
+       "class": "kafka.coordinator.transaction.TransactionCoordinator",
+       "events": 2
+      },
+      {
+       "class": "kafka.log.LogManager",
+       "events": 2
+      },
+      {
+       "class": "kafka.server.BrokerTopicStats",
+       "events": 1
+      },
+      {
+       "class": "kafka.coordinator.transaction.TransactionStateManager",
+       "events": 1
+      },
+      {
+       "class": "kafka.server.KafkaApis",
+       "events": 1
+      },
+      {
+       "class": "kafka.server.SharedServer",
+       "events": 1
+      },
+      {
+       "class": "org.apache.kafka.common.utils.LoggingSignalHandler",
+       "events": 1
+      },
+      {
+       "class": "kafka.server.ControllerRegistrationManager",
+       "events": 1
+      },
+      {
+       "class": "kafka.server.ControllerServer",
+       "events": 1
+      },
+      {
+       "class": "org.apache.kafka.server.AssignmentsManager",
+       "events": 1
+      },
+      {
+       "class": "kafka.server.KafkaConfig",
+       "events": 1
+      },
+      {
+       "class": "org.apache.kafka.clients.NetworkClient",
+       "events": 1
+      }
+     ]
+    }
+   }
+  }
+ }
+}

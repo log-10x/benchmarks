@@ -1,0 +1,18 @@
+{
+ "target_pct": 70,
+ "tool_caps_csv": "container,cap\nkafka,4593::MCP poc_from_local plan 70 pct\n",
+ "tool_actions_csv": "container,action\nkafka,tier_down::MCP poc_from_local plan 70 pct\n",
+ "span_seconds": 3600,
+ "replay_span_seconds": 3600,
+ "reset_window_seconds": 240,
+ "replay_factor": 15.0,
+ "unattributed_planned": 0,
+ "containers": {
+  "kafka": {
+   "action": "tier_down",
+   "container": "kafka",
+   "cap_bytes_per_window": 4593,
+   "cap_bytes_replay": 68895
+  }
+ }
+}

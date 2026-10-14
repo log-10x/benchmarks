@@ -228,6 +228,27 @@ jobs:
       - name: The committed figures follow from the kept tallies
         run: python datadog-flex-accounting/report.py --check
 
+  datadog-service-control:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      # The run needs Docker, the engine image, the MCP server and both captures, so CI
+      # checks what it can without them.
+      - name: Syntax-check the harness
+        run: |
+          bash -n datadog-service-control/run.sh accounting-lib/engine.sh
+          python -m py_compile datadog-service-control/report.py datadog-service-control/arms.py datadog-service-control/classes.py datadog-service-control/slice.py accounting-lib/policy.py accounting-lib/count.py accounting-lib/tally.py accounting-lib/readme.py
+
+      # Every table is computed from the kept class rows, tallies, plans and policy files.
+      # Recompute and fail if results.json, results.md or a README block disagrees.
+      - name: The committed figures follow from the kept outputs
+        run: python datadog-service-control/report.py --check
+
   cloudwatch-ia-accounting:
     runs-on: ubuntu-latest
     steps:
