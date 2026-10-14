@@ -1,5 +1,5 @@
 {
-  "read_on": "2026-10-11",
+  "read_on": "2026-10-13",
   "list_page": "https://www.datadoghq.com/pricing/list/",
   "product_page": "https://www.datadoghq.com/pricing/?product=log-management",
   "ingestion_per_gb": {
@@ -20,14 +20,24 @@
     "quote": "Per 1 M events stored, per month",
     "minimum": "Each million events stored is billed for a minimum of 30 days, or a minimum of $0.05.",
     "url": "https://www.datadoghq.com/pricing/list/",
-    "minimum_url": "https://www.datadoghq.com/pricing/?product=log-management"
+    "minimum_url": "https://www.datadoghq.com/pricing/?product=log-management",
+    "applies_to": "the scalable compute tiers, XS to L; Starter is priced separately below",
+    "retention_quote": "With a scalable compute option, you can store logs for 30-450 days.",
+    "compute_quote": "Scalable (XS, XS+, S, M, L) compute tiers are billed at a flat rate.",
+    "retention_url": "https://docs.datadoghq.com/logs/log_configuration/flex_logs/"
   },
   "flex_starter_per_million_events_month": {
     "annual": 0.60, "month_to_month": 0.72, "on_demand": 0.90,
     "quote": "Per 1 M events stored (6, 12 or 15 months retention), per month",
     "limit": "Bundled Starter Compute for log volumes below 2B per month (10B total stored)",
     "url": "https://www.datadoghq.com/pricing/list/",
-    "limit_url": "https://www.datadoghq.com/pricing/?product=log-management"
+    "limit_url": "https://www.datadoghq.com/pricing/?product=log-management",
+    "minimum_retention_months": 3,
+    "price_list_minimum_retention_months": 6,
+    "retention_quote": "With Flex Logs Starter, you can store logs for 3, 6, 12, or 15 months.",
+    "billing_quote": "Flex Logs Starter is billed at a bundled storage+compute rate.",
+    "retention_url": "https://docs.datadoghq.com/logs/log_configuration/flex_logs/",
+    "retention_note": "The price list gives 6, 12 or 15 months and the Flex docs 3, 6, 12 or 15. The shorter, 3, is used as the minimum, and the price list's 6 is shown beside it."
   },
   "flex_compute": {
     "price": "Contact Us for Pricing",

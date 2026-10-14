@@ -48,9 +48,21 @@ def compute(results: pathlib.Path, prices: dict, targets: list, window_hours: fl
         mv = T.moved(tl, ('tier_down',))
         off = T.moved(tl, ('offload',))
         events_month = T.monthly(mv['events'], window_hours)
-        stored_month = events_month  # held 30 days, the minimum billed
-        tier = next((name for name, lo, hi in prices['flex_compute']['tiers_by_cumulative_events_stored'] if lo <= stored_month < hi), 'above L')
-        within_starter = events_month < prices['flex_compute']['starter_monthly_limit_events']
+        stored_month = events_month  # held 30 days, the minimum billed on a scalable tier
+        tiers = prices['flex_compute']['tiers_by_cumulative_events_stored']
+        months_min = starter['minimum_retention_months']
+        months_list = starter['price_list_minimum_retention_months']
+        # Starter: below its monthly limit, and below its stored limit when every event is held
+        # the minimum retention. Otherwise the scalable tier for the events stored at 30 days.
+        within_starter = (events_month < prices['flex_compute']['starter_monthly_limit_events']
+                          and events_month * months_min < tiers[0][2])
+        scalable = [x for x in tiers if x[0] != 'Starter']
+        tier = 'Starter' if within_starter else next(
+            (name for name, lo, hi in scalable if lo <= stored_month < hi), scalable[0][0] if stored_month < scalable[0][1] else 'above L')
+        avoided15, avoided30 = events_month / 1e6 * idx['15d']['annual'], events_month / 1e6 * idx['30d']['annual']
+        starter_min = events_month / 1e6 * starter['annual'] * months_min
+        scalable_30 = events_month / 1e6 * flex['annual']
+        added = starter_min if within_starter else scalable_30
         cmc = tl['series']['custom_metrics']
         pm = plan['plan'].get('perEventMove') or {}
         out['targets'][str(t)] = {
@@ -94,14 +106,22 @@ def compute(results: pathlib.Path, prices: dict, targets: list, window_hours: fl
                     '30d_annual': round(events_month / 1e6 * idx['30d']['annual'], 4),
                     '30d_on_demand': round(events_month / 1e6 * idx['30d']['on_demand'], 4),
                 },
-                'flex_storage_added': {
-                    'annual': round(stored_month / 1e6 * flex['annual'], 4),
-                    'on_demand': round(stored_month / 1e6 * flex['on_demand'], 4),
+                'flex_added': {
+                    'tier': tier,
+                    'starter_minimum_months': months_min,
+                    'starter_minimum_annual': round(starter_min, 4),
+                    'starter_minimum_on_demand': round(events_month / 1e6 * starter['on_demand'] * months_min, 4),
+                    'starter_price_list_months': months_list,
+                    'starter_price_list_annual': round(events_month / 1e6 * starter['annual'] * months_list, 4),
+                    'scalable_30_days_annual': round(scalable_30, 4),
+                    'scalable_30_days_on_demand': round(events_month / 1e6 * flex['on_demand'], 4),
+                    'scalable_compute': prices['flex_compute']['price'],
+                    'at_tier_annual': round(added, 4),
+                    'at_tier_excludes_compute': not within_starter,
                 },
-                'flex_starter_instead': {
-                    'annual': round(stored_month / 1e6 * starter['annual'], 4),
-                    'on_demand': round(stored_month / 1e6 * starter['on_demand'], 4),
-                },
+                # From the cent amounts the tables show, so each row's subtraction checks.
+                'net_against_15d_annual': round(round(avoided15, 2) - round(added, 2), 2),
+                'net_against_30d_annual': round(round(avoided30, 2) - round(added, 2), 2),
                 'ingestion_unchanged': round(T.monthly(T.gb(tl['bytes']), window_hours) * prices['ingestion_per_gb']['annual'], 4),
             },
             'flex_compute': {
@@ -149,6 +169,50 @@ def datadog_series_summary(ds):
             'host_field': ds['host_field']}
 
 
+def signed(x):
+    """A dollar amount with its sign: + saves, - costs more."""
+    return ('+' if x >= 0 else '-') + T.fmt_usd(abs(x))
+
+
+def starter_sign_sentence(r: dict) -> str:
+    """The sign of tier down at this capture's volume, per retention of the indexing avoided."""
+    ts = list(r['targets'].values())
+    if not all(v['usd_per_month_at_list']['flex_added']['tier'] == 'Starter' for v in ts):
+        return 'At this capture\'s volume not every target falls in Starter; the month table gives each target\'s tier.'
+    n15 = [v['usd_per_month_at_list']['net_against_15d_annual'] for v in ts]
+    n30 = [v['usd_per_month_at_list']['net_against_30d_annual'] for v in ts]
+    word = lambda xs: 'more than' if max(xs) < 0 else ('less than' if min(xs) > 0 else 'about the same as')  # noqa: E731
+    return (f'At this capture\'s volume every target falls in Starter, and tier down to Flex Starter costs {word(n15)} the 15-day '
+            f'indexing it avoids and {word(n30)} the 30-day indexing.')
+
+
+def month_table(r: dict, with_ingestion: bool) -> list:
+    """Per target: the tier the volume falls in, what Flex adds at that tier, and the net against each retention."""
+    head = ('| Target | Events to Flex per month | Flex tier | Flex added at that tier, annual | Standard indexing avoided, 15-day annual | Net, 15-day | '
+            'Standard indexing avoided, 30-day annual | Net, 30-day |' + (' Ingestion, unchanged |' if with_ingestion else '') +
+            ' Custom metrics above a Pro allotment, 10 to 300 nodes |')
+    M = [head, '|---:|---:|---|---:|---:|---:|---:|---:|' + ('---:|' if with_ingestion else '') + '---:|']
+    for t, v in r['targets'].items():
+        m, u, cm = v['month'], v['usd_per_month_at_list'], v['custom_metrics']
+        fa = u['flex_added']
+        added = (f'{T.fmt_usd(fa["at_tier_annual"])}, held {fa["starter_minimum_months"]} months' if fa['tier'] == 'Starter'
+                 else f'{T.fmt_usd(fa["at_tier_annual"])} held 30 days, plus compute by quote')
+        lo, hi = cm['fleet']['10']['measured_usd_per_month'], cm['fleet']['300']['measured_usd_per_month']
+        fleet = T.fmt_usd(lo) if lo == hi else f'{T.fmt_usd(lo)} to {T.fmt_usd(hi)}'
+        M.append(f'| {t}% | {m["events_to_flex"]:,} | {fa["tier"]} | {added} | {T.fmt_usd(u["standard_indexing_avoided"]["15d_annual"])} | '
+                 f'{signed(u["net_against_15d_annual"])} | {T.fmt_usd(u["standard_indexing_avoided"]["30d_annual"])} | {signed(u["net_against_30d_annual"])} |'
+                 + (f' {T.fmt_usd(u["ingestion_unchanged"])} |' if with_ingestion else '') + f' {fleet} |')
+    starters = [(t, v['usd_per_month_at_list']['flex_added']) for t, v in r['targets'].items()
+                if v['usd_per_month_at_list']['flex_added']['tier'] == 'Starter']
+    if starters:
+        fa0 = starters[0][1]
+        M.append('')
+        M.append(f'Net is the indexing avoided less what Flex adds; a minus sign means the move costs more than it saves. At '
+                 f'{fa0["starter_price_list_months"]} months, the shortest Starter retention on Datadog\'s price list, the Starter rows '
+                 f'cost ' + T.join_and([f'{T.fmt_usd(fa["starter_price_list_annual"])} at {t}%' for t, fa in starters]) + ' a month.')
+    return M
+
+
 def readme_blocks(r: dict, prices: dict) -> dict:
     """Every figure the README quotes from this run, rendered from results.json and prices.json."""
     c, cap = r['control'], r['capture']
@@ -162,14 +226,19 @@ def readme_blocks(r: dict, prices: dict) -> dict:
     B['run'] = (f'The OpenTelemetry demo capture, {cap["lines"]:,} lines, {c["events"]:,} events after grouping, {T.gb(c["bytes"]):.3f} GB '
                 f'over {r["window_hours"]:g} hours. Engine `log10x/pipeline-10x:{r["engine_tag"]}`, log10x-mcp {r["mcp_version"]}, '
                 f'prices read {r["prices_read_on"]}.')
+    mm, ml = starter['minimum_retention_months'], starter['price_list_minimum_retention_months']
     B['rates'] = (f'**What a moved event costs at list.** Standard indexing avoided: ${idx["15d"]["annual"]:.2f} per million events '
                   f'at 15-day retention and ${idx["30d"]["annual"]:.2f} at 30-day, annual; ${idx["15d"]["on_demand"]:.2f} and '
-                  f'${idx["30d"]["on_demand"]:.2f} on demand. Flex storage added: ${flex["annual"]:.2f} per million events stored per month, '
-                  f'annual, ${flex["on_demand"]:.3f} on demand, billed for at least 30 days. Flex Starter, compute bundled, for volumes '
-                  f'below {prices["flex_compute"]["starter_monthly_limit_events"] / 1e9:g} billion events a month: ${starter["annual"]:.2f} '
-                  f'per million stored per month. Flex compute above Starter: "{prices["flex_compute"]["price"]}". Ingestion, '
-                  f'${ing["annual"]:.2f} per GB, is paid once on every event and unchanged by a move. The full rate table with every URL '
-                  f'is in [`results/results.md`](results/results.md).')
+                  f'${idx["30d"]["on_demand"]:.2f} on demand. What Flex adds depends on the tier the volume falls in. Within Flex Starter, '
+                  f'below {prices["flex_compute"]["starter_monthly_limit_events"] / 1e9:g} billion events a month and '
+                  f'{prices["flex_compute"]["tiers_by_cumulative_events_stored"][0][2] / 1e9:g} billion stored, storage and compute are '
+                  f'billed together at ${starter["annual"]:.2f} per million stored per month, annual (${starter["on_demand"]:.2f} on demand), '
+                  f'for at least {mm} months: Datadog\'s Flex docs give {mm}, 6, 12 or 15 months and its price list {ml}, 12 or 15. '
+                  f'A moved event held {mm} months costs at least ${starter["annual"] * mm:.2f} per million over its life. On the scalable '
+                  f'tiers above Starter, XS to L, storage is ${flex["annual"]:.2f} per million stored per month, annual '
+                  f'(${flex["on_demand"]:.3f} on demand), held at least 30 days, plus a flat compute tier Datadog prices on request '
+                  f'("{prices["flex_compute"]["price"]}"). {starter_sign_sentence(r)} Ingestion, ${ing["annual"]:.2f} per GB, is paid once '
+                  f'on every event and unchanged by a move. The full rate table with every URL is in [`results/results.md`](results/results.md).')
     L = ['| Target | Patterns planned | Containers capped | Events the plan states | Events the engine marked tier_down | Share of the volume the plan states | Share of the bytes the engine moved | Events in Standard | Errors and warnings to Flex |',
          '|---:|---:|---:|---:|---:|---:|---:|---:|---:|']
     for t, v in r['targets'].items():
@@ -196,14 +265,7 @@ def readme_blocks(r: dict, prices: dict) -> dict:
             line += f'; {p["unattributed_planned"]} planned pattern{"s" if p["unattributed_planned"] != 1 else ""} carried no container and {"are" if p["unattributed_planned"] != 1 else "is"} not in the files'
         N.append(line + '.')
     B['moves-notes'] = '\n'.join(N)
-    M = ['| Target | Events to Flex per month | Standard indexing avoided, 15-day annual | Flex storage added, annual | Flex compute tier | Custom metrics above a Pro allotment, 10 to 300 nodes |',
-         '|---:|---:|---:|---:|---|---:|']
-    for t, v in r['targets'].items():
-        m, u, cm = v['month'], v['usd_per_month_at_list'], v['custom_metrics']
-        lo, hi = cm['fleet']['10']['measured_usd_per_month'], cm['fleet']['300']['measured_usd_per_month']
-        fleet = usd(lo) if lo == hi else f'{usd(lo)} to {usd(hi)}'
-        M.append(f'| {t}% | {m["events_to_flex"]:,} | ${u["standard_indexing_avoided"]["15d_annual"]:.2f} | ${u["flex_storage_added"]["annual"]:.2f} | '
-                 f'{v["flex_compute"]["tier"]} | {fleet} |')
+    M = month_table(r, with_ingestion=False)
     B['month'] = '\n'.join(M)
     ds = c['datadog_series']
     per_target = [v['custom_metrics'] for v in r['targets'].values()]
@@ -279,8 +341,8 @@ def render(r: dict, prices: dict) -> str:
     L.append('|---|---:|---:|---|---|')
     for ret in ('3d', '7d', '15d', '30d'):
         L.append(f'| Standard indexing avoided, {ret.replace("d", "-day")} retention, per million events | ${idx[ret]["annual"]:.2f} | ${idx[ret]["on_demand"]:.2f} | Per 1M indexed logs ({ret.replace("d", "-day")} retention), per month | [{r["prices_read_on"]}]({idx["url"]}) |')
-    L.append(f'| Flex storage added, per million events stored per month | ${flex["annual"]:.2f} | ${flex["on_demand"]:.3f} | {flex["quote"]}; {flex["minimum"]} | [{r["prices_read_on"]}]({flex["url"]}) |')
-    L.append(f'| Flex Starter, per million events stored per month, compute bundled | ${starter["annual"]:.2f} | ${starter["on_demand"]:.2f} | {starter["quote"]}; {starter["limit"]} | [{r["prices_read_on"]}]({starter["url"]}) |')
+    L.append(f'| Flex storage, scalable tiers XS to L, per million events stored per month, held at least 30 days; compute priced apart | ${flex["annual"]:.2f} | ${flex["on_demand"]:.3f} | {flex["quote"]}; {flex["minimum"]} "{flex["retention_quote"]}" | [{r["prices_read_on"]}]({flex["url"]}), [docs]({flex["retention_url"]}) |')
+    L.append(f'| Flex Starter, storage and compute bundled, per million events stored per month, held at least {starter["minimum_retention_months"]} months | ${starter["annual"]:.2f} | ${starter["on_demand"]:.2f} | {starter["quote"]}; {starter["limit"]}. "{starter["retention_quote"]}" "{starter["billing_quote"]}" {starter["retention_note"]} | [{r["prices_read_on"]}]({starter["url"]}), [docs]({starter["retention_url"]}) |')
     L.append(f'| Flex compute, XS to L | {prices["flex_compute"]["price"]} | {prices["flex_compute"]["price"]} | {prices["flex_compute"]["price_quote"]} | [{r["prices_read_on"]}]({prices["flex_compute"]["price_url"]}) |')
     L.append(f'| Ingestion, per GB, unchanged by a move | ${prices["ingestion_per_gb"]["annual"]:.2f} | ${prices["ingestion_per_gb"]["on_demand"]:.2f} | {prices["ingestion_per_gb"]["quote"]} | [{r["prices_read_on"]}]({prices["ingestion_per_gb"]["url"]}) |')
     L.append(f'| Custom metrics, per 100 per month above the allotment | ${cm["per_100_per_month"]["annual"]:.2f} | ${cm["per_100_per_month"]["on_demand"]:.2f} | {cm["quote"]}; {cm["allotment_quote"]} | [{r["prices_read_on"]}]({cm["url"]}) |')
@@ -305,11 +367,7 @@ def render(r: dict, prices: dict) -> str:
     L.append('')
     L.append(f'The capture\'s {r["window_hours"]:g} hours scaled to a {r["month_hours"]}-hour month, at the rates above. The volume is one small demo cluster\'s; the rates are what carry.')
     L.append('')
-    L.append('| Target | Events to Flex per month | Standard indexing avoided, 15-day annual | Flex storage added, annual | Flex compute tier | Ingestion, unchanged | Custom metrics above a Pro allotment, 10 to 300 nodes |')
-    L.append('|---:|---:|---:|---:|---|---:|---:|')
-    for t, v in r['targets'].items():
-        m, u, c = v['month'], v['usd_per_month_at_list'], v['custom_metrics']
-        L.append(f'| {t}% | {T.fmt_int(m["events_to_flex"])} | {T.fmt_usd(u["standard_indexing_avoided"]["15d_annual"])} | {T.fmt_usd(u["flex_storage_added"]["annual"])} | {v["flex_compute"]["tier"]} | {T.fmt_usd(u["ingestion_unchanged"])} | {T.fmt_usd(c["fleet"]["10"]["measured_usd_per_month"])} to {T.fmt_usd(c["fleet"]["300"]["measured_usd_per_month"])} |')
+    L.extend(month_table(r, with_ingestion=True))
     L.append('')
     c0 = r['targets'][str(r['targets_list'][0])]['custom_metrics'] if r.get('targets_list') else next(iter(r['targets'].values()))['custom_metrics']
     L.append(f'**Custom metrics.** The engine\'s shipped Datadog output, posting to a local stand-in for Datadog\'s intake, tagged each series with the pattern and where it ran ({", ".join(f"`{k}`" for k in c0["tag_keys"])}) and with nothing that names a node or a process, and published the {c0["top_series_default"]} tag sets with the most bytes, each from both aggregators: at most {c0["count_measured"]:,} series in one post, whatever the node count; the top {c0["top_series_default"]} label sets carry {c0["bytes_share_of_top_series"] * 100:.1f}% of the bytes. '
@@ -352,10 +410,14 @@ def render(r: dict, prices: dict) -> str:
         L.append(f'| Standard indexing avoided, 15-day, on-demand | {T.fmt_usd(u["standard_indexing_avoided"]["15d_on_demand"])} |')
         L.append(f'| Standard indexing avoided, 30-day, annual | {T.fmt_usd(u["standard_indexing_avoided"]["30d_annual"])} |')
         L.append(f'| Standard indexing avoided, 30-day, on-demand | {T.fmt_usd(u["standard_indexing_avoided"]["30d_on_demand"])} |')
-        L.append(f'| Flex storage added, held 30 days, annual | {T.fmt_usd(u["flex_storage_added"]["annual"])} |')
-        L.append(f'| Flex storage added, held 30 days, on-demand | {T.fmt_usd(u["flex_storage_added"]["on_demand"])} |')
-        L.append(f'| Flex Starter instead of storage plus compute, annual | {T.fmt_usd(u["flex_starter_instead"]["annual"])} |')
-        L.append(f'| Flex compute tier at {T.fmt_int(v["flex_compute"]["cumulative_events_stored_at_30_days"])} events stored | {v["flex_compute"]["tier"]}{", within Starter" if v["flex_compute"]["within_starter_monthly_limit"] else ""}; {v["flex_compute"]["price"]} for XS and above |')
+        fa = u['flex_added']
+        L.append(f'| Flex tier for {T.fmt_int(m["events_to_flex"])} events a month | {fa["tier"]} |')
+        L.append(f'| Flex Starter, storage and compute, held {fa["starter_minimum_months"]} months, annual | {T.fmt_usd(fa["starter_minimum_annual"])} |')
+        L.append(f'| Flex Starter, storage and compute, held {fa["starter_minimum_months"]} months, on-demand | {T.fmt_usd(fa["starter_minimum_on_demand"])} |')
+        L.append(f'| Flex Starter, held {fa["starter_price_list_months"]} months, the price list\'s shortest, annual | {T.fmt_usd(fa["starter_price_list_annual"])} |')
+        L.append(f'| Flex storage on a scalable tier above Starter, held 30 days, annual, compute apart ({fa["scalable_compute"]}) | {T.fmt_usd(fa["scalable_30_days_annual"])} |')
+        L.append(f'| Net against 15-day Standard, annual, at the {fa["tier"]} tier{" before compute" if fa["at_tier_excludes_compute"] else ""} | {signed(u["net_against_15d_annual"])} |')
+        L.append(f'| Net against 30-day Standard, annual, at the {fa["tier"]} tier{" before compute" if fa["at_tier_excludes_compute"] else ""} | {signed(u["net_against_30d_annual"])} |')
         L.append(f'| Ingestion, unchanged | {T.fmt_usd(u["ingestion_unchanged"])} |')
         c = v['custom_metrics']
         L.append(f'| Custom metrics from the engine\'s Datadog metric output, measured | at most {c["count_measured"]:,} series in one of {c["posts"]} posts, {c["distinct_over_run"]:,} distinct over the replay while ranks settle, the same from every node; above a Pro allotment {T.fmt_usd(c["fleet"]["10"]["measured_usd_per_month"])} at 10 nodes, {T.fmt_usd(c["fleet"]["300"]["measured_usd_per_month"])} at 300. Every tag set would be {c["count_every_set_one_node"]:,} per node |')
