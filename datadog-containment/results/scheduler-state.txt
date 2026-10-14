@@ -11,13 +11,94 @@
       "recommendationCacheFailure" => ["on"]
     },
     seed: 20261014,
-    interval_ms: 900000,
+    interval_ms: 600000,
     concurrency: 1,
     min_duration_ms: 240000,
     max_duration_ms: 480000
   },
-  history: [],
-  interval_count: 1,
+  history: [
+    %{
+      flag: "kafkaQueueProblems",
+      started_at: ~U[2026-10-14 17:30:11.277031Z],
+      until: -576447369152,
+      duration_ms: 412663,
+      resting_variant: "off",
+      variant: "on"
+    },
+    %{
+      flag: "kafkaQueueProblems",
+      started_at: ~U[2026-10-14 17:20:33.002966Z],
+      until: -576448055178,
+      duration_ms: 304929,
+      resting_variant: "off",
+      variant: "on"
+    },
+    %{
+      flag: "paymentFailure",
+      started_at: ~U[2026-10-14 17:07:23.584301Z],
+      until: -576448904402,
+      duration_ms: 245147,
+      resting_variant: "off",
+      variant: "100%"
+    },
+    %{
+      flag: "emailMemoryLeak",
+      started_at: ~U[2026-10-14 16:59:27.395732Z],
+      until: -576449238842,
+      duration_ms: 386912,
+      resting_variant: "off",
+      variant: "1000x"
+    },
+    %{
+      flag: "loadGeneratorFloodHomepage",
+      started_at: ~U[2026-10-14 16:48:59.050646Z],
+      until: -576449981999,
+      duration_ms: 272126,
+      resting_variant: "off",
+      variant: "on"
+    },
+    %{
+      flag: "emailMemoryLeak",
+      started_at: ~U[2026-10-14 16:38:42.605723Z],
+      until: -576450567102,
+      duration_ms: 303483,
+      resting_variant: "off",
+      variant: "1000x"
+    },
+    %{
+      flag: "cartFailure",
+      started_at: ~U[2026-10-14 16:29:38.989858Z],
+      until: -576451039881,
+      duration_ms: 374335,
+      resting_variant: "off",
+      variant: "100%"
+    },
+    %{
+      flag: "recommendationCacheFailure",
+      started_at: ~U[2026-10-14 16:19:36.924930Z],
+      until: -576451648231,
+      duration_ms: 368062,
+      resting_variant: "off",
+      variant: "on"
+    },
+    %{
+      flag: "loadGeneratorFloodHomepage",
+      started_at: ~U[2026-10-14 16:07:59.452002Z],
+      until: -576452396950,
+      duration_ms: 316835,
+      resting_variant: "off",
+      variant: "on"
+    },
+    %{
+      flag: "recommendationCacheFailure",
+      started_at: ~U[2026-10-14 15:57:54.840582Z],
+      until: -576452864798,
+      duration_ms: 453615,
+      resting_variant: "off",
+      variant: "on"
+    }
+  ],
+  interval_count: 21,
   next_up: [],
   seed_used: 20261014,
   next_trigger_at: nil

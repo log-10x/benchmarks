@@ -16,3 +16,10 @@
 {"event":"scheduler_stop","at":"2026-10-14T13:35:58Z","epoch":1791984958}
 {"event":"run_end","at":"2026-10-14T13:36:49Z","epoch":1791985009}
 {"event":"demo_down","at":"2026-10-14T13:40:06Z","epoch":1791985206}
+{"event":"receiver_ready","at":"2026-10-14T13:53:18Z","epoch":1791985998,"cap":48862}
+{"event":"demo_up","at":"2026-10-14T13:59:27Z","epoch":1791986367}
+{"event":"demo_healthy","at":"2026-10-14T14:01:54Z","epoch":1791986514}
+{"event":"scheduler_start","at":"2026-10-14T14:07:14Z","epoch":1791986834,"seed":20261014,"interval_s":600,"min_hold_s":240,"max_hold_s":480}
+{"event":"scheduler_stop","at":"2026-10-14T17:35:33Z","epoch":1791999333}
+{"event":"run_end","at":"2026-10-14T17:35:42Z","epoch":1791999342}
+{"event":"demo_down","at":"2026-10-14T17:36:46Z","epoch":1791999406}
