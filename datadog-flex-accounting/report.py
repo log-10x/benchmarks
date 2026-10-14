@@ -208,7 +208,7 @@ def month_table(r: dict, with_ingestion: bool) -> list:
         fa0 = starters[0][1]
         M.append('')
         M.append(f'Net is the indexing avoided less what Flex adds; a minus sign means the move costs more than it saves. At '
-                 f'{fa0["starter_price_list_months"]} months, the shortest Starter retention on Datadog\'s price list, the Starter rows '
+                 f'{fa0["starter_price_list_months"]} months, the shortest Starter retention on Datadog\'s price-list page (its Flex Logs page and pricing page list 3, 6, 12 or 15 months, and the table above holds 3), the Starter rows '
                  f'cost ' + T.join_and([f'{T.fmt_usd(fa["starter_price_list_annual"])} at {t}%' for t, fa in starters]) + ' a month.')
     return M
 
