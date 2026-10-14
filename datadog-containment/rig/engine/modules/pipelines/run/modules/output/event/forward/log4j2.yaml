@@ -1,0 +1,68 @@
+# 🔟❎ 'run' forward output module log4j configuration
+
+# The 'forward' log4j2 configuration defines the loggers and appenders to
+# write TenXObject instance/template field values to a Unix domain socket.
+# Multiple forward outputs are supported, each specified by the instance
+# of the 'forwardOutput' module defined in https://doc.log10x.com/run/output/event/forward
+
+log4j:
+
+  # 'loggerName' defines a prefix to use with a running counter (e.g., 'tenxForward0')
+  #  to name matching log4j2 logger and appender objects uniquely
+  #  for each instance of the 'forwardOutput' options group
+
+  #  This provides the ability to encode TenXObjects to different sockets
+  #  based on different sets of filters (specified by 'outputForwardFilter')
+  #  and fields (specified by 'outputForwardFields').
+  loggerName: tenxForward
+
+  configuration:
+
+    appenders:
+
+      # The 'tenxFluentd' appender encodes TenXObject field values to a Unix domain socket
+      # in the fluent 'forward' format using the https://github.com/komamitsu/fluency library
+      tenxFluentd:
+
+          # 'name' sets a unique identifier assigned to each appender
+          #  generated for a target output defined by an instance of the
+          #  'forwardOutput' options group
+        - name: $loggerName
+
+          # The 'tenxFields' option of the 'tenxFluentd' layout
+          # is set at run time to the 'outputForwardFields' argument
+          tenxFields:
+             fieldNames: null
+
+          tag:
+            tagField: $?outputForwardTagField
+            tagValue: $?outputForwardTagValue
+
+          fluentdUnixSocketConfig:
+            maxBufferSize: 536870912
+            bufferChunkInitialSize: 1048576
+            bufferChunkRetentionSize: 4194304
+            bufferChunkRetentionTimeMillis: 1000
+            flushAttemptIntervalMillis: 600
+            waitUntilBufferFlushed: 10
+            waitUntilFlusherTerminated: 10
+            senderMaxRetryCount: 8
+            senderBaseRetryIntervalMillis: 400
+            senderMaxRetryIntervalMillis: 30000
+            connectionTimeoutMillis: 10000
+            readTimeoutMillis: 5000
+            jvmHeapBufferMode: true
+            socketAddress: $?outputForwardAddress
+            hostAddress: $?outputForwardHostAddress=127.0.0.1
+            hostPort: $?outputForwardHostPort=24224
+
+    loggers:
+
+      logger:
+
+          # A dedicated logger whose name matches the file appender is used to
+          # to write object/template values for this output instance
+        - name: $loggerName
+          additivity: false
+          appenderRef:
+            - ref: $loggerName

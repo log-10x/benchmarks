@@ -1,0 +1,12 @@
+# 🔟❎ MCP app settings
+
+tenx: run
+
+runtimeAttributes:
+  - app:mcp
+  - env:local
+
+include:
+  - run/modules/input/stdin
+  - apps/shared
+  - run/aggregate/mcp    # https://doc.log10x.com/run/aggregate/#dev

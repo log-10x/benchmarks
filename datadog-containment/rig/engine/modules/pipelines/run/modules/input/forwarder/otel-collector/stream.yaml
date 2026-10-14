@@ -1,0 +1,59 @@
+# 🔟❎ 'run' OpenTelemetry Collector input + output streams
+#
+# Listens for log records via OTLP/gRPC (paired with the Collector's
+# `otlp` exporter) and sends processed records back via OTLP/gRPC
+# (paired with the Collector's `otlp` receiver).
+
+tenx: run
+
+runtimeAttributes:
+  - fwd_input:otel-collector
+
+include:
+  - run/modules/output/event/otlp
+
+# ============================== Extractor ====================================
+
+extractor:
+  - name: otel
+    type: json
+    actions:
+      - $=yield "captureFirst:" + TenXEnv.get("otelCollectorInputMessageField", "body")
+      - drop:tag
+
+# ============================== Input ========================================
+
+input:
+
+  - type: stream
+    name: otelCollector
+
+    path: com.log10x.ext.edge.input.otlp.OtlpLogsInputStream
+
+    extractors:
+      - otel
+      - "$=yield TenXEnv.get(\"k8sExtractorName\") ? \"fluentK8s\" : \"\""
+
+    sourcePattern: \"tag\":\"(.*?)\"
+
+    args:
+      - port
+      - $=yield TenXEnv.get("otelCollectorInputPort", "4317")
+
+    backpressure:
+      intervalBytesLimit: $=parseBytes("2MB")
+      intervalBytesDuration: $=parseDuration("1s")
+
+# ============================== Output =======================================
+
+outputOtlp:
+
+  - host: $=yield TenXEnv.get("otelCollectorOutputHost", "127.0.0.1")
+    port: $=yield TenXEnv.get("otelCollectorOutputPort", "24225")
+
+    fields:
+      - $?outputEncodeField=fullText
+
+    encodeType: $?otelCollectorOutputEncodeType=delimited
+
+    writeTemplates: $?outputWriteTemplates=false

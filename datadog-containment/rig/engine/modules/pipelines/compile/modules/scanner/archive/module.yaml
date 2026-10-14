@@ -1,0 +1,49 @@
+#
+# 🔟❎ 'compile' archive scanner module
+
+module:
+
+  name: archive
+
+  title: Archive scanner
+
+  description: scan compressed archives for enclosed files containing symbol values
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "compile/modules/scanner/archive/doc.md":""
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: compile/scanners/archive
+
+  # 'allowMultiple' is disabled for this module. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+       
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - archiveExtensions
+      description: supported archive extensions
+      type: list
+      required: false
+      doc: |
+        defines the file extensions of archive zip files to scan for source/binary input files.
+      defValue:
+       - .zip
+       - .jar
+       - .war
+       - .ear
+       - .7s
+       - .gz
+       - .br
+       - .lz4
+       - .lzma
+       - .tar
+       - .tar.br
+       - .tar.gz
+       - .tar.bz2
+       - .tar.lz4
+       - .tar.lzma

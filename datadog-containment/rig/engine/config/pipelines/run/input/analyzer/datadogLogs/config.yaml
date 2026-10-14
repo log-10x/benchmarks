@@ -1,0 +1,70 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/input/analyzer/datadogLogs/schema.json
+
+# 🔟❎ 'run' Datadog Logs input configuration
+
+# Configure a Datadog Logs event input
+# To learn more see https://doc.log10x.com/run/input/analyzer/datadogLogs/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Dependencies ================================
+
+include: run/modules/input/analyzer/datadogLogs
+
+# ============================== Datadog Inputs ===============================
+
+# Multiple Datadog inputs can be defined below
+datadogLogs:
+
+    # 'name' sets a unique logical name across all pipeline inputs
+  - name: DatadogLogs
+    
+    # -------------------------- Connection Options ---------------------------
+
+    # 'apiKey' and 'appKey' must be set to authenticate with the logs endpoint
+    #  To learn more see: https://docs.datadoghq.com/account_management/api-app-keys/
+    apiKey: $=TenXEnv.get("DD_API_KEY") # (REQUIRED)
+
+    appKey: $=TenXEnv.get("DD_APP_KEY") # (REQUIRED)
+
+    # 'host' points to the target Datadog site
+    #  To learn more see: https://docs.datadoghq.com/getting_started/site/
+    host: us5.datadoghq.com
+
+    # ----------------------------- Query Options -----------------------------
+
+    # 'query' sets the Datadog query used to request paginated documents.
+    #  The default query (defined in 'run/modules/input/analyzer/datadog/query.txt') retrieves
+    #  values sorted in desc order by @timestamp, starting from the value of 'searchFrom'
+    query: null
+
+    # 'searchFrom sets the initial value used to request the first page of results.
+    searchFrom: now-1000h
+
+    # 'querySize' sets the number of documents to retrieve with each paginated request
+    querySize: 500
+
+    # 'indexes' sets the lists of data indices to search in
+    # If not provided, will use a default of '*'
+    indexes: null
+
+    # --------------------------- Backpressure Options -----------------------
+
+    # 'queryInterval' sets the interval between queries to the remote API
+    queryInterval: $=parseDuration("5s")
+
+    # 'totalDuration' sets the max duration to try reading from the the remote input 
+    totalDuration: $=parseDuration("5min")
+
+    # 'totalBytesLimit' sets the max total bytes to read from the remote input
+    totalBytesLimit: $=parseBytes("50MB")
+
+    # 'totalEventsLimit' sets the max number of events to read the remote input
+    totalEventsLimit: 10000
+
+    # --------------------------- Ancillary Options ---------------------------
+
+    # 'printProgress' controls whether to print a progress gage to the console
+    #  This option helps test the input
+    printProgress: $=!TenXEnv.get("quiet")

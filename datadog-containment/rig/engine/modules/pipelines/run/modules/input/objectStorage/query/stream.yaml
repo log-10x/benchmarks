@@ -1,0 +1,124 @@
+#
+# 🔟❎ 'run' index query stream configuration
+
+# This configuration defines inputs and outputs that receive
+# a query containing a time range and search terms for matching events
+# in an Object storage container (e.g., AWS S3 bucket) to transform into TenXObjects.
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+
+# -------------------------------- Query Input --------------------------------
+
+input:
+
+    # 'type' defines the type of input (e.g., stdin, file, stream).
+  - type: stream
+
+    # 'name' is set to the logical query name
+    name: $queryName
+
+    # 'path' is set to the 'IndexQueryReader' reader class used to process the query's criteria
+    #  and pass the results to the IndexQueryWriter streams below to scan for matching Storage object byte ranges.
+    #  The IndexQueryWriter will launch 10x 'run' pipelines to transform events into TenXObjects
+    #  on which to execute the actions specified by the query.
+    #  See: https://github.com/log-10x/pipeline-extensions/blob/main/cloud-extensions/src/main/java/com/log10x/ext/cloud/index/query/IndexQueryReader.java
+    path: com.log10x.ext.cloud.index.query.IndexQueryReader
+
+    # 'printProgress' controls whether to print throughput stats to the console
+    printProgress: $?queryReadPrintProgress
+
+    # the 'foreach' macro will duplicate the input node for every instance of the
+    # 'objectStorageQuery' option group defined in:
+    # https://doc.log10x.coms/run/modules/input/objectStorage/query
+    foreach: objectStorageQuery
+
+# -------------------------------- Query Outputs ------------------------------
+
+output:
+
+  # ----------------------------- Template Filter -----------------------------
+
+  - type: stream
+
+    # 'path is 'IndexQueryWriter' which will process the query's terms
+    #  See: https://github.com/log-10x/pipeline-extensions/blob/main/cloud-extensions/src/main/java/com/log10x/ext/cloud/index/query/IndexQueryWriter.java
+    path: com.log10x.ext.cloud.index.query.IndexQueryWriter
+
+    # 'name' assigns a logical name to this output instance
+    name: queryTemplateHash
+
+    # 'group' is set to group each pair of template and event outputs with
+    #  once instance of a query input above.
+    group:
+      - '*'
+
+    # 'filter' is set to select any templates matching the query's terms.
+    #  For example, a template defined as: 'could not connect to: $' will match
+    #  the query term: 'connect to localhost'.
+    filter: isTemplate && templateIncludes(TenXInput.get("querySearch"))
+
+    # 'fields' is set to emit the 'templateHash' value of any matching TenXTemplate.
+    #
+    #  The 'scan' function fetches bloom filters produced by the 'index' module
+    #  within the query's time frame to test them against the query terms' 'templateHash' tokens.
+    #  A Bloom filter index object must test true for at least one templateHash to be considered a match.
+    #
+    #  The tag values of each matching Bloom filter index object identifies a Storage object byte range
+    #  that encloses events containing the 'templateHash' value within the probability of the Bloom filter.
+    #  See https://en.wikipedia.org/wiki/Bloom_filter#Probability_of_false_positives
+    fields:
+        # 'templateHash' extracts an TenXObject's template identifier value. This value
+        #  uniquely identifies all of its symbol tokens (i.e., values found within the host
+        #  10x pipeline's symbol set).
+      - templateHash
+
+    # 'encodeType' is set to write template hashes to IndexQueryWriter instance as a JSON
+    encodeType: json
+
+    # the 'foreach' macro will duplicate the input node for every instance of the
+    #'objectStorageQuery' option group defined in https://doc.log10x.com/run/input/objectStorage/query
+    foreach: objectStorageQuery
+
+  # -------------------------------- Var Filter -------------------------------
+
+  - type: stream
+
+    # 'path is the 'IndexQueryWriter' which will process the query's terms
+    #  See: https://github.com/log-10x/pipeline-extensions/blob/main/cloud-extensions/src/main/java/com/log10x/ext/cloud/index/query/IndexQueryWriter.java
+    path: com.log10x.ext.cloud.index.query.IndexQueryWriter
+
+    # 'name' assigns a logical name to this output instance
+    name: queryObjectVars
+
+    # 'group' is set to group each pair of template and event outputs with
+    #  once instance of a query input above.
+    group:
+      - '*'
+
+    # 'filter' is set to target the query's terms to transform them into TenXObjects
+    filter: isObject
+
+    # 'fields' is to write any 'vars' token within the query's terms (i.e., values not contained in the
+    #  pipeline's symbol set). The 'scan' function fetches bloom filters produced by the 'index' module
+    #  within the query's time frame to test them against the query terms' 'vars' tokens.
+    #  A Bloom filter index object must test true for all variable tokens to be considered a match.
+
+    #  The tag values of each matching Bloom filter index object identifies a Storage object byte range
+    #  that encloses events containing the 'vars' values within the probability of the Bloom filter.
+    #  See https://en.wikipedia.org/wiki/Bloom_filter#Probability_of_false_positives
+    fields:
+        # 'vars' extract all tokens from the current TenXObject that are not contained
+        #  within the host 10x pipeline's symbol files.
+      - vars
+
+        # TODO
+      - enrichmentValues
+
+    # 'encodeType' is set to encode variable values to the IndexQueryWriter as a JSON array
+    encodeType: json
+
+    # the 'foreach' macro will duplicate the input node for every instance of the
+    # 'objectStorageQuery' option group defined in https://doc.log10x.com/run/input/objectStorage/query
+    foreach: objectStorageQuery

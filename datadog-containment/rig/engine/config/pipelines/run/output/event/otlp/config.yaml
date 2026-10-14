@@ -1,0 +1,46 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/output/event/otlp/schema.json
+
+# 🔟❎ 'run' OTLP/gRPC output configuration
+
+# Configure OTLP/gRPC outputs to write TenXObject instance and template field values
+# to an OpenTelemetry Collector (or any OTLP-compatible logs receiver).
+# To learn more see https://doc.log10x.com/run/output/event/otlp
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Dependencies ================================
+
+include:
+  - run/modules/output/event/otlp
+
+# ============================== Output Options ===============================
+
+# Multiple OTLP/gRPC outputs can be defined below
+outputOtlp:
+
+    # 'host' specifies the host address of target OTLP/gRPC logs endpoint
+  - host: $=TenXEnv.get("TENX_REMOTE_OTLP_HOST", "127.0.0.1")
+
+    # 'port' specifies the host port of target OTLP/gRPC logs endpoint
+    port: $=parseInt(TenXEnv.get("TENX_REMOTE_OTLP_PORT", 4317))
+
+    # 'insecure' sets whether to connect over plaintext (no TLS).
+    # To learn more see https://doc.log10x.com/run/output/event/otlp/#outputotlpinsecure
+    insecure: "true"
+
+    # 'filter' sets a JavaScript expression that TenXObjects must evaluate as truthy to write to the output.
+    # To learn more see https://doc.log10x.com/run/output/receive/#filter-expressions
+    filter: null
+
+    # 'fields' defines the fields to write for each TenXObject sent to this output.
+    # To learn more see https://doc.log10x.com/run/output/stream/#outputfields
+    fields:
+      - fullText # https://doc.log10x.com/api/js/#fulltext-string
+
+    # 'encodeType' specifies how 'fields' are encoded to output. Possible values: [json, delimited].
+    # To learn more see https://doc.log10x.com/run/output/event/otlp/#outputotlpencodetype
+    encodeType: delimited
+
+    # 'writeTemplates' controls whether to write new templates for TenXObjects written to this output.
+    writeTemplates: "true"

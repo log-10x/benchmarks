@@ -1,0 +1,5 @@
+#
+# 🔟❎ 'run' console settings
+
+#  enables/disables reporting I/O status to stdout.
+pollInterval: $=TenXEnv.get("printProgress") ? "1s":""

@@ -1,0 +1,30 @@
+#
+# 🔟❎ MCP test-drive app, minimal stdin/stdout scaffold for log10x_validate.
+
+app:
+
+  name: mcp
+
+  title: MCP test-drive
+
+  description: stdin/stdout scaffold used by log10x_validate for local pipeline-config test drives
+
+  doc: +include $=TenXEnv.get("docGenerate") ? "apps/mcp/doc.md":""
+
+  configFolders:
+
+    mcp: apps/mcp
+
+    inputs+stdin: run/input/stdin
+
+    initializers+message: run/initialize/message
+    initializers+level: run/initialize/level
+    initializers+group: run/initialize/group
+
+    event Outputs+stdout: run/output/event/stdout
+
+  advancedConfigFolders:
+
+    symbols: run/symbol
+    template: run/template
+    transform+group: run/transform/group

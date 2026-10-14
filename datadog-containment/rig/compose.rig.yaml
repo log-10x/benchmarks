@@ -1,0 +1,105 @@
+# Rig overlay for the OpenTelemetry demo 3.1.0.
+# Usage (from the demo clone, with DEMO_VERSION=3.1.0 in the shell environment):
+#   docker compose -f compose.yaml -f compose.full.yaml -f <rig>/compose.rig.yaml ...
+#
+# Every demo container logs through the Docker fluentd driver to Fluent Bit (host port
+# 24224). Fluent Bit keeps a raw copy, hands each record to the log10x Receiver over the
+# Fluent Forward protocol, takes the processed record back and splits it by routeState.
+
+x-rig-logging: &riglog
+  driver: fluentd
+  options:
+    fluentd-address: "localhost:24224"
+    tag: "app.{{.Name}}"
+    fluentd-async: "true"
+    mode: non-blocking
+    max-buffer-size: 8m
+    cache-disabled: "true"
+
+services:
+
+  fluent-bit:
+    image: fluent/fluent-bit:4.2
+    container_name: rig-fluent-bit
+    command: ["/fluent-bit/bin/fluent-bit", "-c", "/fluent-bit/etc/rig/fluent-bit.conf"]
+    ports:
+      - "24224:24224"
+    volumes:
+      - ${RIG_DIR}/fluent-bit:/fluent-bit/etc/rig:ro
+      - ${RIG_DATA}:/data
+    deploy:
+      resources:
+        limits:
+          memory: 300M
+    restart: unless-stopped
+
+  tenx:
+    image: log10x/edge-10x:1.1.140
+    container_name: rig-tenx
+    environment:
+      - TENX_MODULES=/opt/tenx-rig/modules
+      - TENX_AIRGAPPED=true
+      - outputOffload=true
+      - TENX_FLUENTBIT_OUTPUT_HOST=fluent-bit
+    volumes:
+      - ${RIG_DIR}/engine/config:/etc/tenx/config:ro
+      - ${RIG_DIR}/engine/modules:/opt/tenx-rig/modules:ro
+      - ${RIG_DIR}/lookups:/etc/tenx/lookups:ro
+    command:
+      - "@run/input/forwarder/fluentbit"
+      - "@apps/receiver"
+      - rateReceiverCapLookupFile
+      - /etc/tenx/lookups/caps.csv
+      - rateReceiverAbsoluteCap
+      - "${RIG_CAP:-0}"
+      - rateReceiverMinSharePercent
+      - "0"
+      - rateReceiverWarmupMs
+      - "0"
+      - rateReceiverBaselineCount
+      - "5"
+      - rateReceiverMinRetentionThreshold
+      - "0"
+      - rateReceiverDefaultAction
+      - offload
+      - rateReceiverContainerField
+      - container_name
+      - symbolMessageHashField
+      - tenx_hash
+      - outputEncodeField
+      - 'fullText("tenx_hash","routeState","message_pattern","severity_level")'
+    deploy:
+      resources:
+        limits:
+          memory: 1200M
+    restart: unless-stopped
+
+  # Demo containers: route stdout/stderr through the Docker fluentd driver.
+  ad:              { logging: *riglog }
+  cart:            { logging: *riglog }
+  checkout:        { logging: *riglog }
+  currency:        { logging: *riglog }
+  email:           { logging: *riglog }
+  frontend:        { logging: *riglog }
+  frontend-proxy:  { logging: *riglog }
+  image-provider:  { logging: *riglog }
+  load-generator:
+    image: rig/load-generator:3.1.0     # see load-generator/Dockerfile (no browser)
+    logging: *riglog
+    environment:
+      - LOCUST_BROWSER_TRAFFIC_ENABLED=false
+      - LOCUST_BROWSER_USER_WEIGHT=0
+  payment:         { logging: *riglog }
+  product-catalog: { logging: *riglog }
+  quote:           { logging: *riglog }
+  recommendation:  { logging: *riglog }
+  shipping:        { logging: *riglog }
+  flagd:           { logging: *riglog }
+  flagd-ui:        { logging: *riglog }
+  telemetry-docs:  { logging: *riglog }
+  astronomy-db:    { logging: *riglog }
+  valkey-cart:     { logging: *riglog }
+  otel-collector:  { logging: *riglog }
+  accounting:      { logging: *riglog }
+  fraud-detection: { logging: *riglog }
+  kafka:           { logging: *riglog }

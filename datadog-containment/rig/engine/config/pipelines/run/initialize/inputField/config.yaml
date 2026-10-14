@@ -1,0 +1,19 @@
+# yaml-language-server: $schema=schema.json
+
+# 🔟❎ 'run' input field configuration
+
+# Configure an input field from which to enrich TenXObjects with severity, symbol message and more.
+# To learn more see https://doc.log10x.com/run/initialize/#inputfield
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# ========================= Input Field Options ===============================
+
+# 'inputField' specified field names for log event message/body in order of lookup priority.
+#  Based on popularity/likelihood of log collectors: Fluent Bit, Fluentd, Filebeat/Logstash, OpenTelemetry
+inputField: 
+  - log      # Commonly used by Fluent Bit and Fluentd for containerized environments
+  - message  # Standard field in Elastic stack collectors (Filebeat, Logstash)
+  - body     # Used by OpenTelemetry as an emerging standard
+  - text     # default to the event's raw text field

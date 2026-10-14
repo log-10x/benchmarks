@@ -1,0 +1,6 @@
+#
+# 🔟❎ S3 scanner settings
+
+# 's3Scanners' configures S3 bucket objects to pull to disk
+s3Scanners: 
+  - $?s3 

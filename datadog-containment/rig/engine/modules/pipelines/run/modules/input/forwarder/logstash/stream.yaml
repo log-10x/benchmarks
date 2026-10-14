@@ -1,0 +1,89 @@
+# 🔟❎ 'run' Logstash input + output streams
+#
+# Listens for newline-delimited JSON over a TCP socket (paired with
+# Logstash's `tcp` output + `json_lines` codec) and sends processed
+# events back over a separate TCP socket (paired with Logstash's
+# `tcp` input + `json_lines` codec).
+
+tenx: run
+
+runtimeAttributes:
+  - fwd_input:logstash
+
+include:
+  - run/modules/output/event/socket
+
+# ============================== Extractor ====================================
+
+extractor:
+  - name: logstash
+    type: json
+    actions:
+      # Capture the configurable message field as the event's text
+      - $=yield "captureFirst:" + TenXEnv.get("logstashInputMessageField", "message")
+      # NOTE: unlike Fluentd / Vector, Logstash's NDJSON wire has no
+      # protocol-level envelope, the `tag` field stamped by the ingest
+      # pipeline is a regular record field. We keep it in the record body
+      # so it survives the round trip and reaches destinations on the
+      # return path.
+
+# ============================== Input ========================================
+
+input:
+
+  - type: stream
+    name: logstash
+
+    # Newline-delimited reader supporting TCP (port) or Unix socket (path)
+    path: com.log10x.ext.edge.input.unix.UnixSocketInputStream
+
+    # Apply the Logstash extractor above; add the k8s extractor automatically
+    # when the Receiver app sets `k8sExtractorName: fluentK8s`.
+    extractors:
+      - logstash
+      - "$=yield TenXEnv.get(\"k8sExtractorName\") ? \"fluentK8s\" : \"\""
+
+    # Use the `tag` field stamped by Logstash's ingest pipeline as the event's
+    # source. Matches `"tag":"<value>"` in the NDJSON record. The field name
+    # is fixed (Fluentd-style), the recipe's `mutate { add_field }` writes it.
+    sourcePattern: \"tag\":\"(.*?)\"
+
+    args:
+      # Unix socket path takes precedence over TCP port when both are set
+      - path
+      - $=yield TenXEnv.get("logstashInputPath", "")
+      - port
+      - $=yield TenXEnv.get("logstashInputPort", "5044")
+      # Logstash does not wrap events in RFC5424 syslog, read plain JSON lines
+      - syslog
+      - false
+
+    # Backpressure ceiling, Log10x stops draining the socket once this many
+    # bytes have arrived in `intervalBytesDuration`, signalling Logstash to
+    # buffer instead of overwhelming the pipeline.
+    backpressure:
+      intervalBytesLimit: $=parseBytes("2MB")
+      intervalBytesDuration: $=parseDuration("1s")
+
+# ============================== Output =======================================
+
+outputSocket:
+
+  - protocol: TCP
+    host: $=yield TenXEnv.get("logstashOutputHost", "127.0.0.1")
+    port: $=yield TenXEnv.get("logstashOutputPort", "5045")
+
+    fields:
+      # Carries the whole Logstash record in receive mode and an encoded form
+      # in compact mode. Picked automatically based on the Receiver app's
+      # mode (`receiverOptimize`, `compactReceiverLookupFile`,
+      # `symbolMessageHashField`).
+      - $?outputEncodeField=fullText
+
+    # `delimited` with a single `fullText` field emits the raw JSON record
+    # value as the line, exactly what Logstash's `codec => json_lines`
+    # expects on its `tcp` input.
+    encodeType: $?logstashOutputEncodeType=delimited
+    encodeDelimiter: ","
+
+    writeTemplates: $?outputWriteTemplates=false

@@ -1,0 +1,126 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/compile/link/schema.json
+
+# 🔟❎ 'compile' merge configuration
+
+# Combine symbol units into a single output symbol library file.
+# To learn more see https://doc.log10x.com/compile/link/
+
+# Set the 10x pipeline to 'compile'
+tenx: compile
+
+# ============================ Symbol Library Output ==========================
+
+# 'outputSymbolLibraryFile' specifies location of output symbol library file which
+#  links the contents of 'outputSymbolFolder' to a single .json artifact and a
+#  compressed .zip version for use at run time by 10x 'run' pipelines.
+#  If a local output dir exists write to it, otherwise use the pipeline's temp folder.
+#  To learn more see https://doc.log10x.com/compile/link
+
+outputSymbolLibraryFile: $=TenXEnv.get("TENX_OUTPUT_SYMBOL_LIBRARY_FILE", path("data/shared/symbols", "<tenx.io.tmpdir>") + "/" + TenXEnv.get("runtimeName", "symbols") + ".10x.tar")
+
+
+# ============================ Symbol Filter options ==========================
+
+# The options below control which symbol files and values are merged into 'outputSymbolLibraryFile'
+
+symbol:
+
+  # 'fileNameFilters', exclude test files from symbol library
+  fileNameFilters:
+
+    # ── Java ───────────────────────────────────────
+    - ^(?-i:.*(Test|Tests|TestCase|TestSuite))\.java$  # *Test.java, *TestCase.java, *TestSuite.java (case sensitive: Latest.java is kept)
+    - ^Test.*\.java$                                # TestFoo.java (legacy)
+    - ^(?-i:.*[a-z0-9]IT)\.java$                    # *IT.java, Failsafe integration tests (case sensitive: Limit.java is kept)
+
+    # ── JavaScript / TypeScript ────────────────────
+    - ^.*\.(test|spec)\.(js|jsx|ts|tsx|mjs|cjs)$    # *.test.js, *.spec.tsx
+
+    # ── Python ─────────────────────────────────────
+    - ^test_.+\.py$                                 # test_utils.py
+    - ^.+_tests?\.py$                               # utils_test.py, utils_tests.py
+    - ^test(s|case|cases|suite|suites)?\.py$        # test.py, tests.py, testcase.py, testcases.py, testsuite.py
+    - ^conftest\.py$                                # pytest fixtures
+
+    # ── Scala ──────────────────────────────────────
+    - ^(?-i:.*(Spec|Test|Suite))\.scala$            # *Spec.scala, *Test.scala, *Suite.scala (case sensitive: MergeLatest.scala is kept)
+
+    # ── C# ─────────────────────────────────────────
+    - ^(?-i:.*(Test|Tests|TestCase|TestSuite))\.cs$  # *Test.cs, *TestCase.cs, *TestSuite.cs
+
+    # ── Go ─────────────────────────────────────────
+    - ^.*_test\.go$                                 # *_test.go
+    # Note: testdata.go is usually a data file, not test code → not filtered here
+
+    # ── C / C++ ───────────────────────────────────
+    - ^.*(_test|Test|Tests)s?\.(cpp|cc|cxx|hpp|h|hxx)$  # *_test.cpp, *Test.hpp, *Tests.cpp
+    - ^.*_test\.c$                                  # *_test.c
+
+    # ── Rust ──────────────────────────────────────
+    - ^.*_test\.rs$                                 # *_test.rs
+
+  # 'folderFilters', patterns to exclude files by folder
+  # Plain name (e.g., "test") → matches direct parent folder only
+  # Regex (e.g., "[/\\]vendor[/\\]") → matches anywhere in full path
+  folderFilters:
+    - test           # direct parent is "test"
+    - tests          # direct parent is "tests"
+    - __tests__      # Jest convention
+    - spec           # RSpec/Jasmine convention
+    - specs          # RSpec/Jasmine convention
+    - unit           # unit test folder
+    - integration    # integration test folder
+    - e2e            # e2e tests (Cypress, Playwright)
+    - end-to-end     # alternate e2e naming
+    - acceptance     # acceptance test folder
+    - testdata       # Go test data folder
+    - fixtures       # test fixtures folder
+    - mocks          # mock implementations folder
+    - "[/\\\\]tests?[/\\\\]"         # test/ or tests/ anywhere in the path
+    - "[/\\\\]vendor[/\\\\]"         # vendored deps anywhere (Go, PHP, Ruby, C)
+    - "[/\\\\]deps[/\\\\]"           # bundled C deps (e.g. lib/monkey/deps/mbedtls)
+    - "[/\\\\]third_party[/\\\\]"    # bundled third-party code
+    - "[/\\\\]node_modules[/\\\\]"   # npm dependencies
+    # test, QA, benchmark and build folders anywhere in the path
+    - "[/\\\\]buildscripts[/\\\\]"         # build and CI scripts (mongodb/mongo)
+    - "[/\\\\]qa[/\\\\]"                   # QA projects (elasticsearch x-pack/qa)
+    - "[/\\\\]e2e[/\\\\]"
+    - "[/\\\\]testdata[/\\\\]"
+    - "[/\\\\]fixtures[/\\\\]"
+    - "[/\\\\]__tests__[/\\\\]"
+    - "[/\\\\]spec[/\\\\]"
+    - "[/\\\\]specs[/\\\\]"
+    - "[/\\\\]mocks[/\\\\]"
+    - "[/\\\\]mock[/\\\\]"
+    - "[/\\\\]benchmarks[/\\\\]"
+    - "[/\\\\]bench[/\\\\]"
+    - "[/\\\\]integration-tests[/\\\\]"
+    - "[/\\\\]javaRestTest[/\\\\]"          # elasticsearch test source sets
+    - "[/\\\\]internalClusterTest[/\\\\]"
+    - "[/\\\\]yamlRestTest[/\\\\]"
+
+  # 'types' controls the types of symbols written into 'outputSymbolLibraryFile'
+  #  for reflective use at runtime.
+  #  Narrowing the this list reduces the size of the output 10x symbols file. 'exec' is left
+  #  out, so a library compiled with this file holds no strings from binaries; the default
+  #  library that ships with the engine includes them. Possible values:
+  types:
+    - class   # source code class/interface name (e.g. 'AcmeLogic')
+    - enum    # source code enum/literal name (e.g. 'severity: {error,warn,debug}')
+    - log     # source code print format passed to a logging method/stream (e.g. 'err("could not connect to %s",..');
+    # - exec    # string value extracted from a binary executable input file (e.g. via 'strings' nix command)
+    # - method # code method/function name (e.g. 'foo')
+    # - const  # string constant assigned into a variable or method arg (e.g. 'greeting = "hello world"')
+    # - text    # string value, usually read from a config file (e.g. JSON/XML/YAML field name)
+    # - package # source code package/namespace/module name (e.g. 'com.acme.core')
+
+  # 'wordTypes' controls the types of symbols whose words the library index knows at
+  #  runtime. A known word is template text; any other word is a variable. Constants
+  #  and config text are values a program logs, so their words stay out.
+  #  Unset, every type's words are known.
+  wordTypes:
+    - class
+    - enum
+    - log
+    - method
+    - package

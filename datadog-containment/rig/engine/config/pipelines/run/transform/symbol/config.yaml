@@ -1,0 +1,236 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/transform/symbol/schema.json
+
+# 🔟❎ 'run' symbol origin configuration
+
+# Identify the origin of symbol values within TenXTemplates.
+# To learn more see https://doc.log10x.com/run/transform/symbol/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Origin Options ==============================
+
+symbol:
+
+  # 'maxOrigins' is the most places in code to compare for one phrase. A phrase
+  #  such as 'could not connect to' can appear in many files. The first ones in
+  #  library order, by file name and then by unit name, are compared, so the same
+  #  library picks the same origin on every node.
+  maxOrigins: 64
+  
+  # 'sequenceReserved' lists words that do not count as evidence of where a line
+  #  comes from. A match made only of these words cannot pick a source. Before the
+  #  message they are skipped, and a key from this list is skipped with its value
+  #  ('level=info'). Words of the statement itself stay in the name as written.
+  #  To learn more see https://doc.log10x.com/run/transform/symbol/#symbolsequencereserved
+  sequenceReserved:
+    # literals
+    - "null"
+    - "nil"
+    - "true"
+    - "false"
+    # stopwords (articles, conjunctions, prepositions)
+    - "a"
+    - "an"
+    - "the"
+    - "to"
+    - "of"
+    - "in"
+    - "on"
+    - "at"
+    - "by"
+    - "for"
+    - "from"
+    - "with"
+    - "and"
+    - "or"
+    - "as"
+    - "is"
+    # generic log words
+    - "log"
+    - "logger"
+    - "logs"
+    - "http"
+    - "https"
+    # severity levels, uppercase
+    - TRACE
+    - DEBUG
+    - INFO
+    - NOTICE
+    - WARN
+    - WARNING
+    - ERROR
+    - ERR
+    - CRITICAL
+    - CRIT
+    - ALERT
+    - EMERGENCY
+    - EMERG
+    - FATAL
+    - PANIC
+    # severity levels, lowercase (engine matching is case-sensitive).
+    #  'error' and 'emergency' are not reserved: an 'error' key often
+    #  carries the message itself, and 'emergency' appears as prose.
+    - "trace"
+    - "debug"
+    - "info"
+    - "notice"
+    - "warn"
+    - "warning"
+    - "err"
+    - "critical"
+    - "crit"
+    - "alert"
+    - "fatal"
+    - "panic"
+    # severity-equivalent envelope keys
+    - "level"
+    - "levelname"
+    - "severity"
+    # envelope time keys
+    - "time"
+    - "timestamp"
+    - "ts"
+    # 'msg' and 'message' are message keys (see 'preamble.messageKeys')
+    # OpenTelemetry / collector envelope
+    - "otel"
+    - "otelcol"
+    - "opentelemetry"
+    - "collector"
+    - "contrib"
+    - "processor"
+    - "processors"
+    - "receiver"
+    - "receivers"
+    - "exporter"
+    - "exporters"
+    - "pipeline"
+    - "pipelines"
+    # structured / envelope keys, singular and plural (matching is exact)
+    - "service"
+    - "services"
+    - "instance"
+    - "instances"
+    - "component"
+    - "components"
+    - "signal"
+    - "signals"
+    - "resource"
+    - "resources"
+    - "scope"
+    - "scopes"
+    - "attribute"
+    - "attributes"
+    - "traces"
+    - "span"
+    - "spans"
+    - "flag"
+    - "flags"
+    - "context"
+    - "contexts"
+    - "baggage"
+    # Kubernetes API / audit envelope
+    - "metadata"
+    - "namespace"
+    - "verb"
+    - "uid"
+    - "identity"
+    - "protocol"
+    - "priority"
+    - "encoding"
+    - "headers"
+    - "duration"
+    # HTTP / request envelope
+    - "path"
+    - "status"
+    # generic identity keys (very common envelope tokens in JSON logs)
+    - "id"
+    - "name"
+    - "kind"
+    - "version"
+    - "type"
+    # source-location envelope (Go / Java / Python loggers print these)
+    - "caller"
+    - "func"
+    - "function"
+    - "file"
+    - "line"
+    - "module"
+    - "package"
+    - "class"
+    - "method"
+    - "stack"
+    - "stacktrace"
+    # process / runtime context. 'host' and 'app' are not reserved:
+    #  'host' is message text in 'no such host', and 'app' is the Flask
+    #  logger name that tells one application's statements from another's.
+    - "pid"
+    - "tid"
+    - "process"
+    - "thread"
+    - "hostname"
+    - "application"
+    # package-qualifier prefixes (Go / Java loggers embed these in
+    # source-path tokens like `com.foo.bar.MyLogger`)
+    - "com"
+    - "org"
+    - "io"
+    - "net"
+    # tokenizer artifacts
+    - "t"
+
+  # 'preamble' describes the text a line carries before its message, such as a
+  #  thread name in brackets or 'level=info'. That text stays out of the name.
+  #  To learn more see https://doc.log10x.com/run/transform/symbol/#symbolpreambleenclosures
+  preamble:
+
+    # 'enclosures' lists bracket pairs. Text inside them before the message stays
+    #  out of the name ('main' in '[main] Starting worker'). An open bracket with
+    #  no close in the same field is ignored.
+    enclosures: ['[]', '()']
+
+    # 'assigners' lists characters that join a key to its value when the key or
+    #  the value is quoted ('"level":"info"'). Without quotes, ':' joins nothing,
+    #  so 'Error: 13 INTERNAL' and 'INFO:root:Starting' keep their words.
+    assigners: ['=', ':']
+
+    # 'bareAssigners' lists characters that also join a key to its value without
+    #  quotes, as logfmt writes them ('level=info').
+    bareAssigners: ['=']
+
+    # 'joiners' lists separators that chain words into one name without spaces
+    #  ('org.apache.kafka.log.LocalLog'). Such a name stays in an event's name. A
+    #  line of a multi-line event that holds only such names does not name it.
+    joiners: ['.', '::']
+
+    # 'messageKeys' lists keys whose value holds the message. The name starts at
+    #  the value's first word outside brackets ('starting' in 'msg=starting').
+    messageKeys: [msg, message, body]
+
+  # 'groupLead' picks the line of a multi-line event that names it.
+  #  'firstWithMessage' uses the first line that holds message text, so the .NET
+  #  logger's 'info: cart.cartstore.ValkeyCartStore[0]' line leaves the name to
+  #  the line after it. 'head' always uses the first line.
+  groupLead: firstWithMessage
+
+  # ----------------------------- Debug Options -------------------------------
+  
+  debug:
+
+    # 'debug' logs how the origin of a line is picked.
+    #  To learn more see https://doc.log10x.com/run/transform/symbol/#symboldebugorigins
+
+    # 'loggerName' is the log4j logger the debug output goes to.
+    loggerName: "symbolDebugger"
+
+    # 'origins' lists source files in the symbol library, such as 'foo.java', for
+    #  which to log how they take part in picking an origin. '*' logs all files.
+    origins: [
+    #  '*'
+    ]
+
+    # 'symbols' lists words of a line, such as 'Could not connect to', for which
+    #  to log how their origin is picked. '*' logs all of them.
+    symbols: [
+    #  '*'
+    ]

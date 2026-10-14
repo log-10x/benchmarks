@@ -1,0 +1,109 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Log10x OpenTelemetry Collector sidecar recipe
+# ─────────────────────────────────────────────────────────────────────────────
+#
+# Drop this into your OTel Collector config (or merge its blocks into your
+# existing config) to wire the Collector up to a Log10x sidecar process.
+# Events flow:
+#
+#   receivers ──► logs/to-tenx ──► otlp/tenx exporter ──► Log10x:4317
+#                  (enrichment)                                │
+#                                                              ▼
+#                                                           Receiver
+#                                                              │
+#   destinations ◄── logs/from-tenx ◄── otlp/tenx receiver ◄── Log10x:24225
+#                                       (no processors)
+#
+# How each event is handled:
+#
+#   1. Receivers feed events into the `logs/to-tenx` pipeline.
+#   2. Processors on `logs/to-tenx` (k8sattributes, resource, attributes,
+#      transform, …) apply enrichment exactly once per event before the
+#      handoff to Log10x.
+#   3. The `otlp/tenx` exporter sends the enriched event to the Log10x
+#      sidecar over OTLP/gRPC on TCP `:4317`. Resource attributes
+#      (`service.name`, `k8s.pod.name`, `k8s.namespace.name`, …), scope
+#      identity, log-record attributes, severity, timestamp, and body are
+#      all preserved on the wire.
+#   4. Log10x processes the event (rate/policy filtering, optional compaction).
+#   5. The processed event comes back to the Collector on `:24225` via the
+#      `otlp/tenx` receiver, surfacing on the `logs/from-tenx` pipeline. The
+#      OTLP `LogRecord.body` carries the message verbatim; everything else
+#      that came in on OTLP returns as a log-record attribute (the resource-
+#      vs-log distinction collapses; everything comes back as a log attribute).
+#   6. `logs/from-tenx` holds only destination exporters, no processors.
+#      Keep this pipeline processor-free so enrichment runs exactly once.
+#
+# Run Log10x:
+#
+#   tenx @run/input/forwarder/otel-collector @apps/receiver
+#
+# Run the Collector, both ports use the core `otlp` receiver and exporter,
+# so the core `otelcol` distribution works (no `otelcol-contrib` needed):
+#
+#   otelcol --config=<this-file>
+#
+# ─────────────────────────────────────────────────────────────────────────────
+
+receivers:
+
+  # Replace this with your own receivers. Anything that feeds `logs/to-tenx`
+  # passes through Log10x; anything that feeds `logs/from-tenx` directly
+  # skips the structural bypass and risks loops.
+  filelog:
+    include: [/tmp/app.log]
+    start_at: beginning
+
+  # Receive processed events back from the Log10x sidecar.
+  #
+  # Bind on 0.0.0.0 so a Kubernetes kubelet probe can reach the port from
+  # the pod IP. The Log10x sidecar still connects via 127.0.0.1 (same pod,
+  # same network namespace).
+  otlp/tenx:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:24225
+
+processors:
+
+  # Put all your enrichment here, `k8sattributes`, `resource`, `attributes`,
+  # `transform`, `filter`, etc. This pipeline (`logs/to-tenx`) fires the
+  # processors exactly once per event before the handoff to Log10x. The
+  # return pipeline (`logs/from-tenx`) bypasses them by structural wiring.
+  batch:
+    timeout: 1s
+    send_batch_size: 100
+
+exporters:
+
+  # Hand off to the Log10x sidecar over OTLP/gRPC. All resource attributes,
+  # scope info, log-record attributes, and the body survive the wire.
+  otlp/tenx:
+    endpoint: 127.0.0.1:4317
+    tls:
+      insecure: true
+    # One sender keeps records in the order they were read; the engine
+    # groups multi-line events from consecutive records.
+    sending_queue:
+      num_consumers: 1
+
+  # `debug` is the terminal exporter for this recipe, replace it with your
+  # real destinations (`elasticsearch`, `splunk_hec`, `kafka`, `awss3`, …).
+  # Wire your destination exporters into `logs/from-tenx` only; that's what
+  # keeps the enrichment processors above from running a second time on
+  # returning events.
+  debug:
+    verbosity: detailed
+
+service:
+
+  pipelines:
+
+    logs/to-tenx:
+      receivers: [filelog]
+      processors: [batch]
+      exporters: [otlp/tenx]
+
+    logs/from-tenx:
+      receivers: [otlp/tenx]
+      exporters: [debug]

@@ -1,0 +1,31 @@
+#
+# 🔟❎ 'compile' source discovery unit
+
+unit:
+
+  name: discoverSources
+
+  title: Input file finder
+  
+  description: locate source code, binary, executable, and text files to scan
+  
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "compile/units/sources/doc.md":""
+
+  # 'allowMultiple' is disabled for this unit. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - inputPaths
+      description: list folders to scan for input files
+      type: list
+      required: true
+      doc: |
+        provides a list of folders to scan for source, binary, and text files from which to capture  
+        symbol values to output into symbol unit files.

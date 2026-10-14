@@ -1,0 +1,54 @@
+#
+# 🔟❎ 'run' JavaScript input initializer unit
+
+unit:
+
+  name: inputActions
+
+  title: Input JavaScript
+
+  description: initialize inputs at runtime using JavaScript.
+ 
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/units/transform/script/input/doc.md":""
+
+  # 'allowMultiple' is enabled for this unit. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+
+  # 'optionsGroup' defines a group of named/typed configuration values to pass to a pipeline at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed to the pipeline are accessible at runtime via the TenXEnv JavaScript class.
+  options:
+
+    - names:
+      - inputActionsClassName
+      - TenXInputClassName
+      description: JavaScript class name
+      type: string
+      required: true
+      doc: |
+        specifies the JavaScript class name in which [inputActions](https://doc.log10x.com/run/transform/script/input/#inputactions) are defined.
+
+        
+    - names:
+      - inputActions
+      - TenXInput
+      description: 10x JavaScript statements to execute
+      type: list
+      required: false
+      doc: |
+        JavaScript statements for initializing target input(s). 
+        
+        **NOTE**: This argument is not designed to be set directly, but instead by passing a [.js launch file](https://doc.log10x.com/config/javascript/) containing 
+        these statements nested within an [TenXInput](https://doc.log10x.com/api/js/#TenXInput) sub-class constructor as described above.
+        
+    - names:
+      - inputActionsFile
+      - TenXInputFile
+      description: Declaring .js file
+      type: string
+      required: false
+      doc: |
+        Specifies the .js file name declaring [inputActions](https://doc.log10x.com/run/transform/script/input/#inputactions).
+                

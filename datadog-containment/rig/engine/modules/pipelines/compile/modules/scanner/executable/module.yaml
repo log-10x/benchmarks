@@ -1,0 +1,238 @@
+#
+# 🔟❎ 'compile' Executable scanner module
+
+module:
+
+  name: executable
+
+  title: Executable scanner
+
+  description: launch a target process from which to read symbol values via its stdout
+          
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "compile/modules/scanner/executable/doc.md":""
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: compile/scanners/executable
+
+  # 'allowMultiple' is enabled for this module. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+  
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+  
+    - names:
+      - execName
+      description: a logical name for this exec scanner
+      type: String
+      required: true
+      category: scanner
+      doc: |
+        a logical name for this exec scanner unique amongst all specified scanner option groups (e.g., 'stringsNIX')
+      
+    - names:
+       - execOsFilter
+      description: a pattern that must match the name of the host OS to apply this scanner.
+      type: String
+      required: true
+      category: filter
+      doc: |
+        defines a pattern to match against the name of the host OS
+        to determine whether to apply this scanner.   
+      
+    - names:
+       - execExtensions
+      description: a list of file extensions a target file must match to apply this scanner
+      type: list
+      required: false
+      category: filter
+      doc: |
+        an array of file extensions to test a file candidate against.
+        If the candidate matches any extensions, apply this scanner.  
+      
+    - names:
+        - execFileNameFilter
+      description: a pattern that the target input file must match to apply this scanner
+      type: String
+      category: filter
+      required: false
+      doc: |
+        sets a regex pattern to test a file candidate name against.
+        If the candidate matches any of the extensions, apply this scanner.  
+
+    - names:
+        - execSelectorProcess
+      description: name of a process to launch whose output whether to apply this input
+      type: string
+      required: false
+      category: selector
+      doc: |
+        define a process name to launch to obtain information about the input file.
+        In some OSs (e.g., Linux/Unix), executable files do not necessarily have a known extension.
+        For this, an OS utility such as NIX [file](https://man7.org/linux/man-pages/man1/file.1.html) can obtain information on the actual file contents.
+        
+        If a selector process is not provided the file's ELF/PE/OSX binary header is tested for a possible match. 
+
+    - names:
+        - execSelectorWorkDir
+      description: the path of the working directory when running 'execSelectorProcess'
+      type: string
+      required: false
+      category: selector
+      doc: |
+        defines the working directory when running [execSelectorProcess](https://doc.log10x.com/compile/scanner/executable/#execselectorprocess).
+        If omitted, will use the the working directory.
+      
+    - names:
+      - execSelectorArgs
+      description: list of arguments passed to 'execSelectorProcess' 
+      type: list
+      required: false
+      category: selector
+      doc: |
+        defines arguments for the selector process, if provided.
+        The `file` macro takes the value of the target exec file to launch.
+      
+    - names:
+       - execSelectorTimeout
+      description: timeout period after which to terminate 'execSelectorProcess process
+      type: string
+      required: false
+      category: selector
+      doc: |
+        sets how long to allow the selector process to run before termination (e.g. '10s')   
+   
+    - names:
+      - execSelectorOutputFilter
+      description: a filter pattern that must match the output of 'execSelectorProcess' to apply this scanner
+      type: string
+      required: false
+      category: selector
+      doc: |
+        defines a regex pattern to match against the contents of the stdout stream read from the [execSelectorProcess](https://doc.log10x.com/compile/scanner/executable/#execselectorprocess) process. 
+        If matched, apply this scanner to the input file.
+   
+    - names:
+      - execProcess
+      description: process to launch for extracting symbol values
+      type: string
+      required: false
+      category: scanner
+      doc: |
+        defines a process to launch and whose stdout pipe to parse for symbol values.
+      
+    - names:
+      - execWorkDir
+      description: the path of the working directory when running 'execProcess'
+      type: string
+      required: false
+      category: scanner
+      doc: |
+        defines the working directory when running [execProcess](https://doc.log10x.com/compile/scanner/executable/#execprocess).
+        If omitted, uses the working directory.
+
+    - names:
+      - execArgs
+      description: list of arguments passed to 'execProcess' ('file' is replaced by scan target)
+      type: list
+      required: false
+      category: scanner
+      doc: |
+        defines launch arguments [execProcess](https://doc.log10x.com/compile/scanner/executable/#execprocess).
+        The `file` macro expands into the input file path
+      
+    - names:
+      - execTimeout
+      description: timeout period after which to terminate 'execProcess' process
+      type: string
+      required: false
+      category: scanner
+      doc: |
+        defines how long [execProcess](https://doc.log10x.com/compile/scanner/executable/#execprocess) is allowed to run before termination   
+
+    - names:
+      - execSymbolMinLength
+      description: minimal length of the string read from 'execProcess' to read as a symbol
+      type: number
+      required: false
+      category: parse
+      doc: |
+        sets the minimal length a string read from the scanner process
+        stdout must be to be considered a symbol  
+
+    - names:
+      - execSymbolMaxLength
+      description: max length the string read from 'execProcess' to read as a symbol
+      type: number
+      required: false
+      category: parse
+      doc: |
+        sets the maximum length a string read from the scanner process
+        stdout must be to be considered a symbol  
+
+    - names:
+      - execSymbolFilters
+      description: patterns a line read from 'execProcess' must NOT match
+      type: list
+      category: parse
+      required: false
+      doc: |
+        defines regex patterns applied to each line read from the scanner process' stdout 
+        that must NOT match for the line value to be captured as a symbol. 
+
+        For example, to avoid [AWAV binary](https://stackoverflow.com/questions/39322552/meaning-of-a-common-string-in-executables) when using the `strings` OS utility, specify:
+
+        ``` yaml
+        execSymbolFilters:
+          -  ^AWAV     
+        ````
+
+    - names:
+      - execSymbolSetSelectors
+      description: regex patterns to determines whether to treat an input value as set of tokens
+      type: list
+      category: parse
+      required: false
+      doc: |
+        defines regex patterns must ALL matc to treat an input value as a line (e.g., 'error connecting to {}'), 
+        or as a series of independent tokens (e.g., 'error', 'connecting', 'to') to reduce the cardinality and size of the output symbol file. 
+
+        For example, when processing files that contain values GO compile symbols such as: 
+
+        ```
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/fileexporter.group[go.shape.struct
+        ```
+
+        Specify the pattern below to break the string into separate symbol tokens (e.g., shape, struct,..): 
+        
+        ``` yaml
+        setSelectors: 
+        - ^(?:github\.com|golang\.org|type:\.eq\.(?:github\.com|golang\.org))(/[a-zA-Z0-9_-]+)*$
+        - ^[a-zA-Z0-9_/:\.\[\]\*,-]*(?:\.[a-zA-Z0-9]+|\[[a-zA-Z0-9,\.\*/:_-]+\]|-fm)?$
+        ```
+
+    - names:
+      - execIsStructured
+      description: sets whether output lines read from 'execProcess' are read as plain text or structured JSON
+      type: string
+      required: false
+      category: parse
+      doc: |
+        controls whether to read the [execProcess](https://doc.log10x.com/compile/scanner/executable/#execprocess) stdout as plain text or as a JSON object containing
+        source context information. If false (default), symbol values
+        read from the process' output are marked as having an [exec](https://doc.log10x.com/run/transform/symbol/#exec) context.
+        To learn more about producing structured symbol values, see [SymbolUnit.java](https://github.com/log-10x/pipeline-extensions/blob/main/cloud-extensions/src/main/java/com/log10x/ext/cloud/compile/symbol/SymbolUnit.java)
+      
+    - names:
+      - execSymbolsPrefix
+      description: a prefix lines read from 'execProcess' must match to parse as structured JSON symbols
+      type: boolean
+      required: false
+      category: parse
+      doc: |
+        sets a prefix that must precede lines read from the scan process' stdout
+        to parse as structured JSON symbol trees. Only applies when [execIsStructured](https://doc.log10x.com/compile/scanner/executable/#execisstructured) is true
+      

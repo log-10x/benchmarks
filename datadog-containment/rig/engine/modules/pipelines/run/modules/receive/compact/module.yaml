@@ -1,0 +1,124 @@
+#
+# 🔟❎ 'run' compact receiver module
+
+module:
+
+  name: compactReceiver
+
+  title: compact receiver
+
+  description: Per-pattern compaction decision via a declarative cap-file. Decides whether each event is emitted via encode() (compact templateHash+vars form, volume reduction where the destination supports it) or as fullText. GitOps-controlled, the MCP writes per-pattern entries via PR, engine hot-reloads the cap-file without restart.
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/receive/compact
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/receive/compact/doc.md":""
+
+  allowMultiple: false
+
+  options:
+
+    - names:
+      - compactReceiverLookupFile
+      description: path or URL to a per-pattern compact decisions cap-file
+      type: string
+      required: false
+      doc: |
+        points the engine at a cap-file whose entries decide whether each
+        pattern's events are compacted via `encode()` or preserved as
+        `fullText`. Patterns not listed fall back to `compactReceiverDefault`.
+
+        The lookup key is the event fields named by `compactReceiverFieldNames`
+        joined with `_` (the shipped configuration keys on `message_pattern`), matching the same
+        pattern identity the Reporter attributes cost to.
+
+        **File format** (CSV; header row + one comma-separated entry per row):
+
+        ```
+        fieldSet,value
+        <fieldSet>,<true|false>[:<untilEpochSec>][:<reason>]
+        ```
+
+        - `fieldSet`, the event fields named by `compactReceiverFieldNames`
+          joined with `_`. With the shipped configuration this is the
+          pattern's `message_pattern` value.
+        - `value`, `true` (compact via `encode()`) or `false` (explicitly
+          preserve `fullText` for this pattern, beating the default).
+        - `untilEpochSec`, optional Unix-epoch (seconds) expiry. Past it the
+          entry becomes a no-op and the pattern falls back to
+          `compactReceiverDefault`.
+        - `reason`, optional free-text for audit. Must not contain commas
+          (would break CSV parsing).
+
+        **Example**:
+
+        ```
+        fieldSet,value
+        payment_retry_gateway_timeout,true:1745856000:OPS-5123 spike
+        auth_audit_trail,false:1745856000:compliance keep verbose
+        ```
+
+        The file is hot-reloaded on in-place writes (the gitops pattern); a
+        Kubernetes `ConfigMap` mount won't reload because the CM swap is a
+        symlink rename, not an in-place write.
+
+    - names:
+      - compactReceiverLookupRetain
+      description: retention period for the per-pattern cap-file before it is considered stale
+      type: number
+      required: false
+      doc: |
+        defines the retention period (in milliseconds) for the cap-file
+        (`compactReceiverLookupFile`). If the file's last modified time is
+        older than this period, a warning is logged. The cap entries continue
+        to apply; the staleness check is advisory so operators notice when an
+        automated tooling pipeline has stopped updating the file.
+
+        **Validation**: must be greater than 60000ms (1 minute).
+      defValue: 300000
+
+    - names:
+      - compactReceiverFieldNames
+      description: event fields joined to form each event's cap-file lookup key
+      type: list
+      required: false
+      doc: |
+        defines the list of TenXObject field names joined with `_` to form
+        each event's lookup key into the cap-file. Matches the rate receiver's
+        `rateReceiverFieldNames`, so a cap-file entry targets the same pattern
+        identity the Reporter attributes cost to.
+
+        **Default**: `[symbolMessage]`, the message module's default field name.
+        The shipped configuration names the field `message_pattern` and keys on it.
+
+        Multi-dimensional compaction (e.g., compact a pattern only for a
+        specific tenant):
+
+        ```yaml
+        compactReceiverFieldNames:
+          - message_pattern
+          - tenantId
+        ```
+
+        Changing this field set requires an engine restart.
+      defValue: [symbolMessage]
+
+    - names:
+      - compactReceiverDefault
+      description: fallback compaction decision when no cap-file entry applies
+      type: boolean
+      required: false
+      doc: |
+        controls the fallback decision when no cap-file is loaded, no entry
+        matches an event's pattern, or a matching entry has expired.
+
+        - `false` (default), preserve `fullText`. Cap-file entries opt
+          specific patterns INTO compaction.
+        - `true`, compact via `encode()`. Cap-file entries opt specific
+          patterns OUT (e.g., audit/compliance patterns that must stay
+          verbose).
+
+        Flipping this value is a policy-level decision (affects every event),
+        not a cap-file edit. Changing it requires a pod rollout. The cap-file
+        handles per-pattern overrides without restart.

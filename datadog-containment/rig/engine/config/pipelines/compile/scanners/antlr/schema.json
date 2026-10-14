@@ -1,0 +1,25 @@
+{
+  "type" : "object",
+  "properties" : {
+    "tenx" : {
+      "type" : "string"
+    },
+    "antlrParseUnitTimeout" : {
+      "type" : [ "string", "null" ],
+      "markdownDescription" : "Source file parse timeout\n\nDefines the timeout interval for parsing and scanning a source/binary input file before aborting. default value: 60sec"
+    },
+    "antlrParseUnitTokenBudget" : {
+      "type" : [ "number", "string", "null" ],
+      "markdownDescription" : "Source file parse token read budget\n\nCaps the number of token stream reads a single source file parse may make before it is stopped. The symbols found up to the stop are kept and the unit is marked with an error. The count depends on the file and the grammar only, so the same file stops at the same point on any machine. 0 disables the cap. (Accepts number or string with $= prefix for runtime evaluation) (Default: 0)",
+      "default" : 0
+    },
+    "antlrParseUnitSkipPaths" : {
+      "type" : [ "array", "string", "null" ],
+      "items" : {
+        "type" : "string"
+      },
+      "markdownDescription" : "Regex patterns for skipping the parse of matching source files\n\nLists regex patterns matched (find) against a source file's path and name, in the form '/github/owner_repo/dir/file.cpp'. A matching file is not parsed by ANTLR: its unit carries the warning 'antlr parse skipped by parseUnitSkipPaths' and goes to the fallback scanner. Repeat the option for each pattern."
+    }
+  },
+  "additionalProperties" : false
+}

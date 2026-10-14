@@ -1,0 +1,115 @@
+{
+  "type" : "object",
+  "properties" : {
+    "include" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "tenx" : {
+      "type" : "string"
+    },
+    "outputForward" : {
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "additionalProperties" : false,
+        "properties" : {
+          "address" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Location of target Unix domain socket for encoded object field values\n\nSpecifies a Unix domain socket address to write [TenXObject](https://doc.log10x.com/api/js/#TenXObject) instance and template field values. if specified, [outputForwardHostAddress](https://doc.log10x.com/run/output/event/forward/#outputforwardhostaddress) and [outputForwardHostPort](https://doc.log10x.com/run/output/event/forward/#outputforwardhostport) are ignored"
+          },
+          "hostAddress" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Host address of target fluent instance\n\nSpecifies a host address used together with [outputForwardHostPort](https://doc.log10x.com/run/output/event/forward/#outputforwardhostport) are ignored to encode object field values to. Ignored if [outputForwardAddress](https://doc.log10x.com/run/output/event/forward/#outputforwardaddress) is specified (Default: 127.0.0.1)",
+            "default" : "127.0.0.1"
+          },
+          "hostPort" : {
+            "type" : [
+              "string",
+              "number",
+              "null"
+            ],
+            "markdownDescription" : "Host port of target fluent instance\n\nSpecifies a host por used together with [outputForwardHostAddress](https://doc.log10x.com/run/output/event/forward/#outputforwardhostaddress) are ignored to encode object field values to. Ignored if [outputForwardAddress](https://doc.log10x.com/run/output/event/forward/#outputforwardaddress) is specified (Default: 24224)",
+            "default" : "24224"
+          },
+          "fields" : {
+            "type" : [
+              "array",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "List of TenXObject field names to encode\n\nSpecifies a list of TenXObject intrinsic/calculated/extracted field names to extract and write to the output.",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "writeObjects" : {
+            "type" : [
+              "string",
+              "boolean",
+              "null"
+            ],
+            "markdownDescription" : "If true, encode TenXObjects [outputForwardFields](https://doc.log10x.com/run/output/event/forward/#outputforwardfields) to this output\n\nDetermine whether to write [outputForwardFields](https://doc.log10x.com/run/output/event/forward/#outputforwardfields) values of an TenXObject passed to this output. This configuration is typically defined using a JavaScript expression.  To enable/disable the output depending on whether a launch argument, environment variable, or JVM -D option evaluates as truthy, use: ``` yaml   outputFileWriteObjects: $=TenXEnv.get(\"myForwardAddress\") ``` To learn more see [TenXEnv.get](https://doc.log10x.com/api/js/#TenXEnv.get). (Default: true)",
+            "default" : "true"
+          },
+          "writeTemplates" : {
+            "type" : [
+              "string",
+              "boolean",
+              "null"
+            ],
+            "markdownDescription" : "If true, write new TenXTemplates to this output\n\nControls whether to write template values of TenXObjects passed to this output. The output will only emit TenXTemplates that the pipeline did not load at startup via the [templateFile](https://doc.log10x.com/run/template/#templatefiles) argument, and will only emit an TenXTemplate once based on its [templateHash](https://doc.log10x.com/api/js/#TenXBaseObject+templateHash) value. (Default: false)",
+            "default" : "false"
+          },
+          "tagField" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Field name to extract from an TenXObjects as its Fluentd 'tag' value\n\nSpecifies an intrinsic/extracted/calculated TenXObject field name to use as the TenXObject's forward `tag` value. To learn more see [Fluentd tagging](https://docs.fluentd.org/quickstart/life-of-a-fluentd-event#event-structure) (Default: the TenXObject's 'source' intrinsic field value, if present)",
+            "default" : "the TenXObject's 'source' intrinsic field value, if present"
+          },
+          "tagValue" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Default tag value for TenXObjects\n\nSpecifies an default value for TenXObject forward `tag` value, if the internal 'tag' and [outputForwardTagField](https://doc.log10x.com/run/output/event/forward/#outputforwardtagfield) returned empty"
+          },
+          "filter" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "A JavaScript expression an TenXObject must evaluate as 'truthy' against to be written to this output\n\nSpecifies a JavaScript expression that an TenXObject must evaluate as truthy to write its instance/template field values to this output. For example, `outputForwardFilter: this.timestamp` will only emit [timestamped](https://doc.log10x.com/api/js/#TenXBaseObject+timestamped) TenXObjects."
+          },
+          "encodeType" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "The output format in which to encode TenXObject values. Possible values:[json, delimited]\n\nSpecifies how [outputForwardFields](https://doc.log10x.com/run/output/event/forward/#outputforwardfields) are encoded to a stream/event to this output. Possible values: - **json**: formats names and values for the current TenXObject as: {\"field\":\"str\",\"field2\":1, \"field3\": true} - **delimited**: formats values for the current TenXObject as: \"str\",1,true    The [outputForwardEncodeDelimiter](https://doc.log10x.com/run/output/event/forward/#outputforwardencodedelimiter) argument determines the separator to use. (Default: delimited)",
+            "default" : "delimited"
+          },
+          "encodeDelimiter" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "The delimiter placed between key and values pairs if 'outputForwardEncodeType' is 'delimited'\n\nSets the delimiter to separate TenXObject field values when [outputForwardEncodeType](https://doc.log10x.com/run/output/event/forward/#outputforwardencodetype) is `delimited`. (Default:  )",
+            "default" : " "
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties" : true
+}

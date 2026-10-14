@@ -1,0 +1,73 @@
+#
+# 🔟❎ 'run' Forward protocol input module
+
+module:
+
+  name: forward
+
+  title: Forward protocol input
+
+  description: read events via the Fluent Forward protocol on a Unix domain socket or TCP port
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/input/forward
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/input/forward/doc.md":""
+
+  # 'allowMultiple' is disabled for this module. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+
+  options:
+
+    - names:
+      - forwardInputPort
+      description: TCP port for Forward protocol input
+      type: String
+      required: false
+      defValue: 24224
+      doc: |
+        TCP port where Log10x listens for incoming Fluent Forward protocol messages.
+
+        Supports all standard Forward protocol modes (Message, Forward, PackedForward).
+        Each incoming record is decoded from msgpack and emitted as JSON for the pipeline.
+
+        Example: `24224`
+
+    - names:
+      - forwardInputPath
+      description: Unix socket path for Forward protocol input (overrides port)
+      type: String
+      required: false
+      defValue:
+      doc: |
+        Unix domain socket path where Log10x listens for incoming
+        Fluent Forward protocol messages. When set, takes precedence
+        over the TCP port.
+
+        Example: `/tmp/tenx-forward-in.sock`
+
+    - names:
+        - forwardSourcePattern
+      description: event source capture regex pattern
+      type: string
+      required: false
+      defValue: '"tag":"(.*?)"'
+      doc: |
+        defines a regex pattern to capture 'source' values for each transformed TenXObject.
+        The Forward protocol tag is injected into each record as a "tag" field.
+        The default pattern extracts this tag as the event source.
+
+    - names:
+        - forwardExtractors
+      description: JSON / regex extractor names applied to each Forward record
+      type: list
+      required: false
+      defValue: []
+      doc: |
+        List of extractor names to apply to each event after Forward-protocol
+        decoding. Each named extractor must be defined elsewhere in the pipeline
+        (see https://doc.log10x.com/run/input/extract). Useful when the records
+        coming over Forward carry a custom JSON shape and you want to capture
+        specific fields as TenXObject properties.

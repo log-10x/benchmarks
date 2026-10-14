@@ -1,0 +1,100 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/input/objectStorage/index/schema.json
+
+# 🔟❎ 'run' Object storage blob index configuration
+
+# This configuration defines an indexing operation on a target Object storage blob (e.g., AWS S3, Azure Blobs).
+# To learn more see https://doc.log10x.com/run/input/objectStorage/index/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Dependencies ================================
+
+include:
+  - run/modules/input/objectStorage/input
+  - run/modules/input/objectStorage/index
+
+# ============================== Index Options ================================
+index:
+
+    # 'objectStorageName' selects the storage accessor alias registered by 'objectStorageClassName' (AWS or Azure).
+    #  Set TENX_OBJECT_STORAGE_NAME to Azure to target Azure Blob Storage. Defaults to AWS.
+
+    #  On AWS this module is invoked by an S3 bucket event notification for the new object:
+    #  https://docs.aws.amazon.com/lambda/latest/dg/with-s3-example.html
+
+    #  On Azure this module is invoked by an Event Grid BlobCreated event for the new blob:
+    #  https://learn.microsoft.com/azure/event-grid/event-schema-blob-storage
+
+    #  AWS credentials are acquired obtained via:
+    #  https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/auth/credentials/DefaultCredentialsProvider.html
+
+    #  AWS region is selected via:
+    #  https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/regions/providers/DefaultAwsRegionProviderChain.html
+
+  - objectStorageName: $=TenXEnv.get("TENX_OBJECT_STORAGE_NAME", "AWS")
+
+    # 'objectStorageArgs' provides arguments to the constructor of the class defined by 'objectStorageName'.
+    # The 'invoke' argument sets how the storage accessor routes pipeline invocations.
+    #  AWS accepts sqs, lambda or http. Azure accepts queue (Storage Queue) or http.
+    #  Set TENX_OBJECT_STORAGE_INVOKE to override the default of sqs. An unknown value fails the accessor at construction.
+    objectStorageArgs:
+      - invoke
+      - $=TenXEnv.get("TENX_OBJECT_STORAGE_INVOKE", "sqs")
+
+    # ----------------------------- Input Options -----------------------------
+
+    read:
+
+      # 'readContainer' points to the AWS S3 bucket or Azure Blob container in which the object to index resides.
+      # When the 10x Retriever is deployed as a Quarkus server, the server will automatically
+      # set this value based on the Rest endpoint input params.
+      # For more info, see https://doc.log10x.com/apps/retriever/deploy
+      container: $=TenXEnv.get("TENX_STREAMER_INPUT_BUCKET", "")  # (REQUIRED)
+
+      # 'readObject' points to the blob (e.g., log file) within 'readContainer' to index
+      # When the 10x Retriever is deployed as a Quarkus server, the server will automatically
+      # set this value based on the Rest endpoint input params.
+      # For more info, see https://doc.log10x.com/apps/retriever/deploy
+      object: ""  # (REQUIRED)
+
+      # 'printProgress' controls whether to print a progress gage to the console
+      # This option helps debug and test the input
+      printProgress: $=!TenXEnv.get("quiet")
+
+    # ----------------------------- Output Options ----------------------------
+
+    write:
+
+      # 'container' points to the AWS S3 bucket path or Azure account/container/path into which to write index objects
+      container: $=TenXEnv.get("TENX_STREAMER_INDEX_BUCKET", "")  # (REQUIRED)
+
+      # 'target' sets a logical name under which output index objects reside.
+      #  This commonly refers to the name of the application/service from which
+      #  'readObject' originated (e.g., 'my-service', 'my-broker')
+      target: app
+
+      # --------------------------- Accuracy Options --------------------------
+
+      # 'byteRange', 'resolution', and 'accuracy' control the performance of the
+      #  index concerning its size within the 'writeContainer'.
+      #  To learn more see: https://doc.log10x.com/run/input/objectStorage/index/#accuracy
+
+      # 'byteRange' controls the chunk size in which to index the target object.
+      #  For example, if the target object is 1GB and this value is '2MB',
+      #  index the object in 2MB segments to ensure matching queries can retrieve target chunks vs. all of it unnecessarily.
+      byteRange: $=parseBytes("1MB")
+
+      # 'resolution' specifies index time range resolution.
+      #  For example, setting this to '1min' means that queries to the index at time ranges greater than 1min (e.g. 15min)
+      #  will not fetch byte ranges outside the time frame unnecessarily.
+      resolution: $=parseDuration("15sec")
+
+      # 'accuracy' controls the accuracy of bloom filter index objects.
+      #  To learn more see https://doc.log10x.com/run/input/objectStorage/index/storage-filters
+      accuracy: 99
+
+      # --------------------------- Template Options --------------------------
+
+      # 'templateMergeInterval' specifies the interval to wait between TenXTemplate merge operation.
+      templateMergeInterval: $=parseDuration("1m")

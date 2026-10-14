@@ -1,0 +1,18 @@
+#
+# 🔟❎ Go module scanner settings
+
+# 'gomodRepoToken' GitHub API token for pulling GitHub repositories referenced by a go module
+gomodRepoToken: $?gomodPullGitHubToken
+
+# 'gomodProxyURL' specifies a Go module proxy for downloading indirect module dependencies.
+#  If omitted, only process direct dependencies from the go.mod file.
+#  If provided, fetches indirect dependencies up to the specified max-depth.
+gomodProxyURL: $?gomodProxyURL=https://proxy.golang.org/
+
+# 'gomodMaxRepos' specifies a global limit for the number of repositories collected
+gomodMaxRepos: $?gomodMaxRepos=250
+
+# 'gomodMaxDepth' limits the depth of module dependency recursion
+#  Depth starts at 0 for the initial .mod file (direct deps), increments to 1 for first-level indirect deps, 
+#  and 2 for second-level, stopping before a third level (depth 3).
+gomodMaxDepth: $?gomodMaxDepths=0

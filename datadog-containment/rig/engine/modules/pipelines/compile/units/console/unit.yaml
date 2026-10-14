@@ -1,0 +1,54 @@
+#
+# 🔟❎ 'compile' print results unit
+
+unit:
+
+  name: compileConsole
+
+  title: Compile output printer
+
+  description: print 'compile' results to console
+  
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "compile/units/console/doc.md":""
+  
+  # 'allowMultiple' is disabled for this unit. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+  
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: compile/console
+ 
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - printScanTypes
+      description: scan components to print results for
+      type: list
+      required: false
+      doc: |
+        controls which phases of the 'compile' pipeline emit results to JSON output. 
+        
+        Possible values: 
+
+        | Value        | Description                                    |
+        |--------------|------------------------------------------------|
+        | sources      | calculate the number of existing source files  |
+        | symbols      | calculate the number of existing symbols files |
+        | scan         | capture symbol values from input files         |
+        | link         | merging output symbols files                   |
+        | pushToGitHub | pushed symbol files                            |
+
+      defValue: [link,scan,pushToGitHub]
+
+    - names:
+      - printProgress
+      description: report i/o progress to the console
+      type: boolean
+      required: false
+      defValue: true
+      doc: |
+        enables/disables reporting of input files scanned to stdout. 

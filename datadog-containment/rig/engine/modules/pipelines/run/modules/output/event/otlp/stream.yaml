@@ -1,0 +1,70 @@
+#
+# 🔟❎ 'run' OTLP/gRPC output module stream settings
+#
+# Defines a pair of `event` outputs (object stream + template stream) that
+# render TenXObjects/Templates via a log4j2 layout and ship them to an
+# OpenTelemetry Collector over OTLP/gRPC. The `tenxOtlp` appender (defined in
+# `log4j2.yaml`) parses each layout-rendered JSON envelope back into an OTLP
+# `LogRecord` and sends it on the wire.
+
+tenx: run
+
+output:
+
+    # Object stream, encodes TenXObject instance field values.
+  - type: event
+
+    name: $=yield TenXEnv.get("outputOtlpHost", "127.0.0.1") + ":" + TenXEnv.get("outputOtlpPort", 4317)
+
+    foreach: otlpOutput
+
+    # `receiverReadOnly=true` short-circuits the gate so the receiver can run
+    # as a non-intervening reporter.
+    enabled: $=yield !TenXEnv.get("receiverReadOnly", false) && TenXEnv.get("outputOtlpWriteObjects", true)
+
+    filter: $?outputOtlpFilter=isObject
+
+    path: run/modules/output/event/otlp
+
+    # `group` collapses multiple outputs targeting the same endpoint onto a
+    # single appender so we never open two gRPC channels to the same destination.
+    group:
+      - $?outputOtlpHost=127.0.0.1
+      - $?outputOtlpPort=4317
+
+    encodeType: $?outputOtlpEncodeType=delimited
+    encodeDelimiter: $?outputOtlpEncodeDelimiter=","
+    encodeGroupDelimiter: ","
+
+    fields:
+      - $?outputOtlpFields
+
+    # Template stream, encodes TenXTemplate values as JSON objects for
+    # transport to the destination. Each new template is emitted exactly once,
+    # as its own LogRecord: no body, with `templateHash`, `template` and
+    # `tenx_tag` = "tenx-template" as log-record attributes. The third `group`
+    # entry gives templates their own appender; sharing the object stream's
+    # appender renders both into one string per event, and the appender keeps
+    # only the first JSON value of it.
+  - type: event
+
+    name: $=yield TenXEnv.get("outputOtlpHost", "127.0.0.1") + ":" + TenXEnv.get("outputOtlpPort", 4317)
+
+    foreach: otlpOutput
+
+    path: run/modules/output/event/otlp
+
+    group:
+      - $?outputOtlpHost=127.0.0.1
+      - $?outputOtlpPort=4317
+      - templates
+
+    enabled: $=yield !TenXEnv.get("receiverReadOnly", false) && TenXEnv.get("outputOtlpWriteTemplates", true)
+
+    filter: isNewTemplate()
+
+    encodeType: json
+    fields:
+      - templateHash
+      - template
+      - tenx_tag="tenx-template"

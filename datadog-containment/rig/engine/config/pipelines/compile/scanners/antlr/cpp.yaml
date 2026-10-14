@@ -1,0 +1,177 @@
+# yaml-language-server: $schema=schema.json
+
+# 🔟❎ 'compile' C++ ANTLR symbol scanner configuration
+
+# The 'cpp' configuration instructs the ANTLR scanner which symbol values (e.g. class/func names, code constants)
+# to extract from c++ source files.  
+
+# Set the 10x pipeline to 'compile'
+tenx: compile
+
+# ============================== ANTLR Options ================================
+
+antlr:
+
+  # The 'antlrLang' module is defined in: https://doc.log10x.com/compile/scanner/antlr/langs
+  # These values define the ANTLR grammar .g4 file used to
+  # to tokenize and construct an AST for the target cpp file
+
+  lang: cpp
+
+  fileExt:
+    - .cpp
+    - .cxx
+    - .c++
+    - .c
+    - .h
+    - .H
+    - .hpp
+    - .hxx
+    - .h++
+    - .cc
+    - .hh
+
+  grammarFile: grammar/CPP14Parser.g4
+
+  lexerFile: grammar/CPP14Lexer.g4
+
+  rootRule: translationUnit
+
+  reserved:
+    - '::'
+    - '<<'
+    - inline
+    - namespace
+    - <
+    - class
+    - '>'
+
+  # 'lineFilters' specifies a list of regex patterns for skipping input lines 
+  lineFilters:
+    - ^\s*(//.*|/\*.*\*/)$
+    - ^.*\bnew\(\);\b.*$
+
+  # The 'rule' list defines the nodes within a cpp AST tree that are captured
+  # and added to the output symbol unit.
+  # To learn more see: https://doc.log10x.com/compile/scanner/antlr/rules/
+  rule:
+    - name: enumerator
+      lang: cpp
+      context: enum
+      recursive: false
+      capture: allSymbols
+  
+    - name: blockDeclaration
+      lang: cpp
+      context: method_invoke
+      recursive: true
+      capture: literalsOnly
+  
+    - name: enumbase
+      lang: cpp
+      context: enum
+      recursive: true
+      capture: literalsOnly
+  
+    - name: classHeadName
+      lang: cpp
+      context: class
+      recursive: true
+      capture: allSymbols
+  
+    - name: enumSpecifier
+      lang: cpp
+      context: class
+      recursive: false
+      capture: literalsOnly
+      condition: ^enumHead$
+      tag: EnumHead
+
+    - name: enumHead
+      lang: cpp
+      context: class
+      recursive: false
+      capture: allSymbols
+      ifTag: EnumHead
+
+    - name: functionDefinition
+      lang: cpp
+      context: method_decl
+      recursive: false
+      capture: allSymbols
+      condition: ^functionDefinition$
+      tag: FunctionDefinition
+  
+    - name: declaratorid
+      lang: cpp
+      context: method_decl
+      recursive: true
+      capture: allSymbols
+      ifTag: FunctionDefinition
+    
+    - name: jumpStatement
+      lang: cpp
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+  
+    - name: functionBody
+      lang: cpp
+      context: method_invoke
+      recursive: false
+      capture: literalsOnly
+    # condition: ^functionBody$
+    # tag: FunctionBody
+  
+    - name: statement
+      lang: cpp
+      context: method_invoke
+      recursive: true
+      capture: literalsOnly
+  
+    - name: classSpecifier
+      lang: cpp
+      context: class
+      recursive: false
+      capture: literalsOnly
+      subRule: memberSpecification
+  
+    - name: staticAssertDeclaration
+      lang: cpp
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+  
+    - name: parameterDeclarationList
+      lang: cpp
+      context: method_invoke
+      recursive: false
+      capture: literalsOnly
+    # condition: ^parameterDeclarationList$
+    # tag: ParameterDeclarationList
+  
+    - name: enumeratorDefinition
+      lang: cpp
+      context: enum
+      recursive: false
+      capture: allSymbols
+  
+    - name: namespaceDefinition
+      lang: cpp
+      context: package
+      recursive: false
+      capture: allSymbols
+    
+    - name: constantExpression
+      lang: cpp
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+  
+    - name:  templateArgumentList
+      lang: cpp
+      context: method_invoke
+      recursive: false
+      capture: literalsOnly
+    # condition: ^templateArgumentList$
+    # tag: TemplateArgumentList

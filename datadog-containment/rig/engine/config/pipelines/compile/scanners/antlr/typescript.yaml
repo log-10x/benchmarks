@@ -1,0 +1,170 @@
+# yaml-language-server: $schema=schema.json
+
+# 🔟❎ 'compile' TypeScript ANTLR symbol scanner configuration
+
+# The 'typescript' configuration instructs the ANTLR scanner which symbol values (e.g. class/func names, code constants)
+# to extract from TypeScript source files.
+
+# Set the 10x pipeline to 'compile'
+tenx: compile
+
+# ============================== ANTLR Options ================================
+
+antlr:
+
+  # The 'antlrLang' module is defined in: https://doc.log10x.com/compile/scanner/antlr/langs
+  # These values define the ANTLR-generated parser class used to
+  # to tokenize and construct an AST for the target TypeScript file.
+
+  lang: typescript
+
+  # The grammar has no JSX rules, so .tsx stays with the text scanner
+  fileExt:
+    - .ts
+
+  parserClass: com.log10x.antlr.parsers.TypeScriptDecoratedParser
+
+  lexerClass: com.log10x.antlr.generated.typescript.TypeScriptLexer
+
+  rootRule: program2
+
+  reserved:
+    - function
+    - class
+    - interface
+    - enum
+    - export
+    - default
+    - abstract
+    - async
+    - static
+    - public
+    - private
+    - protected
+    - readonly
+    - declare
+
+  maxLineLength: 4096
+
+  # 'lineFilters' specifies a list of regex patterns for skipping input lines 
+  lineFilters:
+    - ^\s*(//.*|/\*.*\*/)$
+
+  # The 'rule' list defines the nodes within a TypeScript AST tree that are captured
+  # and added to the output symbol unit.
+  # To learn more see: https://doc.log10x.com/compile/scanner/antlr/rules/
+  rule:
+    - name: functionDeclaration
+      lang: typescript
+      context: method_decl
+      recursive: false
+      capture: allSymbols
+      subRule: identifier
+
+    - name: classDeclaration
+      lang: typescript
+      context: class
+      recursive: false
+      capture: allSymbols
+      subRule: identifier
+
+    - name: interfaceDeclaration
+      lang: typescript
+      context: class
+      recursive: false
+      capture: allSymbols
+      subRule: identifier
+
+    - name: enumDeclaration
+      lang: typescript
+      context: class
+      recursive: false
+      capture: allSymbols
+      subRule: identifier
+
+    - name: enumMember
+      lang: typescript
+      context: enum
+      recursive: true
+      capture: allSymbols
+
+    - name: methodDeclarationExpression
+      lang: typescript
+      context: method_decl
+      recursive: true
+      capture: allSymbols
+      subRule: identifier
+
+    - name: constructorDeclaration
+      lang: typescript
+      context: method_decl
+      recursive: false
+      capture: allSymbols
+
+    # An arrow function is its own method scope, named by the variable or
+    # property it initializes, 'anonymous' as a call argument
+    - name: arrowFunctionDeclaration
+      lang: typescript
+      context: method_decl
+      recursive: false
+      capture: allSymbols
+      anonymous: true
+
+    # An expression body is the arrow function's return value
+    - name: arrowFunctionBody
+      lang: typescript
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+
+    # Parameter names and types are not symbols
+    - name: callSignature
+      lang: typescript
+      context: var_assign
+      recursive: false
+      capture: literalsOnly
+
+    - name: functionBody
+      lang: typescript
+      context: method_invoke
+      recursive: false
+      capture: literalsOnly
+
+    - name: returnStatement
+      lang: typescript
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+
+    # A throw anywhere in a function marks the scope ('throw' is a log method)
+    - name: throwStatement
+      lang: typescript
+      context: method_invoke
+      recursive: true
+      capture: literalsOnly
+
+    - name: argumentsExpression
+      lang: typescript
+      context: method_invoke
+      recursive: true
+      capture: literalsOnly
+
+    - name: variableDeclaration
+      lang: typescript
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+      subRule: identifierOrKeyWord
+
+    - name: propertyDeclarationExpression
+      lang: typescript
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+      subRule: classElementName
+
+    - name: assignmentExpression
+      lang: typescript
+      context: var_assign
+      recursive: true
+      capture: literalsOnly

@@ -1,0 +1,88 @@
+{
+  "type" : "object",
+  "properties" : {
+    "tenx" : {
+      "type" : "string"
+    },
+    "outputSymbolLibraryFile" : {
+      "type" : [
+        "string",
+        "null"
+      ],
+      "markdownDescription" : "Location of output symbol library file\n\nSpecifies an output symbol library file merging the symbol unit files produced for [inputPaths](https://doc.log10x.com/compile/scan/#inputpaths). The symbol library file provides a single artifact to set as the [symbolPaths](https://doc.log10x.com/run/symbol/#symbolpaths) at run time."
+    },
+    "maxSymbolUnitFileSize" : {
+      "type" : [
+        "string",
+        "null"
+      ],
+      "markdownDescription" : "Max file size for 'outputSymbolLibraryFile' before it is split into chunks\n\nSets the maximum file size (e.g., 40MB) for [outputSymbolLibraryFile](https://doc.log10x.com/compile/link/#outputsymbollibraryfile) before splitting into chunks, each weighing no more than this value. This option enables large  artifacts to remain [GitHub committable](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github). (Default: 40MB)",
+      "default" : "40MB"
+    },
+    "symbol" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "types" : {
+          "type" : [
+            "array",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Token types read from input source/binary files written to output\n\nFilter symbol values to write to [outputSymbolLibraryFile](https://doc.log10x.com/compile/link/#outputsymbollibraryfile) based on their [context](https://doc.log10x.com/run/transform/symbol/#contexts). This option reduces the size of the output symbol library file by omitting symbol types not required at run time.  For possible values, see: [contexts](https://doc.log10x.com/run/transform/symbol/#contexts). The default leaves out `exec`, so a library compiled with it holds no strings from binaries; the default library that ships with the engine includes them. Add `exec` to keep them. (Default: [\"class\",\"enum\",\"log\"])",
+          "items" : {
+            "type" : "string"
+          },
+          "default" : [
+            "class",
+            "enum",
+            "log"
+          ]
+        },
+        "wordTypes" : {
+          "type" : [
+            "array",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Token types whose words the symbol library index knows at run time\n\nFilters the words a symbol library index holds by the [context](https://doc.log10x.com/run/transform/symbol/#contexts) of the entries they come from. A word the index knows is template text at run time; any other word is a variable. Constants and config text are values a program logs, so leaving them out keeps their values out of templates and pattern names. Unset, the words of every type are known. For possible values, see: [contexts](https://doc.log10x.com/run/transform/symbol/#contexts).",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "fileNameFilters" : {
+          "type" : [
+            "array",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Regex patterns to exclude symbol files from output symbol library\n\nFilters symbol files to exclude from [outputSymbolLibraryFile](https://doc.log10x.com/compile/link/#outputsymbollibraryfile) using regex patterns. This option is typically used to exclude test files from the symbol library, reducing output size and focusing on production code symbols.  Common patterns for excluding test files across languages: - Java: `^.*(Test|Tests|TestCase)\\.java$` (JUnit/TestNG test files) - JavaScript/TypeScript: `^.*\\.(test|spec)\\.(js|jsx|ts|tsx|mjs|cjs)$` (Jest/Mocha/Vitest test files) - Python: `^test_.+\\.py$` or `^.+_test\\.py$` (pytest/unittest test files) - Scala: `^.*(Spec|Test)\\.scala$` (ScalaTest/Specs2 test files) - C#: `^.*(Test|Tests)\\.cs$` (xUnit/NUnit/MSTest test files) - Go: `^.*_test\\.go$` (built-in testing framework test files) - C++: `^.*(_test|Test)s?\\.(cpp|cc|cxx|hpp|h|hxx)$` (GoogleTest/Catch2/Boost.Test test files)",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "folderFilters" : {
+          "type" : [
+            "array",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Patterns to exclude symbol files by folder from output symbol library\n\nFilters symbol files to exclude from [outputSymbolLibraryFile](https://doc.log10x.com/compile/link/#outputsymbollibraryfile) based on folder location. This option complements [symbolFileNameFilters](https://doc.log10x.com/compile/link/#symbolfilenamefilters) by excluding files based on their containing folder.  **Plain folder name** (e.g., `test`) - matches when the file's direct parent folder has this name. Only alphanumeric characters, underscores, and hyphens are treated as plain names.  **Regex pattern** (anything else) - matched against the full file path (case-insensitive). Use `[/\\\\]` for cross-platform path separators (Unix `/` and Windows `\\`).  **Examples:** - `test` - Files directly inside a `test` folder - `__tests__` - Files directly inside `__tests__` (Jest convention) - `[/\\\\]vendor[/\\\\]` - Files anywhere under a `vendor` folder (Go vendored deps) - `[/\\\\]node_modules[/\\\\]` - Files anywhere under `node_modules`",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "mergeExistingUnits" : {
+      "type" : [
+        "boolean",
+        "string",
+        "null"
+      ],
+      "markdownDescription" : "Merge symbol unit files already on disk that this run did not itself scan\n\nMerges symbol unit files already present under [outputSymbolFolder](https://doc.log10x.com/compile/scan/#outputsymbolfolder) that the current run did not itself scan, so a folder of pre-compiled units can be linked into a [symbol library](https://doc.log10x.com/compile/link/#outputsymbollibraryfile) with no source scan. Default false: only units this run scanned are merged. (Accepts boolean or string with $= prefix for runtime evaluation) (Default: false)",
+      "default" : false
+    }
+  },
+  "additionalProperties" : false
+}

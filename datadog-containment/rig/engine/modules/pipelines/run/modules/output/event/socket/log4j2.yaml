@@ -1,0 +1,51 @@
+# 🔟❎ 'run' socket output module log4j configuration
+
+# The 'socket' log4j2 configuration defines the loggers and appenders used to
+# write TenXObject field and template values to a TCP/UDP address.
+# Multiple socket outputs are supported, each specified by the instance 
+# of the 'socketOutput' module defined in https://doc.log10x.com/run/output/event/socket
+
+log4j:
+
+  # 'loggerName' defines a prefix to use with a running counter (e.g., 'tenxSocket0') 
+  #  to name matching log4j2 logger and appender objects uniquely 
+  #  for each instance of the 'socketOutput' options group 
+
+  #  This provides the ability to encode TenXObjects to different sockets
+  #  based on different sets of filters (specified by 'outputSocketFilter') 
+  #  and fields (specified by 'outputSocketFields'). 
+  loggerName: tenxSocket
+
+  configuration:
+
+    appenders:
+
+      socket:
+
+          # 'name' sets a unique identifier assigned to each appender
+          #  generated for a target output defined by an instance of the 
+          #  'socketOutput' options group 
+        - name: $loggerName
+
+          # The 'encodedFields' and 'filter' options of the 'tenxLayout' layout 
+          # consume the 'outputSocketFields' and 'outputSocketFilter' arguments at runtime
+          tenxLayout:
+            encodedFields: null
+            filter: null
+
+          host: $?outputSocketHost=127.0.0.1
+          port: $outputSocketPort
+          protocol: $?outputSocketProtocol=TCP
+
+          # ensure a large buffer size for very long lines
+          bufferSize: 2000000
+
+    loggers:
+      logger:
+
+          # A dedicated logger whose name matches the socket appender is used to
+          # to write object/template values for this output instance
+        - name: $loggerName
+          additivity: false
+          appenderRef:
+            - ref: $loggerName

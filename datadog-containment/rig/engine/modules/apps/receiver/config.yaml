@@ -1,0 +1,19 @@
+# 🔟❎ 'run' Receiver settings
+
+# This configuration defines the settings for use by the Receiver app.
+# When 'receiverReadOnly' is true the receiver runs in read-only mode (emits
+# metrics, does not write back to the forwarder). When 'receiverOptimize' is
+# true the receiver runs in compact mode (encodes events for volume reduction).
+# To learn more see https://doc.log10x.com/apps/receiver
+
+tenx: run
+
+# ============================= App Settings ==================================
+
+runtimeAttributes:
+  - app:receiver
+  - env:edge
+
+include:
+  - apps/shared
+  - run/aggregate/receive # https://doc.log10x.com/run/aggregate/#receive

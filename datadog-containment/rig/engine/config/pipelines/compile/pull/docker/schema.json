@@ -1,0 +1,64 @@
+{
+  "type" : "object",
+  "properties" : {
+    "tenx" : {
+      "type" : "string"
+    },
+    "docker" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "images" : {
+          "type" : [
+            "array",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Docker image files to pull\n\nSpecifies the URLs for the remote Docker images to pull in the form of: `<container-repository>/<image>/<version>`. For example:  ``` yaml  dockerImages: - docker.io/grafana/grafana:11.1.0 ```",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "username" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Docker user name\n\nSpecifies the [user name](https://docs.docker.com/reference/cli/docker/login/#username) for authenticating the docker client. If this value is not set, the docker client is assumed to be pre-authenticated.  This value should be set via an [environment variable](https://doc.log10x.com/api/js/#TenXEnv.get):  ``` yaml dockerUsername: $=TenXEnv.get(\"DOCKER_USERNAME\") ```"
+        },
+        "password" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Docker password\n\nSpecifies the password for authenticating the docker client in conjunction with [dockerUsername](https://doc.log10x.com/compile/pull/docker/#dockerusername). This value is written into the docker client's std input via the login command's [password-stdin](https://docs.docker.com/reference/cli/docker/login/#password-stdin) argument.  This value should be set via an [environment variable](https://doc.log10x.com/api/js/#TenXEnv.get):  ``` yaml dockerPassword: $=TenXEnv.get(\"DOCKER_TOKEN\") ```"
+        },
+        "remove" : {
+          "type" : [
+            "boolean",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Remove image after scan\n\nSpecifies whether to remove [dockerImages](https://doc.log10x.com/compile/pull/docker/#dockerimages) using [docker rmi -f](https://docs.docker.com/reference/cli/docker/image/rm/) (Accepts boolean or string with $= prefix for runtime evaluation) (Default: true)",
+          "default" : true
+        },
+        "githubRepoToken" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "GitHub API token for pulling image source code repositories\n\nDefines an access token for pulling [Github repos](https://doc.log10x.com/compile/pull/github/) referenced by a target image's [org.opencontainers.image.source](https://github.com/opencontainers/image-spec/blob/v1.0.1/annotations.md#pre-defined-annotation-keys) property.  If this property is not available within the [image manifest](https://docs.docker.com/reference/cli/docker/manifest/inspect), an attempt is made to infer a valid GitHub repo name from the image name. For example, for the the target image name: `docker.io/grafana/grafana:11.1.0`, the [grafana/grafana](https://github.com/grafana/grafana) GitHub repo is inferred.  If not an API token is not specified, GitHub repos referenced within image manifests or inferred from image names are not pulled. To learn more see [GitHub tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)."
+        },
+        "command" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Path to docker command\n\nDefines the path to the [docker](https://docs.docker.com/reference/cli/docker/) program used pulling and exporting images. (Default: *NIX: /usr/local/bin/docker, Win: C:/Program Files/Docker/Docker/resources/bin/docker.exe)",
+          "default" : "*NIX: /usr/local/bin/docker, Win: C:/Program Files/Docker/Docker/resources/bin/docker.exe"
+        }
+      }
+    }
+  },
+  "additionalProperties" : false
+}

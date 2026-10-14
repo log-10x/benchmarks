@@ -1,0 +1,53 @@
+#
+# 🔟❎ 'run' JavaScript TenXTemplate initializer unit
+
+unit:
+
+  name: templateActions
+
+  title: Template JavaScript
+
+  description: initialize TenXTemplate instances at runtime using JavaScript.
+ 
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/units/transform/script/template/doc.md":""
+              
+  # 'allowMultiple' is enabled for this unit. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+
+  # 'optionsGroup' defines a group of named/typed configuration values to pass to a pipeline at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed to the pipeline are accessible at runtime via the TenXEnv JavaScript class.
+  options:
+
+    - names:
+      - templateClassName
+      - TenXTemplateClassName
+      description: target inputs of TenXObjects to initialize
+      type: string
+      required: true
+      doc: |
+        specifies a regex pattern (e.g., `^fluentbit`) a target [input name](https://doc.log10x.com/run/input/stream/#inputname) must match for
+     
+    - names:
+      - templateActions
+      - TenXTemplate
+      description: 10x JavaScript template initialization statements to execute
+      type: list
+      required: false
+      doc: |
+        JavaScript statements for initializing target input(s) TenxTemplates.
+
+        **NOTE**: This argument is not designed to be set directly, but instead by passing a [.js launch file](https://doc.log10x.com/config/javascript/) containing 
+        these statements nested within an [TenXObject](https://doc.log10x.com/api/js/#TenXObject) sub-class constructor as command line argument as described above.
+
+    - names:
+      - templateActionsFile
+      - TenXTemplateFile
+      description: Declaring .js file
+      type: string
+      required: false
+      doc: |
+        Specifies the .js file name declaring [templateActions](https://doc.log10x.com/run/transform/script/template/#templateActions).
+                

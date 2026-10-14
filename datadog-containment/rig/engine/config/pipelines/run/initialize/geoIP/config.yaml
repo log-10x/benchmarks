@@ -1,0 +1,33 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/initialize/geoIP/schema.json
+
+# 🔟❎ 'run' GeoIP lookup configuration
+
+# The GeoIP lookup geo-references TenXObjects based on their ipAddress field value.
+# To learn more see https://doc.log10x.com/api/js/#TenXObject+ipAddress
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Dependencies ================================
+
+include: run/modules/initialize/geoIP
+
+# =============================== GeoIP Options ===============================
+
+geoIP:
+ 
+  # 'file' specifies the MaxMind GeoIP DB (.mmdb) file to load.
+  # To learn more see https://doc.log10x.com/api/js/#TenXLookup.loadGeoIPDB
+  file: data/run/lookup/geo.mmdb
+
+  # 'countryField' specifies the field name for country geo-reference data.
+  # Defaults to "country". Set to "" to disable country enrichment.
+  countryField: country
+
+  # Uncomment the following fields to enable additional geo-reference data as needed:
+  # continentField: continent
+  # subdivisionField: subdivision
+  # cityField: city
+  # postalField: postal
+  # latitudeField: latitude
+  # longitudeField: longitude

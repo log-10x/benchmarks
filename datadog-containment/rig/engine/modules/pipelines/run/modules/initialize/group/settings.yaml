@@ -1,0 +1,19 @@
+# 🔟❎ 'run' group settings
+
+# Configure lookup table aggregation fields 
+# To learn more see https://doc.log10x.com/run/initialize/lookup
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# ============================ Aggregation Settings ===========================
+
+include:
+  - run/modules/initialize/module.yaml
+
+
+# 'groupExpressions' defines conditions to determine if a log line belongs to a group
+groupExpressions:
+  - GroupTemplate.isGroup    
+
+

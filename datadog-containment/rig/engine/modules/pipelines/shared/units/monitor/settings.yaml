@@ -1,0 +1,24 @@
+#
+# 🔟❎ 'run' monitor settings
+
+# Control if/how to emit 10x pipeline debug values to log and the 10x time series backend.
+
+# An 10x pipeline (e.g., 'run', 'compile') comprises logical units responsible for different parts of its 
+# execution. For the 'compile' pipeline, units include GitHub/Artifactory pull, symbol scanning, and GitHub push.
+# For the 'run' pipeline, units include inputs, aggregators, and outputs.
+    
+# Each unit emits its own specific diagnostics information, including counters (e.g., units scanned, input volume)
+# and states (e.g., completed, pending). The pipeline can periodically write counters and states to log 
+# and publish counters as metrics to the 10x time series backend for monitoring and debugging. 
+
+# --------------------------- Monitor Settings --------------------------------
+
+# 'units' pipeline unit names to log and emit debug metrics
+units:
+  - $?monitorUnits 
+
+# 'pollInterval' sets the interval to information to log/ publish counters
+pollInterval: $?monitorPollInterval
+
+# 'metricPattern' regexp pattern to match against counters to publish as metrics
+metricPattern: $?monitorMetricPattern

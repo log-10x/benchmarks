@@ -1,0 +1,33 @@
+#
+# 🔟❎ 'run' stdin input stream settings
+
+# The input configuration below constructs a stdin input stream
+# based on the settings defined in https://doc.log10x.com/run/input/stdin
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+input:
+
+    # 'name' defines a logical name for this input.
+    #  This value identifies TenXObjects instantiated from this input via their 'inputName' field
+  - name: stdin
+
+    # 'type' defines the type of input (e.g. stdin, file, camel).    
+    type: file
+    
+    # 'path' sets this input source as the process' stdin 
+    path: stdin
+
+    # 'enabled' specifies wither the input is open
+    enabled: $=yield (TenXEnv.get("stdinEnabled")=="true") || (TenXEnv.get("stdinEnabled") == "-")
+ 
+    # 'printProgress' is false to turn off printing to stdout
+    printProgress: false
+
+    # 'extractors' are set to the 'stdinExtractors' argument
+    extractors: 
+      - $?stdinExtractors
+
+    # 'sourcePattern' is set to the 'stdinSourcePattern' argument    
+    sourcePattern: $?stdinSourcePattern

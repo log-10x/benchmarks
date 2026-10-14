@@ -1,0 +1,74 @@
+#
+# 🔟❎ Go module chart scanner
+
+module:
+
+  name: gomod
+
+  title: Go module
+
+  description: pull GitHub repos referenced by Go module to scan files for symbol content
+      
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: compile/pull/gomod
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "compile/modules/pull/gomod/doc.md":""
+
+  # 'allowMultiple' is disabled for this module. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+  
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - gomodPullGitHubToken
+      description: GitHub API token for pulling repositories
+      type: string
+      required: false
+      doc: |
+        defines an access token for pulling [Github repos](https://doc.log10x.com/compile/pull/github/) referenced by Go .mod files. 
+        If not set, do not pull GitHub repos for Go dependencies.
+
+    - names:
+      - gomodProxyURL
+      description: Go module proxy URL
+      type: string
+      required: false
+      defValue: "[https://proxy.golang.org](https://proxy.golang.org)"
+      doc: |
+        Specifies a Go module proxy for downloading indirect module dependencies.
+        If omitted, only process direct dependencies from the go.mod file.
+        If provided, fetches indirect dependencies up to the specified max-depth.
+
+    - names:
+      - gomodMaxRepos
+      description: limit the overall number of GitHub repos to pull
+      type: number
+      required: false
+      defValue: 200
+      doc: |
+        specifies a global limit for the number of repositories collected
+
+    - names:
+      - gomodMaxDepth
+      description: limit the depth of module dependency recursion
+      type: number
+      required: false
+      defValue: 0
+      doc: |
+        Depth starts at 0 for the initial .mod file (direct deps), increments to 1 for first-level indirect deps, 
+        and 2 for second-level, stopping before a third level (depth 3).
+
+        Depth Limit (2):
+        
+        - Level 0: Direct dependencies in your .mod file.
+        - Level 1: Dependencies of those direct modules.
+        - Level 2: Dependencies of level 1 modules.
+        
+        Stops at level 3, covering two levels of indirect dependencies. For most Go projects, this captures the bulk of relevant GitHub repos without exploding runtime.
+        
+        Example: If yourApp → golang.org/x/tools → github.com/golang/go, depth 2 gets both, but stops before fetching go’s deps.

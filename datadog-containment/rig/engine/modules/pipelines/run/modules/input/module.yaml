@@ -1,0 +1,18 @@
+#
+# 🔟❎ 'run' inputs module
+
+module:
+
+  name: inputs
+
+  title: Event input
+
+  description: read events from local/remote sources to transform into TenXObjects 
+
+
+  join: run/units/input
+  
+  allowMultiple: true
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/input/doc.md":""

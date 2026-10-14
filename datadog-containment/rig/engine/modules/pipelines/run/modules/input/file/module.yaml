@@ -1,0 +1,117 @@
+#
+# 🔟❎ 'run' File input module
+
+module:
+
+  name: fileInput
+
+  title: File input
+
+  description: read events from an input file/glob path
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/input/file
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/input/file/doc.md":""
+ 
+  # 'allowMultiple' is enabled for this module. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+        
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+  
+    - names:
+      - inputFileName
+      description: logical name of this input
+      type: string
+      required: false
+      doc: |
+        sets a logical name (e.g., 'myInput') for this input.
+        The [inputName](https://doc.log10x.com/api/js/#TenXBaseObject+inputName) field 
+        returns this value at run time to allow for identifying and operating on instances originating from this input.
+
+    - names:
+      - inputFilePath
+      - -f
+      description: a file path or glob pattern to read from
+      type: file
+      required: false
+      doc: |
+        specifies a path that is either an absolute or canonical file path. For example: 
+        ``` yaml
+        path: $=path("<user.dir>/data/sample/[!{.}]*.log")
+        ```
+      defValue: path("<user.dir>/data/sample/[!{.}]*.log")
+
+    - names:
+      - inputFileEnabled
+      description: enable/disable this file input
+      type: boolean
+      required: false
+      doc: |
+        specifies whether the open the input to read events from the target [inputFilePath](https://doc.log10x.com/run/input/file/#inputfilepath).
+      defValue: true
+
+    - names:
+      - inputFileExtractors
+      description: JSON / regex extractor names
+      type: list
+      required: false
+      doc: |
+        defines a list of JSON/regex extractor names to capture events from 
+        'inputFilePath' to transform into TenXObjects. Each item in the list should map to an extractor
+        defined via a configuration file or startup arguments group.
+        To learn more see: [extractors](https://doc.log10x.com/run/input/extract).       
+        
+    - names:
+      - inputFileSourcePattern
+      description: event source capture regex pattern 
+      type: string
+      required: false
+      doc: |
+        defines a regex pattern to capture 'source' values for each event read from this input.
+       
+        Source values provide a method for sequencing TenXObjects read from this input in separate logical queues.
+        
+        For example, capturing a 'host' or 'fileName' value as a 'source' creates a separate logical queue for 
+        each unique file/host origin by which TenXObjects read from this input are aggregated and written to output.
+        
+        The [source](https://doc.log10x.com/api/js/#TenXObject+source) member returns each TenXObject's assigned value at run time. . 
+
+    - names:
+      - inputFileSourceFields
+      description: event source JSON fields 
+      type: list
+      required: false
+      doc: |
+        defines a list of JSON fields to extract from matching capture groups of [inputFileSourcePattern](https://doc.log10x.com/run/input/file/#inputfilesourcepattern)
+        or the entire event if not set as the 'source' value for each event read from this input.
+       
+        Source values provide a method for sequencing TenXObjects read from this input in separate logical queues.
+        
+        For example, capturing a 'host' or 'fileName' value as a 'source' creates a separate logical queue for 
+        each unique file/host origin by which TenXObjects read from this input are aggregated and written to output.
+        
+        The [source](https://doc.log10x.com/api/js/#TenXObject+source) member returns each TenXObject's assigned value at run time. 
+
+    - names:
+      - inputFilePrintProgress
+      description: sets whether this input prints throughput stats to the console
+      type: boolean
+      required: false
+      doc: |
+        sets whether this input prints throughput stats to the console
+
+    - names:
+      - inputFileCharset
+      description: charset used to decode bytes read from this input
+      type: string
+      required: false
+      doc: |
+        sets the charset used to decode bytes read from this input into characters.
+        Defaults to UTF-8.
+        

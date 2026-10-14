@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/initialize/lookup/schema.json
+
+# 🔟❎ 'run' lookup file configuration
+
+# Configuration text lookup to enrich TenXObjects
+# To learn more see https://doc.log10x.com/run/initialize/lookup/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Dependencies ================================
+
+include: run/modules/initialize/lookup
+
+# ============================== Lookup Options ===============================
+
+lookup:
+
+  # 'file' specifies the .csv/.tsv lookup table file
+  file: $=path("pipelines/run/initialize/lookup/http.csv")
+
+  # 'keyField' specifies the field whose value is query lookup key.
+  #  The calculated code field below captures the penultimate HTTP code value from a web log event.
+  #  For example, 200 for: Mar 10 12:34:56 webserver nginx: 192.168.1.10 - - [10/Mar/2025:12:34:56 +0000] "GET /index.html HTTP/1.1" 200 1024
+  keyField: $=yield TenXEnv.get("httpCodeField")
+
+  # 'valueField' specifies the name of the result field to assign to the lookup table value
+  valueField: http_message

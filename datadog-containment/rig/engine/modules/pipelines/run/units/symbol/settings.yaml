@@ -1,0 +1,52 @@
+#
+# 🔟❎ 'run' symbol path settings
+
+# 10x symbol files produced by the 'compile' pipeline serve as the building blocks
+# used to transform log/trace events read from an input stream
+# into structured TenXObjects. Symbol files are analogous to class binaries produced 
+# at compile-time which are used at run-time to efficiently execute code and 
+# provide optional reflection abilities. In the same way, 10x symbol files 
+# enable the 'run' pipeline to transform events into structured TenXObjects with global fields shared across
+# instances originating from the same source code/binary location, and
+# variable values unique to each instance. 
+
+# ----------------------------- Symbol Settings -------------------------------
+
+# 'symbolPaths' provides a list of symbol units (.json) and hash files (.csv) that will be used
+#  to structure TenXObjects from an input. This setting is similar to a 'classpath' or
+#  'pathlib' variables that provide the locations in which to scan for precompiled artifacts 
+#  produced by the 'compile' pipeline.
+symbolPaths:
+  - $?symbolPaths
+  
+# 'symbolLiterals' specifies a list of literal symbol values to add to the host pipeline's symbol collection.
+#  This option enables declaring symbol values directly through the command line or via YAML/JSON configuration.
+symbolLiterals: 
+  - $?symbolLiterals
+
+# 'recursiveSearch' controls whether folder locations provided in 'symbolPaths' 
+#  are recursively traversed in search of symbol unit or hashSet files. 
+#  Be careful that if set to 'true' and provided with a deep folder tree to 
+#  traverse this operation may be time-consuming.
+recursiveSearch: false
+ 
+# 'loadSymbols' controls symbol unit information produced during the 'compile'
+#  phase is read from .json files (if found) and indexed in memory. This information
+#  is required for 10x scripting reflection functions such as 'symbols' and 'classes',
+#  by providing the origin of symbol values (e.g. class/enum names) found
+#  within the 'text' field of TenXObjects.
+
+#  If this value is set to false, only symbol hashes are loaded
+#  to allow for structuring of TenXObjects *without* support for reflection functions.
+loadSymbols: $?loadSymbols=true
+ 
+# 'symbolIndex' controls how symbol unit entries read from 'symbolPaths'
+#  are indexed in memory for quick access. 
+symbolIndex: 
+  # 'maxSymbolUnitsPerToken' controls the maximum number of symbol units to load from the 
+  #  pipeline's symbol library when searching for the origin of a specific TenXTemplate symbol. 
+  maxSymbolUnitsPerToken: $?maxSymbolUnitsPerToken=128
+
+# 'templateSymbols' control which symbols are selected from symbol unit files read 
+#  from 'symbolPaths' when querying for a target TenXObject's origin. 
+templateSymbols: +include units/transform/symbol/settings.yaml

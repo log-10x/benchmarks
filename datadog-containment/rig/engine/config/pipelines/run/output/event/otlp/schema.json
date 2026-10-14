@@ -1,0 +1,136 @@
+{
+  "type" : "object",
+  "properties" : {
+    "include" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "tenx" : {
+      "type" : "string"
+    },
+    "outputOtlp" : {
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "additionalProperties" : false,
+        "properties" : {
+          "host" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Host address of the target OTLP/gRPC logs endpoint\n\nHostname or IP of the OpenTelemetry Collector (or other OTLP-compatible endpoint) accepting logs via OTLP/gRPC. (Default: 127.0.0.1)",
+            "default" : "127.0.0.1"
+          },
+          "port" : {
+            "type" : [
+              "string",
+              "number",
+              "null"
+            ],
+            "markdownDescription" : "TCP port of the target OTLP/gRPC logs endpoint\n\nTCP port of the OTLP/gRPC logs receiver. Matches the `endpoint` of the Collector's `otlp` receiver. (Default: 4317)",
+            "default" : "4317"
+          },
+          "insecure" : {
+            "type" : [
+              "string",
+              "boolean",
+              "null"
+            ],
+            "markdownDescription" : "If true, connect over plaintext (no TLS)\n\nWhen true, the gRPC channel is opened in plaintext mode (no TLS). Set to false only when the destination requires TLS. (Default: true)",
+            "default" : "true"
+          },
+          "bodyField" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Top-level field name to lift into the OTLP LogRecord body\n\nName of the JSON field on each rendered event to set as the OTLP `LogRecord.body`. Other top-level fields are emitted as log-record attributes. Set to a non-existent field name to send all data as attributes (no body). (Default: body)",
+            "default" : "body"
+          },
+          "tagField" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Top-level field name to drop from output (synthetic envelope tag)\n\nName of the synthetic envelope tag field carried on the event. The appender drops this field on output so it does not surface as a log-record attribute on the destination side. (Default: tag)",
+            "default" : "tag"
+          },
+          "batchSize" : {
+            "type" : [
+              "string",
+              "number",
+              "null"
+            ],
+            "markdownDescription" : "Maximum number of LogRecords to buffer before flushing\n\nWhen the buffered LogRecord count reaches this value, the appender immediately flushes via gRPC. (Default: 100)",
+            "default" : "100"
+          },
+          "flushIntervalMs" : {
+            "type" : [
+              "string",
+              "number",
+              "null"
+            ],
+            "markdownDescription" : "Maximum age in ms of a buffered LogRecord before forced flush\n\nPeriodic flush interval in milliseconds. Buffered LogRecords are flushed at most this often even when the batch size has not been reached. A longer interval lets more records coalesce into a single OTLP `ExportLogsServiceRequest`, which preserves the resource/scope grouping the destination Collector would see if Log10x weren't in the path. (Default: 1000)",
+            "default" : "1000"
+          },
+          "fields" : {
+            "type" : [
+              "array",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "List of TenXObject field names to encode\n\nNames of TenXObject intrinsic/extracted/calculated fields to write on each event. With `outputOtlpEncodeType: delimited` and a single field carrying a JSON envelope (e.g. `fullText`), the appender re-parses the envelope to recover the original key/value structure.",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "writeObjects" : {
+            "type" : [
+              "string",
+              "boolean",
+              "null"
+            ],
+            "markdownDescription" : "If true, emit TenXObject field values to this output\n\nControls whether instance field values for TenXObjects passed to this output are written. Disable to keep templates-only emission active without ferrying every event payload over OTLP/gRPC. (Default: true)",
+            "default" : "true"
+          },
+          "writeTemplates" : {
+            "type" : [
+              "string",
+              "boolean",
+              "null"
+            ],
+            "markdownDescription" : "If true, emit new TenXTemplates to this output\n\nControls whether template values for TenXObjects passed to this output are written. Each new template is emitted at most once. Enable this alongside `receiverOptimize true` so the destination Collector can decode the compact body using the matching template. (Default: false)",
+            "default" : "false"
+          },
+          "filter" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "A JavaScript expression that an TenXObject must evaluate as 'truthy' against to be written to this output\n\nSpecifies a JavaScript expression that a TenXObject must evaluate as truthy to be written to this output. For example, `outputOtlpFilter: this.timestamp` will only emit TenXObjects whose intrinsic `timestamp` field is set."
+          },
+          "encodeType" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "The output format in which to encode TenXObject values. Possible values [json, delimited]\n\nWire encoding used by the engine to render fields into the bytes the appender receives. The appender always parses the rendered text as JSON; with `delimited` and a single JSON-shaped field (`fullText`), the envelope is recovered intact. (Default: delimited)",
+            "default" : "delimited"
+          },
+          "encodeDelimiter" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "The delimiter placed between key and values pairs if 'outputOtlpEncodeType' is 'delimited'\n\nDelimiter used to separate TenXObject field values when `outputOtlpEncodeType` is `delimited`. Ignored when `outputOtlpEncodeType` is `json` (which emits a JSON object instead of delimited values). (Default: ,)",
+            "default" : ","
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties" : true
+}

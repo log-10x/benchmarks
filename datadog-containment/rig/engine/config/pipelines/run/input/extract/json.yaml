@@ -1,0 +1,77 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/input/extract/schema.json
+
+# 🔟❎ 'run' JSON extractor configuration
+
+# Configure input JSON extractors.
+# To learn more see: https://doc.log10x.com/run/input/extract
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# ============================= Extractor Options =============================
+
+# multiple extractors can be defined below
+extractor:
+
+    # 'name' provides a unique name for this extractor that is referenced
+    #  by any inputs to which it is applied 
+  - name: jsonExtractor
+   
+    # 'type' controls the method for parsing input stream text (json or pattern)
+    type: json
+    
+    # 'targetInput' sets a regex pattern to match all inputs to which the extractor is applied.
+    #  For example, to apply this extractor to an input named 'datadog', set: 'targetInput: datadog'
+    targetInput: myInput
+
+    # 'filter' specifies a regex pattern the current event must match to scan for JSON objects.
+    #  For example, the pattern below will filter out events that contain "level":"TRACE"
+    filter: ^((?!"level":"TRACE").)*$
+   
+    # 'actions' specifies the actions taken by this extractor. 
+    #  Define actions using <type> followed by ':' and the JSON field they target.
+    #  The following action types are supported (comment in/out the ones needed for your use case):
+    actions: 
+
+      # Capture
+
+      # 'captureAll' transforms all instances of a matching JSON field (i.e., 'message')
+      #  within the current event into TenXObjects
+      - captureAll:message
+
+      # 'captureFirst' transforms only the first instance of a matching JSON field (i.e., 'message')
+      #  within the current event into an TenXObject
+      - captureFirst:message
+
+      # 'captureLast' transforms only the last instance matching JSON field (i.e., 'message')
+      #  within the current event into an TenXObject    
+      - captureLast:message
+      
+      #  Filter
+
+      # 'redact' resets the value of any matching JSON field (i.e., 'username') found in the event
+      #  based on its JSON value type:
+      #  - number -> 0
+      #  - string -> ""
+      #  - boolean -> true
+      #  - object -> {}
+      #  - array -> [] 
+      - redact:username
+
+        # 'drop' removes both field name and value of any matching 
+        #  JSON field (i.e., 'password') found in the event. This action applies to JSON extractors only.
+      - drop:password
+
+      # Advanced
+
+      # 'captureDefault' serves as a sink for events that fail to match the 'filter' pattern
+      #  or do not contain any of the capture group names specified by 'actions'. These events are
+      #  transformed into TenXObjects whose 'extractorKey' field returns this action's name (i.e., 'other')
+      - captureDefault:other
+
+      # 'noTransform' is the same as 'captureDefault' (see above), except captured events are not
+      #  transformed into TenXObjects and remain as 'plain text' objects.
+      #  This is useful when the events need to be routed by the 10x pipeline to a specific
+      #  output, but do not require access to structured elements (e.g., the intrinsic 'vars' and 'timestamp' fields).
+      - noTransform:other
+      

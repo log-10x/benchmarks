@@ -1,0 +1,95 @@
+# 🔟❎ 'run' ElasticSearch input stream configuration
+
+# The 'elastic' module defines an Elastic input from which
+# to read events to transform into TenXObjects. The configuration
+# below constructs a camel-backed input stream for each instance of
+# the 'elastic' options group.
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# Adding a runtime attribute for metrics reporting
+runtimeAttributes:
+  - analyzer_input:elasticsearch
+
+# 'extractor' defines the JSON extractor to select event values from
+#  the 'elasticSearchEndpoint' response. These include both
+#  log events to transform into TenXObjects as well as events
+#  parsed to format the query for the next batch of events.
+extractor:
+
+  # this extractor splits the full incoming json data into individual results, and gets the tokens needed for pagination
+  - name: $=yield "elastic-source-" + TenXEnv.get("elasticSearchName")
+    type: json
+    group: external
+
+    actions:
+        # defines which field values are extracted as outer TenXObjects, with inner fields extracted
+        # by the second extractor
+      - $=yield "setOuterText:_source"
+
+        # The 'sort' field is extracted to calculate the next batch of events to request.
+        # Each subsequent paginated query will use the last value extracted from the 'sort' value
+        # as the following elastic query's 'search_after' value.
+      - captureLastArray:sort
+
+    foreach: elastic
+
+  # this extractor gets the actual message from each individual result of the previous extractor
+  - name: $=yield "elastic-message-" + TenXEnv.get("elasticSearchName")
+    type: json
+
+    actions:
+        # defines which field value is extracted and transformed into TenXObjects.
+      - $=yield "captureFirst:" + TenXEnv.get("elasticSearchMessageField", "log")
+
+    foreach: elastic
+
+
+input:
+
+    # 'type' defines the type of input (e.g., stdin, file, stream).
+  - type: stream
+
+    # 'name' defines a logical name for this input.
+    #  This value identifies TenXObjects instantiated from this input via their 'inputName' field
+    name: $elasticSearchName
+
+    # 'enabled' controls whether to open this input 
+    enabled: $?elasticSearchEnabled=true
+
+    # 'path' sets the class name to instantiate to read events
+    path: com.log10x.ext.cloud.camel.CamelContextInputStream
+
+    # 'args' are passed as arguments to the Camel InputStream constructor
+    args:
+      - name
+      - $?elasticSearchName
+      - route
+      - +include run/modules/input/analyzer/elasticsearch/route.yaml
+
+    # 'printProgress' controls whether to print throughput stats to the console
+    printProgress: $?elasticSearchPrintProgress=false
+
+    # 'extractors' are set to the default 'elastic-source-$elasticSearchName' and
+    # 'elastic-message-$elasticSearchName' extractors defined above, along with any additional custom ones.
+    extractors:
+      - $=yield "elastic-source-" + TenXEnv.get("elasticSearchName")
+      - $=yield "elastic-message-" + TenXEnv.get("elasticSearchName")
+      - "$=yield TenXEnv.get(\"k8sExtractorName\") ? TenXEnv.get(\"k8sExtractorName\") : \"\""
+      
+      - $?elasticSearchExtractors
+
+    # 'backpressureTotalDuration' sets the maximum duration to keep input open
+    backpressureTotalDuration: $?elasticSearchTotalDuration=parseDuration("5min")
+
+    # 'backpressureTotalBytesLimit' sets the maximum total bytes to read from input before closing
+    backpressureTotalBytesLimit: $?elasticSearchTotalBytesLimit=parseBytes("5M0B")
+
+    # 'backpressureTotalEventsLimit' sets the maximum total events to read from input before closing
+    backpressureTotalEventsLimit: $?elasticSearchTotalEventsLimit=10000
+
+    # 'foreach' sets 'elastic' as the options group for whose instances
+    #  to create matching input streams. This value allows for defining multiple
+    #  Elastic inputs using configuration files or command-line arguments
+    foreach: elastic

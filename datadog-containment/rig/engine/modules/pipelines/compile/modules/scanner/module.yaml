@@ -1,0 +1,15 @@
+#
+# 🔟❎ 'compile' symbol scanner module
+ 
+module:
+
+  name: scan
+  
+  title: Symbol scanner
+  
+  description: extract symbol values from source code/binary files 
+    
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "compile/modules/scanner/doc.md":""
+ 
+  join: compile/units/scan

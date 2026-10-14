@@ -1,0 +1,40 @@
+{
+  "type" : "object",
+  "properties" : {
+    "tenx" : {
+      "type" : "string"
+    },
+    "print" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "scanTypes" : {
+          "type" : [
+            "array",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Scan components to print results for\n\nControls which phases of the 'compile' pipeline emit results to JSON output. Possible values:   | Value        | Description                                    | |--------------|------------------------------------------------| | sources      | calculate the number of existing source files  | | symbols      | calculate the number of existing symbols files | | scan         | capture symbol values from input files         | | link         | merging output symbols files                   | | pushToGitHub | pushed symbol files                            | (Default: [\"link\",\"scan\",\"pushToGitHub\"])",
+          "items" : {
+            "type" : "string"
+          },
+          "default" : [
+            "link",
+            "scan",
+            "pushToGitHub"
+          ]
+        },
+        "progress" : {
+          "type" : [
+            "boolean",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Report i/o progress to the console\n\nEnables/disables reporting of input files scanned to stdout. (Accepts boolean or string with $= prefix for runtime evaluation) (Default: true)",
+          "default" : true
+        }
+      }
+    }
+  },
+  "additionalProperties" : false
+}

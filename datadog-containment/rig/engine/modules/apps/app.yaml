@@ -1,0 +1,19 @@
+#
+# 🔟❎ 'run' applications
+
+app:
+
+  name: application
+
+  title: Application
+
+  description: Launch 10x applications to report, receive and optimize log/trace events.
+
+  # 'allowMultiple' is disabled for this module. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+
+  moduleSort: [reporter,receiver,retriever,compiler,dev]
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "apps/doc.md":""

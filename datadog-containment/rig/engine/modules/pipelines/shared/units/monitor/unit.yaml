@@ -1,0 +1,60 @@
+#
+# 🔟❎ pipeline monitor unit
+
+unit:
+  
+  name: monitor
+
+  title: Pipeline monitor
+
+  description: emit pipeline debug values to log and the 10x time series backend
+  
+  # 'configFolders' specifies folders containing default configuration files for the settings defined by this unit/module
+  configFolders:
+    run: run/monitor 
+    compile: compile/monitor 
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "shared/units/monitor/doc.md":""
+  
+  # 'allowMultiple' is disabled for this unit. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+   
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed to the pipeline are accessible at runtime via the TenXEnv JavaScript class.
+  options:
+            
+    - names:
+      - monitorPollInterval
+      description: interval to information to log/ publish counters
+      type: string
+      required: false
+      doc: |
+        sets the frequency to log debug information for pipeline units specified by 'monitorUnits' to 
+        log/time series backend.
+      defValue: 1s
+        
+    - names:
+      - monitorUnits
+      description: pipeline unit names to log and emit debug metrics
+      type: list
+      required: false
+      doc: |
+        specifies which 10x pipeline units will log and emit debug metrics
+        while executing. Each pipeline prints the names of its configured units upon startup on the console and log file. 
+        To emit information for all pipeline units, specify '*'.
+     
+    - names:
+      - monitorMetricPattern
+      description: regexp pattern to match against counters to publish as metrics
+      type: string
+      required: false
+      doc: |
+        defines a pattern to match against counters debug produced by units specified by [monitorUnits](https://doc.log10x.com/shared/monitor/#monitorunits). 
+        Each counter provides a name in the following format: `<unit name>_<key0...KeyN>` (e.g., input_events_0).
+
+        The pipeline will emit counters matching the pattern, [tagging each counter](https://www.baeldung.com/micrometer#1-tags) 
+        with information about the reporting unit instance (e.g., the destination for a 'run' pipeline output). 
+     

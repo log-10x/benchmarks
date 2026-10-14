@@ -1,0 +1,49 @@
+{
+  "type" : "object",
+  "properties" : {
+    "tenx" : {
+      "type" : "string"
+    },
+    "symbol" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "paths" : {
+          "type" : [
+            "array",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Input symbol files and folders\n\nSpecifies a list of glob patterns used to load symbols files (.json, .csv) into the pipeline upon initialization. Zip archives are extracted to the temp folder and deleted on exit. (Default: [\"path(\\\"sample/symbols\\\")\"])",
+          "items" : {
+            "type" : "string"
+          },
+          "default" : [
+            "path(\"sample/symbols\")"
+          ]
+        },
+        "literals" : {
+          "type" : [
+            "array",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Symbol literal values\n\nSpecifies a list of literal symbol values to add to the host pipeline's symbol collection. This option enables declaring symbol values directly through the command line or via YAML/JSON configuration.",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "maxSymbolUnitsPerToken" : {
+      "type" : [
+        "number",
+        "string",
+        "null"
+      ],
+      "markdownDescription" : "Number of symbol units to retrieve when searching for the origin of an TenXTemplate symbol sequence\n\nControls the maximum number of symbol units to load from the pipeline's symbol library when searching for the [origin](https://doc.log10x.com/run/transform/symbol/) of a specific [TenXTemplate](https://doc.log10x.com/run/template/) symbol.   The [symbolSequence](https://doc.log10x.com/api/js/#TenXObject+symbolSequence) function queries the source code/binary origin of symbol sequences in a target TenXTemplate to identify the logical \"message\" portions of app/infra events vs. variable values and [MDC context](https://logging.apache.org/log4j/2.x/manual/thread-context.html).   Since symbols may appear in hundreds or more locations across a code base,  limiting the number of symbol units to load is necessary to reduce memory consumption.     A second consideration in placing an upper limit on the number of units to load from the symbol library  is the more frequent a symbol is, the lower the probability of selecting its correct origin. (Accepts number or string with $= prefix for runtime evaluation) (Default: 128)",
+      "default" : 128
+    }
+  },
+  "additionalProperties" : false
+}

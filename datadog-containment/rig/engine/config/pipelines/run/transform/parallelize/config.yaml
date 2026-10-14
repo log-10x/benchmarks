@@ -1,0 +1,37 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/transform/parallelize/schema.json
+
+# 🔟❎ 'run' event parallel processing configuration
+
+# Transform log/trace events read from inputs into well-defined TenXObjects using multiple cores.
+# To learn more see https://doc.log10x.com/run/transform/parallelize/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Parallel Options ============================
+
+parallelEvent:
+  
+  # 'threadPoolSize' specifies the number of threads allocated to transform events into TenXObjects concurrently.
+  #  If the value is -
+  #  - = 0: transform events into TenXObjects synchronously using their input stream calling thread.
+  #  - < 1: interpreted as a percentage of the number of available cores (e.g., 0.5 = use up to 50% of available cores)
+  #  - = 1: allocate a single dedicated to transform events.
+  #  - > 1: interpreted as a fixed number of threads (e.g., 10 = 10 threads)
+  threadPoolSize: "0.5"
+
+  # 'batchSize' specifies the maximum number of events to queue for concurrent processing before flushing.
+  #  If 'threadPoolSize' is 1, this value is unused, and events are transformed into TenXObject synchronously 
+  #  to their calling input's thread.  If 0, flush pending events after 'flushInterval' expires or the
+  #  source input reaches end-of-file.
+  batchSize: 1000
+
+  # 'flushInterval'  specifies the maximum wait duration before flushing queued events 
+  #  If 'threadPoolSize' is 1, this value is unused, and events are transformed into TenXObject synchronously 
+  #  to their input thread. If 0, no wait flush interval is applied. 
+  flushInterval: 2s
+
+  # 'processingTimeout' specifies the maximum wait duration before dropping un-processed queued events 
+  #  This value provides a backstop for overflowing the heap if the pipeline cannot dequeue 
+  #  pending events to transform into TenXObjects. If 0, no timeout is applied.
+  processingTimeout: 30s

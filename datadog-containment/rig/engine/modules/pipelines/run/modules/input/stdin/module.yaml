@@ -1,0 +1,59 @@
+#
+# 🔟❎ 'run' stdin input module
+
+module:
+
+  name: stdin
+
+  title: stdin device input
+
+  description: read events from stdin
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/input/stdin
+  
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/input/stdin/doc.md":""
+
+  # 'allowMultiple' is disabled for this module. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+    
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - stdinEnabled
+      - -in
+      description: enable/disable stdin input
+      type: string
+      required: false
+      doc: |
+        specifies whether to read event data from the stdin pipe
+      defValue: true
+
+    - names:
+        - stdinExtractors
+      description: JSON / regex extractor names
+      type: list
+      required: false
+      doc: |
+        defines a list of JSON/regex extractor names to capture events from 
+        'inputFilePath' to transform into TenXObjects. Each item in the list should map to an extractor
+        defined via a configuration file or startup arguments group.
+        To learn more see: [extractors](https://doc.log10x.com/run/input/extract).       
+          
+    - names:
+        - stdinSourcePattern
+      description: event source capture regex pattern 
+      type: string
+      required: false
+      doc: |
+        defines a regex pattern to capture 'source' values for each transformed TenXObject.
+        Tags provide a method for sequencing TenXObjects read from this input value in separate logical queues.
+        For example, capturing a 'host' or 'fileName' value as a 'source' creates a separate logical queue for 
+        each unique file/host origin by which TenXObjects read from this input are aggregated and written to output.
+        The [source](https://doc.log10x.com/api/js/#TenXObject+source) member returns each TenXObject's assigned value. 
+        

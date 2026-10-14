@@ -1,0 +1,62 @@
+#
+# 🔟❎ 'run' File lookup module
+
+module:
+
+  name: fileLookup
+
+  title: File Lookup
+
+  description: enrich TenXObjects with lookup table values
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/initialize/lookup
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: '+include $=TenXEnv.get("docGenerate") ? "run/modules/initialize/lookup/doc.md":""'
+    
+  # 'allowMultiple' is disabled for this module. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+        
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - lookupFile
+      description: TSV/CSV file to load
+      type: file
+      required: true
+      doc: |
+        The target .tsv/.csv lookup file to load
+
+    - names:
+      - lookupKeyField
+      description: TenXObject field name to use as lookup key
+      type: string
+      required: true
+      doc: |
+        specifies a field name whose value to extract from a target TenXObject to use as the lookup key, that is the 
+        value used to search for a matching value within the lookup file.
+
+    - names:
+      - lookupValueField
+      description: TenXObject field name to use as the lookup value
+      type: string
+      required: true
+      doc: |
+        specifies the field name with the target TenXObject to set with the result lookup value acquired by searching
+        the table for the value of [lookupKeyField](https://doc.log10x.com/run/initialize/lookup/#lookupkeyfield).
+
+    - names:
+      - lookupValueColumn
+      description: name of lookup value column 
+      type: string
+      required: false
+      defValue: second column in table (first column is assumed as the key)
+      doc: |
+        specifies a column in the [lookupFile](https://doc.log10x.com/run/initialize/lookup/#lookupfile) whose value to
+        assign from the first column in the table (i.e., the key column) into [lookupValueField](https://doc.log10x.com/run/initialize/lookup/#lookupvaluefield) based on the value of 
+        the [lookupKeyField](https://doc.log10x.com/run/initialize/lookup/#lookupkeyfield) field value.

@@ -1,0 +1,90 @@
+#
+# 🔟❎ 'run' log4j2 output module stream settings
+
+# The 'fileOutput' module defines a file output to which
+# to write TenXObject instance/template field values. The configuration
+# below constructs a log4j-backed output stream for each instance of
+# the 'fileOutput' options group.
+
+# Set the 10x pipeline to 'run'
+# tenx: run
+
+output:
+
+    # 'type' defines the type of output (e.g., stdout, event, metrics).
+    #  This output utilizes a log4j2 file appender to emit TenXObject instance/template field values
+  - type: event
+
+    # 'name' assigns a logical name to this output instance
+    name: $outputFilePath
+
+    # 'path' points to the log4j2 configuration used for the output's
+    #  appender and logger at: https://github.com/log-10x/modules/blob/main/pipelines/run/modules/output/event/file/log4j2.yaml
+    path: run/modules/output/event/file
+
+    # 'foreach' sets 'fileOutput' as the options group for whose instances
+    #  to create matching output streams to allow multiple file outputs.
+    foreach: fileOutput
+
+    # 'enabled' sets whether to open the output. If true, any 'filter' value
+    #  set below is evaluated for each TenXObject to determine whether to write its instance/template field values to output.
+    enabled: $=yield TenXEnv.get("outputFileWriteObjects", true) && TenXEnv.get("outputFileLog4j2", false) 
+
+    # 'filter' is configured only to encode TenXObject instance field values.
+    #  A separate output stream is defined below to encode TenXTemplates
+    filter: $?outputFileFilter=isObject
+
+    # 'group' sets 'outputFilePath' as the key for grouping all file outputs
+    #  targeting a location on disk into a single log4j2 appender. This
+    #  prevents a situation where multiple non-synchronized appenders may be trying
+    #  to write to the same file.
+    group:
+      - $outputFilePath
+
+    # 'encodedLinePrefix', 'encodeType' and 'encodeDelimiter' control how TenXObject field values are
+    #  written to output. To learn more see https://doc.log10x.com/run/output/event/file/#outputfileencodetype
+    encodedLinePrefix: $?outputFileEncodedLinePrefix="~"
+    encodeType: $?outputFileEncodeType=delimited
+    encodeDelimiter: $?outputFileEncodeDelimiter=","
+
+    # 'encodeGroupDelimiter' controls how to write grouped TenXObject field values to output.
+    #  To learn more see https://doc.log10x.com/run/output/event/file/#outputfileencodetype
+    encodeGroupDelimiter: $?outputFileEncodeGroupDelimiter=""
+
+    # 'fields' defines the intrinsic/extracted/calculated field values
+    #  to write to for each TenXObject passed to this output.
+    fields:
+      - $?outputFileFields
+
+    # If 'outputFileWriteTemplates' is true, encode Template values for TenXObjects as JSON objects.
+    # To learn more about TenXTemplates, see https://doc.log10x.com/run/template
+  - type: event
+
+    # 'foreach' sets 'fileOutput' as the options group for whose instances
+    #  to create matching output streams to allow multiple file outputs.
+    foreach: fileOutput
+
+    # 'path' points to the log4j2 configuration used for this output at:
+    #  https://github.com/log-10x/modules/blob/main/pipelines/run/modules/output/event/file/log4j2.yaml
+    path: run/modules/output/event/file
+
+    # 'group' sets 'outputFilePath' as the key for grouping all file outputs
+    #  targeting a location on disk into a single log4j2 appender. This
+    #  prevents a situation where multiple non-synchronized appenders may be trying
+    #  to write to the same file.
+    group:
+      - $outputFilePath
+
+    # 'enabled' must be set to true to encode TenXTemplates to this output.
+    enabled: $=yield TenXEnv.get("outputFileWriteTemplates", false) && TenXEnv.get("outputFileLog4j2", false) 
+
+    # 'filter' uses the 'isNewTemplate' 10x JavaScript function to skip templates
+    #  loaded via the https://doc.log10x.com/run/template/#templatefiles argument or previously written to this output
+    #  To learn more see https://doc.log10x.com/api/js/#TenXObject+isNewTemplate
+    filter: isNewTemplate()
+
+    encodeType: json
+
+    fields:
+      - templateHash
+      - template

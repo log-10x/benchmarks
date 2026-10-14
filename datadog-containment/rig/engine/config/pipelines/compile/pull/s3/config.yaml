@@ -1,0 +1,41 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/compile/pull/s3/schema.json
+
+# 🔟❎ 'compile' S3 configuration
+
+# Pull objects (e.g., Java archives, binaries, symbol unit tars from earlier compiles)
+# from S3 buckets to scan for symbol values. To learn more see https://doc.log10x.com/compile/pull/s3
+
+# Set the 10x pipeline to 'compile'
+tenx: compile
+
+# ================================ S3 Options =================================
+
+s3Pull:
+
+  # 'bucket' specifies the bucket to pull from.
+  - bucket: "" # (REQUIRED)
+
+  # 'region' specifies the bucket's region. If omitted, the AWS CLI's default region applies.
+    region: null
+
+  # 'endpointUrl' specifies an S3-compatible endpoint for the AWS CLI (e.g., http://minio.internal:9000).
+    endpointUrl: null
+
+  # 'keys' specifies objects to pull by exact key. A key may carry a pin:
+  #   releases/app.jar#versionId=<id>    pulls that object version
+  #   releases/app.jar@sha256:<64 hex>   fails the pull when the content differs
+    keys: [
+      # releases/app-1.4.2.jar
+      # units/spring-boot.10x.tar
+    ]
+
+  # 'prefixes' specifies key prefixes to pull every object under (e.g., builds/2026-10/).
+    prefixes: [
+    ]
+
+  # 'recursive' specifies whether 'prefixes' include objects under nested '/' segments.
+    recursive: true
+
+  # 'command' specifies the AWS CLI program the pull runs: 'aws' on the path by default.
+  #  The CLI's credential chain applies: environment, profile, instance or task role.
+    command: $=TenXEnv.get("TENX_S3_COMMAND", "aws")

@@ -1,0 +1,38 @@
+#
+# 🔟❎ 'run' group settings
+
+# If a pipeline uses a subsequent 'parallelize' processor unit to transform events
+# into TenXObjects across multiple cores, a subsequent 'sequence' pipeline
+# units are required to re-sequence instantiated TenXObjects so that they are  
+# written to output in their original order.
+
+# The sequencing process also allows for grouping TenXObjects 
+# into logical groups to aggregate and encode as 
+# a single logical unit (e.g., stack traces comprising multiple lines).
+
+# ----------------------------- Grouping Settings -----------------------------
+
+# 'groupFilters' specify JavaScript expressions an TenXObject instance/group must 
+#  evaluate as truthy against to be written to output
+groupFilters:
+  - $?groupFilters
+
+# 'groupExpressions' specify JavaScript expressions an TenXObject instance/group must 
+#  evaluate as truthy against to be marked as group head
+groupExpressions:
+  - $?groupExpressions
+
+# 'groupMaxSize' defines the maximum number of TenXObjects to group
+#  before the group is sealed and forwarded into the pipeline. 
+#  Subsequent objects can form a new group.
+groupMaxSize: $?groupMaxSize=20000
+
+# 'groupFlushTimeout' defines the max interval (e.g., 10s) the sequencer will wait for 
+#  new events to be read from an input stream before it flushes any
+#  pending TenXObjects group into the pipeline.
+#  This mechanism is designed to avoid latencies in dispatching pending event
+#  groups to output destinations.
+groupFlushTimeout: $?groupFlushTimeout=5000
+
+# 'groupAsync' specifies whether to sequence and group TenXObjects in a dedicated thread
+groupAsync: $?groupAsync=true

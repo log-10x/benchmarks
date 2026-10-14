@@ -1,0 +1,40 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/compile/scanners/executable/schema.json
+
+# # 🔟❎ 'compile' executable 'strings' configuration
+
+# This executable symbol scanner configuration uses OS-specific utilities to extract 
+# constant string values from pre-compiled binaries (e.g. programs, shared libraries).
+# Any matching text values are added to the output symbol files.
+
+# The following configuration is added by default to the 10x 'compile' pipeline.
+# If another 'executable' scanner is defined whose 'osFilter' matches that of the 
+# current target input file, it will take precedence over the scanners defined below.
+# To learn more about the 'executable' scanner, 
+# see: https://doc.log10x.com/compile/scanner/executable/
+
+# Set the 10x pipeline to 'compile'
+tenx: compile
+
+# =============================== Exec Options ================================
+
+exec: 
+ 
+    # This configuration provides a similar capability for scanning Windows executable files.
+
+    # *IMPORTANT*: On Windows, the 'strings' command is not installed by default and
+    # should be downloaded from: https://docs.microsoft.com/en-us/sysinternals/downloads/strings   
+    # and added to 'PATH'    
+  - name: stringsWin
+  
+      # target Win
+    osFilter: win   
+    
+    extensions:
+      - .so
+      - .dll         
+    
+    process: strings
+    args:
+      - file # This macro value is replaced at run-time by the actual input file name
+    timeout: 10s
+    

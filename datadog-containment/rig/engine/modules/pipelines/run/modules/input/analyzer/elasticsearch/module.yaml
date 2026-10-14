@@ -1,0 +1,276 @@
+#
+# 🔟❎ 'run' Elastic input module
+
+module:
+
+  name: elastic
+
+  title: ElasticSearch input
+
+  description: read events from an ElasticSearch hosted/on-premises cluster
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/input/analyzer/elasticsearch/doc.md":""
+
+  # 'configFolders' specifies folders containing default configuration files for this module
+  configFolders:
+    elastic: run/input/analyzer/elastic
+    logz.io: run/input/analyzer/logzio
+    coralogix: run/input/analyzer/coralogix
+
+  # 'allowMultiple' is enabled for this module. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - elasticSearchName
+      description: logical name for this elastic input
+      type: string
+      required: false
+      category: general
+      doc: |
+        sets a logical name (e.g., 'myElastic') for this input.
+        The [inputName](https://doc.log10x.com/api/js/#TenXBaseObject+inputName) field
+        returns this value at run time to allow for identifying and operating on instances originating from this input.
+
+    - names:
+      - elasticSearchEnabled
+      description: sets whether this input is enabled
+      type: boolean
+      required: false
+      category: general
+      doc: |
+        sets whether to open the input stream.
+        To enable this input only when a 'elasticSearchHost' startup argument value is truthy, use:
+        ``` yaml
+        elasticSearchEnabled: $=TenXEnv.get("elasticSearchHost")
+        ```
+        To learn more see [TenXEnv.get](https://doc.log10x.com/api/js/#TenXEnv.get).
+      defValue: true
+
+    - names:
+      - elasticSearchPrintProgress
+      description: sets whether this input prints throughput stats to the console
+      type: boolean
+      required: false
+      category: general
+      doc: |
+        sets whether this input prints throughput stats to the console
+        for testing an integration to a remote endpoint.
+      defValue: false
+
+    - names:
+      - elasticSearchTotalDuration
+      description: sets maximum time to query the backend
+      type: string
+      required: false
+      category: general
+      doc: |
+        sets the maximum time the pipeline will continue to query the backend before exiting.
+        For example, setting this to '1min' means that queries to the backend will stop after 1 minute has passed.
+      defValue: 5min
+
+    - names:
+      - elasticSearchExtractors
+      description: list of extractors to apply on the events returning from the query
+      type: list
+      required: false
+      category: general
+      doc: |
+        sets list of extractor names which will work on the events returning from the query.
+        For more info on extractors, see: https://doc.log10x.com/run/input/extract
+
+    - names:
+      - elasticSearchHost
+      description: elastic host address
+      type: string
+      required: true
+      category: authentication
+      doc: |
+        set the elastic host address to connect to. Examples:
+        coralogix-esapi.coralogix.com
+        api.logz.io
+        <deployment-id>.us-central1.gcp.cloud.es.io
+
+    - names:
+        - elasticSearchPort
+      description: elastic server port
+      type: number
+      required: false
+      category: authentication
+      doc: |
+        sets the elastic server port to connect to (e.g., '9443')
+        The port value is not needed if [elasticSearchHost](https://doc.log10x.com/run/input/analyzer/elasticsearch/#elasticsearchhost) value encapsulates the port
+
+    - names:
+      - elasticSearchProtocol
+      description: defines the protocol to connect to ElasticSearch
+      type: string
+      required: false
+      category: authentication
+      doc: |
+         sets the protocol to connect to elastic with (e.g., `https`).
+      defValue: https
+
+    - names:
+      - elasticSearchToken
+      description: elastic authentication token
+      type: string
+      required: true
+      category: authentication
+      doc: |
+          sets the API token used to authenticate against the target elastic cluster.
+          To learn more see: [api tokens](https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-token.html)
+
+    - names:
+      - elasticSearchAuthorizationKeyName
+      description: prefix for the elastic authentication token
+      type: string
+      required: false
+      category: authentication
+      doc: |
+          sets the prefix for the provided [elasticSearchToken](https://doc.log10x.com/run/input/analyzer/elasticsearch/#elasticsearchtoken) when using it in an 'Authorization' header.
+          commonly used values by different elastic vendors are 'ApiKey' and 'Bearer'
+      defValue: ApiKey
+
+    - names:
+        - elasticSearchQuery
+      description: query to pass to the elastic server
+      type: string
+      required: false
+      category: query
+      doc: |
+        sets the elastic query to request paginated documents from the  '/_search' REST endpoint.
+        The default query (defined in 'elasticsearch/query.txt') retrieves paginated
+        values sorted in desc order by @timestamp, starting from the value of 'now()'.
+
+    - names:
+        - elasticSearchMessageField
+      description: name of the field used to extract the log message from retrieved documents
+      type: string
+      required: false
+      category: query
+      doc: |
+        sets the name of the field used to extract the log message from retrieved documents
+      defValue: log
+
+    - names:
+        - elasticSearchTimestampField
+      description: name of the field used to sort retrieved documents by
+      type: string
+      required: false
+      category: query
+      doc: |
+        sets the name of the field used to sort retrieved documents by
+      defValue: '@timestamp'
+
+    - names:
+        - elasticSearchStartTime
+      description: The start of the time range, expressed as a relative string (i.e., "now-7d") or the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
+      type: string
+      required: false
+      category: query
+      doc: |
+        sets the start of the time range, expressed as a relative string (i.e., "now-7d") or the
+        number of milliseconds after Jan 1, 1970 00:00:00 UTC.
+        The query includes events with a timestamp equal or later to this value.
+
+    - names:
+        - elasticSearchEndTime
+      description: The end of the time range, expressed as a relative string (i.e., "now-7d") or the number of milliseconds after Jan 1, 1970 00:00:00 UTC
+      type: string
+      required: false
+      category: query
+      doc: |
+        sets the end of the time range, expressed as a relative string (i.e., "now-7d") or the
+        number of milliseconds after Jan 1, 1970 00:00:00 UTC.
+        The query excludes events with a timestamp later than this value.
+
+    - names:
+        - elasticSearchTargets
+      description: list of data streams, indices, and aliases to search
+      type: list
+      required: false
+      category: query
+      doc: |
+        sets list of data streams, indices, and aliases to search.
+        To search all data streams and indices, omit this parameter or use '*' or '_all'.
+
+    - names:
+      - elasticSearchEndpoint
+      description: name of search REST endpoint
+      type: string
+      required: false
+      category: query
+      doc: |
+        sets the name of the search REST endpoint.
+      defValue: _search
+
+    - names:
+      - elasticSearchQuerySize
+      description: number of documents to read per batch from the elastic server
+      type: number
+      required: false
+      category: query
+      doc: |
+        sets the number of documents to retrieve with each page of results.
+      defValue: 500
+
+    - names:
+      - elasticSearchRetryTimeout
+      description: a timeout period (in milliseconds) to wait for querying of new data
+      type: number
+      required: false
+      category: query
+      doc: |
+        determines how long to wait to invoke the search endpoint API again
+        to query for new data. See [elastic-input.js](https://github.com/log-10x/modules/blob/main/pipelines/run/modules/input/analyzer/elasticsearch/elastic-input.js).
+      defValue: 10000
+
+    - names:
+      - elasticSearchTotalBytesLimit
+      description: maximum total bytes to read from input before closing
+      type: number
+      required: false
+      category: backpressure
+      doc: |
+        sets the maximum number of bytes a target pipeline input will read into the pipeline. 
+        This value limits the volume of events to read from a local/remote source (e.g., log analyzer). 
+        
+        For example:
+        ``` yaml
+        elasticSearchTotalBytesLimit: $=parseBytes("1GB")
+        ```
+      defValue: $=parseBytes("50MB")
+
+    - names:
+      - elasticSearchTotalEventsLimit
+      description: maximum total events to read from input before closing
+      type: number
+      required: false
+      category: backpressure
+      doc: |
+        sets the maximum number of events a target pipeline input will read into the pipeline. 
+        This value limits the volume of events to read from a local/remote source (e.g., log analyzer).
+      defValue: 10000
+
+    - names:
+      - elasticSearchQueryInterval
+      description: query interval (in milliseconds) for checking new data from remote source
+      type: number
+      required: false
+      category: backpressure
+      doc: |
+        sets the interval between queries to the remote Elasticsearch API.
+        This controls how frequently the input polls for new log data.
+        
+        For example:
+        ``` yaml
+        elasticSearchQueryInterval: $=parseDuration("5s")
+        ```
+      defValue: 2000

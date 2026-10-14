@@ -1,0 +1,89 @@
+{
+  "type" : "object",
+  "properties" : {
+    "include" : {
+      "type" : "string"
+    },
+    "tenx" : {
+      "type" : "string"
+    },
+    "inputFile" : {
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "additionalProperties" : false,
+        "properties" : {
+          "name" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Logical name of this input\n\nSets a logical name (e.g., 'myInput') for this input. The [inputName](https://doc.log10x.com/api/js/#TenXBaseObject+inputName) field  returns this value at run time to allow for identifying and operating on instances originating from this input."
+          },
+          "path" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "A file path or glob pattern to read from\n\nSpecifies a path that is either an absolute or canonical file path. For example: ``` yaml path: $=path(\"<user.dir>/data/sample/[!{.}]*.log\") ``` (Default: path(\"<user.dir>/data/sample/[!{.}]*.log\"))",
+            "default" : "path(\"<user.dir>/data/sample/[!{.}]*.log\")"
+          },
+          "enabled" : {
+            "type" : [
+              "boolean",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Enable/disable this file input\n\nSpecifies whether the open the input to read events from the target [inputFilePath](https://doc.log10x.com/run/input/file/#inputfilepath). (Accepts boolean or string with $= prefix for runtime evaluation) (Default: true)",
+            "default" : true
+          },
+          "extractors" : {
+            "type" : [
+              "array",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "JSON / regex extractor names\n\nDefines a list of JSON/regex extractor names to capture events from 'inputFilePath' to transform into TenXObjects. Each item in the list should map to an extractor defined via a configuration file or startup arguments group. To learn more see: [extractors](https://doc.log10x.com/run/input/extract).",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "sourcePattern" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Event source capture regex pattern\n\nDefines a regex pattern to capture 'source' values for each event read from this input. Source values provide a method for sequencing TenXObjects read from this input in separate logical queues.  For example, capturing a 'host' or 'fileName' value as a 'source' creates a separate logical queue for  each unique file/host origin by which TenXObjects read from this input are aggregated and written to output.  The [source](https://doc.log10x.com/api/js/#TenXObject+source) member returns each TenXObject's assigned value at run time. ."
+          },
+          "sourceFields" : {
+            "type" : [
+              "array",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Event source JSON fields\n\nDefines a list of JSON fields to extract from matching capture groups of [inputFileSourcePattern](https://doc.log10x.com/run/input/file/#inputfilesourcepattern) or the entire event if not set as the 'source' value for each event read from this input.  Source values provide a method for sequencing TenXObjects read from this input in separate logical queues.  For example, capturing a 'host' or 'fileName' value as a 'source' creates a separate logical queue for  each unique file/host origin by which TenXObjects read from this input are aggregated and written to output.  The [source](https://doc.log10x.com/api/js/#TenXObject+source) member returns each TenXObject's assigned value at run time.",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "printProgress" : {
+            "type" : [
+              "boolean",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Sets whether this input prints throughput stats to the console\n\nSets whether this input prints throughput stats to the console (Accepts boolean or string with $= prefix for runtime evaluation)"
+          },
+          "charset" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Charset used to decode bytes read from this input\n\nSets the charset used to decode bytes read from this input into characters. Defaults to UTF-8."
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties" : true
+}

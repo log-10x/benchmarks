@@ -1,0 +1,198 @@
+# 🔟❎ 'run' Splunk input module Apache Camel route
+
+# This Apache Camel Yaml DSL route utilizes an instance of the 'splunk'
+# module to periodically invoke the Splunk '/services/search/v2/jobs/' endpoint to 
+# retrieve the last 'splunkPageSize' log messages to transform to TenXObjects.
+
+# The query passed to the Splunk backend is specified using the 'splunkQuery' argument.
+
+# To learn more see https://camel.apache.org/components/4.0.x/others/yaml-dsl.html
+
+# To learn more about the Splunk search REST API, see:
+# https://docs.splunk.com/Documentation/Splunk/9.0.4/RESTREF/RESTsearch#search.2Fjobs
+
+- route:
+
+    # periodically invoke the Splunk REST API using a synch timer
+    from:
+      uri: timer
+      parameters:
+        timerName: $splunkName
+        delay: 0
+        period: $splunkQueryInterval
+        repeatCount: 0
+        synchronous: true
+
+      steps:
+        # setup http headers
+        - setHeader:
+            name: httpMethod
+            constant: POST
+
+        - setHeader:
+            name: Content-Type
+            constant: application/x-www-form-urlencoded
+
+        # setup auth props for the 'HttpAuthProcessor' processor
+        - setProperty:
+            name: username
+            simple: $splunkUsername
+
+        - setProperty:
+            name: password
+            simple: $splunkPassword
+
+        # step 1: submit the search job and receive a search id (sid)
+        - choice:
+            when:
+
+                # only perform this step if we don't already have an 'sid' from '/services/search/v2/jobs' endpoint
+              - simple:
+                  ${bean:tenx.truthy(!TenXInput.get("splunkSid"))}
+
+                steps:
+
+                  # Set the 'Authorization' header as: "BASIC " + base64(username:password)
+                  - process:
+                      ref: "#class:com.log10x.ext.cloud.camel.HttpAuthProcessor"
+
+                 # Set the request body to the search query
+                  - setBody:
+                      simple: ${bean:tenx.eval(formatSplunkQuery())}
+
+                  # log the response
+                  - to:
+                      uri: log:splunkRoute?level=TRACE&showBody=true&showHeaders=true
+
+                  # Format the destination rest endpoint using the 'splunkHost' and 'splunkHost' startup args
+                  # The 'formatSplunkBaseJobURL' defined in https://github.com/log-10x/modules/blob/main/pipelines/run/modules/input/analyzer/splunk/splunk-input.js
+                  # is used to format the endpoint URL
+                  - toD:
+                      uri: netty-http:${bean:tenx.eval(formatSplunkBaseJobURL())}?throwExceptionOnFailure=false&chunkedMaxContentLength=2097152&${bean:tenx.eval(formatSslParams())}
+
+                  # log the response
+                  - to:
+                      uri: log:splunkRoute?level=TRACE&showBody=true&showHeaders=true
+
+                  # Obtain the Splunk job sid from the response JSON
+                  - setProperty:
+                      name: splunkSid
+                      expression:
+                        jsonpath:
+                          expression: sid
+
+                  # Store the sid into the 'splunkSid' input field
+                  - to:
+                      uri: bean:tenx
+                      parameters:
+                        method: set(splunkSid, ${exchangeProperty.splunkSid})
+
+        # step 2: wait for search job to be ready and obtain the result 'eventCount'
+        - choice:
+            when:
+                # Only perform this step if we have a sid and the job is not ready yet
+                # The 'isWaitingForSplunkJob' defined in https://github.com/log-10x/modules/blob/main/pipelines/run/modules/input/analyzer/splunk/splunk-input.js
+                # is used to determine whether we are ready to submit a '/services/search/v2/jobs/' request
+              - simple: ${bean:tenx.truthy(isWaitingForSplunkJob())}
+
+                steps:
+                  - setBody:
+                      constant: output_mode=json
+
+                  # Set the 'Authorization' header as: "BASIC " + base64(username:password)
+                  - process:
+                      ref: "#class:com.log10x.ext.cloud.camel.HttpAuthProcessor"
+
+                  # Format the destination rest endpoint using the 'splunkHost' and 'splunkHost' startup args along with the sid
+                  - toD:
+                      uri: netty-http:${bean:tenx.eval(formatSplunkSearchURL())}?throwExceptionOnFailure=false&chunkedMaxContentLength=2097152&${bean:tenx.eval(formatSslParams())}
+
+                  # Extract whether the search is ready, and if so - how many events are returned
+                  - setProperty:
+                      name: splunkIsReady
+                      expression:
+                        jsonpath:
+                          expression: /$.entry[0].content.isDone # the '/' char escapes '$' from the 10x macro resolver
+
+                  # log the response
+                  - to:
+                      uri: log:splunkRoute?level=TRACE&showBody=true&showHeaders=true
+
+                  # Once the job is ready: copy the response 'eventCount' value into a counter for pagination
+                  - choice:
+                      when:
+                        - simple: ${exchangeProperty.splunkIsReady} == true
+                          steps:
+
+                            # log the response
+                            - log:
+                                message: ${body}"
+                                loggingLevel: TRACE
+
+                            # Extract the eventCount value from the response and set the 'splunkEventCount' input field
+                            - setProperty:
+                                name: splunkEventCount
+                                expression:
+                                  jsonpath:
+                                    expression: /$.entry[0].content.eventCount
+
+                            - to:
+                                uri: bean:tenx
+                                parameters:
+                                  method: set(splunkEventCount, ${exchangeProperty.splunkEventCount})
+
+                            - to:
+                                uri: bean:tenx
+                                parameters:
+                                  method: set(splunkIsReady, ${exchangeProperty.splunkIsReady})
+
+        # step 3: job is ready - page search results from 0 .. 'eventCount'
+        - choice:
+            when:
+              # The 'shouldFetchNextSplunkPage' defined in ./splunk-input.js
+              # is used to determine whether we are ready to submit a '/services/search/v2/jobs/' request
+              - simple: ${bean:tenx.eval(shouldFetchNextSplunkPage())}
+                steps:
+                  
+                  # Set the 'Authorization' header as: "BASIC " + base64(username:password)
+                  - process:
+                      ref: "#class:com.log10x.ext.cloud.camel.HttpAuthProcessor"
+
+                  # Format count and offset into the page request, log request
+                  - setBody:
+                      simple: ${bean:tenx.eval(formatSplunkPageQuery())}
+
+                  # Format the destination rest endpoint using the
+                  # 'splunkHost' and 'splunkHost' startup args along with the sid
+                  - toD:
+                      uri: netty-http:${bean:tenx.eval(formatSplunkResultURL())}?throwExceptionOnFailure=false&chunkedMaxContentLength=10485760&${bean:tenx.eval(formatSslParams())}
+
+                  # log the response
+                  - log:
+                      message: ${body}"
+                      loggingLevel: TRACE
+
+                  # connect the route output to the 10x pipeline using an output stream
+                  - setHeader:
+                      name: stream
+                      simple: ${bean:tenx.stream}
+
+                  # We get events in lines Because we're asking for 'output_mode=raw'.
+                  # No need to add additional lines.
+                  - to:
+                      uri: stream:header
+                      parameters:
+                        appendNewLine: false
+
+                  - choice:
+                      when:
+
+                        # If this was the last page, close the route.
+                        - simple: ${bean:tenx.truthy(fetchedAllSplunkPages())}
+
+                          steps:
+                            - to:
+                                uri: bean:tenx
+                                parameters:
+                                  # The 10x bean exposes this method to allow the route to close itself.
+                                  method: close()

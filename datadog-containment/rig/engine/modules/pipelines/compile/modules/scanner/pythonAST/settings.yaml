@@ -1,0 +1,33 @@
+# 🔟❎ 'compile' python symbol scanner settings
+
+# The 'Python AST' symbol scanner leverages the Python native .py parsing engine.
+# to launch the 'astpretty' script from https://github.com/asottile/astpretty 
+# to parse the contents of an input .py file. 
+
+# If a python runtime is unavailable when executing the 'compile' pipeline,
+# the 'pythonASTPath' value can be set to null or empty string to default 
+# to the ANTLR symbol scanner defined in 'python.yaml'
+
+launchOptions:
+  processName: $=TenXEnv.get("pythonPath", "python3")
+  args:
+    - $=path("compile/modules/scanner/pythonAST/astpretty.py")
+    - file # this value is replaced with the actual '.py' source input file      
+  
+  allowTempFiles: true # if target '.py' is located in an archive file, write to a temp file
+
+# 'logMethods' defines method names (e.g., 'error', 'warn') to mark as 'logging' methods
+#  within the ANTLR AST tree. Arguments to logging methods within the AST tree 
+#  receive a higher priority when selecting the template symbols of an TenXObject within a 'run' pipeline. 
+
+#  For example, a call to: 'logger.error("server fail", e);' in 'log.java' implies that the
+#  string constant passed to the method has a higher likelihood of appearing in a log file than
+#  if it were defined in the following source line: 'button.caption =  "server fail;" in 'gui.java'
+#  As such, when selecting the source origin for a log event containing the expression "server fail",
+#  'log.java' will be selected ahead of 'gui.java'. To learn more about template symbols, 
+#  see: https://doc.log10x.com/run/transform/symbol
+logMethods: +include compile/modules/scanner/logMethods/settings.yaml
+
+# 'testScript' is launched to test the python AST scanner is available by 
+#  parsing a small sample .py script
+testScript: compile/modules/scanner/pythonAST/pythonAST.py

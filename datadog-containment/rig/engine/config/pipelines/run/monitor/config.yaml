@@ -1,0 +1,67 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/monitor/schema.json
+
+# 🔟❎ 'run' monitor configuration
+#
+# Emit diagnostic information and metrics to the 10x console and log.
+# To learn more see https://doc.log10x.com/run/monitor/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# ============================== Monitor Options ================================
+
+monitor:
+
+  # 'pollInterval' sets the frequency by which to emit debug information
+  #  for the target units specified below.
+  pollInterval: 1s
+
+  # 'metricPattern' specifies a regex pattern to match against counters generated
+  #  by the specified 'units' below to publish as metrics to the 10x console
+  metricPattern: null
+
+  # 'units' specifies the run pipeline units to emit period diagnostic
+  #  information to the 10x log and console. Possible values:
+  units:
+ 
+    # load symbol library file(s)
+    # - symbolLoader
+
+    # load TenXTemplates file(s)
+    # - templateLoader
+
+    # load hash values of known TenXTemplates from file(s)
+    # - loadTemplateHashes
+
+    # read input log/trace event from text content passes a launch argument
+    # - readInline
+
+    # read input log/trace event from a file
+    # - readFile
+
+    # read input log/trace event from a java.io.InputStream/Reader
+    # - readStream
+
+    # split transform workload across multiple cores
+    # - parallelize
+
+    # transform input events into structured well-defined TenXObjects
+    # - transform
+
+    # group TenXObjects into composite logical units
+    # - group
+
+    # aggregate TenXObjects into summary instances
+    # - aggregateSingle
+
+    # write TenXObjects to java.io.OutputStream/Writer(s)
+    # - streamOutput
+
+    # write TenXObjects to stdout/err
+    # - stdOutput
+
+    # write TenXObjects to log4j2 appenders
+    # - logOutput
+
+    # write TenXObjects to Micrometer registries
+    # - metricOutput

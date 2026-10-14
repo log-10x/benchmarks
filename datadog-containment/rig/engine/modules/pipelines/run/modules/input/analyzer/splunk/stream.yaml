@@ -1,0 +1,52 @@
+# 🔟❎ 'run' Splunk input stream configuration
+
+# The 'splunk' module defines a Splunk input from which
+# to read events to transform into TenXObjects. The configuration
+# below constructs a camel-backed input stream for each instance of
+# the 'splunk' options group.
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# Adding a runtime attribute for metrics reporting
+runtimeAttributes:
+  - analyzer_input:splunk
+
+input:
+
+    # 'type' defines the type of input (e.g., stdin, file, stream).
+  - type: stream
+
+    # 'name' defines a logical name for this input.
+    #  This value identifies TenXObjects instantiated from this input via their 'inputName' field
+    name: $splunkName
+
+    # 'enabled' controls whether to open this input 
+    enabled: $?splunkEnabled=true
+
+    # 'path' defines the class name to instantiate to read events
+    path: com.log10x.ext.cloud.camel.CamelContextInputStream
+
+    # 'args' are passed as a map to the Camel InputStream constructor
+    args:
+      - name
+      - $?splunkName
+      - route
+      - +include run/modules/input/analyzer/splunk/route.yaml
+
+    # 'printProgress' controls whether to print throughput stats to the console
+    printProgress: $?splunkPrintProgress=false
+
+    # Maximum duration to keep input open
+    backpressureTotalDuration: $?splunkTotalDuration=parseDuration("5min")
+
+    # Maximum total bytes to read from input before closing
+    backpressureTotalBytesLimit: $?splunkTotalBytesLimit=parseBytes("50MB")
+
+    # Maximum total events to read from input before closing
+    backpressureTotalEventsLimit: $?splunkTotalEventsLimit=10000
+
+    # 'foreach' sets 'splunk' as the options group for whose instances
+    #  to create matching input streams. This value allows for defining multiple
+    #  Splunk inputs using configuration files or command-line arguments
+    foreach: splunk

@@ -1,0 +1,127 @@
+#
+# 🔟❎ 'run' HTTP output module
+
+module:
+
+  name: httpOutput
+
+  title: HTTP output
+
+  description: write TenXObject and template values to a log4j2 HTTP socket appender
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/output/event/http
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: '+include $=TenXEnv.get("docGenerate") ? "run/modules/output/event/http/doc.md":""'
+
+  # 'allowMultiple' is enabled for this module. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+
+  # 'options' defines a group of named/typed configuration values to pass to a pipeline input/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+        - outputHttpUrl
+      description: host HTTP/HTTPS address to connect and write to
+      type: string
+      required: true
+      doc: |
+        specifies an HTTP/HTTPS address to transmit TenXObject instance/template field values
+
+    - names:
+        - outputHttpHeaders
+      description: request HTTP header pairs
+      type: list
+      required: false
+      doc: |
+        specifies a list of HTTP header values to accompany requests in the form of <name>=<value> (e.g., header1=hello)
+
+    - names:
+        - outputHttpMethod
+      description: HTTP request method
+      type: string
+      required: false
+      doc: |
+        HTTP method to use (e.g., GET, POST, DELETE).
+      defValue: POST
+
+    - names:
+        - outputHttpFields
+      description: list of TenXObject field names to encode
+      type: list
+      required: false
+      doc: |
+        specifies a list of TenXObject intrinsic/calculated/extracted field names to extract and write to the output.
+
+    - names:
+        - outputHttpFilter
+      description: a JavaScript expression an TenXObject must evaluate as 'truthy' against to be written to this output
+      type: string
+      required: false
+      doc: |
+        Specifies a JavaScript expression that an TenXObject must evaluate as truthy to write its
+        field/template field values to this output.
+        For example, 'outputHttpFilter: this.timestamp' will only emit [timestamped](https://doc.log10x.com/api/js/#TenXBaseObject+timestamped) TenXObjects.
+
+    - names:
+        - outputHttpWriteObjects
+      description: if true, encode TenXObjects [outputHttpFields](https://doc.log10x.com/run/output/event/http/#outputhttpfields) to this output
+      type: string
+      required: false
+      doc: |
+        Determine whether to write [outputHttpFields](https://doc.log10x.com/run/output/event/http/#outputhttpfields) values of an TenXObject passed to this output.
+        This configuration is typically defined using a JavaScript expression.
+
+        To enable/disable the output depending on whether a launch argument, environment variable,
+        or JVM -D option evaluates as truthy, use:
+        ``` yaml
+          outputHttpWriteObjects: $=TenXEnv.get("myHttpAddress")
+        ```
+        To learn more see [TenXEnv.get](https://doc.log10x.com/api/js/#TenXEnv.get).
+
+      defValue: true
+
+    - names:
+        - outputHttpWriteTemplates
+      description: if true, write new TenXTemplates to this output
+      type: string
+      required: false
+      doc: |
+        controls whether to write template values of TenXObjects passed to this output.
+        The output will only emit TenXTemplates that the pipeline did not load at startup via the [templateFile](https://doc.log10x.com/run/template/#templatefiles) argument,
+        and will only emit an TenXTemplate once based on its[templateHash](https://doc.log10x.com/api/js/#TenXBaseObject+templateHash) value.
+      defValue: false
+
+    - names:
+        - outputHttpEncodeType
+      description: the output format in which to encode TenXObject values. Possible values:[json, delimited]
+      type: string
+      defValue: delimited
+      required: false
+      doc: |
+        specifies how to encode [outputHttpFields](https://doc.log10x.com/run/output/event/http/#outputhttpfields) values to this output. Possible values:
+        - **json**: formats names and values for the current TenXObject as: {"field":"str","field2":1, "field3": true}
+        - **delimited**: formats values for the current TenXObject as: "str",1,true
+           The [outputHttpEncodeDelimiter](https://doc.log10x.com/run/output/event/http/#outputhttpencodedelimiter) argument determines the separator to use.
+
+    - names:
+        - outputHttpEncodedLinePrefix
+      description: the line prefix prepended to the encoded event if 'outputHttpEncodeType' is 'delimited'
+      type: string
+      required: false
+      doc: |
+        sets the char which is prepended to the emitted TenXObject field values when [outputHttpEncodeType](https://doc.log10x.com/run/output/event/http/#outputhttpencodetype) is `delimited`.
+      defValue: ''
+
+    - names:
+        - outputHttpEncodeDelimiter
+      description: the delimiter placed between key and values pairs if 'outputHttpEncodeType' is 'delimited'
+      type: string
+      required: false
+      doc: |
+        sets the char delimiter to separate TenXObject field values when [outputHttpEncodeType](https://doc.log10x.com/run/output/event/http/#outputhttpencodetype) is `delimited`.
+      defValue: ' '

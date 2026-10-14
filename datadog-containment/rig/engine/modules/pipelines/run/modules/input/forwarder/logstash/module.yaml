@@ -1,0 +1,97 @@
+#
+# 🔟❎ 'run' Logstash module
+#
+# Logstash integration over TCP NDJSON sockets in both directions.
+# Declares the input + output options consumed by the paired streams.
+
+module:
+
+  name: logstash
+
+  title: Logstash
+
+  description: receive and optimize events collected by Logstash via newline-delimited JSON
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/input/forwarder/logstash
+
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/input/forwarder/logstash/doc.md":""
+
+  allowMultiple: false
+
+  options:
+
+    - names:
+        - logstashInputPort
+      description: TCP port to listen on for events from Logstash's tcp output
+      type: String
+      required: false
+      category: input
+      defValue: 5044
+      doc: |
+        TCP port where Log10x listens for events sent by Logstash's `tcp` output
+        with `codec => json_lines`. Match this against the `port` in your
+        Logstash `output { tcp { ... } }` block.
+
+    - names:
+        - logstashInputPath
+      description: Unix domain socket path to listen on (Linux/macOS)
+      type: String
+      required: false
+      category: input
+      defValue:
+      doc: |
+        When set, Log10x listens on a Unix domain socket instead of TCP, useful
+        on Linux/macOS to avoid TCP overhead. Configure Logstash's `unix` output
+        plugin with `codec => json_lines` and a matching `path`. Ignored on Windows.
+
+    - names:
+        - logstashInputMessageField
+      description: name of the JSON field carrying the original log line
+      type: String
+      required: false
+      category: input
+      defValue: message
+      doc: |
+        Name of the field in each Logstash event that contains the actual log
+        message text. The default (`message`) matches Logstash's convention for
+        the `file`, `beats`, `tcp`, and `http` inputs. Set to e.g. `log` if your
+        sources emit the log line under a different key.
+
+    - names:
+        - logstashOutputHost
+      description: TCP host of the Logstash tcp input receiving processed events
+      type: String
+      required: false
+      category: output
+      defValue: 127.0.0.1
+      doc: |
+        Hostname or IP where the Logstash `tcp` input is listening for
+        processed events from Log10x. Pairs with `logstashOutputPort`.
+
+    - names:
+        - logstashOutputPort
+      description: TCP port of the Logstash tcp input receiving processed events
+      type: String
+      required: false
+      category: output
+      defValue: 5045
+      doc: |
+        TCP port where the Logstash `tcp` input is listening for processed
+        events from Log10x. MUST differ from the port Log10x's own input
+        listens on (default `5044`) or the two would collide on the same
+        socket.
+
+    - names:
+      - logstashOutputEncodeType
+      description: "output format when outputFields are set. Possible values: [json, delimited]"
+      type: string
+      required: false
+      category: output
+      defValue: delimited
+      doc: |
+        specifies how the combined output (main event field plus outputFields)
+        is encoded when writing back to Logstash. Possible values:
+        - **json**: formats all fields as a JSON object
+        - **delimited**: formats field values separated by the output delimiter
+        Only takes effect when logstashOutputFields is set.

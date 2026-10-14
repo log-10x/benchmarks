@@ -1,0 +1,89 @@
+#
+# 🔟❎ 'run' TenXObject group unit
+
+unit:
+
+  name: group
+
+  title: Group sequencer
+
+  description: group and sequence TenXObjects
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/transform/group
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/units/transform/group/doc.md":""
+
+  # 'allowMultiple' is disabled for this unit. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+       
+  # 'options' defines a group of named/typed configuration values to pass to a pipeline unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+ 
+    - names:
+        - groupMaxSize
+      description: max number of objects to place in a group
+      type: number
+      required: false
+      doc: |
+        sets the maximum number of objects to place under one group before starting a new group. 
+        Set 0 to unlimited.
+      defValue: 20000
+
+    - names:
+        - groupMaxSize
+      description: max number of objects to place in a group
+      type: number
+      required: false
+      doc: |
+        sets the maximum number of objects to place under one group before starting a new group. 
+        Set 0 to unlimited.
+      defValue: 20000
+          
+    - names:
+      - groupFlushTimeout
+      description: interval to flush a pending TenXObjects group
+      type: string
+      required: false
+      doc: |
+        sets the max interval after which to flush pending TenXObjects into the pipeline. 
+        This option provides a timeout period to flush the current group head and composed 
+        TenXObjects into the pipeline for aggregation, filtering, and encoding to output.
+      defValue: 5sec
+
+    - names:
+        - groupExpressions
+      description: JavaScript expressions TenXObject instance/group must evaluate as truthy against to be set as group head
+      type: string
+      required: false
+      doc: |
+        specifies a list of JavaScript expressions that must all evaluate
+        as truthy for the target TenXObject to be classified as [group head](https://doc.log10x.com/run/transform/group/#group-heads).
+
+        For example, the [group initializer](https://doc.log10x.com/run/initialize/group/) module calculates a [TenxTemplate variable](https://doc.log10x.com/api/js/#TenXTemplate.set) to determine whether instances of a target `TenXTemplate` represent group heads based on a number of heuristic indicators and sets the calculated field name (e.g., `GroupTemplate.isGroup`) holding the resulting value into this array. 
+        
+        Using TenXTemplate variables allows for computing this state once for all instances of a target event.
+
+    - names:
+        - groupFilters
+      description: JavaScript expressions TenXObject instance/group must evaluate as truthy against
+      type: list
+      required: false
+      doc: |
+        specifies a list of JavaScript expressions that must all evaluate
+        as truthy for the target object/group to be part of a sequence aggregated/written to output.
+
+        To learn more see [group filters](https://doc.log10x.com/run/transform/group/#group-filters).
+        
+    - names:
+        - groupAsync
+      description: group TenXObjects in a dedicated thread
+      type: boolean
+      required: false
+      doc: |
+        specifies whether to perform TenXObject grouping logic in a dedicated thread
+      defValue: true

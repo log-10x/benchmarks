@@ -1,0 +1,78 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/input/analyzer/elastic/schema.json
+
+# 🔟❎ 'run' Elastic input configuration
+
+# Configure an Elastic event input
+# To learn more see https://doc.log10x.com/run/input/analyzer/elasticsearch/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Dependencies ================================
+
+include: run/modules/input/analyzer/elasticsearch
+
+# =============================== Elastic Options ==============================
+
+# Multiple Elastic inputs can be defined below:
+elasticSearch:
+
+    # 'name' sets a unique logical name across all pipeline inputs
+  - name: ElasticSearch
+
+    # --------------------------- Connection Options --------------------------
+
+    # 'host' and 'port' set the ElasticSearch API endpoint to connect to
+    #  For hosted Elastic (e.g. my-project-ec5189.es.us-central1.gcp.elastic.cloud).
+    #  See https://cloud.elastic.co/deployments and https://i.stack.imgur.com/jXjLJ.png
+    host: null # (REQUIRED)
+    port: "" # (not mandatory if the host already encapsulates it)
+
+    # 'protocol' sets the connection protocol ('https' or 'http' for local testing)
+    protocol: https
+
+    # 'token' used to authenticate with. To learn more see:
+    # https://www.elastic.co/guide/en/cloud-enterprise/current/ece-restful-api-authentication.html
+    token: $=TenXEnv.get("ELASTIC_TOKEN") # (REQUIRED)
+
+    # ----------------------------- Query Options -----------------------------
+
+    # 'targets' lists data streams, indices, and aliases to search.
+    #  To search all data streams and indices, use '*' or '_all'.
+    targets:
+      - _all
+
+    # 'startTime' and 'endTime' set the time frame of the query.
+    startTime: now-1h
+    endTime: now
+
+    # --------------------------- Backpressure Options -----------------------
+
+  # 'queryInterval' sets the interval between queries to the remote API
+    queryInterval: $=parseDuration("2s")
+
+    # 'totalDuration' sets the max duration to try reading from the the remote input
+    totalDuration: $=parseDuration("5min")
+
+    # 'totalBytesLimit' sets the max total bytes to read from the remote input
+    totalBytesLimit: $=parseBytes("50MB")
+
+    # 'totalEventsLimit' sets the max number of events to read the remote input
+    totalEventsLimit: 10000
+
+    # --------------------------- Ancillary Options ---------------------------
+
+    # 'printProgress' controls whether to print a progress gage to the console
+    #  This option helps debug and test the input
+    printProgress: $=!TenXEnv.get("quiet")
+
+    # --------------------------- Advanced Options ---------------------------
+
+    # 'querySize' sets the number of documents retrieved with each results page.
+    querySize: 500
+
+    # 'query' sets the elastic query to request paginated documents from the  '/_search' REST endpoint.
+    #  The default query (defined in 'input/analyzer/elasticsearch/query.txt')
+    #  retrieves paginated values sorted in desc order by @timestamp
+    query: null
+

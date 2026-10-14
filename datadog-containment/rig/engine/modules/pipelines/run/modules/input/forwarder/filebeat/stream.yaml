@@ -1,0 +1,151 @@
+# 🔟❎ 'run' Filebeat input + output streams
+#
+# Reads events from Filebeat over its stdout pipe, Filebeat runs as a
+# subprocess of the sidecar (filebeat -e 2>&1 | tenx ...). Processed events
+# are written back over a Unix domain socket; Filebeat's `unix` input then
+# ships them to the real output(s).
+#
+# Filebeat's own log messages are interleaved on the same stdout pipe; the
+# `sourceFilter` below splits them from `"tenx":true`-marked event lines and
+# routes them to the `tenxfilebeat` log4j logger (see log4j2.yaml), which
+# replays them to the file/stderr/syslog destinations Filebeat would have
+# used had it been logging directly.
+#
+# IMPORTANT: because the engine reads events from Filebeat's stdout, Filebeat
+# must NOT use `output.console`, console output would write to the same pipe
+# and corrupt the event stream. Use output.elasticsearch / .logstash / .file /
+# .kafka / etc.
+
+tenx: run
+
+runtimeAttributes:
+  - fwd_input:filebeat
+
+# =============================== Dependencies ================================
+
+include:
+
+  # Recover Filebeat's config + log paths from the startup banner it writes
+  # to stderr (which is merged into the engine's stdin via `2>&1 |`). These
+  # feed the filebeat.yml re-parse below.
+  - source: match
+    options:
+      path: stdin
+      regex: Config path:\s*\[(?<filebeatConfigPath>[^\]]*)\].*?Logs path:\s*\[(?<filebeatLogsPath>[^\]]*)\]
+      # backtracking is fine here, runs once at startup, not on every event
+      validateRegex: false
+      maxLines: 20
+
+  # Re-read Filebeat's filebeat.yml to extract its `logging.*` settings.
+  # If the file is missing, defaults baked into log4j2.yaml apply.
+  - source: $=concat(filebeatConfigPath, fileSeperator, "filebeat.yml")
+    required: false
+    options:
+      logging.to_files: filebeatLoggingToFiles
+      logging.files.path: filebeatPath
+      logging.files.name: filebeatName
+      logging.files.permissions: filebeatPermissions
+      logging.files.interval: filebeatInterval
+      logging.files.rotateonstartup: filebeatRotateOnStartup
+      logging.files.rotateeverybytes: filebeatRotateEveryBytes
+      logging.files.keepfiles: filebeatKeepFiles
+      logging.to_stderr: filebeatLoggingToStderr
+      logging.to_syslog: filebeatLoggingToSyslog
+
+  # Read the unix-socket path from the OS-appropriate tenx*.yml, the same
+  # file is fed to Filebeat as a `filebeat.config.inputs` snippet, so engine
+  # and Filebeat agree on one address without any extra wiring.
+  - source: '$="run/modules/input/forwarder/filebeat/conf/" + (TenXString.includes(TenXEnv.get("os.name"), "Windows") ? "tenxWin.yml" : "tenxNix.yml")'
+    options:
+      path: rawOutputUnixSocketAddress
+
+  # Unix socket output module (the actual emitter wiring below)
+  - run/modules/output/event/unix
+
+# ============================== Extractor ====================================
+
+# Lines on stdin are either Filebeat-internal log messages (handled by the
+# `log` extractor key below) or event records written by the script
+# processor as JSON containing `"tenx":true`. `outerSelector` routes them.
+
+extractor:
+
+  - name: outerSelector
+    type: json
+    filter: '\\\"tenx\\\":true'
+    actions:
+      - setOuterText:message
+      - noTransform:log
+
+  - name: filebeat
+    type: json
+    actions:
+      - captureFirst:message
+
+# ============================== Input ========================================
+
+input:
+
+  - name: filebeat
+    type: file
+    path: stdin
+    enabled: true
+    sourceFilter: '\\\"tenx\\\":true'
+
+    extractors:
+      - outerSelector
+      - filebeat
+      - "$=yield TenXEnv.get(\"k8sExtractorName\") ? \"filebeatK8s\" : \"\""
+
+    # Recommended backpressure limit for Filebeat. Raising this can move
+    # events into the engine faster, but a slow downstream output (remote
+    # Elastic, Kafka, …) lets backpressure cascade into the pipeline and
+    # risks memory growth.
+    backpressure:
+      intervalBytesLimit: $=parseBytes("2MB")
+      intervalBytesDuration: $=parseDuration("1s")
+
+# ============================== Output =======================================
+
+# Route Filebeat-internal log lines (extractorKey == "log") to the
+# tenxfilebeat log4j logger configured in log4j2.yaml.
+output:
+
+  - type: event
+    name: filebeatLogger
+    path: run/modules/input/forwarder/filebeat/log4j2.yaml
+    filter: extractorKey == "log"
+    fields: fullText
+
+# Loop processed events back to Filebeat over the Unix domain socket. The
+# socket path comes from `rawOutputUnixSocketAddress` (loaded from
+# conf/tenx*.yml above).
+outputUnixSocket:
+
+  # Main event emitter
+  - address: $=rawOutputUnixSocketAddress
+
+    filter: extractorKey == "message"
+    
+
+    fields:
+      - $?outputEncodeField=fullText
+
+    encodeDelimiter: ","
+
+    # When grouping events and emitting back to Filebeat, escape the line
+    # break to keep the on-wire JSON valid.
+    encodeGroupDelimiter: "\\n"
+
+  # Template emitter, only fires in encoding modes (outputWriteTemplates=true)
+  - address: $=rawOutputUnixSocketAddress
+    writeObjects: $?outputWriteTemplates=false
+
+    filter: (extractorKey == "message") && isNewTemplate()
+
+    # Send custom TenXTemplate JSON, with duplicated templateHash field as
+    # 'templateHashDocId'. Filebeat's `decode_json_fields` uses that to set
+    # the correct document ID for ES indexing while also removing it from
+    # the body. See:
+    # https://www.elastic.co/guide/en/beats/filebeat/current/decode-json-fields.html
+    fields: customTemplate=stringify("templateHashDocId", templateHash, "templateHash", templateHash, "template", template)

@@ -1,0 +1,92 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/input/forwarder/schema.json
+
+# 🔟❎ 'run' shared forwarder configuration
+#
+tenx: run
+
+# =============================== Dependencies ================================
+
+include:
+
+  # Shared forwarder options (mode dispatch, output encoding)
+  - run/modules/input/forwarder/module.yaml
+
+# =============================== Mode Options ================================
+#
+# The Receiver app picks the encoding mode based on user flags:
+#   default                      → emit events verbatim (`fullText`)
+#   receiverOptimize=true        → compact-all (lossless compaction of every event)
+#   compactReceiverLookupFile=…  → compact-lookup (per-container decision)
+#
+# `symbolMessageHashField` (optional, unset by default) adds a stable
+# pattern-hash field alongside the encoded/fullText output: when set, encode()
+# and fullText are called as `encode("<field>")` / `fullText("<field>")`.
+#
+# Unset is the receive-path default and it means VERBATIM: the record the
+# forwarder gets back is the record it sent, byte for byte, with no field added.
+# The hash is still computed and still rides the TenXObject internally as
+# `tenx_hash` for metrics and aggregation, it just does not reach the wire.
+# `symbolMessageHashField my_custom_hash` (CLI arg or env var) opts in and names
+# the field.
+
+output:
+
+  # outputEncodeField is the per-event output field expression, resolved once at
+  # config-load by the `$=yield` ternary below. Written as a YAML `|-` block
+  # scalar for readability: the engine treats the newlines/indentation between
+  # tokens as ordinary whitespace, so this compiles identically to the original
+  # one-liner. (Block scalars do NOT process backslash escapes, so the `\"`
+  # below reach the expression literally, exactly what encode("field") needs.)
+  #
+  # The three resolved modes (the regulator marks routeState via route(action),
+  # where action is the per-service disposition: drop/offload/tier_down/compact/
+  # sample/pass; this picks the output FORMAT, while `outputSoftDrop` also flips
+  # the stream filter):
+  #   receiverOptimize=true   → encoded=encode()                                                     (compact every event)
+  #   outputOffload truthy    → fullText("routeState")                                               (FULL text + marker; for S3 offload, never compacted)
+  #   outputSoftDrop truthy   → encoded=isRoute("compact") ? encode("routeState") : fullText("routeState")  (compact the compact-marked slice; every other action stays fullText so the forwarder routes it by routeState)
+  #   neither                 → fullText("tenx_passthrough")                                         (receive / hard-drop)
+#
+# Receive mode calls the fullText(...) FUNCTION, not the bare `fullText` field.
+# The field splices the decoded body back between the JSON quotes unescaped
+# and joins grouped lines with ",", so any record whose message holds a `"`
+# stopped parsing and reached the forwarder as {"fullText": "<record as text>"}
+# (measured with Fluent Bit 5.1.2 + edge 1.1.81: 1,030 of 1,453 records). The
+# function re-escapes and joins on "\n". It takes at least one extra-field
+# name, and a name no event carries adds nothing: `tenx_passthrough` is never
+# stamped, so records keep exactly the keys they arrived with.
+  # The `symbolMessageHashField` variant (when set) passes the hash field name
+  # into encode()/fullText() so a stable pattern-hash ships alongside the output.
+  #
+  # ROUTE MARKER: outputOffload and outputSoftDrop both splice the `routeState`
+  # field onto every forwarded event so the downstream forwarder can route by the
+  # per-service action name (offload → the customer's own S3, tier_down → the SIEM
+  # cheap tier, compact → encoded bytes to the SIEM, pass/sample → the SIEM, drop →
+  # suppressed). The splice writes the route NAME as a JSON STRING (e.g.
+  # `"routeState":"offload"` / `"routeState":"pass"`), so a forwarder match must be
+  # string-equality against the action name, NOT boolean truthiness. hard-drop
+  # omits dropped events entirely, so it emits no marker (nothing to route).
+  encodeField: |-
+    $=yield TenXEnv.get("receiverOptimize")
+      ? ("encoded=" + (TenXEnv.get("symbolMessageHashField") ? ("encode(\"" + TenXEnv.get("symbolMessageHashField") + "\")") : "encode()"))
+      : (TenXEnv.get("outputOffload")
+          ? (TenXEnv.get("symbolMessageHashField") ? ("fullText(\"" + TenXEnv.get("symbolMessageHashField") + "\",\"routeState\")") : "fullText(\"routeState\")")
+          : (TenXEnv.get("outputSoftDrop")
+              ? ("encoded=isRoute(\"compact\") ? "
+                  + (TenXEnv.get("symbolMessageHashField") ? ("encode(\"" + TenXEnv.get("symbolMessageHashField") + "\",\"routeState\")") : "encode(\"routeState\")")
+                  + " : "
+                  + (TenXEnv.get("symbolMessageHashField") ? ("fullText(\"" + TenXEnv.get("symbolMessageHashField") + "\",\"routeState\")") : "fullText(\"routeState\")"))
+              : (TenXEnv.get("symbolMessageHashField") ? ("fullText(\"" + TenXEnv.get("symbolMessageHashField") + "\")") : "fullText(\"tenx_passthrough\")")))
+
+  # outputWriteTemplates = true whenever events are encoded (compact-all or soft-drop)
+  writeTemplates: $=yield TenXEnv.get("receiverOptimize") || TenXEnv.get("outputSoftDrop")
+
+  # outputDropFilter decides whether a (possibly regulator-marked) object is written.
+  # Resolved ONCE here so the soft/hard logic lives next to encodeField instead of
+  # being duplicated in every output stream; streams just reference $?outputDropFilter.
+  # (Named outputDropFilter, not outputFilter -- the latter is a built-in per-stream
+  # engine option and would collide.)
+  #   outputSoftDrop or outputOffload truthy → "isObject"                    (write all; dropped events flow for routing/compaction)
+  #   unset (hard, default)                  → "isObject && !this.isRoute("drop")" (omit dropped objects)
+  dropFilter: '$=yield (TenXEnv.get("outputSoftDrop") || TenXEnv.get("outputOffload")) ? "isObject" : "isObject && !this.isRoute(\"drop\")"'
+

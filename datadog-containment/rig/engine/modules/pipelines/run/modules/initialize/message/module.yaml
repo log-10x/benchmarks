@@ -1,0 +1,104 @@
+#
+# 🔟❎ 'run' Message lookup module
+
+module:
+
+  name: symbolLookup
+
+  title: Symbol Message Calculator
+
+  description: enrich TenXObjects with logical message symbol sequence and origin values
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/initialize/message
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: '+include $=TenXEnv.get("docGenerate") ? "run/modules/initialize/message/doc.md":""'
+ 
+  # 'allowMultiple' is disabled for this module. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+        
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - symbolContexts
+      description: kinds of symbols that can name an event
+      type: string
+      required: false
+      doc: |
+        A comma-separated list of the [symbol contexts](https://doc.log10x.com/run/transform/symbol/#contexts) that can name an event. The default `log,exec` matches text passed to a logging call in source code and text read from a program file, such as the output of `strings`. Order in the list does not matter.
+
+      defValue: log,exec
+
+    - names:
+      - symbolMaxLen
+      description: longest name, in characters
+      type: number
+      required: false
+      defValue: 120
+      doc: |
+        The longest name to write, in characters. Set `0` for no limit.
+
+    - names:
+      - symbolMessageField
+      description: field that holds the name
+      type: string
+      required: false
+      doc: |
+        The field that holds each event's name. The shipped configuration sets `message_pattern`.
+
+        The name comes from the [symbolSequence](https://doc.log10x.com/api/js/#TenXObject+symbolSequence) function.
+      defValue: symbolMessage
+
+    - names:
+      - symbolMessageHashField
+      description: field that holds a hash of the name
+      type: string
+      required: false
+      doc: |
+        The field that holds an 11-character hash of the name. Unset by default.
+
+        The hash is [TenXString.hash](https://doc.log10x.com/api/js/#TenXString.hash) of the name: xxHash64 of its UTF-8 bytes, big-endian, in base64url without padding. Any tool can compute the same value, so it works as a join key, a metric tag or a forwarder filter.
+
+        Metrics and aggregation carry the hash whether or not this option is set. Events sent back to a [log forwarder](https://doc.log10x.com/run/input/forwarder/) return as they arrived; set this option to add the hash to them, for example `symbolMessageHashField tenx_hash`.
+
+    - names:
+      - symbolOriginField
+      description: field that holds the statement's source location
+      type: string
+      required: false
+      doc: |
+        The field that holds where the statement is in code, such as `recommendation_server.py:ListRecommendations`. Unset by default.
+
+        The value comes from the [symbolOrigin](https://doc.log10x.com/api/js/#TenXObject+symbolOrigin) function.
+      defValue: ""
+
+    - names:
+      - symbolSkeletonField
+      description: field that holds the message layout
+      type: string
+      required: false
+      doc: |
+        The field that holds the message with `~` in place of each word of the name and `$` in place of each value. Unset by default.
+
+        A viewer holding the name and this field can print the line as it was written, punctuation and spacing included, without access to the logs.
+
+    - names:
+      - messageNegators
+      description: line starts that mark a continuation line
+      type: list
+      required: false
+      doc: |
+        Line starts that mark a line as a continuation of the event above it, such as a stack frame. Empty by default. The shipped configuration lists:
+
+        - a space, a tab or a literal `\t`: any indented line;
+        - `Caused by: ` and `Suppressed: `: Java chained exceptions;
+        - `--- End of `: the .NET inner exception marker;
+        - `created by `: the Go goroutine creator;
+        - `#0 ` to `#5 `: PHP stack frames.
+
+        A continuation line that arrives as its own event is named by its shape, `template_` plus a hash, and not from the symbol library. The [group](https://doc.log10x.com/run/initialize/group/) module keeps such a line with the event above it, even when it holds a level word such as `info`.

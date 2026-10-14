@@ -1,0 +1,49 @@
+#
+# 'run' JavaScript pipeline unit shutdown unit
+
+unit:
+
+  name: unitShutdownActions
+
+  title: Unit Shutdown JavaScript
+
+  description: execute JavaScript when pipeline units shut down.
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/units/transform/script/unitShutdown/doc.md":""
+
+  # 'allowMultiple' is enabled for this unit. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+
+  options:
+
+    - names:
+      - unitShutdownActionsClassName
+      - TenXUnitShutdownClassName
+      description: JavaScript class name
+      type: string
+      required: true
+      doc: |
+        specifies the JavaScript class name in which [unitShutdownActions](https://doc.log10x.com/run/transform/script/unit/#unit-shutdown) are defined.
+
+    - names:
+      - unitShutdownActions
+      - TenXUnitShutdown
+      description: 10x JavaScript shutdown statements to execute
+      type: list
+      required: false
+      doc: |
+        JavaScript statements for shutting down target unit(s).
+
+        **NOTE**: This argument is not designed to be set directly, but instead by passing a [.js launch file](https://doc.log10x.com/config/javascript/) containing
+        these statements nested within a [TenXUnit](https://doc.log10x.com/api/js/#TenXUnit) sub-class close() method.
+
+    - names:
+      - unitShutdownActionsFile
+      - TenXUnitShutdownFile
+      description: Declaring .js file
+      type: string
+      required: false
+      doc: |
+        Specifies the .js file name declaring [unitShutdownActions](https://doc.log10x.com/run/transform/script/unit/#unit-shutdown).

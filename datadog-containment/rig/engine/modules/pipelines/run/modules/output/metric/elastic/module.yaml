@@ -1,0 +1,251 @@
+#
+# 🔟❎ 'run' ElasticSearch metrics output module
+
+module:
+
+  name: elasticMetrics
+
+  title: ElasticSearch metrics output
+
+  description: publish TenXSummary metrics to ElasticSearch
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/output/metric/elastic
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/output/metric/elastic/doc.md":""
+
+  # 'allowMultiple' is enabled for this module. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - elasticEnabled
+      description: enable this output
+      type: boolean
+      required: false
+      category: general
+      defValue: true
+      doc: |
+        enable or disable this output.
+
+    - names:
+      - elasticNameField
+      description: name of the TenXSummary field identifying the metric
+      type: string
+      required: false
+      category: counter
+      doc: |
+        defines the name of the TenXSummary field whose value identifies a metric counter.
+        Defaults to the [summaryValues](https://doc.log10x.com/api/js/#TenXSummary+summaryValues) field which holds the value(s) by which TenXObjects are
+        grouped into the current TenXSummary instance.
+        To learn more see [micrometer counters](https://www.baeldung.com/micrometer#2-counter)
+      defValue: "[summaryValues](https://doc.log10x.com/api/js/#TenXSummary+summaryValues)"
+
+    - names:
+      - elasticCounterFields
+      description: names of the TenXSummary fields used to increment the metric counter value
+      type: list
+      required: false
+      category: counter
+      doc: |
+        defines the name of the TenXSummary field by whose value to increment the counter.
+      defValue: "[summaryVolume](https://doc.log10x.com/api/js/#TenXSummary+summaryVolume)"
+
+    - names:
+      - elasticTagFields
+      description: list of TenXSummary fields to use as metric tag values
+      type: list
+      required: false
+      category: counter
+      doc: |
+        defines the TenXSummary field names to use as `tag` values.
+        Tags are dimensions that enable slicing a particular named metric to drill down to reason about its value.
+        To learn more see [micrometer tags](https://www.baeldung.com/micrometer#1-tags)
+
+    - names:
+        - elasticTagFieldNames
+      description: list of custom names to use for TenXSummary fields.
+      type: list
+      required: false
+      category: counter
+      doc: |
+        defines the a list of custom names to give fields when reporting them.
+        Format as a list of name1, custom1, name2, custom2.
+
+        For example, to set a custom name of 'My-Custom-Field' to an existing 'intrinsic-field':
+        ``` yaml
+        elastic:
+          tagFieldNames:
+            - intrinsic-field
+            - My-Custom-Field
+
+    - names:
+        - elasticFilter
+      description: a JavaScript expression an TenXSummary must evaluate as 'truthy' against to be written to this output
+      type: string
+      required: false
+      category: counter
+      doc: |
+        Specifies a JavaScript expression that an TenXSummary must evaluate as truthy to write its
+        instance/template field values to the target counter.
+
+        For example, to only emit TenXSummaries produced by the 'myMetric' aggregator, specify:
+        ``` yaml
+        elastic:
+          filter: this.inputName == "myMetric"
+        ```
+
+        To learn more see [inputName](https://doc.log10x.com/api/js/#TenXBaseObject+inputName)
+
+    - names:
+        - elasticMaxCardinality
+      description: maximum number of unique metric combinations allowed
+      type: number
+      required: false
+      category: counter
+      doc: |
+        sets the maximum number of unique metric combinations (cardinality) allowed for this output.
+        When exceeded, metrics will be dropped to prevent excessive cardinality.
+      defValue: 500
+
+    - names:
+
+      - elasticTopSeries
+
+      description: number of tag sets with the most bytes to publish
+
+      type: number
+
+      required: false
+
+      category: counter
+
+      doc: |
+
+        keeps the output to the tag sets with the most bytes, ranked on the `summaryBytes` counter as
+
+        the series accumulate. An admitted tag set publishes from every aggregator; one outside the top
+
+        keeps accumulating and is published once it has cost more than the smallest one inside, which
+
+        stops. `0` publishes every tag set.
+
+      defValue: 0
+
+
+    - names:
+      - elasticStep
+      description: the interval at which to publish metrics to output
+      required: false
+      type: string
+      category: counter
+      doc: |
+        sets the interval at which to publish metrics to the time-series destination (e.g., '1m').
+        To learn more see [rate-aggregation](https://micrometer.io/docs/concepts#rate-aggregation)
+      defValue: 1 minute.
+
+    - names:
+      - elasticHost
+      description: host to send metrics to
+      type: string
+      required: false
+      category: authentication
+      doc: |
+        Sets the host to send metrics to.
+      defValue: http://localhost:9200
+
+    - names:
+      - elasticApiKeyCredentials
+      description: base64-encoded credentials string
+      type: string
+      required: false
+      category: authentication
+      doc: |
+        sets a base64-encoded credentials string
+        To learn more see: [Elastic credentials](https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html)
+
+    - names:
+        - elasticUserName
+      description: Basic Authentication username
+      type: string
+      required: false
+      category: authentication
+      doc: |
+        sets the the Basic Authentication username.
+        If 'elasticApiKeyCredentials' not is set, it will be used instead
+
+    - names:
+      - elasticPassword
+      description: Basic Authentication password
+      type: string
+      required: false
+      category: authentication
+      doc: |
+        sets a Basic Authentication password.
+        If 'elasticApiKeyCredentials' is not set it will be used instead
+
+    - names:
+      - elasticIndex
+      description: the index name to write metrics to
+      type: string
+      required: false
+      category: index
+      doc: |
+        sets the index name to write metrics to.
+      defValue: 'micrometer-metrics'
+
+    - names:
+      - elasticAutoCreateIndex
+      description: whether to create the index automatically if it doesn't exist
+      type: boolean
+      required: false
+      category: index
+      doc: |
+        sets whether to create the index automatically if it doesn't exist.
+      defValue: true
+
+    - names:
+      - elasticPipeline
+      description: the ingest pipeline name
+      type: string
+      required: false
+      category: index
+      doc: |
+        the ingest pipeline name
+
+    - names:
+      - elasticIndexDateFormat
+      description: index date format used for rolling indices
+      type: string
+      required: false
+      category: index
+      doc: |
+        sets the index date format used for rolling indices.
+        This is appended to the index name, separated by 'elasticIndexDateSeparator'.
+      defValue: yyyy-MM
+
+    - names:
+      - elasticTimestampFieldName
+      description: name of the elastic timestamp field
+      type: string
+      required: false
+      category: index
+      doc: |
+        sets the name of the elastic timestamp field.
+      defValue: '@timestamp'
+
+    - names:
+      - elasticIndexDateSeparator
+      description:  separator between the index name and the date part
+      type: string
+      required: false
+      category: index
+      doc: |
+        sets the separator between the index name and the date part
+      defValue: '-'

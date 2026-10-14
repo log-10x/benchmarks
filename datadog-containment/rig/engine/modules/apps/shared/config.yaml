@@ -1,0 +1,17 @@
+# 🔟❎ Shared app settings
+
+# This configuration defines general settings for use by the 'run' pipeline apps.
+
+tenx: run   
+
+# =============================== App Settings ================================
+
+include:
+  - run/bootstrap              # https://doc.log10x.com/run/bootstrap/#run
+  - run/input/backpressure     # https://doc.log10x.com/run/input
+  - run/symbol                 # https://doc.log10x.com/run/symbol
+  - run/template               # https://doc.log10x.com/run/template
+  - run/transform              # https://doc.log10x.com/run/transform
+  - run/reload                 # https://doc.log10x.com/run/reload
+  - run/monitor                # https://doc.log10x.com/run/monitor
+  - run/console                # https://doc.log10x.com/run/console

@@ -1,0 +1,31 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/compile/push/schema.json
+
+# 🔟❎ 'compile' GitHub configuration
+
+# Push output symbol unit files for reuse by subsequent compile cycles.
+# To learn more see https://doc.log10x.com/compile/push/
+
+# Set the 10x pipeline to 'compile'
+tenx: compile
+
+# =============================== GitHub Options ==============================
+
+githubPush:
+
+    # 'token' specifies the access token for pushing files to the target repo, read from env or set inline.
+    #  To learn more see: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
+  - token: $=TenXEnv.get("GH_TOKEN") # (EnvVar REQUIRED)
+
+    # 'repo' specifies the repo name to pull in Github
+    #  including the username of the owner (e.g., apache/spark)
+    repo: null # (REQUIRED)
+
+    # 'branch' specifies the branch to use when pushing into this repo.
+    #  If not specified, push to the default repo branch
+    branch: null
+
+    # 'folder' specifies a folder within the target repo to push files, if not specified push to root
+    folder: null
+
+    # 'filter' specifies a a regex pattern a file on disk must match to be pushed to the target repo.
+    filter: null

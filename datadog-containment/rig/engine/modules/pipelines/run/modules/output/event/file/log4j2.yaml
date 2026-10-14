@@ -1,0 +1,55 @@
+# 🔟❎ 'run' file output module log4j configuration
+
+# The 'file' log4j2 configuration defines the loggers and appenders used to
+# write TenXObject and/or Template values to file. Multiple file outputs
+# are supported, each specified by the instance of the 'fileOutput' module 
+# defined in https://doc.log10x.com/run/output/event/file
+
+log4j:
+
+  # 'loggerName' defines a prefix to use with a running counter (e.g., 'tenxFile0') 
+  #  to name matching log4j2 logger and appender objects uniquely 
+  #  for each instance of the 'fileOutput' options group 
+ 
+  #  This provides the ability to encode TenXObjects to different files
+  #  based on different sets of filters (specified by 'outputFileFilter') 
+  #  and fields (specified by 'outputFileFields'). 
+  loggerName: tenxFile
+
+  configuration:
+
+    appenders:
+
+      file:
+         
+          # 'name' sets a unique identifier assigned to each appender
+          #  generated for a target output defined by an instance of the 
+          #  'fileOutput' options group 
+        - name: $loggerName
+ 
+          # The 'encodedFields' and 'filter' options of the 'tenxLayout' layout 
+          # consume the 'outputFileFields' and 'outputFileFilter' arguments at runtime.
+          tenxLayout: 
+            encodedFields: null
+            filter: null
+           
+          # Set the appender file to the 'outputFilePath' argument value 
+          # defined in https://doc.log10x.com/run/output/event/file
+          fileName: $outputFilePath
+          
+          # Only create the 'outputFilePath' when writing an object/template
+          createOnDemand: true
+
+          # ensure a large buffer size for very long lines
+          bufferSize: 2000000
+
+    loggers:
+     
+      logger:
+      
+          # A dedicated logger whose name matches the file appender is used to
+          # to write object/template values for this output instance 
+        - name: $loggerName
+          additivity: false
+          appenderRef:
+            - ref: $loggerName

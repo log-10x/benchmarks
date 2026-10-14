@@ -1,0 +1,34 @@
+#
+# 🔟❎ 'run' console unit
+
+unit:
+  
+  name: run console
+
+  title: Run console
+
+  description: write IO throughput information to the console
+  
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/units/console/doc.md":""
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/console
+   
+  # 'allowMultiple' is disabled for this unit. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+       
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - printProgress
+      description: report i/o progress to the console
+      type: boolean
+      required: false
+      doc: |
+        enables/disables reporting I/O status to stdout. 
+      

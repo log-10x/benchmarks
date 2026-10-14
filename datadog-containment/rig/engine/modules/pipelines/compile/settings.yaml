@@ -1,0 +1,26 @@
+#
+# 🔟❎ 'compile' settings
+
+# ------------------------------ Scan Sources -------------------------------
+
+# Discover input source/binary files 
+discoverSources: +include units/sources/settings.yaml
+
+# Scan input files to symbol unit files and link to a single library file  
+scanAndLink: +include units/scan/settings.yaml
+
+# ------------------------------ Commit output ------------------------------
+
+# Push new symbol unit/library files to Github
+githubPush: +include units/push/settings.yaml
+
+# ------------------------------ Report & Log -------------------------------
+
+# Print compile input/output to console
+printResults: +include compile/units/console/results/settings.yaml
+
+# Print I/O throughput stats to the console        
+printProgress: +include compile/units/console/progress/settings.yaml
+       
+# Report on pipeline metrics to the 10x console
+monitor: +include shared/units/monitor/settings.yaml

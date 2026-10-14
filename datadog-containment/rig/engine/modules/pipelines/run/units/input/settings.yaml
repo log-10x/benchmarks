@@ -1,0 +1,129 @@
+# 🔟❎ 'run' input unit
+
+# Input streams define local/remote sources from which to read events.
+
+# -------------------------------- Input Settings  ----------------------------
+
+# 'inputStreams' define locations to read events to transform into TenXObjects.
+#  For example, the following YAML object configures a stdin device input with a JSON extractor
+
+# input:
+#   - name: myInput
+#     type: file
+#     path: stdin 
+#     sourcePattern: '\"path\":"(.*?)\"'
+#     extractors:
+#       - messageExtractor
+
+# Each input stream entry contains the following fields:
+
+#  - 'name': logical name of the input (e.g. 'myElastic')
+
+#  - 'type': value controls the connection mechanism to the input source. Available values:
+
+#     - 'file': used to read the contents of a target file or the process's stdin input.
+
+#     - 'inline': used to read the contents of inline text data. 
+
+#     - 'stream': used to connect to an external stream via an InputStream/Reader
+
+#  - 'path': points to the input sources' location, depending on 'type':
+
+#     - 'file': file path on disk (relative or canonical) or 'stdin' to read from the process stdin stream
+#     - 'inline': JSON-escaped events separated by '\n'
+#     - 'stream': fully qualified name of a class derived from InputStream/Reader to instantiate
+
+# - 'extractors': define how to extract and redact values to transform events into TenXObjects
+#                 by referencing an extractor defined within the 'extractors' list.
+
+# - 'tagPattern': defines a regex pattern to capture a source value for sequencing and grouping events 
+
+inputStreams: 
+  - $?inputStreams
+
+# ---------------------------- Extractor Settings  ----------------------------
+
+# 'extractors' defines a list of JSON/pattern-based rules that can
+#  be applied to different input streams to extract values that are 
+#  then transformed into TenXObjects.
+
+# The following example defines a JSON extractor that selects
+# the values of the first 'message' JSON field for input events matching 'filter'.
+# Otherwise, extract the entire text into an TenXObject, setting its 'extractorKey' field to 'noMessage'.
+
+#extractor:
+
+#  - name: messageExtractor
+
+#    type: json
+
+#    filter: '\"critical\":true'  # only extract events matching this pattern                           
+
+#    actions: 
+
+#        # Extract the first instance of 'message' JSON field into the TenXObject 
+#        # and assign its 'extractorKey' field to 'message'
+#      - captureFirst:message 
+
+#        # Extract JSON objects not matching 'filter' into TenXObject 
+#        # and assign its 'extractorKey' field to 'noMessage'                   
+#      - captureDefault:noMessage
+
+extractors: 
+  - $?extractors
+
+# ---------------------------- Structure Settings  ----------------------------
+
+# 'structure' controls how to parse and structure events into TenXObjects. 
+structure: +include units/transform/script/settings.yaml
+
+# 'templates' control how template data read from input is
+#  structured into TenXTemplates. 
+templates: +include units/transform/fields/settings.yaml
+
+# ----------------------------- Encode Settings  ------------------------------
+
+# 'varEncode' controls how inputs deserialize previously encoded TenXObjects and the
+# default settings to encode TenXObjects to output (e.g., log forwarders, analyzers)
+varEncode: 
+  # 'encodeType' sets the default output format for encoding TenXObjects read from this input. 
+  #  This value is used to select the formatting of TenXObject field values to stream.
+
+  #  Possible values:
+  #    - json: encode field name/value pairs formatted as a JSON object (e.g. {field1="value1", field2=value2})
+  #    - delimited: encode field values only delimited by 'encodeDelimiter'
+  encodeType: $?encodeType=delimited
+
+  # 'encodeDelimiter sets the delimiter value (e.g., ",", "\t", " ") used to separate 
+  #  field values when 'encodeType' = 'delimited' (ignored for 'json')
+  encodeDelimiter: $?encodeDelimiter=","
+
+# ---------------------------- Backpressure Settings  -------------------------
+
+# 'objectLimit' sets the max number of TenXObjects that the
+#  pipeline can contain at any given moment, beyond which input(s) are either
+#  block (if supported) or drop events for the duration of 'objectLimitInterval'.
+
+#  Once an object reaches the end of the pipeline, it is reclaimed to allow
+#  for allocating new TenXObjects.
+
+#  This value prevents the pipeline from overflowing when writing TenXObjects to event/time series outputs
+#  who may be slower than the rate of input. 
+#  Applying a limit can avoid an out-of-mem error from TenXObject backlog.
+#  Increasing the host JVM XMX argument can help address potential issues.
+objectLimit: $=TenXEnv.get("objectLimitMaxInstances", 10000)
+
+# 'objectLimitInterval' sets the duration time between backpressure tests after backpressure
+#  is detected. This interval provides time for events to clear the pipeline
+#  before performing additional backpressure tests.
+objectLimitInterval: $=TenXEnv.get("objectLimitInterval", parseDuration("1s"))
+
+# ----------------------------- Thread Pool Settings  -------------------------
+
+# 'threadPoolSize' controls the maximum number of threads allocated to concurrently 
+#  read events from inputs source (e.g., stream, stdin, file). If the value is -
+#  - = 0: no limit on number of threads.
+#  - < 1: interpreted as a percentage of the number of available cores (e.g., 0.5 = use up to 50% of available cores)
+#  - = 1: a single async thread processes events.
+#  - > 1: interpreted as a fixed number of threads (e.g., 10 = 10 threads)
+threadPoolSize: $=TenXEnv.get("inputThreadPoolSize", 16)

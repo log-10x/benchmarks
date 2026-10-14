@@ -1,0 +1,34 @@
+# 🔟❎ 'run' log10x metrics output stream settings
+
+# The 'log10xMetrics' module defines an output to publish TenXSummary metrics to log10x backend.
+# The configuration below constructs a micrometer-backed output stream for each instance of the options group
+# passed to the 10x Engine via configuration files or command line arguments.
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+output:
+
+    # 'type' defines the output type (e.g., stdout, log4j, micrometer).
+  - type: metric
+
+    # 'enabled' controls whether to open this output stream.
+    enabled: $?log10xMetricsEnabled=true
+
+    # 'name' assigns a logical name to this output instance
+    name: log10x
+
+    # 'path' points to the fully qualified class name implementing the 'MetricRegistryFactory' interface
+    #  to create the micrometer registry.
+    path: com.log10x.eng.pipeline.env.metrics.Log10xMetricRegistryFactory
+
+    # 'fields' is set to all the metrics dimension Tags
+    # To learn more about tags, see: https://www.baeldung.com/micrometer#1-tags
+    fields: $?log10xMetricsTagFields
+
+    # 'filter' is set to write TenXSummary instances to the micrometer registry
+    filter: $?log10xMetricsFilter=isSummary
+
+    # 'foreach' sets 'log10xMetrics' as the options group for whose instances
+    #  to create matching output streams. This option enables the creation of multiple time series outputs.
+    foreach: log10xMetrics

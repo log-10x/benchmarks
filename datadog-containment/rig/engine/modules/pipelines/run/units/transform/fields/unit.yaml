@@ -1,0 +1,68 @@
+#
+# 🔟❎ 'run' TenXTemplate JSON/KV field parser unit
+ 
+unit:
+
+  name: fieldParser
+
+  title: Field parser
+
+  description: scan TenXTemplates for JSON and KV fields
+      
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/units/transform/fields/doc.md":""
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/transform/fields
+
+  # 'allowMultiple' is disabled for this unit. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+
+  # 'optionsGroup' defines a group of named/typed configuration values to pass to a pipeline at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed to the pipeline are accessible at runtime via the TenXEnv JavaScript class.
+  options:  
+
+    - names:
+      - fieldExtract
+      description: scan TenXTemplate for nested JSON objects or key-value lists
+      type: boolean
+      required: false
+      doc: |
+        controls whether to scan TenXTemplates for JSON objects or key-value lists (e.g., `{"price": 10}` or `price=10`).
+        
+        TenXObjects instances of this template will provide access to these fields as named members (e.g., `this.price`).
+        If a field appears more than once in [text](https://doc.log10x.com/api/js/#TenXBaseObject+text) it is accessible as an array (e.g., `this.price[1]`).
+      defValue: true
+
+    - names:
+      - fieldNameBreaks
+      description: KV field name terminator chars
+      type: string
+      required: false
+      defValue: ', /\{}.()[]'     
+      doc: |
+        controls which 'text' characters left of a candidate token
+        for being a 'key' in a KV field formation should serve as a terminator for the search. 
+        
+        For example, for an TenXObject whose [text](https://doc.log10x.com/api/js/#TenXBaseObject+text) contains the following entry ',tx_result=OK',
+        the desired key should be 'tx_result', and so the name terminator character should be ',' vs. '_' (in which case
+        the key would have been named 'result').
+
+    - names:
+      - fieldValueBreaks
+      description: KV field value terminator chars
+      type: string
+      required: false
+      defValue: '/\{}()[]'  
+      doc: |
+        controls which characters found to the right of a token
+        whose is a candidate for being a 'value' in a KV field formation should serve 
+        as a terminator for the search. 
+        
+        For example, for an object whose [text](https://doc.log10x.com/api/js/#TenXBaseObject+text) field
+        contains the following entry: 'status=RESULT_SUCCESS' the desired KV value 
+        should be 'RESULT_SUCCESS', and as such the value terminator character 
+        should be ',' vs. '_' (in which case the value would be 'RESULT').
+

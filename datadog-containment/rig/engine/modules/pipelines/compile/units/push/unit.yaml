@@ -1,0 +1,74 @@
+#
+# 🔟❎ GitHub push unit
+
+unit:
+
+  name: push
+
+  title: GitHub push committer
+
+  description: push output symbol unit files to GitHub
+   
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: compile/push
+   
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "compile/units/push/doc.md":""
+
+  # 'allowMultiple' is enabled for this unit. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options: 
+
+    - names:
+      - githubPushRepo
+      description: target GitHub repo 
+      type: string
+      required: false
+      doc: |
+        identifies a GitHub repository to push files to including the username of the owner (e.g., 'some-user/repo-name')
+
+    - names:
+      - githubPushToken
+      description: GitHub API access token
+      type: string
+      required: false
+      doc: |
+         defines an access token for accessing Github repos. 
+         To learn more see [GitHub tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens).
+
+    - names:
+      - githubPushBranch
+      description: target branch to push to
+      type: string
+      required: false
+      doc: |
+        Specifies the branch to use when pushing to this repo. 
+        If omitted, use the repository's default branch.     
+
+    - names:
+      - githubPushFolder
+      description: folder within the target GitHub repo in which to push files
+      type: string
+      required: false
+      doc: |
+        identifies a folder within the target GitHub repo to push output symbol files to
+
+    - names:
+      - githubPushFilter
+      description: a regex pattern a file on disk must match to push
+      type: string
+      required: false
+      doc: |
+        specifies a a regex pattern a file on disk must match to be pushed to the target repo.
+        This option provides a mechanism for 'routing' output symbol files to different repositories
+        based on their file extension (e.g., `\.js\.json$`) or location within the output folder tree (e.g., `(^|/|\\)acme(/|\\|$`)
+
+
+
+
+

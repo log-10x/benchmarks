@@ -1,0 +1,37 @@
+#
+# 🔟❎ Docker scanner settings
+
+# 'images' configures Docker image files to pull to disk (e.g., docker.io/grafana/grafana:11.1.0)
+images: 
+  - $?dockerImages 
+
+# 'imageShaJSONPathQuery'  specifies a JSONPath to execute against the output of a docker manifest inspect
+#  https://docs.docker.com/reference/cli/docker/manifest/inspect/) command output
+#  to select the SHA256 of the target image architecture to pull from the container repository.
+#  For example, the default JSONPath query will extract the 'linux amd64' architecture binary from the following
+#  docker manifest output: https://gist.github.com/talwgx/f895346733dbac7b17f3f0c0fea28f47
+imageShaJSONPathQuery: /$.manifests[?(@.platform.os=='linux' && @.platform.architecture=='arm64')].digest
+
+# 'githubRepoJSONPathQuery' specifies a JSONPath to execute against the output of a docker manifest inspect
+#  https://docs.docker.com/reference/cli/docker/manifest/inspect/) command output
+#  to extract the value of a the 'org.opencontainers.image.source' attribute
+#  which identifies the GitHub repo from which the target image was built 
+#  To learn more see https://github.com/opencontainers/image-spec/blob/v1.0.1/annotations.md#pre-defined-annotation-keys
+githubRepoJSONPathQuery: /$.annotations["org.opencontainers.image.source"]
+
+# 'command' specifies the location of docker cli https://docs.docker.com/reference/cli/docker/ program
+command: $?dockerCommand
+
+# 'remove' specifies whether to invoke the rmi command after scan: https://docs.docker.com/reference/cli/docker/image/rm
+remove: $?dockerRemove=true
+
+# 'gitHubRepoToken'defines an access token for pulling Github repos referenced 
+# by a target image's 'org.opencontainers.image.source' property.
+        
+# If this property is not available within the image manifest,
+# an attempt is made to infer a valid GitHub repo name from the image name.
+# For example, for the the target image name: `docker.io/grafana/grafana:11.1.0`, the https://github.com/grafana/grafana GitHub repo is inferred.
+        
+# If not an API token is not specified, GitHub repos referenced within image manifests or inferred from image names are not pulled.
+# To learn more see https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens.
+githubRepoToken: $?dockerGithubRepoToken

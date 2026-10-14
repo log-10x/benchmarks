@@ -1,0 +1,65 @@
+# 🔟❎ 'run' k8s lookup configuration
+
+# Define the extractors for capturing k8s context from input events
+# To learn more see https://doc.log10x.com/run/initialize/k8s
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# ======================= k8s Fluent/Filebeat Extractors ======================
+
+# Extractors for common k8s metadata based on the target forwarder format.
+# For more info on extractors see https://doc.log10x.com/run/input/extract
+extractor:
+  - name: fluentK8s
+    type: json
+
+    actions:
+      # Capture common k8s metadata. pod_name is still captured unconditionally;
+      # gating it on k8sPodNameField (so we'd skip the parse when pod resolution
+      # is opted out) was attempted but the engine rejects an extractor whose
+      # `actions:` list contains an empty/null entry. The captureField parses
+      # pod_name into an event field that gets dropped at enrichment time when
+      # the field name is empty; cheap but not free.
+      - captureField:kubernetes.namespace_name:namespace_name
+      - captureField:kubernetes.container_name:container_name
+      - captureField:kubernetes.pod_name:pod_name
+
+  - name: filebeatK8s
+    type: json
+
+    actions:
+      # Capture common k8s metadata. Same caveat as fluentK8s: the pod.name
+      # capture stays unconditional because the engine rejects empty action
+      # entries.
+      - $="captureField:kubernetes.namespace:" + TenXEnv.get("k8sNamespaceNameField", "namespace")
+      - $="captureField:kubernetes.container.name:" + TenXEnv.get("k8sContainerNameField", "container")
+      - $="captureField:kubernetes.pod.name:" + TenXEnv.get("k8sPodNameField", "pod")
+
+# ============================ Aggregation Settings ===========================
+
+# Install the k8s fields as default fields by which to aggregate TenXObjects
+# To learn more see https://doc.log10x.com/run/initialize/#enrichmentFields
+
+include:
+  - run/modules/initialize/module.yaml
+
+enrichmentFields:
+  # Each field is included in the metric-label set only when its env var is configured
+  # to a non-empty name. An unset field name (e.g. customer left 'podNameField: ""' in
+  # the default config to avoid pod-churn cardinality) drops the entry from the list.
+  # YAML note: the ternary uses `value:""` with NO space around `:` to keep the line a
+  # plain scalar. `: ""` (with space) triggers YAML mapping detection and breaks the
+  # engine's arg parser.
+  - $=yield TenXEnv.get("k8sExtractorName") && TenXEnv.get("k8sPodNameField") ? TenXEnv.get("k8sPodNameField"):""
+  - $=yield TenXEnv.get("k8sExtractorName") && TenXEnv.get("k8sContainerNameField") ? TenXEnv.get("k8sContainerNameField"):""
+  - $=yield TenXEnv.get("k8sExtractorName") && TenXEnv.get("k8sNamespaceNameField") ? TenXEnv.get("k8sNamespaceNameField"):""
+
+  # k8s convenience aliases:
+  # 'tenx_user_service' = container_name. Stable across deploys. Always emit when extractor is on.
+  - $=yield TenXEnv.get("k8sExtractorName") ? "tenx_user_service":""
+  # 'tenx_user_process' = pod_name + "/" + container_name. The value embeds the ephemeral
+  # pod_name, so its active-series cost matches pod_name cardinality. Only include when
+  # pod resolution is explicitly enabled (k8sPodNameField non-empty); otherwise this label
+  # would carry the same deploy-churn cost we just stripped from k8sPodNameField.
+  - $=yield TenXEnv.get("k8sExtractorName") && TenXEnv.get("k8sPodNameField") ? "tenx_user_process":""

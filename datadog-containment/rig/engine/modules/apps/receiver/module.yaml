@@ -1,0 +1,96 @@
+#
+# 🔟❎ 'run' Receiver module
+
+module:
+
+  name: receiver
+
+  title: Receiver
+
+  description: receive events from a coupled forwarder; in read-only mode emit metrics only, in read-write mode also receive and optionally compact events before they ship to output
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this module
+  configFolder: apps/receiver
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: '+include $=TenXEnv.get("docGenerate") ? "apps/receiver/doc.md":""'
+
+  # 'allowMultiple' is disabled for this module.
+  allowMultiple: false
+
+  options:
+
+    # The two underlying engine options are `receiverOptimize` and `receiverReadOnly`.
+    # Helm charts expose user-friendly `mode` and `optimize` values that translate
+    # to these options at install time.
+
+    - names:
+      - receiverOptimize
+      description: enable optimization (compact mode) to encode emitted events for volume reduction
+      type: boolean
+      required: false
+      defValue: false
+      doc: |
+        enables compact mode on the receiver (read-write only). When true, the
+        receiver encodes emitted events using the [encode](https://doc.log10x.com/api/js/#TenXObject+encode)
+        function, reducing log volume on compaction-capable destinations
+        (Splunk, self-hosted Elasticsearch; a no-op elsewhere) before
+        shipping to the destination.
+
+        When false (default), the receiver in read-write mode receives events
+        but emits them in their original plain-text form via the
+        [fullText](https://doc.log10x.com/api/js/#TenXBaseObject+fullText) field.
+
+        Has no effect when `receiverReadOnly=true` (no events are written back
+        to the forwarder in read-only mode).
+
+        **Effect on forwarder output:**
+        When optimization is enabled, the forwarder outputs compacted events and the
+        aggregator tracks `optimized_size` metrics to measure optimization effectiveness.
+
+        **Usage (helm chart value):**
+        ```yaml
+        receiver:
+          optimize: true
+        ```
+
+    - names:
+      - receiverReadOnly
+      description: read-only mode, receive events, emit metrics, do not write back to the forwarder
+      type: boolean
+      required: false
+      defValue: false
+      doc: |
+        enables read-only mode on the receiver. When true, the receiver reads
+        events from the coupled forwarder, runs aggregators, and publishes
+        `emitted_events` / `all_events` TenXSummary metrics, but does **not**
+        write events back to the forwarder.
+
+        Read-only mode is for observation deployments where the receiver acts
+        as a passive metrics emitter. Read-write mode (default) is for
+        receiving and compact-mode deployments where the receiver shapes the
+        event stream the forwarder ships to its destination.
+
+        For the parallel-DaemonSet observation pattern (separate pod, not in
+        the forwarder's pipeline), use the dedicated
+        [Reporter](https://doc.log10x.com/apps/reporter/) app instead.
+
+        **Effect:**
+        The generic event-output stream modules
+        ([forward](https://github.com/log-10x/modules/blob/main/pipelines/run/modules/output/event/forward/stream.yaml),
+        [unix](https://github.com/log-10x/modules/blob/main/pipelines/run/modules/output/event/unix/stream.yaml),
+        [socket](https://github.com/log-10x/modules/blob/main/pipelines/run/modules/output/event/socket/stream.yaml),
+        [stdout](https://github.com/log-10x/modules/blob/main/pipelines/run/modules/output/event/stdout/stream.yaml))
+        AND their `enabled` gate with `!TenXEnv.get("receiverReadOnly", false)`,
+        so when the flag is true the output stream is not constructed and the
+        log4j Fluency appender (where applicable) never tries to connect to the
+        forwarder's return socket.
+
+        Mutually compatible with `receiverOptimize` (encoding wouldn't reach the
+        forwarder anyway, so it is functionally a no-op when read-only is on).
+
+        **Usage (helm chart value, mode=readonly translates to this):**
+        ```yaml
+        receiver:
+          mode: readonly
+        ```

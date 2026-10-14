@@ -1,0 +1,16 @@
+# 🔟❎ 'run' Reporter settings
+
+# This configuration defines the settings for use by the Reporter app.
+# To learn more see https://doc.log10x.com/apps/reporter
+
+tenx: run
+
+# ============================= App Settings ==================================
+
+runtimeAttributes:
+  - app:reporter
+  - env:edge
+
+include:
+  - apps/shared      
+  - run/aggregate/report  # https://doc.log10x.com/run/aggregate/#report

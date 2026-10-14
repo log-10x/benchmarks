@@ -1,0 +1,68 @@
+#
+# 🔟❎ 'run' symbol loader unit
+
+unit:
+
+  name: symbolLoader
+
+  title: Symbol loader
+
+  description: import symbol libraries from files to transform events into well-defined TenXObjects
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/symbol
+    
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/units/symbol/doc.md":""
+ 
+  # 'allowMultiple' is disabled for this unit. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+
+  # 'options' defines a group of named/typed configuration values to pass to a pipeline unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+  
+    - names:
+      - symbolPaths
+      description: input symbol files and folders
+      type: list
+      required: false
+      category: general
+      doc: |
+        specifies a list of glob patterns used to load symbols files (.json, .csv) into the 
+        pipeline upon initialization. Zip archives are extracted to the temp folder and deleted on exit.
+      defValue: 
+        - path("sample/symbols")
+
+    - names:
+      - symbolLiterals
+      description: symbol literal values
+      type: list
+      required: false
+      category: general
+      doc: |
+        specifies a list of literal symbol values to add to the host pipeline's symbol collection.
+        This option enables declaring symbol values directly through the command line or via YAML/JSON configuration.
+
+    - names:
+      - maxSymbolUnitsPerToken
+      description: number of symbol units to retrieve when searching for the origin of an TenXTemplate symbol sequence
+      category: advanced
+      type: number
+      required: false
+      defValue: 128
+      doc: |
+        controls the maximum number of symbol units to load from the pipeline's symbol library 
+        when searching for the [origin](https://doc.log10x.com/run/transform/symbol/) of a specific [TenXTemplate](https://doc.log10x.com/run/template/) symbol. 
+        
+        The [symbolSequence](https://doc.log10x.com/api/js/#TenXObject+symbolSequence) function queries the source code/binary origin
+        of symbol sequences in a target TenXTemplate to identify the logical "message" portions of app/infra
+        events vs. variable values and [MDC context](https://logging.apache.org/log4j/2.x/manual/thread-context.html). 
+        
+        Since symbols may appear in hundreds or more locations across a code base, 
+        limiting the number of symbol units to load is necessary to reduce memory consumption.    
+        A second consideration in placing an upper limit on the number of units to load from the symbol library 
+        is the more frequent a symbol is, the lower the probability of selecting its correct origin.
+          

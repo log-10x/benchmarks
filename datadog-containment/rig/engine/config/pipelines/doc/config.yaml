@@ -1,0 +1,52 @@
+#
+# 🔟❎ 'doc' generate configuration
+
+# To learn more see https://doc.log10x.com/doc/
+
+# Set the 10x pipeline to 'doc'
+tenx: doc
+
+# ============================= Generate Options ==============================
+
+# 'licenseKey' specifies a signed JWT license token used for authenticating against the 10x service
+licenseKey: $=TenXEnv.get("TENX_LICENSE_KEY", "NO-LICENSE")
+
+# 'licenseFile' specifies a path to a file containing the signed JWT license token.
+licenseFile: $=TenXEnv.get("TENX_LICENSE_FILE")
+
+runtimeName: doc
+
+doc:
+
+  # 'generate' specifies to load markdown (.md) content
+  generate: true
+
+  # 'configRepoName' sets the name of the config github repository to link to
+  configRepoName: $=TenXEnv.get("TENX_CONFIG_REPO", "log-10x/config")
+
+  # 'configRepoBranch' sets the name of the branch in the config github repository to link to
+  configRepoBranch: "main"
+
+  # 'modulesRepoName' sets the name of the modules github repository to link to
+  modulesRepoName: $=TenXEnv.get("TENX_MODULES_REPO", "log-10x/modules")
+
+  # 'modulesRepoBranch' sets the name of the branch in the modules github repository to link to
+  modulesRepoBranch: "main"
+
+  # 'modulesInputPath' sets the folder to scan for pipeline modules
+  modulesInputPath: $=path("<TENX_MODULES>/pipelines")
+
+  # 'appsInputPath' sets the folder to scan for pipeline modules
+  appsInputPath: $=path("<TENX_MODULES>/apps")
+
+  # 'modulesInputPath' sets the folder to scan for module config files
+  configInputPath: $=path("<TENX_CONFIG>/pipelines")
+
+  # 'siteOutputPath' sets the folder to output site contents to
+  siteOutputPath: $=path("<TENX_MKSITE>")
+
+  # 'apiFile' sets the folder to output tod
+  apiFile: $=path("<TENX_MODULES>/lib/script/tenx.js")
+
+  # 'githubAPIKey' specifies the GitHub API key for validating doc links to repos
+  githubAPIKey: $=TenXEnv.get("GH_TOKEN")

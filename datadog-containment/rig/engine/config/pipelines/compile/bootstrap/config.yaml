@@ -1,0 +1,41 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/compile/bootstrap/schema.json
+
+# 🔟❎ compile bootstrap configuration
+
+# This config file specifies bootstrap options for the compile pipeline.
+# To learn more see https://doc.log10x.com/compile/bootstrap
+
+# To learn more see https://doc.log10x.com/config/
+
+tenx: compile
+
+# =============================== Launch Settings ==============================
+
+# 'licenseKey' specifies a signed JWT license token used for authenticating against the 10x service
+licenseKey: $=TenXEnv.get("TENX_LICENSE_KEY", "NO-LICENSE")
+
+# 'licenseFile' specifies a path to a file containing the signed JWT license token.
+# Preferred over 'licenseKey' on production hosts: the token does not appear in 'ps' output.
+licenseFile: $=TenXEnv.get("TENX_LICENSE_FILE")
+
+# 'airgapped' suppresses every call to the 10x SaaS gateway: the license is verified locally against the embedded
+# public key, and ALL outbound calls to the 10x SaaS gateway are suppressed (no DNS, no TCP).
+airgapped: $=TenXEnv.get("TENX_AIRGAPPED", "false")
+
+# 'includePaths' specifies folders on disk for resolving relative config file/folder references in addition to the working folder
+includePaths: []
+
+# 'quiet' disables printing version information to the console.
+# quiet: true
+
+# 'jarFiles' specifies .jar files to dynamically load for use by compile, input and output API extensions.
+jarFiles: []
+
+# 'metricEndpoint' specifies a Prometheus remote-write endpoint for pipeline usage and health metrics.
+# Unset by default. The endpoint is a self-hosted or vendor Prometheus-compatible store, never a 10x
+# service, and is where the MCP reads engine state back from to tune policy such as regulator rates.
+# metricEndpoint: https://prometheus.example.com/api/v1/write
+
+# specifies a list of launch arguments that are disallowed from either command line or user config files.
+disabledArgs: []
+

@@ -1,0 +1,154 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/output/event/fluentbit/schema.json
+
+# 🔟❎ 'run' Fluent Bit output configuration for events stream output to Splunk
+
+# Launch a Fluent Bit process into whose stdin pipe to write TenXObjects field values and TenXTemplates
+# To learn more see https://doc.log10x.com/run/output/event/process/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Dependencies ================================
+
+include:
+  - run/modules/output/event/fluentbit
+
+
+# ============================ Fluent Bit Options =============================
+
+# Multiple Fluent Bit outputs can be defined below
+
+fluentbitOut:
+
+    # ------------------------------ General ----------------------------------
+
+    # 'writeObjects' controls whether to write TenXObject field values to output.
+  - writeObjects: true
+
+    # 'writeTemplates' controls whether to write new template for TenXObjects written to
+    #  this output. To learn more about TenXTemplates, see: https://doc.log10x.com/run/template
+    writeTemplates: false
+
+    # ------------------------------ Process ----------------------------------
+
+    # 'command' specifies the command to execute to launch the Fluent Bit sub-process.
+    command: /opt/fluent-bit/bin/fluent-bit
+
+    # 'inputArgs' specifies list of values to pass as startup arguments to the spawned Fluent Bit sub-process
+    inputArgs:
+      # Sets the Fluent Bit input to read from stdin and route TenXTemplates
+      # See https://github.com/log-10x/config/blob/main/pipelines/run/output/event/fluentbit/fluentbit-10x-input.conf
+      - -c
+      - $=path("fluentbit-10x-input.conf")
+
+    # Setting the Fluent Bit output to Splunk
+    # for full config options of the Fluent Bit splunk plugin, see -
+    # https://docs.fluentbit.io/manual/pipeline/outputs/splunk
+    #
+    # Fluent Bit is using Splunk's HTTP event collector (HEC) for emitting events
+    # for instructions on setting up HEC on splunk, see -
+    # https://dev.splunk.com/enterprise/docs/devtools/httpeventcollector
+    #
+    outputArgs:
+
+      ############### Events output ###############
+
+      # Set event output to Splunk
+      - "-o"
+      - "splunk"
+      - "-m"
+      - "input"
+
+      # Setting host
+      - "-p"
+      - "$=\"host=\" + TenXEnv.get(\"SPLUNK_HOST\", \"127.0.0.1\")" # (REQUIRED)
+      - "-p"
+      - "$=\"port=\" + TenXEnv.get(\"SPLUNK_PORT\", \"8088\")" # (REQUIRED)
+
+      # Setting up credentials
+      - "-p"
+      - "$=\"splunk_token=\" + TenXEnv.get(\"SPLUNK_HEC_TOKEN\")" # (REQUIRED)
+
+      # Setting the index destination
+      - "-p"
+      - "event_index=main"
+      - "-p"
+      - "event_source=fluent-bit-tenx-stream"
+      - "-p"
+      - "event_sourcetype=tenx_encoded"
+
+      # Setting TLS
+      - "-p"
+      - "tls=on"
+      - "-p"
+      - "tls.verify=on"
+
+      # Don't send raw
+      - "-p"
+      - "splunk_send_raw=off"
+
+      ############### Templates output ###############
+
+      # Set templates output to Elasticsearch
+      - "-o"
+      - "es"
+      - "-m"
+      - "templates"
+
+      # Setting host
+      - "-p"
+      - "$=\"host=\" + TenXEnv.get(\"SPLUNK_HOST\", \"127.0.0.1\")" # (REQUIRED)
+      - "-p"
+      - "$=\"port=\" + TenXEnv.get(\"SPLUNK_PORT\", \"8088\")" # (REQUIRED)
+
+      # Setting up credentials
+      - "-p"
+      - "$=\"splunk_token=\" + TenXEnv.get(\"SPLUNK_HEC_TOKEN\")" # (REQUIRED)
+
+      # Setting the templates index destination
+      - "-p"
+      - "event_index=main"
+      - "-p"
+      - "event_source=fluent-bit-tenx-stream"
+      - "-p"
+      - "event_sourcetype=tenx_dml_raw_json"
+
+      # Setting TLS
+      - "-p"
+      - "tls=on"
+      - "-p"
+      - "tls.verify=on"
+
+      # Don't send raw
+      - "-p"
+      - "splunk_send_raw=off"
+
+    # 'destroyMode' is set to 'cached' to allow a fluent-bit sub-process to
+    #  to be reused across multiple 10x pipeline executions within a host JVM.
+    destroyMode: cached
+
+    # 'maxCacheSize' sets the size of the cache to used for caching fluent-bit instances
+    maxCacheSize: 1
+
+    # 'lazyLaunch' determines whether the fluent-bit instance will launch immediately
+    # during the pipeline initialization, or only on-demand.
+    lazyLaunch: true
+
+    # ------------------------------ Encoding ---------------------------------
+
+    # 'filter' specifies an expression that any TenXObject passed to this output must
+    #  evaluate as truthy against to write its instance/template values to stdout.
+    #  For example, 'filter: this.timestamp' will only emit timestamped objects.
+    #  To learn more see: https://doc.log10x.com/api/js/#TenXBaseObject+timestamped
+    filter: null
+
+    #  This corresponds to the stdin format defined by fluent-bit in:
+    #  https://docs.fluentbit.io/manual/pipeline/inputs/standard-input
+    #  The 'text' argument below could be replaced by any list of intrinsic/calculated/extracted fields.
+    #  The "" delimiter instructs 'joinFields' to produce JSON output.
+    fields:  #
+      - open="["
+      - timestamp=dateFormat("+%s.%N")
+      - separator=","
+      - fields=joinFields("", "text")
+      - close="]"

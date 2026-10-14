@@ -1,0 +1,19 @@
+#
+# 🔟❎ 'compile' symbol scanner module
+ 
+module:
+
+  name: pull
+  
+  title: Repo Fetcher
+  
+  description: pull input source code/binary files from remote repositories
+    
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "compile/modules/pull/doc.md":""
+
+  moduleSort: [github,docker,helm,artifactory,s3]
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: compile/pull
+

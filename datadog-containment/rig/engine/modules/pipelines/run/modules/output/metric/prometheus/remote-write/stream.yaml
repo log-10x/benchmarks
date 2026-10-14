@@ -1,0 +1,37 @@
+# 🔟❎ 'run' Prometheus Remote write output stream settings
+
+# The 'prometheusRWMetrics' module defines a Remote write Prometheus output to publish TenXSummary metrics.
+# The configuration below constructs a micrometer-backed output stream for each instance of the options group
+# passed to the 10x Engine via configuration files or command line arguments.
+
+# To learn more see https://prometheus.io/docs/concepts/remote_write_spec/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+output:
+
+    # 'type' defines the output type (e.g., stdout, log4j, micrometer).
+  - type: metric
+
+    # 'enabled' controls whether to open this output stream.
+    enabled: $?prometheusRWEnabled=true
+
+    # 'name' assigns a logical name to this output instance
+    name: $prometheusRWHost
+
+    # 'path' points to the fully qualified class name implementing the 'MetricRegistryFactory' interface
+    #  to create the micrometer registry.
+    #  To learn more see: 'com.log10x.ext.edge.micrometer.MetricRegistryFactory'
+    path: com.log10x.ext.edge.micrometer.registry.PrometheusRWMetricRegistryFactory
+
+    # 'fields' is set to all the metrics dimension Tags
+    # To learn more about tags, see: https://www.baeldung.com/micrometer#1-tags
+    fields: $?prometheusRWTagFields
+
+    # 'filter' is set to write TenXSummary instances to the micrometer registry
+    filter: $?prometheusRWFilter=isSummary
+
+    # 'foreach' sets 'prometheusRWMetrics' as the options group for whose instances
+    #  to create matching output streams. This option enables the creation of multiple time series outputs.
+    foreach: prometheusRWMetrics

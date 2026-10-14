@@ -1,0 +1,56 @@
+{
+  "type" : "object",
+  "properties" : {
+    "tenx" : {
+      "type" : "string"
+    },
+    "githubPush" : {
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "additionalProperties" : false,
+        "properties" : {
+          "repo" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Target GitHub repo\n\nIdentifies a GitHub repository to push files to including the username of the owner (e.g., 'some-user/repo-name')"
+          },
+          "token" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "GitHub API access token\n\nDefines an access token for accessing Github repos. To learn more see [GitHub tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)."
+          },
+          "branch" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Target branch to push to\n\nSpecifies the branch to use when pushing to this repo. If omitted, use the repository's default branch."
+          },
+          "folder" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Folder within the target GitHub repo in which to push files\n\nIdentifies a folder within the target GitHub repo to push output symbol files to"
+          },
+          "filter" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "A regex pattern a file on disk must match to push\n\nSpecifies a a regex pattern a file on disk must match to be pushed to the target repo. This option provides a mechanism for 'routing' output symbol files to different repositories based on their file extension (e.g., `\\.js\\.json$`) or location within the output folder tree (e.g., `(^|/|\\\\)acme(/|\\\\|$`)"
+          }
+        },
+        "required" : [
+          "repo"
+        ]
+      }
+    }
+  },
+  "additionalProperties" : false
+}

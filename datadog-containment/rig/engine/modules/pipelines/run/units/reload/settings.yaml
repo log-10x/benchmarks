@@ -1,0 +1,11 @@
+#
+# 🔟❎ file reload configuration/resource file settings
+
+# Monitor changes to configuration and symbol files to alert and restart affected pipeline units or 
+# the entire pipeline. Configuration files can also periodically poll
+
+# 'pollInterval' defines the interval for checking changes to config/resource files.
+reloadPollInterval: $?reloadPollInterval=10s
+
+# 'watchConfigFiles' defines whether to restart pipeline when config files are changed on disk.
+reloadRestartPipeline: $?reloadRestartPipeline=true

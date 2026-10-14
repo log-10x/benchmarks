@@ -1,0 +1,66 @@
+#
+# 🔟❎  Compiler app main config
+
+# The compile app produces symbol library files which enable 10x apps to
+# transform log/trace events into well-defined TenXObjects at runtime.
+
+# To learn more see https://doc.log10x.com/compile
+
+# =========================== Bootstrap Compiler ==============================
+
+# To learn more see https://doc.log10x.com/compile/bootstrap
+
+tenx: compile
+
+# Where the engine validates its licence (/api/v1/agent/whoami) and ships
+# its metrics (/api/v1/write). One endpoint drives BOTH: repointing it for
+# licensing also repoints metrics delivery. Unset or empty, the engine has
+# no address to call: metrics stay local and the licence verifies offline.
+backendEndpoint: $=TenXEnv.get("TENX_BACKEND_ENDPOINT", "")
+runtimeName: $=TenXEnv.get("TENX_RUNTIME_NAME", "myCompiler")
+
+# ============================ Load App Modules ===============================
+
+# Uncomment and edit selected config.yaml files in the folders below (e.g., compile/scanners/config.yaml)
+
+include:
+
+# ------------------------------ App settings ---------------------------------
+
+  # Load general app settings:
+  - compiler
+
+  # Load gitops settings for pulling additional assets from Github.
+  # Edit the gitops/config.yaml file with specific config
+  #
+  # For additional info see - https://doc.log10x.com/config/github
+  - gitops
+
+  # --------------------------- Process Inputs --------------------------------
+
+  # Process input source code and binary files on disk.
+
+  - compile/scanners  # https://doc.log10x.com/compile/scan
+
+  # ---------------------------- Pull Inputs ----------------------------------
+
+  # This application can fetch source/binary files from remote inputs
+  # Uncomment and edit config files (e.g. compile/pull/github/config.yaml) to remote pull
+  #
+  - compile/pull/github       # https://doc.log10x.com/compile/pull/github
+  - compile/pull/docker       # https://doc.log10x.com/compile/pull/docker
+  - compile/pull/helm         # https://doc.log10x.com/compile/pull/helm
+  # - compile/pull/artifactory  # https://doc.log10x.com/compile/pull/artifactory
+  # - compile/pull/s3           # https://doc.log10x.com/compile/pull/s3
+
+  # ---------------------------- Link Output ----------------------------------
+
+  # Link output files into a single symbol library artifact for runtime use
+
+  - compile/link              # https://doc.log10x.com/compile/link
+
+  # ---------------------------- Push Output ----------------------------------
+
+  # Push output files to GitHub for use by subsequent compile and run instances
+
+  # - compile/push            # https://doc.log10x.com/compile/push

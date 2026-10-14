@@ -1,0 +1,28 @@
+{
+  "type" : "object",
+  "properties" : {
+    "tenx" : {
+      "type" : "string"
+    },
+    "storage" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "class" : {
+          "type" : "object",
+          "additionalProperties" : false,
+          "properties" : {
+            "name" : {
+              "type" : [ "array" ],
+              "description" : "alias and class name pair used to access a target Object storage",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          },
+          "required" : [ "name" ]
+        }
+      }
+    }
+  }
+}

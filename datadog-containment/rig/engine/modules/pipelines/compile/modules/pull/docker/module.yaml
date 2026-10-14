@@ -1,0 +1,105 @@
+#
+# 🔟❎ Docker symbol scanner
+
+module:
+
+  name: docker
+
+  title: Docker image
+
+  description: pull Docker image files to scan for symbol content
+    
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "compile/modules/pull/docker/doc.md":""
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: compile/pull/docker
+
+  # 'allowMultiple' is disabled for this module. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+        - dockerImages
+      description: Docker image files to pull
+      type: list
+      required: false
+      doc: | 
+        specifies the URLs for the remote Docker images to pull in the form of: `<container-repository>/<image>/<version>`.
+        
+        For example:
+        
+        ``` yaml 
+        dockerImages:
+        - docker.io/grafana/grafana:11.1.0
+        ```
+
+    - names:
+        - dockerUsername
+      description: docker user name
+      type: string
+      required: false
+      doc: | 
+        specifies the [user name](https://docs.docker.com/reference/cli/docker/login/#username) for authenticating the docker client.
+        If this value is not set, the docker client is assumed to be pre-authenticated.
+
+        This value should be set via an [environment variable](https://doc.log10x.com/api/js/#TenXEnv.get):
+
+        ``` yaml
+        dockerUsername: $=TenXEnv.get("DOCKER_USERNAME")
+        ```
+
+
+    - names:
+        - dockerPassword
+      description: docker password
+      type: string
+      required: false
+      doc: | 
+        specifies the password for authenticating the docker client in conjunction with [dockerUsername](https://doc.log10x.com/compile/pull/docker/#dockerusername).
+        
+        This value is written into the docker client's std input via the login command's [password-stdin](https://docs.docker.com/reference/cli/docker/login/#password-stdin) argument.
+        
+        This value should be set via an [environment variable](https://doc.log10x.com/api/js/#TenXEnv.get):
+
+        ``` yaml
+        dockerPassword: $=TenXEnv.get("DOCKER_TOKEN")
+        ```
+
+    - names:
+        - dockerRemove
+      description: remove image after scan
+      type: boolean
+      required: false
+      defValue: true
+      doc: | 
+        specifies whether to remove [dockerImages](https://doc.log10x.com/compile/pull/docker/#dockerimages) using [docker rmi -f](https://docs.docker.com/reference/cli/docker/image/rm/)
+
+    - names:
+      - dockerGithubRepoToken
+      description: GitHub API token for pulling image source code repositories
+      type: string
+      doc: |
+        defines an access token for pulling [Github repos](https://doc.log10x.com/compile/pull/github/) referenced 
+        by a target image's [org.opencontainers.image.source](https://github.com/opencontainers/image-spec/blob/v1.0.1/annotations.md#pre-defined-annotation-keys) property.
+        
+        If this property is not available within the [image manifest](https://docs.docker.com/reference/cli/docker/manifest/inspect),
+        an attempt is made to infer a valid GitHub repo name from the image name.
+        For example, for the the target image name: `docker.io/grafana/grafana:11.1.0`, the [grafana/grafana](https://github.com/grafana/grafana) GitHub repo is inferred.
+        
+        If not an API token is not specified, GitHub repos referenced within image manifests or inferred from image names are not pulled.
+        To learn more see [GitHub tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens).
+
+    - names:
+      - dockerCommand
+      description: path to docker command
+      type: string
+      required: false
+      defValue: "*NIX: /usr/local/bin/docker, Win: C:/Program Files/Docker/Docker/resources/bin/docker.exe"
+      doc: |
+        defines the path to the [docker](https://docs.docker.com/reference/cli/docker/) program used pulling and exporting images.

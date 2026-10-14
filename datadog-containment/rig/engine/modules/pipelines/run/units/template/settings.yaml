@@ -1,0 +1,39 @@
+#
+# 🔟❎ 'run' template settings
+
+# TenXTemplates are special objects that define the structure / schema of
+# other TenXObjects read into the 'run' pipeline. They are similar in nature
+# to programmatic classes that define the structure of their instances. 
+# The difference is that, unlike classes that coded ahead of time, TenXTemplates
+# are generated at runtime based on the events read into the pipeline 10x 'run' 
+# and its provided symbol files produced by the 10x 'compile' pipeline. 
+
+# An TenXTemplate structure is shared across all TenXObjects
+# with the same sequence of symbol tokens (i.e., symbols scanned from 
+# source / binary input files such as class names, string constant, enums,..)
+# and delimiters. Each object then only has to hold the unique values
+# to it (i.e., its member values) while sharing global values such as
+# severity, message template with all other events that originated from
+# the its source/binary location.
+
+
+# ----------------------------- Template Settings -----------------------------
+
+# 'templateFile' provides the .json file names or glob patterns containing
+#  JSON TenXTemplate objects used for expanding compacted TenXObjects from an input.
+templateFiles: 
+  - $?templateFiles
+
+# 'templates' define how to parse TenXTemplates from an input stream    
+templates: +include /units/transform/fields/settings.yaml
+
+# 'structure' defines how to structure TenXTemplates from an input stream    
+structure:      
+  
+  # 'tokens' control how to tokenize TenXTemplates from an input stream 
+  tokens: +include units/transform/structure/settings.yaml
+
+  # 'timestamps' controls how to parse TenXTemplate timestamps from an input stream
+  timestamps: +include units/transform/timestamp/settings.yaml
+
+templateCacheSize: $?templateCacheSize=0

@@ -1,0 +1,15 @@
+#
+# 🔟❎ 'run' TenXTemplate parser unit
+
+unit:
+
+  name: transform
+
+  title: Transform
+
+  description: transform log and trace events into well-defined TenXObjects
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/units/transform/doc.md":""
+
+  moduleSort: [structure,timestamp,fieldParser,origin,script,group,parallelize]

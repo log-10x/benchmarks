@@ -1,0 +1,44 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/compile/scanners/text/schema.json
+
+# 🔟❎ 'compile' text symbol scanner configuration
+
+# The 'text' scanner parses text files for symbol values. It utilizes
+# the Jackson parser library to parse any text/binary format it supports.
+# This includes formats such json, yaml, xml, ini, protobuf and more.
+
+# The configuration below is added by default to the 10x 'compile' pipeline.
+# Even so, if another text scanner is defined via the 'textScanners' options group
+# whose 'fileNameFilter' matches that of the current target input file,
+# it will take precedence over the text scanners defined below.
+# To learn more about text scanner options below, see:
+# https://doc.log10x.com/compile/scanner/text
+
+# Set the 10x pipeline to 'compile'
+tenx: compile
+
+# =============================== Text Options ================================
+
+text:
+
+  - parserName: text
+    fileNameFilter: '^.*\.(csv|txt|properties|csv|tsv|ini|conf|sh|log|out)$'
+    maxLines: 500
+    lineOffset: 0
+    allowDigits: false
+    minLength: 2
+    maxLength: 50
+
+  - parserName: json
+    fileNameFilter: '^.*\.(json)$'
+    parserFactoryClass: com.fasterxml.jackson.core.JsonFactory
+    scanFieldValues: true
+
+  - parserName: yaml
+    fileNameFilter: '^.*\.(yml|yaml)$'
+    parserFactoryClass: com.log10x.eng.scanner.text.TextYamlFactory
+    scanFieldValues: true
+
+  - parserName: xml
+    fileNameFilter: '^.*\.(xml|xsd)$'
+    parserFactoryClass: com.fasterxml.jackson.dataformat.xml.XmlFactory
+    scanFieldValues: true

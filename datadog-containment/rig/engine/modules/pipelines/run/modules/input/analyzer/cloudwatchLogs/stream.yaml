@@ -1,0 +1,91 @@
+# 🔟❎ 'run' AWS CloudWatch Logs input stream configuration
+
+# The 'cloudwatchLogs' options group defines an AWS CloudWatch Logs input from which
+# to read events to transform into TenXObjects. The configuration
+# below constructs a camel-backed input stream for each instance of
+# the 'cloudwatchLogs' optiSet the 10x pipelinee 10x pipeline to 'run'
+tenx: run
+
+# Adding a runtime attribute for metrics reporting
+runtimeAttributes:
+ - analyzer_input:cloudwatch
+
+# 'extractor' defines the JSON extractor used to select event values from
+#  the AWS endpoint 'API_GetLogEvents' response. These include both
+#  log events to transform into TenXObjects, as well as events
+#  parsed to format the query for the next batch of events.
+extractor:
+
+  # this extractor splits the full incoming json data into individual results, and gets the tokens needed for pagination
+  - name: cloudwatchLogs-data
+    type: json
+    group: external
+
+    actions:
+      - setOuterText:message
+
+        # The 'nextForwardToken' and 'nextBackwardToken' fields are extracted to calculate the next batch of events to request.
+        # Each subsequent paginated query will use the last value extracted from these values
+        # (depending on the search direction) as the next 'nextToken' value within
+        # the AWS 'GetLogEvents' REST call
+      - captureLast:nextForwardToken
+      - captureLast:nextBackwardToken
+
+    foreach: cloudwatchLogs
+
+  # this extractor gets the actual message from each individual result of the previous extractor
+  # Only applies to events containing a 'log' field (skips template events which have templateHash/template)
+  - name: cloudwatchLogs-message
+    type: json
+
+    # Filter to only process events that have a 'log' field (skip template events)
+    filter: '"log":'
+
+    actions:
+      - $=yield "captureFirst:" + TenXEnv.get("cloudwatchLogsMessageField")
+
+    foreach: cloudwatchLogs
+
+input:
+
+    # 'type' defines the type of input (e.g., stdin, file, stream).
+  - type: stream
+
+    # 'name' defines a logical name for this input.
+    #  This value identifies TenXObjects instantiated from this input via their 'inputName' field
+    name: $cloudwatchLogsName
+
+    # 'enabled' controls whether to open this input 
+    enabled: $?cloudwatchLogsEnabled=true
+
+    # 'path' defines the class name to instantiated for reading events
+    path: com.log10x.ext.cloud.camel.CamelContextInputStream
+
+    # 'args' are passed as arguments to the Camel InputStream constructor
+    args:
+      - name
+      - $?cloudwatchLogsName
+      - route
+      - +include run/modules/input/analyzer/cloudwatchLogs/route.yaml
+ 
+    # 'printProgress' controls whether to print throughput stats to the console
+    printProgress: $?cloudwatchLogsPrintProgress=false
+
+    # 'extractors' are set to the 'cloudwatchLogs' extractor defined above
+    extractors:
+      - cloudwatchLogs-data
+      - $=yield TenXEnv.get("cloudwatchLogsMessageField")?"cloudwatchLogs-message":""
+
+    # 'backpressureTotalDuration' sets the maximum duration to keep input open
+    backpressureTotalDuration: $?cloudwatchLogsTotalDuration=5000
+
+    # 'backpressureTotalBytesLimit' sets the maximum total bytes to read from input before closing
+    backpressureTotalBytesLimit: $?cloudwatchLogsTotalBytesLimit=parseBytes("50MB")
+
+    # 'backpressureTotalEventsLimit' sets the maximum total events to read from input before closing  
+    backpressureTotalEventsLimit: $?cloudwatchLogsTotalEventsLimit=10000
+
+    # 'foreach' sets 'cloudwatchLogs' as the options group for whose instances
+    #  to create matching input streams. This value allows for defining multiple
+    #  CloudWatch log inputs using configuration files or command-line arguments
+    foreach: cloudwatchLogs

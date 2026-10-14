@@ -1,0 +1,108 @@
+#
+# 🔟❎ 'run' TenXTemplate timestamp parser unit
+
+unit:
+
+  name: timestamp
+
+  title: Timestamp parser
+
+  description: extract alphanumeric and epoch timestamp values from input events
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/transform/timestamp
+     
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/units/transform/timestamp/doc.md":""
+
+  # 'allowMultiple' is disabled for this unit. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+    
+# 'optionsGroup' defines a group of named/typed configuration values to pass to a pipeline at startup
+#  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+#  Instances of this group passed to the pipeline are accessible at runtime via the TenXEnv JavaScript class.
+  options:
+
+    - names: 
+      - timestampPatterns
+      description: date-time formats for parsing timestamps from input events
+      type: list
+      required: false
+      doc: |
+        lists date-time formats in [Java specification](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html)  
+        for parsing timestamp epoch values from input events. 
+      defValue: 
+        - "[config.yaml](https://github.com/log-10x/config/tree/main/pipelines/run/config/transform/timestamp/config.yaml)"
+      
+    - names: 
+      - timestampSearchDirection
+      description: controls the text direction(s) in which to search for timestamps
+      type: string
+      required: false
+      doc: |
+        controls the direction(s) to search for timestamps within an TenXObject's [text](https://doc.log10x.com/api/js/#TenXBaseObject+text) field. 
+        Possible values: 
+
+        - **fromStart**: search for [timestampMaxPerObject](https://doc.log10x.com/run/transform/timestamp/#timestampmaxperobject) from the start of [text]https://doc.log10x.com/api/js/#TenXBaseObject+text)
+        to restrict the search to [searchLengthLimitFromStart](https://doc.log10x.com/run/transform/timestamp/#timestampsearchlengthlimitfromstart) characters  
+
+        - **fromEnd**: search backward for [timestampMaxPerObject](https://doc.log10x.com/run/transform/timestamp/#timestampmaxperobject) from the end of [text](https://doc.log10x.com/api/js/#TenXBaseObject+text)
+        to limit the search to [searchLengthLimitFromEnd](https://doc.log10x.com/run/transform/timestamp/#timestampsearchlengthlimitfromend) characters  
+
+        - **fromStartAndEnd** search for [timestampMaxPerObject](https://doc.log10x.com/run/transform/timestamp/#timestampmaxperobject) from both the start and end of [text](https://doc.log10x.com/api/js/#TenXBaseObject+text)
+        to limit the search to [searchLengthLimitFromStart](https://doc.log10x.com/run/transform/timestamp/#timestampsearchlengthlimitfromstart) and  [searchLengthLimitFromEnd](https://doc.log10x.com/run/transform/timestamp/#timestampsearchlengthlimitfromend)
+        respectively  
+
+        - **none**: do not parse timestamps
+      defValue: fromStart
+
+    - names: 
+      - timestampMaxPerObject
+      description: maximum number of timestamps per TenXObject
+      type: number
+      required: false
+      doc: |
+        controls the maximum number of timestamps to add into an TenXObject's
+        [timestamp](https://doc.log10x.com/api/js/#TenXObject+timestamp) array. Set to 0 for unlimited.
+      defValue: 0
+      
+    - names: 
+      - timestampSearchLengthLimitFromStart
+      description: maximum number of characters to scan for timestamps from event start
+      type: number
+      required: false
+      doc: |
+        limits the number of characters to search for
+        timestamps from the beginning of the object's [text](https://doc.log10x.com/api/js/#TenXBaseObject+text)  field. Set 0 for unlimited.
+      defValue: 0
+   
+    - names: 
+      - timestampSearchLengthLimitFromEnd
+      description: max number of characters to scan for timestamps from event end
+      type: number
+      required: false
+      doc: |
+        limits the number of characters to search for
+        timestamps from the end of the object's [text](https://doc.log10x.com/api/js/#TenXBaseObject+text) field. Set 0 for unlimited.
+      defValue: 0
+
+    - names: 
+      - timestampZone
+      description: timezone to use when formatting timestamp Unix epoch values
+      type: string
+      required: false
+      doc: |
+        controls the timezone used when formatting timestamp epoch
+        string values. The [ZoneId.of](https://docs.oracle.com/javase/8/docs/api/java/time/ZoneId.html#of-java.lang.String-) 
+        obtains the timezone from the 'zone' value.
+      defValue: "[host OS timezone](https://docs.oracle.com/javase/8/docs/api/java/time/ZoneId.html#systemDefault--)"
+
+    - names: 
+      - timestampLiterals
+      description: timestamp literals
+      type: list
+      required: false
+      doc: |
+        an array of strings literal values to treat as valid parts of timestamp (e.g., 'Z', 'T', 'GMT').
+      defValue: [T, Z]

@@ -1,0 +1,203 @@
+# yaml-language-server: $schema=schema.json
+
+# 🔟❎ 'compile' Rust ANTLR symbol scanner configuration
+
+# The 'rust' configuration instructs the ANTLR scanner which symbol values (e.g. struct/fn names, code constants)
+# to extract from Rust source files.
+
+# Set the 10x pipeline to 'compile'
+tenx: compile
+
+# ============================== ANTLR Options ================================
+
+antlr:
+
+  # The 'antlrLang' module is defined in: https://doc.log10x.com/compile/scanner/antlr/langs
+  # These values define the ANTLR-generated parser class used to
+  # to tokenize and construct an AST for the target Rust file.
+
+  lang: rust
+
+  fileExt:
+    - .rs
+
+  # Names each impl block's scope by its type
+  parserClass: com.log10x.antlr.parsers.RustDecoratedParser
+
+  lexerClass: com.log10x.antlr.generated.rust.RustLexer
+
+  rootRule: crate2
+
+  reserved:
+    - fn
+    - impl
+    - for
+    - struct
+    - enum
+    - trait
+    - mod
+    - unsafe
+    - pub
+
+  maxLineLength: 4096
+
+  # 'lineFilters' specifies a list of regex patterns for skipping input lines 
+  lineFilters:
+    - ^\s*(//.*|/\*.*\*/)$
+
+  # The 'rule' list defines the nodes within a Rust AST tree that are captured
+  # and added to the output symbol unit.
+  # To learn more see: https://doc.log10x.com/compile/scanner/antlr/rules/
+  rule:
+    - name: module
+      lang: rust
+      context: package
+      recursive: false
+      capture: allSymbols
+      subRule: identifier
+
+    - name: function_
+      lang: rust
+      context: method_decl
+      recursive: false
+      capture: allSymbols
+      subRule: identifier
+
+    - name: structStruct
+      lang: rust
+      context: class
+      recursive: false
+      capture: allSymbols
+      subRule: identifier
+
+    - name: tupleStruct
+      lang: rust
+      context: class
+      recursive: false
+      capture: allSymbols
+      subRule: identifier
+
+    - name: trait_
+      lang: rust
+      context: class
+      recursive: false
+      capture: allSymbols
+      subRule: identifier
+
+    - name: inherentImpl
+      lang: rust
+      context: class
+      recursive: false
+      capture: allSymbols
+      subRule: type_
+
+    - name: traitImpl
+      lang: rust
+      context: class
+      recursive: false
+      capture: allSymbols
+      subRule: type_
+
+    - name: enumeration
+      lang: rust
+      context: class
+      recursive: false
+      capture: allSymbols
+      subRule: identifier
+
+    - name: enumItem
+      lang: rust
+      context: enum
+      recursive: false
+      capture: allSymbols
+      subRule: identifier
+
+    - name: constantItem
+      lang: rust
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+
+    - name: staticItem
+      lang: rust
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+
+    - name: letStatement
+      lang: rust
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+
+    - name: assignmentExpression
+      lang: rust
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+
+    - name: compoundAssignmentExpression
+      lang: rust
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+
+    - name: returnExpression
+      lang: rust
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+
+    # A block's tail expression is its return value
+    - name: statements
+      lang: rust
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+
+    # Attribute arguments: #[error("connection to {0} failed")] is the
+    # Display text of an error that gets logged, and 'error' is a log method
+    - name: attr
+      lang: rust
+      context: method_invoke
+      recursive: true
+      capture: literalsOnly
+
+    - name: expressionStatement
+      lang: rust
+      context: method_invoke
+      recursive: true
+      capture: literalsOnly
+
+    - name: callExpression
+      lang: rust
+      context: method_invoke
+      recursive: true
+      capture: literalsOnly
+
+    - name: methodCallExpression
+      lang: rust
+      context: method_invoke
+      recursive: true
+      capture: literalsOnly
+
+    - name: callParams
+      lang: rust
+      context: method_invoke
+      recursive: true
+      capture: literalsOnly
+
+    # A macro's name is matched against the log methods list; target: names the logger and is skipped
+    - name: macroInvocation
+      lang: rust
+      context: method_invoke
+      recursive: true
+      capture: literalsOnly
+      skipNamedArgs: ^target$
+
+    - name: macroInvocationSemi
+      lang: rust
+      context: method_invoke
+      recursive: true
+      capture: literalsOnly
+      skipNamedArgs: ^target$

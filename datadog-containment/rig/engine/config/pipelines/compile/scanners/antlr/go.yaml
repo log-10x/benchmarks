@@ -1,0 +1,94 @@
+# yaml-language-server: $schema=schema.json
+
+# 🔟❎ 'compile' Go ANTLR symbol scanner configuration
+
+# The 'go' configuration instructs the ANTLR scanner which symbol values (e.g. class/func names, code constants)
+# to extract from GO source files.  
+
+# Set the 10x pipeline to 'compile'
+tenx: compile
+
+# ============================== ANTLR Options ================================
+
+antlr:
+
+  # The 'antlrLang' module is defined in: https://doc.log10x.com/compile/scanner/antlr/langs
+  # These values define the ANTLR-generated parser class used to
+  # to tokenize and construct an AST for the target go file.
+  lang: go
+
+  fileExt:
+    - .go
+
+  parserClass: com.log10x.antlr.generated.golang.GoParser
+
+  lexerClass: com.log10x.antlr.generated.golang.GoLexer
+
+  rootRule: sourceFile
+
+  reserved:
+    - package
+    - func
+
+  # 'lineFilters' specifies a list of regex patterns for skipping input lines 
+  lineFilters:
+    - ^\s*(//.*|/\*.*\*/)$
+
+  # The 'rule' list defines the nodes within a go AST tree that are captured
+  # and added to the output symbol unit.
+  # To learn more see: https://doc.log10x.com/compile/scanner/antlr/rules/
+  rule:
+    - name: constSpec
+      lang: go
+      context: enum
+      recursive: false
+      capture: allSymbols
+      subRule: identifierList
+  
+    - name: returnStmt
+      lang: go
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+  
+    - name: assignment
+      lang: go
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+  
+    - name: expressionStmt
+      lang: go
+      context: method_invoke
+      recursive: true
+      capture: literalsOnly
+  
+    - name: packageClause
+      lang: go
+      context: package
+      recursive: false
+      capture: allSymbols
+  
+    - name: arguments
+      lang: go
+      context: method_invoke
+      recursive: true
+      capture: literalsOnly
+  
+    - name: typeSpec
+      lang: go
+      context: class
+      recursive: false
+      capture: allSymbols
+  
+    - name: functionDecl
+      lang: go
+      context: method_decl
+      recursive: false
+      capture: allSymbols
+
+    - name: methodDecl
+      lang: go
+      context: method_decl
+      recursive: false
+      capture: allSymbols

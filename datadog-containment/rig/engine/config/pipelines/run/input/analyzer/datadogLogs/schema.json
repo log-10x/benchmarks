@@ -1,0 +1,162 @@
+{
+  "type" : "object",
+  "properties" : {
+    "include" : {
+      "type" : "string"
+    },
+    "tenx" : {
+      "type" : "string"
+    },
+    "datadogLogs" : {
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "additionalProperties" : false,
+        "properties" : {
+          "name" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Logical name for this DatadogLogs input\n\nSets a logical name (e.g., 'myDatadogLogs') for this input. The [inputName](https://doc.log10x.com/api/js/#TenXBaseObject+inputName) field returns this value at run time to allow for identifying and operating on instances originating from this input."
+          },
+          "enabled" : {
+            "type" : [
+              "boolean",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Sets whether this input is enabled\n\nSets whether to open the input stream. To enable this input only when a 'datadogLogsHost' startup argument value is truthy, use: ``` yaml datadogLogsEnabled: $=TenXEnv.get(\"datadogLogsHost\") ``` To learn more see [TenXEnv.get](https://doc.log10x.com/api/js/#TenXEnv.get). (Accepts boolean or string with $= prefix for runtime evaluation) (Default: true)",
+            "default" : true
+          },
+          "printProgress" : {
+            "type" : [
+              "boolean",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Sets whether this input prints throughput stats to the console\n\nSets whether this input prints throughput stats to the console for testing an integration to a remote endpoint. (Accepts boolean or string with $= prefix for runtime evaluation) (Default: false)",
+            "default" : false
+          },
+          "totalDuration" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Sets maximum time to query the backend\n\nSets the maximum time the pipeline will continue to query the datadog api backend before exiting. For example, setting this to '1min' means that queries to the backend will stop after 1 minute has passed. (Default: 5min)",
+            "default" : "5min"
+          },
+          "extractors" : {
+            "type" : [
+              "array",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "List of extractors to apply on the events returning from the query\n\nSets list of extractor names which will work on the events returning from the query. For more info on extractors, see: https://doc.log10x.com/run/input/extract",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "host" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "DatadogLogs host address\n\nSets the Datadog site address to connect to (e.g., 'us5.datadoghq.com'). To learn more see [Datadog sites](https://docs.datadoghq.com/getting_started/site)"
+          },
+          "apiKey" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Datadog API key token\n\nSets the 'DD-API-KEY' API key authentication request header. To learn more see: [API keys](https://docs.datadoghq.com/account_management/api-app-keys/)."
+          },
+          "appKey" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Datadog app key\n\nSets the 'DD-APPLICATION-KEY' app key authentication request header. To learn more see: [API keys](https://docs.datadoghq.com/account_management/api-app-keys/)."
+          },
+          "query" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Query to pass to the Datadog 'api/v2/logs/events/search' REST endpoint\n\nSets the Datadog query used to request paginated documents from which to extract events to transform into TenXObjects. The [default query](https://github.com/log-10x/modules/blob/main/pipelines/run/modules/input/analyzer/datadogLogs/query.txt) retrieves paginated values sorted in desc order by @timestamp, starting from the value of 'now-15m'"
+          },
+          "indexes" : {
+            "type" : [
+              "array",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "List of indices to search in\n\nSets the lists of data indices to search in. To search all data streams and indices, omit this parameter or use * or _all.",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "querySize" : {
+            "type" : [
+              "number",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Number of documents to read per batch from the Datadog server\n\nSets the number of documents to retrieve with each page of results. (Accepts number or string with $= prefix for runtime evaluation) (Default: 500)",
+            "default" : 500
+          },
+          "searchFrom" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Timestamp from which to begin the search\n\nThis value sets the initial value used to request the first page of results. (Default: now() in nano.)",
+            "default" : "now() in nano."
+          },
+          "retryTimeout" : {
+            "type" : [
+              "number",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "A timeout period (in milliseconds) to wait for querying of new data\n\nUsed by [datadog-input.js](https://github.com/log-10x/modules/blob/main/pipelines/run/modules/input/analyzer/datadogLogs/datadog-input.js) to determine how long to wait until the next time the search endpoint API is invoked to query for new data. (Accepts number or string with $= prefix for runtime evaluation) (Default: 10000)",
+            "default" : 10000
+          },
+          "totalBytesLimit" : {
+            "type" : [
+              "number",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Maximum total bytes to read from input before closing\n\nSets the maximum number of bytes a target pipeline input will read into the pipeline. This value limits the volume of events to read from a local/remote source (e.g., log analyzer).   For example: ``` yaml datadogLogsTotalBytesLimit: $=parseBytes(\"1GB\") ``` (Accepts number or string with $= prefix for runtime evaluation)"
+          },
+          "totalEventsLimit" : {
+            "type" : [
+              "number",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Maximum total events to read from input before closing\n\nSets the maximum number of events a target pipeline input will read into the pipeline. This value limits the volume of events to read from a local/remote source (e.g., log analyzer). (Accepts number or string with $= prefix for runtime evaluation) (Default: 10000)",
+            "default" : 10000
+          },
+          "queryInterval" : {
+            "type" : [
+              "number",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Query interval (in milliseconds) for checking new data from remote source\n\nSets the interval between queries to the remote Datadog Logs API. This controls how frequently the input polls for new log data.  For example: ``` yaml datadogLogsQueryInterval: $=parseDuration(\"5s\") ``` (Accepts number or string with $= prefix for runtime evaluation) (Default: 2000)",
+            "default" : 2000
+          }
+        },
+        "required" : [
+          "name",
+          "host",
+          "apiKey",
+          "appKey"
+        ]
+      }
+    }
+  },
+  "additionalProperties" : true
+}

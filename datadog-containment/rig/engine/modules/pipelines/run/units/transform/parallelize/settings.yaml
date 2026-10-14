@@ -1,0 +1,29 @@
+#
+# 🔟❎ 'run' parallel processing settings
+
+#  The 10x 'run' pipeline can transform events into TenXObjects using multiple cores to increase throughput.
+
+# If parallel processing is in effect, the pipeline must use  'sequence' unit 
+# to sequence TenXObjects for writing to output in their original order.
+# This is done by default by the 'run' pipeline.
+
+# ------------------------------ ThreadPool Settings --------------------------
+
+# 'threadPoolSize' controls the number of threads for concurrently transforming events into TenXObjects.
+#  If the value is -
+#    - = 0: transform events into TenXObject using their input stream calling thread
+#    - < 1: interpreted as a percentage of the number of available cores (e.g., 0.5 = use up to 50% of available cores)
+#    - = 1: a single dedicated thread will transform events.
+#    - > 1: interpreted as a fixed number of threads (e.g., 10 = 10 threads)
+threadPoolSize: $=parseDouble(TenXEnv.get("parallelEventThreadPoolSize"), 0.5)
+
+# ----------------------------- Processing Settings ---------------------------
+
+# 'batchSize' maximum number of events to queue for concurrent processing before flushing 
+batchSize: $?parallelEventBatchSize=1000
+
+# 'flushInterval' sets a maximum wait duration before flushing queued events 
+flushInterval: $?parallelEventFlushInterval=2s
+
+# 'processingTimeout' sets a maximum wait duration before dropping un-processed queued events 
+processingTimeout: $?parallelEventProcessingTimeout=30s

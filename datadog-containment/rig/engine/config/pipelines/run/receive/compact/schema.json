@@ -1,0 +1,62 @@
+{
+  "type" : "object",
+  "properties" : {
+    "include" : {
+      "type" : "string"
+    },
+    "tenx" : {
+      "type" : "string"
+    },
+    "compactReceiver" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "lookup" : {
+          "type" : "object",
+          "additionalProperties" : false,
+          "properties" : {
+            "file" : {
+              "type" : [
+                "string",
+                "null"
+              ],
+              "markdownDescription" : "Path or URL to a per-pattern compact decisions cap-file\n\nPoints the engine at a cap-file whose entries decide whether each pattern's events are compacted via `encode()` or preserved as `fullText`. Patterns not listed fall back to `compactReceiverDefault`.  The lookup key is the event fields named by `compactReceiverFieldNames` joined with `_` (defaults to `[symbolMessage]`), matching the same pattern identity the Reporter attributes cost to.  **File format** (CSV; header row + one comma-separated entry per row):  ``` fieldSet,value <fieldSet>,<true|false>[:<untilEpochSec>][:<reason>] ```  - `fieldSet`, the event fields named by `compactReceiverFieldNames`   joined with `_`. With the default `[symbolMessage]` this is the   symbolMessage value for the pattern. - `value`, `true` (compact via `encode()`) or `false` (explicitly   preserve `fullText` for this pattern, beating the default). - `untilEpochSec`, optional Unix-epoch (seconds) expiry. Past it the   entry becomes a no-op and the pattern falls back to   `compactReceiverDefault`. - `reason`, optional free-text for audit. Must not contain commas   (would break CSV parsing).  **Example**:  ``` fieldSet,value payment_retry_gateway_timeout,true:1745856000:OPS-5123 spike auth_audit_trail,false:1745856000:compliance keep verbose ```  The file is hot-reloaded on in-place writes (the gitops pattern); a Kubernetes `ConfigMap` mount won't reload because the CM swap is a symlink rename, not an in-place write."
+            },
+            "retain" : {
+              "type" : [
+                "number",
+                "string",
+                "null"
+              ],
+              "markdownDescription" : "Retention period for the per-pattern cap-file before it is considered stale\n\nDefines the retention period (in milliseconds) for the cap-file (`compactReceiverLookupFile`). If the file's last modified time is older than this period, a warning is logged. The cap entries continue to apply; the staleness check is advisory so operators notice when an automated tooling pipeline has stopped updating the file.  **Validation**: must be greater than 60000ms (1 minute). (Accepts number or string with $= prefix for runtime evaluation) (Default: 300000)",
+              "default" : 300000
+            }
+          }
+        },
+        "fieldNames" : {
+          "type" : [
+            "array",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Event fields joined to form each event's cap-file lookup key\n\nDefines the list of TenXObject field names joined with `_` to form each event's lookup key into the cap-file. Matches the rate receiver's `rateReceiverFieldNames`, so a cap-file entry targets the same pattern identity the Reporter attributes cost to.  **Default**: `[symbolMessage]`, the symbolMessage field, which is the stable pattern identity produced by the engine's classifier.  Multi-dimensional compaction (e.g., compact a pattern only for a specific tenant):  ```yaml compactReceiverFieldNames:   - symbolMessage   - tenantId ```  Changing this field set requires an engine restart. (Default: [\"symbolMessage\"])",
+          "items" : {
+            "type" : "string"
+          },
+          "default" : [
+            "symbolMessage"
+          ]
+        },
+        "default" : {
+          "type" : [
+            "boolean",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Fallback compaction decision when no cap-file entry applies\n\nControls the fallback decision when no cap-file is loaded, no entry matches an event's pattern, or a matching entry has expired.  - `false` (default), preserve `fullText`. Cap-file entries opt   specific patterns INTO compaction. - `true`, compact via `encode()`. Cap-file entries opt specific   patterns OUT (e.g., audit/compliance patterns that must stay   verbose).  Flipping this value is a policy-level decision (affects every event), not a cap-file edit. Changing it requires a pod rollout. The cap-file handles per-pattern overrides without restart. (Accepts boolean or string with $= prefix for runtime evaluation)"
+        }
+      }
+    }
+  },
+  "additionalProperties" : true
+}

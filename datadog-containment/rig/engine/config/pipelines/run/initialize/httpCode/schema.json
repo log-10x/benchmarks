@@ -1,0 +1,84 @@
+{
+  "type" : "object",
+  "properties" : {
+    "include" : {
+      "type" : "string"
+    },
+    "tenx" : {
+      "type" : "string"
+    },
+    "httpCode" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "field" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "HTTP code target field name\n\nSpecify the field name to assign with the inferred HTTP code (Default: httpCode)",
+          "default" : "httpCode"
+        },
+        "precludersBefore" : {
+          "type" : [
+            "array",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Preceding characters for excluding HTTP code candidates\n\nArray of characters or patterns that, when appearing immediately before a candidate HTTP status code in tokenized logs, indicate it is not a valid HTTP code. Used to preclude false positives like negative numbers ('-200'), floats ('.200'), or variables ('_200'). Entries are single characters or short strings for O(1) lookup efficiency in the heuristic.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "precludersAfter" : {
+          "type" : [
+            "array",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Subsequent characters for excluding HTTP code candidates\n\nArray of characters or patterns that, when appearing immediately after a candidate HTTP status code in tokenized logs, indicate it is not a valid HTTP code. Used to preclude false positives like percentages ('200%'), floats ('200.'), or expressions ('200+'). Entries are single characters or short strings for O(1) lookup efficiency in the heuristic.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "validValues" : {
+          "type" : [
+            "array",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Standard HTTP status codes\n\nArray of all standard HTTP status codes as defined by the IANA HTTP Status Code Registry and relevant RFCs (e.g., RFC 9110, RFC 6585, RFC 7231-7235, RFC 7538, RFC 7725, RFC 8297, RFC 9111). This arrays validates potential HTTP status codes in log events, ensuring only recognized codes are extracted. Each entry includes the numeric code followed by a comment describing its meaning and purpose.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "keywords" : {
+          "type" : [
+            "array",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Array of keywords indicating HTTP-related context in log events\n\nThis list filters logs likely containing HTTP status codes, reducing false positives. Keywords cover HTTP methods, common log fields, and format-specific terms from sources like Apache, Nginx, HAProxy, Squid, IIS, Spring Boot.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "strictKeywords" : {
+          "type" : [
+            "array",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Array of strict HTTP markers that must appear near a candidate HTTP code token\n\nShort, high-signal subset of HTTP markers used as a structural guard during template initialization. After a candidate HTTP status variable token is found via [httpCodeValidValues](#httpcodevalidvalues), the template initializer requires that at least one of these strict markers appear within a small token window (±5 by default) around the candidate. Without this check, any numeric variable that happens to hold a value in 100..599 on its first observed event (e.g., a kafka config limit like `max.request.size = 200`, a JVM `-Dclk.tck=100`) gets wrongly bound as an HTTP code and subsequent events carry through arbitrary non-HTTP values at that position.  The strict list should contain only tokens that unambiguously mark an HTTP exchange: HTTP method verbs (`GET`, `POST`, ...), protocol versions (`HTTP/1.1`, `HTTP/2`), status-keyed JSON fields (`status`, `statusCode`, `http_status`, `upstream_status`), and framework-specific phrases that always precede a status code in real traffic (`Completed`, `DispatcherServlet`, `TCP_MISS`). It is intentionally much smaller than [httpCodeKeywords](#httpcodekeywords), which is used as a cheap pre-filter over the full template body and can include loose terms.",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "required" : [
+        "field"
+      ]
+    }
+  },
+  "additionalProperties" : true
+}

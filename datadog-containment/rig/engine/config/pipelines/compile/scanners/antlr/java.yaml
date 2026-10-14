@@ -1,0 +1,130 @@
+# yaml-language-server: $schema=schema.json
+
+# 🔟❎ 'compile' Java ANTLR symbol scanner configuration
+
+# The 'java' configuration instructs the ANTLR scanner which symbol values (e.g. class/func names, code constants)
+# to extract from Java source files.  
+
+# IMPORTANT: while set to enabled by default, the dedicated java scanner utilizes 
+# takes precedence over this scanner unless disabled.
+# To learn more see https://doc.log10x.com/compile/scanner/javaParser
+
+# Set the 10x pipeline to 'compile'
+tenx: compile
+
+# ============================== ANTLR Options ================================
+
+antlr:
+
+  # The 'antlrLang' module is defined in: https://doc.log10x.com/compile/scanner/antlr/langs
+  # These values define the ANTLR-generated parser class used to
+  # to tokenize and construct an AST for the target Java file.
+  
+  lang: java
+
+  fileExt:
+    - .java
+
+  parserClass: com.log10x.antlr.generated.java.Java9Parser
+
+  lexerClass: com.log10x.antlr.generated.java.Java9Lexer
+
+  rootRule: compilationUnit
+
+  reserved:
+    - package
+    - interface
+    - class
+    - enum
+
+  # 'lineFilters' specifies a list of regex patterns for skipping input lines 
+  lineFilters:
+    - ^\s*(//.*|/\*.*\*/)$
+
+  # The 'rule' list defines the nodes within a Java AST tree that are captured
+  # and added to the output symbol unit.
+  # To learn more see: https://doc.log10x.com/compile/scanner/antlr/rules/
+  rule:
+    - name: packageDeclaration
+      lang: java
+      context: package
+      recursive: false
+      capture: allSymbols
+  
+    - name: methodInvocation
+      lang: java
+      context: method_invoke
+      recursive: true
+      capture: literalsOnly
+  
+    - name: enumDeclaration
+      lang: java
+      context: class
+      recursive: false
+      capture: allSymbols
+  
+    - name: annotation
+      lang: java
+      context: annotation_invoke
+      recursive: true
+      capture: literalsOnly
+  
+    - name: normalClassDeclaration
+      lang: java
+      context: class
+      recursive: false
+      capture: allSymbols
+  
+    - name: variableInitializer
+      lang: java
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+  
+    - name: enumConstant
+      lang: java
+      context: enum
+      recursive: false
+      capture: allSymbols
+  
+    - name: returnStatement
+      lang: java
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+  
+    - name: methodDeclaration
+      lang: java
+      context: method_decl
+      recursive: false
+      capture: literalsOnly
+  
+    - name: argumentList
+      lang: java
+      context: method_invoke
+      recursive: true
+      capture: literalsOnly
+  
+    - name: methodInvocation_lfno_primary
+      lang: java
+      context: method_invoke
+      recursive: true
+      capture: literalsOnly
+  
+    - name: methodDeclarator
+      lang: java
+      context: method_decl
+      recursive: false
+      capture: allSymbols
+  
+    - name: methodInvocation_lf_primary
+      lang: java
+      context: method_invoke
+      recursive: true
+      capture: literalsOnly
+  
+    - name: normalInterfaceDeclaration
+      lang: java
+      context: class
+      recursive: false
+      capture: allSymbols

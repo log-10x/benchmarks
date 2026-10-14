@@ -1,0 +1,56 @@
+# 'run' AWS S3 Logs input stream configuration
+
+# The 's3Logs' options group defines an AWS S3 input from which
+# to read log events from a single S3 object to transform into TenXObjects.
+# The configuration below constructs a camel-backed input stream for each instance of
+# the 's3Logs' option group.
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# Adding a runtime attribute for metrics reporting
+runtimeAttributes:
+ - analyzer_input:s3Logs
+
+input:
+
+    # 'type' defines the type of input (e.g., stdin, file, stream).
+  - type: stream
+
+    # 'name' defines a logical name for this input.
+    # This value identifies TenXObjects instantiated from this input via their 'inputName' field
+    name: $s3LogsName
+
+    # 'enabled' controls whether to open this input
+    enabled: $?s3LogsEnabled=true
+
+    # 'path' defines the class name to instantiated for reading events
+    path: com.log10x.ext.cloud.camel.CamelContextInputStream
+
+    # 'args' are passed as arguments to the Camel InputStream constructor
+    args:
+      - name
+      - $?s3LogsName
+      - route
+      - +include run/modules/input/analyzer/s3Logs/route.yaml
+
+    # 'printProgress' controls whether to print throughput stats to the console
+    printProgress: $?s3LogsPrintProgress=false
+
+    # 'extractors' specify which extractors to apply to the input data
+    extractors:
+      - "$=yield TenXEnv.get(\"k8sExtractorName\") ? TenXEnv.get(\"k8sExtractorName\") : \"\""
+
+    # 'backpressureTotalDuration' sets the maximum duration to keep input open
+    backpressureTotalDuration: $?s3LogsTotalDuration=5000
+
+    # 'backpressureTotalBytesLimit' sets the maximum total bytes to read from input before closing
+    backpressureTotalBytesLimit: $?s3LogsTotalBytesLimit=parseBytes("50MB")
+
+    # 'backpressureTotalEventsLimit' sets the maximum total events to read from input before closing
+    backpressureTotalEventsLimit: $?s3LogsTotalEventsLimit=10000
+
+    # 'foreach' sets 's3Logs' as the options group for whose instances
+    # to create matching input streams. This value allows for defining multiple
+    # S3 Logs inputs using configuration files or command-line arguments
+    foreach: s3Logs

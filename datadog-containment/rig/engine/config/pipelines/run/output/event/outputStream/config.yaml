@@ -1,0 +1,90 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/output/event/outputStream/schema.json
+
+# 🔟❎ 'run' output stream configuration
+
+# Configure a Java OutputStream to write TenXObject field and templates values.
+# To learn more see https://doc.log10x.com/run/output/event/outputStream/
+
+# Set the 10x pipeline to 'run' 
+tenx: run
+
+# =============================== Dependencies ================================
+
+include: run/modules/output/event/outputStream
+
+# ============================ OutputStream Options ===========================
+
+# Multiple OutputStream file outputs can be defined below
+outputStream:
+
+  # ----------------------------- Object Output ------------------------------
+
+    # 'writeObjects' controls whether to write TenXObject field values to output.
+  - writeObjects: true # (REQUIRED)
+
+    # ------------------------- OutputStream Options -------------------------
+
+    # 'class' specifies the class derived from java.io.OutputStream
+    #  that is instantiated, written to and closed by the 10x host JVM
+    #  In this example, values are written to a Unix domain socket
+    class: com.log10x.ext.edge.output.unix.UnixSocketOutputStream
+
+    # 'args' provides an optional mechanism to pass an Object[] value
+    #  to the constructor of 'class' that contains implementation-specific
+    #  configuration values. In this example, we calculate and set the
+    #  file name used by the Unix domain socket to write which TenXObject instance/template values.
+    args:
+      - address
+      - '$=path("<user.home>/tenx.socket")' 
+
+    # 'groupKeys' provides an optional mechanism for grouping instances of
+    #  'class' according to a unique set of values. Grouping allows multiple
+    #  outputs such as this output and the template output below it to
+    #  share a single instance of 'class' which is effective when writing
+    #  to OutputStream, which holds a mutually exclusive resource. In this
+    #  example, outputs are grouped by the address of the client Unix domain socket.
+    groupKeys:
+      - '$=path("<user.home>/tenx.socket")' 
+
+    # --------------------------- Encoding Options ----------------------------
+
+    # 'filter' sets a JavaScript expression that TenXObjects must evaluate as truthy to write to the output.
+    #  To learn more see https://doc.log10x.com/run/output/receive/#filter-expressions
+    filter: isObject                          
+
+    # 'fields' defines the fields to write for each TenXObject sent to this output.
+    #  To learn more see https://doc.log10x.com/run/output/stream/#outputfields  
+    fields: 
+      - encode() 
+
+    # 'encodeType' specifies how 'fields' are encoded to output. Possible values: [json,delimited].
+    #  To learn more see https://doc.log10x.com/run/output/event/outputStream/#outputstreamencodetype
+    encodeType: delimited 
+
+    # 'encodeDelimiter' sets the char delimiter used to separate TenXObject
+    #  field values when 'encodeType' is set to: 'delimited'     
+    encodeDelimiter: ',' 
+
+
+  # ---------------------------- Template Output ----------------------------
+    
+    # 'writeTemplates' controls whether to write template values for TenXObjects passed to
+    #  to file. Only new templates are written. 
+  - writeTemplates: true
+
+    # ------------------------- OutputStream Options -------------------------
+
+    # The file output below writes the template values of TenXObjects 
+    # passed to this file location. To learn more about TenXTemplates, see:
+    # https://doc.log10x.com/run/template
+    
+    # For descriptions of 'class', 'args', and 'groupKeys', see the 
+    # object output stream above. 
+    class: com.log10x.ext.edge.output.unix.UnixSocketOutputStream
+
+    args:
+      - address
+      - '$=path("<user.home>/tenx.socket")' 
+
+    groupKeys:
+      - '$=path("<user.home>/tenx.socket")' 

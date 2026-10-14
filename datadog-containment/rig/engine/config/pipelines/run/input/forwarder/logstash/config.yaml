@@ -1,0 +1,61 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/input/forwarder/logstash/schema.json
+
+# 🔟❎ 'run' Logstash receiver configuration
+#
+# Every endpoint setting below reads an environment variable first and falls
+# back to the shipped default, so a deployment can move a port, a host or a
+# socket path without editing this file. The variable name is the launch
+# option name in upper snake case with a TENX_ prefix, for example the
+# `logstashInputPort` option reads TENX_LOGSTASH_INPUT_PORT.
+#
+# To learn more see https://doc.log10x.com/run/input/forwarder/logstash/
+
+tenx: run
+
+# =============================== Dependencies ================================
+
+include:
+  - run/input/forwarder/config.yaml
+  - run/modules/input/forwarder/logstash
+
+# ============================== Logstash Options =============================
+
+logstash:
+
+  # ----------------------------- Input Options -----------------------------
+
+  input:
+
+    # 'port' specifies the TCP port to listen on for events from Logstash's
+    #  `tcp` output with `codec => json_lines`.
+    #  Env var: TENX_LOGSTASH_INPUT_PORT
+    port: $=TenXEnv.get("TENX_LOGSTASH_INPUT_PORT", 5044)
+
+    # 'path' switches the input to a Unix domain socket instead of TCP.
+    #  When set, takes precedence over 'port'. Empty means TCP.
+    #  Env var: TENX_LOGSTASH_INPUT_PATH
+    path: $=TenXEnv.get("TENX_LOGSTASH_INPUT_PATH", "")
+
+    # 'messageField' is the name of the JSON field in each Logstash event
+    #  carrying the log line text.
+    messageField: message
+
+  # ----------------------------- Output Options ----------------------------
+
+  output:
+
+    # 'host' specifies the TCP host of Logstash's `tcp` input receiving
+    #  processed events from Log10x.
+    #  Env var: TENX_LOGSTASH_OUTPUT_HOST
+    host: $=TenXEnv.get("TENX_LOGSTASH_OUTPUT_HOST", "127.0.0.1")
+
+    # 'port' specifies the TCP port of Logstash's `tcp` input. MUST differ
+    #  from input.port or the two would collide on the same listener.
+    #  Env var: TENX_LOGSTASH_OUTPUT_PORT
+    port: $=TenXEnv.get("TENX_LOGSTASH_OUTPUT_PORT", 5045)
+
+    # 'encodeType' is the on-wire format for the socket record.
+    #  - 'delimited': each top-level field of the rendered record becomes its
+    #    own emitted field, preserves the original record's structure.
+    #  - 'json': the whole record is wrapped as one stringified field.
+    encodeType: delimited

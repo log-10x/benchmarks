@@ -1,0 +1,15 @@
+# 🔟❎ 'compile' pattern symbol scanner settings
+
+# 'patternScanners' defines the regex patten scanner the 10x 'compile' pipeline can use.
+patternScanners: 
+  - $?patterns
+  
+# 'logMethods' defines method names (e.g., 'error', 'warn') as 'logging'
+
+#  For example, a call to: 'logger.error("server fail", e);' in 'log.java' implies that the
+#  string constant passed to the method has a higher likelihood of appearing in a log file than
+#  if it were defined in the following source line: 'button.caption =  "server fail;" in 'gui.java'
+#  As such, when selecting the source origin for a log event containing the expression "server fail",
+#  'log.java' will be selected ahead of 'gui.java'. To learn more about template symbols, 
+#  see: https://doc.log10x.com/run/transform/symbol
+logMethods: +include compile/modules/scanner/logMethods/settings.yaml

@@ -1,0 +1,165 @@
+#
+# 🔟❎ 'run' file output module
+
+module:
+
+  name: fileOutput
+
+  title: File output
+
+  description: write TenXObject field/template values to a file
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/output/event/file
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: '+include $=TenXEnv.get("docGenerate") ? "run/modules/output/event/file/doc.md":""'
+
+  # 'allowMultiple' is enabled for this module. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+        - outputFilePath
+      description: location of the output file
+      type: file
+      required: true
+      category: file
+      doc: |
+        specifies a path on disk to write [TenXObject](https://doc.log10x.com/api/js/#TenXObject) instance and template field values.
+
+    - names:
+        - outputFileAppend
+      description: overwrite or append to file
+      type: boolean
+      required: false
+      category: file
+      doc: |
+        controls whether to overwrite the output file or append TenXObject instance/template field values to its end.
+
+    - names:
+        - outputFileHeader
+      description: header value to write to file
+      type: string
+      required: false
+      category: file
+      doc: |
+        specifies a header file to write to file in [outputFileAppend](https://doc.log10x.com/run/output/event/file/#outputfileappend) is false.
+
+    - names:
+        - outputFileCharset
+      description: charset used to encode text written to this file
+      type: string
+      required: false
+      category: file
+      doc: |
+        sets the charset used to encode characters written to this file.
+        Defaults to UTF-8.
+
+    - names:
+        - outputFileWriteObjects
+      description: if true, encode TenXObjects [outputFileFields](https://doc.log10x.com/run/output/event/file/#outputfilefields) to this output
+      type: string
+      required: false
+      category: encoding
+      doc: |
+        Determine whether to write [outputFileFields](https://doc.log10x.com/run/output/event/file/#outputfilefields) values of an TenXObject passed to this output.
+        This configuration is typically defined using a JavaScript expression.
+        To enable/disable the output depending on whether a launch argument, environment variable,
+        or JVM -D option evaluates as truthy, use:
+        ``` yaml
+          outputFileWriteObjects: $=TenXEnv.get("myFilePath")
+        ```
+        To learn more see: [TenXEnv.get](https://doc.log10x.com/api/js/#TenXEnv.get).
+
+      defValue: true
+
+    - names:
+        - outputFileFilter
+      description: a JavaScript expression an TenXObject must evaluate as 'truthy' against to be written to file
+      type: string
+      required: false
+      category: encoding
+      doc: |
+        Specifies a JavaScript expression that an TenXObject must evaluate as truthy to write its
+        instance/template field values to this output.
+        For example, 'outputFileFilter: this.timestamp' will only emit [timestamped](https://doc.log10x.com/api/js/#TenXBaseObject+timestamped) TenXObjects.
+
+    - names:
+        - outputFileFields
+      description: list of TenXObject field names to encode
+      type: list
+      required: false
+      category: encoding
+      doc: |
+        specifies a list of TenXObject intrinsic/calculated/extracted field names to extract and write to the output.
+
+    - names:
+        - outputFileEncodeType
+      description: the output format in which to encode TenXObject values. Possible values:[json, delimited]
+      type: string
+      defValue: delimited
+      category: encoding
+      required: false
+      doc: |
+        specifies how [outputFileFields](https://doc.log10x.com/run/output/event/file/#outputfilefields) are encoded to a stream/event to this output. Possible values:
+        - **json**: formats names and values for the current TenXObject as: {"field":"str","field2":1, "field3": true}
+        - **delimited**: formats values for the current TenXObject as: "str",1,true
+           The [outputFileEncodeDelimiter](https://doc.log10x.com/run/output/event/file/#outputfileencodedelimiter) argument determines the separator to use.
+
+    - names:
+        - outputFileEncodedLinePrefix
+      description: the line prefix prepended to the encoded event if 'outputFileEncodeType' is 'delimited'
+      type: string
+      required: false
+      category: encoding
+      doc: |
+        sets the char which is prepended to the emitted TenXObject field values when [outputFileEncodeType](https://doc.log10x.com/run/output/event/file/#outputfileencodetype) is `delimited`.
+      defValue: '~'
+
+    - names:
+        - outputFileEncodeDelimiter
+      description: the delimiter placed between key and values pairs if 'outputFileEncodeType' is 'delimited'
+      type: string
+      required: false
+      category: encoding
+      doc: |
+        sets the delimiter to separate TenXObject field values when [outputFileEncodeType](https://doc.log10x.com/run/output/event/file/#outputfileencodetype) is `delimited`.
+      defValue: ','
+
+    - names:
+        - outputFileEncodeGroupDelimiter
+      description: string delimiter to use when separating individual 10x events inside a group
+      type: string
+      required: false
+      category: encoding
+      doc: |
+        sets the string delimiter used to separate individual 10x events inside a group
+        when encoded to a stream/event output
+
+    - names:
+        - outputFileWriteTemplates
+      description: if true, write new TenXTemplates to this output
+      type: string
+      required: false
+      category: encoding
+      doc: |
+        controls whether to write template values of TenXObjects passed to this output.
+        The output will only emit TenXTemplates that the pipeline did not load at startup via the [templateFile](https://doc.log10x.com/run/template/#templatefiles) argument,
+        and will only emit an TenXTemplate once based on its [templateHash](https://doc.log10x.com/api/js/#TenXBaseObject+templateHash) value.
+      defValue: false
+
+    - names:
+        - outputFileLog4j2
+      description: if true, write using log4j2 appender
+      type: boolean
+      required: false
+      defValue: false
+      category: advanced
+      doc: |
+        controls whether to write to file using an [OutputStream](https://doc.log10x.com/api/output/#outputstream) or a [log4j2 appender](https://doc.log10x.com/api/output/#log4j2).

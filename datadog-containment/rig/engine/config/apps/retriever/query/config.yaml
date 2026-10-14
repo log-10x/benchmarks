@@ -1,0 +1,39 @@
+#
+# 🔟❎ Object storage query app config
+
+# Launch object storage queries. To learn more see https://doc.log10x.com/apps/retriever/#query
+
+# ============================ Bootstrap Runtime ==============================
+
+# Initialize the runtime. To learn more see https://doc.log10x.com/run/bootstrap
+
+tenx: run
+
+# Where the engine validates its licence (/api/v1/agent/whoami) and ships
+# its metrics (/api/v1/write). One endpoint drives BOTH: repointing it for
+# licensing also repoints metrics delivery. Unset or empty, the engine has
+# no address to call: metrics stay local and the licence verifies offline.
+backendEndpoint: $=TenXEnv.get("TENX_BACKEND_ENDPOINT", "")
+runtimeName: $=TenXEnv.get("TENX_RUNTIME_NAME", "myObjectStorageQuery")
+
+# ============================ Load App Modules ===============================
+
+include:
+
+# Uncomment includes and edit their config.yaml files 
+
+# ------------------------------ App settings ---------------------------------
+
+  # Load app settings:
+  - retriever/query
+
+  # Load gitops settings for pulling additional assets from Github.
+  # Edit the gitops/config.yaml file with specific config
+  #
+  # For additional info see - https://doc.log10x.com/config/github
+  - gitops
+
+# ----------------------------- Launch Queries --------------------------------
+
+  # Execute the stream queries configured in:
+  - run/input/objectStorage/query

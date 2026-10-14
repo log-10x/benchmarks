@@ -1,0 +1,63 @@
+#
+# 🔟❎ 'run' k8s Context module
+
+module:
+
+  name: k8sContext
+
+  title: k8s Context Extractor
+
+  description: enrich TenXObjects with k8s pod and container information
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/initialize/k8s
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: '+include $=TenXEnv.get("docGenerate") ? "run/modules/initialize/k8s/doc.md":""'
+
+  # 'allowMultiple' is disabled for this module. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - k8sExtractorName
+      description: name of extractor to use for k8s context extraction
+      type: string
+      required: false
+      doc: |
+        Defines the name of the [extractor](https://doc.log10x.com/run/input/extract/) to use for k8s context extraction.
+
+        To learn more see [k8s extractors](https://github.com/log-10x/modules/blob/main/pipelines/run/modules/initialize/k8s/settings.yaml)
+      defValue: fluentK8s
+
+    - names:
+      - k8sNamespaceNameField
+      description: K8s namespace target field name
+      type: string
+      required: false
+      doc: |
+        specify the field name to assign with the extracted k8s [namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
+      defValue: namespace
+
+    - names:
+      - k8sContainerNameField
+      description: K8s container name target field name
+      type: string
+      required: false
+      doc: |
+        specify the field name to assign with the extracted k8s [container name](https://kubernetes.io/docs/concepts/containers/)
+      defValue: container
+
+    - names:
+      - k8sPodNameField
+      description: K8s pod name target field name
+      type: string
+      required: false
+      doc: |
+        specify the field name to assign with the extracted k8s [pod name](https://kubernetes.io/docs/concepts/workloads/pods/)
+      defValue: pod

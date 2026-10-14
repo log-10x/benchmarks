@@ -1,0 +1,81 @@
+#
+# 🔟❎ Artifactory scanner
+
+module:
+
+  name: artifactory
+
+  title: Artifactory repository
+
+  description: pull files from Artifactory repositories to scan for symbol content
+    
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "compile/modules/pull/artifactory/doc.md":""
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: compile/pull/artifactory
+
+  # 'allowMultiple' is enabled for this unit. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+        - artifactoryInstance
+      description: Artifactory repository URL
+      type: string
+      required: true
+      doc: | 
+        URL for the remote Artifactory instance (e.g., https://myusername.jfrog.io/artifactory)
+
+    - names:
+        - artifactoryToken
+      description: Artifactory instance access token
+      type: string
+      required: true
+      doc: |
+        Artifactory [access token](https://jfrog.com/help/r/jfrog-platform-administration-documentation/access-tokens) for this remote instance. 
+
+        This value should be set via an [environment variable](https://doc.log10x.com/api/js/#TenXEnv.get):
+
+        ``` yaml
+        artifactoryToken: $=TenXEnv.get("ARTIFACTORY_TOKEN")
+        ```
+
+    - names:
+        - artifactoryRepo
+      description: Artifactory repository name
+      type: string
+      required: true
+      doc: | 
+        Name of the [repository](https://jfrog.com/help/r/jfrog-artifactory-documentation/repository-management) within the
+        target Artifactory instance from which to pull the specified file.
+
+    - names:
+        - artifactoryFiles
+      description: remote repository file paths
+      type: list
+      required: false
+      doc: |
+        Paths of files within the target Artifactory instance repository to pull 
+
+    - names:
+        - artifactoryFolders
+      description: remote repository folder paths
+      type: list
+      required: false
+      doc: |
+        Paths of folders within the target Artifactory instance repository to pull 
+
+    - names:
+        - artifactoryRecursive
+      description: pull files from remote repository folders recursively
+      type: boolean
+      required: false
+      defValue: false
+      doc: |
+        Specifies whether to pull files from [artifactoryFolders](https://doc.log10x.com/compile/pull/artifactory/#artifactoryfolders) recursively (i.e., pull sub-folders as well).

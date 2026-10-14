@@ -1,0 +1,80 @@
+#
+# 🔟❎ 'run' JavaScript TenXTemplate initializer unit
+
+unit:
+
+  name: functionActions
+
+  title: Function JavaScript
+
+  description: define custom JavaScript functions
+ 
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/units/transform/script/function/doc.md":""
+              
+  # 'allowMultiple' is enabled for this unit. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+
+  # 'optionsGroup' defines a group of named/typed configuration values to pass to a pipeline at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed to the pipeline are accessible at runtime via the TenXEnv JavaScript class.
+  options:
+
+    - names:
+      - functionFuncName
+      description: JavaScript function name
+      type: string
+      required: true
+      doc: |
+        JavaScript statements for initializing target input(s) TenxTemplates.
+
+        **NOTE**: This argument is not designed to be set directly, but instead by passing a [.js launch file](https://doc.log10x.com/config/javascript/) containing 
+        these statements nested within an [TenXObject](https://doc.log10x.com/api/js/#TenXObject) sub-class constructor as command line argument as described above.
+
+    - names:
+      - functionClassName
+      description: JavaScript class name
+      type: string
+      required: true
+      doc: |
+        JavaScript statements for initializing target input(s) TenxTemplates.
+
+        **NOTE**: This argument is not designed to be set directly, but instead by passing a [.js launch file](https://doc.log10x.com/config/javascript/) containing 
+        these statements nested within an [TenXObject](https://doc.log10x.com/api/js/#TenXObject) sub-class constructor as command line argument as described above.
+
+    - names:
+      - functionType
+      description: specify the type of function
+      type: string
+      required: true
+      doc: |
+        | Context   | Description                                                                 | Execution Timing                          | Purpose                                                                 | Example Use Case |
+        |-----------|-----------------------------------------------------------------------------|-------------------------------------------|-------------------------------------------------------------------------|------------------|
+        | Instance | Refers to custom subclasses of `TenXObject` or similar instance-level classes, where code operates on individual data instances (e.g., events or objects). | Executed for each instance created during pipeline processing (high-volume, per-event). | To enrich, filter, or transform specific data instances at runtime, with access to instance properties via `this`. | In a log processing pipeline, extend `TenXObject` to add a custom field like `this.enrichedLevel = TenXString.toUpperCase(this.level)`. |
+        | Static   | Static methods or getters in subclasses (e.g., `static shouldLoad()`), which are class-level and don't require an instance. | Called early, before instantiation (e.g., during loading or decision-making phases). | For configuration checks, conditional loading, or class-level utilities without per-instance overhead. | Use `static shouldLoad(config)` to decide if a subclass should be applied based on env vars, like `return !config.quiet`. |
+        | Summary  | Custom subclasses of `TenXSummary`, which aggregate values across multiple instances. | Executed after aggregation phases (e.g., at intervals or after a batch of events). | To compute and access summaries like averages, counts, or metrics from grouped data. | Extend `TenXSummary` to calculate custom metrics, e.g., `this.avgResponseTime = this.sumResponseTime / this.count`. |
+        | Template | Custom subclasses of `TenXTemplate`, defining schemas or structures for other objects. | Executed during initialization or when templates are loaded/created. | To customize the structure/schema of data objects, often for validation or formatting. | Extend `TenXTemplate` to define a custom log format, e.g., adding fields like `timestamp` and `level`. |
+        | Input    | Custom subclasses of `TenXInput`, handling data ingestion. | Executed once per pipeline run, during input setup (low-cardinality). | To customize how data is read or ingested, with access to input-specific config. | Extend `TenXInput` to read from a custom source, e.g., `if (this.inputPath) { this.loadFile(this.inputPath); }`. |
+        | Output   | Custom subclasses of `TenXOutput`, managing data output. | Executed once per pipeline run, during output setup (low-cardinality). | To customize data writing, formatting, or transmission, with access to output config. | Extend `TenXOutput` to log to a file, e.g., `TenXConsole.log("Writing to: " + this.outputFilePath)`. |
+        | Unit     | Custom subclasses of `TenXUnit`, representing pipeline components or steps. | Executed during pipeline initialization or per-unit setup (low to medium cardinality). | To initialize or customize pipeline units like loaders or processors. | Extend `TenXUnit` to load configs, e.g., `if (this.unitName === "loadConfig") { TenXConsole.log("Launching..."); }`. |
+    
+    - names:
+      - functionActions
+      description: function statements
+      type: list
+      required: true
+      doc: |
+        JavaScript function statements.
+
+        **NOTE**: This argument is not designed to be set directly, but instead by passing a [.js launch file](https://doc.log10x.com/config/javascript/) containing 
+        these statements nested within an [TenXObject](https://doc.log10x.com/api/js/#TenXObject) sub-class constructor as command line argument as described above.
+
+    - names:
+      - functionFile
+      description: Declaring .js file
+      type: string
+      required: false
+      doc: |
+        Specifies the .js file name declaring [functionActions](https://doc.log10x.com/run/transform/script/function/#functionactions).
+                

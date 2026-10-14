@@ -1,0 +1,33 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/transform/fields/schema.json
+
+# 🔟❎ 'run' TenXTemplate field extract configuration
+
+# Configure how to extract JSON objects and KV structures from TenXTemplates.
+# To learn more see https://doc.log10x.com/run/transform/fields/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Extract Options =============================
+
+field:
+
+  # 'extract' controls whether to scan TenXTemplate for  JSON
+  #  objects or key-value lists (e.g., 'X=Y'). 
+  extract: true
+
+  # 'nameBreaks' controls which characters found to the left of a token
+  #  whose is a candidate for being a 'key' in a KV field formation should serve 
+  #  as a terminator for the search. For example, for an object whose 'text' field
+  #  contains the following entry ',tx_result=OK' the desired key name should be 'tx_result'
+  #  and as such, the name terminator character should be ',' vs. '_' (in which case
+  #  the key would have been named 'result').
+  nameBreaks: ', /\{}.()[]'
+
+  # 'valueBreaks' controls which characters found to the right of a token
+  #  whose is a candidate for being a 'value' in a KV field formation should serve 
+  #  as a terminator for the search. For example, for an object whose 'text' field
+  #  contains the following entry: 'status=RESULT_SUCCESS' the desired KV value 
+  #  should be 'RESULT_SUCCESS', and as such, the value terminator character 
+  #  should be ',' vs. '_' (in which case the value would be 'RESULT').
+  valueBreaks: ', /\{}()[]'

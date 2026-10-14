@@ -1,0 +1,93 @@
+#
+# 🔟❎ 'run' units
+
+# Unit files define option groups that can be passed 0-N times to configure a pipeline 
+# instance via command line arguments and configuration files.
+    
+# ------------------------------- Config Options ------------------------------
+  
+# config file change listener
+- +include units/reload/unit.yaml
+  
+# symbol file locations used to transform semi/unstructured events into well-defined TenXObjects
+- +include units/symbol/unit.yaml
+
+# template file locations used to expand compacted/indexed TenXObjects
+- +include units/template/unit.yaml
+
+# ------------------------------ Input Options --------------------------------
+
+# General input options
+- +include units/input/unit.yaml
+
+# Disk/network locations from which to read events into the pipeline
+- +include units/input/stream/unit.yaml
+
+# Select  input text segments to transform into TenXObjects
+- +include units/input/extract/unit.yaml
+
+# Process events using multiple cores
+- +include units/transform/parallelize/unit.yaml
+
+# ----------------------------- Transform Options -----------------------------
+
+# Tokenize input text
+- +include units/transform/structure/unit.yaml
+
+# Parse JSON/KV fields
+- +include units/transform/fields/unit.yaml
+
+# Parse input text timestamps into Unix epochs
+- +include units/transform/timestamp/unit.yaml
+
+# Process JavaScript to initialize pipeline units
+- +include units/transform/script/object/unit.yaml
+
+# Process JavaScript to initialize TenXObject instances
+- +include units/transform/script/unit/unit.yaml
+
+# Process JavaScript to shut down pipeline units
+- +include units/transform/script/unitShutdown/unit.yaml
+
+# Process JavaScript to initialize TenXOutputs
+- +include units/transform/script/output/unit.yaml
+
+# Process JavaScript to initialize TenXInputs
+- +include units/transform/script/input/unit.yaml
+
+# Process JavaScript to enrich TenXSummary instances
+- +include units/transform/script/summary/unit.yaml
+
+# Process JavaScript to enrich TenXTemplate instances
+- +include units/transform/script/template/unit.yaml
+
+# Execute custom JavaScript function
+- +include units/transform/script/function/unit.yaml
+
+# Select TenXTemplate symbols origin
+- +include units/transform/symbol/unit.yaml
+
+# Group TenXObjects composed of multiple events (e.g., stack traces)  
+- +include units/transform/group/unit.yaml
+
+# ------------------------------ Aggregator Options ---------------------------
+
+# Group and summarize TenXObjects
+- +include units/aggregate/unit.yaml
+
+# -------------------------------- Output Options -----------------------------
+
+# Filter TenXObjects encoded to outputs
+- +include units/output/receive/unit.yaml
+   
+# Define forwarder (e.g., Fluentd, Filebeat), event (e.g., Elastic, Splunk), KV index (e.g., AWS S3)
+# and time series (e.g., Prometheus) output destinations
+- +include units/output/stream/unit.yaml
+
+# ------------------------------- Monitor Options -----------------------------
+
+# Report pipeline health metrics to log and time-series output
+- +include shared/units/monitor/unit.yaml
+
+# Report pipeline IO throughput to the console
+- +include run/units/console/unit.yaml

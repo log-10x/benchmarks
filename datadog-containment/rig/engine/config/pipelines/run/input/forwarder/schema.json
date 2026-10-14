@@ -1,0 +1,59 @@
+{
+  "type" : "object",
+  "properties" : {
+    "include" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "tenx" : {
+      "type" : "string"
+    },
+    "output" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "encodeField" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "The single field expression each forwarder's output stream writes per event\n\nDerived by the customer-facing config.yaml from `compact_emitted` (and from the legacy per-pattern `compactReceiverLookupFile` lookup when set):  - **compact_emitted=false** (default): `fullText`, every event passes through full text - **compact_emitted=true**: `encoded=encode()`, every emitted event compacted losslessly - **compact-lookup (legacy)**: `encoded=shouldEncode() ? encode() : fullText`,   per-pattern decision via the compactReceiver module (requires   `compactReceiverLookupFile`)  Advanced users can override directly to customize the output field expression. (Default: fullText)",
+          "default" : "fullText"
+        },
+        "writeTemplates" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Whether the forwarder emits new TenXTemplates alongside encoded events\n\nTrue for encoding modes (compact-all, compact-lookup) so decoders can reconstruct events from templateHash + vars. False for receive mode (no encoding → no templates needed). (Default: false)",
+          "default" : "false"
+        },
+        "dropFilter" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "The filter expression each output stream uses to decide whether a marked object is written\n\nResolved once by the customer-facing config.yaml from `emit_dropped`, so the emit/hard-drop logic lives in one place instead of being duplicated per stream:  - **hard-drop** (default): `isObject && !isRoute(\"drop\")`, dropped objects not written - **emit** (`emit_dropped` truthy): `isObject`, everything written; routing   decision moves downstream to the forwarder based on the wire-level   `routeState` field.  Each output stream references it via `$?outputDropFilter`. Named outputDropFilter rather than outputFilter, which is a built-in per-stream engine option. (Default: isObject && !isRoute(\"drop\"))",
+          "default" : "isObject && !isRoute(\"drop\")"
+        }
+      }
+    },
+    "emit" : {
+      "type" : [
+        "string",
+        "null"
+      ],
+      "markdownDescription" : "Whether regulator-marked (`routeState=\"drop\"`) events survive the output filter\n\nSingle boolean controlling whether the regulator-dropped slice reaches the forwarder. Orthogonal to `compact_emitted`.  - **unset (default) = hard-drop**: outputDropFilter resolves to   `isObject && !isRoute(\"drop\")`, dropped events never leave the engine. - **truthy = emit**: outputDropFilter resolves to `isObject`, all events   flow. The downstream forwarder routes by the wire-level `routeState`   record field.  Use truthiness (engine string `==` is identity compare): set a non-empty value (e.g. `true`) to emit dropped events, leave unset to hard-drop."
+    },
+    "compact" : {
+      "type" : [
+        "string",
+        "null"
+      ],
+      "markdownDescription" : "Whether all emitted events are written as `encode()` bytes or as `fullText`\n\nSingle boolean controlling whether ALL emitted events are compacted on the wire. Orthogonal to `emit_dropped`. Applies uniformly: when set, both kept and dropped events (if `emit_dropped`) emit as `encode()`; when unset, both emit as `fullText`.  - **unset (default) = fullText**: outputEncodeField resolves to `fullText` - **truthy = compact**: outputEncodeField resolves to `encoded=encode()`  Use truthiness (engine string `==` is identity compare): set a non-empty value (e.g. `true`) for compact, leave unset for fullText.  Per-pattern compact-lookup mode (via `compactReceiverLookupFile`) still overrides this when the lookup file is configured."
+    }
+  },
+  "additionalProperties" : true
+}

@@ -1,0 +1,67 @@
+#
+# 🔟❎ GitHub pull scanner
+
+module:
+
+  name: github
+
+  title: GitHub repository
+
+  description: pull folders from GitHub repositories to scan for symbol content
+      
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: compile/pull/github
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "compile/modules/pull/github/doc.md":""
+
+  # 'allowMultiple' is enabled for this unit. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+  
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - githubPullRepos
+      description: names of repo(s) to pull
+      type: list
+      required: false
+      doc: |
+        identifies GitHub repositories to pull in the form of username/owner (e.g., opensearch-project/OpenSearch)
+
+    - names:
+      - githubPullToken
+      description: GitHub API access token
+      type: string
+      required: true
+      doc: |
+        defines an access token for accessing Github repos. 
+        To learn more see [GitHub tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens).
+         
+        This value should be set via an [environment variable](https://doc.log10x.com/api/js/#TenXEnv.get):
+
+        ``` yaml
+        githubPullToken: $=TenXEnv.get("GH_TOKEN")
+        ```
+
+    - names:
+      - githubPullBranch
+      description: target branch
+      type: string
+      required: false
+      doc: |
+        Specifies the branch to use when pulling from [githubPullRepos](https://doc.log10x.com/compile/pull/github/#githubpullrepos). 
+        If omitted, use the repository's default branch.    
+
+    - names:
+      - githubPullFolders
+      description: repo folders to pull
+      type: list
+      required: false
+      doc: |
+        identifies folder(s) within [githubPullRepos](https://doc.log10x.com/compile/pull/github/#githubpullrepos) to pull.
+        if omitted, the entire repo is pulled.
+  

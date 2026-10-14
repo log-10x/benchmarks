@@ -1,0 +1,53 @@
+# 🔟❎ 'run' GitHub output settings
+
+# The 'githubOutput' module configures an output stream that
+# to commits TenXObject template/instance field values to a GitHub file
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Dependencies ================================
+
+include: run/modules/output/event/github/module.yaml
+
+# ============================= Output Options ================================
+
+output:
+
+    # 'type' defines the output type (e.g., stdout, log4j, micrometer).
+    #  This output utilizes a custom OutputStream to spawn and write into a GitHub repo branch.
+  - type: stream
+
+    enabled: $?githubOutputEnabled=true
+
+    # 'name' assigns a logical name to this output instance
+    name: $githubOutputRepo
+
+    # 'path' defines a class to instantiate and write [TenXObject](https://doc.log10x.com/api/js/#TenXObject) instance and template field values.
+    path: com.log10x.ext.cloud.github.GitHubOutputStream
+
+    # 'filter' is set to skip templates when encoding object field values.
+    #  A separate output stream is defined below to encode templates
+    filter: $?githubOutputFilter=isObject
+
+    # 'foreach' sets 'githubOutput' as the options group for whose instances
+    #  to create matching output streams to allow multiple GitHub stream outputs.
+    foreach: githubOutput
+
+    # 'group' sets the output stream as a key to group GitHub outputs sharing command and argument values.
+    group:
+      - $githubOutputToken
+      - $githubOutputRepo
+      - $?githubOutputBranch
+      - $githubOutputPath
+
+    # 'encodedLinePrefix', 'encodeType' and 'encodeDelimiter' control how TenXObject field values are
+    #  written to output. To learn more https://doc.log10x.com/run/output/event/github/#githubOutputencodetype
+    encodedLinePrefix: $?githubOutputEncodedLinePrefix=""
+    encodeType: $?githubOutputEncodeType=delimited
+    encodeDelimiter: $?githubOutputEncodeDelimiter=" "
+
+    # 'fields' defines the intrinsic/extracted/calculated field values
+    #  to write to for each TenXObject passed to this output.
+    fields:
+      - $?githubOutputFields

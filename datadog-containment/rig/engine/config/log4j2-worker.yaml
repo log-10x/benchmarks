@@ -1,0 +1,52 @@
+Configuration:
+  status: OFF
+  name: tenxSubProcessConfig
+  properties:
+    property:
+      - name: log4j2.status
+        value: OFF
+  appenders:
+    Console:
+      - name: tenx_log_out
+        target: SYSTEM_OUT
+        ThresholdFilter:
+          level: INFO
+          onMatch: ACCEPT
+          onMismatch: DENY
+        PatternLayout:
+          pattern: '[%level] %m%n'
+      - name: tenx_log_err
+        target: SYSTEM_ERR
+        ThresholdFilter:
+          level: WARN
+          onMatch: ACCEPT
+          onMismatch: DENY
+        PatternLayout:
+          pattern: '[%level] %m|%throwable{separator(|)}%n'
+  Loggers:
+    Root:
+      level: info
+      AppenderRef:
+        - ref: tenx_log_out
+        - ref: tenx_log_err
+    Logger:
+      - name: com.fasterxml
+        level: warn
+        additivity: false
+        AppenderRef:
+          - ref: tenx_log_err
+      - name: org.yaml.snakeyaml
+        level: warn
+        additivity: false
+        AppenderRef:
+          - ref: tenx_log_err
+      - name: com.log10x
+        level: info
+        additivity: false
+        AppenderRef:
+          - ref: tenx_log_err
+      - name: org.apache.logging.log4j
+        level: OFF
+        additivity: false
+        AppenderRef:
+          - ref: tenx_log_err

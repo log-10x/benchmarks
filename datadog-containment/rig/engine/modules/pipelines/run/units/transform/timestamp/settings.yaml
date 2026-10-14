@@ -1,0 +1,144 @@
+#
+# 🔟❎ 'run' timestamp settings
+
+# when a 'structure' pipeline unit transforms a text event into
+# an TenXObject, it searches the object for potential timestamps that
+# can be converted into 64bit epoch values.
+
+# For example, for the following event:
+# '15/09/01 18:14:50 INFO spark.SecurityManager: Changing view acls to: yarn,yxsu1'
+#
+# The first 17 characters will extracted into a 64bit epoch timestamp (1000577690)
+# that is added to the TenXObject's 'timestamp' array.
+
+# The date-time format of any timestamps found (e.g., 'DD/MM/YY HH:MM:SS')
+# is encoded into the object's TenXTemplate. Subsequent objects
+# associated with that template can skip the timestamp discovery process,
+# making the process of extracting timestamps highly efficient.
+
+# To learn more about timestamp extraction Templates, see:
+# https://doc.log10x.com/run/transform/timestamp
+
+# ---------------------------- Timestamp Settings  ----------------------------
+
+# 'maxPerObject' controls the max number of timestamps to add into an TenXObject's
+# 'timestamp' array. Set to 0 for unlimited.
+maxPerObject: $?timestampMaxPerObject=0
+
+# 'searchDirection' controls the direction(s) from with timestamps are searched for
+#  within the object's 'text' field. Possible values:
+
+#    - 'fromStart': search for 'maxPerObject' from the start of 'text',
+#       limiting search to 'searchLengthLimitFromStart' characters
+
+#    - 'fromEnd': search backward for 'maxPerObject' from the end of 'text',
+#       limiting search to 'searchLengthLimitFromEnd' characters
+
+#    - 'fromStartAndEnd' search for 'maxPerObject' from both the start and end of 'text'
+#       limiting search to 'searchLengthLimitFromStart' and 'searchLengthLimitFromEnd'
+#       respectively
+
+#    - 'none': do not parse timestamps
+
+searchDirection: $?timestampSearchDirection=fromStartAndEnd
+
+# 'searchLengthLimitFromStart' limits the number of characters to search for
+#  timestamps from the beginning of the object's 'text' field. 0 for unlimited
+searchLengthLimitFromStart: $?timestampSearchLengthLimitFromStart=0
+
+# 'searchLengthLimitFromStart' limits the number of characters to search for
+#  timestamps from the end of the object's 'text' field. 0 for unlimited
+searchLengthLimitFromEnd: $?timestampSearchLengthLimitFromEnd=0
+
+# 'zone' controls the timezone for formatting timestamp epoch
+#  values to string. The 'java.time.ZoneId.of(String zoneId)' method
+#  obtains the timezone from the 'zone' value.
+#  If set to null, the host OS timezone is used.
+zone: $?timestampZone
+
+# 'literals' specifies an array of strings literal values to treat as valid parts of timestamp (e.g., 'Z', 'T', 'GMT').
+literals:
+  - |
+    $?timestampLiterals=
+    - T
+    - Z
+
+# The initial timestamp discovery process for each TenXTemplate is performed
+# by applying the following timestamp formats to matching token sequence
+# candidates within an TenXObject's 'text' field. 
+
+# If a known timestamp format is frequent within an input stream,
+# it can be 'bumped' higher within the list below to have it attempted earlier
+# in the process. The 'java.time.format.DateTimeFormatter.parse()' is used
+# to apply the patterns below to a timestamp sequence candidate.
+
+formats:
+  - |
+    $?timestampPatterns=
+    - MM/dd/yyyy HH:mm:ss.S
+    - "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"
+    - "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'"
+    - yyyy-MM-dd'T'HH:mm:ssZZZZ
+    - yyyy-MM-dd HH:mm:ss.SSSZZZZ
+    - yyyy-MM-dd HH:mm:ss.SSSSSS
+    - MM/dd/yyyy*HH:mm:ss*SSS 
+    - M/d/yyyy h:mm:ss a:SSS
+    - M/dd/yyyy hh:mm:ss a
+    - yyyy-MM-dd'T'HH:mm:ss.SSSX
+    - yyyy-MM-dd'T'HH:mm:ss.SSSz
+    - yyyy-MM-dd HH:mm:ss,SSS
+    - yyyy-MM-dd'T'HH:mm:ss.SSSX
+    - EEE MMM dd HH:mm:ss
+    - MMM dd yyyy
+    - MMM dd yyyy HH:mm:ss.SSS zzz
+    - dd-MM HH:mm:ss
+    - HH:mm:ss
+    - MMM  d HH:mm:ss
+    - dd-MM HH:mm:ss
+    - "yyyy-MM-dd'T'HH:mm:ss'Z'"
+    - yy/MM/dd HH:mm:ss
+    - MMM dd HH:mm:ss ZZZZ
+    - HH:mm:ss,SSS
+    - yyyy-MM-dd*HH:mm:ss
+    - yyyy MMM dd HH:mm:ss.SSS
+    - MMM dd HH:mm:ss
+    - dd/MMM/yyyy HH:mm:ss
+    - yyyy-MM-dd'T'HH:mm:ss
+    - yy/MM/dd HH:mm:ss
+    - MM/dd/yyyy hh:mm:ss a:SSS
+    - yyyy-MM-dd HH:mm:ss,SSSZZZZ
+    - MMM dd HH:mm:ss ZZZZ yyyy
+    - yyyy-MM-dd'T'HH:mm:ss.SSS''Z''
+    - MMM dd yyyy HH:mm:ss
+    - yyyy-MM-dd HH:mm:ss ZZZZ
+    - yyyy-MM-dd HH:mm:ssZZZZ
+    - MM/dd/yy*HH:mm:ss
+    - dd MMM yyyy HH:mm:ss
+    - yy-MM-dd HH:mm:ss
+    - yyyy-MM-dd*HH:mm:ss:SSS
+    - MMdd_HH:mm:ss
+    - dd-MMM-yyyy HH:mm:ss.SSS
+    - HH:mm:ss.SSS
+    - yyyy MMM dd HH:mm:ss.SSS zzzZ
+    - MM/dd/yyyy*HH:mm:ss
+    - MMM dd, yyyy hh:mm:ss a
+    - MM/dd/yy HH:mm:ss ZZZZ
+    - MM/dd/yyyy hh:mm:ss a
+    - yyyy-MM-dd'T'HH:mm:ss*SSSZZZZ
+    - yyyy-MM-dd'T'HH:mm:ss.SSS
+    - dd-MMM-yyyy HH:mm:ss
+    - yy-MM-dd HH:mm:ss,SSS
+    - yyMMdd HH:mm:ss
+    - dd MMM yyyy HH:mm:ss*SSS
+    - yyyy/MM/dd*HH:mm:ss
+    - yyyy-MM-dd HH:mm:ss.SSS
+    - dd/MMM HH:mm:ss,SSS
+    - MM/dd/yyyy HH:mm:ss ZZZZ
+    - yy-MM-dd HH:mm:ss,SSS ZZZZ
+    - MMdd_HH:mm:ss.SSS
+    - MMM dd HH:mm:ss yyyy
+    - MM/dd/yyyy*HH:mm:ss*SSS
+    - dd/MMM/yyyy:HH:mm:ss ZZZZ
+    - dd/MMM/yyyy:HH:mm:ss
+    - yyyyMMdd HH:mm:ss.SSS
+    - yyyy MMM dd HH:mm:ss.SSS*zzz

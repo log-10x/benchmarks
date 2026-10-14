@@ -1,0 +1,13 @@
+{
+  "type" : "object",
+  "properties" : {
+    "tenx" : {
+      "type" : "string"
+    },
+    "printProgress" : {
+      "type" : [ "boolean", "string" ],
+      "markdownDescription" : "Report i/o progress to the console\n\nEnables/disables reporting I/O status to stdout. (Accepts boolean or string with $= prefix for runtime evaluation)"
+    }
+  },
+  "additionalProperties" : false
+}

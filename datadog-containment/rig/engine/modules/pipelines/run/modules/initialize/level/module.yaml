@@ -1,0 +1,68 @@
+#
+# 🔟❎ 'run' Symbol lookup module
+
+module:
+
+  name: levelClassifier
+
+  title: Level Classifier
+
+  description: classify TenXObjects with a severity level
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/initialize/level
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: '+include $=TenXEnv.get("docGenerate") ? "run/modules/initialize/level/doc.md":""'
+
+  # 'allowMultiple' is disabled for this module. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - levelField
+      description: lists level severity terms
+      type: string
+      required: false
+      doc: |
+        specify the field name to assign with the inferred severity level
+      defValue: level
+
+    - names:
+      - levelTerms
+      description: lists level severity terms
+      type: list
+      required: false
+      doc: |
+        specify severity level classification, start-of-line matching.
+        Used to identify the severity level (TRACE, DEBUG, INFO, WARN, ERROR, CRITICAL) of a log line, 
+        typically marking the start of a log event (head). Sorted by likelihood and uniqueness. Used in a Trie for O(m) matching.
+
+        For example:
+
+        ``` yaml
+         - 'panic=CRITICAL'       # Go panic, first line; e.g., "panic: runtime error: index out of range"
+         - 'fatal_error=CRITICAL' # Go fatal error, first line; e.g., "fatal error: all goroutines are asleep"
+         - 'thread_''main''_panicked_at=CRITICAL' # Rust panic, first line; e.g., "thread 'main' panicked at 'explicit panic'"
+         - 'Segmentation_fault=CRITICAL' # C/C++ memory violation, first line; e.g., "Segmentation fault (core dumped)"
+        ```
+        
+    - names:
+      - levelTimestampPatterns
+      description: lists timestamp patterns associated with severity level 
+      type: list
+      required: false
+      doc: |
+        lists the terms assigned to a target TenXObject's [levelField](https://doc.log10x.com/run/initialize/level/#levelField) based on whether its [fullText](https://doc.log10x.com/api/js/#TenXBaseObject+fullText) contains specified terms.
+
+        For example:
+        ``` yaml
+        - "I'MMdd HH:mm:ss.S=INFO"          # Used in Kubernetes kube-apiserver logs with INFO prefix, 1-digit microsecond precision
+        ```
+      defValue: false
+

@@ -1,0 +1,71 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/input/analyzer/splunk/schema.json
+
+# 🔟❎ 'run' Splunk input configuration
+
+# Configure a Splunk event input
+# To learn more see https://doc.log10x.com/run/input/analyzer/splunk/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Dependencies ================================
+
+include: run/modules/input/analyzer/splunk
+
+# =============================== Splunk Options ==============================
+
+# Multiple Splunk inputs can be defined below
+
+splunk:
+
+    # ---------------------------- General Options ----------------------------
+
+    # 'name' sets a unique logical name across all pipeline inputs
+  - name: Splunk
+    # Disabled by default - configure host/port to enable
+    enabled: false
+
+    # --------------------------- Connection Options --------------------------
+
+    # 'host' and 'port' set the Splunk host address to connect to (e.g., '<deployment-name>.splunkcloud.com')
+    host: null    # (REQUIRED)
+    port: null    # (Not mandatory if the host already encapsulates it)
+    protocol: "https"
+
+    # 'username' and 'password' used to authenticate against the Splunk deployment
+    #  To learn more see https://docs.splunk.com/Documentation/Splunk/latest/RESTUM/RESTusing#Authentication_and_authorization
+    username: $=TenXEnv.get("SPLUNK_USERNAME") # (EnvVar REQUIRED)
+    password: $=TenXEnv.get("SPLUNK_PASSWORD") # (EnvVar REQUIRED)
+
+    # ----------------------------- Query Options -----------------------------
+
+    # 'pageSize' sets the number of events to retrieve with each result page
+    #  Performance: Increase to 1000-2000 for high-volume environments
+    pageSize: 500
+
+    # 'query' sets the Splunk search query to execute for this job
+    query: search *
+
+    # --------------------------- Backpressure Options -----------------------
+
+    # 'queryInterval' sets the interval between queries to the remote API
+    #  Performance: Increase for rate-limited APIs; decrease for real-time needs
+    queryInterval: $=parseDuration("2s")
+
+    # 'totalDuration' sets the max duration to try reading from the the remote input
+    #  Performance: Match to your job scheduling interval
+    totalDuration: $=parseDuration("5min")
+
+    # 'totalBytesLimit' sets the max total bytes to read from the remote input
+    #  Performance: Increase for longer analysis windows (e.g., 200MB for 10min)
+    totalBytesLimit: $=parseBytes("50MB")
+
+    # 'totalEventsLimit' sets the max number of events to read the remote input
+    #  Performance: Adjust based on memory capacity; each event consumes memory
+    totalEventsLimit: 10000
+
+    # --------------------------- Ancillary Options ---------------------------
+
+    # 'printProgress' controls whether to print progress gage to the console
+    #  This option helps debug and test the input
+    printProgress: $=!TenXEnv.get("quiet")

@@ -1,0 +1,17 @@
+{
+  "type" : "object",
+  "properties" : {
+    "tenx" : {
+      "type" : "string"
+    },
+    "archiveExtensions" : {
+      "type" : [ "array", "null" ],
+      "markdownDescription" : "Supported archive extensions\n\nDefines the file extensions of archive zip files to scan for source/binary input files. (Default: [\".zip\",\".jar\",\".war\",\".ear\",\".7s\",\".gz\",\".br\",\".lz4\",\".lzma\",\".tar\",\".tar.br\",\".tar.gz\",\".tar.bz2\",\".tar.lz4\",\".tar.lzma\"])",
+      "items" : {
+        "type" : "string"
+      },
+      "default" : [ ".zip", ".jar", ".war", ".ear", ".7s", ".gz", ".br", ".lz4", ".lzma", ".tar", ".tar.br", ".tar.gz", ".tar.bz2", ".tar.lz4", ".tar.lzma" ]
+    }
+  },
+  "additionalProperties" : false
+}

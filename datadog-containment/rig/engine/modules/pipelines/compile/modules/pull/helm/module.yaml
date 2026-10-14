@@ -1,0 +1,118 @@
+#
+# 🔟❎ Helm chart scanner
+
+module:
+
+  name: helm
+
+  title: Helm chart
+
+  description: pull GitHub repositories and Docker images to scan for symbol content from Helm charts
+      
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: compile/pull/helm
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "compile/modules/pull/helm/doc.md":""
+
+  # 'allowMultiple' is disabled for this module. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+  
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - helmChartNames
+      description: list of charts to pull
+      type: list
+      required: false
+      category: general
+      doc: |
+        specifies a list of chart names (e.g., open-telemetry/opentelemetry-demo) to pass to [helmCommand](https://doc.log10x.com/compile/pull/helm/#helmcommand).
+
+        The scanner will invoke the [template](https://helm.sh/docs/helm/helm_template/) and [show chart](https://helm.sh/docs/helm/helm_show_chart/)
+        commands to pull its values.yaml and chart.yaml files to scan for Docker container images and GitHub repo files. 
+
+    - names:
+      - helmChartFiles
+      description: list of charts templates and value files to scan
+      type: list
+      required: false
+      category: general
+      doc: |
+        specifies a list of chart value and templates files to scan. These file paths may be relative to the include paths list.
+        If file paths are canonical, their enclosing folders must be included in the includePaths argument. 
+
+    - names:
+      - helmPullGithubRepos
+      description: pull GitHub repos
+      type: boolean
+      required: false
+      category: general
+      doc: |
+        specifies whether to pull [GitHub repos](https://doc.log10x.com/compile/pull/github/) referenced by an input Helm template files. 
+
+    - names:
+      - helmPullGithubToken
+      description: GitHub API token for pulling repositories
+      type: string
+      required: false
+      category: general
+      doc: |
+        defines an access token for pulling [Github repos](https://doc.log10x.com/compile/pull/github/) referenced by Helm charts. 
+
+    - names:
+      - helmPullDockerImages
+      description: pull docker container images
+      category: general
+      type: boolean
+      required: false
+      defValue: true
+      doc: 
+        specifies whether to pull [Docker images](https://doc.log10x.com/compile/pull/docker/) referenced by an input Helm values and template files. 
+
+    - names:
+      - helmCommand
+      description: path to Helm command
+      type: string
+      required: false
+      defValue: "*NIX: /usr/local/bin/helm, Win: C:/Program Files/helm/helm.exe"
+      category: process
+      doc: |
+        defines the path to the [Helm](https://helm.sh/) program used for querying chart templates and values.
+        This value must be set if [helmChartNames](https://doc.log10x.com/compile/pull/helm/#helmchartnames) is set.
+
+    - names:
+      - helmGitHubRepoPaths
+      description: YAML DOM paths for extracting GitHub repos
+      type: string
+      category: process
+      defValue: [metadata.repository,spec.source.git,chart.repository]
+      doc: |
+        specifies paths within a YAML file to treat as holders for GitHub repo names.
+        For example, for the following section from an input chart.yaml file:
+        ```yaml
+        sources:
+          - https://github.com/open-telemetry/opentelemetry-demo # capture this GitHub repo reference
+        ```
+
+    - names:
+      - helmDockerImagePaths
+      description: YAML DOM paths for extracting Docker repo references
+      type: string
+      category: process
+      defValue: [spec.template.spec.containers.image,values.image,spec.containers.image,sources]
+      doc: |
+        specifies paths within a helm YAML file to treat as holders for Docker image names. 
+        For example, for the following section from an input values.yaml file:
+        ```yaml    
+        spec:
+          serviceAccountName: opentelemetry-demo
+          containers:
+          - name: accountingservice 
+            image: 'docker.io/grafana/grafana:11.1.0' # capture this docker image reference
+        ```
+  

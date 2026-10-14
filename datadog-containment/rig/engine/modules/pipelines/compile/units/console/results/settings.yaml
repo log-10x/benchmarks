@@ -1,0 +1,22 @@
+#
+# 🔟❎ 'compile' print results settings
+
+# The 10x 'compile' pipeline scans a target folder set to extract
+# symbol values from input source/binary files (e.g. 
+# class/func names, code constants) and stores them in output symbol unit .json files.
+# The progress of this process, including the number of files traversed and
+# scanned, can be printed to console as JSON object.
+
+# 'enabled' controls whether to print results to the console. 
+#  By default if the current 10x process has been spawned by a parent 10x
+#  process this value will is false.
+enabled: $=!TenXEnv.get("parentPipelineId")
+
+# 'outputFolder' specifies the path on disk to write compile output such as messages
+outputFolder: $=TenXEnv.get("outputSymbolFolder")
+
+# 'printScanTypes' controls which components of the scanning process
+# emit their results to the console.
+printScanTypes: 
+  - $?printScanTypes
+  

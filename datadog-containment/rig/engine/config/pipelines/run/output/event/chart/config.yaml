@@ -1,0 +1,69 @@
+# 🔟❎ 'run' Chart output configuration
+#
+# This configuration charts TenXObject summaries as a bar chart to stdout, using the outputStream module
+# To learn more see https://doc.log10x.com/run/output/event/outputStream/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Dependencies ================================
+
+include: run/modules/output/event/outputStream
+
+# ============================ OutputStream Options ===========================
+
+# Multiple OutputStream file outputs can be defined below
+outputStream:
+
+    # 'class' specifies the class derived from java.io.OutputStream / java.io.Writer
+    #  that is instantiated, written to and closed by the 10x host JVM
+  - class: com.log10x.ext.edge.output.chart.ChartWriter
+
+    # 'args' provides an optional mechanism to pass an Object[] value
+    #  to the constructor of 'class' that contains implementation-specific
+    #  configuration values.
+    args:
+      # Name of this chart
+      - name
+      - "my chart"
+      # Which fields to chart on, one chart will be created for each
+      - chartsStr
+      - "summaryVolume,summaryBytes"
+      # Max number of top rows to show
+      - rows
+      - 10
+      # Max number of characters in a row (to fit screen size nicely)
+      - width
+      - 500
+      # Field to act as the name of each summary
+      - nameField
+      - summaryValues
+
+    # 'fields' specifies a list of 10x intrinsic/calculated/extracted fields
+    #  to extract from each target object passed to the output
+    fields:
+      - summaryValues
+      - summaryVolume
+      - summaryBytes
+
+    # 'encodeType' specifies how 'fields' are encoded to output. Possible values: [json,delimited].
+    # The ChartWriter expects a json format for easier conversions.
+    encodeType: json
+
+    # 'filter' sets a JavaScript expression that TenXSummaries must evaluate as truthy to write to the output.
+    #  To learn more see https://doc.log10x.com/run/output/receive/#filter-expressions
+    filter: isSummary
+
+# ============================ Aggregator Options ===========================
+#
+# In order to generate summary objects, at least one aggregator needs to be defined.
+#
+# For more info on aggregators, see https://doc.log10x.com/run/aggregate/
+#
+aggregator:
+
+  - name: chartAggregator
+
+    values:
+      # Aggregates based on https://doc.log10x.com/api/js/#TenXObject+symbolSequence
+      - symbolSequence=symbolSequence()

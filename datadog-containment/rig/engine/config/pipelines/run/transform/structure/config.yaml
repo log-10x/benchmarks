@@ -1,0 +1,15 @@
+#
+# 🔟❎ 'run' event structure configuration
+
+# Structure events read from input using Symbol libraries into well-defined TenXObjects.
+# To learn more see https://doc.log10x.com/run/transform/structure/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# ============================= Structure Options =============================
+
+# 'tokenDelims' defines which characters break a string of event characters 
+#  into separate tokens to classify as symbol or variable.
+tokenDelims: <>|. ][:-+/*=\\,{}_();'\"$\t\n@%
+  

@@ -1,0 +1,11 @@
+# 🔟❎  'compile' archive symbol scanner settings
+
+# The 'archive' scanner iterates through the contents of file archives
+# to seek source/binary files whose contents to scan into
+# the output symbol files. The Java 'java.util.zip.ZipInputStream' class 
+# performs the in-memory iteration of compressed entries in the
+# file format listed below must be supported by it to be read.
+
+# 'extensions' defines the file extensions of archive files to scan for source/binary input files.
+extensions:
+  - $?archiveExtensions

@@ -1,0 +1,25 @@
+# 🔟❎ 'run' custom output stream configuration
+
+# This configuration defines a request to delete associated index objects for a target indexed blob (e.g., AWS S3 object).
+#   
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# ============================== Input Options ================================
+
+input:
+
+    # 'type' defines the type of input (e.g., stdin, file, stream).
+  - type: stream
+
+    # 'path is set to the 'IndexDeleteReader' reader class
+    path: com.log10x.ext.cloud.index.write.delete.IndexDeleteReader
+
+    # 'printProgress' controls whether input stats are printed to the console
+    printProgress: false
+
+    # the 'foreach' macro will duplicate the input node for every instance of the
+    # 'deleteIndexObject' option group
+    foreach: deleteIndexObject
+

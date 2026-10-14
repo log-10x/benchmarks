@@ -1,0 +1,41 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/compile/monitor/schema.json
+
+# 🔟❎ 'compile' monitor configuration
+
+# Emit diagnostic information and metrics to the 10x console and log.
+# To learn more see https://doc.log10x.com/compile/monitor/
+
+# Set the 10x pipeline to 'compile'
+tenx: compile
+
+# ============================== Monitor Options ================================
+
+monitor:
+
+  # 'pollInterval' sets the frequency by which to emit debug information
+  #  for the target units specified below.
+  pollInterval: null
+
+  # 'metricPattern' specifies a regex pattern to match against counters generated
+  #  by the specified 'units' below to publish as metrics to the 10x console
+  metricPattern: null
+
+  # 'units' specifies the compile pipeline units to emit period diagnostic
+  #  information to the 10x log and console. Possible values:
+  units:
+
+    # Push output symbol files to a GitHub repository
+    - githubPushFolder
+
+    # discover input source code/binary files to scan on disk
+    - discoverSources
+
+    # scan input files to generate output symbol unit files
+    - scanToFolder
+
+    # launch a subprocess to scan target input files
+    - subprocessScan
+
+    # link symbol unit files into a symbol library file for use at run time
+    - link
+ 

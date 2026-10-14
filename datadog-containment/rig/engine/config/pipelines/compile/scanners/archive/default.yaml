@@ -1,0 +1,29 @@
+# yaml-language-server: $schema=schema.json
+
+# 🔟❎  'compile' archive symbol scanner config
+
+# The archive'scanner iterates through the contents of file archives
+# to seek source/binary files whose contents to scan into
+# the output symbol files.
+
+# Set the 10x pipeline to 'compile'
+tenx: compile
+
+archiveExtensions:
+  - .zip
+  - .jar
+  - .war
+  - .ear
+
+  - .7s
+  - .gz
+  - .br
+  - .lz4
+  - .lzma
+
+  - .tar
+  - .tar.br
+  - .tar.gz
+  - .tar.bz2
+  - .tar.lz4
+  - .tar.lzma

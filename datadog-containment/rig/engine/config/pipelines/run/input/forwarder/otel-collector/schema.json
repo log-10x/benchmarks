@@ -1,0 +1,75 @@
+{
+  "type" : "object",
+  "properties" : {
+    "include" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "tenx" : {
+      "type" : "string"
+    },
+    "otelCollector" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "input" : {
+          "type" : "object",
+          "additionalProperties" : false,
+          "properties" : {
+            "port" : {
+              "type" : [
+                "string",
+                "number",
+                "null"
+              ],
+              "markdownDescription" : "TCP port to listen on for OTLP/gRPC events from the OpenTelemetry Collector\n\nTCP port where Log10x listens for OTLP/gRPC log records from the OpenTelemetry Collector's `otlp` exporter. Match this against the `endpoint` of your Collector exporter. (Default: 4317)",
+              "default" : "4317"
+            },
+            "messageField" : {
+              "type" : [
+                "string",
+                "null"
+              ],
+              "markdownDescription" : "Dotted JSON path to the field carrying the log line text\n\nTop-level JSON field name on the input record that carries the actual log line text. The default (`body`) matches the flattened shape the input emits for plain-text OTLP bodies. Set to a different field name if your Collector pipeline copies the log line into a different attribute before exporting (e.g. an `<attr_key>` set via a transform). (Default: body)",
+              "default" : "body"
+            }
+          }
+        },
+        "output" : {
+          "type" : "object",
+          "additionalProperties" : false,
+          "properties" : {
+            "host" : {
+              "type" : [
+                "string",
+                "null"
+              ],
+              "markdownDescription" : "TCP host of the OpenTelemetry Collector's OTLP/gRPC receiver\n\nHostname or IP where the OpenTelemetry Collector's `otlp` receiver is listening for processed events from Log10x. Pairs with `otelCollectorOutputPort`. (Default: 127.0.0.1)",
+              "default" : "127.0.0.1"
+            },
+            "port" : {
+              "type" : [
+                "string",
+                "number",
+                "null"
+              ],
+              "markdownDescription" : "TCP port of the OpenTelemetry Collector's OTLP/gRPC receiver\n\nTCP port where the OpenTelemetry Collector's `otlp` receiver is listening for processed events from Log10x. MUST differ from the port Log10x's own OTLP/gRPC input listens on (default `4317`) or the two would collide on the same listener. (Default: 24225)",
+              "default" : "24225"
+            },
+            "encodeType" : {
+              "type" : [
+                "string",
+                "null"
+              ],
+              "markdownDescription" : "Output format when outputFields are set. Possible values: [json, delimited]\n\nSpecifies how the combined output (main event field plus outputFields) is encoded when writing back to the OpenTelemetry Collector. Possible values: - **json**: formats all fields as a JSON object - **delimited**: formats field values separated by the output delimiter Only takes effect when otelCollectorOutputFields is set. (Default: delimited)",
+              "default" : "delimited"
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties" : true
+}

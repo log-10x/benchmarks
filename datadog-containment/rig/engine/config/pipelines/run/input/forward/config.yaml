@@ -1,0 +1,40 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/input/forward/schema.json
+
+# 🔟❎ 'run' Forward protocol input configuration
+#
+# Configure an input that receives events via the Fluent Forward protocol
+# on a Unix domain socket. To learn more see https://doc.log10x.com/run/input/forward/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Dependencies ================================
+
+include: run/modules/input/forward
+
+# ======================== Forward Protocol Options ============================
+
+forward:
+
+  # ----------------------------- Input Options -----------------------------
+
+  # 'inputPort' specifies the TCP port to listen on for Forward protocol messages
+  inputPort: $=TenXEnv.get("TENX_FORWARD_INPUT_SOCKET", "24224")
+
+  # 'inputPath' specifies a Unix domain socket path to listen on instead of TCP.
+  #  When set, takes precedence over 'inputPort'.
+  inputPath: $=TenXEnv.get("TENX_FORWARD_INPUT_ADDRESS", "")
+
+  # ---------------------------- Parsing Options ----------------------------
+
+  # 'extractors' defines a list of JSON/regex extractor names
+  #  used to capture and redact event values from 'path' to transform
+  #  into TenXObjects. To learn more see: https://doc.log10x.com/run/input/extract
+  extractors: [
+  ]
+
+  # 'sourcePattern' defines a regex pattern that captures a 'source' value
+  #  for each event received via the Forward protocol and transformed into
+  #  a TenXObject. The Forward tag is injected as a "tag" field in each
+  #  record, so the default pattern extracts the source from the tag.
+  sourcePattern: null

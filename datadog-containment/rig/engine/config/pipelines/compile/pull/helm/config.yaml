@@ -1,0 +1,48 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/compile/pull/helm/schema.json
+
+# 🔟❎ 'compile' k8s Helm scanner configuration
+
+# Configures the k8s Helm chart symbol scanner which pulls referenced GitHub source repositories and
+# Docker container images to scan for symbol values.
+
+# To learn more see https://doc.log10x.com/compile/pull/helm
+
+# For a reference list of common infrastructure charts, see:
+#   modules/pipelines/compile/modules/pull/helm/library.yaml
+
+# Set the 10x pipeline to 'compile'
+tenx: compile
+
+# =============================== Helm Options ===============================
+
+helm:
+
+  # Charts can be specified as Helm chart names OR as local chart files.
+
+  # 'chartNames' specifies a list of remote chart names to scan for values and template files.
+  chartNames: [
+    # open-telemetry/opentelemetry-demo,
+    # ingress-nginx/ingress-nginx,
+  ]
+
+  # 'chartFiles' specifies a list of local chart template and values.yaml files on disk.
+  #  File paths may be relative to the 'includePaths' list. If canonical, enclosing folders must added to 'includePaths'.
+  chartFiles: [
+    # charts/opentelemetry-demo/values.yaml
+  ]
+
+  pull:
+
+    # 'dockerImages' specifies whether to pull docker container images referenced by input charts
+    #  To learn more see https://doc.log10x.com/compile/pull/docker
+    dockerImages: true
+
+    github:
+
+      # 'repos' specifies whether to pull GitHub repos referenced by 'org.opencontainers.image.source' annotations
+      #  To learn more see https://github.com/opencontainers/image-spec/blob/v1.0.1/annotations.md#pre-defined-annotation-keys
+      repos: true
+
+      # 'token' specifies the GitHub access token for pulling from referenced repos
+      #  To learn more see: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
+      token: $=TenXEnv.get("GH_TOKEN")  # (EnvVar REQUIRED)

@@ -1,0 +1,30 @@
+{
+  "size": ${bean:tenx.eval('TenXEnv.get("elasticSearchQuerySize", 500)')},
+  "sort": [
+    {
+      "${bean:tenx.get(elasticSearchTimestampField)}": {
+        "order": "asc"
+      }
+    }
+  ]
+  ${bean:tenx.eval(elasticSearchAfter())},
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match_all": {}
+        }
+      ],
+      "filter": {
+        "range": {
+          "${bean:tenx.get(elasticSearchTimestampField)}": {
+            "lte": "${bean:tenx.get(elasticSearchEndTime)}",
+            "gte": "${bean:tenx.get(elasticSearchStartTime)}"
+          }
+        }
+      },
+      "should": [],
+      "must_not": []
+    }
+  }
+}

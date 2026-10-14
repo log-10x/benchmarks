@@ -1,0 +1,176 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/output/event/fluentbit/schema.json
+
+# 🔟❎ 'run' Fluent Bit output configuration for events stream output to Azure Monitor Logs
+
+# Launch a Fluent Bit process into whose stdin pipe to write TenXObjects field values and TenXTemplates
+# To learn more see https://doc.log10x.com/run/output/event/process/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Dependencies ================================
+
+include:
+  - run/modules/output/event/fluentbit
+
+
+# ============================ Fluent Bit Options =============================
+
+# Multiple Fluent Bit outputs can be defined below
+
+fluentbitOut:
+
+    # ------------------------------ General ----------------------------------
+
+    # 'writeObjects' controls whether to write TenXObject field values to output.
+  - writeObjects: true
+
+    # 'writeTemplates' controls whether to write new template for TenXObjects written to
+    #  this output. To learn more about TenXTemplates, see: https://doc.log10x.com/run/template
+    writeTemplates: false
+
+    # ------------------------------ Process ----------------------------------
+
+    # 'command' specifies the command to execute to launch the Fluent Bit sub-process.
+    command: /opt/fluent-bit/bin/fluent-bit
+
+    # 'inputArgs' specifies list of values to pass as startup arguments to the spawned Fluent Bit sub-process
+    inputArgs:
+      # Sets the Fluent Bit input to read from stdin and route TenXTemplates
+      # See https://github.com/log-10x/config/blob/main/pipelines/run/output/event/fluentbit/fluentbit-10x-input.conf
+      - -c
+      - $=path("fluentbit-10x-input.conf")
+
+    # Setting the Fluent Bit output to Azure Monitor Logs via the Logs Ingestion API.
+    # for full config options of the Fluent Bit azure_logs_ingestion plugin, see -
+    # https://docs.fluentbit.io/manual/pipeline/outputs/azure_logs_ingestion
+    #
+    # The Logs Ingestion API sends data through a Data Collection Endpoint (DCE)
+    # into a Data Collection Rule (DCR) that targets a table in a Log Analytics
+    # workspace. This is the ONLY Azure Monitor path that can target a table on
+    # the Basic or Auxiliary plan (the legacy HTTP Data Collector API writes
+    # Analytics-plan *_CL tables only). See the tier_down note at the bottom.
+    #
+    # Authentication uses an Azure AD (Entra) app registration. Required env vars:
+    #   AZURE_TENANT_ID, AZURE_CLIENT_ID, AZURE_CLIENT_SECRET
+    #   AZURE_DCE_URL           - Data Collection Endpoint logs-ingestion URI
+    #   AZURE_DCR_ID            - immutable Data Collection Rule id
+    #   AZURE_STREAM_NAME       - events table name, e.g. Tenx_CL. NOTE: the plugin
+    #                             sends to the DCR stream Custom-<table_name>, so pass
+    #                             the BARE table name (Tenx_CL), NOT Custom-Tenx_CL.
+    #   AZURE_TEMPLATES_STREAM_NAME - templates table name, e.g. TenxTemplates_CL
+    #
+    outputArgs:
+      ############### Events output ###############
+
+      # Set event output to Azure Monitor Logs
+      - "-o"
+      - "azure_logs_ingestion"
+      - "-m"
+      - "input"
+
+      # Azure AD app credentials (REQUIRED)
+      - "-p"
+      - "$=\"tenant_id=\" + TenXEnv.get(\"AZURE_TENANT_ID\")"
+      - "-p"
+      - "$=\"client_id=\" + TenXEnv.get(\"AZURE_CLIENT_ID\")"
+      - "-p"
+      - "$=\"client_secret=\" + TenXEnv.get(\"AZURE_CLIENT_SECRET\")"
+
+      # Ingestion target: DCE + DCR + stream (REQUIRED)
+      - "-p"
+      - "$=\"dce_url=\" + TenXEnv.get(\"AZURE_DCE_URL\")"
+      - "-p"
+      - "$=\"dcr_id=\" + TenXEnv.get(\"AZURE_DCR_ID\")"
+      - "-p"
+      - "$=\"table_name=\" + TenXEnv.get(\"AZURE_STREAM_NAME\")"
+
+      # Stamp TimeGenerated from the record time
+      - "-p"
+      - "time_generated=true"
+
+      # Flush every second
+      - "-f"
+      - "1"
+
+      ############### Templates output ###############
+
+      # Set templates output to Azure Monitor Logs
+      - "-o"
+      - "azure_logs_ingestion"
+      - "-m"
+      - "templates"
+
+      # Azure AD app credentials (REQUIRED)
+      - "-p"
+      - "$=\"tenant_id=\" + TenXEnv.get(\"AZURE_TENANT_ID\")"
+      - "-p"
+      - "$=\"client_id=\" + TenXEnv.get(\"AZURE_CLIENT_ID\")"
+      - "-p"
+      - "$=\"client_secret=\" + TenXEnv.get(\"AZURE_CLIENT_SECRET\")"
+
+      # Ingestion target: DCE + DCR + templates stream (REQUIRED)
+      - "-p"
+      - "$=\"dce_url=\" + TenXEnv.get(\"AZURE_DCE_URL\")"
+      - "-p"
+      - "$=\"dcr_id=\" + TenXEnv.get(\"AZURE_DCR_ID\")"
+      - "-p"
+      - "$=\"table_name=\" + TenXEnv.get(\"AZURE_TEMPLATES_STREAM_NAME\")"
+
+      # Stamp TimeGenerated from the record time
+      - "-p"
+      - "time_generated=true"
+
+      # Flush every second
+      - "-f"
+      - "1"
+
+    # 'destroyMode' is set to 'cached' to allow a fluent-bit sub-process to
+    #  to be reused across multiple 10x pipeline executions within a host JVM.
+    destroyMode: cached
+
+    # 'maxCacheSize' sets the size of the cache to used for caching fluent-bit instances
+    maxCacheSize: 1
+
+    # 'lazyLaunch' determines whether the fluent-bit instance will launch immediately
+    # during the pipeline initialization, or only on-demand.
+    lazyLaunch: true
+
+    # ------------------------------ Encoding ---------------------------------
+
+    # 'filter' specifies an expression that any TenXObject passed to this output must
+    #  evaluate as truthy against to write its instance/template values to stdout.
+    #  For example, 'filter: this.timestamp' will only emit timestamped objects.
+    #  To learn more see: https://doc.log10x.com/api/js/#TenXBaseObject+timestamped
+    filter: null
+
+    #  This corresponds to the stdin format defined by fluent-bit in:
+    #  https://docs.fluentbit.io/manual/pipeline/inputs/standard-input
+    #  The 'text' argument below could be replaced by any list of intrinsic/calculated/extracted fields.
+    #  The "" delimiter instructs 'joinFields' to produce JSON output.
+    fields:  #
+      - open="["
+      - timestamp=dateFormat("+%s.%N")
+      - separator=","
+      - fields=joinFields("", "text")
+      - close="]"
+
+# =============================== tier_down ==================================
+#
+# This base recipe ships every event to ONE Analytics-plan table, exactly as
+# cloudwatch.yaml ships to one CloudWatch log group. It does NOT tier down on
+# its own — a direct engine -> Fluent Bit -> Azure output has no return path to
+# route on.
+#
+# tier_down (Azure's analog of CloudWatch Infrequent Access) is a FORWARDER
+# return-path feature, not a base-output-recipe one. The receiver runs with
+# `outputOffload true`, so it stamps each event's per-service routeState and
+# flows full-text events back to the forwarder; a forwarder recipe then keeps
+# the `routeState == "tier_down"` slice (matched as a JSON STRING) and routes it
+# to a Basic/Auxiliary-plan table while everything else stays on Analytics. The
+# log10x MCP generates that forwarder recipe (Vector / Fluentd / Fluent Bit /
+# OTel Collector) together with the Basic/Auxiliary table + DCR provisioning —
+# see https://doc.log10x.com/apps/mcp and the Azure Monitor stack page at
+# https://doc.log10x.com/faq/stacks/azure-monitor. The same routeState split
+# powers CloudWatch IA and Datadog Flex; Azure only differs in the destination
+# (a cheaper table plan reached through the DCE/DCR, not a second log group).

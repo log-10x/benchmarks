@@ -1,0 +1,140 @@
+#
+# 🔟❎ 'compile' Text scanner module
+
+module:
+
+  name: text
+
+  title: Text file scanner
+
+  description: scan text/binary files for symbol values using the Jackson library
+  
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "compile/modules/scanner/text/doc.md":""
+           
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: compile/scanners/text
+
+  # 'allowMultiple' is enabled for this module. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+  
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - textParserName
+      description: parser logical name
+      type: string
+      required: true
+      category: general
+      doc: |
+        defines a logical unique name for this parser (e.g., 'logs')
+      
+    - names:
+      - textFileNameFilter
+      description: pattern to match for target input file name
+      type: string
+      required: true
+      category: general
+      doc: |
+        defines a regex pattern a file must match against for this scanner to apply to it.
+
+    - names:
+      - textParserFactoryClass
+      description: parser factory class
+      type: string
+      required: false
+      category: parser
+      doc: |
+        provides an optional fully qualified name of a class name derived from a
+        [JsonFactory](https://fasterxml.github.io/jackson-core/javadoc/2.6/com/fasterxml/jackson/core/JsonFactory.html).
+
+        If specified, the scanner instantiates the factory using a parameterless constructor 
+        and invokes its [createParser](https://fasterxml.github.io/jackson-core/javadoc/2.6/com/fasterxml/jackson/core/JsonFactory.html#createParser(java.io.InputStream))
+        method to generate a parser instance. The scanner uses the parser to read token values from the file.
+   
+        if 'textParserFactoryArgs' is specified, a constructor receiving a string[] must 
+        be defined by this class to receive optional config parameters
+
+    - names:
+      - textParserFactoryArgs
+      description: arguments for 'textParserFactory' ctor
+      type: list
+      required: false
+      category: parser
+      doc: |
+        specifies arguments to pass to the parser factory instance constructor.
+        This option only applies if 'textParserFactoryClass' is set.
+      
+    - names:
+      - textScanFieldValues
+      description: controls whether to capture Jackson parser field values
+      type: boolean
+      required: false
+      category: parser
+      doc: |
+        controls whether to capture a Jackson parser's [VALUE_STRING](https://fasterxml.github.io/jackson-core/javadoc/2.8/com/fasterxml/jackson/core/JsonToken.html#VALUE_STRING) tokens are scanned for entries
+        or just values of [FIELD_NAME](https://fasterxml.github.io/jackson-core/javadoc/2.8/com/fasterxml/jackson/core/JsonToken.html#FIELD_NAME) tokens.  
+        
+        This option only applies if 'textParserFactoryClass' is set.
+ 
+    - names:
+      - textMaxLines
+      description: max number of lines to scan
+      type: number
+      required: false
+      category: text
+      doc: |
+        controls the maximum number of lines to scan for symbol values from the input file. 
+        This option is useful when scanning existing log files as 'templates' for parsing future logs
+        from a similar input stream.
+
+    - names:
+      - textLineOffset
+      description: line number from which to start scan
+      type: number
+      category: text
+      required: false
+      doc: |
+        specifies the line number from which to start scanning for symbols. 
+        This option is useful when scanning a specific portion of a text file.
+      
+    - names:
+      - textAllowDigits
+      description: controls whether to capture tokens containing numeric as symbol tokens
+      type: boolean
+      required: false
+      category: text
+      doc: |
+        controls whether tokens contain numeric chars (e.g., 0-9)
+        are accepted as symbol tokens. As alphanumeric combinations tend to have
+        high cardinality (e.g., GUID, trace_id), it is not generally advised 
+        to add them to symbol units unless specifically known to be 'constant' / low cardinality values 
+      
+    - names:
+      - textMinLength
+      description: min character length for a token to be considered a symbol value
+      type: number
+      required: false
+      category: text
+      doc: |
+        sets the minimal character length a token must have to constitute a symbol value.
+        Very short tokens (e.g., len < 3) have a high probability
+        of being dynamic values with high cardinality and, as such, should not 
+        be captured as symbol values.
+        
+    - names:
+      - textMaxLength
+      description: max character length for a token to be considered a symbol value
+      type: number
+      required: false
+      category: text
+      doc: |
+        sets the maximum character length a token must have to constitute a symbol value.
+        Very long tokens (e.g., len > 100) have a high probability
+        of being dynamic values with high cardinality and, as such, should not 
+        be captured as symbol values.
+      

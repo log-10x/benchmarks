@@ -1,0 +1,44 @@
+{
+  "type" : "object",
+  "properties" : {
+    "tenx" : {
+      "type" : "string"
+    },
+    "log" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "methods" : {
+          "type" : [
+            "array",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Names of source code methods to mark as 'logging'\n\nLists 'logging' method names whose invocations to mark 'logging'. Logging frameworks commonly define standard methods to emit event information to program output (e.g., 'warn', 'error').",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "methodRegex" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "A pattern that source code methods names must match to qualify as 'logging' methods\n\nSpecifies a pattern for symbol scanners to apply to source code method/function names to determine whether to mark them as 'logging'. For example: ^(log|Log)|(Log|log)$"
+        },
+        "streams" : {
+          "type" : [
+            "array",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Names of source code variables to mark as 'logging'\n\nLists 'logging' member names whose assignments to mark 'logging'. Programming languages commonly define standard members to emit events to output (e.g., 'out', 'cerr').",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties" : false
+}

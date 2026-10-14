@@ -1,0 +1,35 @@
+# 🔟❎ 'run' Prometheus output stream settings
+
+# The 'prometheusMetrics' module defines a Prometheus output to publish TenXSummary metrics.
+# The configuration below constructs a micrometer-backed output stream for each instance of the options group
+# passed to the 10x Engine via configuration files or command line arguments.
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+output:
+
+    # 'type' defines the output type (e.g., stdout, log4j, micrometer).
+  - type: metric
+
+    # 'enabled' controls whether to open this output stream.
+    enabled: $?prometheusEnabled=true
+
+    # 'name' assigns a logical name to this output instance
+    name: $prometheusPort
+
+    # 'path' points to the fully qualified class name implementing the 'MetricRegistryFactory' interface
+    #  to create the micrometer registry.
+    #  To learn more see: https://github.com/log-10x/pipeline-extensions/blob/main/edge-extensions/src/main/java/com/log10x/ext/edge/micrometer/MetricRegistryFactory.java
+    path: com.log10x.ext.edge.micrometer.registry.PrometheusMetricRegistryFactory
+
+    # 'fields' is set to all the metrics dimension Tags
+    # To learn more about tags, see: https://www.baeldung.com/micrometer#1-tags
+    fields: $?prometheusTagFields
+
+    # 'filter' is set to write TenXSummary instances to the micrometer registry
+    filter: $?prometheusFilter=isSummary
+
+    # 'foreach' sets 'prometheusMetrics' as the options group for whose instances
+    #  to create matching output streams. This option enables the creation of multiple time series outputs.
+    foreach: prometheusMetrics

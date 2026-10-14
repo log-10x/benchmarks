@@ -1,0 +1,112 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/initialize/level/schema.json
+
+# 🔟❎ 'run' level classifier configuration
+
+# Configuration level classifier to enrich TenXObjects
+# To learn more see https://doc.log10x.com/run/initialize/level/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Dependencies ================================
+
+include: run/modules/initialize/level
+
+# =============================== Level Options ===============================
+
+level:
+
+  # 'field' specify the field name to assign with the inferred severity level
+  field: severity_level
+
+  # 'terms' specify severity level classification, start-of-line matching
+  #  Used to identify the severity level (TRACE, DEBUG, INFO, WARN, ERROR, CRITICAL) of a log line, typically marking
+  #  the start of a log event (head). Sorted by likelihood and uniqueness. Used in a Trie for O(m) matching.
+  terms:
+    - 'trace=TRACE'          # Common in JavaScript (Winston) or custom logs; e.g., "trace Variable x = 5"
+    - 'Trace=TRACE'          # Mixed case; e.g., "Trace Variable x = 5"
+    - 'TRACE=TRACE'          # Uppercase, less common; e.g., "TRACE Message"
+    - 'debug=DEBUG'          # Common in JavaScript (Winston) or custom logs; e.g., "debug Entering method foo"
+    - 'Debug=DEBUG'          # Mixed case; e.g., "Debug Entering method foo"
+    - 'DEBUG=DEBUG'          # Uppercase; e.g., "DEBUG Message"
+    - 'DBG=DEBUG'            # Abbreviation, less common; e.g., "DBG Entering method foo"
+    - 'info=INFO'            # Common in JavaScript (Winston) or custom logs; e.g., "info Application started"
+    - 'Info=INFO'            # Mixed case; e.g., "Info Application started"
+    - 'INFO=INFO'            # Uppercase; e.g., "INFO Message"
+    - 'notice=INFO'          # Common in custom logs or lowercase syslog; e.g., "notice Configuration updated"
+    - 'Notice=INFO'          # Mixed case; e.g., "Notice Configuration updated"
+    - 'NOTICE=INFO'          # Uppercase, syslog; e.g., "NOTICE Message"
+    - 'warn=WARN'            # Common in JavaScript (Winston) or custom logs; e.g., "warn Low disk space"
+    - 'Warn=WARN'            # Mixed case; e.g., "Warn Low disk space"
+    - 'WARN=WARN'            # Uppercase; e.g., "WARN Message"
+    - 'warning=WARN'         # Common in custom logs or verbose frameworks; e.g., "warning Low disk space"
+    - 'Warning=WARN'         # Mixed case; e.g., "Warning Low disk space"
+    - 'WARNING=WARN'         # Uppercase; e.g., "WARNING Message"
+    - 'error=ERROR'          # Common in JavaScript (Winston) or custom logs; e.g., "error Failed to connect"
+    - 'Error=ERROR'          # Mixed case; e.g., "Error Failed to connect"
+    - 'ERROR=ERROR'          # Uppercase; e.g., "ERROR Message"
+    - 'err=ERROR'            # Lowercase abbreviation; e.g., "err Failed to connect"
+    - 'ERR=ERROR'            # Uppercase abbreviation; e.g., "ERR Message"
+    - 'TypeError=ERROR'      # JavaScript, stack trace; e.g., "TypeError: undefined is not a function"
+    - 'ReferenceError=ERROR' # JavaScript, stack trace; e.g., "ReferenceError: x is not defined"
+    - 'ValueError=ERROR'     # Python, stack trace; e.g., "ValueError: invalid literal"
+    - 'PHP_Warning=ERROR'    # PHP, warning message; e.g., "PHP Warning: Undefined variable"
+    - 'fatal=CRITICAL'       # Common in custom logs; e.g., "fatal System crash"
+    - 'Fatal=CRITICAL'       # Mixed case; e.g., "Fatal System crash"
+    - 'FATAL=CRITICAL'       # Uppercase; e.g., "FATAL Message"
+    - 'critical=CRITICAL'    # Common in custom logs; e.g., "critical System crash"
+    - 'Critical=CRITICAL'    # Mixed case; e.g., "Critical System crash"
+    - 'CRITICAL=CRITICAL'    # Uppercase; e.g., "CRITICAL Message"
+    - 'crit=CRITICAL'        # Lowercase abbreviation, syslog; e.g., "crit System crash"
+    - 'CRIT=CRITICAL'        # Uppercase abbreviation, syslog; e.g., "CRIT Message"
+    - 'alert=CRITICAL'       # Common in custom logs or syslog; e.g., "alert High CPU usage"
+    - 'Alert=CRITICAL'       # Mixed case; e.g., "Alert High CPU usage"
+    - 'ALERT=CRITICAL'       # Uppercase, syslog; e.g., "ALERT Message"
+    - 'emerg=CRITICAL'       # Common in custom logs or lowercase syslog; e.g., "emerg System unusable"
+    - 'Emerg=CRITICAL'       # Mixed case; e.g., "Emerg System unusable"
+    - 'EMERG=CRITICAL'       # Uppercase, syslog; e.g., "EMERG Message"
+    - 'panic=CRITICAL'       # Go panic, first line; e.g., "panic: runtime error: index out of range"
+    - 'fatal_error=CRITICAL' # Go fatal error, first line; e.g., "fatal error: all goroutines are asleep"
+    - 'thread_main_panicked_at=CRITICAL' # Rust panic, first line; e.g., "thread 'main' panicked at 'explicit panic'"
+    - 'Segmentation_fault=CRITICAL' # C/C++ memory violation, first line; e.g., "Segmentation fault (core dumped)"
+    - 'Aborted=CRITICAL'     # C/C++ termination, first line; e.g., "Aborted (core dumped)"
+    - 'Assertion_failed=CRITICAL' # C/C++ assertion failure, first line; e.g., "Assertion failed: x > 0"
+    - 'PHP_Fatal_error=CRITICAL' # PHP fatal error, first line; e.g., "PHP Fatal error: Out of memory"
+    - 'Traceback_most_recent_call_last=CRITICAL' # Python stack trace, first line; e.g., "Traceback (most recent call last)"
+    - 'Stack_trace=CRITICAL' # Generic stack trace, first line; e.g., "Stack trace"
+    - 'Error=CRITICAL'       # JavaScript, stack trace; e.g., "Error: Something went wrong"
+    - 'Fatal_error=CRITICAL' # PHP, stack trace; e.g., "Fatal error: Uncaught Exception"
+    - 'Unhandled_exception=CRITICAL' # C#/Dart, stack trace; e.g., "Unhandled exception: System.NullReferenceException"
+    - 'Exception_in_thread=CRITICAL' # Java, stack trace; e.g., "Exception in thread 'main' java.lang.RuntimeException"
+    - 'goroutine=CRITICAL'   # Go, stack trace; e.g., "goroutine 1 [running]:"
+    - 'failed=ERROR'         # ERROR-level entries in application, system, or web server logs
+
+  # 'timestampPatterns' patterns for LogEvent head classification, start-of-line matching
+  #  Used to identify timestamp formats in log lines and infer their implied severity level based on the first character.
+  #  Formats are typical of Kubernetes kube-apiserver logs with varying microsecond precision. The first character
+  #  ('I', 'W', 'E', 'F') determines the severity: I=INFO, W=WARN, E=ERROR, F=CRITICAL. Sorted by precision.
+  timestampPatterns:
+    - "'I'MMdd HH:mm:ss.S=INFO"          # Used in Kubernetes kube-apiserver logs with INFO prefix, 1-digit microsecond precision
+    - "'I'MMdd HH:mm:ss.SS=INFO"         # Used in Kubernetes kube-apiserver logs with INFO prefix, 2-digit microsecond precision
+    - "'I'MMdd HH:mm:ss.SSS=INFO"        # Used in Kubernetes kube-apiserver logs with INFO prefix, 3-digit microsecond precision
+    - "'I'MMdd HH:mm:ss.SSSS=INFO"       # Used in Kubernetes kube-apiserver logs with INFO prefix, 4-digit microsecond precision
+    - "'I'MMdd HH:mm:ss.SSSSS=INFO"      # Used in Kubernetes kube-apiserver logs with INFO prefix, 5-digit microsecond precision
+    - "'I'MMdd HH:mm:ss.SSSSSS=INFO"     # Used in Kubernetes kube-apiserver logs with INFO prefix, 6-digit microsecond precision
+    - "'W'MMdd HH:mm:ss.S=WARN"          # Used in Kubernetes kube-apiserver logs with WARNING prefix, 1-digit microsecond precision
+    - "'W'MMdd HH:mm:ss.SS=WARN"         # Used in Kubernetes kube-apiserver logs with WARNING prefix, 2-digit microsecond precision
+    - "'W'MMdd HH:mm:ss.SSS=WARN"        # Used in Kubernetes kube-apiserver logs with WARNING prefix, 3-digit microsecond precision
+    - "'W'MMdd HH:mm:ss.SSSS=WARN"       # Used in Kubernetes kube-apiserver logs with WARNING prefix, 4-digit microsecond precision
+    - "'W'MMdd HH:mm:ss.SSSSS=WARN"      # Used in Kubernetes kube-apiserver logs with WARNING prefix, 5-digit microsecond precision
+    - "'W'MMdd HH:mm:ss.SSSSSS=WARN"     # Used in Kubernetes kube-apiserver logs with WARNING prefix, 6-digit microsecond precision
+    - "'E'MMdd HH:mm:ss.S=ERROR"         # Used in Kubernetes kube-apiserver logs with ERROR prefix, 1-digit microsecond precision
+    - "'E'MMdd HH:mm:ss.SS=ERROR"        # Used in Kubernetes kube-apiserver logs with ERROR prefix, 2-digit microsecond precision
+    - "'E'MMdd HH:mm:ss.SSS=ERROR"       # Used in Kubernetes kube-apiserver logs with ERROR prefix, 3-digit microsecond precision
+    - "'E'MMdd HH:mm:ss.SSSS=ERROR"      # Used in Kubernetes kube-apiserver logs with ERROR prefix, 4-digit microsecond precision
+    - "'E'MMdd HH:mm:ss.SSSSS=ERROR"     # Used in Kubernetes kube-apiserver logs with ERROR prefix, 5-digit microsecond precision
+    - "'E'MMdd HH:mm:ss.SSSSSS=ERROR"    # Used in Kubernetes kube-apiserver logs with ERROR prefix, 6-digit microsecond precision
+    - "'F'MMdd HH:mm:ss.S=CRITICAL"      # Used in Kubernetes kube-apiserver logs with FATAL prefix, 1-digit microsecond precision
+    - "'F'MMdd HH:mm:ss.SS=CRITICAL"     # Used in Kubernetes kube-apiserver logs with FATAL prefix, 2-digit microsecond precision
+    - "'F'MMdd HH:mm:ss.SSS=CRITICAL"    # Used in Kubernetes kube-apiserver logs with FATAL prefix, 3-digit microsecond precision
+    - "'F'MMdd HH:mm:ss.SSSS=CRITICAL"   # Used in Kubernetes kube-apiserver logs with FATAL prefix, 4-digit microsecond precision
+    - "'F'MMdd HH:mm:ss.SSSSS=CRITICAL"  # Used in Kubernetes kube-apiserver logs with FATAL prefix, 5-digit microsecond precision
+    - "'F'MMdd HH:mm:ss.SSSSSS=CRITICAL" # Used in Kubernetes kube-apiserver logs with FATAL prefix, 6-digit microsecond precision

@@ -1,0 +1,97 @@
+#
+# 'run' AWS S3 Logs input module Apache Camel route
+#
+# Fetches a single S3 object using the Camel aws2-s3 component and streams its contents to the pipeline.
+#
+# Authentication (in order of precedence):
+# 1. Explicit credentials - if s3LogsAwsAccessKeyID and s3LogsAwsSecretKey are provided
+# 2. AWS default credential chain - env vars (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY),
+#    IRSA (EKS), ~/.aws/credentials, EC2/ECS instance profile
+#
+# Region:
+# - If s3LogsAwsRegion is provided, uses that region
+# - Otherwise, resolved from AWS_REGION env var or default region chain
+#
+# Route flow:
+# 1. Timer triggers once on startup
+# 2. Config values stored in exchange properties (for dynamic URI resolution)
+# 3. S3 GetObject fetches the file as a stream
+# 4. Response streamed to the TenX pipeline input
+# 5. Route closes after streaming completes
+#
+# To learn more see:
+# - https://camel.apache.org/components/4.10.x/aws2-s3-component.html
+# - https://camel.apache.org/components/4.10.x/others/yaml-dsl.html
+
+- route:
+    from:
+      uri: timer
+      parameters:
+        timerName: $s3LogsName
+        repeatCount: 1
+
+      steps:
+        # Store config values in exchange properties for use in dynamic URIs
+        - setProperty:
+            name: s3Bucket
+            constant: $s3LogsBucket
+
+        - setProperty:
+            name: s3Key
+            constant: $s3LogsKey
+
+        - setProperty:
+            name: s3AccessKey
+            constant: $?s3LogsAwsAccessKeyID=""
+
+        - setProperty:
+            name: s3SecretKey
+            constant: $?s3LogsAwsSecretKey=""
+
+        - setProperty:
+            name: s3Region
+            constant: $?s3LogsAwsRegion=""
+
+        # Set the S3 object key header for the GetObject operation
+        - setHeader:
+            name: CamelAwsS3Key
+            simple: "${exchangeProperty.s3Key}"
+
+        - log:
+            message: "Fetching S3 object: s3://${exchangeProperty.s3Bucket}/${exchangeProperty.s3Key}"
+            loggingLevel: INFO
+
+        # Choose authentication method based on whether explicit credentials are provided
+        - choice:
+            when:
+              # If explicit credentials provided, use them
+              - simple: "${exchangeProperty.s3AccessKey} != '' && ${exchangeProperty.s3SecretKey} != ''"
+                steps:
+                  - log:
+                      message: "Using explicit AWS credentials"
+                      loggingLevel: DEBUG
+                  - toD:
+                      uri: "aws2-s3://${exchangeProperty.s3Bucket}?operation=getObject&autoCreateBucket=false&accessKey=${exchangeProperty.s3AccessKey}&secretKey=${exchangeProperty.s3SecretKey}&region=${exchangeProperty.s3Region}"
+            otherwise:
+              # Fall back to default credential chain (env vars, IRSA, instance profile)
+              steps:
+                - toD:
+                    uri: "aws2-s3://${exchangeProperty.s3Bucket}?operation=getObject&autoCreateBucket=false&useDefaultCredentialsProvider=true"
+
+        # Stream the response to the pipeline
+        - setHeader:
+            name: stream
+            simple: "${bean:tenx.stream}"
+
+        - to:
+            uri: "stream:header"
+
+        # Close the route after streaming
+        - log:
+            message: "S3 object fetch complete, closing route"
+            loggingLevel: DEBUG
+
+        - to:
+            uri: "bean:tenx"
+            parameters:
+              method: close()

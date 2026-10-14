@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "baseUrl": ".",
+    "paths": {
+      "@tenx/tenx": ["lib/script/tenx.js"],
+      "run/*": ["pipelines/run/*"],
+      "apps/*": ["apps/*"],
+      "compile/*": ["pipelines/compile/*"]
+    }
+  },
+  "include": ["**/*.js", "**/*.yaml", "**/*.yml"],
+  "exclude": ["node_modules", "**/dist"]
+}

@@ -1,0 +1,22 @@
+#
+# 🔟❎ 'run' log analyzer input modules
+
+module:
+
+  name: analyzerInputs
+
+  title: Log analyzer input
+
+  description: read events from log analyzers via REST
+ 
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/input/analyzer/doc.md":""
+  
+  # 'configFolder' specifies a folder containing default configuration files for this module
+  configFolder: run/input/analyzer
+
+  moduleSort: [splunk,elastic,datadogLogs,cloudwatchLogs]
+
+  # 'allowMultiple' is enabled for this module. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true

@@ -1,0 +1,45 @@
+#
+# 🔟❎ 'run' unit settings
+
+# ---------------------------- Config Loaders ---------------------------------
+
+# Load pipeline configuration files from disk
+configLoader: +include units/reload/settings.yaml
+  
+# --------------------------- Symbol Loaders ----------------------------------
+
+# Load symbol files 
+symbolLoader: +include units/symbol/settings.yaml
+
+# Load template files
+templateLoader: +include units/template/settings.yaml
+
+# -------------------------- Input & Processing -------------------------------
+
+# Read data from input streams (e.g. stdin, Fluentd, Splunk, Filebeat, Elastic..)    
+input: +include units/input/settings.yaml
+
+# Split parsing and structuring workloads across multiple cores  
+parallelize: +include units/transform/parallelize/settings.yaml
+
+# Transform semi/unstructured events into TenXObjects  
+transform: null
+ 
+# Group TenXObjects according to input and source
+group: +include units/transform/group/settings.yaml
+
+# --------------------------- Aggregate & Output ------------------------------
+
+# Aggregate TenXObjects into TenXSummaries to write to time series outputs
+aggregate: +include units/aggregate/settings.yaml
+
+# Write TenXObject/Summary instances to an event (e.g., Elastic, Splunk) and time series (e.g., Prometheus, Datadog) output(s)
+output: +include units/output/stream/settings.yaml 
+
+# ----------------------------- Report & Log ----------------------------------
+
+# Print I/O throughput stats to the console        
+printProgress: +include run/units/console/settings.yaml
+       
+# Report on pipeline metrics
+monitor: +include shared/units/monitor/settings.yaml

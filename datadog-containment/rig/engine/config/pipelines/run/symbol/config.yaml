@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/symbol/schema.json
+
+# 🔟❎ 'run' symbol file configuration
+
+# Loads symbol library files to transform events into well-defined TenXObjects.
+# To learn more see https://doc.log10x.com/run/symbol
+  
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# ============================ Symbol Options =================================
+
+symbol:
+
+  # 'paths' specifies the file/folder locations to scan for symbol library files.
+  #  To learn more see https://doc.log10x.com/run/symbol/#symbolpaths
+  paths:
+    - $=path("data/shared/symbols", false)
+    - $=path("<TENX_SYMBOLS_PATH>",  false)
+
+  literals: []

@@ -1,0 +1,6 @@
+#
+# 🔟❎ GitHub scanner settings
+
+# 'githubScanners' configures GitHub repository folders to pull to disk
+githubScanners: 
+  - $?github 

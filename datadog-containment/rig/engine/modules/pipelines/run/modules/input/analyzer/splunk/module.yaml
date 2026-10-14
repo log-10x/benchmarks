@@ -1,0 +1,218 @@
+#
+# 🔟❎ 'run' Splunk input module
+
+module:
+
+  name: splunk
+
+  title: Splunk input
+
+  description: read events from a Splunk Cloud/on-premises deployment
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/input/analyzer/splunk/doc.md":""
+
+  # 'configFolder' specifies a folder containing default configuration files for this module
+  configFolder: run/input/analyzer/splunk
+
+  # 'allowMultiple' is enabled for this module. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - splunkName
+      description: logical name of this Splunk input
+      type: string
+      required: false
+      category: general
+      doc: |
+        sets a logical name (e.g., 'mySplunk') for this input.
+        The [inputName](https://doc.log10x.com/api/js/#TenXBaseObject+inputName) field 
+        returns this value at run time to allow for identifying and operating on instances originating from this input.
+
+    - names:
+      - splunkEnabled
+      description: sets whether this input is enabled (default true)
+      type: boolean
+      required: false
+      category: general
+      doc: |
+        sets whether to open the input stream.
+        To enable this input only when a [splunkHost](https://doc.log10x.com/run/input/analyzer/splunk/#splunkhost) startup argument value is truthy, use:
+        ``` yaml
+        splunkEnabled: $=TenXEnv.get("splunkHost")
+        ```
+        To learn more see [TenXEnv.get](https://doc.log10x.com/api/js/#TenXEnv.get).
+      defValue: true
+
+    - names:
+      - splunkPrintProgress
+      description: sets whether this input prints throughput stats to the console
+      type: boolean
+      required: false
+      category: general
+      doc: |
+        sets whether this input prints throughput stats to the console
+        for testing an integration to a remote endpoint.
+      defValue: false
+
+    - names:
+      - splunkHost
+      description: Splunk host address
+      type: string
+      required: false
+      category: authentication
+      doc: |
+         sets the Splunk host address to connect to (e.g., `<deployment-name>.splunkcloud.com`)
+
+    - names:
+      - splunkPort
+      description: Splunk server port
+      type: number
+      required: false
+      category: authentication
+      doc: |
+         sets the Splunk server port to connect to (e.g., 8089)
+         The port is not needed if the provided [splunkHost](https://doc.log10x.com/run/input/analyzer/splunk/#splunkhost) already encapsulates the port
+
+    - names:
+      - splunkProtocol
+      description: defines the protocol to connect to Splunk
+      type: string
+      required: false
+      category: authentication
+      doc: |
+        sets the protocol to connect to Splunk with (e.g., https).
+      defValue: https
+
+    - names:
+      - splunkUsername
+      description: Splunk user name
+      type: string
+      required: false
+      category: authentication
+      doc: |
+        sets the Splunk user name to authenticate with
+        This value is set into the 'username' header of the `/services/search/v2/jobs/` endpoint
+
+    - names:
+      - splunkPassword
+      description: Splunk user password
+      type: string
+      required: false
+      category: authentication
+      doc: |
+        sets the Splunk user password to authenticate with
+        This value is set into the password header of the `/services/search/v2/jobs/` endpoint
+
+    - names:
+      - splunkVerifySSL
+      description: whether to verify SSL certificates (default true)
+      type: boolean
+      required: false
+      category: authentication
+      doc: |
+        sets whether to verify SSL certificates when connecting to Splunk.
+        Set to `false` to allow connections to Splunk instances with self-signed certificates.
+
+        **Warning:** Disabling SSL verification is not recommended for production environments.
+
+        For example:
+        ``` yaml
+        splunkVerifySSL: false
+        ```
+      defValue: true
+
+    - names:
+      - splunkQuery
+      description: search query to execute
+      type: string
+      required: true
+      category: query
+      doc: |
+        sets the Splunk search query to execute for this job 
+      defValue: search *
+
+    - names:
+      - splunkPageSize
+      description: number of events to retrieve with each result page
+      type: number
+      required: false
+      category: query
+      doc: |
+        sets the number of events to retrieve with each result page.
+
+        **Performance:** Increase to 1000-2000 for high-volume environments to reduce API round-trips.
+      defValue: 500
+
+    - names:
+      - splunkTotalBytesLimit
+      description: maximum total bytes to read from input before closing
+      type: number
+      required: false
+      category: backpressure
+      doc: |
+        sets the maximum number of bytes a target pipeline input will read into the pipeline.
+        This value limits the volume of events to read from a local/remote source (e.g., log analyzer).
+
+        **Performance:** Increase for longer analysis windows (e.g., 200MB for 10min windows).
+
+        For example:
+        ``` yaml
+        splunkTotalBytesLimit: $=parseBytes("1GB")
+        ```
+      defValue: $=parseBytes("50MB")
+
+    - names:
+      - splunkTotalEventsLimit
+      description: maximum total events to read from input before closing
+      type: number
+      required: false
+      category: backpressure
+      doc: |
+        sets the maximum number of events a target pipeline input will read into the pipeline.
+        This value limits the volume of events to read from a local/remote source (e.g., log analyzer).
+
+        **Performance:** Adjust based on memory and processing capacity. Each event consumes memory during processing.
+      defValue: 10000
+
+    - names:
+      - splunkTotalDuration
+      description: maximum duration to keep input open before closing
+      type: string
+      required: false
+      category: backpressure
+      doc: |
+        sets the maximum duration a target pipeline input will remain open.
+        When reached, the input will close and no more data will be read.
+
+        **Performance:** Match to your job scheduling interval (e.g., if running every 10min, set to 10min).
+
+        For example:
+        ``` yaml
+        splunkTotalDuration: $=parseDuration("10min")
+        ```
+      defValue: 5min
+
+    - names:
+      - splunkQueryInterval
+      description: query interval (in milliseconds) for checking new data from remote source
+      type: number
+      required: false
+      category: backpressure
+      doc: |
+        sets the interval between queries to the remote Splunk API.
+        This controls how frequently the input polls for new log data.
+
+        **Performance:** Increase for rate-limited APIs; decrease for real-time needs.
+
+        For example:
+        ``` yaml
+        splunkQueryInterval: $=parseDuration("5s")
+        ```
+      defValue: 2000

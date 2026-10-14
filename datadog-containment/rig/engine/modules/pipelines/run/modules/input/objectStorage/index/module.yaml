@@ -1,0 +1,202 @@
+#
+# 🔟❎ 'run' Object storage index output module
+
+module:
+
+  name: objectStorageIndex
+
+  title: Object storage index output
+
+  description: index files uploaded to a object storage container (e.g. AWS S3 bucket).
+
+   # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/input/objectStorage/index
+
+  configSort:
+    objectStorageIndex: [params, s3]
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/input/objectStorage/index/doc.md":""
+
+    # 'allowMultiple' is enabled for this module. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+  # ----------------------------- Container Options ---------------------------
+
+    - names:
+      - indexObjectStorageName
+      description: object storage logical name
+      type: string
+      required: true
+      category: container
+      doc: |
+        identifies the [Object Storage](https://doc.log10x.com/run/input/objectStorage#/objectstorageaccessclassname) containing the blob to index (e.g., AWS).
+
+    - names:
+        - indexReadContainer
+      description: name of the input Object Storage container
+      type: String
+      required: true
+      category: container
+      doc: |
+        specifies the Object Storage container (e.g., AWS S3 bucket) containing the blob (e.g., log file) to index.
+
+    - names:
+        - indexReadObject
+      description: name of the object storage blob to index
+      type: string
+      required: true
+      category: container
+      doc: |
+        specifies the blob (e.g., log file) name within [indexReadContainer](https://doc.log10x.com/run/input/objectStorage/index/#indexreadcontainer) to index.
+
+    - names:
+        - indexWriteContainer
+      description: name of target index container
+      type: String
+      required: true
+      category: container
+      doc: |
+        specifies the storage container (e.g., AWS S3 bucket) to output [TenXTemplate Filters](https://doc.log10x.com/run/input/objectStorage/index/#tenxtemplate-filters)  (e.g., TenXTemplates and Bloom filters).
+
+    - names:
+        - indexWriteTarget
+      description: logical name identifying the origin of 'indexReadObject'
+      type: string
+      required: true
+      category: output
+      doc: |
+        specifies a logical name to store index objects produced for [indexReadObject](https://doc.log10x.com/run/input/objectStorage/index/#indexreadobject) under.
+        This name commonly specifies the app which generated the events enclosed within this blob (e.g. `acme-client`).
+
+   # ----------------------------- Parsing Options ----------------------------
+
+    - names:
+      - indexReadExtractMessage
+      description: use extractor for inner message
+      type: boolean
+      required: false
+      category: parsing
+      doc: |
+        specifies whether to extract an inner field from the entire event json to use as the base for constructing the TenXObject.
+      defValue: false
+
+    - names:
+      - indexReadMessageField
+      description: message field name
+      type: String
+      required: false
+      category: parsing
+      doc: |
+        Name of the actual message field in the event json to use to construct the TenXObject, used only if [indexReadExtractMessage](https://doc.log10x.com/run/input/objectStorage/index/#indexreadextractmessage) is true.
+      defValue: log
+
+   # ------------------------------- Index Options ----------------------------
+
+    - names:
+        - indexWriteByteRange
+      description: max byte range size to index 'indexReadObject'
+      type: number
+      required: true
+      category: accuracy
+      doc: |
+       controls the chunk size in which to index the target object.
+
+       For example, if the target object is 1GB and this value is `2MB`,
+       index the object in 2MB segments to ensure matching queries
+       can retrieve chunks vs. all of it unnecessarily.
+       To learn more see: [byte range fetches](https://docs.aws.amazon.com/whitepapers/latest/s3-optimizing-performance-best-practices/use-byte-range-fetches.html)
+
+    - names:
+        - indexWriteResolution
+      description: index time window resolution
+      type: number
+      required: true
+      category: accuracy
+      doc: |
+        controls the index time range resolution.
+
+        For example, setting this to `1min` means that queries to the index at time
+        ranges greater than 1min (e.g. 15min) will not fetch byte ranges
+        outside the time frame unnecessarily.
+
+        The lower this value is, the greater the output index size will be.
+
+        This value should satisfy the minimum resolution for querying the index.
+        For example, if queries to the index are in 5-minute increments:
+
+        ``` yaml
+        query:
+          filter:
+            from: $=now("-5m")
+            to: $=now()
+        ```
+
+        Setting this value to `5min` will create the most efficient index.
+
+    - names:
+        - indexWriteAccuracy
+      description: bloom filter accuracy of index objects.
+      type: number
+      required: true
+      category: accuracy
+      doc: |
+        controls the accuracy of bloom filter [TenXTemplate Filters](https://doc.log10x.com/run/input/objectStorage/index/#tenxtemplate-filters).
+
+        The index output stream produces a list of [Bloom filters](https://en.wikipedia.org/wiki/Bloom_filter) for each [indexWriteResolution](https://doc.log10x.com/run/input/objectStorage/index/#indexwriteresolution) and [indexWriteByteRange](https://doc.log10x.com/run/input/objectStorage/index/#indexwritebyterange)
+        combination of the target blob. [Query](https://doc.log10x.com/run/input/objectStorage/query/) inputs utilize these filter objects
+        to rule out byte ranges where the query criteria are known NOT to match.
+
+        For example, if a target blob weighing 10MB contains events whose timestamps
+        range from the beginning of the hour to 3min later, and [indexWriteResolution](https://doc.log10x.com/run/input/objectStorage/index/#indexwriteresolution)
+        is set to `1min` and [indexWriteByteRange](https://doc.log10x.com/run/input/objectStorage/index/#indexwritebyterange) is set to `2Mb`, up to 6 ranges
+        are indexed separately, where the [templateHash](https://doc.log10x.com/api/js/#TenXBaseObject+templateHash) and [vars](https://doc.log10x.com/api/js/#TenXBaseObject+vars)
+        members of each TenXObject are within that range
+        are added to a list of bloom filters whose accuracy must not fall below this value.
+        The greater the accuracy, the greater the list of filters is created.
+
+        The [query](https://doc.log10x.com/run/input/objectStorage/query/) input uses Bloom filters to evaluate whether their corresponding byte ranges contain
+        target search terms with an accuracy (i.e., chance of false positive) set by these values.
+        In other words, if this value is 95, there is a 5% chance that a byte range that does NOT
+        contain target terms is fetched and scanned.
+
+    - names:
+      - indexWriteTemplateMergeInterval
+      description: merge template interval
+      type: number
+      required: false
+      category: advanced
+      doc: |
+        Specifies the interval to wait between template merge operation. Each index operation stores output [TenXTemplate](https://doc.log10x.com/run/template/)
+        objects in the [indexWriteContainer](https://doc.log10x.com/run/input/objectStorage/index/#indexwritecontainer). Index operations merge templates files into a single file periodically,
+        with the period interval set by this value.
+
+  # ----------------------------- Advanced Options ----------------------------
+
+    - names:
+      - indexObjectStorageArgs
+      description: custom Object storage args
+      type: list
+      required: false
+      category: advanced
+      doc: |
+        custom arguments passed as a map to the constructor of the underlying [object storage](https://doc.log10x.com/run/input/objectStorage/index/#indexobjectstoragename).
+        This list is expected to hold pairs of key values (e.g., args: [key1, value1, key2, value2])
+
+  # ----------------------------- Ancillary Options ---------------------------
+
+    - names:
+        - indexReadPrintProgress
+      description: sets whether this input prints throughput stats to the console
+      type: boolean
+      required: false
+      category: general
+      doc: |
+        sets whether this input prints throughput stats to the console.
+        This value is commonly used when testing an integration to a remote endpoint.

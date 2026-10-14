@@ -1,0 +1,20 @@
+# 🔟❎ 'run' lookup settings
+
+# Configure lookup table aggregation fields
+# To learn more see https://doc.log10x.com/run/initialize/lookup
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# ============================ Aggregation Settings ===========================
+
+# Install the lookup table enrichment fields as default fields by which to aggregate TenXObjects
+# To learn more see https://doc.log10x.com/run/initialize/#enrichmentFields
+
+include:
+  - run/modules/initialize/module.yaml
+  - run/modules/output/metric/module.yaml
+
+enrichmentFields:
+  # use yield to ensure all arguments are loaded
+  - $=yield TenXEnv.get("lookupFile") ? TenXEnv.get("lookupValueField"):""

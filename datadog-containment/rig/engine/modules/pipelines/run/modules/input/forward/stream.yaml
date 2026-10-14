@@ -1,0 +1,48 @@
+#
+# 🔟❎ 'run' Forward protocol input stream settings
+#
+# Receives events via the Fluent Forward protocol (msgpack-encoded) on a
+# Unix domain socket or TCP port. Each record is decoded to JSON with the
+# Forward tag injected as a "tag" field.
+#
+# Designed for sidecar deployments where a forwarder (e.g., Fluent Bit)
+# runs as a separate container and sends events via its Forward output.
+#
+# Architecture:
+#   Forwarder --[forward/unix|tcp]--> ForwardProtocolInputStream --> Pipeline
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+input:
+
+    # 'name' defines a logical name for this input.
+  - name: forward
+
+    # 'type' sets the input to a custom InputStream class
+    type: stream
+
+    # 'path' specifies the ForwardProtocolInputStream class
+    path: com.log10x.ext.edge.input.forward.ForwardProtocolInputStream
+
+    # Configuration options passed to the InputStream constructor (flat list format)
+    args:
+      # TCP port where the forwarder's Forward output sends data (default: 24224)
+      - port
+      - $=yield TenXEnv.get("forwardInputPort", "24224")
+      # Unix socket path (overrides TCP port when set)
+      - '$=yield TenXEnv.get("forwardInputPath", "") ? "path" : ""'
+      - $=yield TenXEnv.get("forwardInputPath", "")
+
+    # Apply user-configured extractors (referenced by name) to each
+    # decoded Forward record.
+    extractors:
+      - $?forwardExtractors
+
+    # Extract the event source from the injected "tag" field
+    sourcePattern: $=TenXEnv.get("forwardSourcePattern", "\"tag\":\"(.*?)\"")
+
+    # Sets the recommended backpressure limit for the 10x pipeline
+    backpressure:
+      intervalBytesLimit: $=parseBytes("2MB")
+      intervalBytesDuration: $=parseDuration("1s")

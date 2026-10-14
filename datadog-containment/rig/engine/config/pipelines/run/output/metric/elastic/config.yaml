@@ -1,0 +1,93 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/output/metric/elastic/schema.json
+
+# 🔟❎ 'run' ElasticSearch metric output configuration
+
+# Configure ElasticSearch metric counter outputs.
+# To learn more see https://doc.log10x.com/run/output/metric/elastic/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Dependencies ================================
+
+include: run/modules/output/metric/elastic
+
+# =============================== Elastic Options =============================
+
+# Define multiple Elastic metric outputs below
+
+elastic:
+
+    # --------------------------- Connection Options --------------------------
+
+    # 'host' sets the host to send metrics to (e.g., https://<deployment-name>.us-central1.gcp.cloud.es.io).
+  - host: $=TenXEnv.get("ELASTICSEARCH_HOST") # (EnvVar REQUIRED)
+
+    # 'apiKeyCredentials' sets base64-encoded credentials string
+    #  To learn more see: https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html
+    apiKeyCredentials: $=TenXEnv.get("ELASTIC_API_KEY")  # (EnvVar REQUIRED)
+
+    # 'userName' sets the the Basic Authentication username if 'apiKeyCredentials' is not set.
+    userName: $=TenXEnv.get("ELASTIC_USERNAME")  # (EnvVar REQUIRED)
+
+    # 'password' sets a Basic Authentication password.
+    password: $=TenXEnv.get("ELASTIC_PASSWORD")  # (EnvVar REQUIRED)
+
+    # ---------------------------- Counter Options ----------------------------
+
+    # 'nameField' sets the TenXSummary field whose value identifies the micrometer counter to increment. 
+    #  The 'inputName' field returns the name of the aggregator that produced the target TenXSummary instance.
+    #  To learn more see https://doc.log10x.com/run/aggregate
+    nameField: inputName
+
+    # 'counterFields' specifies the TenXSummary fields whose values are used to increment the counter.
+    #  To learn more see https://doc.log10x.com/run/aggregate/#summary-fields
+    counterFields:
+      - summaryVolume
+      - summaryBytes
+      - summaryTotals
+
+    # 'tagFields' sets the TenXSummary fields used as the counter tag dimension values.
+    #  Defaults to https://doc.log10x.com/run/initialize/#enrichmentFields
+    tagFields:
+      - $=yield TenXEnv.get("enrichmentFields")
+
+    # 'tagFieldNames' allows setting custom names to aggregated fields for metrics reporting.
+    #  Defaults to https://doc.log10x.com/run/initialize/#metricFieldNames
+    tagFieldNames:
+      - $=yield TenXEnv.get("metricFieldNames")
+
+    # 'filter' sets a JavaScript expression that TenXSummaries must evaluate as truthy to write to the output.
+    #  To learn more see https://doc.log10x.com/run/output/receive/#filter-expressions
+    filter: isSummary
+
+    # 'topSeries' keeps the output to the tag sets with the most bytes, ranked on
+    #  summaryBytes as the series accumulate. 0 (the default) publishes every tag set.
+    # topSeries: 0
+
+    # ---------------------------- Publish Options ----------------------------
+
+    # 'step' sets the interval for sending metrics to Elastic (e.g., '1m').
+    #  To learn more see: https://micrometer.io/docs/concepts#rate-aggregation
+    step: 5s
+
+    # ----------------------------- Index Options -----------------------------
+
+    # 'elasticIndex' sets the index name to which to write metrics.
+    index: tenx-metrics
+
+    # 'autoCreateIndex' sets whether to create the index automatically if it doesn't exist.
+    autoCreateIndex: true
+
+    # 'indexDateFormat' sets the index date format used for rolling indices.
+    #  This is appended to the index name, separated by 'elasticIndexDateSeparator'.
+    indexDateFormat: 'yyyy-MM'
+
+    # 'indexDateFormat' sets the separator between the index name and the date part
+    indexDateSeparator: '-'
+
+    # 'pipeline' sets the ingest pipeline name
+    pipeline: null
+
+    # 'timestampFieldName' sets the name of the elastic timestamp field.
+    timestampFieldName: '@timestamp'

@@ -1,0 +1,93 @@
+# 10x root log4j Configuration
+
+# This log4j configuration controls where log messages
+# emitted by the 10x run-time are written to (e.g. 'tenx.log') via the 'root' logger
+
+# Additional log4j configuration files passed to the run-time
+# to allow 10x pipelines(i.e. 'run') to further refine and control
+# how to emit TenXObjects to different disk and socket destination
+# to be consumed by log forwarders and analyzers (e.g. Splunk, Fluentd, elastic,..)
+
+# 10x logs are stored in either '/var/log/tenx/tenx.log' for NIX hosts,
+# or %AppData%\tenx\log on Wi based on the value of the 'OSTYPE' env variable
+
+configuration:
+
+  properties:
+    property:
+      - name: log-path
+        value: "${env:TENX_LOG_PATH:-/var/log/tenx/}"
+
+      - name: log-layout
+        value: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+
+      - name: plain-layout
+        value: "%msg%n"
+
+  appenders:
+
+    rollingFile:
+      - name: tenxFileAppender
+
+        fileName:    "${log-path}tenx.log"
+        filePattern: "${log-path}tenx.%d{dd-MMM}.%i.log"
+
+        patternLayout:
+          pattern: "${log-layout}"
+
+        policies:
+          sizeBasedTriggeringPolicy:
+            size: 10MB
+
+        defaultRollOverStrategy:
+          max: 10
+
+        createOnDemand: true
+
+    console:
+      - name: tenxConsoleAppender
+        target: SYSTEM_OUT
+        patternLayout:
+          pattern: "${log-layout}"
+
+      - name: tenxOutAppender
+        target: SYSTEM_OUT
+        patternLayout:
+          pattern: "${plain-layout}"
+
+      - name: tenxErrAppender
+        target: SYSTEM_ERR
+        patternLayout:
+          pattern: "${plain-layout}"
+
+  loggers:
+
+    logger:
+      - name: consoleOut
+        level: info
+        additivity: false
+        appenderRef:
+          - ref: tenxOutAppender
+
+      - name: consoleErr
+        level: info
+        additivity: false
+        appenderRef:
+          - ref: tenxErrAppender
+
+    root:
+      level: info
+      appenderRef:
+        - ref: ${env:TENX_LOG_APPENDER:-tenxFileAppender}
+
+  status: error
+
+  # Additional java packages containing log4j plugins can be added here
+  # Note: For native image, packages are removed at runtime by PipelineLauncher
+  packages: >
+    com.log10x.ext.edge.event.encode.log.plugin,
+    com.log10x.eng.event.encode.log,
+    com.log10x.eng.event.encode.log.fluency,
+    com.log10x.eng.event.encode.log.plugin,
+    com.log10x.eng.event.encode.log.unix,
+    io.github.technologize

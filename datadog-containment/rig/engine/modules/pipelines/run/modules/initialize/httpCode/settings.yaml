@@ -1,0 +1,20 @@
+# 🔟❎ 'run' HTTP code classifier settings
+
+# Configure  HTTP code classifier aggregation fields
+# To learn more see https://doc.log10x.com/run/initialize/httpCode
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# ============================ Aggregation Settings ===========================
+
+# Install the severity fields as default fields by which to aggregate TenXObjects
+# To learn more see https://doc.log10x.com/run/initialize/#enrichmentFields
+
+include:
+  - run/modules/initialize/module.yaml
+  - run/modules/output/metric/module.yaml
+
+enrichmentFields:
+  # use yield to ensure all arguments are loaded
+  - $=yield TenXEnv.get("httpCodeField") ? (TenXEnv.get("httpCodeField")):""

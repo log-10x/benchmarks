@@ -1,0 +1,113 @@
+{
+  "type" : "object",
+  "properties" : {
+    "include" : {
+      "type" : "string"
+    },
+    "tenx" : {
+      "type" : "string"
+    },
+    "outputStream" : {
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "additionalProperties" : false,
+        "properties" : {
+          "class" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Fully2 qualified java.io.OutputStream/Writer sub-class name\n\nSpecifies a fully qualified [OutputStream](https://docs.oracle.com/javase/8/docs/api/java/io/OutputStream.html) or [Writer](https://docs.oracle.com/javase/8/docs/api/java/io/Writer.html) sub-class to instantiate. The specified [outputStreamFields](https://doc.log10x.com/run/output/event/outputStream/#outputstreamfields) of each encoded TenXObjects will be written to the stream with a matching call to its [flush](https://docs.oracle.com/javase/8/docs/api/java/io/Flushable.html#flush--) method after each instance.  The class must implement a parameterless constructor or one with the following signature:\t  ``` java /** * @param args *   The values of the 'outputStream' option group specified * \tfor this OutputStream/Writer instance provided as a map(<argName>=<argValue>...). *   This allows the stream to read configuration values provided via config files/command line arguments. * * @param evaluatorBean *   An evaluator bean to enable this stream to interact with the 10x Engine */ public MyOutputStream(Map<String, Object> args, com.log10x.api.bean.EvaluatorBean evaluatorBean){...} ```"
+          },
+          "args" : {
+            "type" : [
+              "array",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Arguments to pass to the constructor of 'outputStreamClass'\n\nValue pairs to insert to the OutputStream/Writer constructor 'args' Map. This argument adds configuration values to the map passed to Stream/Writer ctor in addition to those specified by its matching 'outputStream' option group instance.  This argument allows for providing stream-specific context and default values such as a host address, port, etc.",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "fields" : {
+            "type" : [
+              "array",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "List of TenXObject field names to encode\n\nSpecifies a list of TenXObject intrinsic/calculated/extracted field names to extract and write to the output.",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "groupKeys" : {
+            "type" : [
+              "array",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Values to assign an 'outputStream' to a target output instance\n\nSpecifies a list of values by which instances of the 'outputStream' option group are assigned to specific instances of 'outputStreamClass' to enable multiple outputs to use a single synchronized OutputStream instance.",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "filter" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "A JavaScript expression an TenXObject must evaluate as 'truthy' against to be written to this output\n\nSpecifies a JavaScript expression that an TenXObject must evaluate as truthy to write its instance/template field values to this output.  For example, to only emit [timestamped](https://doc.log10x.com/api/js/#TenXBaseObject+timestamped) TenXObjects, specify: ``` yaml outputStreamFilter: this.timestamped ```"
+          },
+          "writeObjects" : {
+            "type" : [
+              "string",
+              "boolean",
+              "null"
+            ],
+            "markdownDescription" : "If true, TenXObject field values specified by [outputStreamFields](https://doc.log10x.com/run/output/event/outputStream/#outputstreamfields) are encoded to this output\n\nDetermine whether to write [outputStreamFields](https://doc.log10x.com/run/output/event/outputStream/#outputstreamfields) values of an TenXObject passed to this output. This configuration is typically defined using a JavaScript expression.  To enable/disable the output depending on whether a launch argument, environment variable, or JVM -D option evaluates as truthy, use: ``` yaml   outputStreamWriteObjects: $=TenXEnv.get(\"myOutputStreamClass\") ``` To learn more see [TenXEnv.get](https://doc.log10x.com/api/js/#TenXEnv.get). (Default: true)",
+            "default" : "true"
+          },
+          "writeTemplates" : {
+            "type" : [
+              "string",
+              "boolean",
+              "null"
+            ],
+            "markdownDescription" : "If true, write new TenXTemplates to this output\n\nControls whether to write template values of TenXObjects passed to this output. The output will only emit TenXTemplates that the pipeline did not load at startup via the [templateFile](https://doc.log10x.com/run/template/#templatefiles) argument, and will only emit an TenXTemplate once based on its [templateHash](https://doc.log10x.com/api/js/#TenXBaseObject+templateHash) value. (Default: false)",
+            "default" : "false"
+          },
+          "encodeType" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "The output format in which to encode TenXObject values. Possible values:[json, delimited]\n\nSpecifies how to encode [outputStreamFields](https://doc.log10x.com/run/output/event/outputStream/#outputstreamfields) values to this output. Possible values: - **json**: formats names and values for the current TenXObject as: {\"field\":\"str\",\"field2\":1, \"field3\": true} - **delimited**: formats values for the current TenXObject as: \"str\",1,true    The [outputStreamEncodeDelimiter](https://doc.log10x.com/run/output/event/outputStream/#outputstreamencodedelimiter) argument determines the separator to use. (Default: delimited)",
+            "default" : "delimited"
+          },
+          "encodedLinePrefix" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "The line prefix prepended to the encoded event if 'outputStreamEncodeType' is 'delimited'\n\nSets the char which is prepended to the emitted TenXObject field values when [outputStreamEncodeType](https://doc.log10x.com/run/output/event/outputStream/#outputstreamencodetype) is `delimited`. (Default: )",
+            "default" : ""
+          },
+          "encodeDelimiter" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "The delimiter placed between key and values pairs if 'outputStreamEncodeType' is 'delimited'\n\nSets the char delimiter to separate TenXObject field values when [outputStreamEncodeType](https://doc.log10x.com/run/output/event/outputStream/#outputstreamencodetype) is `delimited`. (Default: \" \")",
+            "default" : "\" \""
+          }
+        },
+        "required" : [
+          "class"
+        ]
+      }
+    }
+  },
+  "additionalProperties" : true
+}

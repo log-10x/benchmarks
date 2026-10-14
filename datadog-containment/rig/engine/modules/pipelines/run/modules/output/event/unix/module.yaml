@@ -1,0 +1,129 @@
+#
+# 🔟❎ 'run' Unix domain socket output module
+
+module:
+
+  name: unixSocketOutput
+
+  title:  Unix domain socket output
+
+  description: write TenXObject and template values to a log4j2 Unix domain socket appender
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: '+include $=TenXEnv.get("docGenerate") ? "run/modules/output/event/unix/doc.md":""'
+
+  # 'allowMultiple' is enabled for this module. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/output/event/unix
+
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+        - outputUnixSocketAddress
+      description: path address for the Unix domain socket
+      type: file
+      required: true
+      doc: |
+        specifies a Unix file path (e.g., `/tmp/foo`) to TenXObject instance/template field values to
+
+    - names:
+        - outputUnixSocketConnectTimeout
+      description: connection timeout in ms
+      type: number
+      required: false
+      doc: |
+        sets the connection timeout in ms for connecting to [outputUnixSocketAddress](https://doc.log10x.com/run/output/event/unix/#outputunixsocketaddress)
+        To learn more see [connection timeouts](https://www.baeldung.com/java-socket-connection-read-timeout).
+      defValue: 5000
+
+    - names:
+        - outputUnixSocketFields
+      description: list of TenXObject field names to encode
+      type: list
+      required: false
+      doc: |
+        specifies a list of TenXObject intrinsic/calculated/extracted field names to extract and write to the output.
+
+    - names:
+        - outputUnixSocketFilter
+      description: a JavaScript expression an TenXObject must evaluate as 'truthy' against to be written to this output
+      type: string
+      required: false
+      doc: |
+        Specifies a JavaScript expression that an TenXObject must evaluate as truthy to write its
+        instance/template field values to this output.
+        For example, 'outputUnixSocketFilter: this.timestamp' will only emit [timestamped](https://doc.log10x.com/api/js/#TenXBaseObject+timestamped) TenXObjects.
+
+    - names:
+        - outputUnixSocketWriteObjects
+      description: if true, encode TenXObjects [outputUnixSocketFields](https://doc.log10x.com/run/output/event/unix/#outputunixsocketfields) to this output
+      type: string
+      required: false
+      doc: |
+        Determine whether to write [outputUnixSocketFields](https://doc.log10x.com/run/output/event/unix/#outputunixsocketfields) values of an TenXObject passed to this output.
+        This configuration is typically defined using a JavaScript expression.
+
+        To enable/disable the output depending on whether a launch argument, environment variable,
+        or JVM -D option evaluates as truthy, use:
+        ``` yaml
+          outputUnixSocketWriteObjects: $=TenXEnv.get("unixSocketAddress")
+        ```
+        To learn more see [TenXEnv.get](https://doc.log10x.com/api/js/#TenXEnv.get).
+
+      defValue: true
+
+    - names:
+        - outputUnixSocketWriteTemplates
+      description: if true, write new TenXTemplates to this output
+      type: string
+      required: false
+      doc: |
+        controls whether to write template values of TenXObjects passed to this output.
+        The output will only emit TenXTemplates that the pipeline did not load at startup via the [templateFile](https://doc.log10x.com/run/template/#templatefiles) argument,
+        and will only emit an TenXTemplate once based on its [templateHash](https://doc.log10x.com/api/js/#TenXBaseObject+templateHash) value.
+      defValue: false
+
+    - names:
+        - outputUnixSocketEncodeType
+      description: the output format in which to encode TenXObject values. Possible values:[json, delimited]
+      type: string
+      defValue: delimited
+      required: false
+      doc: |
+        specifies how to encode [outputUnixSocketFields](https://doc.log10x.com/run/output/event/unix/#outputunixsocketfields) values to this output. Possible values:
+        - **json**: formats names and values for the current TenXObject as: {"field":"str","field2":1, "field3": true}
+        - **delimited**: formats values for the current TenXObject as: "str",1,true
+           The [outputUnixSocketEncodeDelimiter](https://doc.log10x.com/run/output/event/unix/#outputunixsocketencodedelimiter) argument determines the separator to use.
+
+    - names:
+        - outputUnixSocketEncodedLinePrefix
+      description: the line prefix prepended to the encoded event if 'outputUnixSocketEncodeType' is 'delimited'
+      type: string
+      required: false
+      doc: |
+        sets the char which is prepended to the emitted TenXObject field values when [outputUnixSocketEncodeType](https://doc.log10x.com/run/output/event/unix/#outputunixsocketencodetype) is `delimited`.
+      defValue: ''
+
+    - names:
+        - outputUnixSocketEncodeDelimiter
+      description: the delimiter placed between key and values pairs if 'outputUnixSocketEncodeType' is 'delimited'
+      type: string
+      required: false
+      doc: |
+        sets the delimiter to separate TenXObject field values when [outputUnixSocketEncodeType](https://doc.log10x.com/run/output/event/unix/#outputunixsocketencodetype) is `delimited`.
+      defValue: ' '
+
+    - names:
+        - outputUnixSocketEncodeGroupDelimiter
+      description: string delimiter to use when separating individual 10x events inside a group
+      type: string
+      required: false
+      doc: |
+        sets the string delimiter used to separate individual 10x events inside a group
+        when encoded to a stream/event output

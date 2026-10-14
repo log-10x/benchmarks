@@ -1,0 +1,85 @@
+# 🔟❎ 'compile' symbol scanner settings
+
+# The 'compile' pipeline scans source code /binary files to extract specific
+# tokens (e.g., string constants, class names) to produce symbol unit files.
+
+# Extracting symbols from different file formats is done via configurable 'symbol scanners' 
+# which parse specific source/binary file format(s) to extract symbol values and the context in which
+# they appear in the input file (e.g., class/fun name, code const)
+
+# 'scanners' provides a list of scanning facilities used to extract symbol values
+#  for a specific subset of source/binary file formats. 
+#  Each scanner is configured with its own set of option values. 
+#  See each scanner's 'setting.yaml' file below to learn about its available options.
+scanners:
+
+ # Reuse previously generated symbol unit files (e.g., 10x.json)
+  symbol: null
+
+  # Pull
+
+  # Pull container images and source code repositories referenced in Helm charts
+  helm: +include compile/modules/pull/helm/settings.yaml
+
+  # Pull folders to scan from GitHub repositories
+  github: +include compile/modules/pull/github/settings.yaml
+
+  # Pull files to scan from Artifactory instances
+  artifactory: +include compile/modules/pull/artifactory/settings.yaml
+
+  # Pull Docker image files to scan from container repositories
+  docker: +include compile/modules/pull/docker/settings.yaml
+
+  # Pull objects to scan from S3 buckets
+  s3: +include compile/modules/pull/s3/settings.yaml
+
+  # Pull GitHub repos files to scan from Go mod files 
+  # gomod: +include compile/modules/pull/gomod/settings.yaml
+
+  # Scan
+
+  # Compressed archives (e.g., zip, jar, rar)
+  archive: +include compile/modules/scanner/archive/settings.yaml
+
+  # Text/binary files as plain text or via https://github.com/FasterXML/jackson (e.g., .json, .yaml, .csv, .xml, .log, .txt)
+  text: +include compile/modules/scanner/text/settings.yaml
+
+  # Java source code parsing via https://javaParser.org (.java)
+  java: +include compile/modules/scanner/javaParser/settings.yaml
+
+  # Scala source code parsing via https://scalameta.org (.scala)
+  scala: +include compile/modules/scanner/scalameta/settings.yaml
+   
+  # JVM bytecode via the ASM library (.class) 
+  bytecode: +include compile/modules/scanner/bytecode/settings.yaml
+  
+  # Python source code via the Python run-time  (.py)
+  python: +include compile/modules/scanner/pythonAST/settings.yaml
+
+  # Launch executables such as OS utils (e.g., '> strings -a' for .exe, .dll, .so) and custom scripts (e.g., Java, Python for DB/REST query)  
+  executable: +include compile/modules/scanner/executable/settings.yaml
+ 
+  # Polyglot source code scanning via https://www.antlr.org/ (e.g., .js, .cpp, .cs, .scala, .go)
+  antlr: +include compile/modules/scanner/antlr/settings.yaml
+
+  # Extract symbol values from files using regex
+  pattern: +include compile/modules/scanner/pattern/settings.yaml
+
+
+# 'scanDebugOrigins' lists names of input source files (e.g., 'my.cpp', 'my.js') for
+#  which symbol scanners will emit information to the console relating to their parsing  
+#  and extraction of symbol values. This option allows for debugging the symbol extraction
+#  process for a target source / binary input. Use '*' for all.
+debugOrigins: 
+  - $?scanDebugOrigins
+
+# 'scanDebugSymbols' lists names AST nodes type keys (e.g., 'blockDeclaration', 'myClass') 
+#  for which symbol scanners will log information relating to how they are captured or skipped. 
+#  This option allows for debugging of the symbol extraction process for a target source / binary symbol.
+debugSymbols: 
+  - $?scanDebugSymbols
+
+# 'scanDebugLoggerName' controls the name of the log4j logger for emitting information for
+#  'debugOrigins' and 'debugSymbols'. Defaults to the 'consoleOut' logger defined in the root log4j2.yaml.
+loggerName: $?scanDebugLoggerName=consoleOut
+ 

@@ -1,0 +1,97 @@
+{
+  "type" : "object",
+  "properties" : {
+    "tenx" : {
+      "type" : "string"
+    },
+    "aggregator" : {
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "additionalProperties" : false,
+        "properties" : {
+          "name" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Logical name of aggregator\n\nProvides a logical name for this aggregator (e.g., 'errors'). This value is accessible at run-time via the intrinsic 'inputName' field to identify TenXSummaries originating from this aggregator."
+          },
+          "enabled" : {
+            "type" : [
+              "string",
+              "boolean",
+              "null"
+            ],
+            "markdownDescription" : "Enable/disable this aggregator\n\nSets whether to open the input stream. To enable this input only when an 'aggregateErrors' startup argument value is truthy:  ``` yaml ... aggregator:   enabled: $=TenXEnv.get(\"aggregateErrors\") ``` (Default: true)",
+            "default" : "true"
+          },
+          "fields" : {
+            "type" : [
+              "array",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "List of field names by which to aggregate TenXObjects\n\nProvides a list of intrinsic/extracted/calculated [TenXObject](https://doc.log10x.com/api/js/#TenXObject) field names by which to aggregate instances.  When the aggregator flushes the in-mem table to produced TenXSummaries, each generated TenXSummary instance provides access to the total values via its [summaryTotals](https://doc.log10x.com/api/js/#TenXSummary+summaryValues) array field.",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "defaultValue" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "A constant value to default if 'maxCardinality' is exceeded\n\nDefines a constant value to use instead of [field values](https://doc.log10x.com/run/aggregate/#aggregatorfields) when the current number of rows within the aggregator's in-mem table during [flushInterval](https://doc.log10x.com/run/aggregate/#aggregatorflushinterval) exceeds [maxCardinality](https://doc.log10x.com/run/aggregate/#aggregatormaxcardinality).  This value prevents an out-of-mem error if TenXObjects whose [field values](https://doc.log10x.com/run/aggregate/#aggregatorfields) are of high cardinality, which can cause the in-mem table to grow beyond the confines of the host JVM heap.  This error is possible if [fields](https://doc.log10x.com/run/aggregate/#aggregatorfields) contains a calculated/extracted field whose value is alphanumeric (e.g., 'spanID') and is practically unique to each TenXObject."
+          },
+          "totalFields" : {
+            "type" : [
+              "array",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "List of fields whose values to tally into generated TenXSummaries\n\nSpecifies a list of intrinsic calculated/extracted TenXObject field names to tally and write into aggregated TenXSummary instances within a target flush  [threshold](https://doc.log10x.com/run/aggregate/#aggregatorflushthreshold) or [interval](https://doc.log10x.com/run/aggregate/#aggregatorflushinterval).  For example, setting a value of: `price` into this array will tally the prices of all TenXObjects aggregated into a target output TenXSummary instance.   A matching `price` value containing the sum of aggregated prices will be accessible for each TenXSummary instance via its  [summaryTotals](https://doc.log10x.com/api/js/#TenXSummary+summaryTotals) array.",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "maxCardinality" : {
+            "type" : [
+              "number",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Max number of concurrent rows within the aggregator in-mem table within the flush interval\n\nSets the maximum number of unique rows within the aggregator's in-mem table. If the number of rows exceeds this value during [flushInterval](https://doc.log10x.com/run/aggregate/#aggregatorflushinterval) , the 'aggregatorDefaultValue' value will be for all TenXObjects instead of [field values](https://doc.log10x.com/run/aggregate/#aggregatorfields) until the aggregator is flushed.  This value is used as a backstop to ensure that the aggregator's in-mem table does not overflow when extracting and  aggregating very high cardinality values from the fields of TenXObjects passed to this aggregator.  If no value is provided or set to 0, the aggregator has no cap. This may result in an out-of-mem error when very high cardinality (e.g., 'spanID', 'GUID') [fields](https://doc.log10x.com/run/aggregate/#aggregatorfields) are specified. (Accepts number or string with $= prefix for runtime evaluation)"
+          },
+          "filter" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "A JavaScript expression an TenXObject must evaluate as 'truthy' against to be aggregated\n\nProvides a way to control which TenXObjects are incorporated into this aggregator. Unlike the 'aggregatorEnabled', which enables/disables this aggregator altogether, this JavaScript expression is evaluated per TenXObject to provide granular control over what information to aggregate.  For example, to only aggregate TenXObjects read from a specified input:  ``` yaml aggregator:   filter: this.inputName == \"elastic\" ```  To apply more complex logic, invoke an 10x JavaScript function declared in a .js file by passing it to the 10x Engine at startup (e.g., $ tenx run @my.js).  ``` yaml aggregator:   ...   filter: myAggregatorFilter() ```  For a real-world aggregator example see [aggregate/stream.yaml](https://github.com/log-10x/modules/blob/main/pipelines/run/modules/aggregate/stream.yaml)."
+          },
+          "flushThreshold" : {
+            "type" : [
+              "number",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Maximum the number of TenXObjects to aggregate before the aggregator flushes\n\nControls how many TenXObjects to upsert into this aggregator (e.g., 10000) before the aggregator transforms the rows of its in-mem table into TenXSummaries instances and flushes them into the pipeline.  If not set, the [flushInterval](https://doc.log10x.com/run/aggregate/#aggregatorflushinterval) argument determines when to flush the aggregator. If neither argument is present, the aggregator only flushes pending TenXSummaries when the pipeline terminates. (Accepts number or string with $= prefix for runtime evaluation)"
+          },
+          "flushInterval" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Interval to wait before the aggregator flushes\n\nSets the period (e.g., '30s'), after which the aggregator transforms the rows of its in-mem table into TenXSummaries instances and flushes them into the pipeline.  If set, the [flushThreshold](https://doc.log10x.com/run/aggregate/#aggregatorflushthreshold)  argument determines when to flush the aggregator. If neither argument is present, the aggregator only flushes pending TenXSummaries when the pipeline terminates."
+          }
+        },
+        "required" : [
+          "name",
+          "fields"
+        ]
+      }
+    }
+  },
+  "additionalProperties" : false
+}

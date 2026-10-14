@@ -1,0 +1,32 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/compile/scanners/pattern/schema.json
+
+# 🔟❎ 'compile' pattern quoted strings configuration
+
+# This pattern symbol scanner extracts single and double quoted string values
+# from target files. This pattern is used a default for capturing symbol values
+# from source files for which no ANTLR grammar or built-in scanner is available.
+
+# Set the 10x pipeline to 'compile'
+tenx: compile
+
+# ============================== Pattern Options ==============================
+
+pattern: 
+
+    # 'fileFilter' is set as a sink for prominent source code files. Available built-in and ANTLR
+    #  scanners will take precedence over this pattern scanner
+  - fileFilter: \b\w+\.(java|cs|php|cpp|cxx|c|h|H|hxx|cc|hh|py|go|js|rs|bash|scala|sc|ts|rb|kt|lua|groovy|swift)\b
+
+    extractQuotes: true
+
+    # 'lineFilter' defines a regex pattern applied to each line within a target file.
+    #  Each matching region will be extracted as symbol value
+    lineFilter: null
+
+    # 'matchContext' sets the source context to assign any symbols collected using this this pattern selector. 
+    #  For possible values, see https://doc.log10x.com/run/transform/symbol/#contexts
+    matchContext: method_invoke
+
+    # 'unescapeScheme' specifies an unescape algorithm to apply to matching sequences of patternLineFilter. 
+    #  Supported values: [json,java,xml,html,javaScript].
+    unescapeScheme: java

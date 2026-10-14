@@ -1,0 +1,173 @@
+# 
+# 🔟❎ 'compile' ANTLR lang module
+
+module:
+
+  name: antlrLangs
+
+  title: ANTLR language
+
+  description: extract symbol values from a source code in a variety of programming language using ANTLR
+     
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "compile/modules/scanner/antlr/langs/doc.md":""
+
+  # 'allowMultiple' is enabled for this unit. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+    
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+  
+    - names:
+      - antlrLang
+      description: programming language name
+      type: string
+      required: true
+      category: general
+      doc: |
+        defines a logical name of the programming language processed by this scanner (e.g., 'cpp', 'go')
+      
+    - names:
+      - antlrFileExt
+      description: language file extensions
+      type: list
+      category: general
+      required: true
+      doc: |
+        defines the file extensions to be scanned by this ANTLR syntax (e.g., '.cpp', '.js')
+      
+    - names:
+      - antlrGrammarFile
+      description: ANTLR .g4 grammar file 
+      type: string
+      category: g4 grammar
+      required: false
+      doc: |
+        provides an ANTLR grammar file that is used directly to
+        parse source files for the lang. This value takes precedence over a 'parserClass' value. 
+        This option enables the parsing of source files without requiring
+        a pre-compile step of the grammar into a .java for grammars that do not have language-specific extensions
+        If this value is not specified, 'antlrParserClass' must be set
+
+    - names:
+      - antlrLexerFile
+      description:  ANTLR .g4 lexer file 
+      type: string
+      required: false
+      category: g4 grammar
+      doc: |
+        provides an optional ANTLR lexer file to use with 'antlrGrammarFile'.
+      
+    - names:
+      - antlrParserClass
+      description: Java parser class name
+      type: string
+      category: compiled grammar
+      required: false
+      doc: |
+        provides the fully qualified name Java class name of the ANTLR-generated parser class that 
+        will be used to parse the token stream from the input source. This option applies in
+        cases where the ANTLR syntax requires additional Java code to parse
+        target sources such as custom parser, lexer, or token stream classes
+
+        To learn more https://ocw.mit.edu/ans7870/6/6.005/s16/classes/18-parser-generators/
+        and https://www.baeldung.com/java-antlr#1-prepare-a-grammar-file
+        For an example implementation, see com.log10x.antlr.generated.cpp.CPP14Parser
+
+        If this value is not specified, 'antlrGrammarFile' must be set
+      
+    - names:
+      - antlrLexerClass
+      description: Java lexer class name
+      type: string
+      category: compiled grammar
+      required: false
+      doc: |
+        provides the fully qualified name Java class name of the ANTLR-generated lexer class that 
+        will be used to draw input symbols from a character stream.
+        For an example implementation, see com.log10x.antlr.generated.cpp.CPP14Lexer
+      
+    - names:
+      - antlrTokenStreamClass
+      description: Java token stream class name
+      type: string
+      category: compiled grammar
+      required: false
+      doc: |
+        provides an optional Java class name for the ANTLR-generated 
+        token stream to bridge between the lexer and parser.
+        This option supports ANTLR syntaxes that require a custom token stream.
+
+        The class must be a sub-class of [ANTLR CommonTokenStream](https://www.antlr.org/api/Java/org/antlr/v4/runtime/CommonTokenStream.html)
+
+        The token stream class must define a constructor that receives an ANTLR TokenSource reference
+        and a millisecond timeout: 
+        ``` js
+        public MyTokenStream(TokenSource tokenSource, long timeout) {...}	
+        ```
+
+        If 'timeout' is exceeded from the moment of instantiation to a subsequent call to 
+        the stream's 'seek' or 'consume' methods, the stream should throw an exception to 
+        indicate a timeout to halt the scanning for the current source file.
+
+    - names:
+      - antlrCharStreamClass
+      description: ANTLR CharStream factory class name
+      type: string
+      category: compiled grammar
+      required: false
+      defValue: "[CharStreams](https://www.antlr.org/api/Java/org/antlr/v4/runtime/CharStreams.html)"
+      doc: |
+        provides a fully qualified Java class name that acts as a factory for [CharStream](https://www.antlr.org/api/Java/org/antlr/v4/runtime/CharStream.html) instances
+        by declaring the following method:
+        ``` java
+        public static CharStream fromStream​(InputStream is) {...}
+        ```
+        If not specified, defaults to [CharStreams.fromStream](https://www.antlr.org/api/Java/org/antlr/v4/runtime/CharStreams.html#fromStream(java.io.InputStream)).
+        
+        This option provides a mechanism for preprocessing input code prior to parsing it using the target ANTLR grammar lexer/parsers.
+
+    - names:
+      - antlrRootRule
+      description: syntax root rule
+      type: string
+      category: general
+      required: true
+      doc: |
+        provides the root grammar rule of the ANTLR-generated parser class 
+        for iterating over the root of the AST structure 
+        To learn more see [ANTLR start rules](https://stackoverflow.com/questions/29879626/)
+      
+    - names:
+      - antlrReserved
+      description: Language-specific keywords
+      type: list
+      required: false
+      category: filter
+      doc: |
+        provides a list of symbols specifying reserved words in the 
+        target language syntax (e.g., 'class', 'int'..) to be skip over when scanning for symbol values
+     
+    - names:
+      - antlrLineFilters
+      description: regex patterns for skipping input lines 
+      type: list
+      category: filter
+      required: false
+      doc: |
+        specifies a list of patterns for filtering matching input code lines.
+        This options can be used to filter out comments as well as language constructs unsupported
+        by the target grammar. If a pattern in the list matches a line it is skipped. 
+              
+    - names:
+      - antlrMaxLineLength
+      description: max line length to parse
+      type: number
+      category: filter
+      required: false
+      doc: |
+        specifies a max number of chars an input line may contain for it to be parsed. This option
+        provides a method for skipping minified code (e.g., .js) which may slow down the ANTLR parser. 

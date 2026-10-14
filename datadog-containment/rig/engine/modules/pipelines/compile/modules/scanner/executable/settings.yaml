@@ -1,0 +1,7 @@
+# 🔟❎ 'compile' executable symbol scanner settings
+
+# 'execScanners' define executable scanners that extract symbol values
+#  from input files by launching an external process and reading its stdout pipe.
+
+execScanners:
+  - $?executable 

@@ -1,0 +1,32 @@
+#
+# 🔟❎ TenXTemplate token parser module
+
+module:
+  
+  name: structure
+
+  title: Structure parser
+
+  description: structure input events into well-defined TenXObjects
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/units/transform/structure/doc.md":""
+
+  # 'allowMultiple' is disabled for this module. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+ 
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+  
+    - names:
+      - tokenDelims
+      description: token delimiters
+      type: string
+      required: false
+      doc: |
+        defines which characters break a string of event characters into tokens to classify as symbols or variables.
+      defValue: <>|. ][:-+/*=\\,{}_();'\"$\t\n@
+      

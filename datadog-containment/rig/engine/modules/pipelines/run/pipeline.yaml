@@ -1,0 +1,36 @@
+#
+# 🔟❎ 'run' pipeline
+
+# 'pipeline' defines the name, description, and structure of an 10x pipeline. 
+pipeline:
+
+  # 'name' sets a logical name to identify and launch the pipeline. (e.g., '> tenx run') 
+  name: run
+
+  # 'title' specifies a user-friendly title
+  title: run
+
+  # 'description' sets a user-friendly description for the pipeline.
+  #  This text will appear when invoking the 10x Engine to list available commands (e.g.,'> tenx -help')
+  description: report, receive and optimize log/trace events in edge and cloud environments
+    
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: '+include $=TenXEnv.get("docGenerate") ? "run/doc.md":""'
+
+  # 'options' define the list of launch arguments pipeline units can receive 
+  #  via configuration files and command line arguments. These arguments include symbol file locations,
+  #  inputs, aggregators, outputs, and more.
+  options: +include units/units.yaml
+ 
+ # 'units' specify how to apply launch arguments to pipeline units.
+units: +include settings.yaml
+
+unitActions:
+  - $?unitActions
+
+unitShutdownActions:
+  - $?unitShutdownActions
+
+# 'functionActions define 10x custom JavaScript functions.
+functionActions:
+- $?functionActions

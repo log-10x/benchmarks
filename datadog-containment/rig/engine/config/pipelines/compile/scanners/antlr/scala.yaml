@@ -1,0 +1,136 @@
+# yaml-language-server: $schema=schema.json
+
+# 🔟❎ 'compile' Scala symbol scanner configuration
+
+# The 'scala' configuration instructs the ANTLR scanner which symbol values (e.g. class/func names, code constants)
+# to extract from Scala source files.
+
+# IMPORTANT: while set to enabled by default, the dedicated scala scanner utilizes 
+# takes precedence over this scanner unless disabled.
+# To learn more see https://doc.log10x.com/compile/scanner/scalameta
+
+# Set the 10x pipeline to 'compile'
+tenx: compile
+
+# ============================== ANTLR Options ================================
+
+antlr:
+
+  # The 'antlrLang' module is defined in: https://doc.log10x.com/compile/scanner/antlr/langs
+  # These values define the ANTLR grammar .g4 file used to
+  # to tokenize and construct an AST for the target .Scala file.
+
+  lang: scala
+
+  fileExt:
+    - .scala
+    - .sc
+
+  grammarFile: grammar/scala.g4
+
+  rootRule: compilationUnit
+
+  reserved:
+    - interface
+    - class
+    - enum
+    - this
+
+  # 'lineFilters' specifies a list of regex patterns for skipping input lines 
+  lineFilters:
+    - ^\s*(//.*|/\*.*\*/)$
+
+  # The 'rule' list defines the nodes within a scala AST tree that are captured
+  # and added to the output symbol unit.
+  # To learn more see: https://doc.log10x.com/compile/scanner/antlr/rules/
+  rule:
+  - name: classParamClauses
+    lang: scala
+    context: class
+    recursive: false
+    capture: literalsOnly
+  
+  - name: patVarDef
+    lang: scala
+    context: var_assign
+    recursive: true
+    capture: literalsOnly
+  
+  - name: argumentExprs
+    lang: scala
+    context: method_invoke
+    recursive: true
+    capture: literalsOnly
+  
+  - name: annotation
+    lang: scala
+    context: annotation_invoke
+    recursive: true
+    capture: literalsOnly
+  
+  - name: objectDef
+    lang: scala
+    context: class
+    recursive: true
+    capture: allSymbols
+  
+  - name: paramClauses
+    lang: scala
+    context: class
+    recursive: false
+    capture: literalsOnly
+  
+  - name: classTemplateOpt
+    lang: scala
+    context: class
+    recursive: false
+    capture: literalsOnly
+  
+  - name: funDcl
+    lang: scala
+    context: method_decl
+    recursive: false
+    capture: allSymbols
+    
+  - name: classDef
+    lang: scala
+    context: class
+    recursive: true
+    capture: allSymbols
+  
+  - name: qualId
+    lang: scala
+    context: package
+    recursive: true
+    capture: allSymbols
+  
+  - name: traitDef
+    lang: scala
+    context: class
+    recursive: true
+    capture: allSymbols
+  
+  - name: funDef
+    lang: scala
+    context: method_decl
+    recursive: true
+    capture: allSymbols
+    subRule: funSig
+  
+  - name: type_
+    lang: scala
+    context: method_decl
+    recursive: false
+    capture: literalsOnly
+  
+  - name: blockStat
+    lang: scala
+    context: var_assign
+    recursive: true
+    capture: literalsOnly
+  
+  - name: templateStat
+    lang: scala
+    context: method_invoke
+    recursive: true
+    capture: literalsOnly

@@ -1,0 +1,72 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/compile/scanners/executable/schema.json
+
+# # 🔟❎ 'compile' executable 'strings' configuration
+
+# This executable symbol scanner configuration uses OS-specific utilities to extract 
+# constant string values from pre-compiled binaries (e.g. programs, shared libraries).
+# Any matching text values are added to the output symbol files.
+
+# The following configuration is added by default to the 10x 'compile' pipeline.
+# If another 'executable' scanner is defined whose 'osFilter' matches that of the 
+# current target input file, it will take precedence over the scanners defined below.
+# To learn more about the 'executable' scanner, 
+# see: https://doc.log10x.com/compile/scanner/executable
+
+# Set the 10x pipeline to 'compile'
+tenx: compile
+
+# =============================== Exec Options ================================
+
+exec: 
+ 
+    # This scanner uses the Linux built-in 'strings' (https://linux.die.net/man/1/file)
+    # command to extract symbol values from a target binary executable file
+  - name: stringsNIX
+    
+    # This configuration targets NIX OSs
+    osFilter: (nix|nux|lux|mac)  
+    
+    # try for known extensions before invoking a 'selectorProcess'
+    extensions:   
+      - .so
+      - .dylib   
+      
+    # 'selector' processes provide a method for determining whether a file is an executable binary.
+    #  If a selector process is not provided the file's ELF/PE/OSX binary header is tested. 
+    #  Since on NIX, executables do not have a known extension,
+    #  the 'selector' process uses the built-in 'file' command whose 
+    #  output is used to verify the target file is a NIX executable file.   
+    selector:
+      process: file
+      args:
+        - file # this macro value is replaced at run-time by the actual input file name
+      timeout: 5s      
+      outputFilter: ".*?\\bexecutable\\b.*?" # select 'executable' files
+      
+    process: strings    
+    args:
+      - -a   # scan the whole file, not just initialized and loaded sections 
+      - file # This macro value is replaced at run-time by the actual text/binary input file   
+    timeout: 100s
+
+    symbol: 
+      # 'minLength' specifies the min number of chars a value extracted via strings must be to 
+      #  in order to qualify as a symbol. 
+      minLength: 4  
+
+      # 'maxLength' specifies the max number of chars a value extracted via strings must be to 
+      #  in order to qualify as a symbol. 
+      maxLength: 1024
+
+      # 'filters' defines regex patterns applied to each line read from the scanner process' stdout 
+      #  that must NOT match for the line value to be considered a symbol.
+      filters: 
+        - AWAV.  # https://stackoverflow.com/questions/39322552/meaning-of-a-common-string-in-executables
+        - "^(?=^.{0,7}$)(?=.*[^a-zA-Z]).*$" # Matches any string that is shorter than 8 characters (0 to 7 chars) and contains at least one non-alphabetic character.
+
+      # 'setSelector' specifies regex patterns that determines whether to treat an input value as set of tokens    
+      setSelectors:
+        - '^[0-9].*$'                  # Starts with digit
+        - '^\*.*$'                     # Starts with *
+        - '^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}(?:/[^\s]*)?$' # Domain + optional path (e.g., github.com/user/repo)
+        - '^type:\\..*$'               # Go land metadata starts with "type:." (any suffix)

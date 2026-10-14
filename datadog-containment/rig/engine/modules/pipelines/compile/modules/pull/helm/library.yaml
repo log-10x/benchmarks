@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=schema.json
+
+# 🔟❎ 'compile' default symbol library - Helm charts
+
+# Helm charts are scanned to extract Docker images containing binaries with
+# embedded log statements. Source code is pulled separately from GitHub.
+
+# To enable: uncomment the 'tenx: compile' line below, or copy specific charts
+# to your config/pipelines/compile/pull/helm/config.yaml
+
+tenx: compile  # Uncomment to enable compilation of this library
+
+# =============================== Helm Charts =================================
+
+helm:
+
+  chartNames:
+
+    # OpenTelemetry Demo - polyglot microservices demo
+    # Images: Go, Java, .NET, Node.js, PHP, Python, Ruby, Rust binaries
+    - open-telemetry/opentelemetry-demo
+
+    # NGINX Ingress Controller
+    # Images: nginx binary with HTTP error codes, upstream timeouts
+    - ingress-nginx/ingress-nginx
+
+    # Prometheus Stack - monitoring suite
+    # Images: prometheus, alertmanager, grafana, node-exporter binaries
+    - prometheus-community/kube-prometheus-stack
+
+  pull:
+    dockerImages: true
+    github:
+      repos: true
+      token: $=TenXEnv.get("GH_TOKEN")

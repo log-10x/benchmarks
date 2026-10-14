@@ -1,0 +1,89 @@
+# 
+# 🔟❎ 'compile' pattern module
+
+module:
+
+  name: patterns
+
+  title: Regex pattern scanner
+
+  description: extract symbol values from a files using regular expressions
+     
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "compile/modules/scanner/pattern/doc.md":""
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: compile/scanners/pattern
+
+  # 'allowMultiple' is enabled for this unit. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+    
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+  
+    - names:
+      - patternFileFilter
+      description: file name filter regx pattern
+      type: string
+      required: true
+      doc: |
+        defines a regex pattern a file name must match for this scanner to be applied to its contents
+
+    - names:
+      - patternLineFilter
+      description: file line filter regx pattern
+      type: string
+      required: false
+      doc: |
+        defines a regex pattern applied to each line within a target file where each matching region will be extracted as symbol value.
+        NOTE: Take into consideration performance implications of the input expression to avoid long processing time and/or errors. 
+
+    - names:
+      - patternExtractQuotes
+      description: extract single and double quoted values
+      type: boolean
+      required: true
+      doc: |
+        defines whether to extract single and double quoted values from input lines, taking into consideration 
+        escaping and improperly closed quotations. This options provides am efficient method for extracting
+        string constants from input files without relying on regex backtracking. To learn more see [pseudo code] (https://gist.github.com/talwgx/d31133f6278bb8b640baf050f78047d5).
+
+    - names:
+      - patternMatchContext
+      description: output symbol context
+      type: string
+      required: false
+      doc: |
+        sets the source context to assign any symbols collected using this 
+        this pattern selector. For possible values, see symbol [contexts](https://doc.log10x.com/run/transform/symbol/#contexts). 
+
+        If a target input line contains matches for [patternLineFilter](https://doc.log10x.com/compile/scanner/pattern/#patternlinefilter) AND this value is set to [method](https://doc.log10x.com/run/transform/symbol/#method)
+        AND the matching line contains values specified as [logmethods](https://doc.log10x.com/compile/scanner/logMethods/#logmethods) or
+        [logstreams](https://doc.log10x.com/compile/scanner/logMethods/#logstreams) outside of match bounds then the context will be set as [log](https://doc.log10x.com/run/transform/symbol/#log).
+
+        For example, for the following input line, a pattern scanner set to `method` that extracts quoted strings
+        will assigned the extracted value's context as `log` given the presence of the `Console` value which
+        is defined as logging stream identifier.
+
+        ``` cs
+        Console.WriteLine("Accounting \"service started");
+        ```
+
+
+    - names:
+      - patternUnescapeScheme
+      description: unescape scheme to apply to matching sequences 
+      type: string
+      required: false
+      doc: |
+        specifies an unescape algorithm to apply to matching sequences of [patternLineFilter](https://doc.log10x.com/compile/scanner/pattern/#patternlinefilter).
+        Supported values: [json,java,xml,html,javaScript]. 
+        
+        If not specified, characters are treated as not escaped.
+
+        To learn more see [Unescape algorithms](https://www.unbescape.org/usingunbescape.html).
+
+

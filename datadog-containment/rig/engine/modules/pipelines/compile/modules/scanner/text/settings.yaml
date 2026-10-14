@@ -1,0 +1,17 @@
+# 🔟❎ 'compile' text symbol scanner settings
+
+#  The 'text' scanner extracts symbol values from text/binary files as plain text or using the 
+#  Jackson library (https://github.com/FasterXML/jackson).
+    
+#  The scanner can parse a target input by tokenizing each line (i.e., splitting it into discrete values) 
+#  using specified delimiters or using a Jackson Parse to tokenize the file. The latter approach utilizes a [JsonFactory] (https://fasterxml.github.io/jackson-core/javadoc/2.8/com/fasterxml/jackson/core/JsonFactory.html)
+#  to create a parser for reading text tokens from the file.
+    
+#  In instances where the required source code /binary files to produce symbol units for a 
+#  target input stream (e.g., logs from a 3rd party service) is unavailable, the text scanner can scan 
+#  a 'sample' log to extract symbol values for parsing future logs from a similar source.   
+
+# 'textScanners' defines the different text parsers for extracting symbol values
+# from a target source input file. Each entry contains the following fields:
+textScanners:
+  - $?text

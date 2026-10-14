@@ -1,0 +1,20 @@
+#
+# 🔟❎ 'doc' generate settings
+
+configRepoName: $docConfigRepoName
+configRepoBranch: $docConfigRepoBranch
+
+modulesRepoName: $docModulesRepoName
+modulesRepoBranch: $docModulesRepoBranch
+
+modulesInputPath: $docModulesInputPath
+appsInputPath: $docAppsInputPath
+configInputPath: $docConfigInputPath
+
+apiFile: $docApiFile
+
+siteOutputPath: $docSiteOutputPath
+
+githubAPIKey: $?docGithubAPIKey
+
+

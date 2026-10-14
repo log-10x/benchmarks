@@ -1,0 +1,136 @@
+#
+# 🔟❎ 'run' AWS CloudWatch Logs input module Apache Camel route
+
+# This Apache Camel Yaml DSL route utilizes an instance of the 'cloudwatchLogs'
+# module to invoke the AWS 'API_GetLogEvents' endpoint periodically to
+# retrieve the last 'awsLogsLimit' log messages to transform them into TenXObjects.
+
+# To learn more see https://camel.apache.org/components/4.10.x/others/yaml-dsl.html
+
+# The REST query body is formatted using the 10x 'formatGetLogEventsRequest()' function
+# defined in cloudwatchLogs-input.js. The script also sets the 'cloudwatchLogsNextToken' input field
+# retrieved from each response to request the next page/batch of CloudWatch log messages.
+
+# To learn more about the AWS 'API_GetLogEvents' API, see:
+# https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_GetLogEvents.html
+
+- route:
+
+    # periodically invoke the AWS CloudWatch Logs 'GetLogEvents' REST API
+    # to see whether to send a new request
+    from:
+      uri: "timer"
+      parameters:
+        timerName: $cloudwatchLogsName
+        delay: 0
+        period: $?cloudwatchLogsQueryInterval=5s
+        repeatCount: 0
+        synchronous: true
+
+      steps:
+
+          # load basic REST headers
+        - setHeader:
+            name: content-type
+            constant: application/x-amz-json-1.1
+
+        - setHeader:
+            name: httpMethod
+            constant: POST
+
+          # Load AWS auth tokens from module config (optional)
+          # If empty, AwsSignatureProcessor falls back to AWS default credential chain:
+          # env vars -> Java system props -> IRSA (EKS) -> ~/.aws/credentials -> EC2/ECS instance profile
+
+          # https://doc.log10x.com/run/input/analyzer/cloudwatchLogs/#cloudwatchlogsawsaccesskeyid
+        - setProperty:
+            name: awsAccessKeyID
+            constant: $?cloudwatchLogsAwsAccessKeyID=""
+
+          # https://doc.log10x.com/run/input/analyzer/cloudwatchLogs/#cloudwatchlogsawssecretkey
+        - setProperty:
+            name: awsSecretKey
+            constant: $?cloudwatchLogsAwsSecretKey=""
+
+          # Load AWS region, service, and API target
+
+          # https://doc.log10x.com/run/input/analyzer/cloudwatchLogs/#cloudwatchlogsawsregion
+        - setProperty:
+            name: awsRegion
+            constant: $?cloudwatchLogsAwsRegion=""
+
+        - setProperty:
+            name: awsService
+            constant: logs
+
+        - setHeader:
+            name: X-Amz-Target
+            constant: Logs_20140328.GetLogEvents
+
+          # calculate the aws host and generate the request
+          # set the host (e.g. https://logs.us-east-1.amazonaws.com)
+        - setProperty:
+            name: awsHost
+            simple: "${exchangeProperty.awsService}.${exchangeProperty.awsRegion}.amazonaws.com"
+
+          # request body is calculated using the 'formatGetLogEventsRequest' function in cloudwatchLogs-input.js.
+          # It is set into the request body and the 'awsRequest' exchange property.
+          # This is read by the 'AwsSignatureProcessor' to sign the aws request
+          # and add the AWS 'authorization' header
+        - setProperty:
+            name: awsRequest
+            simple: "${bean:tenx.eval(formatGetLogEventsRequest())}"
+
+        - to:
+            uri: "bean:tenx"
+            parameters:
+              # set the 'awsRequest' exchange prop into the 10x 'currCloudwatchLogsRequest' input field for later use
+              method: "set(currCloudwatchLogsRequest, ${exchangeProperty.awsRequest})"
+
+        - choice:
+            when:
+                 # use the 'shouldInvokeGetLogEvents' function defined in cloudwatchLogs-input.js
+                 # to decide whether to make a new AWS request
+              - simple: "${bean:tenx.eval(shouldInvokeGetLogEvents())}"
+                steps:
+                  - to:
+                      uri: "bean:tenx"
+                      parameters:
+                        # set the exchange 'awsRequest' prop into the 10x input 'prevCloudwatchLogsRequest' field
+                        method: "set(prevCloudwatchLogsRequest, ${exchangeProperty.awsRequest})"
+
+                    # set the AWS request body calculated above by calling formatGetLogEventsRequest()
+                  - setBody:
+                      simple: "${exchangeProperty.awsRequest}"
+
+                    # invoke the 'AwsSignatureProcessor' exchange processor, passing it the
+                    # 'awsAccessKeyID', 'awsSecretKey', 'awsRegion', 'awsService', 'awsHost', 'awsRequest' headers
+                    # to produce and set AWS authentication headers into the exchange. 
+                    # To learn more see https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html
+                  - process:
+                      ref: "#class:com.log10x.ext.cloud.camel.AwsSignatureProcessor"
+
+
+                  # log the request to AWS to the console
+                  - to:
+                      uri: "log:cloudwatchLogsRoute?level=TRACE&showBody=true&showHeaders=true"
+
+                  # set the netty destination rest endpoint to 'awsHost'
+                  - toD:
+                      uri: "netty-http:https://${exchangeProperty.awsHost}"
+                      parameters:
+                        throwExceptionOnFailure: false
+                        chunkedMaxContentLength: 2097152
+
+                  # log the response from AWS to the console
+                  - to:
+                      uri: "log:cloudwatchLogsRoute?level=TRACE&showBody=true&showHeaders=true"
+
+
+                  # connect the REST output to the 10x pipeline via an output stream
+                  - setHeader:
+                      name: stream
+                      simple: "${bean:tenx.stream}"
+
+                  - to:
+                      uri: "stream:header"

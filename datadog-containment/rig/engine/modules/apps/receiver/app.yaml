@@ -1,0 +1,51 @@
+#
+# 🔟❎ 'run' Receiver app
+
+app:
+
+  name: receiver
+
+  title: Receiver
+
+  description: receive log/trace events from a coupled forwarder; in read-only mode emit metrics only, in read-write mode also receive and optionally compact events before they ship to output
+
+  # 'configFolders' specifies folders containing default configuration files for this module
+  configFolders:
+    receiver: apps/receiver
+
+    initializers+message: run/initialize/message
+    initializers+level: run/initialize/level
+    initializers+group: run/initialize/group
+    initializers+httpCode: run/initialize/httpCode
+    initializers+lookup: run/initialize/lookup
+    initializers+k8s: run/initialize/k8s
+    initializers+geoIP: run/initialize/geoIP
+
+    receivers+rate Receiver: run/receive/rate
+    receivers+compact Receiver: run/receive/compact
+
+    metric Outputs+log10x metrics: run/output/metric/log10x
+    metric Outputs+Prometheus: run/output/metric/prometheus/scrape
+    metric Outputs+Prometheus PG: run/output/metric/prometheus/push-gateway
+    metric Outputs+Prometheus RW: run/output/metric/prometheus/remote-write
+    metric Outputs+Datadog: run/output/metric/datadog
+    metric Outputs+CloudWatch: run/output/metric/cloudwatch
+    metric Outputs+Elastic: run/output/metric/elastic
+    metric Outputs+Log: run/output/metric/log
+
+  advancedConfigFolders:
+
+    bootstrap: run/bootstrap
+    github Sync: gitops
+    symbols: run/symbol
+    aggregators: run/aggregate/receive
+    template: run/template
+
+    transform+timestamp: run/transform/timestamp
+    transform+fieldParser: run/transform/fields
+    transform+origin: run/transform/symbol
+    transform+group: run/transform/group
+    transform+parallelize: run/transform/parallelize
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "apps/receiver/doc.md":""

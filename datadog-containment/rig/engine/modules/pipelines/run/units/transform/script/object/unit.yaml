@@ -1,0 +1,53 @@
+#
+# 🔟❎ 'run' JavaScript TenXObject initializer unit
+
+unit:
+
+  name: objectActions
+
+  title: Object JavaScript
+
+  description: initialize TenXObject instances at runtime using JavaScript.
+ 
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/units/transform/script/object/doc.md":""
+              
+  # 'allowMultiple' is enabled for this unit. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+
+  # 'optionsGroup' defines a group of named/typed configuration values to pass to a pipeline at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed to the pipeline are accessible at runtime via the TenXEnv JavaScript class.
+  options:
+
+    - names:
+      - objectActionsClassName
+      - TenXObjectClassName
+      description: JavaScript class name
+      type: string
+      required: true
+      doc: |
+        specifies the JavaScript class name in which [objectActions](https://doc.log10x.com/run/transform/script/object/#objectactions) are defined.
+      
+    - names:
+      - objectActions
+      - TenXObject
+      description: 10x JavaScript instance constructor statements to execute
+      type: list
+      required: false
+      doc: |
+        JavaScript statements for initializing target input(s) TenXObject instances. 
+
+        **NOTE**: This argument is not designed to be set directly, but instead by passing a [.js launch file](https://doc.log10x.com/config/javascript/) containing 
+        these statements nested within an [TenXObject](https://doc.log10x.com/api/js/#TenXObject) sub-class constructor as command line argument as described above.
+
+    - names:
+      - objectActionsFile
+      - TenXObjectFile
+      description: Declaring .js file
+      type: string
+      required: false
+      doc: |
+        Specifies the .js file name declaring [objectActions](https://doc.log10x.com/run/transform/script/object/#objectactions).
+                

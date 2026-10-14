@@ -1,0 +1,55 @@
+{
+  "type" : "object",
+  "properties" : {
+    "tenx" : {
+      "type" : "string"
+    },
+    "githubPull" : {
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "additionalProperties" : false,
+        "properties" : {
+          "repos" : {
+            "type" : [
+              "array",
+              "null"
+            ],
+            "markdownDescription" : "Names of repo(s) to pull\n\nIdentifies GitHub repositories to pull in the form of username/owner (e.g., opensearch-project/OpenSearch)",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "token" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "GitHub API access token\n\nDefines an access token for accessing Github repos. To learn more see [GitHub tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens).   This value should be set via an [environment variable](https://doc.log10x.com/api/js/#TenXEnv.get):  ``` yaml githubPullToken: $=TenXEnv.get(\"GH_TOKEN\") ```"
+          },
+          "branch" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Target branch\n\nSpecifies the branch to use when pulling from [githubPullRepos](https://doc.log10x.com/compile/pull/github/#githubpullrepos). If omitted, use the repository's default branch."
+          },
+          "folders" : {
+            "type" : [
+              "array",
+              "null"
+            ],
+            "markdownDescription" : "Repo folders to pull\n\nIdentifies folder(s) within [githubPullRepos](https://doc.log10x.com/compile/pull/github/#githubpullrepos) to pull. if omitted, the entire repo is pulled.",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        },
+        "required" : [
+          "token"
+        ]
+      }
+    }
+  },
+  "additionalProperties" : false
+}

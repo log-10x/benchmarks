@@ -1,0 +1,137 @@
+# yaml-language-server: $schema=schema.json
+
+# 🔟❎ 'compile' JavaScript ANTLR symbol scanner configuration
+
+# The 'javascript' configuration instructs the ANTLR scanner which symbol values (e.g. class/func names, code constants)
+# to extract from JavaScript source files.  
+
+# Set the 10x pipeline to 'compile'
+tenx: compile
+
+# ============================== ANTLR Options ================================
+
+antlr:
+
+  # The 'antlrLang' module is defined in: https://doc.log10x.com/compile/scanner/antlr/langs
+  # These values define the ANTLR-generated parser class used to
+  # to tokenize and construct an AST for the target JavaScript file.
+
+  lang: javascript
+
+  fileExt:
+  - .js
+
+  parserClass: com.log10x.antlr.parsers.JavaScriptDecoratedParser
+
+  lexerClass: com.log10x.antlr.generated.javascript.JavaScriptLexer
+
+  rootRule: program2
+
+  reserved:
+    - function
+    - constructor
+    - class
+
+  maxLineLength: 4096
+
+  # 'lineFilters' specifies a list of regex patterns for skipping input lines 
+  lineFilters:
+    - ^\s*(//.*|/\*.*\*/)$
+
+  # The 'rule' list defines the nodes within a js AST tree that are captured
+  # and added to the output symbol unit.
+  # To learn more see: https://doc.log10x.com/compile/scanner/antlr/rules/
+  rule:
+    - name: functionDeclaration
+      lang: javascript
+      context: method_decl
+      recursive: false
+      capture: allSymbols
+      subRule: identifier
+    
+    - name: returnStatement
+      lang: javascript
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+
+    # a throw anywhere in a function marks the scope ('throw' is a log method)
+    - name: throwStatement
+      lang: javascript
+      context: method_invoke
+      recursive: true
+      capture: literalsOnly
+  
+    - name: classDeclaration
+      lang: javascript
+      context: class
+      recursive: false
+      capture: allSymbols
+      subRule: identifier
+  
+    - name: methodDefinition
+      lang: javascript
+      context: method_decl
+      recursive: true
+      capture: allSymbols
+      subRule: identifier
+
+    - name: formalParameterList
+      lang: javascript
+      context: method_decl
+      recursive: false
+      capture: literalsOnly
+  
+    - name: functionBody
+      lang: javascript
+      context: method_invoke
+      recursive: false
+      capture: literalsOnly
+  
+    - name: functionDecl
+      lang: javascript
+      context: method_decl
+      recursive: false
+      capture: allSymbols
+  
+    # A function expression or arrow function is its own method scope, named
+    # by the variable it initializes, 'anonymous' as a call argument
+    - name: anonymousFunctionDecl
+      lang: javascript
+      context: method_decl
+      recursive: false
+      capture: allSymbols
+      anonymous: true
+
+    - name: arrowFunction
+      lang: javascript
+      context: method_decl
+      recursive: false
+      capture: allSymbols
+      anonymous: true
+
+    # An expression body is the arrow function's return value
+    - name: arrowFunctionBody
+      lang: javascript
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+  
+    - name: argumentsExpression
+      lang: javascript
+      context: method_invoke
+      recursive: true
+      capture: literalsOnly
+  
+    - name: variableDeclaration
+      lang: javascript
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+      subRule: assignable
+
+    - name: assignmentExpression
+      lang: javascript
+      context: var_assign
+      recursive: true
+      capture: literalsOnly

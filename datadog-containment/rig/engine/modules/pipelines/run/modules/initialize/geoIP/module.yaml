@@ -1,0 +1,103 @@
+# 🔟❎ 'run' GeoIP lookup module
+
+module:
+
+  name: geoIPLookup
+
+  title: GeoIP lookup
+
+  description: Geo-reference TenXObjects via their ipAddress value
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/initialize/geoIP
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/initialize/geoIP/doc.md":""
+    
+  # 'allowMultiple' is disabled for this module. Pipeline command line arguments and configuration files
+  # can specify a single value at max for each option defined below.
+  allowMultiple: false
+        
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  # via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  # Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - geoIPFile
+      description: MaxMind GeoIP file (.mmdb)
+      type: file
+      required: true
+      doc: |
+        The [MaxMind](https://www.maxmind.com/en/geoip2-databases) GeoIP DB file (.mmdb) to load.
+        To learn more, see [loadGeoIPDB](https://doc.log10x.com/api/js/#TenXLookup.loadGeoIPDB).
+
+    - names:
+      - geoIPContinentField
+      description: Field name for continent geo-reference
+      type: string
+      required: false
+      defValue: continent
+      doc: |
+        Specifies the field name to store the continent geo-reference data (e.g., "my_continent").
+        Defaults to "continent". Set to "" to disable continent enrichment.
+
+    - names:
+      - geoIPCountryField
+      description: Field name for country geo-reference
+      type: string
+      required: false
+      defValue: country
+      doc: |
+        Specifies the field name to store the country geo-reference data (e.g., "my_country").
+        Defaults to "country". Set to "" to disable country enrichment.
+
+    - names:
+      - geoIPSubdivisionField
+      description: Field name for subdivision geo-reference
+      type: string
+      required: false
+      defValue: subdivision
+      doc: |
+        Specifies the field name to store the subdivision (state/region) geo-reference data (e.g., "my_region").
+        Defaults to "subdivision". Set to "" to disable subdivision enrichment.
+
+    - names:
+      - geoIPCityField
+      description: Field name for city geo-reference
+      type: string
+      required: false
+      defValue: city
+      doc: |
+        Specifies the field name to store the city geo-reference data (e.g., "my_city").
+        Defaults to "city". Set to "" to disable city enrichment.
+
+    - names:
+      - geoIPPostalField
+      description: Field name for postal code geo-reference
+      type: string
+      required: false
+      defValue: postal
+      doc: |
+        Specifies the field name to store the postal code geo-reference data (e.g., "my_postal").
+        Defaults to "postal". Set to "" to disable postal code enrichment.
+
+    - names:
+      - geoIPLatitudeField
+      description: Field name for latitude geo-reference
+      type: string
+      required: false
+      defValue: latitude
+      doc: |
+        Specifies the field name to store the latitude geo-reference data (e.g., "my_latitude").
+        Defaults to "latitude". Set to "" to disable latitude enrichment.
+
+    - names:
+      - geoIPLongitudeField
+      description: Field name for longitude geo-reference
+      type: string
+      required: false
+      defValue: longitude
+      doc: |
+        Specifies the field name to store the longitude geo-reference data (e.g., "my_longitude").
+        Defaults to "longitude". Set to "" to disable longitude enrichment.

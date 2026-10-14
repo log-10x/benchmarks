@@ -1,0 +1,21 @@
+#
+# 🔟❎ 'run' receivers module
+
+module:
+
+  name: receivers
+
+  title: Output receiver
+
+  description: filter and sample TenXObjects based on dynamic criteria to prevent over-billing
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/units/output/receive/doc.md":""
+
+  # 'allowMultiple' is enabled for this module. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+
+  moduleSort: [rateReceiver]
+
+  join: run/units/output/receive

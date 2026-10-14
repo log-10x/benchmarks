@@ -1,0 +1,83 @@
+# 🔟❎ 'run' Datadog Logs input stream configuration
+
+# The 'datadogLogs' options group defines a Datadog logs input from which
+# to read events to transform into TenXObjects. The configuration
+# below constructs a camel-backed input stream for each instance of
+# the 'datadogLogs' options group.
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# Adding a runtime attribute for metrics reporting
+runtimeAttributes:
+  - analyzer_input:datadog
+
+# 'extractor' defines a JSON extractor to select events from
+#  the DataDog 'api/v2/logs/events/search' endpoint's response.
+extractor:
+
+  # this extractor splits the full incoming json data into individual results
+  - name: datadogLogs-data
+    type: json
+    group: external
+
+    actions:
+      - setOuterText:data
+
+    foreach: datadogLogs
+
+  # this extractor gets the actual message from each individual result of the previous extractor
+  - name: datadogLogs-message
+    type: json
+
+    actions:
+      - captureFirst:message
+
+    foreach: datadogLogs
+
+input:
+
+    # 'type' defines the type of input (e.g., stdin, file, stream).
+  - type: stream
+
+    # 'name' defines a logical name for this input.
+    #  This value identifies TenXObjects instantiated from this input via their 'inputName' field
+    name: $datadogLogsName
+
+    # 'enabled' controls whether to open this input 
+    enabled: $?datadogLogsEnabled=true
+
+    # 'path' defines the InputSteam class to instantiate for reading events
+    path: com.log10x.ext.cloud.camel.CamelContextInputStream
+
+    # 'args' are passed as arguments to the Camel InputStream constructor
+    args:
+      - name
+      - $?datadogLogsName
+      - route
+      - +include run/modules/input/analyzer/datadogLogs/route.yaml
+
+    # 'printProgress' controls whether to print throughput stats to the console
+    printProgress: $?datadogPrintProgress=false
+
+    # 'extractors' are set to the default 'datadogLogs-data' and 'datadogLogs-message', along with any additional custom ones.
+    extractors:
+      - datadogLogs-data
+      - datadogLogs-message
+      - "$=yield TenXEnv.get(\"k8sExtractorName\") ? TenXEnv.get(\"k8sExtractorName\") : \"\""
+
+      - $?datadogLogsExtractors
+
+    # 'backpressureTotalDuration' sets the maximum duration to keep input open
+    backpressureTotalDuration: $?datadogLogsTotalDuration=5000
+
+    # 'backpressureTotalBytesLimit' sets the maximum total bytes to read from input before closing
+    backpressureTotalBytesLimit: $?datadogLogsTotalBytesLimit=parseBytes("50MB")
+
+    # 'backpressureTotalEventsLimit' sets the maximum total events to read from input before closing
+    backpressureTotalEventsLimit: $?datadogLogsTotalEventsLimit=10000
+
+    # 'foreach' sets 'datadogLogs' as the options group for whose instances
+    #  to create matching input streams. This value allows for defining multiple
+    #  Datadog log inputs using configuration files or command-line arguments
+    foreach: datadogLogs

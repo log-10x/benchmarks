@@ -1,0 +1,23 @@
+#
+# 🔟❎ 'run' event outputs module
+
+module:
+
+  name: eventOutputs
+
+  title: Event stream output
+
+  description: write TenXObject and template values to event stream outputs (e.g., stdout, files)
+
+  # 'allowMultiple' is enabled for this module. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/output/event
+
+  moduleSort: [stdout,fileOutput,processOutput,fluentbitEventOutputs,unixSocketOutput,forwardOutput,socketOutput,httpOutput,githubOutput,outputStream]
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/output/event/doc.md":""
+

@@ -1,0 +1,8 @@
+# 🔟❎ token parser settings
+
+#  The 10x 'run' pipeline process breaks down log/trace events read as 
+#  lines of text or selected by an input extractor into individual tokens.
+
+# 'tokenDelims' defines which characters break a string of event characters into tokens to 
+# classify as symbols or variables.
+tokenDelims: $?tokenDelims=<>|. ][:-+/*=\\,{}_();'\"$\t\n@

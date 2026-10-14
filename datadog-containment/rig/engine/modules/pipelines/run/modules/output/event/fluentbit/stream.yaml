@@ -1,0 +1,88 @@
+# 🔟❎ 'run' fluentbit output settings
+
+# The 'fluentbitOutputs' module configures an output process that
+# to spawn and write TenXObject template/instance field values to its stdin pipe.
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Dependencies ================================
+
+include: run/modules/output/event/fluentbit/module.yaml
+
+# ============================= Output Options ================================
+
+output:
+
+    # 'type' defines the output type (e.g., stdout, log4j, micrometer).
+    #  This output utilizes a custom OutputStream to spawn and write into a subprocess stdin pipe.
+  - type: stream
+
+    # 'name' assigns a logical name to this output instance
+    name: $fluentbitOutCommand
+
+    # 'path' defines a class to instantiate and write [TenXObject](https://doc.log10x.com/api/js/#TenXObject) instance and template field values.
+    path: com.log10x.ext.edge.output.proc.fluentbit.FluentbitOutputStream
+
+    # 'enabled' sets whether to open the output. If true, any 'filter' value
+    #  set below is evaluated for each TenXObject to determine whether to write its instance/template field values to output.
+    enabled: $?fluentbitOutWriteObjects=true
+
+    # 'filter' is set to skip templates when encoding object field values.
+    #  A separate output stream is defined below to encode templates
+    filter: $?fluentbitOutFilter=isObject
+
+    # 'foreach' sets 'fluentbitEventOutputs' as the options group for whose instances
+    #  to create matching output streams to allow multiple process stream outputs.
+    foreach: fluentbitEventOutputs
+
+    # 'group' sets the output stream as a key to group sub-processes sharing command and argument values.
+    group:
+      - $fluentbitOutCommand
+      - $?fluentbitOutInputArgs
+      - $?fluentbitOutOutputArgs
+
+    # 'encodedLinePrefix', 'encodeType' and 'encodeDelimiter' control how TenXObject field values are
+    #  written to output. To learn more https://doc.log10x.com/run/output/event/fluentbit/#fluentbitoutencodetype
+    encodedLinePrefix: $?fluentbitOutEncodedLinePrefix=""
+    encodeType: $?fluentbitOutEncodeType=delimited
+    encodeDelimiter: $?fluentbitOutEncodeDelimiter=" "
+
+    # 'fields' defines the intrinsic/extracted/calculated field values
+    #  to write to for each TenXObject passed to this output.
+    fields:
+      - $?fluentbitOutFields
+
+    # 'type' defines the output type (e.g., stdout, log4j, micrometer).
+    #  This output utilizes a custom OutputStream to spawn and write into a spawned subprocess's stdin pipe.
+  - type: stream
+
+    # 'name' assigns a logical name to this output instance
+    name: $fluentbitOutCommand
+
+    # 'foreach' sets 'fluentbitEventOutputs' as the options group for whose instances
+    #  to create matching output streams to allow multiple process stream outputs.
+    foreach: fluentbitEventOutputs
+
+    # 'path' defines a class into whose instance TenXObject fields values
+    #  are written and flushed.
+    path: com.log10x.ext.edge.output.proc.fluentbit.FluentbitOutputStream
+
+    # 'group' sets the output stream as a key to group sub-processes sharing command and argument values.
+    group:
+      - $fluentbitOutCommand
+      - $?fluentbitOutInputArgs
+      - $?fluentbitOutOutputArgs
+
+    # 'enabled' must be set to true for templates to be encoded
+    enabled: $?fluentbitOutWriteTemplates=true
+
+    # 'filter' uses the 'isNewTemplate' 10x JavaScript function to skip templates
+    #  loaded via the https://doc.log10x.com/run/template/#templatefiles argument or previously written to this output
+    filter: isNewTemplate()
+
+    encodeType: json
+
+    fields:
+      - templateHash
+      - template

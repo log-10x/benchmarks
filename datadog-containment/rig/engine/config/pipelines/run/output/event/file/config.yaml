@@ -1,0 +1,79 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/output/event/file/schema.json
+
+# 🔟❎ 'run' file output configuration
+
+# Configure file outputs to write TenXObject instance and template field values.
+# To learn more see https://doc.log10x.com/run/output/event/file
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Dependencies ================================
+
+include:
+  - run/modules/output/event/file
+
+# ============================== File Options =================================
+
+# Multiple file outputs can be defined below
+outputFile:
+
+  # --------------------------- 10x Encoding Output ---------------------------
+
+    # Encode TenXObjects: https://doc.log10x.com/run/transform/#template-encoding
+    
+    # 'path' specifies a path on disk to write TenXObject field values
+  - path: $=path("data/sample/output") + "/encoded.log"
+
+    # 'filter' sets a JavaScript expression that TenXObjects must evaluate as truthy to write to the output.
+    #  To learn more see https://doc.log10x.com/run/output/receive/#filter-expressions
+    filter: null
+
+    # 'fields' defines the fields to write for each TenXObject sent to this output.
+    #  To learn more see https://doc.log10x.com/run/output/stream/#outputfields
+    fields:
+      - encode() # https://doc.log10x.com/api/js/#TenXObject+encode
+
+    # 'charset' sets the charset used to encode text written to this file. Defaults to UTF-8.
+    charset: UTF-8
+
+  # ----------------------------- Decode Output ------------------------------
+
+    # Template-decode TenXObjects: https://doc.log10x.com/run/transform/#expand
+    
+  - path: $=path("data/sample/output") + "/decoded.log"
+
+    filter: isEncoded  # https://doc.log10x.com/api/js/#TenXBaseObject+isEncoded   
+
+    fields: 
+      - text           # https://doc.log10x.com/api/js/#TenXBaseObject+text
+
+  # ---------------------------- Template Output ----------------------------
+
+  # Writes TenXTemplate values: https://doc.log10x.com/run/transform/#template
+  
+  - path: $=path("data/sample/output") + "/templates.json"
+   
+    # 'writeTemplates' controls whether to write new templates for TenXObjects written to this output.
+    writeTemplates: true
+
+    # 'append' controls whether to overwrite or append to the output file
+    append: true
+
+  # ----------------------------- Summary Output ------------------------------
+
+    # Writes aggregated TenXSummaries: https://doc.log10x.com/run/aggregate
+
+  - path: $=path("data/sample/output") + "/aggregated.csv"
+  
+    # 'header' is set to write the field names aggregated into the first line of the output
+    #  We specify '$=yield' to wait until the 'enrichmentFields' env var have been evaluated 
+    header: $=yield TenXString.join(",", TenXEnv.get("enrichmentFields"), "summaryVolume", "summaryBytes", "summaryTotals") + "\n"
+
+    filter: isSummary                            # https://doc.log10x.com/api/js/#TenXBaseObject+isSummary                        
+
+    fields: 
+      - $=yield TenXEnv.get("enrichmentFields")  # https://doc.log10x.com/run/initialize/#enrichmentFields
+      - summaryVolume                            # https://doc.log10x.com/api/js/#TenXSummary+summaryVolume
+      - summaryBytes                             # https://doc.log10x.com/api/js/#TenXSummary+summaryBytes
+      - summaryTotals                            # https://doc.log10x.com/api/js/#TenXSummary+summaryTotals

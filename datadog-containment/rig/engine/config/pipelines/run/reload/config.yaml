@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/reload/schema.json
+
+# 🔟❎ 'run' reload pipeline configuration
+
+# Monitors changes to configuration and symbol files to notify/restart affected pipeline units or the entire pipeline.
+# To learn more see https://doc.log10x.com/run/reload/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# ============================== Reload Options ===============================
+
+reload:
+
+  # 'pollInterval' defines the interval for checking changes to files
+  pollInterval: 10s
+
+  # 'restartPipeline' controls whether a change to a pipeline config file
+  # (.yaml / .js) triggers a full pipeline restart. Resource files (e.g. the
+  # compact receiver's lookup CSV) always hot-reload via FileResourceLookup
+  # regardless of this setting, this flag only affects pipeline-config-file
+  # changes. Default false so routine resource-file edits don't take the
+  # whole pipeline down.
+  restartPipeline: false

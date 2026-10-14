@@ -1,0 +1,62 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/output/event/github/schema.json
+
+# 🔟❎ 'run' GitHub output configuration
+
+# Write TenXObjects instance values to a remote file on GitHub.
+# To learn more see https://doc.log10x.com/run/output/event/github/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Dependencies ================================
+
+include:
+  - run/modules/output/event/github
+
+# ============================== Output Options ===============================
+
+# Multiple GitHub outputs can be defined below
+githubOutput:
+
+  # ---------------------------- GitHub Options -------------------------------
+
+    # 'authToken' specifies the GitHub API with which to authenticate
+  - token: $=yield TenXEnv.get("GH_TOKEN")
+
+    # 'repo' specifies the name of the target repo (e.g., user/repo)
+    repo: null #(REQUIRED)
+
+    # 'branch' specifies the target branch into which to commit. Default to main repo branch.
+    branch: null
+
+    # 'path' specifies the path of artifact within the target repo to update.
+    path: null
+
+    # 'header' specifies as header value to write to the output file (e.g., lookup columns row, YAML comments)
+    header: null
+
+    # 'message'  specifies a commit message for this update
+    message: null
+
+    # 'pullRequestBody' specifies the body of the pull request used to commit and merge the target file
+    pullRequestBody: null
+
+    # 'squashMerge' specifies whether to use squash merge (true) or regular merge (false) when merging pull requests
+    #  Squash merge combines all commits into one, keeping commit history clean. Useful for frequent automated commits.
+    squashMerge: false
+
+    # --------------------------- Encoding Options ----------------------------
+
+    # 'filter' sets a JavaScript expression that TenXObjects must evaluate as truthy to write to the output.
+    #  To learn more see https://doc.log10x.com/run/output/receive/#filter-expressions
+    filter: isObject
+
+    # 'fields' defines the fields to write for each TenXObject sent to this output.
+    #  To learn more see https://doc.log10x.com/run/output/stream/#outputfields
+
+    fields:
+      - encode()
+
+    # 'encodeType' specifies how 'fields' are encoded to output. Possible values: [json,delimited].
+    #  To learn more see https://doc.log10x.com/run/output/event/outputStream/#outputstreamencodetype
+    encodeType: json

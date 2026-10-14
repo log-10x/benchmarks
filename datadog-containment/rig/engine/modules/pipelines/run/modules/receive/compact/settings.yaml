@@ -1,0 +1,15 @@
+# 🔟❎ 'run' compact receiver settings
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# No pipeline-level hook required, the `shouldEncode` getter on the
+# CompactObject class becomes available to every TenXObject instance once
+# the class is loaded. Forwarder output stream.yaml files call it directly
+# in field expressions of the form:
+#
+#     fields:
+#       - 'output=shouldEncode() ? encode() : fullText'
+#
+# The class is loaded when `compactReceiverLookupFile` is set (see the
+# shouldLoad gate on CompactInput). No hook needed here.

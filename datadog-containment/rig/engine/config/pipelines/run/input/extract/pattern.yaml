@@ -1,0 +1,75 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/input/extract/schema.json
+
+# 🔟❎ 'run' Regex extractor configuration
+
+# Configure input regex pattern extractors.
+# To learn more see: https://doc.log10x.com/run/input/extract
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# ============================= Extractor Options =============================
+
+# multiple extractors can be defined below
+extractor:
+
+    # 'name' provides a unique name for this extractor that is referenced
+    #  by any inputs to which it is applied 
+  - name: patternExtractor
+   
+    # 'type' controls the method for parsing input stream text (json or pattern)
+    type: pattern
+    
+    # 'targetInput' sets a regex pattern to match all inputs to which the extractor is applied.
+    #  For example, to apply this extractor to an input named 'datadog', set: 'targetInput: datadog'
+    targetInput: myInput
+
+    # 'filter' specifies a regex pattern that must match input events to scan them for capture groups.
+    #  For example, the pattern below will filter out syslog events that are not errors
+    filter: "error: "
+
+    # 'pattern' sets regex pattern whose capture groups to apply extractor actions below.
+    #  To learn more about capture groups, see: https://regexone.com/lesson/capturing_groups
+    #  If the pattern does not define capture groups, matches are captured as events to transform into TenXObjects.
+   
+    #  The example pattern below uses capture groups to parse a syslog event's 'message' field,
+    #  and drop 'password' values. 
+    #  For an explanation, see: https://chat.openai.com/share/003ead39-421c-489a-a52f-ee8846028887
+    pattern: "/(error|info|debug): (?<message>.+?)(\\s+password=(?<password>\\S+))?(\\s+username=(?<username>\\S+))?$?"
+       
+    # 'actions' specifies the actions taken by this extractor on a matching capture group. 
+    #  Actions are defined by their type followed by ':' and the regex capture group they target.
+    #  The following action types are supported (comment in/out the ones needed for your use case):
+    actions: 
+
+      # Capture 
+
+      # 'captureAll' transforms all instances of a matching capture group (i.e., 'message')
+      #  within the current event into TenXObjects
+      - captureAll:message
+
+      # 'captureFirst' transforms only the first instance of a matching capture group (i.e., 'message')
+      #  within the current event into an TenXObject
+      - captureFirst:message
+
+      # 'captureLast' transforms only the last instance of a matching capture group (i.e., 'message')
+      #  within the current event into an TenXObject      
+      - captureLast:message
+
+      # Filter 
+
+      # 'redact' removes all matching capture groups (i.e., 'password') found in the event
+      - redact:password
+
+      # Advanced 
+
+      # 'captureDefault' serves as a sink for events that fail to match the 'filter' pattern
+      #  or do not contain any of the capture group names specified by 'actions'. These events are
+      #  transformed into TenXObjects whose 'extractorKey' field returns this action's name (i.e., 'other')
+      - captureDefault:other
+
+      # 'noTransform' is the same as 'captureDefault' (see above), except captured events are not
+      #  transformed into TenXObjects and remain as 'plain text' objects.
+      #  This is useful when the events need to be routed by the 10x pipeline to a specific
+      #  output, but do not require access to structured elements (e.g., the intrinsic 'vars' and 'timestamp' fields).
+      - noTransform:other

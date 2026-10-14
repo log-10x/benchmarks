@@ -1,0 +1,133 @@
+# 🔟❎ Filebeat log4j2 configuration
+
+# This log4j configuration controls how to write Filebeat log messages to output.
+
+# The 10x Filebeat module is designed to have Filebeat pipe its output directly to
+# the 10x stdin pipeline via the shell: filebeat -e 2>&1 | tenx @in/filebeat
+
+# This log configuration will emit Filebeat log messages (i.e., messages logged by the Filebeat
+# process itself) to a target output based on the configuration values defined in the
+# 'filebeat.yml' file, as defined in:
+# https://www.elastic.co/guide/en/beats/filebeat/current/configuration-logging.html
+
+# NOTE: support for Filebeat Window EventLogs can be added via a 'log4jna' log4j appender,
+# but is not deployed by default. To learn more see https://github.com/dblock/log4jna
+
+log4j:
+
+  loggerName: tenxfilebeat
+
+  configuration:
+    appenders:
+
+      # This logger emits Filebeat log messages to stderr-based
+      # on the 'logging.to_stderr' configuration value set in 'filebeat.yml'.
+      console:
+        - name: filebeatStderr
+          target: SYSTEM_ERR
+
+          filters:
+            thresholdFilter:
+              # enable/disable the appender based on 'filebeatLoggingToStderr'
+              level: "${tenxBooleanLevel:envVar=filebeatLoggingToStderr,defaultEnabled=true}"
+
+      # this logger emits Filebeat log messages to UNIX Syslog based
+      # on the 'logging.to_syslog' configuration value set in 'filebeat.yml'.
+      Syslog:
+        - name: filebeatSyslog
+          host: localhost
+          protocol: UDP
+          port: 514
+
+          filters:
+            thresholdFilter:
+              # enable/disable the appender based on 'filebeatLoggingToSyslog'
+              level: "${tenxBooleanLevel:envVar=filebeatLoggingToSyslog}"
+
+      # this logger emits Filebeat log messages to a rolling file based
+      # on the configuration values set in 'filebeat.yml'.
+      rollingFile:
+        - name: filebeatRollingFile
+
+          filters:
+            thresholdFilter:
+              # enable/disable the appender based on 'filebeatLoggingToFiles'
+              level: "${tenxBooleanLevel:envVar=filebeatLoggingToFiles}"
+
+          # The directory was "${env:filebeatPath:-${env:filebeatLogsPath}}". log4j2
+          # does not recurse into a ':-' default, so when neither variable is set
+          # the name resolved to that inner text LITERALLY, and because log4j2
+          # constructs appenders eagerly -- the thresholdFilter above does not
+          # prevent construction -- the whole pipeline died at launch:
+          #
+          #   Could not create directory /usr/share/filebeat/${env:filebeatLogsPath}
+          #   -> could not launch pipeline: 'run'
+          #
+          # 'tenxLogPath' takes the env var when set and otherwise falls back to an
+          # OS-specific default, in one non-recursive lookup, so an unset
+          # environment can no longer produce an unresolvable path.
+          #
+          # 'filebeatPath' (from logging.files.path) is dropped rather than
+          # preserved: these lookups read System.getenv, and filebeatPath is
+          # supplied by the filebeat.yml re-parse in stream.yaml, so it could never
+          # arrive here. Verified by setting logging.files.path and watching the
+          # same literal appear. See the PR for the wider issue.
+          #
+          # format fileName to <filebeatPath>/<filebeatName>-datetime.ndjson
+          fileName:
+            "${tenxLogPath:envVar=filebeatLogsPath,linux=/tmp,windows=\\tenx\\log}\
+            ${fileSeperator:}\
+            ${env:filebeatName:-filebeat}\
+            -\
+            ${date:yyyyMMdd}\
+            .ndjson"
+
+          # format filePattern to <filebeatPath>/<filebeatName>-datetime-%i.ndjson
+          filePattern:
+            "${tenxLogPath:envVar=filebeatLogsPath,linux=/tmp,windows=\\tenx\\log}\
+            ${fileSeperator:}\
+            ${env:filebeatName:-filebeat}\
+            -\
+            ${date:yyyyMMdd}\
+            -%i.ndjson"
+
+          # the Filebeat message is already timestamped and formatted; emit as-is
+          patternLayout:
+            pattern: "%msg%n"
+
+          # Only create files when needed, similar to Filebeat.
+          createOnDemand: true
+
+          # the 'posixPermissions' lookup is defined in com.log10x.ext.edge.event.encode.log.plugin.FilePermissionsLookup
+          # converts a permission octal mask (e.g., 0600) to a human-readable value  (e.g. 'rw-------')
+          # expected by the appender
+          filePermissions: "${posixPermissions:${env:filebeatPermissions:-0600}}"
+
+          policies:
+
+            onStartupTriggeringPolicy:
+              # If 'filebeatRotateOnStartup' is set to true -> rotate logs on startup (e.g., '1'),
+              # otherwise, use '2147483647' (i.e., max int) to disable the policy
+              minSize: "${tenxBooleanInt:envVar=filebeatRotateOnStartup,trueValue=1,falseValue=2147483647}"
+
+            sizeBasedTriggeringPolicy:
+              size: $?filebeatRotateEveryBytes=10485760 # use a 10MB default, matching filebeat's
+
+            intervalBasedTriggeringPolicy:
+              # This policy defined in : com.log10x.ext.edge.event.encode.log.plugin.IntervalBasedTriggeringPolicy
+              # implements rollover based on time intervals, matching filebeat's logging.files.interval behavior
+              # No default value is set as the feature is off by default in filebeat
+              interval: $?filebeatInterval
+
+          defaultRollOverStrategy:
+            # use a 7 default, matching filebeat's
+            max: ${env:filebeatKeepFiles:-7}
+
+    loggers:
+      logger:
+        - name: $loggerName
+          additivity: false
+          appenderRef:
+            - ref: filebeatStderr
+            - ref: filebeatSyslog
+            - ref: filebeatRollingFile

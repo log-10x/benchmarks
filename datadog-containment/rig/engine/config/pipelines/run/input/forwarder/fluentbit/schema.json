@@ -1,0 +1,89 @@
+{
+  "type" : "object",
+  "properties" : {
+    "include" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "tenx" : {
+      "type" : "string"
+    },
+    "fluentbit" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "input" : {
+          "type" : "object",
+          "additionalProperties" : false,
+          "properties" : {
+            "port" : {
+              "type" : [
+                "string",
+                "number",
+                "null"
+              ],
+              "markdownDescription" : "TCP port to listen on for events from Fluent Bit's forward output\n\nTCP port where Log10x listens for events sent by Fluent Bit's `forward` output. Match this against the `Port` in your Fluent Bit `[OUTPUT]` block (`Name forward`). (Default: 24224)",
+              "default" : "24224"
+            },
+            "path" : {
+              "type" : [
+                "string",
+                "null"
+              ],
+              "markdownDescription" : "Unix domain socket path to listen on (Linux/macOS)\n\nWhen set, Log10x listens on a Unix domain socket instead of TCP, useful on Linux/macOS to avoid TCP overhead. Configure Fluent Bit's `forward` output with `Unix_Path` set to a matching path. Ignored on Windows."
+            },
+            "messageField" : {
+              "type" : [
+                "string",
+                "null"
+              ],
+              "markdownDescription" : "Name of the JSON field carrying the original log line\n\nName of the field in each Fluent Bit record that contains the actual log message text. The default (`log`) matches Fluent Bit's `tail` input convention for container and file logs. Set to e.g. `message` if your sources emit the log line under a different key. (Default: log)",
+              "default" : "log"
+            }
+          }
+        },
+        "output" : {
+          "type" : "object",
+          "additionalProperties" : false,
+          "properties" : {
+            "host" : {
+              "type" : [
+                "string",
+                "null"
+              ],
+              "markdownDescription" : "TCP host of the Fluent Bit forward input receiving processed events\n\nHostname or IP where Fluent Bit's `forward` input is listening for processed events from Log10x. Pairs with `fluentbitOutputPort`. (Default: 127.0.0.1)",
+              "default" : "127.0.0.1"
+            },
+            "port" : {
+              "type" : [
+                "string",
+                "number",
+                "null"
+              ],
+              "markdownDescription" : "TCP port of the Fluent Bit forward input receiving processed events\n\nTCP port where Fluent Bit's `forward` input is listening for processed events from Log10x. MUST differ from the port Log10x's own Forward input listens on (default `24224`) or the two would collide on the same socket. (Default: 24225)",
+              "default" : "24225"
+            },
+            "path" : {
+              "type" : [
+                "string",
+                "null"
+              ],
+              "markdownDescription" : "Unix domain socket path of the Fluent Bit forward input (Linux/macOS)\n\nOptional Unix domain socket path for Fluent Bit's `forward` input. When set, takes precedence over `fluentbitOutputHost` / `fluentbitOutputPort`. Linux/macOS only, ignored on Windows."
+            },
+            "encodeType" : {
+              "type" : [
+                "string",
+                "null"
+              ],
+              "markdownDescription" : "Output format when outputFields are set. Possible values: [json, delimited]\n\nSpecifies how the combined output (main event field plus outputFields) is encoded when writing back to Fluent Bit. Possible values: - **json**: formats all fields as a JSON object - **delimited**: formats field values separated by the output delimiter Only takes effect when fluentbitOutputFields is set. (Default: delimited)",
+              "default" : "delimited"
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties" : true
+}

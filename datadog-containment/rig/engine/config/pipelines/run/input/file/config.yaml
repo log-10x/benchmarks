@@ -1,0 +1,60 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/input/file/schema.json
+
+# 🔟❎ 'run' File input configuration
+
+# Configure file/glob event inputs. To learn more https://doc.log10x.com/run/input/file
+
+# NOTE: input files are read once and are not tailed. To continuously tail files
+# use 10x in conjunction with any of the supported file forwarders in:
+# https://doc.log10x.com/run/input/forwarder (e.g., Fluentd/Bit, Logstash, Filebeat)
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Dependencies ================================
+
+include: run/modules/input/file
+
+# =============================== File Options ================================
+
+# Multiple file inputs can be defined below
+inputFile:
+
+  # ---------------------------- General Options ----------------------------
+
+    # 'name' sets a unique logical name across all pipeline inputs
+  - name: fileInput
+    
+  # ---------------------------- File Options ---------------------------------
+
+    # 'path' specifies an absolute/canonical glob file path.
+    path: $=path("data/sample/input/[!{.}]*.log")
+  
+    # ---------------------------- Parsing Options ----------------------------
+    
+    # 'extractors' defines a list of JSON/regex extractor names
+    #  used to capture and redact event values from 'path' to transform 
+    #  into TenXObjects. To learn more see: https://doc.log10x.com/run/input/extract         
+    extractors: [  
+    #  fluentd,
+    #  fluentK8s
+    ]
+ 
+    # 'sourcePattern' defines a regex pattern that captures a 'source' value
+    #  for each event read from a file to transform into an TenXObject.
+    #  This value will be used to sequence all events sharing this 'source' value correctly 
+    #  so they are not mixed with events originating from different locations.
+    sourcePattern: null  
+
+    # 'sourceFields'  defines a list of JSON fields to extract from matching capture groups of the inputFileSourcePattern
+    # or the entire event if not set as the 'source' value for each event read from this input. 
+    sourceFields: [
+    ]
+
+    # --------------------------- Ancillary Options ---------------------------
+
+    # 'printProgress' controls whether a progress gage is printed to the console
+    printProgress: true
+
+    # 'charset' sets the charset used to decode bytes read from this input. Defaults to UTF-8.
+    charset: UTF-8

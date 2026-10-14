@@ -1,0 +1,16 @@
+#
+# 🔟❎ 'run' output
+
+module:
+
+  name: output
+
+  title: TenXObject Output
+
+  description: filter and output TenXObjects to remote and local destinations
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/output
+  
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/units/output/doc.md":""

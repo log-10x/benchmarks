@@ -1,0 +1,209 @@
+#
+# 🔟❎ 'run' Datadog logs input module
+
+module:
+
+  name: datadogLogs
+
+  title: Datadog Logs input
+
+  description: read events from Datadog Logs
+
+  # 'configFolder' specifies a folder containing default configuration files for this module
+  configFolder: run/input/analyzer/datadogLogs
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/input/analyzer/datadogLogs/doc.md":""
+
+  # 'allowMultiple' is enabled for this module. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+
+# 'options' defines a group of named/typed configuration values to pass to a pipeline at startup
+#  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - datadogLogsName
+      description: logical name for this DatadogLogs input
+      type: string
+      required: true
+      category: general
+      doc: |
+        sets a logical name (e.g., 'myDatadogLogs') for this input.
+        The [inputName](https://doc.log10x.com/api/js/#TenXBaseObject+inputName) field
+        returns this value at run time to allow for identifying and operating on instances originating from this input.
+
+    - names:
+      - datadogLogsEnabled
+      description: sets whether this input is enabled
+      type: boolean
+      required: false
+      category: general
+      doc: |
+        sets whether to open the input stream.
+        To enable this input only when a 'datadogLogsHost' startup argument value is truthy, use:
+        ``` yaml
+        datadogLogsEnabled: $=TenXEnv.get("datadogLogsHost")
+        ```
+        To learn more see [TenXEnv.get](https://doc.log10x.com/api/js/#TenXEnv.get).
+
+      defValue: true
+
+    - names:
+      - datadogLogsPrintProgress
+      description: sets whether this input prints throughput stats to the console
+      type: boolean
+      required: false
+      category: general
+      doc: |
+        sets whether this input prints throughput stats to the console
+        for testing an integration to a remote endpoint.
+      defValue: false
+
+    - names:
+      - datadogLogsTotalDuration
+      description: sets maximum time to query the backend
+      type: string
+      required: false
+      category: general
+      doc: |
+        sets the maximum time the pipeline will continue to query the datadog api backend before exiting.
+        For example, setting this to '1min' means that queries to the backend will stop after 1 minute has passed.
+      defValue: 5min
+
+    - names:
+      - datadogLogsExtractors
+      description: list of extractors to apply on the events returning from the query
+      type: list
+      required: false
+      category: advanced
+      doc: |
+        sets list of extractor names which will work on the events returning from the query.
+        For more info on extractors, see: https://doc.log10x.com/run/input/extract
+
+    - names:
+      - datadogLogsHost
+      description: DatadogLogs host address
+      type: string
+      required: true
+      category: authentication
+      doc: |
+        sets the Datadog site address to connect to (e.g., 'us5.datadoghq.com').
+        To learn more see [Datadog sites](https://docs.datadoghq.com/getting_started/site)
+
+    - names:
+      - datadogLogsApiKey
+      description: Datadog API key token
+      type: string
+      required: true
+      category: authentication
+      doc: |
+        sets the 'DD-API-KEY' API key authentication request header.
+        To learn more see: [API keys](https://docs.datadoghq.com/account_management/api-app-keys/).
+
+    - names:
+      - datadogLogsAppKey
+      description: Datadog app key
+      type: string
+      required: true
+      category: authentication
+      doc: |
+        sets the 'DD-APPLICATION-KEY' app key authentication request header.
+        To learn more see: [API keys](https://docs.datadoghq.com/account_management/api-app-keys/).
+
+    - names:
+        - datadogLogsQuery
+      description: query to pass to the Datadog 'api/v2/logs/events/search' REST endpoint
+      type: string
+      required: false
+      category: query
+      doc: |
+        sets the Datadog query used to request paginated documents from which to extract
+        events to transform into TenXObjects. The [default query](https://github.com/log-10x/modules/blob/main/pipelines/run/modules/input/analyzer/datadogLogs/query.txt)
+        retrieves paginated values sorted in desc order by @timestamp, starting from the value of 'now-15m'
+
+    - names:
+        - datadogLogsIndexes
+      description: list of indices to search in
+      type: list
+      required: false
+      category: query
+      doc: |
+        sets the lists of data indices to search in.
+        To search all data streams and indices, omit this parameter or use * or _all.
+
+    - names:
+        - datadogLogsQuerySize
+      description: number of documents to read per batch from the Datadog server
+      type: number
+      required: false
+      category: query
+      doc: |
+        sets the number of documents to retrieve with each page of results.
+      defValue: 500
+
+    - names:
+        - datadogLogsSearchFrom
+      description: timestamp from which to begin the search
+      type: string
+      required: false
+      category: query
+      doc: |
+       This value sets the initial value used to request the first page of results.
+      defValue: now() in nano.
+
+    - names:
+        - datadogLogsRetryTimeout
+      description: a timeout period (in milliseconds) to wait for querying of new data
+      type: number
+      required: false
+      category: query
+      doc: |
+        used by [datadog-input.js](https://github.com/log-10x/modules/blob/main/pipelines/run/modules/input/analyzer/datadogLogs/datadog-input.js) to determine how long to wait
+        until the next time the search endpoint API is invoked to query for new data.
+      defValue: 10000
+
+    - names:
+      - datadogLogsTotalBytesLimit
+      description: maximum total bytes to read from input before closing
+      type: number
+      required: false
+      category: backpressure
+      doc: |
+        sets the maximum number of bytes a target pipeline input will read into the pipeline. 
+        This value limits the volume of events to read from a local/remote source (e.g., log analyzer). 
+        
+        For example:
+        ``` yaml
+        datadogLogsTotalBytesLimit: $=parseBytes("1GB")
+        ```
+      defValue: $=parseBytes("50MB")
+
+    - names:
+      - datadogLogsTotalEventsLimit
+      description: maximum total events to read from input before closing
+      type: number
+      required: false
+      category: backpressure
+      doc: |
+        sets the maximum number of events a target pipeline input will read into the pipeline. 
+        This value limits the volume of events to read from a local/remote source (e.g., log analyzer).
+      defValue: 10000
+
+    - names:
+      - datadogLogsQueryInterval
+      description: query interval (in milliseconds) for checking new data from remote source
+      type: number
+      required: false
+      category: backpressure
+      doc: |
+        sets the interval between queries to the remote Datadog Logs API.
+        This controls how frequently the input polls for new log data.
+        
+        For example:
+        ``` yaml
+        datadogLogsQueryInterval: $=parseDuration("5s")
+        ```
+      defValue: 2000

@@ -1,0 +1,88 @@
+# 🔟❎ 'run' Vector input + output streams
+#
+# Listens for newline-delimited JSON over a TCP socket (paired with
+# Vector's `socket` sink in `newline_delimited` mode) and sends
+# processed events back over the Fluent Forward protocol (paired
+# with Vector's `fluent` source).
+
+tenx: run
+
+runtimeAttributes:
+  - fwd_input:vector
+
+include:
+  - run/modules/output/event/forward
+
+# ============================== Extractor ====================================
+
+extractor:
+  - name: vector
+    type: json
+    actions:
+      # Capture the configurable message field as the event's text
+      - $=yield "captureFirst:" + TenXEnv.get("vectorInputMessageField", "message")
+      # Strip the `tag` field stamped by the ingest transform from the
+      # record body, `sourcePattern` below has already extracted it as
+      # the source, so the event going back out to Vector has the same
+      # shape as the one that arrived.
+      - drop:tag
+
+# ============================== Input ========================================
+
+input:
+
+  - type: stream
+    name: vector
+
+    # Newline-delimited reader supporting TCP (port) or Unix socket (path)
+    path: com.log10x.ext.edge.input.unix.UnixSocketInputStream
+
+    # Apply the Vector extractor above; add the k8s extractor automatically
+    # when the Receiver app sets `k8sExtractorName: fluentK8s`.
+    extractors:
+      - vector
+      - "$=yield TenXEnv.get(\"k8sExtractorName\") ? \"fluentK8s\" : \"\""
+
+    # Use the `tag` field stamped by Vector's ingest transform as the event's
+    # source. Matches `"tag":"<value>"` in the NDJSON record. The field name
+    # is fixed (Fluentd-style), the recipe's `ingest` transform writes it.
+    sourcePattern: \"tag\":\"(.*?)\"
+
+    args:
+      # Unix socket path takes precedence over TCP port when both are set
+      - path
+      - $=yield TenXEnv.get("vectorInputPath", "")
+      - port
+      - $=yield TenXEnv.get("vectorInputPort", "9000")
+      # Vector does not wrap events in RFC5424 syslog, read plain JSON lines
+      - syslog
+      - false
+
+    # Backpressure ceiling, Log10x stops draining the socket once this many
+    # bytes have arrived in `intervalBytesDuration`, signalling Vector to
+    # buffer instead of overwhelming the pipeline.
+    backpressure:
+      intervalBytesLimit: $=parseBytes("2MB")
+      intervalBytesDuration: $=parseDuration("1s")
+
+# ============================== Output =======================================
+
+outputForward:
+
+  - hostAddress: $=yield TenXEnv.get("vectorOutputHost", "127.0.0.1")
+    hostPort: $=yield TenXEnv.get("vectorOutputPort", "9001")
+    address: $=yield TenXEnv.get("vectorOutputPath")
+
+    fields:
+      # Carries the whole Vector record in receive mode and an encoded
+      # form in compact mode. Picked automatically based on the Receiver
+      # app's mode (`receiverOptimize`, `compactReceiverLookupFile`,
+      # `symbolMessageHashField`).
+      - $?outputEncodeField=fullText
+
+    # Emit each top-level field of the rendered record as its own field on
+    # the outgoing Forward event, so the record structure of the original
+    # Vector event survives the round trip.
+    encodeType: $?vectorOutputEncodeType=delimited
+
+    writeTemplates: $?outputWriteTemplates=false

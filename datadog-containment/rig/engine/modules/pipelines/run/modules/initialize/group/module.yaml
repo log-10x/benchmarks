@@ -1,0 +1,41 @@
+#
+# 🔟❎ 'run' TenXObject group unit
+
+unit:
+
+  name: groupInitializer
+
+  title: Group initializer
+
+  description: combine multi-line events into TenXObject group instances
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/initialize/group
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/initialize/group/doc.md":""
+
+  # 'allowMultiple' is disabled for this unit. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+       
+  # 'options' defines a group of named/typed configuration values to pass to a pipeline unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+ 
+    - names:
+        - groupIndicators
+      description: list of strings that, when matched at the start of a log line's text, designate it as a group head.
+      type: list
+      required: false
+      doc: |
+        A list of strings that, when matched at the start of a log line's text, designate it as a group head.
+
+        Unmatched lines default to `false`, indicating they are group children (continuation-by-default).
+
+        - `192.` - Indicates a private IP address, common in web server logs (e.g., "192.168.1.1 - - [...]").
+        - `10.` - Indicates a private IP range, often in Kubernetes or internal network logs (e.g., "10.244.0.125 - - [...]").
+        - `GET ` - Indicates an HTTP GET request, marking the start of a web transaction log (e.g., "GET /index.html HTTP/1.1").
+        - `at ` - Indicates a Java/C# stack trace continuation.
+

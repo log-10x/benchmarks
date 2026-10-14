@@ -1,0 +1,84 @@
+{
+  "type" : "object",
+  "properties" : {
+    "include" : {
+      "type" : "string"
+    },
+    "tenx" : {
+      "type" : "string"
+    },
+    "geoIP" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "file" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "MaxMind GeoIP file (.mmdb)\n\nThe [MaxMind](https://www.maxmind.com/en/geoip2-databases) GeoIP DB file (.mmdb) to load. To learn more, see [loadGeoIPDB](https://doc.log10x.com/api/js/#TenXLookup.loadGeoIPDB)."
+        },
+        "continentField" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Field name for continent geo-reference\n\nSpecifies the field name to store the continent geo-reference data (e.g., \"my_continent\"). Defaults to \"continent\". Set to \"\" to disable continent enrichment. (Default: continent)",
+          "default" : "continent"
+        },
+        "countryField" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Field name for country geo-reference\n\nSpecifies the field name to store the country geo-reference data (e.g., \"my_country\"). Defaults to \"country\". Set to \"\" to disable country enrichment. (Default: country)",
+          "default" : "country"
+        },
+        "subdivisionField" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Field name for subdivision geo-reference\n\nSpecifies the field name to store the subdivision (state/region) geo-reference data (e.g., \"my_region\"). Defaults to \"subdivision\". Set to \"\" to disable subdivision enrichment. (Default: subdivision)",
+          "default" : "subdivision"
+        },
+        "cityField" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Field name for city geo-reference\n\nSpecifies the field name to store the city geo-reference data (e.g., \"my_city\"). Defaults to \"city\". Set to \"\" to disable city enrichment. (Default: city)",
+          "default" : "city"
+        },
+        "postalField" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Field name for postal code geo-reference\n\nSpecifies the field name to store the postal code geo-reference data (e.g., \"my_postal\"). Defaults to \"postal\". Set to \"\" to disable postal code enrichment. (Default: postal)",
+          "default" : "postal"
+        },
+        "latitudeField" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Field name for latitude geo-reference\n\nSpecifies the field name to store the latitude geo-reference data (e.g., \"my_latitude\"). Defaults to \"latitude\". Set to \"\" to disable latitude enrichment. (Default: latitude)",
+          "default" : "latitude"
+        },
+        "longitudeField" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Field name for longitude geo-reference\n\nSpecifies the field name to store the longitude geo-reference data (e.g., \"my_longitude\"). Defaults to \"longitude\". Set to \"\" to disable longitude enrichment. (Default: longitude)",
+          "default" : "longitude"
+        }
+      },
+      "required" : [
+        "file"
+      ]
+    }
+  },
+  "additionalProperties" : true
+}

@@ -1,0 +1,79 @@
+#
+# 🔟❎ 'run' enrich module
+
+module:
+
+  name: initializers
+
+  title: Object initializer
+
+  description: Enrich TenXObjects with additional context
+
+  # 'allowMultiple' is disabled for this module. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/initialize/doc.md":""
+
+  moduleSort: [groupInitializer,levelClassifier,symbolLookup,httpStatusCodeExtractor,fileLookup,geoIPLookup,k8sContext]
+
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - inputField
+      description: fields whose value to search for symbol values
+      type: list
+      required: false
+      doc: |
+        specifies the names of the TenXObject fields  to search for a for log event message/body in order of lookup priority.
+
+        For example, for the following event:
+        ``` json
+        {"stream":"stdout","log":"Accounting service started","docker":{"container_id":"d47021a9963834cf89f32446c1de57e332b9c8391dc9faf42d47f1f7df8411bb"},"kubernetes":{"container_name":"accountingservice","namespace_name":"default","pod_name":"otel-accountingservice-76d9cfd496-hshv6","container_image":"ghcr.io/open-telemetry/demo:1.11.1-accountingservice","container_image_id":"ghcr.io/open-telemetry/demo@sha256:f09dfbd4adf590fcf94070cb832583c1e9572edd558b1c5761429a14d7bf4d9e","pod_id":"b41b9602-d4af-4ffd-a8e5-424541d91388","pod_ip":"192.168.12.183","host":"ip-192-168-27-8.ec2.internal","labels":{"app.kubernetes.io/component":"accountingservice","app.kubernetes.io/instance":"otel","app.kubernetes.io/name":"otel-accountingservice","opentelemetry.io/name":"otel-accountingservice","pod-template-hash":"76d9cfd496"}},"tenx_tag":"kubernetes.var.log.containers.otel-accountingservice-76d9cfd496-hshv6_default_accountingservice-d47021a9963834cf89f32446c1de57e332b9c8391dc9faf42d47f1f7df8411bb.log"}
+        ```
+
+        if this value is empty, the [symbolMessageField](https://doc.log10x.com/run/initialize/#symbolmessagefield) field is computed using the entirety of the event's content as:
+
+        ```
+        demo_app_kubernetes_io_instance_app_kubernetes_io_name
+        ```
+
+        In contrast, if this value is set to `log`, the [symbolMessageField](https://doc.log10x.com/run/initialize/#symbolmessagefield)
+        is formatted solely from the value of that field, returning:
+
+        ```
+        Accounting_service_started
+        ```
+
+      defValue: [log, message, body, text]
+
+    - names:
+      - enrichmentFields
+      description: list of field to enrich TenXObjects with
+      type: list
+      required: false
+      doc: |
+        Sets the default field names used to extract values for [aggregating](https://doc.log10x.com/run/aggregate/) TenXObjects.
+        Initializer modules automatically add their target fields to this setting.
+
+        Each initializer module appends its assigned field names to the global `enrichmentFields`.
+
+        Aggregators can use these values to group TenXObjects automatically, without needing explicit specification in their [aggregatorFields](https://doc.log10x.com/run/aggregate/#aggregatorfields).
+
+        In the example below an aggregator's fields are set to this value. The yield macro delays evaluation until all config files are loaded.
+
+        If no value has been set for this option, the aggregator defaults to grouping instances via a calculated 'sequence' field which captures their [symbol identity](https://doc.log10x.com/run/transform/#metric-name).
+
+        ```yaml
+        aggregator:
+          - name: myAggregator
+            # 'fields' define intrinsic, extracted, or calculated fields whose combined values
+            # identify a unique row in the aggregator's in-memory table for each object.
+            # Uses enrichment fields from initializer modules by default.
+            fields:
+              - $=yield TenXEnv.get("enrichmentFields")
+        ```

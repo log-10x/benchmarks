@@ -1,0 +1,13 @@
+#
+# 🔟❎ 'compile' Scalameta source code scanner module
+
+module:
+
+  name: symbol
+
+  title: Symbol unit scanner
+
+  description: discover existing symbol unit files to reuse
+  
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "compile/modules/scanner/symbol/doc.md":""

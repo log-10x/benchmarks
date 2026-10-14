@@ -1,0 +1,90 @@
+# 🔟❎ 'run' OutputStream output settings
+
+# The 'outputStream' module defines an OutputStream/Writer output
+# to write TenXObject instance/template field values. The configuration
+# below instantiates an OutputStream/Writer sub-class for each instance of
+# the 'outputStream' options group.
+
+# To learn more about output streams, ses https://www.baeldung.com/java-outputstream
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+output:
+
+    # 'type' defines the output type (e.g., stdout, log4j, micrometer).
+  - type: stream
+
+    # 'path' points to the fully qualified class name of the OutputStream sub-class
+    path: $outputStreamClass
+
+    # 'name' assigns a logical name to this output instance
+    name: $outputStreamClass
+
+    # 'args' specifies custom arguments passed to OutputStream/Writer instance
+    args: $?outputStreamArgs
+
+    # 'enabled' sets whether to open the output. If true, any 'filter' value
+    #  set below is evaluated for each TenXObject to determine whether to write its instance/template field values to output.
+    enabled: $?outputStreamWriteObjects=false
+
+    # 'filter' is set to skip templates when encoding object field values.
+    #  A separate output stream is defined below to encode templates
+    filter: $?outputStreamFilter=isObject
+
+    # 'foreach' sets 'outputStream' as the options group for whose instances
+    #  to create matching output streams to allow multiple stream outputs.
+    foreach: outputStream
+
+    # 'group' sets 'outputStreamGroupKeys' as the values to group all stream outputs
+    #  pointing to an OutputStream/Writer instance. This
+    #  prevents a situation where multiple non-synchronized OutputStream instances may be trying
+    #  to write to the same resource.
+    group: $?outputStreamGroupKeys="*"
+
+    # 'encodedLinePrefix', 'encodeType' and 'encodeDelimiter' control how TenXObject field values are
+    #  written to output. To learn more https://doc.log10x.com/run/output/event/outputStream/#outputstreamencodetype
+    encodedLinePrefix: $?outputStreamEncodedLinePrefix=""
+    encodeType: $?outputStreamEncodeType=delimited
+    encodeDelimiter: $?outputStreamEncodeDelimiter=" "
+
+    # 'fields' defines the intrinsic/extracted/calculated field values
+    #  to write to for each TenXObject passed to this output.
+    fields:
+      - $?outputStreamFields
+
+    # If 'outputUnixSocketWriteTemplates' is true, encode Template values for TenXObjects as JSON objects.
+    # To learn more about TenXTemplates, see https://doc.log10x.com/run/template
+  - type: stream
+
+    # 'foreach' sets 'outputStream' as the options group for whose instances
+    #  to create matching output streams to allow multiple stream outputs.
+    foreach: outputStream
+
+    # 'path' points to the fully qualified class name of the OutputStream sub-class
+    path: $?outputStreamClass
+
+    # 'name' assigns a logical name to this output instance
+    name: $outputStreamClass
+
+    # 'args' specifies custom arguments passed to OutputStream/Writer instance
+    args: $?outputStreamArgs
+
+    # 'group' sets 'outputStreamGroupKeys' as the values to group all stream outputs
+    #  pointing to an OutputStream/Writer instance. This
+    #  prevents a situation where multiple non-synchronized OutputStream instances may be trying
+    #  to write to the same resource.
+    group: $?outputStreamGroupKeys="*"
+
+    # 'enabled' is false by default. 'outputStreamWriteTemplates' must be set to
+    # true for TenXTemplates to be encoded
+    enabled: $?outputStreamWriteTemplates=false
+
+    # 'filter' uses the 'isNewTemplate' 10x JavaScript function to skip templates
+    #  loaded via the https://doc.log10x.com/run/template/#templatefiles argument or previously written to this output
+    filter: isNewTemplate()
+
+    encodeType: json
+    fields:
+      - templateHash
+      - template

@@ -1,0 +1,163 @@
+{
+  "type" : "object",
+  "properties" : {
+    "include" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "tenx" : {
+      "type" : "string"
+    },
+    "filebeat" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "output" : {
+          "type" : "object",
+          "additionalProperties" : false,
+          "properties" : {
+            "fields" : {
+              "type" : [
+                "array",
+                "string",
+                "null"
+              ],
+              "markdownDescription" : "List of TenXObject field names to include alongside the main event in output\n\nSpecifies TenXObject field names to emit alongside the main event text when writing back to the Filebeat forwarder. When empty (default), only the main event field is written. Example fields: level, group, symbolMessage. (Default: [])",
+              "items" : {
+                "type" : "string"
+              },
+              "default" : [ ]
+            },
+            "encodeType" : {
+              "type" : [
+                "string",
+                "null"
+              ],
+              "markdownDescription" : "Output format when outputFields are set. Possible values: [json, delimited]\n\nSpecifies how the combined output (main event field plus outputFields) is encoded when writing back to the Filebeat forwarder. Possible values: - **json**: formats all fields as a JSON object - **delimited**: formats field values separated by the output delimiter Only takes effect when filebeatOutputFields is set. (Default: delimited)",
+              "default" : "delimited"
+            }
+          }
+        },
+        "configPath" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Configuration file path\n\nPath containing Filebeat configuration files"
+        },
+        "logsPath" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Log file path\n\nPath containing Filebeat log files"
+        },
+        "name" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Filebeat log name\n\nName of the Filebeat files where the logs are written to"
+        },
+        "path" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Output path for Filebeat logs\n\nConfigures the path where the Filebeat logs are written"
+        },
+        "interval" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Enable Filebeat log file rotation\n\nEnable Filebeat log file rotation on time intervals in addition to the size-based rotation"
+        },
+        "rotate" : {
+          "type" : "object",
+          "additionalProperties" : false,
+          "properties" : {
+            "everyBytes" : {
+              "type" : [
+                "number",
+                "string",
+                "null"
+              ],
+              "markdownDescription" : "Filebeat log file size limit\n\nConfigure Filebeat log file size limit. If limit is reached, log file will be automatically rotated (Accepts number or string with $= prefix for runtime evaluation)"
+            },
+            "onStartup" : {
+              "type" : [
+                "boolean",
+                "string",
+                "null"
+              ],
+              "markdownDescription" : "Rotate existing Filebeat logs upon startup\n\nRotate existing Filebeat logs on startup rather than appending them to the existing file (Accepts boolean or string with $= prefix for runtime evaluation)"
+            }
+          }
+        },
+        "permissions" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Log file permissions mask\n\nPOSIX permissions mask to apply when rotating Filebeat log files"
+        },
+        "keepFiles" : {
+          "type" : [
+            "number",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Number of rotated Filebeat log files to keep\n\nNumber of rotated Filebeat log files to keep. Oldest files will be deleted first (Accepts number or string with $= prefix for runtime evaluation)"
+        },
+        "inputReady" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Internal\n\nAn internal marker used to indicate Filebeat input ready"
+        },
+        "loggingTo" : {
+          "type" : "object",
+          "additionalProperties" : false,
+          "properties" : {
+            "files" : {
+              "type" : [
+                "boolean",
+                "string",
+                "null"
+              ],
+              "markdownDescription" : "Control log file rotation\n\nSets Filebeat logging to rotating files. Set logging.to_files to false to disable logging to files. (Accepts boolean or string with $= prefix for runtime evaluation)"
+            },
+            "stderr" : {
+              "type" : [
+                "boolean",
+                "string",
+                "null"
+              ],
+              "markdownDescription" : "Filebeat logging to stderr\n\nFilebeat logging to stderr. Set logging.to_stderr to false to disable logging to stderr. (Accepts boolean or string with $= prefix for runtime evaluation)"
+            },
+            "syslog" : {
+              "type" : [
+                "boolean",
+                "string",
+                "null"
+              ],
+              "markdownDescription" : "Filebeat logging to syslog\n\nFilebeat logging to syslog. Set logging.to_syslog to false to disable logging to syslog. (Accepts boolean or string with $= prefix for runtime evaluation)"
+            }
+          }
+        }
+      }
+    },
+    "rawOutputUnixSocketAddress" : {
+      "type" : [
+        "string",
+        "null"
+      ],
+      "markdownDescription" : "Internal\n\nInternal variable used to load socket address to be used in multiple encoders"
+    }
+  },
+  "additionalProperties" : true
+}

@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/compile/console/schema.json
+
+# 🔟❎ 'compile' console configuration
+#
+# Log stats, including the number of files traversed and as a JSON object to the console or for
+# incorporating as part of a REST response to the pipeline's caller.
+# To learn more see https://doc.log10x.com/compile/console
+
+# Set the 10x pipeline to 'compile'
+tenx: compile
+
+# ============================== Console Options ==============================
+
+print:
+
+  # 'progress' enables/disables reporting of input files scanned to stdout
+  progress: true
+
+  # 'scanTypes' controls which components of the compile process emit output to the console.
+  scanTypes: 
+    - link
+    - scan
+    - pushToGitHub
+  

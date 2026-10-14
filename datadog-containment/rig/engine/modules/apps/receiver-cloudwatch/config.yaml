@@ -1,0 +1,60 @@
+# 🔟❎ 'run' Receiver: CloudWatch Logs subscription batches
+#
+# The receive role for the CloudWatch remainder of a serverless estate: the
+# Lambda handler (ROLE=receive, RetrieverHandler.handleReceive) decodes the
+# gzipped subscription envelope and stages the batch as one NDJSON file —
+# one line per logEvent:
+#
+#   {"message": ..., "cw_id": ..., "cw_ts": ..., "logGroup": ..., "logStream": ..., "tag": <logGroup>}
+#
+# This app reads that staging file through the file input. The extractor
+# lifts `message` as the event text; cw_id (the batch's only dedup key) and
+# cw_ts (timestamp fallback) survive as fields, and the wire tag derives
+# from the log group so per-source identity is kept — the three things the
+# historical handler.py discarded.
+
+tenx: run
+
+# A SIBLING of apps/receiver, not a sub-folder: the folder macro expands an
+# included app recursively, so an app nested inside apps/receiver that
+# includes apps/receiver is a cycle (measured as a StackOverflowError at
+# config read). As a sibling, `include: apps/receiver` composes the full
+# receiver — initializers, aggregators, overlays — exactly as the proven
+# forwarder pairings do.
+runtimeAttributes:
+  - fwd_input:cloudwatch
+
+include:
+  - apps/receiver
+
+# ============================== Extractor ====================================
+
+extractor:
+  - name: cwLogs
+    type: json
+    actions:
+      - captureFirst:message
+      - drop:tag
+
+# ============================== Input ========================================
+
+input:
+
+  - name: cloudwatch
+    type: file
+
+    # The handler sets `cwBatchFile` as a system property before each
+    # launch — the one per-invocation channel the launcher table proves
+    # binds on JVM and native alike (env vars and -D; launch overrides do
+    # not bind app-level options).
+    path: $=yield TenXEnv.get("cwBatchFile")
+
+    enabled: '$=yield TenXEnv.get("cwBatchFile") ? true : false'
+
+    printProgress: false
+
+    extractors:
+      - cwLogs
+
+    # Wire-level tag (the log group) becomes the event source.
+    sourcePattern: \"tag\":\"(.*?)\"

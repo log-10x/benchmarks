@@ -1,0 +1,25 @@
+# 🔟❎ 'run' GeoIP lookup settings
+
+# Configure GeoIP table aggregation fields 
+# To learn more see https://doc.log10x.com/run/initialize/geoIP
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# ============================ Aggregation Settings ===========================
+
+# Install the GeoIP fields as default fields by which to aggregate TenXObjects 
+# To learn more see https://doc.log10x.com/run/initialize/#enrichmentFields
+
+include:
+  - run/modules/initialize/module.yaml
+
+enrichmentFields:
+  # use yield to ensure all arguments are loaded 
+  - $=yield TenXEnv.get("geoIPEnabled", true) ? TenXEnv.get("geoIPContinentField"):""
+  - $=yield TenXEnv.get("geoIPEnabled", true) ? TenXEnv.get("geoIPCountryField"):""
+  - $=yield TenXEnv.get("geoIPEnabled", true) ? TenXEnv.get("geoIPSubdivisionField"):""
+  - $=yield TenXEnv.get("geoIPEnabled", true) ? TenXEnv.get("geoIPCityField"):""
+  - $=yield TenXEnv.get("geoIPEnabled", true) ? TenXEnv.get("geoIPPostalField"):""
+  - $=yield TenXEnv.get("geoIPEnabled", true) ? TenXEnv.get("geoIPLatitudeField"):""
+  - $=yield TenXEnv.get("geoIPEnabled", true) ? TenXEnv.get("geoIPLongitudeField"):""

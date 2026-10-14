@@ -1,0 +1,132 @@
+#
+# 🔟❎ 'run' device output module
+
+module:
+
+  name: stdout
+
+  title: Stdout/err output
+
+  description: write TenXObject and template values to a log4j2 stdout appender
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/output/event/stdout
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: '+include $=TenXEnv.get("docGenerate") ? "run/modules/output/event/stdout/doc.md":""'
+
+  # 'allowMultiple' is enabled for this module. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+        - stdoutTarget
+      description: target pipe to write to
+      type: string
+      category: stdout
+      required: true
+      doc: |
+        Output device to write to. Possible values: SYSTEM_OUT or SYSTEM_ERR
+
+    - names:
+        - stdoutFields
+      description: list of TenXObject field names to encode
+      type: list
+      category: encoding
+      required: false
+      doc: |
+        specifies a list of TenXObject intrinsic/calculated/extracted field names to extract and write to the output.
+
+    - names:
+        - stdoutFilter
+      description: a JavaScript expression an TenXObject must evaluate as 'truthy' against to be written to this output
+      type: string
+      category: encoding
+      required: false
+      doc: |
+        Specifies a JavaScript expression that an TenXObject must evaluate as truthy to write its
+        instance/template field values to this output.
+        For example, 'stdoutFilter: this.timestamp' will only emit [timestamped](https://doc.log10x.com/api/js/#TenXBaseObject+timestamped) TenXObjects.
+
+    - names:
+        - stdoutWriteObjects
+      description: if true, encode TenXObjects [stdoutFields](https://doc.log10x.com/run/output/event/stdout/#stdoutfields) to this output
+      type: string
+      category: encoding
+      required: false
+      doc: |
+        Determine whether to write [stdoutFields](https://doc.log10x.com/run/output/event/stdout/#stdoutfields) values of an TenXObject passed to this output.
+        This configuration is typically defined using a JavaScript expression.
+        For example, setting 'stdoutWriteObjects' to '$=TenXEnv.get("stdout")' enables/disables the
+        output depending on whether a launch argument, environment variable, or JVM -D option evaluates as truthy.
+      defValue: true
+
+    - names:
+        - stdoutWriteTemplates
+      description: if true, write new TenXTemplates to this output
+      type: string
+      category: encoding
+      required: false
+      doc: |
+        controls whether to write template values of TenXObjects passed to this output.
+        The output will only emit TenXTemplates that the pipeline did not load at startup via the [templateFile](https://doc.log10x.com/run/template/#tetemplatefilesmplatefile) argument,
+        and will only emit an TenXTemplate once based on its [templateHash](https://doc.log10x.com/api/js/#TenXBaseObject+templateHash) value.
+      defValue: false
+
+    - names:
+        - stdoutEncodeType
+      description: the output format in which to encode TenXObject values. Possible values:[json, delimited]
+      type: string
+      defValue: delimited
+      category: encoding
+      required: false
+      doc: |
+        specifies how to encode [stdoutFields](https://doc.log10x.com/run/output/event/stdout/#stdoutfields) values to this output. Possible values:
+        - **json**: formats names and values for the current TenXObject as: {"field":"str","field2":1, "field3": true}
+        - **delimited**: formats values for the current TenXObject as: "str",1,true
+           The [stdoutEncodeDelimiter](https://doc.log10x.com/run/output/event/stdout/#stdoutencodedelimiter) argument determines the separator to use.
+
+    - names:
+        - stdoutEncodedLinePrefix
+      description: the line prefix prepended to the encoded event if 'stdoutEncodeType' is 'delimited'
+      type: string
+      category: encoding
+      required: false
+      doc: |
+        sets the char which is prepended to the emitted TenXObject field values when [stdoutEncodeType](https://doc.log10x.com/run/output/event/stdout/#stdoutencodetype) is `delimited`.
+      defValue: '~'
+
+    - names:
+        - stdoutEncodeDelimiter
+      description: the delimiter placed between key and values pairs if 'stdoutEncodeType' is 'delimited'
+      type: string
+      category: encoding
+      required: false
+      doc: |
+        sets the char delimiter to separate TenXObject field values when [stdoutEncodeType](https://doc.log10x.com/run/output/event/stdout/#stdoutencodetype) is `delimited`.
+      defValue: ' '
+
+    - names:
+        - stdoutEncodeGroupDelimiter
+      description: string delimiter to use when separating individual 10x events inside a group
+      type: string
+      category: encoding
+      required: false
+      doc: |
+        sets the string delimiter used to separate individual 10x events inside a group
+        when encoded to a stream/event output
+
+    - names:
+        - stdoutLog4j2
+      description: if true, write using log4j2 appender
+      type: boolean
+      required: false
+      defValue: false
+      category: advanced
+      doc: |
+        controls whether to write to file using an [OutputStream](https://doc.log10x.com/api/output/#outputstream) or a [log4j2 appender](https://doc.log10x.com/api/output/#log4j2).

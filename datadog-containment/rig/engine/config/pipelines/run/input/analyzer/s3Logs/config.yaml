@@ -1,0 +1,62 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/input/analyzer/s3Logs/schema.json
+
+# 'run' AWS S3 Logs input configuration
+
+# Configure an AWS S3 Logs event input to read a single S3 object
+# To learn more see https://doc.log10x.com/run/input/analyzer/s3Logs/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Dependencies ================================
+
+include: run/modules/input/analyzer/s3Logs
+
+# ============================== S3 Logs Options ==============================
+
+# Multiple S3 Logs inputs can be defined below
+s3Logs:
+
+    # 'name' sets a unique logical name across all pipeline inputs
+  - name: S3LogsInput
+
+    # --------------------------- Connection Options --------------------------
+
+    # 'awsAccessKeyID' sets the AWS access key (e.g. 'AKIAIOSFODNN7EXAMPLE')
+    #  To learn more see: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
+    awsAccessKeyID: $=TenXEnv.get("AWS_ACCESS_KEY_ID") # (EnvVar or default credential chain)
+
+    # 'awsSecretKey' sets the AWS access secret key  (e.g. 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY')
+    #  To learn more see: https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html
+    awsSecretKey: $=TenXEnv.get("AWS_SECRET_ACCESS_KEY") # (EnvVar or default credential chain)
+
+    # 'awsRegion' sets the region hosting the S3 bucket
+    #  To learn more see: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html
+    awsRegion: $=TenXEnv.get("AWS_DEFAULT_REGION", "us-east-1")
+
+    # ---------------------------- S3 Object Options ---------------------------
+
+    # 'bucket' sets the S3 bucket name (e.g., 'my-log-bucket').
+    #  To learn more see: https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html
+    bucket: "" # (REQUIRED)
+
+    # 'key' sets the S3 object key to fetch (e.g., 'logs/app.log').
+    #  To learn more see: https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html
+    key: "" # (REQUIRED)
+
+    # --------------------------- Backpressure Options -----------------------
+
+    # 'totalDuration' sets the max duration to try reading from the remote input
+    totalDuration: $=parseDuration("5min")
+
+    # 'totalBytesLimit' sets the max total bytes to read from the remote input
+    totalBytesLimit: $=parseBytes("50MB")
+
+    # 'totalEventsLimit' sets the max number of events to read the remote input
+    totalEventsLimit: 10000
+
+    # --------------------------- Ancillary Options ---------------------------
+
+    # 'printProgress' controls whether to print a gauge to the console
+    #  This option helps debug and test the input
+    printProgress: $=!TenXEnv.get("quiet")

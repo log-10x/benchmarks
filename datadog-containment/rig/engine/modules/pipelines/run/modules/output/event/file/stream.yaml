@@ -1,0 +1,97 @@
+# 🔟❎ 'run' file output stream settings
+
+# The 'fileOutput' module defines a file output to write
+# TenXObject instance/template field values. The configuration
+# below constructs a 'java.io.FileOutputStream' backed output stream for each instance of
+# the 'fileOutput' options group.
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Dependencies ================================
+
+include: run/modules/output/event/file/module.yaml
+
+# ============================= Output Options ================================
+
+output:
+
+    # 'type' defines the output type (e.g., stdout, log4j, micrometer).
+    #  The 'stream/file' output utilizes a native FileOutputStream to emit object/template values
+  - type: file
+
+    # 'name' assigns a logical name to this output instance
+    name: $outputFilePath
+
+    # 'path' points to the output file path to which to write
+    path: $outputFilePath
+
+    # 'foreach' sets 'fileOutput' as the options group for whose instances
+    #  to create matching output streams to allow multiple file stream outputs.
+    foreach: fileOutput
+
+    # 'enabled' sets whether to open the output. If true, any 'filter' value
+    #  set below is evaluated for each TenXObject to determine whether to write its instance/template field values to output.
+    enabled: $=yield TenXEnv.get("outputFileWriteObjects", true) && !TenXEnv.get("outputFileLog4j2", false) 
+
+    # 'filter' is set to skip templates when encoding object field values.
+    #  A separate output stream is defined below to encode templates
+    filter: $?outputFileFilter=isObject
+
+    # 'group' sets 'outputFilePath' as a key to group all file outputs
+    #  pointing to a location on disk to a single output stream. This
+    #  prevents a situation where multiple non-synchronized appenders may be trying
+    #  to write to the same file.
+    group:
+      - $outputFilePath
+
+    # 'encodedLinePrefix', 'encodeType' and 'encodeDelimiter' control how TenXObject field values are
+    #  written to output. To learn more see https://doc.log10x.com/run/output/event/file/#outputfileencodetype
+    encodedLinePrefix: $?outputFileEncodedLinePrefix="~"
+    encodeType: $?outputFileEncodeType=delimited
+    encodeDelimiter: $?outputFileEncodeDelimiter=","
+
+    # 'encodeGroupDelimiter' controls how to write grouped TenXObject field values to output.
+    encodeGroupDelimiter: $?outputFileEncodeGroupDelimiter=""
+
+    # 'fields' defines the intrinsic/extracted/calculated field values
+    #  to write to for each TenXObject passed to this output.
+    fields:
+      - $?outputFileFields
+
+    # 'async' controls whether to use a dedicated thread for this output
+    async: true
+
+    # If 'outputFileWriteTemplates' is true, encode Template values for TenXObjects as JSON objects.
+    # To learn more about TenXTemplates, see https://doc.log10x.com/run/template
+  - type: file
+
+    # 'foreach' sets 'fileOutput' as the options group for whose instances
+    #  to create matching output streams to allow multiple file stream outputs.
+    foreach: fileOutput
+
+    # 'name' assigns a logical name to this output instance
+    name: $outputFilePath
+
+    # 'path' points to the output file path to which to write
+    path: $outputFilePath
+
+    # 'group' sets 'outputFilePath' as a key to group all file outputs
+    #  pointing to a location on disk to a single output stream. This
+    #  prevents a situation where multiple non-synchronized appenders may be trying
+    #  to write to the same file.
+    group:
+      - $outputFilePath
+
+    # 'enabled' must be set to true for templates to be encoded
+    enabled: $=yield TenXEnv.get("outputFileWriteTemplates", false) && !TenXEnv.get("outputFileLog4j2", false) 
+
+    # 'filter' uses the 'isNewTemplate' 10x JavaScript function to skip templates
+    #  loaded via the https://doc.log10x.com/run/template/#templatefiles argument or previously written to this output
+    filter: isNewTemplate()
+
+    encodeType: json
+
+    fields:
+      - templateHash
+      - template

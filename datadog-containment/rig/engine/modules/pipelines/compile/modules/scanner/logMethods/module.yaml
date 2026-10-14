@@ -1,0 +1,55 @@
+#
+# 🔟❎ 'compile' log methods module
+
+module:
+
+  name: logMethods
+
+  title: Log method/stream definitions
+
+  description: define logger method and output stream names
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: compile/scanners/logMethods
+ 
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "compile/modules/scanner/logMethods/doc.md":""
+
+  # 'allowMultiple' is disabled for this module. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+  
+    - names:
+      - logMethods
+      description: names of source code methods to mark as 'logging' 
+      type: list
+      required: false
+      doc: |
+        lists 'logging' method names whose invocations to mark 'logging'. 
+        Logging frameworks commonly define standard methods to emit event information to program output (e.g., 'warn', 'error').
+      
+    - names:
+      - logMethodRegex
+      description: a pattern that source code methods names must match to qualify as 'logging' methods
+      type: string
+      required: false
+      doc: |
+        specifies a pattern for symbol scanners to apply to source code method/function names
+        to determine whether to mark them as 'logging'.
+        For example: ^(log|Log)|(Log|log)$
+
+    - names:
+      - logStreams
+      description: names of source code variables to mark as 'logging'
+      type: list
+      required: false
+      doc: |
+        lists 'logging' member names whose assignments to mark 'logging'. 
+        Programming languages commonly define standard members to emit events to output (e.g., 'out', 'cerr').
+      
+  

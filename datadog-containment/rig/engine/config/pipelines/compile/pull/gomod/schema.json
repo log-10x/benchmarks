@@ -1,0 +1,48 @@
+{
+  "type" : "object",
+  "properties" : {
+    "tenx" : {
+      "type" : "string"
+    },
+    "gomod" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "pullGitHubToken" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "GitHub API token for pulling repositories\n\nDefines an access token for pulling [Github repos](https://doc.log10x.com/compile/pull/github/) referenced by Go .mod files. If not set, do not pull GitHub repos for Go dependencies."
+        },
+        "proxyURL" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Go module proxy URL\n\nSpecifies a Go module proxy for downloading indirect module dependencies. If omitted, only process direct dependencies from the go.mod file. If provided, fetches indirect dependencies up to the specified max-depth. (Default: [https://proxy.golang.org](https://proxy.golang.org))",
+          "default" : "[https://proxy.golang.org](https://proxy.golang.org)"
+        },
+        "maxRepos" : {
+          "type" : [
+            "number",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Limit the overall number of GitHub repos to pull\n\nSpecifies a global limit for the number of repositories collected (Accepts number or string with $= prefix for runtime evaluation) (Default: 200)",
+          "default" : 200
+        },
+        "maxDepth" : {
+          "type" : [
+            "number",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Limit the depth of module dependency recursion\n\nDepth starts at 0 for the initial .mod file (direct deps), increments to 1 for first-level indirect deps, and 2 for second-level, stopping before a third level (depth 3).  Depth Limit (2):  - Level 0: Direct dependencies in your .mod file. - Level 1: Dependencies of those direct modules. - Level 2: Dependencies of level 1 modules.  Stops at level 3, covering two levels of indirect dependencies. For most Go projects, this captures the bulk of relevant GitHub repos without exploding runtime.  Example: If yourApp → golang.org/x/tools → github.com/golang/go, depth 2 gets both, but stops before fetching go’s deps. (Accepts number or string with $= prefix for runtime evaluation) (Default: 0)",
+          "default" : 0
+        }
+      }
+    }
+  },
+  "additionalProperties" : false
+}

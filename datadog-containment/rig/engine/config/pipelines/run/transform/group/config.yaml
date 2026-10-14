@@ -1,0 +1,32 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/transform/group/schema.json
+
+# 🔟❎ 'run' event grouping configuration
+
+# Group  sequences of TenXObjects to filter, aggregate and output as a single logical unit.
+# To learn more see https://doc.log10x.com/run/transform/group/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Group Options ===============================
+
+group:
+
+  # 'filters' specify JavaScript expressions an TenXObject instance/group must 
+  #  evaluate as truthy against to be written to output
+  filters: []
+
+  # 'maxSize' defines the maximum number of TenXObjects to group
+  #  before the group is sealed and forwarded into the pipeline. 
+  #  Subsequent TenXObjects can form a new group.
+  maxSize: 20000
+
+  # 'flushTimeout' defines the max interval (e.g., 10s) to wait for 
+  #  new events to be read from an input stream before it flushes any
+  #  pending TenXObjects group into the pipeline.
+  #  This mechanism is designed to avoid latencies in dispatching pending event
+  #  groups to output destinations.
+  flushTimeout: $=parseDuration("5s")
+
+  # 'async' specifies whether to sequence and group TenXObjects in a dedicated thread
+  async: true 

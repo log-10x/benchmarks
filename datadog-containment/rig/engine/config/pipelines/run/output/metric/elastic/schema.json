@@ -1,0 +1,181 @@
+{
+  "type" : "object",
+  "properties" : {
+    "include" : {
+      "type" : "string"
+    },
+    "tenx" : {
+      "type" : "string"
+    },
+    "elastic" : {
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "additionalProperties" : false,
+        "properties" : {
+          "enabled" : {
+            "type" : [
+              "boolean",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Enable this output\n\nEnable or disable this output. (Accepts boolean or string with $= prefix for runtime evaluation) (Default: true)",
+            "default" : true
+          },
+          "nameField" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Name of the TenXSummary field identifying the metric\n\nDefines the name of the TenXSummary field whose value identifies a metric counter. Defaults to the [summaryValues](https://doc.log10x.com/api/js/#TenXSummary+summaryValues) field which holds the value(s) by which TenXObjects are grouped into the current TenXSummary instance. To learn more see [micrometer counters](https://www.baeldung.com/micrometer#2-counter) (Default: [summaryValues](https://doc.log10x.com/api/js/#TenXSummary+summaryValues))",
+            "default" : "[summaryValues](https://doc.log10x.com/api/js/#TenXSummary+summaryValues)"
+          },
+          "counterFields" : {
+            "type" : [
+              "array",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Names of the TenXSummary fields used to increment the metric counter value\n\nDefines the name of the TenXSummary field by whose value to increment the counter.",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "tagFields" : {
+            "type" : [
+              "array",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "List of TenXSummary fields to use as metric tag values\n\nDefines the TenXSummary field names to use as `tag` values. Tags are dimensions that enable slicing a particular named metric to drill down to reason about its value. To learn more see [micrometer tags](https://www.baeldung.com/micrometer#1-tags)",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "tagFieldNames" : {
+            "type" : [
+              "array",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "List of custom names to use for TenXSummary fields.\n\nDefines the a list of custom names to give fields when reporting them. Format as a list of name1, custom1, name2, custom2.  For example, to set a custom name of 'My-Custom-Field' to an existing 'intrinsic-field': ``` yaml elastic:   tagFieldNames:     - intrinsic-field     - My-Custom-Field",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "filter" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "A JavaScript expression an TenXSummary must evaluate as 'truthy' against to be written to this output\n\nSpecifies a JavaScript expression that an TenXSummary must evaluate as truthy to write its instance/template field values to the target counter.  For example, to only emit TenXSummaries produced by the 'myMetric' aggregator, specify: ``` yaml elastic:   filter: this.inputName == \"myMetric\" ```  To learn more see [inputName](https://doc.log10x.com/api/js/#TenXBaseObject+inputName)"
+          },
+          "maxCardinality" : {
+            "type" : [
+              "number",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Maximum number of unique metric combinations allowed\n\nSets the maximum number of unique metric combinations (cardinality) allowed for this output. When exceeded, metrics will be dropped to prevent excessive cardinality. (Accepts number or string with $= prefix for runtime evaluation) (Default: 500)",
+            "default" : 500
+          },
+          "topSeries" : {
+            "type" : [
+              "number",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Number of tag sets with the most bytes to publish\n\nKeeps the output to the tag sets with the most bytes, ranked on the summaryBytes counter as the series accumulate. An admitted tag set publishes from every aggregator; one outside the top keeps accumulating and is published once it has cost more than the smallest one inside. 0 publishes every tag set.",
+            "default" : 0
+          },
+          "step" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "The interval at which to publish metrics to output\n\nSets the interval at which to publish metrics to the time-series destination (e.g., '1m'). To learn more see [rate-aggregation](https://micrometer.io/docs/concepts#rate-aggregation) (Default: 1 minute.)",
+            "default" : "1 minute."
+          },
+          "host" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Host to send metrics to\n\nSets the host to send metrics to. (Default: http://localhost:9200)",
+            "default" : "http://localhost:9200"
+          },
+          "apiKeyCredentials" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Base64-encoded credentials string\n\nSets a base64-encoded credentials string To learn more see: [Elastic credentials](https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html)"
+          },
+          "userName" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Basic Authentication username\n\nSets the the Basic Authentication username. If 'elasticApiKeyCredentials' not is set, it will be used instead"
+          },
+          "password" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Basic Authentication password\n\nSets a Basic Authentication password. If 'elasticApiKeyCredentials' is not set it will be used instead"
+          },
+          "index" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "The index name to write metrics to\n\nSets the index name to write metrics to. (Default: micrometer-metrics)",
+            "default" : "micrometer-metrics"
+          },
+          "autoCreateIndex" : {
+            "type" : [
+              "boolean",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Whether to create the index automatically if it doesn't exist\n\nSets whether to create the index automatically if it doesn't exist. (Accepts boolean or string with $= prefix for runtime evaluation) (Default: true)",
+            "default" : true
+          },
+          "pipeline" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "The ingest pipeline name\n\nThe ingest pipeline name"
+          },
+          "indexDateFormat" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Index date format used for rolling indices\n\nSets the index date format used for rolling indices. This is appended to the index name, separated by 'elasticIndexDateSeparator'. (Default: yyyy-MM)",
+            "default" : "yyyy-MM"
+          },
+          "timestampFieldName" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Name of the elastic timestamp field\n\nSets the name of the elastic timestamp field. (Default: @timestamp)",
+            "default" : "@timestamp"
+          },
+          "indexDateSeparator" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Separator between the index name and the date part\n\nSets the separator between the index name and the date part (Default: -)",
+            "default" : "-"
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties" : true
+}

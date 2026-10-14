@@ -1,0 +1,58 @@
+{
+  "type" : "object",
+  "properties" : {
+    "tenx" : {
+      "type" : "string"
+    },
+    "pattern" : {
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "additionalProperties" : false,
+        "properties" : {
+          "fileFilter" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "File name filter regx pattern\n\nDefines a regex pattern a file name must match for this scanner to be applied to its contents"
+          },
+          "lineFilter" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "File line filter regx pattern\n\nDefines a regex pattern applied to each line within a target file where each matching region will be extracted as symbol value. NOTE: Take into consideration performance implications of the input expression to avoid long processing time and/or errors."
+          },
+          "extractQuotes" : {
+            "type" : [
+              "boolean",
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Extract single and double quoted values\n\nDefines whether to extract single and double quoted values from input lines, taking into consideration escaping and improperly closed quotations. This options provides am efficient method for extracting string constants from input files without relying on regex backtracking. To learn more see [pseudo code] (https://gist.github.com/talwgx/d31133f6278bb8b640baf050f78047d5). (Accepts boolean or string with $= prefix for runtime evaluation)"
+          },
+          "matchContext" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Output symbol context\n\nSets the source context to assign any symbols collected using this this pattern selector. For possible values, see symbol [contexts](https://doc.log10x.com/run/transform/symbol/#contexts).   If a target input line contains matches for [patternLineFilter](https://doc.log10x.com/compile/scanner/pattern/#patternlinefilter) AND this value is set to [method](https://doc.log10x.com/run/transform/symbol/#method) AND the matching line contains values specified as [logmethods](https://doc.log10x.com/compile/scanner/logMethods/#logmethods) or [logstreams](https://doc.log10x.com/compile/scanner/logMethods/#logstreams) outside of match bounds then the context will be set as [log](https://doc.log10x.com/run/transform/symbol/#log).  For example, for the following input line, a pattern scanner set to `method` that extracts quoted strings will assigned the extracted value's context as `log` given the presence of the `Console` value which is defined as logging stream identifier.  ``` cs Console.WriteLine(\"Accounting \\\"service started\"); ```"
+          },
+          "unescapeScheme" : {
+            "type" : [
+              "string",
+              "null"
+            ],
+            "markdownDescription" : "Unescape scheme to apply to matching sequences\n\nSpecifies an unescape algorithm to apply to matching sequences of [patternLineFilter](https://doc.log10x.com/compile/scanner/pattern/#patternlinefilter). Supported values: [json,java,xml,html,javaScript].   If not specified, characters are treated as not escaped.  To learn more see [Unescape algorithms](https://www.unbescape.org/usingunbescape.html)."
+          }
+        },
+        "required" : [
+          "fileFilter",
+          "extractQuotes"
+        ]
+      }
+    }
+  },
+  "additionalProperties" : false
+}

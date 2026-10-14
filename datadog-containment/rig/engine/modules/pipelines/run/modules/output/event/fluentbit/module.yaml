@@ -1,0 +1,229 @@
+#
+# 🔟❎ 'run' fluentbit process output module
+
+module:
+
+  name: fluentbitEventOutputs
+
+  title: Fluent Bit event output
+
+  description: write TenXObject and template values to a Fluent Bit subprocess to ship to remote log analyzers
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/output/event/fluentbit
+  configSort:
+    fluentbitEventOutputs: [cloudwatch, datadog, elasticsearch, splunk, stdout]
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/output/event/fluentbit/doc.md":""
+
+  # 'allowMultiple' is enabled for this module. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+        - fluentbitOutCommand
+      description: command to launch Fluent Bit
+      type: string
+      required: true
+      category: process
+      doc: |
+        specifies the command to execute to launch the Fluent Bit  sub-process.
+
+    - names:
+        - fluentbitOutInputArgs
+      description: arguments to pass to the spawned Fluent Bit  process setting up input
+      type: list
+      required: false
+      category: advanced
+      doc: |
+        list of values to pass as startup arguments to the spawned Fluent Bit  sub-process intended
+        to set up it's stdin input.
+      defValue: [-c, $=path("fluentbit-10x-input.conf")]
+
+    - names:
+        - fluentbitOutOutputArgs
+      description: arguments to pass to the spawned Fluent Bit  process setting up output
+      type: list
+      required: false
+      category: process
+      doc: |
+        list of values to pass as startup arguments to the spawned Fluent Bit sub-process intended
+        to set up it's output plugin(s)
+
+    - names:
+        - fluentbitOutLazyLaunch
+      description: sets whether to launch the process on-demand
+      type: boolean
+      required: false
+      category: process
+      doc: |
+        controls whether to spawn the target sub-process upon the creation of the output or on-demand.
+        If true, launch the sub-process when the first TenXObject instance is written to its stdin.
+
+    - names:
+        - fluentbitOutStartupWaitMs
+      description: wait time for process to startup
+      type: number
+      required: false
+      category: advanced
+      doc: |
+        sets a startup delay wait time in milliseconds before the process is considered available for events.
+        if provided, will add a wait as part of starting the process before emitting events into it.
+        max value for this argument is 10,000 (ie 10 seconds).
+        if [fluentbitOutStartupWaitPattern](https://doc.log10x.com/run/output/event/fluentbit/#fluentbitOutstartupwaitpattern) is also provided, the process will be considered
+        a failure if the wait time has passed before a line matching [fluentbitOutStartupWaitPattern](https://doc.log10x.com/run/output/event/fluentbit/#fluentbitoutstartupwaitpattern) was emitted.
+      defValue: 5000
+
+    - names:
+        - fluentbitOutStartupWaitPattern
+      description: wait for an output from the process at startup
+      type: string
+      required: false
+      category: advanced
+      doc: |
+        sets a regex pattern to wait for the process to emit for it to be considered available for events.
+        if provided, will wait until the process has emitted a line to it's output that matches the regex
+        before emitting events into it.
+        if [fluentbitOutStartupWaitMs](https://doc.log10x.com/run/output/event/fluentbit/#fluentbitOutStartupWaitMs) is also provided, will only wait for the specified
+        wait time, after which if no line was emitted to match the provided regex the process will be considered
+        a failure.
+      defValue: \[\s*sp\s*]\s+stream\s+processor\s+started\b
+
+    - names:
+        - fluentbitOutDestroyMode
+      description: control how to terminate the sub-process on output close
+      type: string
+      required: false
+      category: lifecycle
+      doc: |
+        controls how to treat spawned sub-process when this output closes. Possible values:
+
+        | Value      | Description |
+        |------------|-------------|
+        | **graceful** (default)   | The sub-process is destroyed gracefully with a timeout period of [fluentbitOutDestroyWait](https://doc.log10x.com/run/output/event/fluentbit/#fluentbitoutdestroywait). |
+        | **forcible**             | Terminates the sub-process immediately. |
+        | **cached**               | The sub-process remains alive for future pipelines that launch the same command and argument combination within the host JVM. A maximum of [fluentbitOutMaxCacheSize](https://doc.log10x.com/run/output/event/fluentbit/#fluentbitoutmaxcachesize) can be kept alive. Useful for launching shippers (e.g., Filebeat, Fluent Bit) across multiple 10x pipeline runs in a long-living server environment. |
+      defValue: graceful
+
+    - names:
+        - fluentbitOutDestroyWait
+      description: duration to wait for spawned sub-process to terminate
+      type: string
+      required: false
+      category: lifecycle
+      doc: |
+        controls the time duration that the output stream will
+        wait for the sub-process to terminate gracefully (e.g., '5s').
+        If the process timeouts, the output will forcibly terminate it. If set to 0,
+        the output stream will wait indefinitely for the sub-process to terminate.
+        This value only applies when [fluentbitOutDestroyMode](https://doc.log10x.com/run/output/event/fluentbit/#fluentbitoutdestroymode) is set to `graceful`.
+
+    - names:
+      - fluentbitOutMaxCacheSize
+      description: max number of sub-processes to keep alive across subsequent 10x pipeline executions
+      type: number
+      required: false
+      category: lifecycle
+      doc: |
+        sets the global maximum number of processes that can retained globally
+        across 10x pipeline executions within the host JVM. This value is useful
+        when launching shippers (e.g., Filebeat, Fluent Bit) for use
+        across multiple 10x pipeline executions within a server environment.
+        This value only applies when [fluentbitOutDestroyMode](https://doc.log10x.com/run/output/event/fluentbit/#fluentbitoutdestroymode) is set to `cached`.
+        If [fluentbitOutMaxCacheSize](https://doc.log10x.com/run/output/event/fluentbit/#fluentbitoutmaxcachesize) is set to 0, no caching is performed, and sub-processes
+        are destroyed gracefully.
+
+    - names:
+        - fluentbitOutFields
+      description: list of TenXObject field names to encode
+      type: list
+      required: false
+      category: encoding
+      doc: |
+        specifies a list of TenXObject intrinsic/calculated/extracted field names to extract and write to the output.
+
+    - names:
+        - fluentbitOutFilter
+      description: a JavaScript expression an TenXObject must evaluate as 'truthy' against to be written to this output
+      type: string
+      required: false
+      category: encoding
+      doc: |
+        Specifies a JavaScript expression that an TenXObject must evaluate as truthy to write its
+        instance/template field values to this output.
+
+        For example, to only emit [timestamped](https://doc.log10x.com/api/js/#TenXBaseObject+timestamped) TenXObjects, specify:
+        ``` yaml
+        fluentbitOutFilter: this.timestamped
+        ```
+
+    - names:
+        - fluentbitOutWriteObjects
+      description: if true, TenXObject field values specified by [fluentbitOutFields](https://doc.log10x.com/run/output/event/fluentbit/#fluentbitoutfields) are encoded to this output
+      type: string
+      required: false
+      category: encoding
+      doc: |
+        Determine whether to write [fluentbitOutFields](https://doc.log10x.com/run/output/event/fluentbit/#fluentbitoutfields) values of an TenXObject passed to this output.
+        This configuration is typically defined using a JavaScript expression.
+
+        To enable/disable the output depending on whether a launch argument, environment variable,
+        or JVM -D option evaluates as truthy, use:
+        ``` yaml
+          fluentbitOutWriteObjects: $=TenXEnv.get("myProcCmd")
+        ```
+        To learn more see [TenXEnv.get](https://doc.log10x.com/api/js/#TenXEnv.get).
+
+      defValue: true
+
+    - names:
+        - fluentbitOutWriteTemplates
+      description: if true, write new TenXTemplates to this output
+      type: string
+      required: false
+      category: encoding
+      doc: |
+        controls whether to write template values of TenXObjects passed to this output.
+        The output will only emit TenXTemplates that the pipeline did not load at startup via the[templateFile](https://doc.log10x.com/run/template/#templatefiles) argument,
+        and will only emit an TenXTemplate once based on its [templateHash](https://doc.log10x.com/api/js/#TenXBaseObject+templateHash) value.
+      defValue: false
+
+    - names:
+        - fluentbitOutEncodeType
+      description: the output format in which to encode TenXObject values. Possible values:[json, delimited]
+      type: string
+      required: false
+      defValue: delimited
+      category: encoding
+      doc: |
+        specifies how to encode [fluentbitOutFields](https://doc.log10x.com/run/output/event/fluentbit/#fluentbitoutfields) values to this output. Possible values:
+        - **json**: formats names and values for the current TenXObject as: {"field":"str","field2":1, "field3": true}
+        - **delimited**: formats values for the current TenXObject as: "str",1,true
+           The [fluentbitOutEncodeDelimiter](https://doc.log10x.com/run/output/event/fluentbit/#fluentbitOutencodedelimiter) argument determines the separator to use.
+
+    - names:
+        - fluentbitOutEncodedLinePrefix
+      description: the line prefix prepended to the encoded event if 'fluentbitOutEncodeType' is 'delimited'
+      type: string
+      required: false
+      category: encoding
+      doc: |
+        sets the char which is prepended to the emitted TenXObject field values when [fluentbitOutEncodeType](https://doc.log10x.com/run/output/event/fluentbit/#fluentbitoutencodetype) is `delimited`.
+      defValue: ''
+
+    - names:
+        - fluentbitOutEncodeDelimiter
+      description: the delimiter placed between key and values pairs if 'fluentbitOutEncodeType' is 'delimited'
+      type: string
+      required: false
+      category: encoding
+      doc: |
+        sets the char delimiter to separate TenXObject field values when [fluentbitOutEncodeType](https://doc.log10x.com/run/output/event/fluentbit/#fluentbitoutencodetype) is `delimited`.
+      defValue: ' '
+

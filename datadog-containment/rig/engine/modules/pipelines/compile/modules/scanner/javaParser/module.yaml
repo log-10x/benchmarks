@@ -1,0 +1,14 @@
+#
+# 🔟❎ 'compile' Java scanner module
+
+module:
+
+  name: javaParser
+
+  title: JavaParser scanner
+
+  description: scan Java source code for symbol values using the JavaParser library
+ 
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "compile/modules/scanner/javaParser/doc.md":""
+  

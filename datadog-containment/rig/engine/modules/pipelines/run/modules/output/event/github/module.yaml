@@ -1,0 +1,163 @@
+#
+# 🔟❎ 'run' GitHub commit output module
+
+module:
+
+  name: githubOutput
+
+  title: GitHub output
+
+  description: commit TenXObject field/template values to GitHub
+
+   # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/output/event/github
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/output/event/github/doc.md":""
+
+  # 'allowMultiple' is enabled for this module. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+        - githubOutputToken
+      description: GitHub API auth token
+      type: string
+      required: true
+      category: github
+      doc: |
+        specifies the GitHub API with which to authenticate.
+        To learn more see [GitHub tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens).
+
+    - names:
+        - githubOutputRepo
+      description: name of target repo
+      type: string
+      required: true
+      category: github
+      doc: |
+        specifies the name of the target repo (e.g., user/repo)
+
+    - names:
+        - githubOutputBranch
+      description: target branch into which to commit
+      type: string
+      required: false
+      category: github
+      doc: |
+        specifies the name of the target repo branch
+      defValue: repo default branch
+
+    - names:
+        - githubOutputPath
+      description: path of artifact within the target repo to update
+      type: string
+      category: github
+      required: true
+      doc: |
+        specifies the path within the target [repo](https://doc.log10x.com/run/output/event/github/#githuboutputreponame) and [branch](https://doc.log10x.com/run/output/event/github/#githuboutputbranchname) to update.
+
+    - names:
+        - githubOutputHeader
+      description: header value to write to output
+      type: string
+      required: false
+      category: github
+      doc: |
+        specifies as header value to write to the target [path](https://doc.log10x.com/run/output/event/github/#githuboutputfilename). This value
+        can specify a header row when emitting a .csv/.tsv lookup file or a header comment value for a .yaml file.
+
+    - names:
+      - githubOutputMessage
+      description: commit message for target file
+      type: string
+      required: false
+      category: github
+      defValue: auto-generated message
+      doc: |
+        specifies a commit message for this update.
+
+    - names:
+      - githubOutputPullRequestBody
+      description: pull request message for target file
+      type: string
+      required: false
+      category: github
+      defValue: auto-generated message
+      doc: |
+        specifies the body of the pull request used to commit and merge the target [file](https://doc.log10x.com/run/output/event/github/#githuboutputfilename) to
+        the destination [branch](https://doc.log10x.com/run/output/event/github/#githuboutputbranchname).
+
+    - names:
+      - githubOutputSquashMerge
+      description: use squash merge when merging pull requests
+      type: boolean
+      required: false
+      category: github
+      defValue: false
+      doc: |
+        specifies whether to use squash merge (true) or regular merge (false) when merging the pull request.
+        Squash merge combines all commits into a single commit, resulting in a cleaner commit history.
+        This is useful for automated commits that run frequently (e.g., GitOps policy updates).
+
+    - names:
+        - githubOutputFields
+      description: list of TenXObject field names to encode
+      type: list
+      required: false
+      category: encoding
+      doc: |
+        specifies a list of TenXObject intrinsic/calculated/extracted field names to extract and write to the output.
+
+    - names:
+        - githubOutputFilter
+      description: a JavaScript expression an TenXObject must evaluate as 'truthy' against to be written to this output
+      type: string
+      required: false
+      category: encoding
+      doc: |
+        Specifies a JavaScript expression that an TenXObject must evaluate as truthy to write its
+        instance/template field values to this output.
+
+        For example, to only emit [timestamped](https://doc.log10x.com/api/js/#TenXBaseObject+timestamped) TenXObjects, specify:
+        ``` yaml
+        githubOutputFilter: this.timestamped
+        ```
+
+    - names:
+        - githubOutputEncodeType
+      description: the output format in which to encode TenXObject values. Possible values:[json, delimited]
+      type: string
+      required: false
+      defValue: delimited
+      category: encoding
+      doc: |
+        specifies how to encode [githubOutputFields](https://doc.log10x.com/run/output/event/github/#githuboutputfields) values to this output. Possible values:
+        - **json**: formats names and values for the current TenXObject as: {"field":"str","field2":1, "field3": true}
+        - **delimited**: formats values for the current TenXObject as: "str",1,true
+           The 'githubOutputEncodeDelimiter' argument determines the separator to use.
+
+    - names:
+        - githubOutputEncodedLinePrefix
+      description: the line prefix prepended to the encoded event if 'githubOutputEncodeType' is 'delimited'
+      type: string
+      required: false
+      category: encoding
+      doc: |
+        sets the char which is prepended to the emitted TenXObject field values when [githubOutputEncodeType](https://doc.log10x.com/run/output/event/github/#githuboutputencodetype) is `delimited`.
+      defValue: ''
+
+    - names:
+        - githubOutputEncodeDelimiter
+      description: the delimiter placed between key and values pairs if 'githubOutputEncodeType' is 'delimited'
+      type: string
+      required: false
+      category: encoding
+      doc: |
+        sets the char delimiter to separate TenXObject field values when [githubOutputEncodeType](https://doc.log10x.com/run/output/event/github/#githuboutputencodetype) is 'delimited'.
+      defValue: ' '

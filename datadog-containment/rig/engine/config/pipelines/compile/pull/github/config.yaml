@@ -1,0 +1,33 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/compile/pull/github/schema.json
+
+# 🔟❎ 'compile' GitHub pull sources configuration
+
+# Configures GitHub repositories folders to pull to disk to scan its contents.
+# To learn more see https://doc.log10x.com/compile/pull/github
+
+# For a reference list of industry-standard frameworks, see:
+#   modules/pipelines/compile/modules/pull/github/library.yaml
+
+# Set the 10x pipeline to 'compile'
+tenx: compile
+
+# ============================== GitHub Options ===============================
+
+githubPull:
+
+    # 'token' specifies the access token for this repo using a shell variable (recommended) or inline
+    #  See https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
+  - token: $=TenXEnv.get("GH_TOKEN")  # (EnvVar REQUIRED)
+
+    # 'repo' specifies the repo names to pull from Github (e.g., apache/spark)
+    repos: [
+      #owner/project
+    ]
+
+    # 'branch' specifies the branch to pull within 'repos'. If not set, pulls each repo's default branch
+    branch: null
+
+    # 'repoFolders' defines folders within 'repos' to pull. If not specified, pull the entire repo
+    folders: [
+      # src/main
+    ]

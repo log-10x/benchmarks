@@ -1,0 +1,76 @@
+#
+# 🔟❎ 'run' parallel processing unit
+ 
+unit:
+
+  name: parallelize
+
+  title: Parallel processor
+
+  description: distribute event parsing and transformation workloads across multiple cores.
+    
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/transform/parallelize
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/units/transform/parallelize/doc.md":""
+ 
+  # 'allowMultiple' is disabled for this unit. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+ 
+  # 'options' defines a group of named/typed configuration values to pass to a pipeline unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - parallelEventThreadPoolSize
+      description: number of threads to allocate to transform events into TenXObjects concurrently
+      type: string
+      required: false
+      doc: |
+        controls the number of threads to allocate to transform events into TenXObjects concurrently.
+        
+        If the value is -
+        
+        | Setting                          | Allocated Threads                                                                                           |
+        |----------------------------------|-------------------------------------------------------------------------------------------------------------|
+        | :material-equal: **0**           | Transform events into TenXObjects synchronously using their input stream calling thread                      |
+        | :material-less-than: **1**       | Interpreted as a percentage of the number of available cores (e.g., 0.5 = use up to 50% of available cores) |
+        | :material-equal: **1**           | Allocate a single dedicated to transform events                                                             |
+        | :material-greater-than: **1**    | Interpreted as a fixed number of threads (e.g., 10 = 10 threads)                                            |
+
+    - names:
+      - parallelEventBatchSize
+      description: maximum number of events to queue for concurrent processing before flushing 
+      type: number
+      required: false
+      doc: |
+        sets the number of events to queue before flushing them to transform into TenXObjects.
+        If [threadPoolSize](https://doc.log10x.com/run/transform/parallelize/#paralleleventthreadpoolsize) is 1, this value is unused, and events are transformed into TenXObject synchronously 
+        to their calling input's thread.  If 0, flush pending events after [flushInterval](https://doc.log10x.com/run/transform/parallelize/#paralleleventflushinterval) expires or the
+        source input reaches end-of-file.
+      defValue: 1000.
+
+    - names:
+      - parallelEventFlushInterval
+      description: maximum wait duration before flushing queued events 
+      type: string
+      required: false
+      doc: |
+        sets an interval period for (e.g. '2s) before flushing pending events to transform into TenXObjects.
+        If [threadPoolSize](https://doc.log10x.com/run/transform/parallelize/#paralleleventthreadpoolsize) is 1, this value is unused, and events are transformed into TenXObject synchronously 
+        to their input thread. If 0, no wait flush interval is applied. 
+      defValue: 2s
+
+    - names:
+      - parallelEventProcessingTimeout
+      description: maximum wait duration before dropping un-processed queued events 
+      type: string
+      required: false
+      doc: |
+        sets a timeout period (e.g., '30s'), after which to drop queued events.
+        This value provides a backstop for overflowing the heap if the pipeline cannot dequeue 
+        pending events to transform into TenXObject. If 0, no timeout is applied.
+      defValue: 30s

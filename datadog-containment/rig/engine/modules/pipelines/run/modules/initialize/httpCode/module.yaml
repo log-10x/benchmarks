@@ -1,0 +1,98 @@
+#
+# 🔟❎ 'run' HTTP code extractor module
+
+module:
+
+  name: httpStatusCodeExtractor
+
+  title: HTTP Status Code Extractor
+
+  description: enrich TenXObjects with an extracted HTTP status code
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/initialize/httpCode
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: '+include $=TenXEnv.get("docGenerate") ? "run/modules/initialize/httpCode/doc.md":""'
+
+  # 'allowMultiple' is disabled for this module. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - httpCodeField
+      description:  HTTP code target field name
+      type: string
+      required: true
+      doc: |
+        specify the field name to assign with the inferred HTTP code
+      defValue: httpCode
+
+    - names:
+      - httpCodePrecludersBefore
+      description: preceding characters for excluding HTTP code candidates
+      type: list
+      required: false
+      doc: |
+        Array of characters or patterns that, when appearing immediately before a candidate HTTP status code in tokenized logs, indicate it is not a valid HTTP code.
+        Used to preclude false positives like negative numbers ('-200'), floats ('.200'), or variables ('_200').
+        Entries are single characters or short strings for O(1) lookup efficiency in the heuristic.
+    
+    - names:
+      - httpCodePrecludersAfter
+      description: subsequent characters for excluding HTTP code candidates
+      type: list
+      required: false
+      doc: |
+        Array of characters or patterns that, when appearing immediately after a candidate HTTP status code in tokenized logs, indicate it is not a valid HTTP code.
+        Used to preclude false positives like percentages ('200%'), floats ('200.'), or expressions ('200+').
+        Entries are single characters or short strings for O(1) lookup efficiency in the heuristic.
+
+    - names:
+      - httpCodeValidValues
+      description: standard HTTP status codes
+      type: list
+      required: false
+      doc: |
+        Array of all standard HTTP status codes as defined by the IANA HTTP Status Code Registry and relevant RFCs (e.g., RFC 9110, RFC 6585, RFC 7231-7235, RFC 7538, RFC 7725, RFC 8297, RFC 9111).
+        This arrays validates potential HTTP status codes in log events, ensuring only recognized codes are extracted.
+        Each entry includes the numeric code followed by a comment describing its meaning and purpose.
+
+    - names:
+      - httpCodeKeywords
+      description: Array of keywords indicating HTTP-related context in log events
+      type: list
+      required: false
+      doc: |
+        This list filters logs likely containing HTTP status codes, reducing false positives.
+        Keywords cover HTTP methods, common log fields, and format-specific terms from sources like Apache, Nginx, HAProxy, Squid, IIS, Spring Boot.
+
+    - names:
+      - httpCodeStrictKeywords
+      description: Array of strict HTTP markers that must appear near a candidate HTTP code token
+      type: list
+      required: false
+      doc: |
+        Short, high-signal subset of HTTP markers used as a structural guard during template
+        initialization. After a candidate HTTP status variable token is found via
+        [httpCodeValidValues](#httpcodevalidvalues), the template initializer requires that at
+        least one of these strict markers appear within a small token window (±5 by default)
+        around the candidate. Without this check, any numeric variable that happens to hold
+        a value in 100..599 on its first observed event (e.g., a kafka config limit like
+        `max.request.size = 200`, a JVM `-Dclk.tck=100`) gets wrongly bound as an HTTP code
+        and subsequent events carry through arbitrary non-HTTP values at that position.
+
+        The strict list should contain only tokens that unambiguously mark an HTTP exchange:
+        HTTP method verbs (`GET`, `POST`, ...), protocol versions (`HTTP/1.1`, `HTTP/2`),
+        status-keyed JSON fields (`status`, `statusCode`, `http_status`, `upstream_status`),
+        and framework-specific phrases that always precede a status code in real traffic
+        (`Completed`, `DispatcherServlet`, `TCP_MISS`). It is intentionally much smaller
+        than [httpCodeKeywords](#httpcodekeywords), which is used as a cheap pre-filter
+        over the full template body and can include loose terms.
+
+

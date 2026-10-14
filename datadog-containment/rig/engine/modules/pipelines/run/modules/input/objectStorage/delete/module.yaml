@@ -1,0 +1,77 @@
+#
+# 🔟❎ 'run' Object storage delete index output module
+module:
+
+  name: deleteIndexObject
+
+  title: Delete index objects
+
+  description:  Delete index objects for target blob
+  
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/input/objectStorage/delete/doc.md":""
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/input/objectStorage/delete
+
+  # 'allowMultiple' is enabled for this module. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+    
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+  # ------------------------------ Container Options --------------------------
+
+    - names:
+        - indexDeleteObjectStorageName
+      description: object storage logical name
+      type: String
+      required: true
+      category: general
+      doc: |
+        identifies the [object storage](https://doc.log10x.com/run/input/objectStorage#objectstorageccessclassname) 
+        from which to delete the target index objects (e.g., 'AWS').
+
+    - names:
+        - indexDeleteObjectStorageArgs
+      description: custom object storage args
+      type: list
+      required: false
+      category: advanced
+      doc: |
+        custom arguments passed as a map to the constructor of the underlying [object storage](https://doc.log10x.com/run/input/objectStorage/index/delete/#queryobjectobjectstoragename).
+        This list is expected to hold pairs of key values (e.g., args: [key1, value1, key2, value2])
+
+   # ------------------------------- Delete Options ---------------------------
+
+    - names:
+        - indexDeleteContainer
+      description: Object storage container containing index objects
+      type: String
+      required: true
+      category: general
+      doc: |
+        specifies the object storage container (e.g., AWS S3 bucket)
+        name from which to delete [TenXTemplate Filters](https://doc.log10x.com/run/input/objectStorage/index/#tenxtemplate-filters) 
+
+    - names:
+        - indexDeleteTarget
+      description: logical name identifying the origin of 'indexDeleteObject'
+      type: string
+      required: true
+      category: output
+      doc: |
+        specifies a logical name to delete [TenXTemplate Filters](https://doc.log10x.com/run/input/objectStorage/index/#TenXTemplate-filters) produced for [indexDeleteTargetObject](https://doc.log10x.com/run/input/objectStorage/index/delete/#indexdeletetargetObject) under. 
+        This name commonly specifies the app which generated the events enclosed within this blob (e.g. 'acme-client').    
+
+    - names:
+        - indexDeleteObject
+      description: the target object whose index objects to delete from storage
+      type: String
+      required: true
+      category: general
+      doc: |
+        sets the name of the object (e.g., log file) whose associated index objects to delete from [indexDeleteContainer](https://doc.log10x.com/run/input/objectStorage/index/delete/#indexdeletecontainer)

@@ -1,0 +1,39 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/compile/pull/docker/schema.json
+
+# 🔟❎ 'compile' Docker configuration
+
+# Pull docker images files using the Docker CLI client from container registries to
+# scan for symbol values. To learn more see https://doc.log10x.com/compile/pull/docker
+
+# Set the 10x pipeline to 'compile'
+tenx: compile
+
+# ============================= Docker Options ================================
+
+docker:
+
+  # 'username' specifies the  user name for authenticating the docker client.
+  #  If not set, the docker client is assumed to be pre-authenticated.
+  #  To learn more see https://docs.docker.com/reference/cli/docker/login/#username
+  username: $=TenXEnv.get("DOCKER_USERNAME") # (EnvVar REQUIRED)
+
+  # 'password' specifies the password argument for authenticating the docker client login command.
+  #  This value is written into the docker client's std input via the --password-stdin argument.
+  #  To learn more see https://docs.docker.com/reference/cli/docker/login/#password-stdin.
+  password: $=TenXEnv.get("DOCKER_TOKEN")  # (EnvVar REQUIRED)
+
+  # 'command' specifies the location of docker cli https://docs.docker.com/reference/cli/docker/ program
+  #command: $=TenXString.includes(TenXEnv.get("os.name"), "Windows") ? "C:/Program Files/Docker/Docker/resources/bin/docker.exe":"/usr/local/bin/docker"
+
+  # 'images' specify images to pull and export to matching .tar files to scan
+  images: [
+  #   docker.io/grafana/grafana:11.1.0 
+  ]
+
+  # 'remove' specifies whether to remove exported images once their contents are extracted.
+  #  To learn more see https://docs.docker.com/reference/cli/docker/image/rm
+  remove: false
+
+  # 'githubRepoToken' defines an access token for pulling Github repos referenced
+  # by a target image's 'org.opencontainers.image.source' property.
+  githubRepoToken: $=TenXEnv.get("GH_TOKEN")  # (EnvVar REQUIRED)

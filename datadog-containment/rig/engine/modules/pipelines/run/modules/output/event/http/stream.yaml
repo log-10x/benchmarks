@@ -1,0 +1,87 @@
+# 🔟❎ 'run' HTTP output module stream settings
+
+# The 'httpOutput' module defines an HTTP output to which
+# to write TenXObject instance/template field values. The configuration
+# below constructs a log4j-backed output stream for each instance of
+# the 'httpOutput' options group.
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+output:
+
+    # 'type' defines the type of output (e.g., stdout, event, metrics).
+    #  This output utilizes a log4j2 file appender to emit TenXObject instance/template field values
+  - type: event
+
+    # 'foreach' sets 'httpOutput' as the options group for whose instances
+    #  to create matching output streams to allow multiple HTTP outputs.
+    foreach: httpOutput
+
+    # 'path' points to the log4j2 configuration used for the output's
+    #  appender and logger at: https://github.com/log-10x/modules/blob/main/pipelines/run/modules/output/event/http/log4j2.yaml
+    path: run/modules/output/event/http
+
+    # 'name' assigns a logical name to this output instance
+    name: $outputHttpUrl
+
+    # 'enabled' sets whether to open the output. If true, any 'filter' value
+    #  set below is evaluated for each TenXObject to determine whether to write its instance/template field values to output.
+    enabled: $?outputHttpWriteObjects=false
+
+    # 'filter' is configured only to encode TenXObject instance field values.
+    #  A separate output stream is defined below to encode TenXTemplates
+    filter: $?outputHttpFilter=isObject
+
+    # 'group' sets 'outputHttpAddress' as the key for grouping all forward outputs
+    #  targeting a socket into a single log4j2 appender. This
+    #  prevents a situation where multiple non-synchronized appenders may be trying
+    #  to write to the same socket.
+
+    # Since the log4j2 HTTP appender does not maintain a 'keep-open' connection
+    # that requires synchronization across multiple concurrent outputs, this value is commented out
+
+    # group:
+    #  - $outputHttpUrl
+
+    # 'encodedLinePrefix', 'encodeType' and 'encodeDelimiter' control how TenXObject field values are
+    #  written to output. To learn more see 'outputHttpEncodeType' in https://doc.log10x.com/run/output/event/http
+    encodedLinePrefix: $?outputHttpEncodedLinePrefix=""
+    encodeType: $?outputHttpEncodeType=delimited
+    encodeDelimiter: $?outputHttpEncodeDelimiter=" "
+
+    # 'fields' defines the intrinsic/extracted/calculated field values
+    #  to write to for each TenXObject passed to this output.
+    fields:
+      - $?outputHttpFields
+
+    # If 'outputHttpWriteTemplates' is true, encode Template values for TenXObjects as JSON objects.
+    # To learn more about TenXTemplates, see https://doc.log10x.com/run/template
+  - type: event
+
+    # 'foreach' sets 'httpOutput' as the options group for whose instances
+    #  to create matching output streams to allow multiple HTTP outputs.
+    foreach: httpOutput
+
+    # 'name' assigns a logical name to this output instance
+    name: $outputHttpUrl
+
+    # 'path' points to the log4j2 configuration used for this output at:
+    # https://github.com/log-10x/modules/blob/main/pipelines/run/modules/output/event/http/log4j2.yaml
+    path: run/modules/output/event/http
+
+    #group:
+    #  - $outputHttpUrl
+
+    # 'enabled' is to false by default. 'outputForwardWriteTemplates' must be set to
+    #  true to encode TenXTemplates to this output
+    enabled: $?outputHttpWriteTemplates=false
+
+    # 'filter' uses the 'isNewTemplate' 10x JavaScript function to skip templates
+    #  loaded via the https://doc.log10x.com/run/template/#templatefiles argument or previously written to this output
+    filter: isNewTemplate()
+
+    encodeType: json
+    fields:
+      - templateHash
+      - template

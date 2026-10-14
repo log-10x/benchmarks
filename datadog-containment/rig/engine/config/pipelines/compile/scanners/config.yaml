@@ -1,0 +1,20 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/compile/scanners/schema.json
+
+# 🔟❎ 'compile' symbol scanner config
+
+# Configure input and output options for the compile pipeline.
+# To learn more see https://doc.log10x.com/compile/scan
+
+tenx: compile
+
+# ========================== Configure I/O Paths ==============================
+
+# 'inputPaths' lists folders on disk containing source code and binary files to scan.
+#  To learn more see https://doc.log10x.com/compile/scan/#inputpaths
+inputPaths:
+  - $=path("data/compile/sources", "")   # Default to none ("") if source folder not found
+  # - <path-to-input-files>              # uncomment to specify additional input paths
+
+# 'outputSymbolFolder' specifies the folder for output symbol unit files.
+#  To learn more see https://doc.log10x.com/compile/scan/#outputsymbolfolder
+outputSymbolFolder: $=TenXEnv.get("TENX_OUTPUT_SYMBOL_FOLDER", path("data/shared/symbols", "<tenx.io.tmpdir>")) # Default to 10x temp dir

@@ -1,0 +1,54 @@
+{
+  "type" : "object",
+  "properties" : {
+    "include" : {
+      "type" : "string"
+    },
+    "tenx" : {
+      "type" : "string"
+    },
+    "forward" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "inputPort" : {
+          "type" : [
+            "string",
+            "number",
+            "null"
+          ],
+          "markdownDescription" : "TCP port for Forward protocol input\n\nTCP port where Log10x listens for incoming Fluent Forward protocol messages. Supports all standard Forward protocol modes (Message, Forward, PackedForward). Each incoming record is decoded from msgpack and emitted as JSON for the pipeline.  Example: `24224` (Default: 24224)",
+          "default" : "24224"
+        },
+        "inputPath" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Unix socket path for Forward protocol input (overrides port)\n\nUnix domain socket path where Log10x listens for incoming Fluent Forward protocol messages. When set, takes precedence over the TCP port.  Example: `/tmp/tenx-forward-in.sock`"
+        },
+        "sourcePattern" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Event source capture regex pattern\n\nDefines a regex pattern to capture 'source' values for each transformed TenXObject. The Forward protocol tag is injected into each record as a \"tag\" field. The default pattern extracts this tag as the event source. (Default: \"tag\":\"(.*?)\")",
+          "default" : "\"tag\":\"(.*?)\""
+        },
+        "extractors" : {
+          "type" : [
+            "array",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "JSON / regex extractor names applied to each Forward record\n\nList of extractor names to apply to each event after Forward-protocol decoding. Each named extractor must be defined elsewhere in the pipeline (see https://doc.log10x.com/run/input/extract). Useful when the records coming over Forward carry a custom JSON shape and you want to capture specific fields as TenXObject properties. (Default: [])",
+          "items" : {
+            "type" : "string"
+          },
+          "default" : [ ]
+        }
+      }
+    }
+  },
+  "additionalProperties" : true
+}

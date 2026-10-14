@@ -1,0 +1,106 @@
+# yaml-language-server: $schema=schema.json
+
+#
+# 🔟❎ GitOps configuration
+
+# This config file pulls symbol, config and lookup files from a remote repo to
+# enable centralized configuration management via GitHub.
+
+# To learn more see https://doc.log10x.com/config/github
+
+# The target 10x pipeline to run (e.g., run, compile) is specified in the config files pulled from the repo
+tenx: any
+
+include:
+
+  - source: github
+
+    options:
+      # Env-var overrides: GH_ENABLED, GH_REPO, GH_BRANCH, GH_PATH, GH_SYNC_INTERVAL.
+      # Defaults below are for the compact-receiver GitOps reload test:
+      # they pull test/compact-lookup.csv from talwgx/test every 30s.
+      # For a real deployment, set GH_ENABLED=false OR override the repo.
+      enabled: $=TenXEnv.get("GH_ENABLED", false)
+
+      # 'token' specifies an access token for accessing the Github repo.
+      token: $=TenXEnv.get("GH_TOKEN")
+
+      # 'repo' specifies the GitHub user/repo from which to pull
+      repo: $=TenXEnv.get("GH_REPO", "talwgx/test")
+
+      # 'branch' on 'repo' (if null, uses default repo default branch)
+      branch: $=TenXEnv.get("GH_BRANCH", "main")
+
+      # 'paths' specifies Glob patterns within 'repo' to pull and extract to a temp folder.
+      # (List items don't honor $= expressions; hardcoded glob. Override repo+branch
+      # to target a different repo layout. Compact lookup must live as test/*.csv.)
+      paths:
+        - test/*.csv
+
+      # 'syncInterval' specifies an interval by which check to check the remote branch for updates (null to disable).
+      # This interval works in conjunction with: https://doc.log10x.com/run/reload
+      syncInterval: $=TenXEnv.get("GH_SYNC_INTERVAL", "30s")
+
+      # 'destination' mirrors pulled content into a stable absolute folder,
+      # after the initial pull and after every sync (atomic per-file writes,
+      # mtime refreshed every sync). The pull cache itself lives under a
+      # sha-addressed temp folder whose path changes per commit -- options
+      # like rateReceiverLookupFile must point HERE, not into the cache:
+      #   GH_DEST=/tmp/policy  +  rateReceiverLookupFile=/tmp/policy/test/mutes.csv
+      # The folder must be writable by the engine user: the shipped container
+      # runs as uid 1000, so a root-level path like /policy fails the launch.
+      # Unset = no mirror (prior behavior). Requires engine >= 1.1.69.
+      destination: $=TenXEnv.get("GH_DEST")
+
+# ---------------------------------------------------------------------------
+# Alternative source: kubernetes ConfigMap
+#
+# Pulls regulator CSV / lookup files from a kube-apiserver ConfigMap. Same
+# polling cadence + atomic write semantics as the github lane, but the
+# source-of-truth lives in the cluster rather than a remote repo. Useful
+# for air-gapped deployments and for tooling that already writes intent
+# (e.g. log10x-mcp configure_engine) directly into kubernetes.
+#
+# DISABLED unless K8S_ENABLED=true on the pod. The MCP install wizard sets
+# it (with a seeded ConfigMap + RBAC read grant), so a wizard-installed
+# receiver picks up caps.csv / actions.csv / config-generation.csv without
+# hand-wiring. The seed matters: the first pull runs on the launch thread
+# and a MISSING ConfigMap aborts startup; the lookup loader also refuses a
+# rows-less CSV, so the seeded files each carry one no-op `tenx-seed` row.
+#
+# Auth uses the pod's mounted service-account token (re-read each poll so
+# BoundServiceAccountTokenVolume rotation is honored). CA cert is re-loaded
+# on mtime change. Atomic file replacement via temp + Files.move.
+
+  - source: kubernetes
+
+    options:
+      # Env-var overrides: K8S_ENABLED, K8S_NAMESPACE, K8S_CONFIGMAP,
+      # K8S_SYNC_INTERVAL, K8S_API_SERVER, K8S_TOKEN_PATH, K8S_CA_PATH.
+      enabled: $=TenXEnv.get("K8S_ENABLED", false)
+
+      # 'namespace' defaults to the pod's namespace (read from the mounted
+      # service-account token volume). Override for cross-namespace pulls.
+      namespace: $=TenXEnv.get("K8S_NAMESPACE")
+
+      # 'configMap' is the ConfigMap name to pull from.
+      configMap: $=TenXEnv.get("K8S_CONFIGMAP", "log10x-action-intent")
+
+      # 'keys' is a list of glob patterns over the ConfigMap data + binaryData
+      # keys. Only keys matching at least one glob are written to disk.
+      keys:
+        - "*.csv"
+        - "*.json"
+
+      # 'syncInterval', floored to 60s by the scheduler (mirrors github lane).
+      syncInterval: $=TenXEnv.get("K8S_SYNC_INTERVAL", "30s")
+
+      # 'apiServer' default is the in-cluster URL. Override for out-of-cluster
+      # smoke tests (e.g., https://127.0.0.1:6443 via kubectl proxy).
+      apiServer: $=TenXEnv.get("K8S_API_SERVER", "https://kubernetes.default.svc")
+
+      # Paths to the projected service-account token + CA cert. Defaults are
+      # the standard in-cluster mount points; override only for non-standard
+      # service-account volume layouts.
+      tokenPath: $=TenXEnv.get("K8S_TOKEN_PATH", "/var/run/secrets/kubernetes.io/serviceaccount/token")
+      caPath: $=TenXEnv.get("K8S_CA_PATH", "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt")

@@ -1,0 +1,91 @@
+#
+# 🔟❎ 'run' device output settings
+
+# The 'stdout' module defines a device output (e.g., stdout, stderr)
+# to write TenXObject instance/template field values. The configuration 
+# below constructs a log4j-backed output stream for each instance of 
+# the 'stdout' options group.
+ 
+# Set the 10x pipeline to 'run'
+tenx: run
+
+output:
+
+    # 'type' defines the type of output (e.g., stdout, event, metric). 
+    #  The 'stdout' output utilizes a log4j2 file appender to emit object/template values
+  - type: event
+   
+    # 'path' points to the log4j2 configuration used for the output's 
+    #  appender and logger at: https://github.com/log-10x/modules/blob/main/pipelines/run/modules/output/event/stdout/log4j2.yaml  
+    path: run/modules/output/event/stdout
+
+    # 'name' assigns a logical name to this output instance
+    name: $stdoutTarget
+
+    # 'enabled' sets whether to open the output. If true, any 'filter' value
+    #  set below is evaluated for each TenXObject to determine whether to write its instance/template field values to output. 
+    enabled: $=yield TenXEnv.get("stdoutWriteObjects", true) && TenXEnv.get("stdoutLog4j2", false) 
+
+    # 'filter' is set to skip templates when encoding object field values.
+    #  A separate output stream is defined below to encode templates   
+    filter: $?stdoutFilter=isObject
+ 
+    # 'foreach' sets 'stdout' as the options group for whose instances 
+    #  to create matching output streams to allow multiple device outputs.
+    foreach: stdout 
+
+    # 'group' sets 'stdoutTarget' as the key for grouping all forward outputs
+    #  targeting a socket into a single log4j2 appender. This 
+    #  prevents a situation where multiple non-synchronized appenders may be trying
+    #  to write to the same device output.
+    group: 
+      - $stdoutTarget
+
+    # 'encodedLinePrefix', 'encodeType' and 'encodeDelimiter' control how TenXObject field values are 
+    #  written to output. To learn more https://doc.log10x.com/run/output/event/stdout/#stdoutencodetype
+    encodedLinePrefix: $?stdoutEncodedLinePrefix="~"
+    encodeType: $?stdoutEncodeType=delimited
+    encodeDelimiter: $?stdoutEncodeDelimiter=","
+
+    # 'encodeGroupDelimiter' controls how to write grouped TenXObject field values to output.
+    encodeGroupDelimiter: $?stdoutEncodeGroupDelimiter=""
+
+    # 'fields' defines the intrinsic/extracted/calculated field values
+    #  to write to for each TenXObject passed to this output.
+    fields: 
+      - $?stdoutFields
+
+    # If 'outputStdoutWriteTemplates' is true, encode Template values for TenXObjects as JSON objects.
+    # To learn more about TenXTemplates, see https://doc.log10x.com/run/template
+  - type: event
+
+    # 'name' assigns a logical name to this output instance
+    name: $stdoutTarget
+
+    # 'foreach' sets 'stdout' as the options group for whose instances 
+    #  to create matching output streams to allow multiple device outputs.
+    foreach: stdout 
+
+    # 'path' points to the log4j2 configuration used for this output at:
+    #  https://github.com/log-10x/modules/blob/main/pipelines/run/modules/output/event/stdout/log4j2.yaml
+    path: run/modules/output/event/stdout
+
+    # 'group' sets 'stdoutTarget' as the key for grouping all forward outputs
+    #  targeting a socket into a single log4j2 appender. This 
+    #  prevents a situation where multiple non-synchronized appenders may be trying
+    #  to write to the same device output.
+    group:
+      - $?stdoutTarget
+
+    # 'enabled' is false by default. 'outputStdoutWriteTemplates' must be set to
+    # true for templates to be encoded       
+    enabled: $=yield TenXEnv.get("stdoutWriteTemplates", false) && TenXEnv.get("stdoutLog4j2", false) 
+
+    # 'filter' uses the 'isNewTemplate' 10x JavaScript function to skip templates 
+    #  loaded via thehttps://doc.log10x.com/run/template/#templatefiles argument or previously written to this output
+    filter: isNewTemplate()
+    
+    encodeType: json
+    fields:
+      - templateHash
+      - template

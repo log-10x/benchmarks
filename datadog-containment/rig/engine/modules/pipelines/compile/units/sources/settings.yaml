@@ -1,0 +1,14 @@
+# 🔟❎ 'compile' source discovery unit settings
+
+# 'inputPaths' specifies a set of files/folders traversed in search of source and binary
+#  input files to scan for symbol values (e.g., class/func names, code constants,..)
+inputPaths:
+  - $outputSymbolFolder
+  - $inputPaths
+
+# 'enabled' controls whether 'inputPaths' are traversed in search of source/binary files to scan.
+#  This action is disabled for sub-process pipelines.
+enabled: $=!TenXEnv.get("parentPipelineId")
+
+# 'symbolScan' provides the scanners for supported input file formats (e.g., .js, .so, .json)
+symbolScan: +include compile/modules/scanner/settings.yaml

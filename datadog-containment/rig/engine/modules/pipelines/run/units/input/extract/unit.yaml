@@ -1,0 +1,167 @@
+#
+# 🔟❎ 'run' input extractors unit
+
+unit:
+
+  name: extractors
+
+  title: Input extractor
+
+  description: filter, redact, and capture events from an input stream to transform into TenXObjects
+
+  # 'allowMultiple' is enabled for this group. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/input/extract
+
+  configSort:
+    extractors: [pattern, json]
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/units/input/extract/doc.md":""
+
+  # 'options' defines a group of named/typed configuration values to pass to a pipeline unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - extractorName
+      description: logical name identifying this extractor 
+      type: string
+      required: true
+      category: general
+      doc: |
+        provides a logical name (e.g., 'message') for this JSON/regex extractor
+        that target input(s) can reference to apply this extractor to events which the produce
+
+    - names:
+      - extractorEnabled
+      description: a JavaScript expression that must be evaluated as 'truthy' to enable the extractor
+      type: boolean
+      required: false
+      category: general
+      doc: |
+        enables/disables this extractor. If set, the JavaScript expression returns a truthy value
+        to enable the extractor. For example, to configure this value to use a startup argument/shell variable, use:
+        
+        ``` yaml
+        extractor:
+           name: myExtractor
+           enabled: TenXEnv.get("performExtraction") 
+          ... 
+        ```
+      defValue: true
+
+    - names:
+      - extractorTargetInput
+      description: regex pattern identifying all inputs to which this extractor should be applied
+      type: string
+      required: false
+      category: general
+      doc: |
+        defines a regex pattern identifying all inputs to which this extractor should be applied. 
+        
+        For example, to apply an extractor to a [datadog input](https://doc.log10x.com/run/input/analyzer/datadogLogs), specify:
+        
+        ``` yaml
+        extractor:
+          name: message
+          type: json
+          targetInput: datadog
+          actions:
+          - captureAll:message 
+        ```
+
+        This argument enables applying this extractor to input(s) without changing their definition.
+        vs. directly the input referencing the extractor directly via [extractorName](https://doc.log10x.com/run/input/extract/#extractorname).
+
+    - names:
+      - extractorType
+      description: the method used to extract values from the event. Possible values:[json, pattern]
+      type: string
+      required: true
+      category: general
+      doc: |
+        sets the type of extraction method to select, drop and redact values from a target input stream.
+        Possible values:
+        - json: scan events for JSON objects containing fields specified in [extractorActions](https://doc.log10x.com/run/input/extract/#extractoractions).
+        - pattern: scan events for regex named capture groups of the pattern set by [extractorPattern](https://doc.log10x.com/run/input/extract/#extractorpattern). 
+        
+      defValue: json
+
+    - names:
+      - extractorFilter
+      description: regex pattern to match for the extractor to be applied
+      type: string
+      required: false
+      category: pattern
+      doc: |
+        specifies a regex pattern an event must match to scan for JSON fields/regex pattern capture groups.
+        This argument provides a way to rule out events from being transformed into TenXObject. 
+        To select events failing to meet this filter, define a [captureDefault](https://doc.log10x.com/run/input/extract/#default) action.
+
+    - names:
+      - extractorPattern
+      description: for regex extractors, the pattern for capturing named match groups. For JSON, the segment of text within events to scan for objects
+      type: string
+      required: false
+      category: pattern
+      doc: |
+        defines a regex pattern that applies to events read from an input stream. 
+        
+        For [extractorType](https://doc.log10x.com/run/input/extract/#extractortype) = pattern, [matching groups](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Regular_expressions/Named_capturing_group)
+        are used as the 'name' portions of actions specified by 'extractorActions'.
+
+        If extractorType = json, only scan events for JSONs within the boundaries of the pattern's matches.
+
+    - names:
+      - extractorGroup
+      description: name of group of extractors which will run together
+      type: string
+      required: false
+      category: general
+      doc: |
+        defines the name of extractor group this extractor will belong to.
+        extractors of the same group will attempt to run together on events in a single processing pass to improve
+        performance
+
+    - names:
+      - extractorActions
+      description: |
+         actions in the form of actionType:name. Possible values:[captureAll, captureFirst, captureLast, captureArrays, captureFirstArray, captureLastArray, captureDefault, captureField, setOuterText, drop, redact, noTransform]
+      type: list
+      category: general
+      required: false
+      doc: |
+        defines a list of actions defined as: 'actionType:name:alias' (e.g., 'captureAll:message:alias') to capture and redact values to transform into TenXObjects.
+
+        For JSON extractors, 'name' refers to a field to look for in events and the value to which to apply the 'actionType'.
+        This can be in the form of 'x.y.z' which will match internal fields in the json.
+        For example: 'metadata.id' will match the 'id' field of the 'metadata' object in {"metadata": {"id": "1234"}}
+
+        For regex extractors, 'name' refers to a [regex pattern match group](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Regular_expressions/Named_capturing_group)
+        defined by 'extractorPattern' to which to apply the 'actionType'.
+
+        This setting must be specified when [extractorType](https://doc.log10x.com/run/input/extract/#extractortype) = 'json'.
+        If not specified and extractorType is 'pattern',
+        the 'extractorPattern' pattern scans for regex capture groups, performing on each as'captureAll' action.
+        
+        The 'alias' part is optional, and if provided is used to reference the object as it's name.
+        This is useful when multiple extractors are used to extract different things which are later used in the same way.
+
+        If no capture groups are defined, any matches of the pattern within the input text line are captured.
+        
+    - names:
+      - extractorForeach
+      description: name of options group for whose instances to create matching extractors 
+      type: string
+      required: false
+      category: advanced
+      doc: |
+        specifies the name of an options group for whose instances to replicate this extractor.
+        For example, the [Elastic input](https://doc.log10x.com/run/input/analyzer/elasticsearch)
+        defines the 'elastic' options group and configures an extractor to apply to each
+        input stream created from its configured instances.

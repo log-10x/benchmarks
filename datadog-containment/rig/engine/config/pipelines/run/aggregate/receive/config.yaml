@@ -1,0 +1,105 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/aggregate/receive/schema.json
+
+# 🔟❎ 'run' aggregator config for the receiver app.
+
+# This file configures aggregators for tracking emitted (non-dropped) events with
+# additional metrics for tracking received (dropped) events for cost saving analysis.
+# When 'receiverOptimize' is enabled, the emitted_events aggregator also tracks
+# optimized event sizes to measure optimization effectiveness.
+# To learn more see https://doc.log10x.com/run/aggregate
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# ============================== Aggregator Options ===========================
+
+# Multiple aggregators can be defined below
+aggregator:
+
+  # Defines an aggregator for tracking emitted (non-dropped) events
+  # This enables an output metric to show an accurate (lossless) metric of the
+  # data actually emitted to downstream systems.
+  - name: emitted_events
+
+    # 'filter' sets a JavaScript expression that TenXObjects must evaluate as truthy to be aggregated.
+    #  To learn more see https://doc.log10x.com/run/output/receive/#filter-expressions
+    #
+    # This filter excludes dropped events by checking isRoute("drop"),
+    # ensuring only emitted events are tracked.
+    #
+    # For more info, see https://doc.log10x.com/api/js/#TenXBaseObject+dropped
+    filter: "this.isObject && !this.isRoute(\"drop\")"
+
+    # 'fields' set the names of intrinsic/extracted/calculated fields whose combined values
+    #  identify a unique row within the aggregator's in-mem table for
+    #  each object passed to it. This aggregator defaults to enrichment fields.
+    #  To learn more see https://doc.log10x.com/run/initialize/#enrichmentFields
+    fields:
+      - $=yield TenXEnv.get("enrichmentFields")
+
+    # 'totalFields' specifies fields to extract and tally into generated TenXSummaries.
+    #  When receiverOptimize is enabled, tracks the utf8 byte size of encoded events
+    #  to measure optimization effectiveness.
+    #  To learn more see https://doc.log10x.com/api/js/#TenXObject+encode
+    totalFields:
+      - '$=yield TenXEnv.get("receiverOptimize") ? "optimized_size=this.utf8Size(\"encoded=encode()\")" : ""'
+
+    # 'flushThreshold' sets the max number of TenXObjects whose values to upsert into
+    #  the aggregator's in-mem table. Once exceeded, the aggregator instantiates TenXSummaries
+    #  from the table rows to send to output and reset the table.
+    flushThreshold: 10000
+
+    # 'flushInterval' sets a periodic interval, after which the aggregator
+    #  flushes the rows of its in-mem table into the pipeline as TenXSummary instances.
+    flushInterval: 2s
+
+    # 'maxCardinality' sets the maximum number of rows for the aggregator's
+    #  in-mem table. If an TenXObjects whose 'values' are not contained in the table
+    #  is passed to the aggregator, 'defaultValue' will be used for it instead
+    #  until the aggregator flushes its in-mem table after 'flushInterval' or 'flushThreshold'
+    #  are exceeded.
+    maxCardinality: 65536
+
+    # 'defaultValue' sets a constant value that is used instead of 'values' when
+    #  'maxCardinality' is exceeded within 'flushInterval'
+    defaultValue: unknown
+
+  # Defines an aggregator for all events seen by this pipeline
+  # This enables an output metric to show an accurate (lossless) metric of the
+  # data processed by this pipeline, even if it was later dropped.
+  - name: all_events
+
+    # 'filter' sets a JavaScript expression that TenXObjects must evaluate as truthy to be aggregated.
+    #  To learn more see https://doc.log10x.com/run/output/receive/#filter-expressions
+    filter: isObject
+
+    # 'values' set the names of intrinsic/extracted/calculated fields whose combined values
+    #  identify a unique row within the aggregator's in-mem table for
+    #  each object passed to it.
+
+    # By default, this configuration uses the enrichment fields specified below.
+    fields:
+      - $=yield TenXEnv.get("enrichmentFields")
+
+    # 'totalFields' specifies fields to extract and tally into generated TenXSummaries
+    totalFields: []
+
+    # 'flushThreshold' sets the max number of TenXObjects whose values to upsert into
+    #  the aggregator's in-mem table. Once exceeded, the aggregator instantiates TenXSummaries
+    #  from the table rows to send to output and reset the table.
+    flushThreshold: 10000
+
+    # 'flushInterval' sets a periodic interval, after which the aggregator
+    #  flushes the rows of its in-mem table into the pipeline as TenXSummary instances.
+    flushInterval: 2s
+
+    # 'maxCardinality' sets the maximum number of rows for the aggregator's
+    #  in-mem table. If an TenXObjects whose 'values' are not contained in the table
+    #  is passed to the aggregator, 'defaultValue' will be used for it instead
+    #  until the aggregator flushes its in-mem table after 'flushInterval' or 'flushThreshold'
+    #  are exceeded.
+    maxCardinality: 65536
+
+    # 'defaultValue' sets a constant value that is used instead of 'values' when
+    #  'maxCardinality' is exceeded within 'flushInterval'
+    defaultValue: unknown

@@ -1,0 +1,147 @@
+# 🔟❎ 'run' index output stream configuration
+
+# This configuration defines an input/output combination that scans a target
+# blob (e.g., log file) within a storage container (e.g., AWS S3 bucket)
+# to produce and store Bloom filters and TenXTemplates index objects.
+
+# These objects provide an efficient method of locating byte ranges within the indexed blob
+# that match a target time frame and search terms.
+
+# To learn more about byte range fetches, see https://docs.aws.amazon.com/whitepapers/latest/s3-optimizing-performance-best-practices/use-byte-range-fetches.html
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+  # --------------------------- Target Object Input ---------------------------
+
+extractor:
+
+    # define an extractor to read event source and field values
+  - name: $=yield "index-stream-" + TenXEnv.get("indexReadObject")
+    type: json
+    actions:
+      # The actual message field inside the incoming JSON object
+      - $=yield "captureFirst:" + TenXEnv.get("indexReadMessageField", "log")
+
+    foreach: objectStorageIndex
+
+input:
+
+    # 'name' provides a logical name for the input, set to the name of the input object to index.
+  - name: $?indexReadObject
+
+    # 'type' defines the type of input (e.g., stdin, file, stream).
+    type: stream
+
+    # 'path' is set to the 'IndexInputReader' class that reads a target object
+    #  set by 'indexReadObject' from the underlying storage (e.g., AWS S3)
+    path: com.log10x.ext.cloud.index.write.IndexInputReader
+
+    # apply the 'index-stream-<object-name>' extractor defined above to the input if indexReadExtractMessage
+    extractors:
+      - $=yield TenXEnv.get("indexReadExtractMessage", false)?("index-stream-"+TenXEnv.get("indexReadObject")):""
+
+    # 'printProgress' controls whether input stats are printed to the console
+    printProgress: $?indexReadPrintProgress
+
+    # the 'foreach' macro will duplicate the input node for every instance of the
+    #'objectStorageIndex' option group defined in https://doc.log10x.com/run/input/objectStorage/index
+    foreach: objectStorageIndex
+
+output:
+
+    # ----------------------------- Filter Output -----------------------------
+
+    # 'type' defines the type of input (e.g., stdout, file, stream).
+  - type: stream
+
+    # 'path' is set to the 'IndexFilterWriter' class, which creates a set of Bloom
+    #  filters for time and byte ranges of the input object.
+    path: com.log10x.ext.cloud.index.write.IndexFilterWriter
+
+    # 'name' assigns a logical name to this output instance
+    name: indexObjects
+
+    # --------------------------- Encoding Options ----------------------------
+
+    # 'filter' is set to write only TenXObject instances to output.
+    filter: isObject
+
+    # 'fields' are set to extract the following values from each TenXObject read
+    #  from storage.
+    fields:
+
+        # 'groupSequence' is a calculated field that identifies an TenXObject's
+        #  index within the indexed blob. This value is
+        #  used to segment the input object into byte ranges, enclosing a set of
+        #  TenXObject instance or groups (e.g., stack trace).
+        #  To learn more about object grouping, see: https://doc.log10x.com/run/sequence
+      - groupSequence=sequence+groupSize
+
+        # 'timestamp' extracts the UNIX epoch millisecond timestamp of the current
+        #  TenXObject. This value associates an TenXObject with its time window Bloom filter.
+        #  If no timestamp is present, use the current epoch.
+        #  To learn more about timestamp extraction, see: https://doc.log10x.com/run/transform/timestamp
+      - timestamp
+
+        # 'templateHash' extracts an TenXObject's template identifier value. This value
+        #  uniquely identifies all of its symbol tokens (i.e., values found within the host
+        #  10x pipeline's symbol set). The output appends this value to the Bloom filter
+        #  associated with an input TenXObject's enclosing storage byte range
+        #  To learn more about TenXTemplates, see: https://doc.log10x.com/run/template
+      - templateHash
+
+        # 'vars' extract all tokens from the current TenXObject that are not contained
+        #  within the host 10x pipeline's symbol files. The output appends these values to the
+        #  Bloom filter associated with an TenXObject's enclosing storage byte range
+        #  To learn more about 10x tokens, see: https://doc.log10x.com/shared/modules/token
+      - vars
+
+        # 'enrichmentFields' index enrichment fields as well, see https://doc.log10x.com/run/initialize/#enrichmentfields
+      - enrichmentFields=joinFields(TenXEnv.get("enrichmentFields"))
+
+    # 'encodeType' is set to emit the 'templateHash' and 'vars' field values of
+    #  each TenXObject read from input as a JSON object
+    encodeType: json
+
+    # 'async' is set to create a dedicated thread for this output.
+    async: true
+
+    # the 'foreach' macro will duplicate the input node for every instance of the
+    #'objectStorageIndex' option group defined in https://doc.log10x.com/run/input/objectStorage/index
+    foreach: objectStorageIndex
+
+    # ---------------------------- Template Output ----------------------------
+
+    # 'path' is set to 'IndexTemplateWriter' to emit TenXTemplates for events read from input
+    # to 'indexWriteContainer'.
+  - type: stream
+
+    path: com.log10x.ext.cloud.index.write.IndexTemplateWriter
+
+    # 'name' assigns a logical name to this output instance
+    name: indexTemplates
+
+    # --------------------------- Encoding Options ----------------------------
+
+    # 'filter' is set to the 'isNewTemplate' 10x function to only emit the values
+    #  of newly identified TenXTemplates to 'indexWriteContainer'.
+    filter: isNewTemplate()
+
+    # 'fields' specifies 'templateHash' and 'template' to
+    #  encode an TenXObject's template values to storage.
+    #  To learn more about TenXTemplate encoding, see: https://doc.log10x.com/run/template
+    fields:
+      - templateHash
+      - template
+
+    # 'encodeType' is set to encode the values of the 'templateHash' and 'template'
+    #  field values as a JSON object
+    encodeType: json
+
+    # 'async' is set to create a dedicated thread for this output.
+    async: true
+
+    # the 'foreach' macro will duplicate the input node for every instance of the
+    #'objectStorageIndex' option group defined in https://doc.log10x.com/run/input/objectStorage/index
+    foreach: objectStorageIndex

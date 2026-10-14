@@ -1,0 +1,9 @@
+#
+# 🔟❎ 'doc' units
+
+# Unit files define option groups that can be passed 0-N times to configure a pipeline 
+# instance via command line arguments and configuration files.
+      
+# config file change listener
+- +include doc/units/generate/unit.yaml
+ 

@@ -1,0 +1,76 @@
+#
+# 🔟❎ 'run' template parser settings
+
+# Templates describe the structure/schema of TenXObject instances
+# in the same way programmatic classes define the structure of their instances.
+# Templates are produced using the pipeline's 10x Symbol file set, generated
+# by executing the 'compile' pipeline. 
+
+# -------------------------- Field Extract Settings  --------------------------
+
+# Each template is scanned for specific token formations that indicate
+# nested JSON and KV fields to make accessible to its instances as member fields. 
+
+# For example, for an object whose 'text' contains:  {"name":"Starbucks"}, 
+# the following expression can be used within a 10x script: 
+# this.upperName = toUpper(this.name); 
+
+# If a JSON field appears more than once within an object, 
+# it can be accessed as an array field using the 'get' and 'len' 10x scripting 
+# functions to access individual entries. 
+# For an TenXObject containing multiple 'name' JSON values, the following
+# call will join them: this.names = join(',', this.name);
+# To count: this.nameSize = len(this.name);  
+
+# 'extractFields' controls whether to scan TenXTemplate for  JSON
+#  objects or key-value lists (e.g., 'X=Y'). 
+extractFields: $?fieldExtract=true
+
+# 'fieldNameBreaks' controls which characters found to the left of a token
+#  whose is a candidate for being a 'key' in a KV field formation should serve 
+#  as a terminator for the search. For example, for an object whose 'text' field
+#  contains the following entry ',tx_result=OK' the desired key name should be 'tx_result'
+#  and as such, the name terminator character should be ',' vs. '_' (in which case
+#  the key would have been named 'result').
+fieldNameBreaks: $?fieldNameBreaks=, /\{}.()[]
+
+# 'fieldNameBreaks' controls which characters found to the right of a token
+#  whose is a candidate for being a 'value' in a KV field formation should serve 
+#  as a terminator for the search. For example, for an object whose 'text' field
+#  contains the following entry: 'status=RESULT_SUCCESS' the desired KV value 
+#  should be 'RESULT_SUCCESS', and as such, the value terminator character 
+#  should be ',' vs. '_' (in which case the value would be 'RESULT').
+fieldValueBreaks: $?fieldValueBreaks=, /\{}()[]
+
+# -------------------------- Template Format Settings  ------------------------
+
+# 'varPlaceholder' controls which character to encode for an TenXTemplate
+#  to signify a placer holder location for instance-level variables.
+
+#  For example, for a template containing the following segment: 
+#  'ERROR: could not connect to host IP: $.$.$.$
+#  The '$' entries designate that any TenXObject associated with this template 
+#  will substitute the '$' slots with matching values from its 'vars' array.
+
+#  The leading '/' character below escapes the '$' character 
+#  used by the pipeline config loader to specify a startup argument, 
+#  whereas here, the '$' char is used explicitly.
+varPlaceholder: $?varPlaceholder= /$
+
+# 'timestampPrefix': prefixes a template's set of variable and symbol tokens containing
+#  a timestamp will be prefixed 'varPlaceholder' and 'timestampPrefix' (e.g. '$(' )
+timestampPrefix: $?timestampPrefix=(
+
+# 'timestampPostfix': specifies a prefix to append to a set of variable and symbol tokens 
+#  within an TenXTemplate containing a timestamp.
+timestampPostfix: $?timestampPostfix=)
+
+# 'varMaxRecurIndexes' controls the max number of variable value reuse when
+#  encoding an TenXObject's 'vars' array to stream.
+
+#  For example, for an object whose 'text' field contains the following segment:
+#  'userID=45dfgdfs4,parentID=45dfgdfs4', the resulting TenXTemplate can be encoded
+#  as such: 'userID=$,parentID=$1' specifying that the value of the 'parentID' variable
+#  can be found one slot behind in the TenXObject's variable array, saving
+#  the need to encode this variable multiple times.
+varMaxRecurIndexes: $?varMaxRecurIndexes=10

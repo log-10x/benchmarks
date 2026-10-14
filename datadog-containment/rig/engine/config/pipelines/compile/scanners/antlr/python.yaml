@@ -1,0 +1,108 @@
+# yaml-language-server: $schema=schema.json
+
+# 🔟❎ 'compile' Python symbol scanner configuration
+
+# The 'python' configuration instructs the ANTLR scanner which symbol values (e.g. class/func names, code constants)
+# to extract from Python source files.  
+
+# NOTE: while set to enabled by default, the 'pythonAST' scanner which utilizes
+# the python run-time's built-in AST parser takes precedence over this scanner
+# unless a python run-time is not installed or the 'pythonAST' scanner is disabled.
+# To learn see https://doc.log10x.com/compile/scanner/pythonAST
+
+# Set the 10x pipeline to 'compile'
+tenx: compile
+
+# ============================== ANTLR Options ================================
+
+antlr:
+
+  # The 'antlrLang' module is defined in: https://doc.log10x.com/compile/scanner/antlr/langs
+  # These values define the ANTLR-generated parser class used to
+  # to tokenize and construct an AST for the target Python file.
+
+  lang: python
+
+  fileExt:
+    - .py
+
+  parserClass: com.log10x.antlr.generated.python.PythonParser
+
+  lexerClass: com.log10x.antlr.generated.python.PythonLexer
+
+  rootRule: root
+
+  reserved:
+    - def
+    - __str__
+    - __init__
+    - class
+
+  # 'lineFilters' specifies a list of regex patterns for skipping input lines 
+  lineFilters:
+    - ^\s*(//.*|/\*.*\*/)$
+
+  # The 'rule' list defines the nodes within a Python AST tree that are captured
+  # and added to the output symbol unit.
+  # To learn more see: https://doc.log10x.com/compile/scanner/antlr/rules/
+  rule:
+    - name: classdef
+      lang: python
+      context: class
+      recursive: false
+      capture: allSymbols
+      subRule: name
+      condition: (^Enum$|^enum$)
+      tag: enumLiteral
+
+    - name: testlist_star_expr
+      lang: python
+      context: enum
+      recursive: true
+      capture: allSymbolsIfMatchCond
+      ifTag: enumLiteral
+
+    - name: trailer
+      lang: python
+      context: method_invoke
+      recursive: true
+      capture: literalsOnly
+      subRule: name
+  
+    - name: return_stmt
+      lang: python
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+  
+    - name: decorator
+      lang: python
+      context: annotation_invoke
+      recursive: true
+      capture: literalsOnly
+      subRule: arglist
+    
+    - name: arglist
+      lang: python
+      context: method_invoke
+      recursive: true
+      capture: literalsOnly
+  
+    - name: funcdef
+      lang: python
+      context: method_decl
+      recursive: false
+      capture: allSymbols
+      subRule: name
+  
+    - name: assign_part
+      lang: python
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+  
+    - name: dictorsetmaker
+      lang: python
+      context: var_assign
+      recursive: true
+      capture: literalsOnly

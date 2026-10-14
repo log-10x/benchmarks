@@ -1,0 +1,39 @@
+# 🔟❎ 'run' OTLP/gRPC output module log4j configuration
+#
+# Wires the `tenxOtlp` appender (com.log10x.ext.edge.output.otlp.OtlpLogsOutputAppender)
+# behind a dedicated logger per `outputOtlp` options group instance. The
+# appender parses each layout-rendered JSON envelope into an OTLP `LogRecord`
+# and ships it asynchronously over gRPC.
+
+log4j:
+
+  loggerName: tenxOtlp
+
+  configuration:
+
+    appenders:
+
+      tenxOtlp:
+
+        - name: $loggerName
+
+          tenxLayout:
+            encodedFields: null
+            filter: null
+
+          host: $?outputOtlpHost=127.0.0.1
+          port: $?outputOtlpPort=4317
+          insecure: $?outputOtlpInsecure=true
+          bodyField: $?outputOtlpBodyField=body
+          tagField: $?outputOtlpTagField=tag
+          batchSize: $?outputOtlpBatchSize=100
+          flushIntervalMs: $?outputOtlpFlushIntervalMs=1000
+
+    loggers:
+
+      logger:
+
+        - name: $loggerName
+          additivity: false
+          appenderRef:
+            - ref: $loggerName

@@ -1,0 +1,16 @@
+#  🔟❎ 'compile' log methods settings
+
+# Log method settings define source code function/member names that mark the symbol context of any 
+# string constant passed to them as 'logger_method_invoke'. 
+
+# 'logMethods'  lists 'logging' method names whose invocations to mark 'logging'. 
+logMethods: 
+  - $?logMethods
+
+# 'logMethodRegex' specifies a pattern for symbol scanners to apply to source code method/function names
+# to determine whether to mark them as 'logging'.
+logMethodRegex: $?logMethodRegex
+
+# 'logStreams' lists 'logging' member names whose assignments to mark 'logging'. 
+logStreams: 
+  - $?logStreams

@@ -1,0 +1,48 @@
+#
+# 🔟❎ 'run' metric outputs module
+
+module:
+
+  name: metricOutputs
+
+  title: Metric output
+
+  description: write aggregated TenXSummary instances to metric outputs (e.g., Prometheus, Datadog)
+
+  # 'allowMultiple' is disabled for this module. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/output/metric
+
+  moduleSort: [prometheusOutputs,cloudwatchMetrics,datadogMetrics,elasticMetrics,logSimpleMetrics]
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/output/metric/doc.md":""
+
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+    - names:
+      - metricFieldNames
+      description: list of names to give fields when reported as metrics
+      type: list
+      required: false
+      doc: |
+        Defines a mapping from original field names to alternative names used when reporting metrics.
+        This option accepts a list of strings with an even number of elements, structured as pairs: the first element of each pair is the original field name, and the second is the desired metric field name (e.g., ["originalField1", "metricName1", "originalField2", "metricName2"]).
+        When metrics are generated and reported, any field whose name matches an original field in this mapping is renamed to the corresponding metric field name for the report. Fields not included in the mapping are reported using their original names.
+
+        Each initializer module appends its assigned metric field names to the global `metricFieldNames`.
+
+        Metric outputs can use this values to change the names of aggregated fields names to aligning names with external monitoring systems or simplifying aggregated data views.
+
+        ```yaml
+        log10xMetrics:
+          # 'tagFieldNames' allows setting custom names to aggregated fields for metrics reporting.
+          #  Defaults to https://doc.log10x.com/run/initialize/#metricFieldNames
+          tagFieldNames:
+            - $=yield TenXEnv.get("metricFieldNames")
+        ```

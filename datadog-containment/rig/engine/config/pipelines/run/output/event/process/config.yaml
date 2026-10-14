@@ -1,0 +1,123 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/output/event/process/schema.json
+
+# 🔟❎ 'run' Fluent Bit output configuration
+
+# Launch a Fluent Bit process into whose stdin pipe to write TenXObject instance/template field values.
+# To learn more see https://doc.log10x.com/run/output/event/process/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Dependencies ================================
+
+include: run/modules/output/event/process
+
+# ============================ Fluent Bit Options =============================
+
+# Multiple sub-process outputs can be defined below
+
+procOut:
+
+  # ----------------------------- Object Output -------------------------------
+
+   # 'writeObjects' controls whether to write TenXObject field values to output.
+  - writeObjects: false # (REQUIRED)
+
+    # -------------------------- Process Options ------------------------------
+
+    # 'command' defines the OS-resolvable path of the sub-process to spawn
+    command: /opt/fluent-bit/bin/fluent-bit
+
+    args:
+      - -i
+      - stdin
+      - -o
+      - stdout
+
+    # 'destroyMode' is set to 'cached' to allow a fluent-bit sub-process to
+    #  to be reused across multiple 10x pipeline executions within a host JVM.
+    destroyMode: cached
+
+    # 'maxCacheSize' sets the size of the cache to used for caching fluent-bit instances
+    maxCacheSize: 1
+
+    # 'lazyLaunch' determines whether the fluent-bit instance will launch immediately
+    # during the pipeline initialization, or only on-demand.
+    lazyLaunch: true
+
+    # 'startupWaitMs' and 'startupWaitPattern' controls the wait for the fluent-bit instance
+    # to be ready for receiving events, before starting to emit to it.
+    startupWaitMs: $=parseDuration("5s")
+    startupWaitPattern: \[\s*sp\s*]\s+stream\s+processor\s+started\b
+
+    # ------------------------------ Encoding ---------------------------------
+
+    # 'filter' specifies an expression that any TenXObject passed to this output must
+    #  evaluate as truthy against to write its instance/template values to stdout.
+    #  For example, 'filter: this.timestamp' will only emit timestamped objects.
+    #  To learn more see: https://doc.log10x.com/api/js/#TenXBaseObject+timestamped
+    filter: null
+
+    # 'fields' specifies a list of 10x intrinsic/calculated/extracted fields
+    #  to extract from each target object passed to the output
+    #  and written to stdout in the format specified by 'encodeType'
+    #  If no fields are specified, encode/decode the target TenXObject.
+
+    #  This example corresponds to the stdin format defined by fluent-bit in:
+    #  https://docs.fluentbit.io/manual/pipeline/inputs/standard-input
+    #  The 'text' argument below could be replaced by any list of intrinsic/calculated/extracted fields.
+    #  The "" delimiter instructs 'joinFields' to produce JSON output.
+    fields:  #
+      - open="["
+      - timestamp=dateFormat("+%s.%N")
+      - separator=","
+      - fields=joinFields("", "text")
+      - close="]"
+
+    # 'encodeType' specifies how 'fields' are encoded to stdout. Possible values:
+    #    - 'json': formats names and values for the current TenXObject as: {"field":"str","field2":1, "field3": true}
+    #    - 'delimited': formats values for the current TenXObject as: "str",1,true
+    #                   The value separator (e.g., ',') is set by: 'encodeDelimiter'
+    encodeType: delimited
+
+    # 'encodeDelimiter' sets the char delimiter used to separate TenXObject
+    #  field values when 'encodeType' is set to: 'delimited'
+    encodeDelimiter: ' '
+
+  # ----------------------------- Template Output -----------------------------
+
+    # 'writeTemplates' controls whether to write new templates for TenXObjects written to
+    #  this output. To learn more https://doc.log10x.com/run/template
+  - writeTemplates: false  # (REQUIRED)
+
+    # -------------------------- Process Options ------------------------------
+
+    # The output below writes the template values of TenXObjects
+    # passed to this location. To learn more about TenXTemplates, see:
+    # https://doc.log10x.com/run/template
+
+    # 'command' defines the OS-resolvable path of the sub-process to spawn
+    command: /opt/fluent-bit/bin/fluent-bit
+
+    args:
+      - -i
+      - stdin
+      - -o
+      - stdout
+
+    # 'destroyMode' is set to 'cached' to allow a fluent-bit sub-process to
+    #  to be reused across multiple 10x pipeline executions within a host JVM.
+    destroyMode: cached
+
+    # 'maxCacheSize' sets the size of the cache to used for caching fluent-bit instances
+    maxCacheSize: 1
+
+    # 'lazyLaunch' determines whether the fluent-bit instance will launch immediately
+    # during the pipeline initialization, or only on-demand.
+    lazyLaunch: true
+
+    # 'startupWaitMs' and 'startupWaitPattern' controls the wait for the fluent-bit instance
+    # to be ready for receiving events, before starting to emit to it.
+    startupWaitMs: $=parseDuration("5s")
+    startupWaitPattern: \[\s*sp\s*]\s+stream\s+processor\s+started\b
+

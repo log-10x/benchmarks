@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/compile/pull/gomod/schema.json
+
+# 🔟❎ 'compile' Go module scanner configuration
+
+# Configures the Go .mod scanner which pulls referenced GitHub repositories to scan for symbol values.
+
+# To learn more see https://doc.log10x.com/compile/pull/gomod
+
+# Set the 10x pipeline to 'compile'
+tenx: compile
+
+# =============================== Gomod Options ===============================
+  
+gomod:
+
+  # 'token' specifies the access token for this repo using a shell variable (recommended) or inline
+  #  To learn more see: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
+  pullGitHubToken: $=TenXEnv.get("GH_TOKEN")  # (EnvVar REQUIRED)
+
+  # 'proxyURL' specifies a Go module proxy for downloading indirect module dependencies.
+  #  If omitted, only process direct dependencies from the go.mod file.
+  #  If provided, fetches indirect dependencies up to the specified max-depth.
+  proxyURL: https://proxy.golang.org/
+
+  # 'maxDepth' limits the depth of module dependency recursion
+  #  Depth starts at 0 for the initial .mod file (direct deps), increments to 1 for first-level indirect deps, 
+  #  and 2 for second-level, stopping before a third level (depth 3).
+  maxDepth: 0

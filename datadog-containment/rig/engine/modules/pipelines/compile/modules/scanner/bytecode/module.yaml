@@ -1,0 +1,15 @@
+#
+# 🔟❎ 'compile' JVM bytecode scanner module
+
+module:
+
+  name: bytecode
+
+  title: JVM bytecode scanner
+
+  description: scan JVM .class files for symbol values
+  
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "compile/modules/scanner/bytecode/doc.md":""
+  
+ 

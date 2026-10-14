@@ -1,0 +1,93 @@
+{
+  "type" : "object",
+  "properties" : {
+    "tenx" : {
+      "type" : "string"
+    },
+    "helm" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "chartNames" : {
+          "type" : [
+            "array",
+            "null"
+          ],
+          "markdownDescription" : "List of charts to pull\n\nSpecifies a list of chart names (e.g., open-telemetry/opentelemetry-demo) to pass to [helmCommand](https://doc.log10x.com/compile/pull/helm/#helmcommand). The scanner will invoke the [template](https://helm.sh/docs/helm/helm_template/) and [show chart](https://helm.sh/docs/helm/helm_show_chart/) commands to pull its values.yaml and chart.yaml files to scan for Docker container images and GitHub repo files.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "chartFiles" : {
+          "type" : [
+            "array",
+            "null"
+          ],
+          "markdownDescription" : "List of charts templates and value files to scan\n\nSpecifies a list of chart value and templates files to scan. These file paths may be relative to the include paths list. If file paths are canonical, their enclosing folders must be included in the includePaths argument.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "pull" : {
+          "type" : "object",
+          "additionalProperties" : false,
+          "properties" : {
+            "github" : {
+              "type" : "object",
+              "additionalProperties" : false,
+              "properties" : {
+                "repos" : {
+                  "type" : [
+                    "boolean",
+                    "string"
+                  ],
+                  "markdownDescription" : "Pull GitHub repos\n\nSpecifies whether to pull [GitHub repos](https://doc.log10x.com/compile/pull/github/) referenced by an input Helm template files. (Accepts boolean or string with $= prefix for runtime evaluation)"
+                },
+                "token" : {
+                  "type" : [
+                    "string",
+                    "null"
+                  ],
+                  "markdownDescription" : "GitHub API token for pulling repositories\n\nDefines an access token for pulling [Github repos](https://doc.log10x.com/compile/pull/github/) referenced by Helm charts."
+                }
+              }
+            },
+            "dockerImages" : {
+              "type" : [
+                "boolean",
+                "string"
+              ],
+              "markdownDescription" : "Pull docker container images\n\nSpecifies whether to pull [Docker images](https://doc.log10x.com/compile/pull/docker/) referenced by an input Helm values and template files. (Accepts boolean or string with $= prefix for runtime evaluation) (Default: true)",
+              "default" : true
+            }
+          }
+        },
+        "command" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Path to Helm command\n\nDefines the path to the [Helm](https://helm.sh/) program used for querying chart templates and values. This value must be set if [helmChartNames](https://doc.log10x.com/compile/pull/helm/#helmchartnames) is set. (Default: *NIX: /usr/local/bin/helm, Win: C:/Program Files/helm/helm.exe)",
+          "default" : "*NIX: /usr/local/bin/helm, Win: C:/Program Files/helm/helm.exe"
+        },
+        "gitHubRepoPaths" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "YAML DOM paths for extracting GitHub repos\n\nSpecifies paths within a YAML file to treat as holders for GitHub repo names. For example, for the following section from an input chart.yaml file: ```yaml sources:   - https://github.com/open-telemetry/opentelemetry-demo # capture this GitHub repo reference ``` (Default: [metadata.repository, spec.source.git, chart.repository])",
+          "default" : "[metadata.repository, spec.source.git, chart.repository]"
+        },
+        "dockerImagePaths" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "YAML DOM paths for extracting Docker repo references\n\nSpecifies paths within a helm YAML file to treat as holders for Docker image names. For example, for the following section from an input values.yaml file: ```yaml     spec:   serviceAccountName: opentelemetry-demo   containers:   - name: accountingservice      image: 'docker.io/grafana/grafana:11.1.0' # capture this docker image reference ``` (Default: [spec.template.spec.containers.image, values.image, spec.containers.image, sources])",
+          "default" : "[spec.template.spec.containers.image, values.image, spec.containers.image, sources]"
+        }
+      }
+    }
+  },
+  "additionalProperties" : false
+}

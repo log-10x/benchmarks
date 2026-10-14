@@ -1,0 +1,73 @@
+#
+# 🔟❎ 'run' input unit
+
+unit:
+
+  name: globalInputOptions
+
+  title: Input
+
+  description: read events into the pipeline from local and remote sources
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/units/input/doc.md":""
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/input/backpressure
+
+  # 'allowMultiple' is disabled for this unit. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+  
+  moduleSort: [stdin,fileInput,analyzerInputs,forwarderInputs,objectStorage,inputStreams,extractors]
+
+  # 'options' defines a group of named/typed configuration values to pass to a pipeline unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed to the pipeline are accessible at runtime via the TenXEnv JavaScript class.
+  options:
+
+    - names:
+      - objectLimitMaxInstances
+      description: max number of TenXObjects that the pipeline can hold
+      type: number
+      required: false
+      defValue: 10000
+      doc: |
+        Sets the max number of TenXObjects that the pipeline can contain at any given moment,
+        beyond which input(s) either block (if supported) or drop events from the pipeline.
+        Once an object reaches the end of the pipeline, space becomes available for made for instantiating TenXObjects
+        from events read input.
+        
+        This value prevents scenarios where writing data to output is slower than reading events from input, 
+        which may cause backpressure inside the pipeline. Setting this value can avoid an out-of-mem error because
+        of the object backlog.
+        
+        Increasing the host JVM [XMX ](https://www.baeldung.com/jvm-parameters#explicit-heap-memory---xms-and-xmx-options) argument can help address potential OOM issues.
+
+    - names:
+      - objectLimitInterval
+      description: Defines interval between consecutive positive backpressure tests
+      type: number
+      required: false
+      defValue: 1000
+      doc: |
+        sets the interval between backpressure tests after detection to allow time for 
+        clearing TenXObjects from the pipeline before attempting additional tests.
+
+    - names:
+      - inputThreadPoolSize
+      description: sets the maximum number of threads to allocate for concurrent inputs. 
+      type: number
+      required: false
+      defValue: 16
+      doc: |
+        sets the maximum number of threads to allocate for concurrent inputs. 
+
+        If the value is -
+        - 0: open a dedicated thread for each input
+        - Less than 1: interpreted as a percentage of the number of available cores (e.g., 0.5 = use up to 50% of available cores)
+        - 1: allocate a single async thread
+        - Greater than 1: interpreted as a fixed number of threads (e.g., 10 = 10 threads)
+        
+        The number of threads should be limited when a large number of short-lived inputs are defined
+        to avoid out-of-memory errors. 

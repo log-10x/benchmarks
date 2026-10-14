@@ -1,0 +1,198 @@
+#
+# 🔟❎ 'run' Datadog metrics output module
+
+module:
+
+  name: datadogMetrics
+
+  title: Datadog metrics output
+
+  description: publish TenXSummary metrics to Datadog
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/output/metric/datadog
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/output/metric/datadog/doc.md":""
+
+  # 'allowMultiple' is enabled for this module. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - datadogEnabled
+      description: enable this output
+      type: boolean
+      required: false
+      category: general
+      defValue: true
+      doc: |
+        enable or disable this output.
+
+    - names:
+      - datadogNameField
+      description: name of the TenXSummary field identifying the metric
+      type: string
+      required: false
+      category: counter
+      doc: |
+        defines the name of the TenXSummary field whose value identifies a metric counter.
+        Defaults to the [summaryValues](https://doc.log10x.com/api/js/#TenXSummary+summaryValues) field which holds the value(s) by which TenXObjects are
+        grouped into the current TenXSummary instance.
+        To learn more see [micrometer counters](https://www.baeldung.com/micrometer#2-counter)
+      defValue: "[summaryValues](https://doc.log10x.com/api/js/#TenXSummary+summaryValues)"
+
+    - names:
+      - datadogCounterFields
+      description: names of the TenXSummary fields used to increment the metric counter value
+      type: list
+      required: false
+      category: counter
+      doc: |
+        defines the name of the TenXSummary field by whose value to increment the counter.
+      defValue: "[summaryVolume](https://doc.log10x.com/api/js/#TenXSummary+summaryVolume)"
+
+    - names:
+       - datadogTagFields
+      description: list of TenXSummary fields to use as metric tag values
+      type: list
+      required: false
+      category: counter
+      doc: |
+        defines the TenXSummary field names to use as `tag` values.
+        Tags are dimensions that enable slicing a particular named metric to drill down to reason about its value.
+        To learn more see [micrometer tags](https://www.baeldung.com/micrometer#1-tags)
+
+        Datadog counts one custom metric per distinct tag set, so the shipped list names the pattern
+        and where it ran, and nothing that names one node or one process: `message_pattern`,
+        `tenx_hash`, `tenx_user_service`, `severity_level`, `routeState`, `k8s_container` and
+        `k8s_namespace`. The same set comes from every node, so the count does not grow with the
+        fleet or with restarts. To tag the host as well, add it as a
+        [runtime attribute](https://doc.log10x.com/run/bootstrap/#runtimeattributes), `host_name:<host>`.
+
+    - names:
+        - datadogTagFieldNames
+      description: list of custom names to use for TenXSummary fields.
+      type: list
+      required: false
+      category: counter
+      doc: |
+        defines the a list of custom names to give fields when reporting them.
+        Format as a list of name1, custom1, name2, custom2.
+
+        For example, to set a custom name of 'My-Custom-Field' to an existing 'intrinsic-field':
+        ``` yaml
+        datadog:
+          tagFieldNames:
+            - intrinsic-field
+            - My-Custom-Field
+
+    - names:
+      - datadogFilter
+      description: a JavaScript expression an TenXSummary must evaluate as 'truthy' against to be written to this output
+      type: string
+      required: false
+      category: counter
+      doc: |
+        Specifies a JavaScript expression that an TenXSummary must evaluate as truthy to write its
+        instance/template field values to the target counter.
+
+        For example, to only emit TenXSummaries produced by the 'myMetric' aggregator, specify:
+        ``` yaml
+        datadog:
+          filter: this.inputName == "myMetric"
+        ```
+
+        To learn more see [inputName](https://doc.log10x.com/api/js/#TenXBaseObject+inputName)
+
+    - names:
+      - datadogMaxCardinality
+      description: maximum number of unique metric combinations allowed
+      type: number
+      required: false
+      category: counter
+      doc: |
+        sets the maximum number of unique metric combinations (cardinality) allowed for this output.
+        When exceeded, metrics will be dropped to prevent excessive cardinality.
+      defValue: 500
+
+    - names:
+      - datadogTopSeries
+      description: number of tag sets with the most bytes to publish
+      type: number
+      required: false
+      category: counter
+      doc: |
+        keeps the output to the tag sets with the most bytes, ranked on the `summaryBytes` counter as
+        the series accumulate. A tag set outside the top keeps accumulating and is published once it
+        has cost more than the smallest one inside, which stops. `0` publishes every tag set.
+
+        With the two shipped aggregators and two counters each, 200 tag sets are 800 custom metrics,
+        inside a Pro plan's allotment of 100 per host from ten hosts up; the top 200 patterns carried
+        98.8% of the bytes on the OpenTelemetry demo capture.
+      defValue: 200
+
+    - names:
+      - datadogDescriptions
+      description: sets whether to send meter descriptions to Datadog
+         scrape
+      required: false
+      type: boolean
+      category: counter
+      doc: |
+        sets whether to send meter descriptions to Datadog
+        Turn this off to minimize the amount of data sent on each write
+
+    - names:
+      - datadogStep
+      description: the interval at which to publish metrics to output
+      required: false
+      type: string
+      category: counter
+      doc: |
+        sets the interval at which to publish metrics to the time-series destination (e.g., '1m').
+        To learn more see [rate-aggregation](https://micrometer.io/docs/concepts#rate-aggregation)
+      defValue: 1 minute.
+
+    - names:
+      - datadogApiKey
+      description: Datadog apiKey
+      type: string
+      required: false
+      category: authentication
+      doc: |
+        sets the Datadog [api key](https://docs.datadoghq.com/account_management/api-app-keys/)
+
+    - names:
+      - datadogApplicationKey
+      description: Datadog application Key.
+      type: string
+      required: false
+      category: authentication
+      doc: |
+        sets the Datadog [app Key](https://docs.datadoghq.com/account_management/api-app-keys/)
+
+    - names:
+      - datadogHostTag
+      description: value to map to "host" when shipping metrics to Datadog
+      type: string
+      required: false
+      category: authentication
+      doc: |
+        value to map to "host" when shipping metrics to Datadog
+
+    - names:
+      - datadogUri
+      description: The URI of an internal proxy en route to Datadog.
+      type: string
+      required: false
+      category: authentication
+      doc: |
+        sets the Datadog site address to connect to (e.g. 'us5.datadoghq.com').
+        To learn more see [Datadog sites](https://docs.datadoghq.com/getting_started/site/)
+      defValue: https://api.datadoghq.com

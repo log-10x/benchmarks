@@ -1,0 +1,162 @@
+# yaml-language-server: $schema=schema.json
+
+# 🔟❎ 'compile' C# ANTLR symbol scanner configuration
+
+# The 'csharp' configuration instructs the ANTLR scanner which symbol values (e.g. class/func names, code constants)
+# to extract from c# source files.  
+
+# Set the 10x pipeline to 'compile'
+tenx: compile
+
+# ============================== ANTLR Options ================================
+
+antlr:
+
+  # The 'antlrLang' module is defined in: https://doc.log10x.com/compile/scanner/antlr/langs
+  # These values define the ANTLR-generated parser class used to
+  # to tokenize and construct an AST for the target c# file.
+  
+  lang: csharp
+
+  fileExt:
+    - .csx
+    - .cs
+
+  parserClass: com.log10x.antlr.generated.csharp.CSharpParser
+
+  lexerClass: com.log10x.antlr.generated.csharp.CSharpLexer
+
+  # 'charStreamClass' is set to remove language elements introduced later than V6.0 which is the latest release supported by this grammar.
+  #  To learn more see https://github.com/antlr/grammars-v4/tree/master/csharp#readme
+  charStreamClass: com.log10x.antlr.parsers.CSharpDowngrader
+
+  rootRule: compilation_unit
+
+  reserved:
+    - namespace
+    - interface
+    - class
+    - enum
+
+  # 'lineFilters' specifies a list of regex patterns for skipping input lines 
+  lineFilters:
+    - ^\s*(//.*|/\*.*\*/)$
+
+    # Remove unsupported C# v10 File scoped namespaces
+    - ^namespace.*;$
+
+    # Remove unsupported C# v9 Target-typed new operator
+   # - "(?<!\\w)new\\s*\\(\\s*\\)\\s*;"
+
+    - ".*new\\(.*"
+
+  # The 'rule' list defines the nodes within a csharp AST tree that are captured
+  # and added to the output symbol unit.
+  # To learn more see: https://doc.log10x.com/compile/scanner/antlr/rules/
+  rule:
+    - name: interface_definition
+      lang: csharp
+      context: class
+      recursive: false
+      capture: allSymbols
+      subRule: identifier
+  
+    - name: enum_member_declaration
+      lang: csharp
+      context: enum
+      recursive: true
+      capture: allSymbols
+  
+    - name: enum_definition
+      lang: csharp
+      context: class
+      recursive: false
+      capture: allSymbols
+      subRule: identifier
+  
+    - name: namespace_body
+      lang: csharp
+      context: package
+      recursive: true
+      capture: literalsOnly
+  
+    - name: method_invocation
+      lang: csharp
+      context: method_invoke
+      recursive: true
+      capture: literalsOnly
+
+    - name: object_creation_expression
+      lang: csharp
+      context: method_invoke
+      recursive: true
+      capture: literalsOnly
+  
+    - name: interpolated_regular_string_part
+      lang: csharp
+      context: method_invoke
+      recursive: false
+      capture: allSymbols
+      subRule: interpolated_regular_string_part
+  
+    - name: namespace_declaration
+      lang: csharp
+      context: package
+      recursive: true
+      capture: allSymbols
+  
+    - name: statement_list
+      lang: csharp
+      context: method_invoke
+      recursive: true
+      capture: literalsOnly
+  
+    - name: constant_declaration
+      lang: csharp
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+ 
+    - name: method_declaration
+      lang: csharp
+      context: method_decl
+      recursive: true
+      capture: allSymbols
+      subRule: identifier
+
+    - name: method_body
+      lang: csharp
+      context: method_decl
+      recursive: false
+      capture: literalsOnly
+
+    #- name: method_member_name
+    #  lang: csharp
+    #  context: method_decl
+    #  recursive: true
+    #  capture: allSymbols
+    
+    - name: local_variable_initializer
+      lang: csharp
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+  
+    - name: returnStatement
+      lang: csharp
+      context: var_assign
+      recursive: true
+      capture: literalsOnly
+  
+    - name: class_definition
+      lang: csharp
+      context: class
+      recursive: false
+      capture: allSymbols
+      subRule: identifier
+  
+    - name: attribute_argument
+      lang: csharp
+      context: annotation_invoke
+      recursive: true
+      capture: literalsOnly

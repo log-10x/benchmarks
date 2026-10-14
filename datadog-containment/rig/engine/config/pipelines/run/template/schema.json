@@ -1,0 +1,83 @@
+{
+  "type" : "object",
+  "properties" : {
+    "tenx" : {
+      "type" : "string"
+    },
+    "template" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "files" : {
+          "type" : [
+            "array",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Input files or glob patterns containing JSON-encoded TenXTemplates\n\nInput files or glob patterns from which to load JSON-encoded TenXTemplates. (Default: [\"path(\\\"data/sample/templates/*.json\\\")\"])",
+          "items" : {
+            "type" : "string"
+          },
+          "default" : [
+            "path(\"data/sample/templates/*.json\")"
+          ]
+        },
+        "cacheSize" : {
+          "type" : [
+            "number",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Maximum total byte size of in-memory cached templates\n\nControls the maximum total byte size of templates held in the in-memory cache. When the cache exceeds this limit, least recently used templates are pruned to a temporary file on disk. Pruned templates are automatically reloaded from disk when accessed again.  Set to 0 to disable pruning and keep all templates in memory. The shipped configuration file sets it to 10MB. (Accepts number or string with $= prefix for runtime evaluation) (Default: 20971520)",
+          "default" : 20971520
+        }
+      }
+    },
+    "var" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "placeholder" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Placeholder character for notating TenXObject instance variables\n\nSpecifies a character to use when encoding an TenXTemplate to signify the location of a runtime variable value.  For example, for an TenXTemplate containing the following segment:  'ERROR: could not connect to host IP: $.$.$.$'  The '$' entries designate that any TenXObject associated with this template  will substitute the '$' slots with matching values from its individual [vars](https://doc.log10x.com/api/js/#TenXBaseObject+vars) array (e.g. 0,0,0,127). (Default: $)",
+          "default" : "$"
+        },
+        "maxRecurIndexes" : {
+          "type" : [
+            "number",
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Maximum number of template reusable variable value\n\nControls the maximum number of variable values to reuse when encoding an TenXObject's [vars](https://doc.log10x.com/api/js/#TenXBaseObject+vars) array to stream. When generating a new  TenXTemplate for an TenXObject instance whose variables contain repetitive values,  the template may indicate that a value is a repetition of a previous variable value and  does not need to be encoded again.  For example, for an TenXObject whose [text](https://doc.log10x.com/api/js/#TenXBaseObject+text) field contains the following segment: `userID=45dfgdfs4,parentID=45dfgdfs4`, the resulting TenXTemplate can be encoded as: `userID=$,parentID=$1` specifying that the value of the `parentID` variable can be found one slot behind in the TenXObject's [vars array](https://doc.log10x.com/api/js/#TenXBaseObject+vars), saving the need to encode this value multiple times. (Accepts number or string with $= prefix for runtime evaluation) (Default: 10)",
+          "default" : 10
+        }
+      }
+    },
+    "timestamp" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "prefix" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Template timestamp prefix\n\nSpecifies a prefix for an TenXTemplate's set of variable and symbol tokens describing a timestamp (e.g., ${DD/MM/YY HH-mm-ss}). (Default: ()",
+          "default" : "("
+        },
+        "postfix" : {
+          "type" : [
+            "string",
+            "null"
+          ],
+          "markdownDescription" : "Template timestamp postfix\n\nSpecifies a value appended to an TenXTemplate's and set of variable and symbol tokens describing a timestamp (e.g., ${DD/MM/YY HH-mm-ss}). (Default: ))",
+          "default" : ")"
+        }
+      }
+    }
+  },
+  "additionalProperties" : false
+}

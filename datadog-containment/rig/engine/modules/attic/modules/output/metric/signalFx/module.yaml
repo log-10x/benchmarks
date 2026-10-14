@@ -1,0 +1,167 @@
+#
+# 🔟❎ 'run' SignalFx metrics output module
+
+module:
+
+  name: signalFxMetrics
+
+  title: SignalFx metrics output
+
+  description: publish TenXSummary metrics to Splunk SignalFx
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/output/metric/signalFx
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/output/metric/signalFx/doc.md":""
+
+
+  # 'allowMultiple' is enabled for this module. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - signalfxEnabled
+      description: enable this output
+      type: boolean
+      required: false
+      category: general
+      defValue: true
+      doc: |
+        enable or disable this output.
+
+    - names:
+      - signalfxAccessToken
+      description: SignalFx access token
+      type: string
+      required: false
+      category: authentication
+      doc: |
+        sets the SignalFx access token.
+        To learn more see: [Splunk tokens](https://dev.splunk.com/observability/reference/api/org_tokens/latest)
+
+    - names:
+        - signalfxSource
+      description: value to map to "host" when shipping metrics to SignalFx
+      type: string
+      required: false
+      category: authentication
+      doc: |
+        sets the value to map to "host" when shipping metrics to signalFx.
+      defValue: local hostname
+
+    - names:
+        - signalfxSourceUri
+      description: URI of an internal proxy en route to SignalFx
+      type: string
+      required: false
+      category: authentication
+      doc: |
+        sets the URI of an internal proxy en route to SignalFx.
+      defValue: 'https://ingest.signalfx.com'
+
+    - names:
+        - signalfxNameField
+      description: name of the TenXSummary field identifying the metric
+      type: string
+      required: false
+      category: counter
+      doc: |
+        defines the name of the TenXSummary field whose value identifies a metric counter.
+        Defaults to the [summaryValues](https://doc.log10x.com/api/js/#TenXSummary+summaryValues) field which holds the value(s) by which TenXObjects are
+        grouped into the current TenXSummary instance.
+        To learn more see [micrometer counters](https://www.baeldung.com/micrometer#2-counter)
+      defValue: "[summaryValues](https://doc.log10x.com/api/js/#TenXSummary+summaryValues)"
+
+    - names:
+        - signalfxCounterFields
+      description: names of the TenXSummary fields used to increment the metric counter value
+      type: list
+      required: false
+      category: counter
+      doc: |
+        defines the name of the TenXSummary field by whose value to increment the counter.
+      defValue: "[summaryVolume](https://doc.log10x.com/api/js/#TenXSummary+summaryVolume)"
+
+    - names:
+        - signalfxTagFields
+      description: list of TenXSummary fields to use as metric tag values
+      type: list
+      required: false
+      category: counter
+      doc: |
+        defines the TenXSummary field names to use as `tag` values.
+        Tags are dimensions that enable slicing a particular named metric to drill down to reason about its value.
+        To learn more see [micrometer tags](https://www.baeldung.com/micrometer#1-tags)
+
+    - names:
+        - signalfxTagFieldNames
+      description: list of custom names to use for TenXSummary fields.
+      type: list
+      required: false
+      category: counter
+      doc: |
+        defines the a list of custom names to give fields when reporting them.
+        Format as a list of name1, custom1, name2, custom2.
+
+        For example, to set a custom name of 'My-Custom-Field' to an existing 'intrinsic-field':
+        ``` yaml
+        signalfx:
+          tagFieldNames:
+            - intrinsic-field
+            - My-Custom-Field
+
+    - names:
+      - signalfxFilter
+      description: a JavaScript expression an TenXSummary must evaluate as 'truthy' against to be written to this output
+      type: string
+      required: false
+      category: counter
+      doc: |
+        Specifies a JavaScript expression that an TenXSummary must evaluate as truthy to write its
+        instance/template field values to the target counter.
+
+        For example, to only emit TenXSummaries produced by the 'myMetric' aggregator, specify:
+        ``` yaml
+        signalfx:
+          filter: this.inputName == "myMetric"
+        ```
+
+        To learn more see [inputName](https://doc.log10x.com/api/js/#TenXBaseObject+inputName)
+
+    - names:
+      - signalfxMaxCardinality
+      description: maximum number of unique metric combinations allowed
+      type: number
+      required: false
+      category: counter
+      doc: |
+        sets the maximum number of unique metric combinations (cardinality) allowed for this output.
+        When exceeded, metrics will be dropped to prevent excessive cardinality.
+      defValue: 500
+
+    - names:
+        - signalfxPublishCumulativeHistogram
+      description: set whether to emit cumulative histogram
+      type: boolean
+      required: false
+      category: counter
+      doc: |
+        set whether the SignalFx registry should emit a cumulative histogram.
+      defValue: false
+
+    - names:
+        - signalfxStep
+      description: the interval at which to publish metrics to output
+      required: false
+      type: string
+      category: counter
+      doc: |
+        sets the interval at which to publish metrics to the time-series destination (e.g., '1m').
+        To learn more see [rate-aggregation](https://micrometer.io/docs/concepts#rate-aggregation)
+      defValue: 1min

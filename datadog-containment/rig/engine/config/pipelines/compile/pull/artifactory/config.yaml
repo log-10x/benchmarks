@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/compile/pull/artifactory/schema.json
+
+# 🔟❎ 'compile' Artifactory configuration
+
+# Pull artifacts (e.g., Java archives, .NET assemblies) from remote Artifactory instances to 
+# scan for symbol values. To learn more see https://doc.log10x.com/compile/pull/artifactory
+
+# Set the 10x pipeline to 'compile'
+tenx: compile
+
+# ============================= Artifactory Options ===========================
+
+artifactory:
+
+  # 'token' specifies an Artifactory API access token.
+  #   To learn more see https://jfrog.com/help/r/jfrog-platform-administration-documentation/access-tokens
+  - token: $=TenXEnv.get("ARTIFACTORY_TOKEN") # (REQUIRED)
+  
+  # 'instance' specifies the of location of the remote Artifactory instance (e.g., https://demo.jfrog.io/artifactory)
+    instance: "" # (REQUIRED)
+      
+  # 'repo' specifies the target Artifactory repository (e.g., pypi-local)
+    repo: "" # (REQUIRED)
+
+  # 'files' specifies files to pull from the target Artifactory repository  # (REQUIRED)
+    files: [
+      # dist/jfrog-pypi-example-1.0.0.tar.gz
+    ] 
+
+    # 'folders' specifies folders paths within the target Artifactory instance repository to pull # (REQUIRED)
+    folders: [ 
+    ]
+
+    # 'recursive' specifies whether to pull folders recursively (i.e., pull sub-folders as well).
+    recursive: true

@@ -1,0 +1,14 @@
+# 🔟❎ 'compile' python symbol scanner settings
+
+# The Python AST symbol scanner leverages the Python native .py parsing engine.
+# to launch the 'astpretty' script from https://github.com/asottile/astpretty 
+# to parse the contents of an input .py file. 
+
+# If a python runtime is unavailable when executing the 'compile' pipeline,
+# the 'pythonASTPath' value can be set to null or empty string to default 
+# to the ANTLR symbol scanner defined in 'python.yaml'
+
+# 'pythonPath' specifies the command for launching a Python run-time. 
+#  A test script verifies a Python run-time is available. If the test script is unsuccessful,
+#  the scanner is disabled. 
+pythonPath: python3

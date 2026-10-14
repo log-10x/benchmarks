@@ -1,0 +1,13 @@
+{
+	"page": {
+		${bean:tenx.eval(formatDatadogCursor())}
+		"limit": ${bean:tenx.eval('TenXEnv.get("datadogLogsQuerySize", 500)')}
+	},
+	"filter": {
+		"indexes": [
+			${bean:tenx.eval('TenXString.join(",", TenXEnv.get("datadogLogsIndexes", "\"*\""))')}
+		],
+		"from": "${bean:tenx.eval('TenXEnv.get("datadogLogsSearchFrom", "now-15m")')}"
+	},
+	"sort": "timestamp"
+}

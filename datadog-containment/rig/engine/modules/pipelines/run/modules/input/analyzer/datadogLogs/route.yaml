@@ -1,0 +1,168 @@
+#
+# 🔟❎ 'run' Datadog Logs input module Apache Camel route
+
+# This Apache Camel Yaml DSL route utilizes an instance of the 'datadogLogs'
+# module to invoke the Datadog '/api/v2/logs/events/search' endpoint to periodically
+# retrieve the last 'datadogQuerySize' log messages to transform into TenXObjects.
+
+# To learn more see https://camel.apache.org/components/4.10.x/others/yaml-dsl.html
+
+# The REST query body is formatted using the 10x 'formatDatadogCursor' function
+# defined in datadog-input.js
+
+# To learn more about the Datadog logs search API, see:
+# https://docs.datadoghq.com/logs/guide/access-your-log-data-programmatically/
+
+- route:
+    from:
+
+      # periodically invoke the Datadog REST API using a synch timer
+      uri: timer
+      parameters:
+        timerName: $datadogLogsName
+        delay: 0
+        period: $?datadogLogsQueryInterval=5s
+        repeatCount: 0
+        synchronous: true
+      
+      steps:
+        
+        # load request REST headers
+        
+        - setHeader:
+            name: Content-Type
+            constant: application/json
+        
+        - setHeader:
+            name: httpMethod
+            constant: POST
+        
+        # https://doc.log10x.com/run/input/analyzer/datadogLogs/#datadoglogsapikey
+        - setHeader:
+            name: DD-API-KEY
+            simple: $datadogLogsApiKey
+        
+        # https://doc.log10x.com/run/input/analyzer/datadogLogs/#datadoglogsappkey
+        - setHeader:
+            name: DD-APPLICATION-KEY
+            simple: $datadogLogsAppKey
+        
+        # https://doc.log10x.com/run/input/analyzer/datadogLogs/#datadoglogshost
+        - setProperty:
+            name: datadogHost
+            simple: $datadogLogsHost
+        
+        # set search query as REST body. If no 'datadogLogsQuery' startup arg is present,
+        # the default query will retrieve the last 'datadogLogsQuerySize' documents sorted by timestamp,
+        # starting at the value of the 'datadogSearchFrom' input value (set in datadog-input.js).
+        - setProperty:
+            name: currDatadogLogsRequest
+            simple: $?datadogLogsQuery=+include query.txt
+       
+        # set the 'datadogRequest' prop into the input field for later use 
+        - to:
+            uri: bean:tenx
+            parameters:
+              method: set(currDatadogLogsRequest, ${exchangeProperty.currDatadogLogsRequest})
+        
+        - choice:
+            when:
+
+                # call the the shouldInvokeDatadogLogsRequest() to decided whether to post a new request
+              - simple: ${bean:tenx.truthy(shouldInvokeDatadogLogsRequest())}
+                steps:
+                  
+                  # set the 'currDatadogLogsRequest' exchange prop into the input field 'prevDatadogLogsRequest'
+                  # the route will only post a new request if the two values are different (i.e., a new request is avail) 
+                  - to:
+                      uri: bean:tenx
+                      parameters:
+                        method: set(prevDatadogLogsRequest, ${exchangeProperty.currDatadogLogsRequest})
+                  
+                  # set the request body
+                  - setBody:
+                      simple: ${bean:tenx.get(currDatadogLogsRequest)}
+                  
+                  - doTry:
+                  
+                      steps:
+
+                        # log the request
+                        - to:
+                              uri: log:datadogLogsRoute?level=TRACE&showBody=true&showHeaders=true
+
+                        # format the destination rest endpoint using 'datadogLogsHost'
+                        - toD:
+                            uri: netty-http:https://${exchangeProperty.datadogHost}/api/v2/logs/events/search
+                            parameters:
+                              chunkedMaxContentLength: 2097152
+
+                        # log the response
+                        - to:
+                            uri: log:datadogLogsRoute?level=TRACE&showBody=true&showHeaders=true
+
+
+                        # log API limit response headers
+                        - log:
+                            message: "Response: ${body}, Rate-Limit-Limit: ${header.X-RateLimit-Limit}, Rate-Limit-Remaining: ${header.X-RateLimit-Remaining}, Rate-Limit-Reset: ${header.X-RateLimit-Reset}, Retry-After: ${header.Retry-After}"
+                            loggingLevel: TRACE
+                            
+                        # connect the route output to the 10x pipeline using an output stream
+                        - setHeader:
+                            name: stream
+                            simple: ${bean:tenx.stream}
+                        
+                        - to:
+                            uri: stream:header
+
+                        # setting datadogLogsMeta for usage in the next requests, to fetch the next page of results
+                        - setProperty:
+                            name: datadogLogsMeta
+                            expression:
+                              jsonpath:
+                                expression: /$.meta
+
+                        # set the 'datadogRequest' exchange prop into the 'datadogLogsMeta' input field for use by noNextDatadogLogsPage()
+                        - to:
+                            uri: bean:tenx
+                            parameters:
+                              method: set(datadogLogsMeta, ${exchangeProperty.datadogLogsMeta})
+
+                        - choice:
+                            when:
+
+                              # If this was the last page, close the route.
+                              - simple: ${bean:tenx.truthy(noNextDatadogLogsPage())}
+                                steps:
+                                  - to:
+                                      uri: bean:tenx
+                                      parameters:
+                                        # The 10x bean exposes this method to allow the route to close itself.
+                                        method: close()
+                      
+                      doCatch:
+                        - exception: org.apache.camel.component.netty.http.NettyHttpOperationFailedException
+                          steps:
+                            
+                            # reset the 'prevDatadogLogsRequest' input field to force the route to post on the next interval
+                            - to:
+                                uri: bean:tenx
+                                parameters:
+                                  method: set(prevDatadogLogsRequest, null)
+
+                            - choice:
+                                when:
+                                  - simple: ${exception.statusCode} == 429
+                                    steps:
+                                      - log:
+                                          message: "Received HTTP 429, Too Many Requests: ${exception.message}"
+                                otherwise:
+                                  steps:
+                                    - log:
+                                        message: "HTTP error: ${exception.message}"
+                                        loggingLevel: ERROR
+                                    - to:
+                                        uri: bean:tenx
+                                        parameters:
+                                          # The 10x bean exposes this method to allow the route to close itself.
+                                          method: close()

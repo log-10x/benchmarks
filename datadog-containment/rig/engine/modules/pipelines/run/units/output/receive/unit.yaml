@@ -1,0 +1,49 @@
+#
+# 🔟❎ 'run' receivers module
+
+module:
+
+  name: receivers
+
+  title: Output receiver
+
+  description: filter and sample TenXObjects based on per-node budget sampling or a declarative field-set mute file
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/receive
+  
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/units/output/receive/doc.md":""
+
+ # 'allowMultiple' is disabled for this unit. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+
+  moduleSort: [rateReceiver]
+
+  # 'options' defines a group of named/typed configuration values to pass to a pipeline unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - outputFilters
+      description: JavaScript expressions an TenXObject must evaluate as truthy against to write to output(s)
+      type: list
+      required: false
+      doc: |
+        provides a list of 10x JavaScript expressions that must ALL evaluate
+        as truthy to write a target  [TenXObject](https://doc.log10x.com/api/js/#TenXObject)  to output. 
+        
+        The current TenXObject's [outputType](https://doc.log10x.com/api/js/#TenXObject+outputType) and  [outputPath](https://doc.log10x.com/api/js/#TenXObject+outputPath)  intrinsic fields provide information about the output
+        for which the current TenXObject is a candidate.
+  
+        This option is primarily used by 10x modules [receiver modules](https://doc.log10x.com/run/output/receive)
+        to provide control over the volume of data is written out by the 
+        pipeline to target output(s).
+  
+        Most output modules that publish to an event (e.g., Splunk) or time-series (e.g., Prometheus) destination
+        provide dedicated filter options to control which TenXObjects to write. 
+        
+        For example, the Datadog metric output provides the [datadogFilter](https://doc.log10x.com/run/output/metric/datadog/#datadogfilter) 
+        option to allow granular control over which TenXSummary instances to write to it.

@@ -1,0 +1,50 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/output/metric/log10x/schema.json
+
+# 🔟❎ 'run' 10x-hosted metrics backend output configuration
+
+# Configuration 10x-hosted metrics backend counter outputs.
+# To learn more see https://doc.log10x.com/run/output/metric/log10x/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Dependencies ================================
+
+include: run/modules/output/metric/log10x
+
+# =========================== Log10x Metrics output ===========================
+
+# Define multiple log10x metric outputs below
+log10xMetrics:
+
+    # ---------------------------- Counter Options ----------------------------
+
+    # 'nameField' sets the TenXSummary field whose value identifies the micrometer counter to increment.
+    #  The 'inputName' field returns the name of the aggregator that produced the target TenXSummary instance.
+    #  To learn more see https://doc.log10x.com/run/aggregate
+  - nameField: inputName
+
+    # 'counterFields' specifies the TenXSummary fields whose values are used to increment the counter.
+    #  To learn more see https://doc.log10x.com/run/aggregate/#summary-fields
+    counterFields:
+      - summaryVolume
+      - summaryBytes
+      - summaryTotals
+
+    # 'tagFields' sets the TenXSummary fields used as the counter tag dimension values.
+    #  Defaults to https://doc.log10x.com/run/initialize/#enrichmentFields
+    tagFields:
+      - $=yield TenXEnv.get("enrichmentFields")
+
+    # 'tagFieldNames' allows setting custom names to aggregated fields for metrics reporting.
+    #  Defaults to https://doc.log10x.com/run/initialize/#metricFieldNames
+    tagFieldNames:
+      - $=yield TenXEnv.get("metricFieldNames")
+
+    # 'filter' sets a JavaScript expression that TenXSummaries must evaluate as truthy to write to the output.
+    #  To learn more see https://doc.log10x.com/run/output/receive/#filter-expressions
+    filter: isSummary
+
+    # 'topSeries' keeps the output to the tag sets with the most bytes, ranked on
+    #  summaryBytes as the series accumulate. 0 (the default) publishes every tag set.
+    # topSeries: 0

@@ -1,0 +1,98 @@
+#
+# 🔟❎ S3 scanner
+
+module:
+
+  name: s3
+
+  title: S3 bucket
+
+  description: pull objects from S3 buckets to scan for symbol content
+    
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "compile/modules/pull/s3/doc.md":""
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: compile/pull/s3
+
+  # 'allowMultiple' is enabled for this unit. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+        - s3PullBucket
+      description: bucket name
+      type: string
+      required: true
+      doc: | 
+        Name of the S3 bucket to pull objects from
+
+    - names:
+        - s3PullRegion
+      description: bucket region
+      type: string
+      required: false
+      doc: |
+        Region of the bucket. If omitted, the AWS CLI's default region applies.
+
+    - names:
+        - s3PullEndpointUrl
+      description: S3-compatible endpoint
+      type: string
+      required: false
+      doc: |
+        Endpoint URL passed to the AWS CLI as `--endpoint-url`, for S3-compatible stores (e.g., http://minio.internal:9000)
+
+    - names:
+        - s3PullKeys
+      description: object keys to pull
+      type: list
+      required: false
+      doc: |
+        Exact keys of objects to pull. A key may carry a pin:
+
+        ``` yaml
+        s3PullKeys:
+          - releases/app.jar#versionId=3HL4kqtJlcpXroDTDmJ+rmSpXd3dIbrHY   # that object version
+          - units/spring-boot.10x.tar@sha256:4d4c1211c730c265d849f27b501fd969f790ce1ab0330865ab91f92d81eb62a0  # fails when the content differs
+        ```
+
+        An unpinned key resolves its current version when the pull runs.
+
+    - names:
+        - s3PullPrefixes
+      description: key prefixes to pull
+      type: list
+      required: false
+      doc: |
+        Key prefixes to pull every object under (e.g., builds/2026-10/)
+
+    - names:
+        - s3PullRecursive
+      description: pull objects under nested prefixes
+      type: boolean
+      required: false
+      defValue: false
+      doc: |
+        Specifies whether [s3PullPrefixes](https://doc.log10x.com/compile/pull/s3/#s3pullprefixes) include objects under nested `/` segments.
+
+    - names:
+        - s3PullCommand
+      description: path to the AWS CLI
+      type: string
+      required: false
+      defValue: aws
+      doc: |
+        The [AWS CLI](https://docs.aws.amazon.com/cli/) program this entry's pull runs for listing and downloading objects:
+        a program name on the path or a full path, with optional leading arguments (e.g., `aws --profile build`).
+
+        The CLI's credential chain applies: environment, profile, instance or task role.
+
+        ``` yaml
+        s3PullCommand: $=TenXEnv.get("TENX_S3_COMMAND", "aws")
+        ```

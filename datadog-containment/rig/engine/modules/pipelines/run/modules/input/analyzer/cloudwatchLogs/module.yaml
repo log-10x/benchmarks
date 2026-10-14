@@ -1,0 +1,280 @@
+#
+# 🔟❎ 'run' AWS CloudWatch Logs input module
+
+module:
+
+  name: cloudwatchLogs
+
+  title: AWS Cloudwatch Logs input
+
+  description: read events from AWS CloudWatch Logs
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/input/analyzer/cloudwatchLogs/doc.md":""
+   
+  # 'configFolder' specifies a folder containing default configuration files for this module
+  configFolder: run/input/analyzer/cloudwatchLogs
+
+  # 'allowMultiple' is enabled for this module. Pipeline command line arguments and configuration files
+  #  can specify multiple groupings of the options defined below.
+  allowMultiple: true
+
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - cloudwatchLogsName
+      description: logical name for this AWS CloudWatch Logs input
+      type: string
+      required: true
+      category: general
+      doc: |
+        sets a logical name (e.g., 'myCloudWatchLogs') for this input.
+        The [inputName](https://doc.log10x.com/api/js/#TenXBaseObject+inputName) field 
+        returns this value at run time to allow for identifying and operating on instances originating from this input.
+               
+    - names:
+        - cloudwatchLogsEnabled
+      description: sets whether this input is enabled
+      type: boolean
+      required: false
+      category: general
+      doc: |
+        sets whether to open the input stream.
+        To enable this input only when a 'cloudwatchLogsName' startup argument value is truthy, use:
+        ``` yaml
+        cloudwatchLogsEnabled: $=TenXEnv.get("cloudwatchLogsName")
+        ```
+        To learn more see [TenXEnv.get](https://doc.log10x.com/api/js/#TenXEnv.get).
+
+    - names:
+      - cloudwatchLogsPrintProgress
+      description: sets whether this input prints throughput stats to the console
+      type: boolean
+      required: false
+      category: general
+      doc: |
+        sets whether this input prints throughput stats to the console
+        for testing an integration to a remote endpoint.
+      defValue: false
+
+    - names:
+        - cloudwatchLogsAwsRegion
+      description: AWS region
+      type: string
+      category: authentication
+      required: false
+      doc: |
+        sets the AWS region (e.g., 'us-east-1') hosting
+        the target CloudWatch logs stream. 
+        
+        To learn more see [AWS Regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html)
+
+    - names:
+        - cloudwatchLogsAwsAccessKeyID
+      description: AWS authentication access key ID
+      type: string
+      required: false
+      category: authentication
+      doc: |
+        sets the AWS access key (e.g., 'AKIAIOSFODNN7EXAMPLE')
+        used as part of the request signing process.
+
+        **If not specified**, the system automatically falls back to the
+        [AWS default credential provider chain](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials-chain.html),
+        which checks (in order):
+
+        1. Environment variables (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`)
+        2. Java system properties
+        3. Web identity token (for EKS)
+        4. Shared credentials file (`~/.aws/credentials`)
+        5. ECS container credentials
+        6. EC2 instance profile credentials
+
+        To learn more see [AWS access keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)
+
+    - names:
+      - cloudwatchLogsAwsSecretKey
+      description:  AWS authentication secret key
+      type: string
+      required: false
+      category: authentication
+      doc: |
+        sets the AWS access secret key
+        (e.g. 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY') used as part of the request signing process.
+
+        **If not specified**, the system automatically falls back to the
+        [AWS default credential provider chain](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials-chain.html).
+        This allows using credentials from `~/.aws/credentials`, IAM roles, or environment variables
+        without explicit configuration.
+
+        To learn more see [AWS security credentials](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html)
+
+    - names:
+        - cloudwatchLogsGroupName
+      description: AWS CloudWatch Logs Group name
+      type: string
+      required: true
+      category: log group
+      doc: |
+        used within the body of the 'GetLogEvents' AWS request
+        to specify the log group name (e.g., 'my-log-group'). 
+        
+        To learn more see [logGroupName](https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_GetLogEvents.html#CWL-GetLogEvents-request-logGroupName)
+
+    - names:
+        - cloudwatchLogsStreamName
+      description: AWS CloudWatch Logs Stream name
+      type: string
+      required: true
+      category: log group
+      doc: |
+        used within the body of the AWS 'AGetLogEvents' request
+        to specify the log stream name (e.g., 'my-log-stream').
+        
+        To learn more see [logStreamName](https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_GetLogEvents.html#CWL-GetLogEvents-request-logStreamName)
+
+    - names:
+        - cloudwatchLogsLimit
+      description: number of events to read per batch from the AWS CloudWatch Logs service
+      type: number
+      required: false
+      category: query
+      doc: |
+        sets the number of documents to retrieve with
+        each page of results. To learn more see: [request limit](https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_GetLogEvents.html#CWL-GetLogEvents-request-limit)
+      defValue: 500
+        
+    - names:
+      - cloudwatchLogsNextToken
+      description: The token for the next set of items to return (received this token from a previous call)
+      type: string
+      required: false
+      category: query
+      doc: |
+        sets the token from which the requested result page is to start. This value is
+        returned from a previous call to the AWS 'GetLogEvents' command.
+        To learn more see: [nextToken](https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_GetLogEvents.html#CWL-GetLogEvents-request-nextToken)
+
+    - names:
+      - cloudwatchLogsStartFromHead
+      description: If true, return the earliest log events first. If false, return the most recent log events first. 
+      type: boolean
+      required: false
+      category: query
+      doc: |
+        controls the direction of the search (old <-> new events).
+        By default, the search starts from the most recent events. To learn more see: [startFromHead](https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_GetLogEvents.html#CWL-GetLogEvents-request-startFromHead)
+      defValue: false
+
+    - names:
+        - cloudwatchLogsStartTime
+      description: The start of the time range, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
+      type: number
+      required: false
+      category: query
+      doc: |
+        sets the start of the time range, expressed as milliseconds after Jan 1, 1970 00:00:00 UTC.
+        Events with a timestamp equal to this time or later than this time are included.
+        Events with a timestamp earlier than this time are excluded:
+        To learn more see: [startTime](https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_GetLogEvents.html#CWL-GetLogEvents-request-startTime)
+
+    - names:
+        - cloudwatchLogsEndTime
+      description: The end of the time range, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC
+      type: number
+      required: false
+      category: query
+      doc: |
+        sets the end of the time range, expressed as milliseconds after Jan 1, 1970 00:00:00 UTC.
+        Events with a timestamp equal to or later than this time are not included:
+        To learn more see: [endTime](https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_GetLogEvents.html#CWL-GetLogEvents-request-endTime)
+
+    - names:
+      - cloudwatchLogsRetryTimeout
+      description: a timeout period (in milliseconds) to wait for querying of new data
+      type: number
+      required: false
+      category: query
+      doc: |
+        used by [cloudwatchLogs-input.js](https://github.com/log-10x/modules/blob/main/pipelines/run/modules/input/analyzer/cloudwatchLogs/cloudwatchLogs-input.js) to determine how long to wait
+        to invoke the 'GetLogEvents' API again to query for new data.
+      defValue: 20000
+
+    - names:
+      - cloudwatchLogsTotalBytesLimit
+      description: maximum total bytes to read from input before closing
+      type: number
+      required: false
+      category: backpressure
+      doc: |
+        sets the maximum number of bytes a target pipeline input will read into the pipeline. 
+        This value limits the volume of events to read from a local/remote source (e.g., log analyzer). 
+        
+        For example:
+        ``` yaml
+        totalBytesLimit: $=parseBytes("1GB")
+        ```
+      defValue: $=parseBytes("50MB")
+
+    - names:
+      - cloudwatchLogsTotalEventsLimit
+      description: maximum total events to read from input before closing
+      type: number
+      required: false
+      category: backpressure
+      doc: |
+        sets the maximum number of events a target pipeline input will read into the pipeline. 
+        This value limits the volume of events to read from a local/remote source (e.g., log analyzer).
+      defValue: 10000
+
+    - names:
+      - cloudwatchLogsTotalDuration
+      description: maximum duration to keep input open before closing
+      type: string
+      required: false
+      category: backpressure
+      doc: |
+        sets the maximum duration a target pipeline input will remain open. 
+        When reached, the input will close and no more data will be read.
+        
+        For example:
+        ``` yaml
+        cloudwatchLogsTotalDuration: $=parseDuration("10min")
+        ```
+      defValue: parseDuration("5min")
+
+    - names:
+      - cloudwatchLogsQueryInterval
+      description: query interval (in milliseconds) for checking new data from remote source
+      type: number
+      required: false
+      category: backpressure
+      doc: |
+        sets the interval between queries to the remote CloudWatch Logs API.
+        This controls how frequently the input polls for new log data.
+
+        For example:
+        ``` yaml
+        cloudwatchLogsQueryInterval: $=parseDuration("5s")
+        ```
+      defValue: 2000
+
+    - names:
+      - cloudwatchLogsMessageField
+      description: JSON field name to extract from CloudWatch log messages
+      type: string
+      required: false
+      category: extraction
+      doc: |
+        sets the JSON field name to extract from each CloudWatch log message.
+        When set, the extractor will look for this field in each message's JSON payload.
+        When empty, the message extraction step is skipped.
+
+        For example, to extract the 'log' field from Kubernetes/Docker logs:
+        ``` yaml
+        messageField: log
+        ```
+      defValue: ""

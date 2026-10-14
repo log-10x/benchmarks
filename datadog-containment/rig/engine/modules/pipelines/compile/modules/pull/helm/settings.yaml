@@ -1,0 +1,31 @@
+#
+# 🔟❎ Helm scanner settings
+
+#'chartNames' specifies a list of chart names to pull template and value files to scan
+chartNames: 
+  - $?helmChartNames
+
+#'chartFiles' specifies a list of charts templates and value files to scan
+chartFiles: 
+  - $?helmChartFiles
+
+#'helmCommand' specifies the location of the helm command
+helmCommand: $?helmCommand=$=TenXString.includes(TenXEnv.get("os.name"), "Windows") ? "C:/Program Files/helm/helm.exe":"/usr/local/bin/helm"
+
+# 'pullDockerImages' specifies whether to pull Docker images referenced by an input Helm values and template files. 
+pullDockerImages: $?helmPullDockerImages=true
+
+# 'pullGitHubRepos' specifies whether to pull GitHub repos referenced by an input Helm values and template files. 
+pullGitHubRepos: $?helmPullGitHubRepos=true
+
+# 'githubRepoToken' GitHub API token for pulling GitHub repositories referenced by a chart
+githubRepoToken: $?helmPullGitHubToken
+
+# 'githubRepoPaths' specifies paths within a YAML file to treat as holders for GitHub repo names to test against 'githubRepoPattern'
+githubRepoPaths: 
+  - $?helmGitHubRepoPaths=[metadata.repository,spec.source.git,chart.repository,sources]
+
+# 'dockerImagePaths' specifies paths within a YAML file to treat as holders for Docker image names to test against 'dockerImagePattern'
+dockerImagePaths: 
+  - $?helmDockerImagePaths=[spec.template.spec.containers.image,values.image,spec.containers.image]
+

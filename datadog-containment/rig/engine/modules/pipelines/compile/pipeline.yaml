@@ -1,0 +1,36 @@
+#
+# 🔟❎ 'compile' pipeline
+
+# =================================== Spec ====================================
+
+# 'spec' defines the name, description, and configuration values a pipeline 
+#  can receive to control its behavior. Pipelines are configurable via
+#  .yaml launch files (e.g., '> tenx @compile.yaml') files and command line arguments (e.g., '> tenx compile <arg> <value>...'). 
+pipeline:
+
+  # 'name' sets a logical name for the pipeline with which it can be launched
+  #  by the 10x Engine (e.g., '> tenx compile') 
+  name: compile
+
+  # 'title' specifies a user-friendly title
+  title: compile
+
+  # 'description' sets a user-friendly description for the pipeline.
+  #  This text will appear for this pipeline when invoking the 
+  #  10x run-time to list all available commands (e.g.,'> tenx -help')
+  description: scan source code and binary files to generate symbol unit and library files
+  
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "compile/doc.md":""
+
+  # 'options' defines the list of argument groups this pipeline can receive.  
+  #  An option group defines a sequence of values that can be repeated 0-N times
+  #  such as text, ANTLR, and executable symbol scanners. 
+  options: +include units/units.yaml
+
+# 'units' specify how to apply launch arguments to the pipeline while providing
+#  default values to those that weren't.      
+units: +include settings.yaml
+
+unitActions: 
+  - $?unitActions

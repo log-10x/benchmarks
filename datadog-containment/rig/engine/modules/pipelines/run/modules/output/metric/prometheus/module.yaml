@@ -1,0 +1,20 @@
+#
+# 🔟❎ 'run' Prometheus metric outputs module
+
+module:
+
+  name: prometheusOutputs
+
+  title: Prometheus output
+
+  description: write TenXSummary instances to Prometheus
+
+#  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+#  configFolders:
+#    Log10x: run/output/metric/log10x
+#    Scrape: run/output/metric/prometheus/scrape
+#    Push Gateway: run/output/metric/prometheus/push-gateway
+#    Remote Write: run/output/metric/prometheus/remote-write
+ 
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/output/metric/prometheus/doc.md":""

@@ -1,0 +1,6 @@
+#
+# 🔟❎ Artifactory scanner settings
+
+# 'artifactoryScanners' configures Artifactory repository files to pull to disk
+artifactoryScanners: 
+  - $?artifactory 

@@ -1,0 +1,53 @@
+# 🔟❎ 'run' Query Stream application settings
+
+# This configuration defines the settings for use by the Query Stream operation of the Retriever app.
+# To learn more see https://doc.log10x.com/apps/retriever/#query
+
+# ============================ Bootstrap Runtime ==============================
+
+tenx: run    # https://doc.log10x.com/run/bootstrap
+
+# ======================== Application Dependencies ===========================
+
+runtimeAttributes:
+  - app:retriever
+  - sub_app:stream
+  - env:cloud
+
+include:
+  - apps/shared
+  - run/modules/input/objectStorage/input   # https://doc.log10x.com/run/input/objectStorage/input
+  - run/modules/input/objectStorage/object  # https://doc.log10x.com/run/input/objectStorage/object
+  - run/aggregate/stream                    # https://doc.log10x.com/run/aggregate/#stream
+
+  # Allows setting of 'enrichmentFields'
+  - run/modules/initialize/module.yaml
+
+enrichmentFields:
+  - query_name=TenXEnv.get("queryObjectQueryName")
+  - index_app=TenXEnv.get("queryObjectTarget")
+  # If we extracted at construction time, use that. Else extract at publish time
+  - index_file=(this.index_file?this.index_file:TenXEnv.get("queryObjectTargetObject"))
+
+  # Rollup dimensions for the qrs/ query summaries. Archived events already
+  # carry these values, stamped at ingest by the edge level/k8s initializers;
+  # this worker reads events back, so it only needs the NAMES registered for
+  # the streamed_events aggregator to group by and the summaries writer to
+  # emit. Deliberately NOT done by including the initializer modules: their
+  # name registration is conditional on ingest-side extractor options
+  # (levelField, k8sExtractorName) this worker does not set. Events missing
+  # a field land in the aggregator's defaultValue bucket; deployments that
+  # renamed these fields simply omit the key and consumers fall back to
+  # event-derived rollups.
+  - severity_level
+  - tenx_user_service
+
+override:
+  # In the stream sub app the parallelization already happens from multi pipelines running.
+  # We don't want to swamp the running machine with too many inputs.
+  - key: threadPoolSize
+    value: $=parseInt(TenXEnv.get("TENX_THREAD_POOL_SIZE", 6))
+
+  # Adding a default tag for forwarded events
+  - key: outputForwardTagValue
+    value: tenx-cloud-retriever

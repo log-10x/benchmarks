@@ -1,0 +1,83 @@
+# 🔟❎ 'compile' subprocess settings
+
+# The 'compile' pipeline can launch subprocesses to scan for symbol values to
+# isolate and terminate symbol scanners that timeout/OOM.
+
+# 'processName' sets the path of the 10x process to launch
+processName: $=TenXEnv.get("TENX_BIN", "java")
+
+args:
+
+  # chain temp folder
+  - '$=!TenXEnv.get("TENX_BIN") ? ("-Dtenx.io.tmpdir=" + TenXEnv.get("tenx.io.tmpdir")) : ""'
+
+  # chain classpath
+  - '$=!TenXEnv.get("TENX_BIN") ? "-classpath" : ""'
+  - '$=!TenXEnv.get("TENX_BIN") ? TenXEnv.get("java.class.path") : ""'
+  # main class
+  - '$=!TenXEnv.get("TENX_BIN") ? "com.log10x.ext.cloud.run.RunCloud" : ""'
+
+  # 'parentPipelineId' passes the current 10x pipeline unique ID to the subprocess
+  - parentPipelineId
+  - $uniqueId
+
+  # delegate bootstrap arguments
+  - includePaths
+  - $=TenXString.join(";", TenXEnv.get("includePaths"))
+
+  # forward the license to the scan subprocess (skip empty license values)
+  - airgapped
+  - $=TenXEnv.get("airgapped", false)
+
+  - '$=TenXEnv.get("licenseFile") ? "licenseFile" : ""'
+  - $=TenXEnv.get("licenseFile", "")
+
+  - '$=TenXEnv.get("licenseKey") ? "licenseKey" : ""'
+  - $=TenXEnv.get("licenseKey", "")
+
+  - runtimeName
+  - $=TenXString.concat(TenXEnv.get("runtimeName", "scan"), "-child")
+
+  # Adding runtime attributes if they aren't empty
+  - '$=TenXEnv.get("runtimeAttributes") ? "runtimeAttributes" : ""'
+  - $=TenXString.join(";", TenXEnv.get("runtimeAttributes"))
+
+  # 'logConfig' sets the scan worker log4j config to relay its log messages via
+  #  stdin/err back to the parent process
+  - logConfig
+  - log4j2-worker.yaml
+
+  # run the 'compile' pipeline
+  - compile
+
+  #  pass the default compile config files explicitly for the subprocess
+  - $= "@" + path("compile/scanners")
+
+  # chain inputPaths to subprocess so custom paths (e.g., inputPaths=/src) are forwarded
+  - '$=TenXEnv.get("inputPaths") ? "inputPaths" : ""'
+  - $=TenXString.join(";", TenXEnv.get("inputPaths"))
+
+  # chain the parent pipeline temp folder as an input path, so the subprocess
+  # scans content the parent expanded there (archives, pulled sources) while
+  # keeping its own process temp folder
+  - '$=TenXEnv.get("tenx.io.tmpdir") ? "inputPaths" : ""'
+  - '$=TenXEnv.get("tenx.io.tmpdir") ? TenXEnv.get("tenx.io.tmpdir") + "/" + TenXEnv.get("uniqueId") : ""'
+
+  # 'scanInProcess' designates the worker process as a subprocess of the current 10x process
+  - scanInProcess
+  - true
+
+  # 'printOutput' will allow the parent process to track progress by reading subprocess stdout
+  - printOutput
+  - true
+
+  # 'scanForce' will force the subprocess to scan input sources regardless of whether a matching symbol unit exists
+  - scanForce
+  - false
+
+  # 'printProgress' disables progress bars
+  - printProgress
+  - false
+
+# terminate the subprocess after a specified timeout
+timeout: 3m

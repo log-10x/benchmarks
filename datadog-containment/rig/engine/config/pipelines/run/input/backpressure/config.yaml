@@ -1,0 +1,26 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/input/backpressure/schema.json
+
+# 🔟❎ run input configuration
+
+# This config file specifies general pipeline input settings
+# To learn more see https://doc.log10x.com/run/input
+
+tenx: run
+
+# ============================== Concurrency Settings =========================
+
+# 'inputThreadPoolSize' controls the maximum number of threads allocated to concurrently 
+#  read events from inputs source (e.g., stream, stdin, file).
+inputThreadPoolSize: 16 
+
+# ============================= Backpressure Settings =========================
+
+objectLimit:
+
+# 'maxInstances' sets the max number of TenXObjects the pipeline can contain at any given moment
+#  Default to 5K objects per 100MB ram of JVM -XMX (if specified), otherwise no limit
+  maxInstances: $=TenXEnv.get("xmx") ? (parseInt(TenXEnv.get("xmx")) / 104857600 * 5000):0 
+ 
+  # 'interval' sets the duration time between repeated backpressure tests once backpressure is detected. 
+  interval: $=parseDuration("1s")
+

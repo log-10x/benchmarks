@@ -1,0 +1,13 @@
+#
+# 🔟❎ 'run' forwarder input modules
+
+module:
+
+  name: objectStorage
+
+  title: Object Storage input
+
+  description: stream events from object storage 
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/input/objectStorage/doc.md":""

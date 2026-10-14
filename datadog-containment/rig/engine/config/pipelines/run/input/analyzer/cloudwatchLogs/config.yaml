@@ -1,0 +1,88 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/input/analyzer/cloudwatchLogs/schema.json
+
+# 🔟❎ 'run' AWS CloudWatch Logs input configuration
+
+# Configure an AWS CloudWatch Logs event input
+# To learn more see https://doc.log10x.com/run/input/analyzer/cloudwatchLogs/
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Dependencies ================================
+
+include: run/modules/input/analyzer/cloudwatchLogs
+
+# ============================ CloudWatch Options =============================
+
+# Multiple CloudWatch inputs can be defined below
+cloudwatchLogs:
+
+    # 'name' sets a unique logical name across all pipeline inputs
+  - name: CloudwatchLogs
+    
+    # --------------------------- Connection Options --------------------------
+
+    # 'awsAccessKeyID' sets the AWS access key (e.g. 'AKIAIOSFODNN7EXAMPLE')
+    #  To learn more see: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
+    awsAccessKeyID: $=TenXEnv.get("AWS_ACCESS_KEY_ID") # (EnvVar REQUIRED)
+
+    # 'awsSecretKey' sets the AWS access secret key  (e.g. 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY')
+    #  To learn more see: https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html
+    awsSecretKey: $=TenXEnv.get("AWS_SECRET_ACCESS_KEY") # (EnvVar REQUIRED)
+
+    # 'groupName' sets the log group name (e.g., 'my-log-group').
+    #  To learn more see: https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_GetLogEvents.html#CWL-GetLogEvents-request-logGroupName
+    groupName: "" # (REQUIRED)
+
+    # 'streamName' sets the log stream name (e.g., 'my-log-stream').
+    #  To learn more see: https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_GetLogEvents.html#CWL-GetLogEvents-request-logStreamName
+    streamName: "" # (REQUIRED)
+
+    # 'awsRegion' sets the region hosting the CloudWatch Logs stream
+    #  To learn more see: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html
+    awsRegion: $=TenXEnv.get("AWS_DEFAULT_REGION", "us-east-1")
+
+    # ----------------------------- Query Options -----------------------------
+
+    # 'limit' sets the number of documents retrieved with each results page.
+    #  To learn more see: https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_GetLogEvents.html#CWL-GetLogEvents-request-limit
+    limit: 500
+
+    # 'startFromHead' controls the direction of the search (old <-> new events).
+    #  To learn more see: https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_GetLogEvents.html#CWL-GetLogEvents-request-startFromHead
+    startFromHead: true
+
+    # 'startTime' sets the start of the time range, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
+    #  The search includes events with a timestamp equal to or later than this value.
+    #  The search excludes events with a timestamp earlier than this value. 
+    #  To learn more see: https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_GetLogEvents.html#CWL-GetLogEvents-request-startTime
+    startTime: $=now("-240h")
+
+    # 'endTime' sets the end of the time range, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
+    #  The search excludes events with a timestamp equal to or later than this value.
+    #  To learn more see: https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_GetLogEvents.html#CWL-GetLogEvents-request-endTime
+    endTime: $=now()
+
+    # --------------------------- Backpressure Options -----------------------
+
+    # 'queryInterval' sets the interval between queries to the remote API
+    queryInterval: $=parseDuration("2s")
+
+    # 'totalDuration' sets the max duration to try reading from the the remote input 
+    totalDuration: $=parseDuration("5min")
+
+    # 'totalBytesLimit' sets the max total bytes to read from the remote input
+    totalBytesLimit: $=parseBytes("50MB")
+
+    # 'totalEventsLimit' sets the max number of events to read the remote input
+    totalEventsLimit: 10000
+
+    # --------------------------- Ancillary Options ---------------------------
+
+    # 'printProgress' controls whether to print a gage to the console
+    #  This option helps debug and test the input
+    printProgress: $=!TenXEnv.get("quiet")
+
+    # 'messageField' sets the JSON field to extract from CloudWatch log messages
+    #  For K8s/Docker logs with 10x encoding, use 'log' to extract the encoded log field
+    messageField: log

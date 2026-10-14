@@ -1,0 +1,111 @@
+#
+# 🔟❎ 'doc' generate unit
+
+unit:
+
+  name: generateDoc
+
+  title: Docs generator
+
+  description: generate documentation files
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "units/generate/doc.md":""
+
+  # 'allowMultiple' is disabled for this unit. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - docGenerate
+      description: load markdown files
+      type: boolean
+      required: true
+      doc: |
+        load pipeline markdown (.md) 'doc' file setting for which to generate docs
+
+    - names:
+      - docConfigRepoName
+      description: config repo name
+      type: string
+      required: true
+      doc: |
+        Name of config github repository to link for pipeline configuration
+
+    - names:
+      - docConfigRepoBranch
+      description: config branch name
+      type: string
+      required: true
+      doc: |
+        Name of branch in config github repository to link for pipeline configuration
+
+    - names:
+      - docModulesRepoName
+      description: modules repo name
+      type: string
+      required: true
+      doc: |
+        Name of modules github repository to link for pipeline modules
+
+    - names:
+      - docModulesRepoBranch
+      description: modules branch name
+      type: string
+      required: true
+      doc: |
+        Name of branch in modules github repository to link for pipeline configuration
+
+    - names:
+      - docModulesInputPath
+      description: folder to scan for pipeline modules
+      type: string
+      required: true
+      doc: |
+        folder to scan for pipeline units and modules to generate markdown docs for
+
+    - names:
+      - docAppsInputPath
+      description: folder to scan for app modules
+      type: string
+      required: true
+      doc: |
+        folder to scan for app modules to generate markdown docs for
+
+    - names:
+      - docConfigInputPath
+      description: folder to scan for pipeline modules
+      type: string
+      required: true
+      doc: |
+        folder to scan for pipeline unit and module config files to generate markdown docs for
+
+    - names:
+      - docSiteOutputPath
+      description: site folder to output markdown to
+      type: string
+      required: true
+      doc: |
+        folder to write for pipeline components markdown docs to
+
+    - names:
+      - docApiFile
+      description: path to js api md
+      type: string
+      required: true
+      doc: |
+        path to js api md
+
+    - names:
+      - docGithubAPIKey
+      description: GitHub api key
+      type: string
+      required: false
+      doc: |
+        for validating GitHub links
+

@@ -1,0 +1,21 @@
+#
+# 🔟❎ 'run' outputs module
+
+module:
+
+  name: outputs
+
+  title: TenXObject output
+
+  description: write TenXObjects to a variety of event and time-series outputs
+
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/output
+  
+  join: run/units/output
+
+  moduleSort: [eventOutputs,metricOutputs]
+
+  # 'doc' specifies the markdown doc content, only required when generating docs.
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/modules/output/doc.md":""
+

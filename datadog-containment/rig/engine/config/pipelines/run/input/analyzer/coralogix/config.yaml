@@ -1,0 +1,83 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/input/analyzer/coralogix/schema.json
+
+# 🔟❎ 'run' Coralogix ElasticSearch input configuration
+
+# This configuration defines a Coralogix ElasticSearch input from
+# which events are read and transformed into TenXObjects for aggregation and reporting.
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Dependencies ================================
+
+include: run/modules/input/analyzer/elasticsearch
+
+# ============================== Coralogix Options ============================
+
+# Multiple Coralogix inputs can be defined below
+elasticSearch:
+
+    # 'name' sets a unique logical name across all pipeline inputs
+  - name: coralogixElasticSearch
+
+    # ------------------------- Connection Options ----------------------------
+
+    # 'token' must be set to the Coralogix send data API key
+    #  To learn more see: https://coralogix.com/docs/user-guides/account-management/api-keys/send-your-data-api-key/
+    token: null # (REQUIRED)
+    
+    # 'authorizationKeyName' must be set to match Coralogix auth type
+    #  To learn more see: https://coralogix.com/docs/user-guides/visualizations/hosted-opensearch-view/opensearch-api/
+    authorizationKeyName: Bearer
+
+    # 'host' and 'port' set the Coralogix service address to connect to
+    host: api.coralogix.us/data/os-api
+
+    # --------------------------- Query Options -------------------------------
+
+    # 'targets' lists data streams, indices, and aliases to search.
+    #  To search all data streams and indices, use '*' or '_all.'
+    targets:
+      - '*'
+
+    # 'startTime' and 'endTime' set the time frame of the query.
+    startTime: now-5m
+    endTime: now
+
+    # --------------------------- Backpressure Options -----------------------
+
+    # 'queryInterval' sets the interval between queries to the remote API
+    queryInterval: $=parseDuration("2s")
+
+    # 'totalDuration' sets the max duration to try reading from the the remote input 
+    totalDuration: $=parseDuration("5min")
+
+    # 'totalBytesLimit' sets the max total bytes to read from the remote input
+    totalBytesLimit: $=parseBytes("50MB")
+
+    # 'totalEventsLimit' sets the max number of events to read the remote input
+    totalEventsLimit: 10000
+
+    # --------------------------- Ancillary Options ---------------------------
+
+    # 'printProgress' controls whether to print a progress gage to the console
+    #  This option helps debug and test the input
+    printProgress: $=!TenXEnv.get("quiet")
+
+    # --------------------------- Advanced Options ----------------------------
+
+    # 'querySize' sets the number of documents retrieved with each results page.
+    querySize: 500
+
+    # 'query' sets the elastic query to request paginated documents from the  '/_search' REST endpoint.
+    #  The default query (defined in 'input/analyzer/elasticsearch/query.txt')
+    #  retrieves paginated values sorted in desc order by @timestamp
+    query: null
+    
+    # 'timestampField' specifies the name of the field to get the event timestamp from.
+    timestampField: coralogix.timestamp
+
+    # 'messageField' defines the name of the field to extract from the retrieved
+    #  documents containing the log message.
+    messageField: log
+

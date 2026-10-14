@@ -1,0 +1,95 @@
+# 🔟❎ 'compile' unit options
+
+# Unit option groups define sets of launch arguments that can be repeated N times
+# to configure the 'compile' pipeline for scanning target source code and binary file formats.
+
+# Configuring the 10x 'compile' pipeline is most easily done by editing the preset files 
+# under https://github.com/log-10x/config/tree/main/pipelines/compile/config/scan to enable/disable scanners
+
+# Supported option groups:
+
+# ----------------------------- Scan & Link -----------------------------------
+
+# Traverse inputs paths to identify files to scan for symbols
+- +include units/sources/unit.yaml
+
+# Scan input source code/binary files
+- +include units/scan/unit.yaml
+
+# Link symbol unit files into a library artifact
+- +include units/link/unit.yaml
+
+# ----------------------------- Scan Modules ----------------------------------
+
+# Control which scanned code methods are considered to be 'logging' methods
+- +include compile/modules/scanner/logMethods/module.yaml
+
+# General Pull options
+- +include compile/modules/pull/module.yaml
+
+# Pull GitHub repos and Docker images from Helm files
+- +include compile/modules/pull/helm/module.yaml
+
+# Pull GitHub folders
+- +include compile/modules/pull/github/module.yaml
+
+# Pull Artifactory files
+- +include compile/modules/pull/artifactory/module.yaml
+
+# Pull Docker image files
+- +include compile/modules/pull/docker/module.yaml
+
+# Pull S3 bucket objects
+- +include compile/modules/pull/s3/module.yaml
+
+# Pull GitHub repos and Docker images from Go .mod files
+#- +include compile/modules/pull/gomod/module.yaml
+
+# Traverse archive files
+- +include compile/modules/scanner/archive/module.yaml
+
+# Scan symbol unit files
+- +include compile/modules/scanner/symbol/module.yaml
+
+# Scan JVM bytecode code scanning using ASM
+- +include compile/modules/scanner/bytecode/module.yaml
+
+# Scan Java source code using JavaParser
+- +include compile/modules/scanner/javaParser/module.yaml
+
+# Scan Scala source code using Scalameta
+- +include compile/modules/scanner/scalameta/module.yaml
+
+# Scan Python source code using an installed Python run-time
+- +include compile/modules/scanner/pythonAST/module.yaml
+
+# Launch external processes to scan source/binary input files
+- +include compile/modules/scanner/executable/module.yaml
+
+# Scanning text input files using Jackson
+- +include compile/modules/scanner/text/module.yaml
+
+# Scan source input files using ANTLR
+- +include compile/modules/scanner/antlr/module.yaml
+
+# ANTLR grammars used to parse source input files
+- +include compile/modules/scanner/antlr/langs/module.yaml
+
+# ANTLR grammar rules used to select symbols from source input files
+- +include compile/modules/scanner/antlr/rules/module.yaml
+
+# Scan source input files using regex
+- +include compile/modules/scanner/pattern/module.yaml
+
+# ---------------------------- GitHub Push output -----------------------------
+
+# GitHub repo folders(s) to push symbol files to
+- +include compile/units/push/unit.yaml
+
+# ----------------------------- Monitor Pipeline ------------------------------
+
+# Report pipeline metrics to log/backend
+- +include shared/units/monitor/unit.yaml
+
+# Print pipeline throughput to console
+- +include compile/units/console/unit.yaml

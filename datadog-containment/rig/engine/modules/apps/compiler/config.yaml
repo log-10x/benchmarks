@@ -1,0 +1,25 @@
+# 🔟❎ Compiler app settings
+
+# This configuration defines the settings for use by the Compiler app.
+# To learn more see https://doc.log10x.com/compile
+
+# ============================ Bootstrap Runtime ==============================
+
+tenx: compile    
+
+runtimeAttributes:
+  - app:compile
+  - env:cloud
+
+include: 
+
+# ---------------------------- General Settings -------------------------------
+
+  - compile/bootstrap          # https://doc.log10x.com/run/bootstrap/#run
+
+# ---------------------------- Observe Execution ------------------------------
+
+  # Observe compiler execution:
+
+  - compile/monitor            # https://doc.log10x.com/compile/console
+  - compile/console            # https://doc.log10x.com/compile/console

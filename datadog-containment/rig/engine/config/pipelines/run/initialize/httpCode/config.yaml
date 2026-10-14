@@ -1,0 +1,200 @@
+# yaml-language-server: $schema=https://schema.log10x.com/pipelines/run/initialize/httpCode/schema.json
+
+# 🔟❎ 'run' HTTP code classifier configuration
+
+# The HTTP code classifier enriches TenXObjects with an extracted HTTP numeric response code (e.g., 404) field.
+
+# Set the 10x pipeline to 'run'
+tenx: run
+
+# =============================== Dependencies ================================
+
+include: run/modules/initialize/httpCode
+
+# =============================== GeoIP Options ===============================
+
+httpCode:
+
+  # 'field' specifies the name of the field in which to assign an extracted HTTP status code, if found
+  field: http_code
+
+  # 'precludersBefore' specifies an array of characters or patterns that, when appearing immediately before a candidate HTTP status code in tokenized logs, indicate it is not a valid HTTP code.
+  #  Used to preclude false positives like negative numbers ('-200'), floats ('.200'), or variables ('_200').
+  #  Entries are single characters or short strings for O(1) lookup efficiency in the heuristic.
+  precludersBefore: ['+', '$', '#', '@', '(', '[', '~', '-', '.', ':']
+
+  # 'precludersAfter' specifies an array of characters or patterns that, when appearing immediately after a candidate HTTP status code in tokenized logs, indicate it is not a valid HTTP code.
+  #  Used to preclude false positives like percentages ('200%'), floats ('200.'), or expressions ('200+').
+  #  Entries are single characters or short strings for O(1) lookup efficiency in the heuristic.
+  precludersAfter: ['%', ')', ']', '=', '!', '?', '+', '-', '.']
+
+  # 'keywords' specifies an array of keywords indicating HTTP-related context in log events.
+  #  Used to filter logs likely containing HTTP status codes, reducing false positives.
+  #  Keywords cover HTTP methods, common log fields, and format-specific terms from sources like Apache, Nginx, HAProxy, Squid, IIS, Spring Boot.
+  keywords:
+    - HTTP/             # Indicates HTTP protocol version in request lines (e.g., "GET / HTTP/1.1").
+    - GET               # HTTP method for retrieving resources.
+    - POST              # HTTP method for submitting data.
+    - PUT               # HTTP method for updating resources.
+    - DELETE            # HTTP method for deleting resources.
+    - HEAD              # HTTP method for retrieving headers only.
+    - OPTIONS           # HTTP method for describing communication options.
+    - TRACE             # HTTP method for diagnostic purposes.
+    - PATCH             # HTTP method for partial updates.
+    - request           # Common in log fields referring to HTTP requests (e.g., "requestMethod").
+    - Request           # Title case variant for HTTP requests
+    - response          # Common in log fields referring to HTTP responses (e.g., "responseSize").
+    - Response          # Title case variant for HTTP responses
+    - status            # Common key for HTTP status codes (e.g., "status":200).
+    - Status            # Title case variant for HTTP status
+    - code              # Shorthand for status code (e.g., "code":404).
+    - Code              # Title case variant for status code
+    - upstream_status   # Nginx-specific for backend status codes.
+    - Upstream_status   # Title case variant for Nginx backend status
+    - Upstream_Status   # Title case variant for Nginx backend status
+    - http_status       # JSON key for HTTP status (e.g., "http_status":500).
+    - Http_status       # Title case variant for JSON key for HTTP status
+    - Http_Status       # Title case variant for JSON key for HTTP status
+    - status_code       # Alternative key for status codes (e.g., "status_code":429).
+    - statusCode        # Camel case variant for status codes (e.g., "statusCode":200)
+    - Completed         # Spring Boot DispatcherServlet log indicator (e.g., "Completed 200 OK").
+    - access            # Indicates access logs (e.g., Apache access log).
+    - Access            # Title case variant for access logs
+    - error             # Indicates error logs containing HTTP errors.
+    - Error             # Title case variant for error logs
+    - method            # Refers to HTTP request method (e.g., "method":"GET").
+    - Method            # Title case variant for HTTP method
+    - path              # Refers to request path or URI (e.g., "path":"/api").
+    - Path              # Title case variant for request path
+    - url               # Refers to request URL (e.g., "url":"http://example.com").
+    - Url               # Title case variant for request URL
+    - URL               # Title case variant for request URL
+    - referrer          # HTTP referrer header field.
+    - referrer          # Title case variant for referrer header field.
+    - Referer           # Alternative spelling for HTTP referrer
+    - Referer           # Title case variant for alternative spelling
+    - user-agent        # HTTP user-agent header field.
+    - User-agent        # Title case variant for user-agent
+    - User-Agent        # Title case variant for user-agent
+    - latency           # Common in logs for request/response time (e.g., HAProxy, ELB).
+    - Latency           # Title case variant for latency
+    - frontend          # HAProxy term for incoming connections.
+    - Frontend          # Title case variant for HAProxy frontend
+    - backend           # HAProxy term for upstream servers.
+    - Backend           # Title case variant for HAProxy backend
+    - TCP_MISS          # Squid hierarchy code prefix (e.g., "TCP_MISS/200").
+    - W3SVC             # IIS log prefix (e.g., "W3SVC1").
+    - DispatcherServlet # Spring Boot servlet class for HTTP handling.
+
+  # 'strictKeywords' is a short, high-signal subset of keywords used as a
+  #  structural guard during template initialization. After a candidate HTTP
+  #  status variable token is found in the template via 'validValues', the
+  #  initializer requires at least one of these strict markers to appear
+  #  within a small token window (±5) around the candidate before the
+  #  httpToken position is bound.
+  #
+  #  Without this check, any numeric variable that happens to hold a value
+  #  in 100..599 on the first observed event gets wrongly bound as the HTTP
+  #  code position, e.g. a kafka config limit `max.request.size = 200`, a
+  #  JVM `-Dclk.tck=100`, or any framework metric that emits counts in the
+  #  low hundreds. Subsequent events at the same variable position then
+  #  carry arbitrary non-HTTP values (1, 2, 2000, ...) that get emitted as
+  #  http_code garbage.
+  #
+  #  Entries here should be ONLY tokens that unambiguously mark an HTTP
+  #  exchange. The loose list in 'keywords' above (which includes terms
+  #  like `error`, `path`, `url`) is too broad for adjacency gating.
+  strictKeywords:
+    - HTTP/             # HTTP protocol version marker in request lines (e.g., "HTTP/1.1 200 OK").
+    - status            # JSON/KV key for HTTP status (e.g., "status":200, status=500).
+    - Status            # Title case variant.
+    - statusCode        # CamelCase variant of status code key.
+    - status_code       # Snake case variant.
+    - http_status       # HTTP-prefixed status key.
+    - Http_Status       # Title case variant.
+    - Http_status       # Mixed case variant.
+    - upstream_status   # Nginx backend status key.
+    - Upstream_Status   # Title case variant.
+    - code              # JSON/KV key for response code (e.g., "code":404).
+    - Code              # Title case variant (also catches `statusCode`-style splits).
+    - Completed         # Spring Boot DispatcherServlet log phrase (e.g., "Completed 200 OK").
+    - DispatcherServlet # Spring Boot servlet class that always emits a status next.
+    - TCP_MISS          # Squid hierarchy code prefix (always followed by "/<code>").
+    - response          # HTTP response marker.
+    - Response          # Title case variant.
+    - GET               # HTTP method verbs, always appear in request-log entries with codes.
+    - POST
+    - PUT
+    - DELETE
+    - PATCH
+    - HEAD
+    - OPTIONS
+    - TRACE
+
+  # 'validValues' specifies an array of all standard HTTP status codes as defined by the IANA HTTP Status Code Registry and relevant RFCs (e.g., RFC 9110, RFC 6585, RFC 7231-7235, RFC 7538, RFC 7725, RFC 8297, RFC 9111).
+  #  Used to validate potential HTTP status codes in log events, ensuring only recognized codes are extracted.
+  #  Each entry includes the numeric code followed by a comment describing its meaning and purpose.
+  validValues:
+    - '200' # OK: Standard response for successful HTTP requests.
+    - '304' # Not Modified: Resource has not been modified since last requested.
+    - '404' # Not Found: Server cannot find the requested resource.
+    - '301' # Moved Permanently: Resource has been moved permanently to a new URI.
+    - '302' # Found: Resource temporarily located at a different URI.
+    - '403' # Forbidden: Client does not have access rights to the content.
+    - '400' # Bad Request: Server cannot process due to client error.
+    - '500' # Internal Server Error: Generic server error.
+    - '206' # Partial Content: Server is delivering only part of the resource due to a range header.
+    - '503' # Service Unavailable: Server temporarily unable to handle request.
+    - '401' # Unauthorized: Authentication required and has failed or not provided.
+    - '204' # No Content: Server processed request but no content is returned.
+    - '502' # Bad Gateway: Server received an invalid response from upstream.
+    - '201' # Created: Request has been fulfilled, resulting in new resource creation.
+    - '429' # Too Many Requests: Client has sent too many requests in a given time.
+    - '308' # Permanent Redirect: Resource permanently at another URI, method unchanged.
+    - '307' # Temporary Redirect: Resource temporarily at another URI, method unchanged.
+    - '303' # See Other: Response can be found under a different URI using GET.
+    - '405' # Method Not Allowed: Request method is not supported for the resource.
+    - '406' # Not Acceptable: Server cannot produce a response matching client’s Accept headers.
+    - '408' # Request Timeout: Server timed out waiting for the request.
+    - '409' # Conflict: Request conflicts with current state of the resource.
+    - '410' # Gone: Resource is permanently unavailable.
+    - '413' # Content Too Large: Request entity is larger than server limits.
+    - '414' # URI Too Long: Request-URI is longer than the server can handle.
+    - '415' # Unsupported Media Type: Media format of the requested data is not supported.
+    - '416' # Range Not Satisfiable: Requested range cannot be fulfilled.
+    - '422' # Unprocessable Content: Request is well-formed but semantically incorrect.
+    - '504' # Gateway Timeout: Server, as gateway, did not get timely upstream response.
+    - '505' # HTTP Version Not Supported: Server does not support the HTTP version.
+    - '100' # Continue: Client should continue with request.
+    - '101' # Switching Protocols: Server is switching protocols as requested.
+    - '202' # Accepted: Request accepted for processing, but processing is not complete.
+    - '203' # Non-Authoritative Information: Server is a transforming proxy with non-authoritative metadata.
+    - '205' # Reset Content: Client should reset the document view.
+    - '300' # Multiple Choices: Indicates multiple options for the resource.
+    - '411' # Length Required: Content-Length header is required but not provided.
+    - '412' # Precondition Failed: Server does not meet one of the preconditions.
+    - '417' # Expectation Failed: Server cannot meet Expect header requirements.
+    - '421' # Misdirected Request: Request sent to server unable to produce a response.
+    - '423' # Locked: Resource is locked (WebDAV).
+    - '424' # Failed Dependency: Request failed due to failure of a previous request.
+    - '425' # Too Early: Server unwilling to risk processing a request that might be replayed.
+    - '426' # Upgrade Required: Client should switch to a different protocol.
+    - '428' # Precondition Required: Server requires conditional request headers.
+    - '431' # Request Header Fields Too Large: Headers exceed server limits.
+    - '451' # Unavailable For Legal Reasons: Resource access blocked for legal reasons.
+    - '501' # Not Implemented: Server does not support the requested functionality.
+    - '506' # Variant Also Negotiates: Server configuration error in content negotiation.
+    - '507' # Insufficient Storage: Server cannot store the representation (WebDAV).
+    - '508' # Loop Detected: Server detected an infinite loop in request processing.
+    - '510' # Not Extended: Further extensions required for request fulfillment.
+    - '511' # Network Authentication Required: Client needs to authenticate for network access.
+    - '102' # Processing: Server has received and is processing the request.
+    - '103' # Early Hints: Used to return some response headers before final HTTP message.
+    - '207' # Multi-Status: Conveys information about multiple resources in WebDAV.
+    - '208' # Already Reported: Used inside a DAV binding to avoid enumerating bindings repeatedly.
+    - '226' # IM Used: Server has fulfilled a request for the resource using instance-manipulations.
+    - '305' # Use Proxy: Resource is available only through a proxy.
+    - '306' # (Unused): Previously used for Switch Proxy, now reserved.
+    - '402' # Payment Required: Reserved for future use, e.g., digital payments.
+    - '407' # Proxy Authentication Required: Client must authenticate with proxy.
+    - '418' # (Unused): Previously “I’m a teapot” (RFC 2324, joke).

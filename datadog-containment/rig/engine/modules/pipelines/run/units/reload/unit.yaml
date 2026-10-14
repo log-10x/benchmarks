@@ -1,0 +1,46 @@
+#
+# 🔟❎ monitor config files unit
+ 
+unit:
+
+  name: configLoader
+
+  title: Config reloader
+
+  description: monitor changes to configuration and symbol files
+    
+  doc: +include $=TenXEnv.get("docGenerate") ? "run/units/reload/doc.md":""
+ 
+  # 'configFolder' specifies a folder containing default configuration files for the settings defined by this unit/module
+  configFolder: run/reload
+   
+  # 'allowMultiple' is disabled for this unit. Pipeline command line arguments and configuration files
+  #  can specify a single value at max for each option defined below.
+  allowMultiple: false
+ 
+  # 'options' defines a group of named/typed configuration values to pass to a unit/module at startup
+  #  via command line arguments (e.g., '> tenx -myA X -myB Y') or YAML launch files (e.g., '> tenx @my.config').
+  #  Instances of this group passed are accessible at runtime via TenXEnv.get: https://doc.log10x.com/api/js/#TenXEnv.get
+  options:
+
+    - names:
+      - reloadPollInterval
+      description: interval for checking changes to config/resource files
+      type: string
+      required: false
+      doc: |
+         defines the interval (e.g., '10s') for checking modifications to files on disk.
+         If set to null or empty value, changes to config and resource files are not polled.
+      defValue: null
+
+    - names:
+      - reloadRestartPipeline
+      description: restart pipeline when config files are changed on disk
+      type: boolean
+      required: false
+      doc: |
+        controls whether to watch for modifications to [configuration files](https://doc.log10x.com/config/).
+        Modifications will initiate a pipeline graceful restart. This setting can operate in conjunction with
+        [GitHub config sync](https://doc.log10x.com/config/github/) to allow pipelines to reload/restart from a centralized
+        configuration repository at run time.
+      defValue: true

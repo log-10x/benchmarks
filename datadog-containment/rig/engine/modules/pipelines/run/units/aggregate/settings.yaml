@@ -1,0 +1,40 @@
+#
+# 🔟❎ 'run' aggregator settings
+
+# The 'aggregate' pipeline unit groups TenXObjects based on a specified set of fields to
+# output as metrics to a time series database (e.g., Prometheus).
+
+# ---------------------------- Structure Settings  ----------------------------
+
+# 'templates' provides options for creating a schema for TenXSummary instances.
+#  All summary instances produced by a target aggregator share an TenXTemplate.
+template: +include units/transform/fields/settings.yaml
+
+# 'structure' specifies how to structure TenXSummary instances produced by this aggregator.
+#  As summary instances are themselves TenXObjects, they undergo the same structuring process
+#  as those objects read from an input stream (e.g., log events).
+#  As such, they support the same set of intrinsic 10x fields and functions
+#  that allows for enrichment and encoding to target destinations (e.g., Elastic, Prometheus).
+
+#  To learn more see https://doc.log10x.com/run/transform/script/summary
+
+structure:
+  tokens: +include units/transform/structure/settings.yaml
+  timestamps: +include units/transform/timestamp/settings.yaml
+
+# ----------------------------- Script Settings  ------------------------------
+
+# 'summaryActions' lists 10x script actions to be execute on
+#  TenXSummary instances. These actions can be passed directly to the 10x Engine via command line arguments,
+#  or, more commonly passing a 10x .js script it to the 10x run-time (e.g. '> tenx run @my.js').
+summaryActions:
+  - $?summaryActions
+
+# 'aggregators' defines aggregator objects that group and summarize TenXObjects based on a specified set of fields.
+#  To learn more about aggregators, see: https://doc.log10x.com/run/aggregate
+aggregators:
+  - $?aggregators
+
+# 'summaryFunctions define 10x custom JavaScript functions.
+summaryFunctions:
+- $?functionActions

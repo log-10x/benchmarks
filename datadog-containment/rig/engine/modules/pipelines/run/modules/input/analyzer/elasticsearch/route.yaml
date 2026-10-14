@@ -1,0 +1,109 @@
+# 🔟❎ 'run' Elastic input module Apache Camel route
+
+# This Apache Camel Yaml DSL route utilizes an instance of the 'elastic'
+# module to periodically invoke a target ElasticSearch endpoint to
+# retrieve the last 'elasticSearchQuerySize' log messages to transform to TenXObjects.
+
+# The query passed to the elastic backend is specified using the 'elasticQuery' argument.
+
+- route:
+    from:
+      # periodically invoke the elastic REST API using a synch timer
+      uri: timer
+      parameters:
+        timerName: $elasticSearchName
+        delay: 0
+        period: $?elasticSearchQueryInterval=5s
+        repeatCount: 0
+        synchronous: true
+
+      steps:
+
+        # load basic REST headers
+        - setHeader:
+            name: httpMethod
+            constant: GET
+        
+        - setHeader:
+            name: Content-Type
+            constant: application/json
+        
+        # authenticate via token, using both 'apiToken', 'token' and 'Authorization' headers depending on vendor
+        
+        # logz.io auth
+        - setHeader:
+            name: X-API-TOKEN
+            simple: $elasticSearchToken
+        
+        # elastic auth
+        - setHeader:
+            name: Authorization
+            simple: ${bean:tenx.eval(formatElasticAuthHeader())}
+        
+        # elasticSearch auth 
+        - setHeader:
+            name: apiToken
+            simple: $elasticSearchToken
+        
+        # set search query as REST body. If no 'elasticSearchQuery' argument is present, the default query will retrieve
+        # the last 'elasticSearchQuerySize' documents sorted by @timestamp
+        - setProperty:
+            name: elasticRequest
+            simple: $?elasticSearchQuery=+include query.txt
+       
+        # set the 'elasticRequest' prop into the 'currElasticRequest' input field
+        - to:
+            uri: bean:tenx
+            parameters:
+              method: set(currElasticRequest, ${exchangeProperty.elasticRequest})
+        
+        - choice:
+            when:
+              - simple: ${bean:tenx.truthy(shouldInvokeElasticQuery())}
+                steps:
+                  # set the 'elasticRequest' prop into the input field 'prevElasticRequest'
+                  - to:
+                      uri: bean:tenx
+                      parameters:
+                        method: set(prevElasticRequest, ${exchangeProperty.elasticRequest})
+                  
+                  # set the request body
+                  - setBody:
+                      simple: ${bean:tenx.get(currElasticRequest)}
+
+                  # log the request
+                  - to:
+                      uri: log:elasticsearchRoute?level=TRACE&showBody=true&showHeaders=true
+
+                  # submit request, format the destination rest endpoint using the 'elasticSearchHost', 'elasticSearchPort', 'elasticSearchTargets' startup args
+                  - toD:
+                      uri: netty-http:${bean:tenx.eval(formatElasticURL())}?chunkedMaxContentLength=5000000
+
+                  # log the response
+                  - to:
+                      uri: log:elasticsearchRoute?level=TRACE&showBody=true&showHeaders=true
+
+
+                  # check if elasticsearch response has empty hits by inspecting raw response for speed
+                  - choice:
+                      when:
+                        - simple: "${bodyAs(String)} contains '\"hits\":[]' && ${bodyAs(String)} contains '\"hits\":{'"
+                        
+                          steps:
+
+                             - to:
+                                uri: bean:tenx
+                                parameters:
+                                  method: close()
+
+                      otherwise:
+                        steps:
+
+                          - setHeader:
+                              name: stream
+                              simple: ${bean:tenx.stream}
+                          
+                          # connect the route output to the 10x tokenizer using an output stream
+                          - to:
+                              uri: stream:header
+                              
