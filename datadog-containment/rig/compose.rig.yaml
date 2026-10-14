@@ -1,20 +1,31 @@
 # Rig overlay for the OpenTelemetry demo 3.1.0.
 # Usage (from the demo clone, with DEMO_VERSION=3.1.0 in the shell environment):
-#   docker compose -f compose.yaml -f compose.full.yaml -f <rig>/compose.rig.yaml ...
+#   docker compose -f compose.yaml -f compose.full.yaml -f <rig>/compose.rig.yaml \
+#     -f <values dir>/compose.receiver.yaml ...
+# The Receiver service (tenx) comes from compose.receiver.yaml, which
+# gen-receiver-values.mjs writes from the values log10x-mcp renders.
 #
-# Every demo container logs through the Docker fluentd driver to Fluent Bit (host port
-# 24224). Fluent Bit keeps a raw copy, hands each record to the log10x Receiver over the
+# Every demo container logs through the Docker fluentd driver to Fluent Bit at a fixed
+# address on the demo's private network (no published port; this Mac runs a host td-agent
+# on IPv4 *:24224). Fluent Bit keeps a raw copy, hands each record to the Receiver over the
 # Fluent Forward protocol, takes the processed record back and splits it by routeState.
 
 x-rig-logging: &riglog
   driver: fluentd
   options:
-    fluentd-address: "localhost:24224"
+    fluentd-address: "172.28.0.250:24224"
     tag: "app.{{.Name}}"
     fluentd-async: "true"
+    fluentd-sub-second-precision: "true"
     mode: non-blocking
     max-buffer-size: 8m
     cache-disabled: "true"
+
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
 
 services:
 
@@ -22,8 +33,9 @@ services:
     image: fluent/fluent-bit:4.2
     container_name: rig-fluent-bit
     command: ["/fluent-bit/bin/fluent-bit", "-c", "/fluent-bit/etc/rig/fluent-bit.conf"]
-    ports:
-      - "24224:24224"
+    networks:
+      default:
+        ipv4_address: 172.28.0.250
     volumes:
       - ${RIG_DIR}/fluent-bit:/fluent-bit/etc/rig:ro
       - ${RIG_DATA}:/data
@@ -31,48 +43,6 @@ services:
       resources:
         limits:
           memory: 300M
-    restart: unless-stopped
-
-  tenx:
-    image: log10x/edge-10x:1.1.140
-    container_name: rig-tenx
-    environment:
-      - TENX_MODULES=/opt/tenx-rig/modules
-      - TENX_AIRGAPPED=true
-      - outputOffload=true
-      - TENX_FLUENTBIT_OUTPUT_HOST=fluent-bit
-    volumes:
-      - ${RIG_DIR}/engine/config:/etc/tenx/config:ro
-      - ${RIG_DIR}/engine/modules:/opt/tenx-rig/modules:ro
-      - ${RIG_DIR}/lookups:/etc/tenx/lookups:ro
-    command:
-      - "@run/input/forwarder/fluentbit"
-      - "@apps/receiver"
-      - "@run/output/metric/log"
-      - rateReceiverCapLookupFile
-      - /etc/tenx/lookups/caps.csv
-      - rateReceiverAbsoluteCap
-      - "${RIG_CAP:-0}"
-      - rateReceiverMinSharePercent
-      - "0"
-      - rateReceiverWarmupMs
-      - "0"
-      - rateReceiverBaselineCount
-      - "5"
-      - rateReceiverMinRetentionThreshold
-      - "0"
-      - rateReceiverDefaultAction
-      - offload
-      - rateReceiverContainerField
-      - container_name
-      - symbolMessageHashField
-      - tenx_hash
-      - outputEncodeField
-      - 'fullText("tenx_hash","routeState","message_pattern","severity_level")'
-    deploy:
-      resources:
-        limits:
-          memory: 1200M
     restart: unless-stopped
 
   # Demo containers: route stdout/stderr through the Docker fluentd driver.

@@ -1,25 +1,11 @@
-{"event": "receiver_ready", "at": "2026-10-14T12:50:40Z", "epoch": 1791982240, "cap": 0}
-{"event": "demo_up", "at": "2026-10-14T12:52:01Z", "epoch": 1791982322}
-{"event": "demo_healthy", "at": "2026-10-14T12:52:49Z", "epoch": 1791982369}
-{"event": "quiet_start", "at": "2026-10-14T12:54:22Z", "epoch": 1791982462}
-{"event": "disk_stop", "at": "2026-10-14T13:16:29Z", "epoch": 1791983789, "free_mb": 4400}
-{"event": "scheduler_stop", "at": "2026-10-14T13:16:34Z", "epoch": 1791983794}
-{"event": "run_end", "at": "2026-10-14T13:16:39Z", "epoch": 1791983799}
-{"event": "demo_down", "at": "2026-10-14T13:17:27Z", "epoch": 1791983847}
-{"event": "quiet_end", "at": "2026-10-14T13:16:29Z", "epoch": 1791983789, "note": "set to the disk_stop time; the waiter wrote 13:18:22 after the demo was down"}
-{"event":"restart","at":"2026-10-14T13:19:40Z","epoch":1791983980,"cap":246736}
-{"event":"receiver_ready","at":"2026-10-14T13:19:48Z","epoch":1791983988,"cap":246736}
-{"event":"restart_chain_stopped","at":"2026-10-14T13:23:11Z","epoch":1791984191,"reason":"kafka unhealthy at compose up; six containers left Created"}
-{"event":"demo_healthy","at":"2026-10-14T13:26:43Z","epoch":1791984403}
-{"event":"scheduler_start","at":"2026-10-14T13:29:55Z","epoch":1791984595,"seed":20261014,"interval_s":900,"min_hold_s":240,"max_hold_s":480}
-{"event":"disk_stop","at":"2026-10-14T13:35:09Z","epoch":1791984909,"free_mb":3478}
-{"event":"scheduler_stop","at":"2026-10-14T13:35:58Z","epoch":1791984958}
-{"event":"run_end","at":"2026-10-14T13:36:49Z","epoch":1791985009}
-{"event":"demo_down","at":"2026-10-14T13:40:06Z","epoch":1791985206}
-{"event":"receiver_ready","at":"2026-10-14T13:53:18Z","epoch":1791985998,"cap":48862}
-{"event":"demo_up","at":"2026-10-14T13:59:27Z","epoch":1791986367}
-{"event":"demo_healthy","at":"2026-10-14T14:01:54Z","epoch":1791986514}
-{"event":"scheduler_start","at":"2026-10-14T14:07:14Z","epoch":1791986834,"seed":20261014,"interval_s":600,"min_hold_s":240,"max_hold_s":480}
-{"event":"scheduler_stop","at":"2026-10-14T17:35:33Z","epoch":1791999333}
-{"event":"run_end","at":"2026-10-14T17:35:42Z","epoch":1791999342}
-{"event":"demo_down","at":"2026-10-14T17:36:46Z","epoch":1791999406}
+{"event":"receiver_ready","at":"2026-10-14T20:35:53Z","epoch":1792010153,"cap":0,"values":"/Users/talweiss/git/l1x-co/benchmarks/datadog-containment/results/values-quiet"}
+{"event":"demo_up","at":"2026-10-14T20:46:45Z","epoch":1792010805}
+{"event":"demo_healthy","at":"2026-10-14T20:47:17Z","epoch":1792010837}
+{"event":"quiet_start","at":"2026-10-14T20:49:17Z","epoch":1792010957}
+{"event":"quiet_end","at":"2026-10-14T21:11:20Z","epoch":1792012280}
+{"event":"receiver_ready","at":"2026-10-14T21:11:55Z","epoch":1792012315,"cap":10288,"values":"/Users/talweiss/git/l1x-co/benchmarks/datadog-containment/rig/../results/values-fleet"}
+{"event":"scheduler_start","at":"2026-10-14T21:12:28Z","epoch":1792012348,"seed":20261014,"interval_s":600,"min_hold_s":240,"max_hold_s":480,"planned_end":1792016848}
+{"event":"planned_end","at":"2026-10-14T22:27:37Z","epoch":1792016857}
+{"event":"scheduler_stop","at":"2026-10-14T22:27:40Z","epoch":1792016860}
+{"event":"run_end","at":"2026-10-14T22:27:44Z","epoch":1792016864}
+{"event":"demo_down","at":"2026-10-14T22:29:45Z","epoch":1792016985}

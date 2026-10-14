@@ -1,0 +1,94 @@
+quiet capture 9054 lines
+mcp 1.30.54 envelope keys [
+  'schema_version', 'schema_epoch',
+  'tool',           'generated_at',
+  'view',           'summary',
+  'data',           'actions',
+  'render_hint',    'truncated',
+  'next_cursor',    'warnings'
+]
+fleet_default {
+ "computed": true,
+ "action": "offload",
+ "error_floor": 0.5,
+ "headroom": 2,
+ "cap_bytes_per_window_per_node": 10288,
+ "baseline_bytes_per_window_per_node": 5144.102952308857,
+ "baseline_statement": "error_Error_scraping_metrics",
+ "baseline_container": "otel-collector",
+ "limit_lines_per_day": 2877.762237762238,
+ "nodes_for_lines": 1,
+ "containers_with_known_nodes": 0,
+ "sentence": "Any service not listed: a statement above 2,878 lines a day goes to the offload bucket. Up to 1,800 lines a day of every statement always reach Standard on each node."
+}
+{
+ "mcpVersion": "1.30.54",
+ "image": "log10x/edge-10x:1.1.141@sha256:45157d0bdf506615aa015db7b8b7251ae39be5f4330233d2d2d659c69d1f93d1",
+ "args": [
+  "@run/input/forwarder/fluentbit",
+  "@apps/receiver",
+  "symbolMessageHashField",
+  "tenx_hash",
+  "rateReceiverAbsoluteCap",
+  "10288",
+  "rateReceiverDefaultAction",
+  "offload",
+  "rateReceiverMinSharePercent",
+  "0",
+  "rateReceiverWarmupMs",
+  "0",
+  "rateReceiverBaselineCount",
+  "5",
+  "rateReceiverMinRetentionThreshold",
+  "0",
+  "rateReceiverSeverityFloors",
+  "TRACE=0",
+  "rateReceiverSeverityFloors",
+  "DEBUG=0",
+  "rateReceiverSeverityFloors",
+  "INFO=0",
+  "rateReceiverSeverityFloors",
+  "WARN=0",
+  "rateReceiverSeverityFloors",
+  "ERROR=0.5",
+  "rateReceiverSeverityFloors",
+  "CRITICAL=0.5",
+  "rateReceiverSeverityFloors",
+  "FATAL=0.5"
+ ],
+ "applied": [
+  {
+   "name": "TENX_AIRGAPPED",
+   "value": "true"
+  },
+  {
+   "name": "outputOffload",
+   "value": "true"
+  }
+ ],
+ "substituted": [
+  {
+   "name": "CAP_LOOKUP_FILE",
+   "value": "/tmp/tenx/kubernetes/$(K8S_NAMESPACE)/log10x-action-intent/caps.csv",
+   "rig_value": "/etc/tenx/lookups/caps.csv"
+  },
+  {
+   "name": "ACTION_LOOKUP_FILE",
+   "value": "/tmp/tenx/kubernetes/$(K8S_NAMESPACE)/log10x-action-intent/actions.csv",
+   "rig_value": "/etc/tenx/lookups/actions.csv"
+  }
+ ],
+ "left": [
+  "K8S_NAMESPACE",
+  "K8S_ENABLED",
+  "K8S_CONFIGMAP",
+  "CONFIG_GENERATION_FILE"
+ ],
+ "policySource": "the POC's log10x-caps.csv and log10x-actions.csv",
+ "cpu": "0.5",
+ "mem": "512M"
+}
+ Container rig-tenx  Recreate
+ Container rig-tenx  Recreated
+ Container rig-tenx  Starting
+ Container rig-tenx  Started

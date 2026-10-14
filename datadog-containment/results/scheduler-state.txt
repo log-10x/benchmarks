@@ -18,87 +18,71 @@
   },
   history: [
     %{
-      flag: "kafkaQueueProblems",
-      started_at: ~U[2026-10-14 17:30:11.277031Z],
-      until: -576447369152,
-      duration_ms: 412663,
+      flag: "recommendationCacheFailure",
+      started_at: ~U[2026-10-14 22:23:20.869809Z],
+      until: -576453979405,
+      duration_ms: 345214,
       resting_variant: "off",
       variant: "on"
     },
     %{
-      flag: "kafkaQueueProblems",
-      started_at: ~U[2026-10-14 17:20:33.002966Z],
-      until: -576448055178,
-      duration_ms: 304929,
+      flag: "loadGeneratorFloodHomepage",
+      started_at: ~U[2026-10-14 22:13:23.041159Z],
+      until: -576454593821,
+      duration_ms: 328644,
       resting_variant: "off",
       variant: "on"
+    },
+    %{
+      flag: "recommendationCacheFailure",
+      started_at: ~U[2026-10-14 22:05:18.207767Z],
+      until: -576454988432,
+      duration_ms: 418882,
+      resting_variant: "off",
+      variant: "on"
+    },
+    %{
+      flag: "emailMemoryLeak",
+      started_at: ~U[2026-10-14 21:52:47.600839Z],
+      until: -576455747948,
+      duration_ms: 409995,
+      resting_variant: "off",
+      variant: "1000x"
+    },
+    %{
+      flag: "emailMemoryLeak",
+      started_at: ~U[2026-10-14 21:44:28.559340Z],
+      until: -576456185420,
+      duration_ms: 471579,
+      resting_variant: "off",
+      variant: "1000x"
     },
     %{
       flag: "paymentFailure",
-      started_at: ~U[2026-10-14 17:07:23.584301Z],
-      until: -576448904402,
-      duration_ms: 245147,
+      started_at: ~U[2026-10-14 21:35:54.764613Z],
+      until: -576456869476,
+      duration_ms: 301235,
       resting_variant: "off",
       variant: "100%"
     },
     %{
-      flag: "emailMemoryLeak",
-      started_at: ~U[2026-10-14 16:59:27.395732Z],
-      until: -576449238842,
-      duration_ms: 386912,
-      resting_variant: "off",
-      variant: "1000x"
-    },
-    %{
-      flag: "loadGeneratorFloodHomepage",
-      started_at: ~U[2026-10-14 16:48:59.050646Z],
-      until: -576449981999,
-      duration_ms: 272126,
+      flag: "kafkaQueueProblems",
+      started_at: ~U[2026-10-14 21:23:56.617834Z],
+      until: -576457430293,
+      duration_ms: 458680,
       resting_variant: "off",
       variant: "on"
-    },
-    %{
-      flag: "emailMemoryLeak",
-      started_at: ~U[2026-10-14 16:38:42.605723Z],
-      until: -576450567102,
-      duration_ms: 303483,
-      resting_variant: "off",
-      variant: "1000x"
     },
     %{
       flag: "cartFailure",
-      started_at: ~U[2026-10-14 16:29:38.989858Z],
-      until: -576451039881,
-      duration_ms: 374335,
+      started_at: ~U[2026-10-14 21:13:32.353627Z],
+      until: -576458098074,
+      duration_ms: 415185,
       resting_variant: "off",
       variant: "100%"
-    },
-    %{
-      flag: "recommendationCacheFailure",
-      started_at: ~U[2026-10-14 16:19:36.924930Z],
-      until: -576451648231,
-      duration_ms: 368062,
-      resting_variant: "off",
-      variant: "on"
-    },
-    %{
-      flag: "loadGeneratorFloodHomepage",
-      started_at: ~U[2026-10-14 16:07:59.452002Z],
-      until: -576452396950,
-      duration_ms: 316835,
-      resting_variant: "off",
-      variant: "on"
-    },
-    %{
-      flag: "recommendationCacheFailure",
-      started_at: ~U[2026-10-14 15:57:54.840582Z],
-      until: -576452864798,
-      duration_ms: 453615,
-      resting_variant: "off",
-      variant: "on"
     }
   ],
-  interval_count: 21,
+  interval_count: 8,
   next_up: [],
   seed_used: 20261014,
   next_trigger_at: nil

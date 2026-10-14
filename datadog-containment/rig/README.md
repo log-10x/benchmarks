@@ -1,90 +1,207 @@
 # Containment demo rig
 
 OpenTelemetry demo 3.1.0 under docker compose, every container's stdout routed through
-Fluent Bit to the log10x Receiver (engine image `log10x/edge-10x:1.1.140`) with a
-fleet-default per-pattern byte cap, and the flagd-ui scheduler firing feature flags on
-its own. Fluent Bit keeps three local files: what arrived (`raw.jsonl`), what the Receiver
-returned as `pass` (`pass.jsonl`) and as `offload` (`offload.jsonl`). Nothing leaves the
-machine.
+Fluent Bit to the log10x Receiver, released image `log10x/edge-10x:1.1.141`
+(`sha256:45157d0bdf506615aa015db7b8b7251ae39be5f4330233d2d2d659c69d1f93d1`) with its own
+config and modules, launched with the values log10x-mcp 1.30.54 renders for a Datadog
+Fluent Bit Receiver with a fleet default. The flagd-ui scheduler fires the demo's feature
+flags on its own. Fluent Bit keeps what arrived (`raw.jsonl`) and what the Receiver returned,
+one file per `routeState` (`pass.jsonl`, `offload.jsonl`, `tier_down.jsonl`, `other.jsonl`).
+Nothing leaves the machine.
+
+## Versions
+
+| Part | Version |
+|---|---|
+| Receiver | `log10x/edge-10x:1.1.141@sha256:45157d0bdf506615aa015db7b8b7251ae39be5f4330233d2d2d659c69d1f93d1`, no mounted or patched trees |
+| Plan and values | log10x-mcp 1.30.54 from npm (tarball sha256 `98e9078059a18308d607eca3d22bd4337a7a023d2899f89530cac94a238bb5aa`) |
+| Demo | opentelemetry-demo tag 3.1.0 (`dedc0178`), `compose.yaml` + `compose.full.yaml` |
+| Forwarder | `fluent/fluent-bit:4.2` |
+| Scheduler | flagd-ui 3.1.0, seed 20261014, interval 600 s, hold 240 to 480 s, one flag at a time |
 
 ## Layout
 
 | Path | What it is |
 |---|---|
-| `compose.rig.yaml` | Overlay for the demo's `compose.yaml` + `compose.full.yaml`: Fluent Bit and Receiver services, Docker `fluentd` log driver on every demo container, `RIG_CAP` into `rateReceiverAbsoluteCap`. |
-| `fluent-bit/fluent-bit.conf` | Ingest from the log driver, raw copy, hand-off to the Receiver over Fluent Forward, return path split by `routeState`. |
-| `engine/config`, `engine/modules` | Copies of the config and modules repos at the commits in `engine/SOURCES.txt`, with `engine/PATCHES.diff` applied. |
-| `lookups/caps.csv` | Header-only cap file; it loads the cap class so the fleet-wide `rateReceiverAbsoluteCap` applies. |
-| `scheduler.sh` | Starts, stops and reads the flagd-ui scheduler through the release's `rpc` entry point. |
-| `run.sh` | Phase commands: `up`, `wait-healthy`, `quiet-start`, `quiet-end`, `cap <bytes>`, `sched`, `logs`, `down`. |
-| `run-scheduled.sh` | The scheduled run end to end: Receiver with the cap, demo up (re-runs `compose up` once kafka is healthy), settle, seeded scheduler, stop after N completed activations plus one window or at a time limit. |
-| `run-planner.mjs` | Runs the log10x-mcp planner on the quiet capture (fleet default rule, step 2). |
-| `analyze.py` | Builds the fleet-default distribution, per-window counts, per-incident table, false holds and delivery check from the three files. |
-| `report.py` | Renders `results/results-tables.md` from analyze.py's outputs. |
-| `disk-guard.sh` | Free-disk log, raw-file rotation, clean stop under a floor. |
-| `load-generator/Dockerfile` | The demo's load generator without the browser install (see results.md, deviations). |
-| `NOTES.md` | Working log: what each smoke test proved. |
+| `compose.rig.yaml` | Overlay for the demo's compose files: Fluent Bit at 172.28.0.250 on the demo's private network (no published port), the Docker `fluentd` log driver on every demo container. |
+| `fluent-bit/fluent-bit.conf`, `fluent-bit/rig.lua` | Ingest, raw copy, hand-off to the Receiver over Fluent Forward, return path split by `routeState`. The ingest filter puts the container in `kubernetes.container_name` (see "The container field"); the return filter stamps `rb_ts`. |
+| `run-planner.mjs` | log10x-mcp `poc_from_local`, file mode, on the quiet capture, with the fleet default. |
+| `gen-receiver-values.mjs` | Renders the Receiver values through the MCP's own functions and writes `compose.receiver.yaml` from them (see below). |
+| `run.sh` | Phase commands: `up`, `wait-healthy`, `quiet-start`, `quiet-end`, `receiver`, `sched`, `logs`, `down`. |
+| `run-unattended.sh` | The scheduled phase: starts the scheduler, moves the deadline to the planned end, runs `run.sh down` there. |
+| `hard-stop.sh` | Stops the demo once the deadline in `results/deadline` has passed and the run has not ended. |
+| `disk-guard.sh` | Free-disk log every 5 minutes; under `FLOOR_MB` (4,500) confirmed 60 s later, `run.sh down`. |
+| `detach.py` | Starts a process in its own session, so it outlives the shell that launched it. |
+| `go.sh` | The whole run, one command. |
+| `analyze.py`, `report.py` | Every measure in `results/results.md`, then the page itself. |
+| `load-generator/Dockerfile` | The demo's load generator without the browser install. |
+| `NOTES.md` | Working log. |
 
-## Receiver settings
+## The Receiver's values
 
-`@run/input/forwarder/fluentbit @apps/receiver` then, as bare `name value` pairs:
-`rateReceiverCapLookupFile /etc/tenx/lookups/caps.csv`, `rateReceiverAbsoluteCap <cap>`,
-`rateReceiverMinSharePercent 0`, `rateReceiverWarmupMs 0`, `rateReceiverBaselineCount 5`,
-`rateReceiverMinRetentionThreshold 0`, `rateReceiverDefaultAction offload`,
-`rateReceiverContainerField container_name`, `symbolMessageHashField tenx_hash`,
-`outputEncodeField fullText("tenx_hash","routeState","message_pattern","severity_level")`.
-Severity floors are all 0 in the copied `pipelines/run/receive/rate/config.yaml`.
-`outputOffload=true` and `TENX_AIRGAPPED=true` are container environment variables.
+`gen-receiver-values.mjs` calls the two functions `log10x_advise_install` calls for a
+Receiver plan with `log_destination: "datadog"`: `receiverFleetValues` with the POC's
+`fleet_default` (`cap_bytes_per_window_per_node`, `action`, `error_floor`), then the Fluent
+Bit Receiver overlay's `renderValues`. `advise_install` itself needs a cluster snapshot from
+`log10x_discover_env`, which a compose rig has none of. The rendered overlay is kept verbatim
+(`results/values-fleet/values.yaml`), and the Receiver is launched with:
 
-## Fleet default rule
+- the image, and every argument after the app in the order the overlay lists them
+  (`symbolMessageHashField`, `rateReceiverAbsoluteCap`, `rateReceiverDefaultAction`, the
+  share, warm-up, always-pass and retention settings, `rateReceiverSeverityFloors` once per
+  level);
+- every environment variable with a plain value (`TENX_AIRGAPPED`, `outputOffload`);
+- the CPU and memory limits;
+- the policy files: the POC's `log10x-caps.csv` and `log10x-actions.csv` when it writes rows
+  (in a cluster `log10x_configure_engine` puts them in the policy ConfigMap in place of the
+  install seed), otherwise the seed `policy-configmap.yaml` carries.
 
-The fleet default is the largest statement the plan keeps, fleet-wide, times 2, so that a
-statement the plan moves cannot set the cap.
+Substituted, because there is no cluster (the MCP's own
+`scripts/check-fleet-default-floors` does the same): the ConfigMap pull (`K8S_NAMESPACE`,
+`K8S_ENABLED`, `K8S_CONFIGMAP`, `CONFIG_GENERATION_FILE`) is left out, and
+`CAP_LOOKUP_FILE` and `ACTION_LOOKUP_FILE` point at the mounted policy files. Rig plumbing:
+`TENX_FLUENTBIT_OUTPUT_HOST=fluent-bit`, since Fluent Bit is another container, not the same
+pod. Measurement only, after every MCP argument: `outputEncodeField
+fullText("tenx_hash","routeState","message_pattern","severity_level")`; the shipped config
+computes `fullText("tenx_hash","routeState")` from the values, and the rig's list keeps both
+and adds the pattern name and level to the returned record. It does not reach the regulator.
 
-1. Quiet run: the demo with no flag active, every 4-minute window's bytes summed per
-   (container, pattern) (`analyze.py` writes `results/quiet-cells.csv`).
-2. Plan: log10x-mcp `poc_from_local` in file mode on the quiet run's raw capture,
-   `siem datadog`, `forwarder fluent-bit`, `target_percent_reduction 70`
-   (`run-planner.mjs`; the rig ran the published 1.30.49 package with the engine pinned
-   by `LOG10X_TENX_MODE=docker LOG10X_RUNTIME_IMAGE=log10x/edge-10x:1.1.140`).
-   The plan's `planned` patterns are moved; every other pattern is kept.
-3. Cap = 2 x the largest quiet-run cell of any kept (container, pattern).
+The quiet run uses the same generator with no fleet default (`results/values-quiet`): the
+values a Datadog Receiver gets before one, which set no cap, so every record passes.
 
-On this run the plan tiers down four patterns (otel-collector's debug-exporter `Logs`,
-`Traces` and `Metrics` lines and frontend's `API request completed` line), keeps the rest,
-and the largest kept cell is cart's `GetCartAsync called with userId` at 24,431 bytes, so
-the cap is 48,862 bytes (`results/fleet-default-kept.json`). The earlier max-based
-figure, 246,736 bytes, was set by a planned pattern.
+## This run's generated values
+
+POC on the quiet capture (20:49:17 to 21:11:20 UTC, 9,054 lines): `fleet_default` computed
+10,288 bytes per window per node, 2 x 5,144.1
+(otel-collector `error_Error_scraping_metrics`), action `offload`, error floor 0.5. The Receiver
+ran with these arguments after the image (`results/values-fleet/values.yaml` is the rendered
+overlay, `results/values-fleet/launch.json` what was applied):
+
+```text
+@run/input/forwarder/fluentbit
+@apps/receiver
+symbolMessageHashField
+tenx_hash
+rateReceiverAbsoluteCap
+10288
+rateReceiverDefaultAction
+offload
+rateReceiverMinSharePercent
+0
+rateReceiverWarmupMs
+0
+rateReceiverBaselineCount
+5
+rateReceiverMinRetentionThreshold
+0
+rateReceiverSeverityFloors
+TRACE=0
+rateReceiverSeverityFloors
+DEBUG=0
+rateReceiverSeverityFloors
+INFO=0
+rateReceiverSeverityFloors
+WARN=0
+rateReceiverSeverityFloors
+ERROR=0.5
+rateReceiverSeverityFloors
+CRITICAL=0.5
+rateReceiverSeverityFloors
+FATAL=0.5
+```
+
+Environment: `TENX_AIRGAPPED=true`, `outputOffload=true`; `CAP_LOOKUP_FILE` and
+`ACTION_LOOKUP_FILE` on the mounted policy files below; limits 0.5 CPU and
+512M. The POC's policy files, applied as written:
+
+```text
+container,cap
+accounting,1::accounting every statement goes to Flex. Today that is these 60 statements about $0.22 a month.
+ad,1164::ad any statement above 1177 lines a day goes to Flex. Today that is these 6 statements about $0.32 a month.
+cart,1::cart every statement goes to Flex. Today that is these 6 statements about $2.1 a month.
+fraud-detection,1::fraud-detection every statement goes to Flex. Today that is this one statement about $0.22 a month.
+frontend,5551::frontend any statement above 4382 lines a day goes to Flex. Today that is these 7 statements about $3.9 a month.
+kafka,4163::kafka any statement above 4448 lines a day goes to Flex. Today that is these 16 statements about $2.9 a month.
+otel-collector,15726::otel-collector any statement above 1439 lines a day goes to Flex. Today that is these 10 statements about $12 a month.
+payment,2583::payment any statement above 262 lines a day goes to Flex. Today that is these 21 statements about $0.38 a month.
+recommendation,1::recommendation every statement goes to Flex. Today that is these 6 statements about $0.4 a month.
+shipping,765::shipping any statement above 523 lines a day goes to Flex. Today that is these 11 statements about $0.67 a month.
+telemetry-docs,1::telemetry-docs every statement goes to Flex. Today that is this one statement about $0.87 a month.
+```
+
+```text
+container,action
+accounting,tier_down::accounting every statement goes to Flex. Today that is these 60 statements about $0.22 a month.
+ad,tier_down::ad any statement above 1177 lines a day goes to Flex. Today that is these 6 statements about $0.32 a month.
+cart,tier_down::cart every statement goes to Flex. Today that is these 6 statements about $2.1 a month.
+fraud-detection,tier_down::fraud-detection every statement goes to Flex. Today that is this one statement about $0.22 a month.
+frontend,tier_down::frontend any statement above 4382 lines a day goes to Flex. Today that is these 7 statements about $3.9 a month.
+kafka,tier_down::kafka any statement above 4448 lines a day goes to Flex. Today that is these 16 statements about $2.9 a month.
+otel-collector,tier_down::otel-collector any statement above 1439 lines a day goes to Flex. Today that is these 10 statements about $12 a month.
+payment,tier_down::payment any statement above 262 lines a day goes to Flex. Today that is these 21 statements about $0.38 a month.
+recommendation,tier_down::recommendation every statement goes to Flex. Today that is these 6 statements about $0.4 a month.
+shipping,tier_down::shipping any statement above 523 lines a day goes to Flex. Today that is these 11 statements about $0.67 a month.
+telemetry-docs,tier_down::telemetry-docs every statement goes to Flex. Today that is this one statement about $0.87 a month.
+```
+
+The scheduled run: seed 20261014, interval 600 s, hold 240 to 480 s, 75 minutes from the
+scheduler start (21:12:28 to 22:27:44 UTC). `results/results.md` has every measure.
+
+## The container field
+
+The Docker `fluentd` driver puts the container at the top of the record (`container_name`).
+Fluent Bit's ingest filter (`fluent-bit/rig.lua`) moves it into `kubernetes.container_name`
+(with `container_id` as `kubernetes.docker_id`), the way a Kubernetes forwarder ships a
+pod's records. That is the field both sides read:
+
+- the MCP's file mode takes a pattern's service from `kubernetes.container_name` (or
+  Datadog's `service`), and the fleet default needs a kept statement in a named container;
+- the released Receiver keys the cap on `k8sContainerNameField`, which its fluentK8s
+  extractor fills from `kubernetes.container_name`.
+
+Finding: with plain Docker records the MCP attributes nothing (the 1.1.140 run's plan
+reported every pattern `(unattributed)` and wrote header-only policy files), so
+`fleet_default` has no baseline to compute, and the Receiver, given the MCP's values and no
+`rateReceiverContainerField`, keys every container as one: `rate-object-cap.js` uses
+`__node__` when the container field is empty.
+
+## Differences from a cluster install
+
+- The records come from the Docker `fluentd` driver, reshaped as above; a cluster's
+  kubernetes filter adds more keys (pod, namespace, labels) and, with `Merge_Log On`, lifts
+  JSON log fields into the record.
+- The policy files reach the Receiver as mounted files, not through the ConfigMap pull: the
+  values' `K8S_NAMESPACE`, `K8S_ENABLED`, `K8S_CONFIGMAP` and `CONFIG_GENERATION_FILE` are
+  left out, and `CAP_LOOKUP_FILE` and `ACTION_LOOKUP_FILE` name the mounted files instead of
+  `/tmp/tenx/kubernetes/$(K8S_NAMESPACE)/log10x-action-intent/`.
+- The MCP's Fluent Bit overlay excludes `*otel-collector*.log` from collection. The rig
+  forwards the demo's collector, whose debug exporter writes every batch it receives to
+  stdout.
+- One Receiver serves every container, as one node's sidecar would.
 
 ## Reproduce
 
-Prerequisites: Docker Desktop with about 8 GB for the VM and 7 GB of free disk for the
-images; the demo cloned at tag 3.1.0 (`git clone --depth 1 --branch 3.1.0
-https://github.com/open-telemetry/opentelemetry-demo.git`); `log10x/edge-10x:1.1.140`
-and `fluent/fluent-bit:4.2` pulled.
+Prerequisites: Docker Desktop with about 8 GB for the VM; the demo cloned at tag 3.1.0
+(`git clone --depth 1 --branch 3.1.0 https://github.com/open-telemetry/opentelemetry-demo.git`);
+`log10x/edge-10x:1.1.141` and `fluent/fluent-bit:4.2` pulled; the load generator built from
+`load-generator/Dockerfile`; log10x-mcp 1.30.54 unpacked with its dependencies installed.
 
 ```
-export DEMO=/path/to/opentelemetry-demo   # the 3.1.0 clone
-cd rig
-RIG_CAP=0 ./run.sh up && ./run.sh wait-healthy
-./run.sh quiet-start      # 20+ minutes with no flag active
-./run.sh quiet-end
-python3 analyze.py        # writes results/quiet-cells.csv
-# plan on the quiet capture (see "Fleet default rule"), then cap = 2 x largest kept cell
-./run.sh down
-RIG_CAP=48862 SEED=20261014 INTERVAL=600 MIN_HOLD=240 MAX_HOLD=480 ACTIVATIONS=4 MAX_MIN=75 ./run-scheduled.sh
-python3 analyze.py && python3 report.py
+DEMO=/path/to/opentelemetry-demo MCP=/path/to/log10x-mcp-1.30.54 rig/go.sh
 ```
 
-`disk-guard.sh` (optional, run alongside) logs free disk every 5 minutes to
-`results/disk.log`, gzip-rotates `raw.jsonl` past 1 GB, and under `FLOOR_MB` (default
-4500) runs `run.sh down`. Kafka's health window in the demo is short (10 s start period,
-10 retries at 5 s); on a loaded host its JVM can miss it, `compose up` then exits 1 with
-"dependency failed to start" and leaves the Kafka-dependent containers in Created. Once
-`docker inspect kafka` reports healthy, run `up` again; it starts the rest.
+`go.sh` brings the demo up with the quiet values, marks a 22-minute quiet run, runs the POC
+on its raw capture, renders the fleet values, relaunches the Receiver with them, and starts
+the scheduled phase, the disk guard and the hard stop as detached processes; the run stops
+itself 75 minutes after the scheduler starts. Then `python3 rig/analyze.py && python3
+rig/report.py`.
 
-The scheduler is seeded (`SEED`), so the flag sequence repeats for the same seed and the
-same flag selection. Flags scheduled: kafkaQueueProblems (on), cartFailure (100%),
-paymentFailure (100%), recommendationCacheFailure (on), loadGeneratorFloodHomepage (on),
-emailMemoryLeak (1000x). aiRunawayAgent needs the agent stack (`compose.agent.yaml`), which
-this rig does not run.
+Kafka's health window in the demo is short (10 s start period, 10 retries at 5 s); on a
+loaded host its JVM misses it, `compose up` exits 1 with "dependency failed to start" and
+leaves the Kafka-dependent containers in Created. `run.sh up` waits for kafka healthy and runs
+`compose up` again.
+
+The scheduler is seeded, so the flag sequence repeats for the same seed and the same flags:
+kafkaQueueProblems (on), cartFailure (100%), paymentFailure (100%), recommendationCacheFailure
+(on), loadGeneratorFloodHomepage (on), emailMemoryLeak (1000x). aiRunawayAgent needs the agent
+stack (`compose.agent.yaml`), which this rig does not run.

@@ -1,1 +1,7 @@
 data/*.jsonl
+data/run-*/
+.down.*
+receiver-current
+deadline
+*.pid
+planner/quiet-raw.jsonl

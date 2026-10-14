@@ -1,0 +1,3392 @@
+{
+ "phases": {
+  "quiet": [
+   1792010957,
+   1792012280
+  ],
+  "fleet_receiver_ready": 1792012315,
+  "scheduled": [
+   1792012348,
+   1792016864
+  ],
+  "first_receiver_ready": 1792010153,
+  "events": {
+   "receiver_ready": [
+    "2026-10-14T20:35:53Z",
+    "2026-10-14T21:11:55Z"
+   ],
+   "demo_up": [
+    "2026-10-14T20:46:45Z"
+   ],
+   "demo_healthy": [
+    "2026-10-14T20:47:17Z"
+   ],
+   "quiet_start": [
+    "2026-10-14T20:49:17Z"
+   ],
+   "quiet_end": [
+    "2026-10-14T21:11:20Z"
+   ],
+   "scheduler_start": [
+    "2026-10-14T21:12:28Z"
+   ],
+   "planned_end": [
+    "2026-10-14T22:27:37Z"
+   ],
+   "scheduler_stop": [
+    "2026-10-14T22:27:40Z"
+   ],
+   "run_end": [
+    "2026-10-14T22:27:44Z"
+   ],
+   "demo_down": [
+    "2026-10-14T22:29:45Z"
+   ]
+  }
+ },
+ "config": {
+  "fleet_cap": 10288.0,
+  "caps": {
+   "accounting": 1.0,
+   "ad": 1164.0,
+   "cart": 1.0,
+   "fraud-detection": 1.0,
+   "frontend": 5551.0,
+   "kafka": 4163.0,
+   "otel-collector": 15726.0,
+   "payment": 2583.0,
+   "recommendation": 1.0,
+   "shipping": 765.0,
+   "telemetry-docs": 1.0
+  },
+  "floors": {
+   "TRACE": 0.0,
+   "DEBUG": 0.0,
+   "INFO": 0.0,
+   "WARN": 0.0,
+   "ERROR": 0.5,
+   "CRITICAL": 0.5,
+   "FATAL": 0.5
+  },
+  "options": {
+   "symbolMessageHashField": "tenx_hash",
+   "rateReceiverAbsoluteCap": "10288",
+   "rateReceiverDefaultAction": "offload",
+   "rateReceiverMinSharePercent": "0",
+   "rateReceiverWarmupMs": "0",
+   "rateReceiverBaselineCount": "5",
+   "rateReceiverMinRetentionThreshold": "0"
+  }
+ },
+ "quiet": {
+  "start": 1792010957,
+  "end": 1792012280,
+  "full_windows": 5,
+  "records": 7979,
+  "raw_lines": 9054,
+  "containers": 16,
+  "pairs": 46,
+  "held_in_quiet": 0,
+  "top_pairs": [
+   {
+    "container": "otel-collector",
+    "pattern": "KG8Fq0QFuoY",
+    "name": "Logs",
+    "rule": "plan row: otel-collector, cap 15,726, tier_down",
+    "max_events": 243,
+    "max_bytes": 127826
+   },
+   {
+    "container": "otel-collector",
+    "pattern": "Gl3Gtr_SH5w",
+    "name": "Traces",
+    "rule": "plan row: otel-collector, cap 15,726, tier_down",
+    "max_events": 240,
+    "max_bytes": 126060
+   },
+   {
+    "container": "frontend",
+    "pattern": "INl44sUgFeY",
+    "name": "API_request_completed",
+    "rule": "plan row: frontend, cap 5,551, tier_down",
+    "max_events": 223,
+    "max_bytes": 110168
+   },
+   {
+    "container": "otel-collector",
+    "pattern": "PuWB8kkVbfw",
+    "name": "Metrics",
+    "rule": "plan row: otel-collector, cap 15,726, tier_down",
+    "max_events": 191,
+    "max_bytes": 105707
+   },
+   {
+    "container": "cart",
+    "pattern": "YZplfQ4a1Xw",
+    "name": "GetCartAsync_called_with_userId",
+    "rule": "plan row: cart, cap 1, tier_down",
+    "max_events": 80,
+    "max_bytes": 22988
+   },
+   {
+    "container": "cart",
+    "pattern": "eDSYlCMPqVY",
+    "name": "AddItemAsync_called_with_userId_productId_quantity",
+    "rule": "plan row: cart, cap 1, tier_down",
+    "max_events": 46,
+    "max_bytes": 15094
+   },
+   {
+    "container": "accounting",
+    "pattern": "-FtZD9XArpU",
+    "name": "Order_details",
+    "rule": "plan row: accounting, cap 1, tier_down",
+    "max_events": 17,
+    "max_bytes": 14858
+   },
+   {
+    "container": "recommendation",
+    "pattern": "bzLB1zZCTIw",
+    "name": "Receive_ListRecommendations_for_product_ids",
+    "rule": "plan row: recommendation, cap 1, tier_down",
+    "max_events": 27,
+    "max_bytes": 13176
+   },
+   {
+    "container": "telemetry-docs",
+    "pattern": "zxRYTKQNyBY",
+    "name": "GET_HTTP_Wget",
+    "rule": "plan row: telemetry-docs, cap 1, tier_down",
+    "max_events": 48,
+    "max_bytes": 12528
+   },
+   {
+    "container": "astronomy-db",
+    "pattern": "oUkuI8QT6s8",
+    "name": "role_root_does_not_exist",
+    "rule": "fleet default: 10,288, offload",
+    "max_events": 47,
+    "max_bytes": 11750
+   },
+   {
+    "container": "payment",
+    "pattern": "9WbTsopbiXk",
+    "name": "Transaction_complete",
+    "rule": "plan row: payment, cap 2,583, tier_down",
+    "max_events": 17,
+    "max_bytes": 11497
+   },
+   {
+    "container": "ad",
+    "pattern": "xHrytxJfUdw",
+    "name": "oteldemo_AdService_Targeted_ad_request_received_for",
+    "rule": "plan row: ad, cap 1,164, tier_down",
+    "max_events": 24,
+    "max_bytes": 8127
+   },
+   {
+    "container": "otel-collector",
+    "pattern": "fhu6rrW86b4",
+    "name": "error_Error_scraping_metrics",
+    "rule": "plan row: otel-collector, cap 15,726, tier_down",
+    "max_events": 5,
+    "max_bytes": 7811
+   },
+   {
+    "container": "frontend",
+    "pattern": "KSy6KmHbgEc",
+    "name": "Order_placed_successfully",
+    "rule": "plan row: frontend, cap 5,551, tier_down",
+    "max_events": 17,
+    "max_bytes": 7735
+   },
+   {
+    "container": "payment",
+    "pattern": "fg1YkiyrF3Q",
+    "name": "Charge_request_received",
+    "rule": "plan row: payment, cap 2,583, tier_down",
+    "max_events": 17,
+    "max_bytes": 7293
+   },
+   {
+    "container": "shipping",
+    "pattern": "kAB8PMmHyKM",
+    "name": "shipping_service_Requesting_quote_http_getquote",
+    "rule": "plan row: shipping, cap 765, tier_down",
+    "max_events": 17,
+    "max_bytes": 7123
+   },
+   {
+    "container": "shipping",
+    "pattern": "LnOvjJt0La4",
+    "name": "Tracking_ID_Created",
+    "rule": "plan row: shipping, cap 765, tier_down",
+    "max_events": 17,
+    "max_bytes": 7106
+   },
+   {
+    "container": "shipping",
+    "pattern": "PX-oZ7rxgZo",
+    "name": "Sending_Quote",
+    "rule": "plan row: shipping, cap 765, tier_down",
+    "max_events": 17,
+    "max_bytes": 7055
+   },
+   {
+    "container": "fraud-detection",
+    "pattern": "GKfNbCrpxxI",
+    "name": "fraud_detection_Consumed_record_with_orderId_and_updated_total_count_to_trace_id_span_flags",
+    "rule": "plan row: fraud-detection, cap 1, tier_down",
+    "max_events": 17,
+    "max_bytes": 6851
+   },
+   {
+    "container": "kafka",
+    "pattern": "pFokWfyJRLU",
+    "name": "Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals",
+    "rule": "plan row: kafka, cap 4,163, tier_down",
+    "max_events": 13,
+    "max_bytes": 6715
+   }
+  ]
+ },
+ "baseline_in_receiver_bytes": {
+  "container": "otel-collector",
+  "pattern": "fhu6rrW86b4",
+  "name": "error_Error_scraping_metrics",
+  "avg_record_bytes_per_window": 7103.4,
+  "max_record_bytes_per_window": 7811,
+  "mcp_baseline_bytes_per_window": 5144.102952308857
+ },
+ "seed": 20261014,
+ "activations": [
+  {
+   "n": 1,
+   "flag": "cartFailure",
+   "variant": "100%",
+   "on": 1792012412.353,
+   "off": 1792012827.523,
+   "planned_s": 415.185,
+   "actual_s": 415.17000007629395,
+   "span_end": 1792013036.617
+  },
+  {
+   "n": 2,
+   "flag": "kafkaQueueProblems",
+   "variant": "on",
+   "on": 1792013036.617,
+   "off": 1792013495.197,
+   "planned_s": 458.68,
+   "actual_s": 458.57999992370605,
+   "span_end": 1792013735.197
+  },
+  {
+   "n": 3,
+   "flag": "paymentFailure",
+   "variant": "100%",
+   "on": 1792013754.764,
+   "off": 1792014056.089,
+   "planned_s": 301.235,
+   "actual_s": 301.3250000476837,
+   "span_end": 1792014268.559
+  },
+  {
+   "n": 4,
+   "flag": "emailMemoryLeak",
+   "variant": "1000x",
+   "on": 1792014268.559,
+   "off": 1792014740.137,
+   "planned_s": 471.579,
+   "actual_s": 471.57800006866455,
+   "span_end": 1792014767.6
+  },
+  {
+   "n": 5,
+   "flag": "emailMemoryLeak",
+   "variant": "1000x",
+   "on": 1792014767.6,
+   "off": 1792015177.584,
+   "planned_s": 409.995,
+   "actual_s": 409.98400020599365,
+   "span_end": 1792015417.584
+  },
+  {
+   "n": 6,
+   "flag": "recommendationCacheFailure",
+   "variant": "on",
+   "on": 1792015518.207,
+   "off": 1792015937.085,
+   "planned_s": 418.882,
+   "actual_s": 418.87800002098083,
+   "span_end": 1792016003.04
+  },
+  {
+   "n": 7,
+   "flag": "loadGeneratorFloodHomepage",
+   "variant": "on",
+   "on": 1792016003.04,
+   "off": 1792016331.677,
+   "planned_s": 328.644,
+   "actual_s": 328.63700008392334,
+   "span_end": 1792016571.677
+  },
+  {
+   "n": 8,
+   "flag": "recommendationCacheFailure",
+   "variant": "on",
+   "on": 1792016600.869,
+   "off": 1792016859.953,
+   "planned_s": 345.214,
+   "actual_s": 259.0840001106262,
+   "span_end": 1792016864
+  }
+ ],
+ "window_phase": {
+  "phase_s_mod_240": 235.5112829208374,
+  "source": "receiver.log connect",
+  "connect": 1792012315.511283,
+  "inferred_phase": 239.0,
+  "share_of_resets_within_20s_of_inferred": 0.4489593657086224,
+  "resets": 1009
+ },
+ "held": [
+  {
+   "route": "offload",
+   "rule": "fleet default: 10,288, offload",
+   "container": "astronomy-db",
+   "pattern": "6_l3eh1v8RE",
+   "name": "DETAIL_Key_order_already_exists",
+   "held": 1930,
+   "held_bytes": 563560,
+   "held_lines": 1930,
+   "severity": {
+    "none": 1930
+   },
+   "in_causal_span": 1930,
+   "outside": 0,
+   "flags": {
+    "kafkaQueueProblems": 1930
+   },
+   "windows": 2,
+   "first": 1792013038.404,
+   "last": 1792013431.595,
+   "listed_in_caps": false,
+   "quiet": {
+    "windows_seen": 0,
+    "max_events": 0,
+    "max_bytes": 0,
+    "median_bytes": 0
+   },
+   "sample": "2026-10-14 21:23:58.221 UTC [4273] DETAIL:  Key (order_id)=(913257b7-c815-11f1-9569-0242ac1c0016) already exists."
+  },
+  {
+   "route": "offload",
+   "rule": "fleet default: 10,288, offload",
+   "container": "astronomy-db",
+   "pattern": "GlK5AsFvcXg",
+   "name": "STATEMENT_INSERT_INTO_accounting_order_id_VALUES",
+   "held": 1928,
+   "held_bytes": 547552,
+   "held_lines": 3856,
+   "severity": {
+    "none": 1928
+   },
+   "in_causal_span": 1928,
+   "outside": 0,
+   "flags": {
+    "kafkaQueueProblems": 1928
+   },
+   "windows": 2,
+   "first": 1792013038.407,
+   "last": 1792013431.595,
+   "listed_in_caps": false,
+   "quiet": {
+    "windows_seen": 0,
+    "max_events": 0,
+    "max_bytes": 0,
+    "median_bytes": 0
+   },
+   "sample": "2026-10-14 21:23:58.221 UTC [4273] STATEMENT:  INSERT INTO accounting.\"order\" (order_id)\n\tVALUES ($1)"
+  },
+  {
+   "route": "offload",
+   "rule": "fleet default: 10,288, offload",
+   "container": "astronomy-db",
+   "pattern": "KSTuhseaGEc",
+   "name": "duplicate_key_value_violates_unique_constraint_order_pkey",
+   "held": 926,
+   "held_bytes": 262058,
+   "held_lines": 926,
+   "severity": {
+    "ERROR": 926
+   },
+   "in_causal_span": 926,
+   "outside": 0,
+   "flags": {
+    "kafkaQueueProblems": 926
+   },
+   "windows": 2,
+   "first": 1792013038.407,
+   "last": 1792013431.592,
+   "listed_in_caps": false,
+   "quiet": {
+    "windows_seen": 0,
+    "max_events": 0,
+    "max_bytes": 0,
+    "median_bytes": 0
+   },
+   "sample": "2026-10-14 21:23:58.221 UTC [4273] ERROR:  duplicate key value violates unique constraint \"order_pkey\""
+  },
+  {
+   "route": "offload",
+   "rule": "fleet default: 10,288, offload",
+   "container": "astronomy-db",
+   "pattern": "oUkuI8QT6s8",
+   "name": "role_root_does_not_exist",
+   "held": 52,
+   "held_bytes": 13009,
+   "held_lines": 52,
+   "severity": {
+    "CRITICAL": 52
+   },
+   "in_causal_span": 9,
+   "outside": 43,
+   "flags": {
+    "kafkaQueueProblems": 9
+   },
+   "windows": 19,
+   "first": 1792012521.736,
+   "last": 1792016630.428,
+   "listed_in_caps": false,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 47,
+    "max_bytes": 11750,
+    "median_bytes": 11750
+   },
+   "sample": "2026-10-14 20:37:34.828 UTC [111] FATAL:  role \"root\" does not exist\n\n/usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/init.sql\nCREATE E"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: accounting, cap 1, tier_down",
+   "container": "accounting",
+   "pattern": "-FtZD9XArpU",
+   "name": "Order_details",
+   "held": 2144,
+   "held_bytes": 1900550,
+   "held_lines": 4288,
+   "severity": {
+    "INFO": 2144
+   },
+   "in_causal_span": 2020,
+   "outside": 124,
+   "flags": {
+    "kafkaQueueProblems": 2020
+   },
+   "windows": 18,
+   "first": 1792012369.906,
+   "last": 1792016759.919,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 17,
+    "max_bytes": 14858,
+    "median_bytes": 11306
+   },
+   "sample": "info: Accounting.Consumer[722003269]\n      Order details: { \"orderId\": \"74ccc8bc-c810-11f1-9569-0242ac1c0016\", \"shippingTrackingId\": \"aec52b3a-e574-4d15-8187-3e"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: accounting, cap 1, tier_down",
+   "container": "accounting",
+   "pattern": "XXzlsXqzuqc",
+   "name": "Duplicate_order_received_skipping",
+   "held": 1990,
+   "held_bytes": 511430,
+   "held_lines": 3980,
+   "severity": {
+    "INFO": 1990
+   },
+   "in_causal_span": 1990,
+   "outside": 0,
+   "flags": {
+    "kafkaQueueProblems": 1990
+   },
+   "windows": 2,
+   "first": 1792013038.302,
+   "last": 1792013431.597,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 0,
+    "max_events": 0,
+    "max_bytes": 0,
+    "median_bytes": 0
+   },
+   "sample": "info: Accounting.Consumer[1508330946]\n      Duplicate order received, skipping."
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: ad, cap 1,164, tier_down",
+   "container": "ad",
+   "pattern": "xHrytxJfUdw",
+   "name": "oteldemo_AdService_Targeted_ad_request_received_for",
+   "held": 253,
+   "held_bytes": 85607,
+   "held_lines": 253,
+   "severity": {
+    "TRACE": 253
+   },
+   "in_causal_span": 37,
+   "outside": 216,
+   "flags": {
+    "loadGeneratorFloodHomepage": 37
+   },
+   "windows": 19,
+   "first": 1792012397.859,
+   "last": 1792016810.991,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 24,
+    "max_bytes": 8127,
+    "median_bytes": 5749
+   },
+   "sample": "2026-10-14 20:47:27 - oteldemo.AdService - Targeted ad request received for [travel] trace_id=5bd5d1a815d85ce264c3516f86e7a798 span_id=e68703f576d510cf trace_fl"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: ad, cap 1,164, tier_down",
+   "container": "ad",
+   "pattern": "jN_dDVWoa78",
+   "name": "oteldemo_AdService_Non_targeted_ad_request_received_preparing_random_response_trace_id_span_flags",
+   "held": 4,
+   "held_bytes": 1420,
+   "held_lines": 4,
+   "severity": {
+    "TRACE": 4
+   },
+   "in_causal_span": 2,
+   "outside": 2,
+   "flags": {
+    "loadGeneratorFloodHomepage": 2
+   },
+   "windows": 2,
+   "first": 1792012708.992,
+   "last": 1792016143.766,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 5,
+    "max_bytes": 1775,
+    "median_bytes": 1065
+   },
+   "sample": "2026-10-14 20:48:29 - oteldemo.AdService - Non-targeted ad request received, preparing random response. trace_id=31e54103a0bf198b590647ad6fd9e27c span_id=46b2ec"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: cart, cap 1, tier_down",
+   "container": "cart",
+   "pattern": "YZplfQ4a1Xw",
+   "name": "GetCartAsync_called_with_userId",
+   "held": 1287,
+   "held_bytes": 365949,
+   "held_lines": 2574,
+   "severity": {
+    "INFO": 1287
+   },
+   "in_causal_span": 313,
+   "outside": 974,
+   "flags": {
+    "cartFailure": 145,
+    "loadGeneratorFloodHomepage": 168
+   },
+   "windows": 19,
+   "first": 1792012351.931,
+   "last": 1792016843.381,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 80,
+    "max_bytes": 22988,
+    "median_bytes": 19930
+   },
+   "sample": "info: cart.cartstore.ValkeyCartStore[1662118147]\n      GetCartAsync called with userId="
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: cart, cap 1, tier_down",
+   "container": "cart",
+   "pattern": "eDSYlCMPqVY",
+   "name": "AddItemAsync_called_with_userId_productId_quantity",
+   "held": 638,
+   "held_bytes": 209372,
+   "held_lines": 1276,
+   "severity": {
+    "INFO": 638
+   },
+   "in_causal_span": 149,
+   "outside": 489,
+   "flags": {
+    "cartFailure": 68,
+    "loadGeneratorFloodHomepage": 81
+   },
+   "windows": 19,
+   "first": 1792012356.811,
+   "last": 1792016851.84,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 46,
+    "max_bytes": 15094,
+    "median_bytes": 12471
+   },
+   "sample": "info: cart.cartstore.ValkeyCartStore[133092716]\n      AddItemAsync called with userId=7460a118-c810-11f1-a165-0242ac1c0018, productId=0PUK6V6EV0, quantity=4"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: cart, cap 1, tier_down",
+   "container": "cart",
+   "pattern": "h3qY1nS1uxY",
+   "name": "EmptyCartAsync_called_with_userId",
+   "held": 144,
+   "held_bytes": 43158,
+   "held_lines": 300,
+   "severity": {
+    "INFO": 144
+   },
+   "in_causal_span": 33,
+   "outside": 111,
+   "flags": {
+    "cartFailure": 11,
+    "loadGeneratorFloodHomepage": 22
+   },
+   "windows": 18,
+   "first": 1792012369.877,
+   "last": 1792016828.902,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 17,
+    "max_bytes": 5032,
+    "median_bytes": 3552
+   },
+   "sample": "info: cart.cartstore.ValkeyCartStore[911421920]\n      EmptyCartAsync called with userId=7460a118-c810-11f1-a165-0242ac1c0018"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: cart, cap 1, tier_down",
+   "container": "cart",
+   "pattern": "9-GL0Pp_Cts",
+   "name": "Error_code_FailedPrecondition_detail_Can_access_cart_storage_System_ApplicationException_Wasn_t_able_to_connect_redis",
+   "held": 1,
+   "held_bytes": 632,
+   "held_lines": 4,
+   "severity": {
+    "INFO": 1
+   },
+   "in_causal_span": 1,
+   "outside": 0,
+   "flags": {
+    "cartFailure": 1
+   },
+   "windows": 1,
+   "first": 1792012657.063,
+   "last": 1792012657.063,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 0,
+    "max_events": 0,
+    "max_bytes": 0,
+    "median_bytes": 0
+   },
+   "sample": "info: Grpc.AspNetCore.Server.ServerCallHandler[7]\n      Error status code 'FailedPrecondition' with detail 'Can't access cart storage. System.ApplicationExcepti"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: fraud-detection, cap 1, tier_down",
+   "container": "fraud-detection",
+   "pattern": "GKfNbCrpxxI",
+   "name": "fraud_detection_Consumed_record_with_orderId_and_updated_total_count_to_trace_id_span_flags",
+   "held": 2644,
+   "held_bytes": 1069915,
+   "held_lines": 2644,
+   "severity": {
+    "TRACE": 2644
+   },
+   "in_causal_span": 2520,
+   "outside": 124,
+   "flags": {
+    "kafkaQueueProblems": 2520
+   },
+   "windows": 18,
+   "first": 1792012369.912,
+   "last": 1792016759.921,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 17,
+    "max_bytes": 6851,
+    "median_bytes": 4836
+   },
+   "sample": "2026-10-14 20:47:27 - fraud-detection - Consumed record with orderId: 74ccc8bc-c810-11f1-9569-0242ac1c0016, and updated total count to: 1 trace_id=34a2593249bda"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: fraud-detection, cap 1, tier_down",
+   "container": "fraud-detection",
+   "pattern": "eT4avs-RfM8",
+   "name": "fraud_detection_FeatureFlag_kafkaQueueProblems_is_enabled_sleeping_second_trace_id_span_flags",
+   "held": 446,
+   "held_bytes": 163682,
+   "held_lines": 446,
+   "severity": {
+    "TRACE": 446
+   },
+   "in_causal_span": 446,
+   "outside": 0,
+   "flags": {
+    "kafkaQueueProblems": 446
+   },
+   "windows": 2,
+   "first": 1792013043.238,
+   "last": 1792013494.324,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 0,
+    "max_events": 0,
+    "max_bytes": 0,
+    "median_bytes": 0
+   },
+   "sample": "2026-10-14 21:23:58 - fraud-detection - FeatureFlag 'kafkaQueueProblems' is enabled, sleeping 1 second trace_id=a69da238867b6c681051210d8ce84f93 span_id=14946f8"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: frontend, cap 5,551, tier_down",
+   "container": "frontend",
+   "pattern": "INl44sUgFeY",
+   "name": "API_request_completed",
+   "held": 3947,
+   "held_bytes": 1948551,
+   "held_lines": 3947,
+   "severity": {
+    "TRACE": 3947
+   },
+   "in_causal_span": 2122,
+   "outside": 1825,
+   "flags": {
+    "cartFailure": 496,
+    "paymentFailure": 466,
+    "recommendationCacheFailure": 650,
+    "loadGeneratorFloodHomepage": 510
+   },
+   "windows": 19,
+   "first": 1792012349.479,
+   "last": 1792016863.829,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 223,
+    "max_bytes": 110168,
+    "median_bytes": 108704
+   },
+   "sample": "{\"level\":30,\"time\":1792010821218,\"pid\":1,\"hostname\":\"b706b61c9740\",\"trace_id\":\"a26d61d90d8d961bd1e6da4171b7c79b\",\"span_id\":\"c5432a8ab280d595\",\"trace_flags\":\"01\""
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: frontend, cap 5,551, tier_down",
+   "container": "frontend",
+   "pattern": "KSy6KmHbgEc",
+   "name": "Order_placed_successfully",
+   "held": 40,
+   "held_bytes": 18200,
+   "held_lines": 40,
+   "severity": {
+    "TRACE": 40
+   },
+   "in_causal_span": 18,
+   "outside": 22,
+   "flags": {
+    "recommendationCacheFailure": 16,
+    "loadGeneratorFloodHomepage": 2
+   },
+   "windows": 9,
+   "first": 1792013250.389,
+   "last": 1792016623.287,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 17,
+    "max_bytes": 7735,
+    "median_bytes": 5460
+   },
+   "sample": "{\"level\":30,\"time\":1792010845532,\"pid\":1,\"hostname\":\"b706b61c9740\",\"trace_id\":\"9e95233a6826b764fa2a600e519f1220\",\"span_id\":\"bad9cec1ba4e4992\",\"trace_flags\":\"01\""
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: frontend, cap 5,551, tier_down",
+   "container": "frontend",
+   "pattern": "SJz5BYn_Kzo",
+   "name": "Checkout_payment_declined",
+   "held": 6,
+   "held_bytes": 3426,
+   "held_lines": 6,
+   "severity": {
+    "TRACE": 6
+   },
+   "in_causal_span": 6,
+   "outside": 0,
+   "flags": {
+    "paymentFailure": 6
+   },
+   "windows": 1,
+   "first": 1792013887.658,
+   "last": 1792013972.726,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 0,
+    "max_events": 0,
+    "max_bytes": 0,
+    "median_bytes": 0
+   },
+   "sample": "{\"level\":30,\"time\":1792013759140,\"pid\":1,\"hostname\":\"b706b61c9740\",\"trace_id\":\"41a8efdf61d74378ba87abb19968a4e1\",\"span_id\":\"050ac19af362a4c0\",\"trace_flags\":\"01\""
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: kafka, cap 4,163, tier_down",
+   "container": "kafka",
+   "pattern": "wyR-oWD2-hk",
+   "name": "Rolled_new_log_segment_at_offset_in_ms_org_apache_kafka_storage_internals_LocalLog",
+   "held": 113,
+   "held_bytes": 43314,
+   "held_lines": 113,
+   "severity": {
+    "INFO": 113
+   },
+   "in_causal_span": 17,
+   "outside": 96,
+   "flags": {
+    "kafkaQueueProblems": 17
+   },
+   "windows": 19,
+   "first": 1792012455.504,
+   "last": 1792016850.699,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 16,
+    "max_bytes": 6129,
+    "median_bytes": 6128
+   },
+   "sample": "[2026-10-14 20:43:43,218] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Rolled new log segment at offset 32 in 200 ms"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: kafka, cap 4,163, tier_down",
+   "container": "kafka",
+   "pattern": "VnqlcNA_PIM",
+   "name": "Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager",
+   "held": 113,
+   "held_bytes": 43649,
+   "held_lines": 113,
+   "severity": {
+    "INFO": 113
+   },
+   "in_causal_span": 18,
+   "outside": 95,
+   "flags": {
+    "kafkaQueueProblems": 18
+   },
+   "windows": 19,
+   "first": 1792012455.504,
+   "last": 1792016850.699,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 16,
+    "max_bytes": 6176,
+    "median_bytes": 6176
+   },
+   "sample": "[2026-10-14 20:43:43,419] INFO [ProducerStateManager partition=__cluster_metadata-0] Wrote producer snapshot at offset 32 with 0 producer ids in 96 ms. (org.apa"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: kafka, cap 4,163, tier_down",
+   "container": "kafka",
+   "pattern": "hl_fK-uzMu8",
+   "name": "Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+   "held": 94,
+   "held_bytes": 32712,
+   "held_lines": 94,
+   "severity": {
+    "INFO": 94
+   },
+   "in_causal_span": 15,
+   "outside": 79,
+   "flags": {
+    "kafkaQueueProblems": 15
+   },
+   "windows": 19,
+   "first": 1792012467.483,
+   "last": 1792016847.67,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 16,
+    "max_bytes": 5568,
+    "median_bytes": 5568
+   },
+   "sample": "[2026-10-14 20:46:35,423] INFO Deleted offset index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.index.deleted. (org.apache.kafka.storage.internals"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: kafka, cap 4,163, tier_down",
+   "container": "kafka",
+   "pattern": "q20KpyVGjSM",
+   "name": "Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+   "held": 94,
+   "held_bytes": 32900,
+   "held_lines": 94,
+   "severity": {
+    "INFO": 94
+   },
+   "in_causal_span": 15,
+   "outside": 79,
+   "flags": {
+    "kafkaQueueProblems": 15
+   },
+   "windows": 19,
+   "first": 1792012467.483,
+   "last": 1792016847.67,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 16,
+    "max_bytes": 5600,
+    "median_bytes": 5600
+   },
+   "sample": "[2026-10-14 20:46:35,455] INFO Deleted time index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.timeindex.deleted. (org.apache.kafka.storage.interna"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: kafka, cap 4,163, tier_down",
+   "container": "kafka",
+   "pattern": "AMFi23Ga9wY",
+   "name": "Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile",
+   "held": 94,
+   "held_bytes": 34122,
+   "held_lines": 94,
+   "severity": {
+    "INFO": 94
+   },
+   "in_causal_span": 15,
+   "outside": 79,
+   "flags": {
+    "kafkaQueueProblems": 15
+   },
+   "windows": 19,
+   "first": 1792012467.483,
+   "last": 1792016847.671,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 16,
+    "max_bytes": 5808,
+    "median_bytes": 5808
+   },
+   "sample": "[2026-10-14 20:46:35,577] INFO Deleted producer state snapshot /tmp/kafka-logs/__cluster_metadata-0/00000000000000000032.snapshot.deleted (org.apache.kafka.stor"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: kafka, cap 4,163, tier_down",
+   "container": "kafka",
+   "pattern": "pFokWfyJRLU",
+   "name": "Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals",
+   "held": 88,
+   "held_bytes": 45828,
+   "held_lines": 88,
+   "severity": {
+    "INFO": 88
+   },
+   "in_causal_span": 15,
+   "outside": 73,
+   "flags": {
+    "kafkaQueueProblems": 15
+   },
+   "windows": 19,
+   "first": 1792012467.467,
+   "last": 1792016847.648,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 13,
+    "max_bytes": 6715,
+    "median_bytes": 6227
+   },
+   "sample": "[2026-10-14 20:45:32,937] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Deleting segments due to log start offset 83 breach: LogSegment("
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: kafka, cap 4,163, tier_down",
+   "container": "kafka",
+   "pattern": "-Jf8QdAufSM",
+   "name": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals_LocalLog",
+   "held": 80,
+   "held_bytes": 40218,
+   "held_lines": 80,
+   "severity": {
+    "INFO": 80
+   },
+   "in_causal_span": 13,
+   "outside": 67,
+   "flags": {
+    "kafkaQueueProblems": 13
+   },
+   "windows": 19,
+   "first": 1792012467.481,
+   "last": 1792016847.668,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 13,
+    "max_bytes": 6414,
+    "median_bytes": 6056
+   },
+   "sample": "[2026-10-14 20:46:34,302] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Deleting segment files LogSegment(baseOffset="
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: kafka, cap 4,163, tier_down",
+   "container": "kafka",
+   "pattern": "WlIY0QjIiEg",
+   "name": "Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+   "held": 75,
+   "held_bytes": 25275,
+   "held_lines": 75,
+   "severity": {
+    "INFO": 75
+   },
+   "in_causal_span": 12,
+   "outside": 63,
+   "flags": {
+    "kafkaQueueProblems": 12
+   },
+   "windows": 19,
+   "first": 1792012527.465,
+   "last": 1792016847.67,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 16,
+    "max_bytes": 5392,
+    "median_bytes": 5392
+   },
+   "sample": "[2026-10-14 20:46:35,420] INFO Deleted log /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.log.deleted. (org.apache.kafka.storage.internals.log.LogSeg"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: kafka, cap 4,163, tier_down",
+   "container": "kafka",
+   "pattern": "BVtz4xhx64s",
+   "name": "older_than_retention_org_apache_kafka_raft_internals_KafkaRaftLog",
+   "held": 61,
+   "held_bytes": 28137,
+   "held_lines": 61,
+   "severity": {
+    "INFO": 61
+   },
+   "in_causal_span": 10,
+   "outside": 51,
+   "flags": {
+    "kafkaQueueProblems": 10
+   },
+   "windows": 19,
+   "first": 1792012527.467,
+   "last": 1792016847.651,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 13,
+    "max_bytes": 5993,
+    "median_bytes": 5532
+   },
+   "sample": "[2026-10-14 20:45:33,833] INFO [RaftLog partition=__cluster_metadata-0, nodeId=1] Marking snapshot OffsetAndEpoch[offset=43, epoch=1] for deletion because its t"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: kafka, cap 4,163, tier_down",
+   "container": "kafka",
+   "pattern": "YJTvxN0rObQ",
+   "name": "Creating_new_KRaft_snapshot_file_because_we_have_replayed_at_least_bytes_org_apache_kafka_image_publisher_SnapshotGenerator",
+   "held": 42,
+   "held_bytes": 16800,
+   "held_lines": 42,
+   "severity": {
+    "INFO": 42
+   },
+   "in_causal_span": 6,
+   "outside": 36,
+   "flags": {
+    "kafkaQueueProblems": 6
+   },
+   "windows": 19,
+   "first": 1792012509.624,
+   "last": 1792016851.701,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 13,
+    "max_bytes": 5200,
+    "median_bytes": 4800
+   },
+   "sample": "[2026-10-14 20:43:48,320] INFO [SnapshotGenerator id=1] Creating new KRaft snapshot file snapshot 00000000000000000043-0000000001 because we have replayed at le"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: kafka, cap 4,163, tier_down",
+   "container": "kafka",
+   "pattern": "3AOokQ1Sq7k",
+   "name": "Incremented_log_start_offset_to_due_snapshot_generated_org_apache_kafka_storage_internals_UnifiedLog",
+   "held": 42,
+   "held_bytes": 16055,
+   "held_lines": 42,
+   "severity": {
+    "INFO": 42
+   },
+   "in_causal_span": 7,
+   "outside": 35,
+   "flags": {
+    "kafkaQueueProblems": 7
+   },
+   "windows": 19,
+   "first": 1792012527.468,
+   "last": 1792016847.644,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 13,
+    "max_bytes": 4966,
+    "median_bytes": 4584
+   },
+   "sample": "[2026-10-14 20:45:29,057] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Incremented log start offset to 83 due to snapshot generated (or"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: kafka, cap 4,163, tier_down",
+   "container": "kafka",
+   "pattern": "TM6TaR-b4oE",
+   "name": "Successfully_wrote_snapshot_org_apache_kafka_image_publisher_SnapshotEmitter",
+   "held": 4,
+   "held_bytes": 1344,
+   "held_lines": 4,
+   "severity": {
+    "INFO": 4
+   },
+   "in_causal_span": 0,
+   "outside": 4,
+   "flags": {},
+   "windows": 4,
+   "first": 1792012784.403,
+   "last": 1792015672.374,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 13,
+    "max_bytes": 4368,
+    "median_bytes": 4032
+   },
+   "sample": "[2026-10-14 20:43:48,512] INFO [SnapshotEmitter id=1] Successfully wrote snapshot 00000000000000000043-0000000001 (org.apache.kafka.image.publisher.SnapshotEmit"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: otel-collector, cap 15,726, tier_down",
+   "container": "otel-collector",
+   "pattern": "KG8Fq0QFuoY",
+   "name": "Logs",
+   "held": 3974,
+   "held_bytes": 2090531,
+   "held_lines": 3974,
+   "severity": {
+    "INFO": 3974
+   },
+   "in_causal_span": 0,
+   "outside": 3974,
+   "flags": {},
+   "windows": 19,
+   "first": 1792012348.367,
+   "last": 1792016863.365,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 243,
+    "max_bytes": 127826,
+    "median_bytes": 124143
+   },
+   "sample": "2026-10-14T20:38:08.919Z\tinfo\tLogs\t{\"resource\": {\"service.instance.id\": \"1ac64182-7c1e-46ad-8cc0-0a5baf10c40a\", \"service.name\": \"otelcol-contrib\", \"service.vers"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: otel-collector, cap 15,726, tier_down",
+   "container": "otel-collector",
+   "pattern": "Gl3Gtr_SH5w",
+   "name": "Traces",
+   "held": 3968,
+   "held_bytes": 2084037,
+   "held_lines": 3968,
+   "severity": {
+    "INFO": 3968
+   },
+   "in_causal_span": 0,
+   "outside": 3968,
+   "flags": {},
+   "windows": 19,
+   "first": 1792012348.042,
+   "last": 1792016863.989,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 240,
+    "max_bytes": 126060,
+    "median_bytes": 125544
+   },
+   "sample": "2026-10-14T20:38:12.968Z\tinfo\tTraces\t{\"resource\": {\"service.instance.id\": \"1ac64182-7c1e-46ad-8cc0-0a5baf10c40a\", \"service.name\": \"otelcol-contrib\", \"service.ve"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: otel-collector, cap 15,726, tier_down",
+   "container": "otel-collector",
+   "pattern": "PuWB8kkVbfw",
+   "name": "Metrics",
+   "held": 2967,
+   "held_bytes": 1642057,
+   "held_lines": 2967,
+   "severity": {
+    "INFO": 2967
+   },
+   "in_causal_span": 0,
+   "outside": 2967,
+   "flags": {},
+   "windows": 19,
+   "first": 1792012349.526,
+   "last": 1792016863.867,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 191,
+    "max_bytes": 105707,
+    "median_bytes": 103507
+   },
+   "sample": "2026-10-14T20:38:09.265Z\tinfo\tMetrics\t{\"resource\": {\"service.instance.id\": \"1ac64182-7c1e-46ad-8cc0-0a5baf10c40a\", \"service.name\": \"otelcol-contrib\", \"service.v"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: payment, cap 2,583, tier_down",
+   "container": "payment",
+   "pattern": "9WbTsopbiXk",
+   "name": "Transaction_complete",
+   "held": 143,
+   "held_bytes": 96729,
+   "held_lines": 143,
+   "severity": {
+    "TRACE": 143
+   },
+   "in_causal_span": 3,
+   "outside": 140,
+   "flags": {
+    "paymentFailure": 3
+   },
+   "windows": 18,
+   "first": 1792012369.851,
+   "last": 1792016759.873,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 17,
+    "max_bytes": 11497,
+    "median_bytes": 8121
+   },
+   "sample": "{\"level\":\"info\",\"time\":1792010843874,\"pid\":1,\"hostname\":\"488082caa39a\",\"trace_id\":\"9e95233a6826b764fa2a600e519f1220\",\"span_id\":\"c2dc76a895aaec46\",\"trace_flags\":"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: payment, cap 2,583, tier_down",
+   "container": "payment",
+   "pattern": "fg1YkiyrF3Q",
+   "name": "Charge_request_received",
+   "held": 139,
+   "held_bytes": 59631,
+   "held_lines": 139,
+   "severity": {
+    "TRACE": 139
+   },
+   "in_causal_span": 15,
+   "outside": 124,
+   "flags": {
+    "paymentFailure": 15
+   },
+   "windows": 19,
+   "first": 1792012388.387,
+   "last": 1792016828.89,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 17,
+    "max_bytes": 7293,
+    "median_bytes": 5148
+   },
+   "sample": "{\"level\":\"info\",\"time\":1792010843704,\"pid\":1,\"hostname\":\"488082caa39a\",\"trace_id\":\"9e95233a6826b764fa2a600e519f1220\",\"span_id\":\"c2dc76a895aaec46\",\"trace_flags\":"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: payment, cap 2,583, tier_down",
+   "container": "payment",
+   "pattern": "_N7fwt_uqyQ",
+   "name": "Payment_request_failed_Invalid_token_demo_user_context_loyalty_level_gold",
+   "held": 4,
+   "held_bytes": 3720,
+   "held_lines": 4,
+   "severity": {
+    "ERROR": 4
+   },
+   "in_causal_span": 4,
+   "outside": 0,
+   "flags": {
+    "paymentFailure": 4
+   },
+   "windows": 1,
+   "first": 1792013847.593,
+   "last": 1792013913.327,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 0,
+    "max_events": 0,
+    "max_bytes": 0,
+    "median_bytes": 0
+   },
+   "sample": "{\"level\":\"warn\",\"time\":1792013759129,\"pid\":1,\"hostname\":\"488082caa39a\",\"trace_id\":\"41a8efdf61d74378ba87abb19968a4e1\",\"span_id\":\"5603d5ce33bcfce3\",\"trace_flags\":"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: recommendation, cap 1, tier_down",
+   "container": "recommendation",
+   "pattern": "bzLB1zZCTIw",
+   "name": "Receive_ListRecommendations_for_product_ids",
+   "held": 275,
+   "held_bytes": 134200,
+   "held_lines": 275,
+   "severity": {
+    "INFO": 275
+   },
+   "in_causal_span": 65,
+   "outside": 210,
+   "flags": {
+    "recommendationCacheFailure": 36,
+    "loadGeneratorFloodHomepage": 29
+   },
+   "windows": 19,
+   "first": 1792012411.139,
+   "last": 1792016838.058,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 27,
+    "max_bytes": 13176,
+    "median_bytes": 11224
+   },
+   "sample": "2026-10-14 20:47:01,849 INFO [main] [recommendation_server.py:47] [trace_id=b0eb4b2d9af743be6491161d550e5f91 span_id=645be22c373e6773 resource.service.name=reco"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: recommendation, cap 1, tier_down",
+   "container": "recommendation",
+   "pattern": "QE9Wwe64YPk",
+   "name": "get_product_list_cache_hit",
+   "held": 14,
+   "held_bytes": 5614,
+   "held_lines": 14,
+   "severity": {
+    "INFO": 14
+   },
+   "in_causal_span": 14,
+   "outside": 0,
+   "flags": {
+    "recommendationCacheFailure": 14
+   },
+   "windows": 3,
+   "first": 1792015637.687,
+   "last": 1792016838.217,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 0,
+    "max_events": 0,
+    "max_bytes": 0,
+    "median_bytes": 0
+   },
+   "sample": "2026-10-14 22:06:03,614 INFO [main] [recommendation_server.py:91] [trace_id=aeb468f9595b70bf58bbe1ba4b06fdf7 span_id=a9ca246b64b7ac2a resource.service.name=reco"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: recommendation, cap 1, tier_down",
+   "container": "recommendation",
+   "pattern": "pQCM0VaOm6U",
+   "name": "get_product_list_cache_miss",
+   "held": 5,
+   "held_bytes": 2010,
+   "held_lines": 5,
+   "severity": {
+    "INFO": 5
+   },
+   "in_causal_span": 5,
+   "outside": 0,
+   "flags": {
+    "recommendationCacheFailure": 5
+   },
+   "windows": 2,
+   "first": 1792015837.077,
+   "last": 1792015916.572,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 0,
+    "max_events": 0,
+    "max_bytes": 0,
+    "median_bytes": 0
+   },
+   "sample": "2026-10-14 22:05:23,855 INFO [main] [recommendation_server.py:83] [trace_id=a9689b20c68757a98c933f31334dbdaf span_id=581789e879497e36 resource.service.name=reco"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: shipping, cap 765, tier_down",
+   "container": "shipping",
+   "pattern": "kAB8PMmHyKM",
+   "name": "shipping_service_Requesting_quote_http_getquote",
+   "held": 158,
+   "held_bytes": 66202,
+   "held_lines": 158,
+   "severity": {
+    "none": 158
+   },
+   "in_causal_span": 0,
+   "outside": 158,
+   "flags": {},
+   "windows": 19,
+   "first": 1792012369.803,
+   "last": 1792016828.876,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 17,
+    "max_bytes": 7123,
+    "median_bytes": 5028
+   },
+   "sample": "\u001b[2m2026-10-14T20:47:23.347925Z\u001b[0m \u001b[32m INFO\u001b[0m \u001b[2mshipping::shipping_service::quote\u001b[0m\u001b[2m:\u001b[0m Requesting quote \u001b[3mquote_service_addr\u001b[0m\u001b[2m=\u001b[0m\"http:"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: shipping, cap 765, tier_down",
+   "container": "shipping",
+   "pattern": "PX-oZ7rxgZo",
+   "name": "Sending_Quote",
+   "held": 158,
+   "held_bytes": 65591,
+   "held_lines": 158,
+   "severity": {
+    "none": 158
+   },
+   "in_causal_span": 0,
+   "outside": 158,
+   "flags": {},
+   "windows": 19,
+   "first": 1792012369.809,
+   "last": 1792016828.879,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 17,
+    "max_bytes": 7055,
+    "median_bytes": 4985
+   },
+   "sample": "\u001b[2m2026-10-14T20:47:23.599266Z\u001b[0m \u001b[32m INFO\u001b[0m \u001b[2mshipping::shipping_service\u001b[0m\u001b[2m:\u001b[0m Sending Quote \u001b[3mdollars\u001b[0m\u001b[2m=\u001b[0m35 \u001b[3mcents\u001b[0m\u001b[2m=\u001b[0m96"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: shipping, cap 765, tier_down",
+   "container": "shipping",
+   "pattern": "LnOvjJt0La4",
+   "name": "Tracking_ID_Created",
+   "held": 143,
+   "held_bytes": 59774,
+   "held_lines": 143,
+   "severity": {
+    "none": 143
+   },
+   "in_causal_span": 0,
+   "outside": 143,
+   "flags": {},
+   "windows": 18,
+   "first": 1792012369.87,
+   "last": 1792016759.883,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 17,
+    "max_bytes": 7106,
+    "median_bytes": 5016
+   },
+   "sample": "\u001b[2m2026-10-14T20:47:23.963320Z\u001b[0m \u001b[32m INFO\u001b[0m \u001b[2mshipping::shipping_service\u001b[0m\u001b[2m:\u001b[0m Tracking ID Created \u001b[3mtracking_id\u001b[0m\u001b[2m=\u001b[0m\"aec52b3a-e574-4d"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: telemetry-docs, cap 1, tier_down",
+   "container": "telemetry-docs",
+   "pattern": "zxRYTKQNyBY",
+   "name": "GET_HTTP_Wget",
+   "held": 792,
+   "held_bytes": 206712,
+   "held_lines": 792,
+   "severity": {
+    "none": 792
+   },
+   "in_causal_span": 0,
+   "outside": 792,
+   "flags": {},
+   "windows": 19,
+   "first": 1792012352.23,
+   "last": 1792016857.926,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 48,
+    "max_bytes": 12528,
+    "median_bytes": 12267
+   },
+   "sample": "::1 - - [14/Oct/2026:20:36:14 +0000] \"GET / HTTP/1.1\" 200 29066 \"-\" \"Wget\""
+  }
+ ],
+ "per_activation": [
+  {
+   "n": 1,
+   "flag": "cartFailure",
+   "variant": "100%",
+   "on": 1792012412.353,
+   "off": 1792012827.523,
+   "span_end": 1792013036.617,
+   "containers": [
+    {
+     "container": "kafka",
+     "rule": "plan row: kafka, cap 4,163, tier_down",
+     "in_causal_path": false,
+     "first_noisy": null,
+     "noisy_pattern": null,
+     "noisy_name": null,
+     "noisy_events_in_minute": null,
+     "noisy_pre_rate_per_min": null,
+     "first_held": 1792012455.504,
+     "noisy_to_held_s": null,
+     "first_held_route": "tier_down",
+     "held": 145,
+     "held_bytes": 58063,
+     "held_offload": 0,
+     "held_tier_down": 145,
+     "kept_same_patterns": 283,
+     "kept_container": 314,
+     "steady_held": 0,
+     "steady_held_bytes": 0,
+     "steady_patterns": {},
+     "patterns": [
+      {
+       "pattern": "wyR-oWD2-hk",
+       "rule": "plan row: kafka, cap 4,163, tier_down",
+       "name": "Rolled_new_log_segment_at_offset_in_ms_org_apache_kafka_storage_internals_LocalLog",
+       "held": 19,
+       "kept": 22,
+       "routes": {
+        "tier_down": 19
+       },
+       "severity": {
+        "INFO": 19
+       },
+       "bytes": 7278,
+       "first_held": 1792012455.504,
+       "last_held": 1792013026.879,
+       "first_seen": 1792012425.429,
+       "sample": "[2026-10-14 20:43:43,218] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Rolled new log segment at offset 32 in 200 ms"
+      },
+      {
+       "pattern": "VnqlcNA_PIM",
+       "rule": "plan row: kafka, cap 4,163, tier_down",
+       "name": "Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager",
+       "held": 18,
+       "kept": 23,
+       "routes": {
+        "tier_down": 18
+       },
+       "severity": {
+        "INFO": 18
+       },
+       "bytes": 6948,
+       "first_held": 1792012455.504,
+       "last_held": 1792013011.852,
+       "first_seen": 1792012425.431,
+       "sample": "[2026-10-14 20:43:43,419] INFO [ProducerStateManager partition=__cluster_metadata-0] Wrote producer snapshot at offset 32 with 0 producer ids in 96 ms. (org.apa"
+      },
+      {
+       "pattern": "AMFi23Ga9wY",
+       "rule": "plan row: kafka, cap 4,163, tier_down",
+       "name": "Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile",
+       "held": 15,
+       "kept": 25,
+       "routes": {
+        "tier_down": 15
+       },
+       "severity": {
+        "INFO": 15
+       },
+       "bytes": 5445,
+       "first_held": 1792012467.483,
+       "last_held": 1792013007.484,
+       "first_seen": 1792012467.465,
+       "sample": "[2026-10-14 20:46:35,577] INFO Deleted producer state snapshot /tmp/kafka-logs/__cluster_metadata-0/00000000000000000032.snapshot.deleted (org.apache.kafka.stor"
+      },
+      {
+       "pattern": "hl_fK-uzMu8",
+       "rule": "plan row: kafka, cap 4,163, tier_down",
+       "name": "Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+       "held": 15,
+       "kept": 25,
+       "routes": {
+        "tier_down": 15
+       },
+       "severity": {
+        "INFO": 15
+       },
+       "bytes": 5220,
+       "first_held": 1792012467.483,
+       "last_held": 1792013007.483,
+       "first_seen": 1792012467.465,
+       "sample": "[2026-10-14 20:46:35,423] INFO Deleted offset index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.index.deleted. (org.apache.kafka.storage.internals"
+      },
+      {
+       "pattern": "q20KpyVGjSM",
+       "rule": "plan row: kafka, cap 4,163, tier_down",
+       "name": "Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+       "held": 15,
+       "kept": 25,
+       "routes": {
+        "tier_down": 15
+       },
+       "severity": {
+        "INFO": 15
+       },
+       "bytes": 5250,
+       "first_held": 1792012467.483,
+       "last_held": 1792013007.484,
+       "first_seen": 1792012467.465,
+       "sample": "[2026-10-14 20:46:35,455] INFO Deleted time index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.timeindex.deleted. (org.apache.kafka.storage.interna"
+      },
+      {
+       "pattern": "-Jf8QdAufSM",
+       "rule": "plan row: kafka, cap 4,163, tier_down",
+       "name": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals_LocalLog",
+       "held": 13,
+       "kept": 18,
+       "routes": {
+        "tier_down": 13
+       },
+       "severity": {
+        "INFO": 13
+       },
+       "bytes": 6634,
+       "first_held": 1792012467.481,
+       "last_held": 1792013007.483,
+       "first_seen": 1792012467.464,
+       "sample": "[2026-10-14 20:46:34,302] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Deleting segment files LogSegment(baseOffset="
+      },
+      {
+       "pattern": "pFokWfyJRLU",
+       "rule": "plan row: kafka, cap 4,163, tier_down",
+       "name": "Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals",
+       "held": 13,
+       "kept": 18,
+       "routes": {
+        "tier_down": 13
+       },
+       "severity": {
+        "INFO": 13
+       },
+       "bytes": 6824,
+       "first_held": 1792012467.467,
+       "last_held": 1792013007.484,
+       "first_seen": 1792012467.464,
+       "sample": "[2026-10-14 20:45:32,937] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Deleting segments due to log start offset 83 breach: LogSegment("
+      },
+      {
+       "pattern": "WlIY0QjIiEg",
+       "rule": "plan row: kafka, cap 4,163, tier_down",
+       "name": "Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+       "held": 12,
+       "kept": 28,
+       "routes": {
+        "tier_down": 12
+       },
+       "severity": {
+        "INFO": 12
+       },
+       "bytes": 4044,
+       "first_held": 1792012527.465,
+       "last_held": 1792013007.483,
+       "first_seen": 1792012467.464,
+       "sample": "[2026-10-14 20:46:35,420] INFO Deleted log /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.log.deleted. (org.apache.kafka.storage.internals.log.LogSeg"
+      },
+      {
+       "pattern": "BVtz4xhx64s",
+       "rule": "plan row: kafka, cap 4,163, tier_down",
+       "name": "older_than_retention_org_apache_kafka_raft_internals_KafkaRaftLog",
+       "held": 10,
+       "kept": 21,
+       "routes": {
+        "tier_down": 10
+       },
+       "severity": {
+        "INFO": 10
+       },
+       "bytes": 4610,
+       "first_held": 1792012527.467,
+       "last_held": 1792013007.484,
+       "first_seen": 1792012467.465,
+       "sample": "[2026-10-14 20:45:33,833] INFO [RaftLog partition=__cluster_metadata-0, nodeId=1] Marking snapshot OffsetAndEpoch[offset=43, epoch=1] for deletion because its t"
+      },
+      {
+       "pattern": "3AOokQ1Sq7k",
+       "rule": "plan row: kafka, cap 4,163, tier_down",
+       "name": "Incremented_log_start_offset_to_due_snapshot_generated_org_apache_kafka_storage_internals_UnifiedLog",
+       "held": 7,
+       "kept": 24,
+       "routes": {
+        "tier_down": 7
+       },
+       "severity": {
+        "INFO": 7
+       },
+       "bytes": 2674,
+       "first_held": 1792012527.468,
+       "last_held": 1792013007.483,
+       "first_seen": 1792012467.464,
+       "sample": "[2026-10-14 20:45:29,057] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Incremented log start offset to 83 due to snapshot generated (or"
+      },
+      {
+       "pattern": "YJTvxN0rObQ",
+       "rule": "plan row: kafka, cap 4,163, tier_down",
+       "name": "Creating_new_KRaft_snapshot_file_because_we_have_replayed_at_least_bytes_org_apache_kafka_image_publisher_SnapshotGenerator",
+       "held": 7,
+       "kept": 24,
+       "routes": {
+        "tier_down": 7
+       },
+       "severity": {
+        "INFO": 7
+       },
+       "bytes": 2800,
+       "first_held": 1792012509.624,
+       "last_held": 1792013019.865,
+       "first_seen": 1792012430.438,
+       "sample": "[2026-10-14 20:43:48,320] INFO [SnapshotGenerator id=1] Creating new KRaft snapshot file snapshot 00000000000000000043-0000000001 because we have replayed at le"
+      },
+      {
+       "pattern": "TM6TaR-b4oE",
+       "rule": "plan row: kafka, cap 4,163, tier_down",
+       "name": "Successfully_wrote_snapshot_org_apache_kafka_image_publisher_SnapshotEmitter",
+       "held": 1,
+       "kept": 30,
+       "routes": {
+        "tier_down": 1
+       },
+       "severity": {
+        "INFO": 1
+       },
+       "bytes": 336,
+       "first_held": 1792012784.403,
+       "last_held": 1792012784.403,
+       "first_seen": 1792012430.518,
+       "sample": "[2026-10-14 20:43:48,512] INFO [SnapshotEmitter id=1] Successfully wrote snapshot 00000000000000000043-0000000001 (org.apache.kafka.image.publisher.SnapshotEmit"
+      }
+     ]
+    },
+    {
+     "container": "astronomy-db",
+     "rule": "fleet default: 10,288, offload",
+     "in_causal_path": false,
+     "first_noisy": null,
+     "noisy_pattern": null,
+     "noisy_name": null,
+     "noisy_events_in_minute": null,
+     "noisy_pre_rate_per_min": null,
+     "first_held": 1792012521.736,
+     "noisy_to_held_s": null,
+     "first_held_route": "offload",
+     "held": 8,
+     "held_bytes": 2000,
+     "held_offload": 8,
+     "held_tier_down": 0,
+     "kept_same_patterns": 114,
+     "kept_container": 118,
+     "steady_held": 0,
+     "steady_held_bytes": 0,
+     "steady_patterns": {},
+     "patterns": [
+      {
+       "pattern": "oUkuI8QT6s8",
+       "rule": "fleet default: 10,288, offload",
+       "name": "role_root_does_not_exist",
+       "held": 8,
+       "kept": 114,
+       "routes": {
+        "offload": 8
+       },
+       "severity": {
+        "CRITICAL": 8
+       },
+       "bytes": 2000,
+       "first_held": 1792012521.736,
+       "last_held": 1792013023.265,
+       "first_seen": 1792012413.947,
+       "sample": "2026-10-14 20:37:34.828 UTC [111] FATAL:  role \"root\" does not exist\n\n/usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/init.sql\nCREATE E"
+      }
+     ]
+    },
+    {
+     "container": "ad",
+     "rule": "plan row: ad, cap 1,164, tier_down",
+     "in_causal_path": false,
+     "first_noisy": null,
+     "noisy_pattern": null,
+     "noisy_name": null,
+     "noisy_events_in_minute": null,
+     "noisy_pre_rate_per_min": null,
+     "first_held": 1792012708.992,
+     "noisy_to_held_s": null,
+     "first_held_route": "tier_down",
+     "held": 2,
+     "held_bytes": 710,
+     "held_offload": 0,
+     "held_tier_down": 2,
+     "kept_same_patterns": 8,
+     "kept_container": 19,
+     "steady_held": 42,
+     "steady_held_bytes": 14213,
+     "steady_patterns": {
+      "oteldemo_AdService_Targeted_ad_request_received_for": 42
+     },
+     "patterns": [
+      {
+       "pattern": "jN_dDVWoa78",
+       "rule": "plan row: ad, cap 1,164, tier_down",
+       "name": "oteldemo_AdService_Non_targeted_ad_request_received_preparing_random_response_trace_id_span_flags",
+       "held": 2,
+       "kept": 8,
+       "routes": {
+        "tier_down": 2
+       },
+       "severity": {
+        "TRACE": 2
+       },
+       "bytes": 710,
+       "first_held": 1792012708.992,
+       "last_held": 1792012742.932,
+       "first_seen": 1792012480.842,
+       "sample": "2026-10-14 20:48:29 - oteldemo.AdService - Non-targeted ad request received, preparing random response. trace_id=31e54103a0bf198b590647ad6fd9e27c span_id=46b2ec"
+      }
+     ]
+    },
+    {
+     "container": "cart",
+     "rule": "plan row: cart, cap 1, tier_down",
+     "in_causal_path": true,
+     "first_noisy": 1792012610.155,
+     "noisy_pattern": "9-GL0Pp_Cts",
+     "noisy_name": "Error_code_FailedPrecondition_detail_Can_access_cart_storage_System_ApplicationException_Wasn_t_able_to_connect_redis",
+     "noisy_events_in_minute": 5,
+     "noisy_pre_rate_per_min": 0.0,
+     "first_held": 1792012657.063,
+     "noisy_to_held_s": 46.907999992370605,
+     "first_held_route": "tier_down",
+     "held": 1,
+     "held_bytes": 632,
+     "held_offload": 0,
+     "held_tier_down": 1,
+     "kept_same_patterns": 12,
+     "kept_container": 44,
+     "steady_held": 224,
+     "steady_held_bytes": 66938,
+     "steady_patterns": {
+      "GetCartAsync_called_with_userId": 145,
+      "AddItemAsync_called_with_userId_productId_quantity": 68,
+      "EmptyCartAsync_called_with_userId": 11
+     },
+     "patterns": [
+      {
+       "pattern": "9-GL0Pp_Cts",
+       "rule": "plan row: cart, cap 1, tier_down",
+       "name": "Error_code_FailedPrecondition_detail_Can_access_cart_storage_System_ApplicationException_Wasn_t_able_to_connect_redis",
+       "held": 1,
+       "kept": 12,
+       "routes": {
+        "tier_down": 1
+       },
+       "severity": {
+        "INFO": 1
+       },
+       "bytes": 632,
+       "first_held": 1792012657.063,
+       "last_held": 1792012657.063,
+       "first_seen": 1792012433.773,
+       "sample": "info: Grpc.AspNetCore.Server.ServerCallHandler[7]\n      Error status code 'FailedPrecondition' with detail 'Can't access cart storage. System.ApplicationExcepti"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "flag": "kafkaQueueProblems",
+   "variant": "on",
+   "on": 1792013036.617,
+   "off": 1792013495.197,
+   "span_end": 1792013735.197,
+   "containers": [
+    {
+     "container": "astronomy-db",
+     "rule": "fleet default: 10,288, offload",
+     "in_causal_path": true,
+     "first_noisy": 1792013038.222,
+     "noisy_pattern": "KSTuhseaGEc",
+     "noisy_name": "duplicate_key_value_violates_unique_constraint_order_pkey",
+     "noisy_events_in_minute": 700,
+     "noisy_pre_rate_per_min": 0.0,
+     "first_held": 1792013038.404,
+     "noisy_to_held_s": 0.18200016021728516,
+     "first_held_route": "offload",
+     "held": 4784,
+     "held_bytes": 1373170,
+     "held_offload": 4784,
+     "held_tier_down": 0,
+     "kept_same_patterns": 1216,
+     "kept_container": 1348,
+     "steady_held": 9,
+     "steady_held_bytes": 2250,
+     "steady_patterns": {
+      "role_root_does_not_exist": 9
+     },
+     "patterns": [
+      {
+       "pattern": "6_l3eh1v8RE",
+       "rule": "fleet default: 10,288, offload",
+       "name": "DETAIL_Key_order_already_exists",
+       "held": 1930,
+       "kept": 70,
+       "routes": {
+        "offload": 1930
+       },
+       "severity": {
+        "none": 1930
+       },
+       "bytes": 563560,
+       "first_held": 1792013038.404,
+       "last_held": 1792013431.595,
+       "first_seen": 1792013038.222,
+       "sample": "2026-10-14 21:23:58.221 UTC [4273] DETAIL:  Key (order_id)=(913257b7-c815-11f1-9569-0242ac1c0016) already exists."
+      },
+      {
+       "pattern": "GlK5AsFvcXg",
+       "rule": "fleet default: 10,288, offload",
+       "name": "STATEMENT_INSERT_INTO_accounting_order_id_VALUES",
+       "held": 1928,
+       "kept": 72,
+       "routes": {
+        "offload": 1928
+       },
+       "severity": {
+        "none": 1928
+       },
+       "bytes": 547552,
+       "first_held": 1792013038.407,
+       "last_held": 1792013431.595,
+       "first_seen": 1792013038.222,
+       "sample": "2026-10-14 21:23:58.221 UTC [4273] STATEMENT:  INSERT INTO accounting.\"order\" (order_id)\n\tVALUES ($1)"
+      },
+      {
+       "pattern": "KSTuhseaGEc",
+       "rule": "fleet default: 10,288, offload",
+       "name": "duplicate_key_value_violates_unique_constraint_order_pkey",
+       "held": 926,
+       "kept": 1074,
+       "routes": {
+        "offload": 926
+       },
+       "severity": {
+        "ERROR": 926
+       },
+       "bytes": 262058,
+       "first_held": 1792013038.407,
+       "last_held": 1792013431.592,
+       "first_seen": 1792013038.222,
+       "sample": "2026-10-14 21:23:58.221 UTC [4273] ERROR:  duplicate key value violates unique constraint \"order_pkey\""
+      }
+     ]
+    },
+    {
+     "container": "accounting",
+     "rule": "plan row: accounting, cap 1, tier_down",
+     "in_causal_path": true,
+     "first_noisy": 1792013038.207,
+     "noisy_pattern": "-FtZD9XArpU",
+     "noisy_name": "Order_details",
+     "noisy_events_in_minute": 707,
+     "noisy_pre_rate_per_min": 2.1,
+     "first_held": 1792013038.302,
+     "noisy_to_held_s": 0.09500002861022949,
+     "first_held_route": "tier_down",
+     "held": 1990,
+     "held_bytes": 511430,
+     "held_offload": 0,
+     "held_tier_down": 1990,
+     "kept_same_patterns": 10,
+     "kept_container": 23,
+     "steady_held": 2020,
+     "steady_held_bytes": 1790343,
+     "steady_patterns": {
+      "Order_details": 2020
+     },
+     "patterns": [
+      {
+       "pattern": "XXzlsXqzuqc",
+       "rule": "plan row: accounting, cap 1, tier_down",
+       "name": "Duplicate_order_received_skipping",
+       "held": 1990,
+       "kept": 10,
+       "routes": {
+        "tier_down": 1990
+       },
+       "severity": {
+        "INFO": 1990
+       },
+       "bytes": 511430,
+       "first_held": 1792013038.302,
+       "last_held": 1792013431.597,
+       "first_seen": 1792013038.282,
+       "sample": "info: Accounting.Consumer[1508330946]\n      Duplicate order received, skipping."
+      }
+     ]
+    },
+    {
+     "container": "fraud-detection",
+     "rule": "plan row: fraud-detection, cap 1, tier_down",
+     "in_causal_path": true,
+     "first_noisy": 1792013038.223,
+     "noisy_pattern": "eT4avs-RfM8",
+     "noisy_name": "fraud_detection_FeatureFlag_kafkaQueueProblems_is_enabled_sleeping_second_trace_id_span_flags",
+     "noisy_events_in_minute": 59,
+     "noisy_pre_rate_per_min": 0.0,
+     "first_held": 1792013043.238,
+     "noisy_to_held_s": 5.014999866485596,
+     "first_held_route": "tier_down",
+     "held": 446,
+     "held_bytes": 163682,
+     "held_offload": 0,
+     "held_tier_down": 446,
+     "kept_same_patterns": 10,
+     "kept_container": 23,
+     "steady_held": 2520,
+     "steady_held_bytes": 1019716,
+     "steady_patterns": {
+      "fraud_detection_Consumed_record_with_orderId_and_updated_total_count_to_trace_id_span_flags": 2520
+     },
+     "patterns": [
+      {
+       "pattern": "eT4avs-RfM8",
+       "rule": "plan row: fraud-detection, cap 1, tier_down",
+       "name": "fraud_detection_FeatureFlag_kafkaQueueProblems_is_enabled_sleeping_second_trace_id_span_flags",
+       "held": 446,
+       "kept": 10,
+       "routes": {
+        "tier_down": 446
+       },
+       "severity": {
+        "TRACE": 446
+       },
+       "bytes": 163682,
+       "first_held": 1792013043.238,
+       "last_held": 1792013494.324,
+       "first_seen": 1792013038.223,
+       "sample": "2026-10-14 21:23:58 - fraud-detection - FeatureFlag 'kafkaQueueProblems' is enabled, sleeping 1 second trace_id=a69da238867b6c681051210d8ce84f93 span_id=14946f8"
+      }
+     ]
+    },
+    {
+     "container": "frontend",
+     "rule": "plan row: frontend, cap 5,551, tier_down",
+     "in_causal_path": false,
+     "first_noisy": null,
+     "noisy_pattern": null,
+     "noisy_name": null,
+     "noisy_events_in_minute": null,
+     "noisy_pre_rate_per_min": null,
+     "first_held": 1792013250.389,
+     "noisy_to_held_s": null,
+     "first_held_route": "tier_down",
+     "held": 1,
+     "held_bytes": 455,
+     "held_offload": 0,
+     "held_tier_down": 1,
+     "kept_same_patterns": 32,
+     "kept_container": 63,
+     "steady_held": 591,
+     "steady_held_bytes": 291923,
+     "steady_patterns": {
+      "API_request_completed": 591
+     },
+     "patterns": [
+      {
+       "pattern": "KSy6KmHbgEc",
+       "rule": "plan row: frontend, cap 5,551, tier_down",
+       "name": "Order_placed_successfully",
+       "held": 1,
+       "kept": 32,
+       "routes": {
+        "tier_down": 1
+       },
+       "severity": {
+        "TRACE": 1
+       },
+       "bytes": 455,
+       "first_held": 1792013250.389,
+       "last_held": 1792013250.389,
+       "first_seen": 1792013038.242,
+       "sample": "{\"level\":30,\"time\":1792010845532,\"pid\":1,\"hostname\":\"b706b61c9740\",\"trace_id\":\"9e95233a6826b764fa2a600e519f1220\",\"span_id\":\"bad9cec1ba4e4992\",\"trace_flags\":\"01\""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "flag": "paymentFailure",
+   "variant": "100%",
+   "on": 1792013754.764,
+   "off": 1792014056.089,
+   "span_end": 1792014268.559,
+   "containers": [
+    {
+     "container": "frontend",
+     "rule": "plan row: frontend, cap 5,551, tier_down",
+     "in_causal_path": true,
+     "first_noisy": 1792013759.142,
+     "noisy_pattern": "SJz5BYn_Kzo",
+     "noisy_name": "Checkout_payment_declined",
+     "noisy_events_in_minute": 6,
+     "noisy_pre_rate_per_min": 0.0,
+     "first_held": 1792013887.658,
+     "noisy_to_held_s": 128.51600003242493,
+     "first_held_route": "tier_down",
+     "held": 6,
+     "held_bytes": 3426,
+     "held_offload": 0,
+     "held_tier_down": 6,
+     "kept_same_patterns": 12,
+     "kept_container": 56,
+     "steady_held": 466,
+     "steady_held_bytes": 230090,
+     "steady_patterns": {
+      "API_request_completed": 466
+     },
+     "patterns": [
+      {
+       "pattern": "SJz5BYn_Kzo",
+       "rule": "plan row: frontend, cap 5,551, tier_down",
+       "name": "Checkout_payment_declined",
+       "held": 6,
+       "kept": 12,
+       "routes": {
+        "tier_down": 6
+       },
+       "severity": {
+        "TRACE": 6
+       },
+       "bytes": 3426,
+       "first_held": 1792013887.658,
+       "last_held": 1792013972.726,
+       "first_seen": 1792013759.142,
+       "sample": "{\"level\":30,\"time\":1792013759140,\"pid\":1,\"hostname\":\"b706b61c9740\",\"trace_id\":\"41a8efdf61d74378ba87abb19968a4e1\",\"span_id\":\"050ac19af362a4c0\",\"trace_flags\":\"01\""
+      }
+     ]
+    },
+    {
+     "container": "payment",
+     "rule": "plan row: payment, cap 2,583, tier_down",
+     "in_causal_path": true,
+     "first_noisy": 1792013759.132,
+     "noisy_pattern": "_N7fwt_uqyQ",
+     "noisy_name": "Payment_request_failed_Invalid_token_demo_user_context_loyalty_level_gold",
+     "noisy_events_in_minute": 6,
+     "noisy_pre_rate_per_min": 0.0,
+     "first_held": 1792013847.593,
+     "noisy_to_held_s": 88.46099996566772,
+     "first_held_route": "tier_down",
+     "held": 4,
+     "held_bytes": 3720,
+     "held_offload": 0,
+     "held_tier_down": 4,
+     "kept_same_patterns": 14,
+     "kept_container": 36,
+     "steady_held": 18,
+     "steady_held_bytes": 8465,
+     "steady_patterns": {
+      "Charge_request_received": 15,
+      "Transaction_complete": 3
+     },
+     "patterns": [
+      {
+       "pattern": "_N7fwt_uqyQ",
+       "rule": "plan row: payment, cap 2,583, tier_down",
+       "name": "Payment_request_failed_Invalid_token_demo_user_context_loyalty_level_gold",
+       "held": 4,
+       "kept": 14,
+       "routes": {
+        "tier_down": 4
+       },
+       "severity": {
+        "ERROR": 4
+       },
+       "bytes": 3720,
+       "first_held": 1792013847.593,
+       "last_held": 1792013913.327,
+       "first_seen": 1792013759.132,
+       "sample": "{\"level\":\"warn\",\"time\":1792013759129,\"pid\":1,\"hostname\":\"488082caa39a\",\"trace_id\":\"41a8efdf61d74378ba87abb19968a4e1\",\"span_id\":\"5603d5ce33bcfce3\",\"trace_flags\":"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "flag": "emailMemoryLeak",
+   "variant": "1000x",
+   "on": 1792014268.559,
+   "off": 1792014740.137,
+   "span_end": 1792014767.6,
+   "containers": []
+  },
+  {
+   "n": 5,
+   "flag": "emailMemoryLeak",
+   "variant": "1000x",
+   "on": 1792014767.6,
+   "off": 1792015177.584,
+   "span_end": 1792015417.584,
+   "containers": []
+  },
+  {
+   "n": 6,
+   "flag": "recommendationCacheFailure",
+   "variant": "on",
+   "on": 1792015518.207,
+   "off": 1792015937.085,
+   "span_end": 1792016003.04,
+   "containers": [
+    {
+     "container": "recommendation",
+     "rule": "plan row: recommendation, cap 1, tier_down",
+     "in_causal_path": true,
+     "first_noisy": 1792015642.494,
+     "noisy_pattern": "QE9Wwe64YPk",
+     "noisy_name": "get_product_list_cache_hit",
+     "noisy_events_in_minute": 5,
+     "noisy_pre_rate_per_min": 0.0,
+     "first_held": 1792015637.687,
+     "noisy_to_held_s": -4.806999921798706,
+     "first_held_route": "tier_down",
+     "held": 12,
+     "held_bytes": 4817,
+     "held_offload": 0,
+     "held_tier_down": 12,
+     "kept_same_patterns": 22,
+     "kept_container": 32,
+     "steady_held": 28,
+     "steady_held_bytes": 13664,
+     "steady_patterns": {
+      "Receive_ListRecommendations_for_product_ids": 28
+     },
+     "patterns": [
+      {
+       "pattern": "QE9Wwe64YPk",
+       "rule": "plan row: recommendation, cap 1, tier_down",
+       "name": "get_product_list_cache_hit",
+       "held": 7,
+       "kept": 10,
+       "routes": {
+        "tier_down": 7
+       },
+       "severity": {
+        "INFO": 7
+       },
+       "bytes": 2807,
+       "first_held": 1792015637.687,
+       "last_held": 1792015902.428,
+       "first_seen": 1792015563.615,
+       "sample": "2026-10-14 22:06:03,614 INFO [main] [recommendation_server.py:91] [trace_id=aeb468f9595b70bf58bbe1ba4b06fdf7 span_id=a9ca246b64b7ac2a resource.service.name=reco"
+      },
+      {
+       "pattern": "pQCM0VaOm6U",
+       "rule": "plan row: recommendation, cap 1, tier_down",
+       "name": "get_product_list_cache_miss",
+       "held": 5,
+       "kept": 12,
+       "routes": {
+        "tier_down": 5
+       },
+       "severity": {
+        "INFO": 5
+       },
+       "bytes": 2010,
+       "first_held": 1792015837.077,
+       "last_held": 1792015916.572,
+       "first_seen": 1792015523.856,
+       "sample": "2026-10-14 22:05:23,855 INFO [main] [recommendation_server.py:83] [trace_id=a9689b20c68757a98c933f31334dbdaf span_id=581789e879497e36 resource.service.name=reco"
+      }
+     ]
+    },
+    {
+     "container": "kafka",
+     "rule": "plan row: kafka, cap 4,163, tier_down",
+     "in_causal_path": false,
+     "first_noisy": null,
+     "noisy_pattern": null,
+     "noisy_name": null,
+     "noisy_events_in_minute": null,
+     "noisy_pre_rate_per_min": null,
+     "first_held": 1792015672.374,
+     "noisy_to_held_s": null,
+     "first_held_route": "tier_down",
+     "held": 1,
+     "held_bytes": 336,
+     "held_offload": 0,
+     "held_tier_down": 1,
+     "kept_same_patterns": 23,
+     "kept_container": 265,
+     "steady_held": 90,
+     "steady_held_bytes": 36107,
+     "steady_patterns": {
+      "Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager": 12,
+      "Rolled_new_log_segment_at_offset_in_ms_org_apache_kafka_storage_internals_LocalLog": 12,
+      "Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals": 9,
+      "Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment": 9
+     },
+     "patterns": [
+      {
+       "pattern": "TM6TaR-b4oE",
+       "rule": "plan row: kafka, cap 4,163, tier_down",
+       "name": "Successfully_wrote_snapshot_org_apache_kafka_image_publisher_SnapshotEmitter",
+       "held": 1,
+       "kept": 23,
+       "routes": {
+        "tier_down": 1
+       },
+       "severity": {
+        "INFO": 1
+       },
+       "bytes": 336,
+       "first_held": 1792015672.374,
+       "last_held": 1792015672.374,
+       "first_seen": 1792015535.37,
+       "sample": "[2026-10-14 20:43:48,512] INFO [SnapshotEmitter id=1] Successfully wrote snapshot 00000000000000000043-0000000001 (org.apache.kafka.image.publisher.SnapshotEmit"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 7,
+   "flag": "loadGeneratorFloodHomepage",
+   "variant": "on",
+   "on": 1792016003.04,
+   "off": 1792016331.677,
+   "span_end": 1792016571.677,
+   "containers": [
+    {
+     "container": "ad",
+     "rule": "plan row: ad, cap 1,164, tier_down",
+     "in_causal_path": true,
+     "first_noisy": null,
+     "noisy_pattern": null,
+     "noisy_name": null,
+     "noisy_events_in_minute": null,
+     "noisy_pre_rate_per_min": null,
+     "first_held": 1792016131.719,
+     "noisy_to_held_s": null,
+     "first_held_route": "tier_down",
+     "held": 2,
+     "held_bytes": 710,
+     "held_offload": 0,
+     "held_tier_down": 2,
+     "kept_same_patterns": 8,
+     "kept_container": 19,
+     "steady_held": 37,
+     "steady_held_bytes": 12503,
+     "steady_patterns": {
+      "oteldemo_AdService_Targeted_ad_request_received_for": 37
+     },
+     "patterns": [
+      {
+       "pattern": "jN_dDVWoa78",
+       "rule": "plan row: ad, cap 1,164, tier_down",
+       "name": "oteldemo_AdService_Non_targeted_ad_request_received_preparing_random_response_trace_id_span_flags",
+       "held": 2,
+       "kept": 8,
+       "routes": {
+        "tier_down": 2
+       },
+       "severity": {
+        "TRACE": 2
+       },
+       "bytes": 710,
+       "first_held": 1792016131.719,
+       "last_held": 1792016143.766,
+       "first_seen": 1792016027.188,
+       "sample": "2026-10-14 20:48:29 - oteldemo.AdService - Non-targeted ad request received, preparing random response. trace_id=31e54103a0bf198b590647ad6fd9e27c span_id=46b2ec"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 8,
+   "flag": "recommendationCacheFailure",
+   "variant": "on",
+   "on": 1792016600.869,
+   "off": 1792016859.953,
+   "span_end": 1792016864,
+   "containers": [
+    {
+     "container": "recommendation",
+     "rule": "plan row: recommendation, cap 1, tier_down",
+     "in_causal_path": true,
+     "first_noisy": 1792016737.407,
+     "noisy_pattern": "QE9Wwe64YPk",
+     "noisy_name": "get_product_list_cache_hit",
+     "noisy_events_in_minute": 5,
+     "noisy_pre_rate_per_min": 0.0,
+     "first_held": 1792016762.197,
+     "noisy_to_held_s": 24.789999961853027,
+     "first_held_route": "tier_down",
+     "held": 7,
+     "held_bytes": 2807,
+     "held_offload": 0,
+     "held_tier_down": 7,
+     "kept_same_patterns": 5,
+     "kept_container": 10,
+     "steady_held": 8,
+     "steady_held_bytes": 3904,
+     "steady_patterns": {
+      "Receive_ListRecommendations_for_product_ids": 8
+     },
+     "patterns": [
+      {
+       "pattern": "QE9Wwe64YPk",
+       "rule": "plan row: recommendation, cap 1, tier_down",
+       "name": "get_product_list_cache_hit",
+       "held": 7,
+       "kept": 5,
+       "routes": {
+        "tier_down": 7
+       },
+       "severity": {
+        "INFO": 7
+       },
+       "bytes": 2807,
+       "first_held": 1792016762.197,
+       "last_held": 1792016838.217,
+       "first_seen": 1792016710.767,
+       "sample": "2026-10-14 22:06:03,614 INFO [main] [recommendation_server.py:91] [trace_id=aeb468f9595b70bf58bbe1ba4b06fdf7 span_id=a9ca246b64b7ac2a resource.service.name=reco"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "plan_moves_per_window": {
+  "otel-collector": {
+   "windows": 19,
+   "median": 576,
+   "max": 583,
+   "total": 10909
+  },
+  "frontend": {
+   "windows": 19,
+   "median": 208,
+   "max": 272,
+   "total": 3993
+  },
+  "cart": {
+   "windows": 19,
+   "median": 103,
+   "max": 170,
+   "total": 2070
+  },
+  "telemetry-docs": {
+   "windows": 19,
+   "median": 42,
+   "max": 43,
+   "total": 792
+  },
+  "shipping": {
+   "windows": 19,
+   "median": 20,
+   "max": 54,
+   "total": 459
+  },
+  "payment": {
+   "windows": 19,
+   "median": 13,
+   "max": 35,
+   "total": 286
+  },
+  "accounting": {
+   "windows": 18,
+   "median": 8.0,
+   "max": 2403,
+   "total": 4134
+  },
+  "fraud-detection": {
+   "windows": 18,
+   "median": 8.0,
+   "max": 2499,
+   "total": 3090
+  },
+  "ad": {
+   "windows": 19,
+   "median": 12,
+   "max": 22,
+   "total": 257
+  },
+  "recommendation": {
+   "windows": 19,
+   "median": 15,
+   "max": 31,
+   "total": 294
+  },
+  "kafka": {
+   "windows": 19,
+   "median": 46,
+   "max": 55,
+   "total": 900
+  }
+ },
+ "floor_check": {
+  "INFO": {
+   "tier_down": 18127,
+   "pass": 174
+  },
+  "TRACE": {
+   "tier_down": 7536,
+   "pass": 84
+  },
+  "none": {
+   "tier_down": 1227,
+   "pass": 21,
+   "offload": 3858
+  },
+  "CRITICAL": {
+   "offload": 45,
+   "pass": 59
+  },
+  "ERROR": {
+   "offload": 926,
+   "pass": 1007,
+   "tier_down": 4
+  }
+ },
+ "replay_vs_actual": {
+  "over_and_held": 31723,
+  "under_and_passed": 7210,
+  "under_and_held": 297,
+  "over_and_passed": 1345
+ },
+ "errors": {
+  "held": 982,
+  "passed": 1999,
+  "by_pattern": [
+   {
+    "container": "astronomy-db",
+    "rule": "fleet default: 10,288, offload",
+    "pattern": "KSTuhseaGEc",
+    "name": "duplicate_key_value_violates_unique_constraint_order_pkey",
+    "severity": "ERROR",
+    "held": {
+     "offload": 926
+    },
+    "passed": 1074,
+    "flags": {
+     "kafkaQueueProblems": 926
+    }
+   },
+   {
+    "container": "astronomy-db",
+    "rule": "fleet default: 10,288, offload",
+    "pattern": "oUkuI8QT6s8",
+    "name": "role_root_does_not_exist",
+    "severity": "CRITICAL",
+    "held": {
+     "offload": 52
+    },
+    "passed": 821,
+    "flags": {
+     "kafkaQueueProblems": 9
+    }
+   },
+   {
+    "container": "payment",
+    "rule": "plan row: payment, cap 2,583, tier_down",
+    "pattern": "_N7fwt_uqyQ",
+    "name": "Payment_request_failed_Invalid_token_demo_user_context_loyalty_level_gold",
+    "severity": "ERROR",
+    "held": {
+     "tier_down": 4
+    },
+    "passed": 14,
+    "flags": {
+     "paymentFailure": 4
+    }
+   }
+  ]
+ },
+ "latency": {
+  "accounting": {
+   "records": 4341,
+   "median": 1.8529999256134033,
+   "p99": 38.1081999778749,
+   "max": 308.9739999771118,
+   "over_10s": 212
+  },
+  "ad": {
+   "records": 549,
+   "median": 9.22100019454956,
+   "p99": 58.35532012939452,
+   "max": 106.57399988174438,
+   "over_10s": 257
+  },
+  "astronomy-db": {
+   "records": 7334,
+   "median": 2.06600022315979,
+   "p99": 8.09970000743866,
+   "max": 111.66899991035461,
+   "over_10s": 38
+  },
+  "cart": {
+   "records": 3119,
+   "median": 2.059999942779541,
+   "p99": 20.455440049171454,
+   "max": 41.44999980926514,
+   "over_10s": 252
+  },
+  "currency": {
+   "records": 1,
+   "median": 47.59400010108948,
+   "p99": 47.59400010108948,
+   "max": 47.59400010108948,
+   "over_10s": 1
+  },
+  "email": {
+   "records": 333,
+   "median": 12.746000051498413,
+   "p99": 87.90220003128053,
+   "max": 308.9839999675751,
+   "over_10s": 195
+  },
+  "flagd": {
+   "records": 33,
+   "median": 9.051000118255615,
+   "p99": 467.3496801185608,
+   "max": 471.518000125885,
+   "over_10s": 16
+  },
+  "flagd-ui": {
+   "records": 36,
+   "median": 4.572000026702881,
+   "p99": 467.7437001228332,
+   "max": 472.3070001602173,
+   "over_10s": 17
+  },
+  "fraud-detection": {
+   "records": 3275,
+   "median": 2.0820000171661377,
+   "p99": 42.16297992706285,
+   "max": 308.97199988365173,
+   "over_10s": 186
+  },
+  "frontend": {
+   "records": 5850,
+   "median": 2.3310000896453857,
+   "p99": 7.808039968013764,
+   "max": 29.223000049591064,
+   "over_10s": 20
+  },
+  "frontend-proxy": {
+   "records": 128,
+   "median": 13.648000001907349,
+   "p99": 438.8973599767708,
+   "max": 901.5160000324249,
+   "over_10s": 128
+  },
+  "image-provider": {
+   "records": 65,
+   "median": 3.2810001373291016,
+   "p99": 117.71771986961353,
+   "max": 250.50300002098083,
+   "over_10s": 13
+  },
+  "kafka": {
+   "records": 5179,
+   "median": 1.8909997940063477,
+   "p99": 117.05400013923645,
+   "max": 117.94600009918213,
+   "over_10s": 562
+  },
+  "otel-collector": {
+   "records": 18072,
+   "median": 1.8580000400543213,
+   "p99": 35.33264004469015,
+   "max": 118.56200003623962,
+   "over_10s": 299
+  },
+  "payment": {
+   "records": 662,
+   "median": 2.606500029563904,
+   "p99": 85.38461996793745,
+   "max": 130.59599995613098,
+   "over_10s": 206
+  },
+  "product-catalog": {
+   "records": 1,
+   "median": 250.74399995803833,
+   "p99": 250.74399995803833,
+   "max": 250.74399995803833,
+   "over_10s": 1
+  },
+  "quote": {
+   "records": 332,
+   "median": 13.791499972343445,
+   "p99": 87.28014009475707,
+   "max": 130.8230001926422,
+   "over_10s": 205
+  },
+  "recommendation": {
+   "records": 557,
+   "median": 9.1010000705719,
+   "p99": 58.58936002731321,
+   "max": 95.48099994659424,
+   "over_10s": 260
+  },
+  "shipping": {
+   "records": 1031,
+   "median": 2.0169999599456787,
+   "p99": 70.62809991836548,
+   "max": 130.58899998664856,
+   "over_10s": 210
+  },
+  "telemetry-docs": {
+   "records": 1325,
+   "median": 6.672000169754028,
+   "p99": 44.40840013504027,
+   "max": 119.0019998550415,
+   "over_10s": 37
+  },
+  "valkey-cart": {
+   "records": 101,
+   "median": 1.7739999294281006,
+   "p99": 355.95499992370605,
+   "max": 399.6689999103546,
+   "over_10s": 19
+  }
+ },
+ "latency_all": {
+  "records": 52324,
+  "median": 2.0460000038146973,
+  "p99": 54.7951599478715,
+  "max": 901.5160000324249,
+  "over_10s": 3134
+ },
+ "latency_over_10s_by_container": {
+  "kafka": 562,
+  "valkey-cart": 19,
+  "shipping": 210,
+  "flagd": 16,
+  "currency": 1,
+  "email": 195,
+  "quote": 205,
+  "telemetry-docs": 37,
+  "image-provider": 13,
+  "ad": 257,
+  "astronomy-db": 38,
+  "cart": 252,
+  "otel-collector": 299,
+  "payment": 206,
+  "flagd-ui": 17,
+  "product-catalog": 1,
+  "fraud-detection": 186,
+  "accounting": 212,
+  "recommendation": 260,
+  "frontend": 20,
+  "frontend-proxy": 128
+ },
+ "latency_scheduled": {
+  "accounting": {
+   "records": 4230,
+   "median": 1.7994998693466187,
+   "p99": 32.001620020866405,
+   "max": 308.9739999771118,
+   "over_10s": 139
+  },
+  "ad": {
+   "records": 405,
+   "median": 9.217000007629395,
+   "p99": 55.485559949874826,
+   "max": 70.94799995422363,
+   "over_10s": 187
+  },
+  "astronomy-db": {
+   "records": 6903,
+   "median": 2.004000186920166,
+   "p99": 7.689880056381223,
+   "max": 9.870999813079834,
+   "over_10s": 0
+  },
+  "cart": {
+   "records": 2349,
+   "median": 2.046999931335449,
+   "p99": 19.205960006713866,
+   "max": 32.444000005722046,
+   "over_10s": 170
+  },
+  "email": {
+   "records": 230,
+   "median": 12.957499980926514,
+   "p99": 94.63484006881721,
+   "max": 308.9839999675751,
+   "over_10s": 140
+  },
+  "flagd": {
+   "records": 15,
+   "median": 302.981999874115,
+   "p99": 469.6943601226807,
+   "max": 471.518000125885,
+   "over_10s": 15
+  },
+  "flagd-ui": {
+   "records": 33,
+   "median": 3.115000009536743,
+   "p99": 468.1348401260376,
+   "max": 472.3070001602173,
+   "over_10s": 16
+  },
+  "fraud-detection": {
+   "records": 3186,
+   "median": 2.0320000648498535,
+   "p99": 34.66614984273914,
+   "max": 308.97199988365173,
+   "over_10s": 129
+  },
+  "frontend": {
+   "records": 4394,
+   "median": 2.3079999685287476,
+   "p99": 7.252559864521024,
+   "max": 12.361999988555908,
+   "over_10s": 2
+  },
+  "kafka": {
+   "records": 3409,
+   "median": 1.938999891281128,
+   "p99": 16.531400079727177,
+   "max": 17.92799997329712,
+   "over_10s": 266
+  },
+  "otel-collector": {
+   "records": 12551,
+   "median": 1.820000171661377,
+   "p99": 5.516999959945679,
+   "max": 8.115000009536743,
+   "over_10s": 0
+  },
+  "payment": {
+   "records": 497,
+   "median": 2.5490000247955322,
+   "p99": 85.08431995391848,
+   "max": 130.59599995613098,
+   "over_10s": 150
+  },
+  "quote": {
+   "records": 248,
+   "median": 13.347000002861023,
+   "p99": 87.87396996259689,
+   "max": 130.8230001926422,
+   "over_10s": 150
+  },
+  "recommendation": {
+   "records": 414,
+   "median": 8.625499963760376,
+   "p99": 58.74803000926972,
+   "max": 95.48099994659424,
+   "over_10s": 186
+  },
+  "shipping": {
+   "records": 760,
+   "median": 1.9999998807907104,
+   "p99": 70.60112993717193,
+   "max": 130.58899998664856,
+   "over_10s": 150
+  },
+  "telemetry-docs": {
+   "records": 882,
+   "median": 6.667499899864197,
+   "p99": 8.052009940147395,
+   "max": 11.000999927520752,
+   "over_10s": 1
+  },
+  "valkey-cart": {
+   "records": 69,
+   "median": 1.5269999504089355,
+   "p99": 369.9434799194333,
+   "max": 399.6689999103546,
+   "over_10s": 13
+  }
+ },
+ "latency_scheduled_all": {
+  "records": 40575,
+  "median": 2.01200008392334,
+  "p99": 28.8581599235535,
+  "max": 472.3070001602173,
+  "over_10s": 1714
+ },
+ "latency_over_10s_wait": {
+  "over_10s": 1714,
+  "with_a_next_line": 1714,
+  "back_within_5s_after_next_line": 1691,
+  "median_s_after_next_line": 1.6629999876022339,
+  "no_next_line_before_stop": 0
+ },
+ "latency_over_10s_by_phase": {
+  "before the quiet run": 802,
+  "quiet run": 527,
+  "between quiet end and scheduler start": 91,
+  "scheduled run": 1714
+ },
+ "delivery_whole_run": {
+  "span": [
+   1792010153,
+   1792016864
+  ],
+  "containers": {
+   "accounting": {
+    "raw_lines": 8659,
+    "returned_records": 4341,
+    "lines_covered": 8657,
+    "routes": {
+     "pass": 207,
+     "tier_down": 4134
+    },
+    "covered_minus_raw": -2
+   },
+   "ad": {
+    "raw_lines": 623,
+    "returned_records": 549,
+    "lines_covered": 622,
+    "routes": {
+     "pass": 292,
+     "tier_down": 257
+    },
+    "covered_minus_raw": -1
+   },
+   "astronomy-db": {
+    "raw_lines": 9364,
+    "returned_records": 7334,
+    "lines_covered": 9364,
+    "routes": {
+     "pass": 2498,
+     "offload": 4836
+    },
+    "covered_minus_raw": 0
+   },
+   "cart": {
+    "raw_lines": 6286,
+    "returned_records": 3119,
+    "lines_covered": 6284,
+    "routes": {
+     "pass": 1026,
+     "tier_down": 2093
+    },
+    "covered_minus_raw": -2
+   },
+   "currency": {
+    "raw_lines": 1,
+    "returned_records": 1,
+    "lines_covered": 1,
+    "routes": {
+     "pass": 1
+    },
+    "covered_minus_raw": 0
+   },
+   "email": {
+    "raw_lines": 653,
+    "returned_records": 333,
+    "lines_covered": 652,
+    "routes": {
+     "pass": 333
+    },
+    "covered_minus_raw": -1
+   },
+   "flagd": {
+    "raw_lines": 34,
+    "returned_records": 33,
+    "lines_covered": 33,
+    "routes": {
+     "pass": 33
+    },
+    "covered_minus_raw": -1
+   },
+   "flagd-ui": {
+    "raw_lines": 37,
+    "returned_records": 36,
+    "lines_covered": 36,
+    "routes": {
+     "pass": 36
+    },
+    "covered_minus_raw": -1
+   },
+   "fraud-detection": {
+    "raw_lines": 3276,
+    "returned_records": 3275,
+    "lines_covered": 3275,
+    "routes": {
+     "pass": 185,
+     "tier_down": 3090
+    },
+    "covered_minus_raw": -1
+   },
+   "frontend": {
+    "raw_lines": 5849,
+    "returned_records": 5849,
+    "lines_covered": 5849,
+    "routes": {
+     "pass": 1819,
+     "tier_down": 4030
+    },
+    "covered_minus_raw": 0
+   },
+   "frontend-proxy": {
+    "raw_lines": 135,
+    "returned_records": 128,
+    "lines_covered": 135,
+    "routes": {
+     "pass": 128
+    },
+    "covered_minus_raw": 0
+   },
+   "image-provider": {
+    "raw_lines": 65,
+    "returned_records": 65,
+    "lines_covered": 65,
+    "routes": {
+     "pass": 65
+    },
+    "covered_minus_raw": 0
+   },
+   "kafka": {
+    "raw_lines": 6377,
+    "returned_records": 5178,
+    "lines_covered": 6377,
+    "routes": {
+     "pass": 4278,
+     "tier_down": 900
+    },
+    "covered_minus_raw": 0
+   },
+   "otel-collector": {
+    "raw_lines": 21196,
+    "returned_records": 18066,
+    "lines_covered": 21196,
+    "routes": {
+     "pass": 7116,
+     "tier_down": 10950
+    },
+    "covered_minus_raw": 0
+   },
+   "payment": {
+    "raw_lines": 664,
+    "returned_records": 662,
+    "lines_covered": 663,
+    "routes": {
+     "pass": 376,
+     "tier_down": 286
+    },
+    "covered_minus_raw": -1
+   },
+   "product-catalog": {
+    "raw_lines": 1,
+    "returned_records": 1,
+    "lines_covered": 1,
+    "routes": {
+     "pass": 1
+    },
+    "covered_minus_raw": 0
+   },
+   "quote": {
+    "raw_lines": 353,
+    "returned_records": 332,
+    "lines_covered": 352,
+    "routes": {
+     "pass": 332
+    },
+    "covered_minus_raw": -1
+   },
+   "recommendation": {
+    "raw_lines": 558,
+    "returned_records": 557,
+    "lines_covered": 557,
+    "routes": {
+     "pass": 263,
+     "tier_down": 294
+    },
+    "covered_minus_raw": -1
+   },
+   "shipping": {
+    "raw_lines": 1032,
+    "returned_records": 1031,
+    "lines_covered": 1031,
+    "routes": {
+     "pass": 572,
+     "tier_down": 459
+    },
+    "covered_minus_raw": -1
+   },
+   "telemetry-docs": {
+    "raw_lines": 1326,
+    "returned_records": 1325,
+    "lines_covered": 1325,
+    "routes": {
+     "pass": 529,
+     "tier_down": 796
+    },
+    "covered_minus_raw": -1
+   },
+   "valkey-cart": {
+    "raw_lines": 102,
+    "returned_records": 101,
+    "lines_covered": 101,
+    "routes": {
+     "pass": 101
+    },
+    "covered_minus_raw": -1
+   }
+  }
+ },
+ "delivery_scheduled": {
+  "span": [
+   1792012348,
+   1792016864
+  ],
+  "containers": {
+   "accounting": {
+    "raw_lines": 8462,
+    "returned_records": 4230,
+    "lines_covered": 8460,
+    "routes": {
+     "pass": 96,
+     "tier_down": 4134
+    },
+    "covered_minus_raw": -2
+   },
+   "ad": {
+    "raw_lines": 452,
+    "returned_records": 405,
+    "lines_covered": 451,
+    "routes": {
+     "pass": 148,
+     "tier_down": 257
+    },
+    "covered_minus_raw": -1
+   },
+   "astronomy-db": {
+    "raw_lines": 8903,
+    "returned_records": 6903,
+    "lines_covered": 8903,
+    "routes": {
+     "pass": 2067,
+     "offload": 4836
+    },
+    "covered_minus_raw": 0
+   },
+   "cart": {
+    "raw_lines": 4752,
+    "returned_records": 2349,
+    "lines_covered": 4750,
+    "routes": {
+     "tier_down": 2070,
+     "pass": 279
+    },
+    "covered_minus_raw": -2
+   },
+   "email": {
+    "raw_lines": 462,
+    "returned_records": 230,
+    "lines_covered": 460,
+    "routes": {
+     "pass": 230
+    },
+    "covered_minus_raw": -2
+   },
+   "flagd": {
+    "raw_lines": 16,
+    "returned_records": 15,
+    "lines_covered": 15,
+    "routes": {
+     "pass": 15
+    },
+    "covered_minus_raw": -1
+   },
+   "flagd-ui": {
+    "raw_lines": 34,
+    "returned_records": 33,
+    "lines_covered": 33,
+    "routes": {
+     "pass": 33
+    },
+    "covered_minus_raw": -1
+   },
+   "fraud-detection": {
+    "raw_lines": 3187,
+    "returned_records": 3186,
+    "lines_covered": 3186,
+    "routes": {
+     "pass": 96,
+     "tier_down": 3090
+    },
+    "covered_minus_raw": -1
+   },
+   "frontend": {
+    "raw_lines": 4394,
+    "returned_records": 4394,
+    "lines_covered": 4394,
+    "routes": {
+     "tier_down": 3993,
+     "pass": 401
+    },
+    "covered_minus_raw": 0
+   },
+   "kafka": {
+    "raw_lines": 3409,
+    "returned_records": 3409,
+    "lines_covered": 3409,
+    "routes": {
+     "pass": 2509,
+     "tier_down": 900
+    },
+    "covered_minus_raw": 0
+   },
+   "otel-collector": {
+    "raw_lines": 13633,
+    "returned_records": 12551,
+    "lines_covered": 13633,
+    "routes": {
+     "tier_down": 10909,
+     "pass": 1642
+    },
+    "covered_minus_raw": 0
+   },
+   "payment": {
+    "raw_lines": 498,
+    "returned_records": 497,
+    "lines_covered": 497,
+    "routes": {
+     "pass": 211,
+     "tier_down": 286
+    },
+    "covered_minus_raw": -1
+   },
+   "quote": {
+    "raw_lines": 249,
+    "returned_records": 248,
+    "lines_covered": 248,
+    "routes": {
+     "pass": 248
+    },
+    "covered_minus_raw": -1
+   },
+   "recommendation": {
+    "raw_lines": 415,
+    "returned_records": 414,
+    "lines_covered": 414,
+    "routes": {
+     "pass": 120,
+     "tier_down": 294
+    },
+    "covered_minus_raw": -1
+   },
+   "shipping": {
+    "raw_lines": 761,
+    "returned_records": 760,
+    "lines_covered": 760,
+    "routes": {
+     "pass": 301,
+     "tier_down": 459
+    },
+    "covered_minus_raw": -1
+   },
+   "telemetry-docs": {
+    "raw_lines": 883,
+    "returned_records": 882,
+    "lines_covered": 882,
+    "routes": {
+     "tier_down": 792,
+     "pass": 90
+    },
+    "covered_minus_raw": -1
+   },
+   "valkey-cart": {
+    "raw_lines": 70,
+    "returned_records": 69,
+    "lines_covered": 69,
+    "routes": {
+     "pass": 69
+    },
+    "covered_minus_raw": -1
+   }
+  }
+ },
+ "delivery_split": {
+  "to_60s_before_stop": {
+   "raw_lines": 66255,
+   "lines_covered": 66255
+  },
+  "last_60s": {
+   "raw_lines": 336,
+   "lines_covered": 321
+  }
+ },
+ "totals_scheduled": {
+  "raw_lines": 50580,
+  "returned": 40575,
+  "routes": {
+   "tier_down": 27184,
+   "pass": 8555,
+   "offload": 4836
+  },
+  "bytes_by_route": {
+   "pass": 3444071,
+   "offload": 1386179,
+   "tier_down": 13199054,
+   "other": 0
+  }
+ },
+ "what_if_fleet_default_alone": {
+  "held_expected": 28019.0,
+  "held_expected_in_causal_span": 13831.0,
+  "held_expected_errors": 1018.0
+ }
+}

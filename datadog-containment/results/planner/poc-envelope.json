@@ -1,0 +1,1452 @@
+{
+ "schema_version": "1.0",
+ "schema_epoch": "2026-10-06",
+ "tool": "log10x_poc_from_local",
+ "generated_at": "2026-10-14T21:11:38.891Z",
+ "view": "summary",
+ "summary": {
+  "headline": "Target: move 70% of the volume out of the Datadog Standard index. This plan moves 70%, keeping everything. Sampled 7,979 events from 16 files. Moves 5,456 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0.01/mo at $1.70 per million events (15-day retention). Flex Starter added: $0.01/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Datadog list prices and Flex Logs docs, read 2026-10-13."
+ },
+ "data": {
+  "ok": true,
+  "source": "file",
+  "report_path": "/Users/talweiss/git/l1x-co/benchmarks/datadog-containment/results/planner/log10x-poc-report.html",
+  "report_caps_path": "/Users/talweiss/git/l1x-co/benchmarks/datadog-containment/results/planner/log10x-caps.csv",
+  "report_actions_path": "/Users/talweiss/git/l1x-co/benchmarks/datadog-containment/results/planner/log10x-actions.csv",
+  "engine_policy": {
+   "caps_csv": "container,cap\naccounting,1::accounting every statement goes to Flex. Today that is these 60 statements about $0.22 a month.\nad,1164::ad any statement above 1177 lines a day goes to Flex. Today that is these 6 statements about $0.32 a month.\ncart,1::cart every statement goes to Flex. Today that is these 6 statements about $2.1 a month.\nfraud-detection,1::fraud-detection every statement goes to Flex. Today that is this one statement about $0.22 a month.\nfrontend,5551::frontend any statement above 4382 lines a day goes to Flex. Today that is these 7 statements about $3.9 a month.\nkafka,4163::kafka any statement above 4448 lines a day goes to Flex. Today that is these 16 statements about $2.9 a month.\notel-collector,15726::otel-collector any statement above 1439 lines a day goes to Flex. Today that is these 10 statements about $12 a month.\npayment,2583::payment any statement above 262 lines a day goes to Flex. Today that is these 21 statements about $0.38 a month.\nrecommendation,1::recommendation every statement goes to Flex. Today that is these 6 statements about $0.4 a month.\nshipping,765::shipping any statement above 523 lines a day goes to Flex. Today that is these 11 statements about $0.67 a month.\ntelemetry-docs,1::telemetry-docs every statement goes to Flex. Today that is this one statement about $0.87 a month.\n",
+   "actions_csv": "container,action\naccounting,tier_down::accounting every statement goes to Flex. Today that is these 60 statements about $0.22 a month.\nad,tier_down::ad any statement above 1177 lines a day goes to Flex. Today that is these 6 statements about $0.32 a month.\ncart,tier_down::cart every statement goes to Flex. Today that is these 6 statements about $2.1 a month.\nfraud-detection,tier_down::fraud-detection every statement goes to Flex. Today that is this one statement about $0.22 a month.\nfrontend,tier_down::frontend any statement above 4382 lines a day goes to Flex. Today that is these 7 statements about $3.9 a month.\nkafka,tier_down::kafka any statement above 4448 lines a day goes to Flex. Today that is these 16 statements about $2.9 a month.\notel-collector,tier_down::otel-collector any statement above 1439 lines a day goes to Flex. Today that is these 10 statements about $12 a month.\npayment,tier_down::payment any statement above 262 lines a day goes to Flex. Today that is these 21 statements about $0.38 a month.\nrecommendation,tier_down::recommendation every statement goes to Flex. Today that is these 6 statements about $0.4 a month.\nshipping,tier_down::shipping any statement above 523 lines a day goes to Flex. Today that is these 11 statements about $0.67 a month.\ntelemetry-docs,tier_down::telemetry-docs every statement goes to Flex. Today that is this one statement about $0.87 a month.\n",
+   "span_seconds": 1321,
+   "span_source": "timestamps",
+   "reset_window_seconds": 240,
+   "unattributed_planned": 0
+  },
+  "fleet_default": {
+   "computed": true,
+   "action": "offload",
+   "error_floor": 0.5,
+   "headroom": 2,
+   "cap_bytes_per_window_per_node": 10288,
+   "baseline_bytes_per_window_per_node": 5144.102952308857,
+   "baseline_statement": "error_Error_scraping_metrics",
+   "baseline_container": "otel-collector",
+   "limit_lines_per_day": 2877.762237762238,
+   "nodes_for_lines": 1,
+   "containers_with_known_nodes": 0,
+   "sentence": "Any service not listed: a statement above 2,878 lines a day goes to the offload bucket. Up to 1,800 lines a day of every statement always reach Standard on each node."
+  },
+  "namespace": "-",
+  "window": "-",
+  "span": {
+   "seconds": 1321.083,
+   "source": "timestamps",
+   "statement": "Span: 22 minutes (1,321 s), from the first to the last record timestamp (2026-10-14T20:49:18.587Z to 2026-10-14T21:11:19.670Z; 5,329 of 9,054 sampled records carry one).",
+   "first_timestamp": "2026-10-14T20:49:18.587Z",
+   "last_timestamp": "2026-10-14T21:11:19.670Z",
+   "records_with_timestamp": 5329,
+   "records_sampled": 9054
+  },
+  "pods_sampled": 16,
+  "pods_failed": 0,
+  "events_pulled": 7979,
+  "total_bytes": 2101459,
+  "distinct_patterns": 182,
+  "daily_gb_projection": 0.12799844387280304,
+  "daily_dollar_projection_low": 0.008959891071096213,
+  "daily_dollar_projection_high": 0.7679906632368183,
+  "daily_pct_reduction_low": 65.42381269394264,
+  "daily_pct_reduction_expected": 76.9691914046384,
+  "daily_pct_reduction_high": 88.51457011533415,
+  "rate_source": "list_price",
+  "notes": [
+   "wrapped-JSON normalization applied: 9054 of 9054 lines decoded; analysed bytes count the unwrapped payload, raw file size is 3911217 bytes."
+  ],
+  "markdown": "# Log10x POC, local source (file)\n\n_Pulled 9.1K log lines (2.1 MB) across 16 files. Span: 22 minutes (1,321 s), from the first to the last record timestamp (2026-10-14T20:49:18.587Z to 2026-10-14T21:11:19.670Z; 5,329 of 9,054 sampled records carry one)._\n\n## Sample composition\n\nThese files produced the bytes in the sample. **Confirm this looks like your production mix before trusting the projection**, if 70% of your real-prod bytes come from a service that is NOT in this list, the savings projection is meaningless to you. Widen `paths` or raise `max_pods` (the file cap) if anything looks off.\n\n| File | Bytes | Lines | % of sample |\n|---|---|---|---|\n| `otel-collector` | 1.2 MB | 4.0K | 57% |\n| `frontend` | 0.352 MB | 1.3K | 17% |\n| `kafka` | 0.214 MB | 997 | 10% |\n| `cart` | 80.8 KB | 1.3K | 4% |\n| `payment` | 44.3 KB | 134 | 2% |\n| `accounting` | 43.3 KB | 134 | 2% |\n| `recommendation` | 37.1 KB | 121 | 2% |\n| `shipping` | 37 KB | 209 | 2% |\n| `ad` | 19.6 KB | 114 | 0.9% |\n| `telemetry-docs` | 19.3 KB | 261 | 0.9% |\n| _(6 more)_ | 51.3 KB | - | 2% |\n\n## Projected savings at default rates\n\n_Rates: the vendor's list price where it sells logs per GB, and a per-GB default, marked \"default rate\", where it bills in other units or publishes no per-GB price. Pass `effective_ingest_per_gb` on `log10x_estimate_savings` or `log10x_savings` once your real $/GB is known to convert these projections into a customer-specific quote._\n\nIf your full ingest mix matches this sample, ~77% of your byte volume is non-error high-frequency patterns, candidates for compacting, tiering down or offloading, each of which keeps every line.\n\n**Projected daily ingest** (extrapolated from sample): 0.137 GB.\n\n_The daily projection spreads the files' bytes over their span, read from the record timestamps._\n\n_These are list prices and default rates, not predictions of your specific bill: use them to size the order of magnitude, not to negotiate with procurement._\n\n| Log analyzer | Rate | Annual cost | Annual savings |\n|---|---|---|---|\n| Datadog | $2.50/GB (default rate, a blend of Datadog's two meters, which datadoghq.com/pricing/list gives as $0.10 per GB ingested and $2.50 per million events indexed at 30-day retention, billed annually) | $117 | $90 |\n| Splunk | $6.00/GB (default rate, not a Splunk list price) | $280 | $216 |\n| CloudWatch Logs | $0.50/GB (ingestion + first-month storage) | $23 | $18 |\n| Azure Monitor | $2.30/GB (Analytics tier ingest, list price) | $107 | $83 |\n| Sumo Logic | $2.50/GB (default rate, not a Sumo Logic list price) | $117 | $90 |\n| Elasticsearch | $1.00/GB (default rate, an estimate of self-managed infrastructure per GB) | $47 | $36 |\n| Coralogix | $1.15/GB (Frequent Search (High) priority, list price) | $54 | $41 |\n| Elastic Cloud Serverless | $0.07/GB (Logs Essentials ingest floor; retention billed separately) | $3.3 | $2.5 |\n| OpenSearch | $0.10/GB (self-hosted compute baseline (no canonical list rate)) | $4.7 | $3.6 |\n\n## Top patterns in the sample\n\n| # | Identity | Events | % | Bytes |\n|---|---|---|---|---|\n| 1 | `$(yyyy-MM-dd'T'HH:mm:ss.SSS'Z') info Traces {\"resource\": {\"…` | 1.1K | 14% | 0.342 MB |\n| 2 | `$(yyyy-MM-dd'T'HH:mm:ss.SSS'Z') info Metrics {\"resource\": {…` | 981 | 12% | 0.331 MB |\n| 3 | `$(yyyy-MM-dd'T'HH:mm:ss.SSS'Z') info Logs {\"resource\": {\"se…` | 821 | 10% | 0.256 MB |\n| 4 | `{\"level\":$,\"time\":$(+%s),\"pid\":$,\"hostname\":\"$\",\"trace_id\":…` | 504 | 6% | 0.146 MB |\n| 5 | `$(yyyy-MM-dd'T'HH:mm:ss.SSS'Z') info Logs {\"resource\": {\"se…` | 497 | 6% | 0.155 MB |\n| 6 | `info: cart.cartstore.ValkeyCartStore[$] GetCartAsync called…` | 265 | 3% | 32.3 KB |\n| 7 | `JB:WQS#/j&` | 261 | 3% | 19.3 KB |\n| 8 | `$(yyyy-MM-dd HH:mm:ss.SSS) $ [$] FATAL: role \"root\" does no…` | 257 | 3% | 17.7 KB |\n| 9 | `$(yyyy-MM-dd'T'HH:mm:ss.SSS'Z') info Traces {\"resource\": {\"…` | 219 | 3% | 68.1 KB |\n| 10 | `{\"level\":$,\"time\":$(+%s),\"pid\":$,\"hostname\":\"$\",\"trace_id\":…` | 198 | 2% | 54.5 KB |\n\n_For native stack exclusion configs, paste-ready Receiver YAML, and the full 9-section report, run `log10x_poc_from_siem` once you have credentials available._\n\n## Notes\n- wrapped-JSON normalization applied: 9054 of 9054 lines decoded; analysed bytes count the unwrapped payload, raw file size is 3911217 bytes.\n\n---\n\n_This POC read local files on a machine with network access. The same POC runs with no network at all. To run it offline, see `actions[]` for `log10x_emit_sample_plan`, or the [offline POC guide](https://github.com/log-10x/log10x-mcp/blob/main/docs/fenced-poc.md)._\n\n**Fleet default.** Any service not listed: a statement above 2,878 lines a day goes to the offload bucket. Up to 1,800 lines a day of every statement always reach Standard on each node. To install it, call `log10x_advise_install` with the `fleet_default` from this result and `log_destination: \"datadog\"`.",
+  "fenced_profile": false,
+  "fenced_offer": {
+   "disclosure": "This POC read local files on a machine with network access. The same POC runs with no network at all.",
+   "action": {
+    "tool": "log10x_emit_sample_plan",
+    "args": {
+     "siem": "datadog",
+     "window": "1h"
+    },
+    "reason": "Same POC, fenced: this renders a read-only export script the user runs themselves, then the analysis runs in a container started with --network none. Offer it; do not run it unless the user asks.",
+    "role": "alternative"
+   }
+  },
+  "feasibility": {
+   "feasible": true,
+   "target_percent_reduction": 70,
+   "max_achievable_percent": 79.6,
+   "reason": "Total sample bytes 2.1 MB across 16 pod(s). Ladder plan on datadog: tier_down first; achieved 70% of the volume out of the Standard index keeping everything; keep-everything ceiling 80%. Moves 5,456 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0.01/mo at $1.70 per million events (15-day retention). Flex Starter added: $0.01/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Datadog list prices and Flex Logs docs, read 2026-10-13. Achievable 79.6% of the volume out of the Standard index meets target 70%.",
+   "exception_services": [],
+   "exception_share_of_bytes": 0
+  },
+  "plan": {
+   "destination": "datadog",
+   "retrieverInstalled": false,
+   "scope": "all",
+   "target": {
+    "kind": "percent",
+    "value": 70
+   },
+   "targetPct": 70,
+   "percentBasis": "standard_index_volume",
+   "billUsd": 0.009753842499999997,
+   "keepEverythingLever": "tier_down",
+   "keepEverythingCeilingPct": 79.62362781642209,
+   "achievedPct": 70.29515803643537,
+   "met": true,
+   "totalSavedUsd": 0.009275121580588188,
+   "totalAddedUsd": 0.009820716967681614,
+   "perEventMove": {
+    "tier": "Datadog Flex Logs",
+    "pricing_tier": "starter",
+    "events_moved": 5455.953870934226,
+    "gb_moved": 0.0027425916000000006,
+    "events_basis": "measured",
+    "standard_indexing_avoided_usd": 0.009275121580588184,
+    "tier_storage_added_usd": 0.009820716967681607,
+    "tier_retention_months": 3,
+    "compute": "Flex Starter compute is included in its rate",
+    "text": "Moves 5,456 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0.01/mo at $1.70 per million events (15-day retention). Flex Starter added: $0.01/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Datadog list prices and Flex Logs docs, read 2026-10-13."
+   },
+   "rateBasis": "datadog default rate: all-in $2.5/GB, Datadog Flex Logs priced per event at list: Standard indexing avoided $1.70 per million events (15-day retention), Flex Starter added $0.60 per million events stored per month, compute included, held at least 3 months, the size Datadog recommends below 10 billion events stored (Datadog list prices and Flex Logs docs, read 2026-10-13)",
+   "rateSource": "list_price",
+   "modeled": false,
+   "prerequisites": [
+    "Flex Logs enabled on the Datadog account, and a Flex index whose filter keys on @routeState:tier_down"
+   ],
+   "bytesInMonthly": 3901537,
+   "containerCaps": {
+    "otel-collector": {
+     "action": "tier_down",
+     "capBytesMonthly": 86556,
+     "keptMaxPattern": "error_Error_scraping_metrics"
+    },
+    "frontend": {
+     "action": "tier_down",
+     "capBytesMonthly": 30552,
+     "keptMaxPattern": "Order_placed_successfully"
+    },
+    "cart": {
+     "action": "tier_down",
+     "capBytesMonthly": 0
+    },
+    "telemetry-docs": {
+     "action": "tier_down",
+     "capBytesMonthly": 0
+    },
+    "kafka": {
+     "action": "tier_down",
+     "capBytesMonthly": 22916,
+     "keptMaxPattern": "Successfully_wrote_snapshot_org_apache_kafka_image_publisher_SnapshotEmitter"
+    },
+    "shipping": {
+     "action": "tier_down",
+     "capBytesMonthly": 4208,
+     "keptMaxPattern": "flagd_off"
+    },
+    "payment": {
+     "action": "tier_down",
+     "capBytesMonthly": 14217,
+     "keptMaxPattern": "Transaction_complete"
+    },
+    "fraud-detection": {
+     "action": "tier_down",
+     "capBytesMonthly": 0
+    },
+    "recommendation": {
+     "action": "tier_down",
+     "capBytesMonthly": 0
+    },
+    "ad": {
+     "action": "tier_down",
+     "capBytesMonthly": 6408,
+     "keptMaxPattern": "oteldemo_AdService_Non_targeted_ad_request_received_preparing_random_response_trace_id_span_flags"
+    },
+    "accounting": {
+     "action": "tier_down",
+     "capBytesMonthly": 0
+    }
+   },
+   "planned": [
+    {
+     "hash": "KG8Fq0QFuoY",
+     "name": "Logs",
+     "displayName": "Logs",
+     "dominantService": "otel-collector",
+     "serviceMix": [
+      {
+       "service": "otel-collector",
+       "sharePct": 100
+      }
+     ],
+     "severity": "INFO",
+     "billUsd": 0.001740435,
+     "skeleton": "$(yyyy-MM-dd'T'HH:mm:ss.SSS'Z')\tinfo\tLogs\t{\"resource\": {\"service.instance.id\": \"$-$-$-$-$\", \"service.name\": \"otelcol-contrib\", \"service.version\": \"$.$.$2\"}, \"otelcol.component.id\": \"debug\", \"otelcol.component.kind\": \"exporter\", \"otelcol.signal\": \"logs\", \"resource logs\": $, \"log records\": $}",
+     "action": "tier_down",
+     "movedBytesMonthly": 548656.2000000001,
+     "savedUsd": 0.0017685011402321837,
+     "addedUsd": 0.0018725306190693711,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 1040.2947883718728,
+      "gb_moved": 0.0005486562000000001,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.0017685011402321837,
+      "tier_storage_added_usd": 0.0018725306190693711,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 1,040 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "Gl3Gtr_SH5w",
+     "name": "Traces",
+     "displayName": "Traces",
+     "dominantService": "otel-collector",
+     "serviceMix": [
+      {
+       "service": "otel-collector",
+       "sharePct": 100
+      }
+     ],
+     "severity": "INFO",
+     "billUsd": 0.0017352125,
+     "skeleton": "$(yyyy-MM-dd'T'HH:mm:ss.SSS'Z')\tinfo\tTraces\t{\"resource\": {\"service.instance.id\": \"$-$-$-$-$\", \"service.name\": \"otelcol-contrib\", \"service.version\": \"$.$.$2\"}, \"otelcol.component.id\": \"debug\", \"otelcol.component.kind\": \"exporter\", \"otelcol.signal\": \"traces\", \"resource spans\": $, \"spans\": $}",
+     "action": "tier_down",
+     "movedBytesMonthly": 546776.1,
+     "savedUsd": 0.00176640620245359,
+     "addedUsd": 0.0018703124496567422,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 1039.0624720315236,
+      "gb_moved": 0.0005467760999999999,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.00176640620245359,
+      "tier_storage_added_usd": 0.0018703124496567422,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 1,039 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "INl44sUgFeY",
+     "name": "API_request_completed",
+     "displayName": "API request completed",
+     "dominantService": "frontend",
+     "serviceMix": [
+      {
+       "service": "frontend",
+       "sharePct": 100
+      }
+     ],
+     "severity": "TRACE",
+     "billUsd": 0.0014647075000000002,
+     "skeleton": "{\"level\":$,\"time\":$(+%s),\"pid\":$,\"hostname\":\"$\",\"trace_id\":\"$\",\"span_id\":\"$\",\"trace_flags\":\"$\",\"http.request.method\":\"GET\",\"url.path\":\"//api//products//$\",\"http.response.status_code\":$,\"msg\":\"API request completed\"}",
+     "action": "tier_down",
+     "movedBytesMonthly": 527294.7000000001,
+     "savedUsd": 0.00181152,
+     "addedUsd": 0.0019180800000000002,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 1065.6000000000001,
+      "gb_moved": 0.0005272947000000001,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.00181152,
+      "tier_storage_added_usd": 0.0019180800000000002,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 1,066 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "PuWB8kkVbfw",
+     "name": "Metrics",
+     "displayName": "Metrics",
+     "dominantService": "otel-collector",
+     "serviceMix": [
+      {
+       "service": "otel-collector",
+       "sharePct": 100
+      }
+     ],
+     "severity": "INFO",
+     "billUsd": 0.0014305275,
+     "skeleton": "$(yyyy-MM-dd'T'HH:mm:ss.SSS'Z')\tinfo\tMetrics\t{\"resource\": {\"service.instance.id\": \"$-$-$-$-$\", \"service.name\": \"otelcol-contrib\", \"service.version\": \"$.$.$2\"}, \"otelcol.component.id\": \"debug\", \"otelcol.component.kind\": \"exporter\", \"otelcol.signal\": \"metrics\", \"resource metrics\": $, \"metrics\": $, \"data points\": $}",
+     "action": "tier_down",
+     "movedBytesMonthly": 437089.5,
+     "savedUsd": 0.0013401172273864012,
+     "addedUsd": 0.0014189476525267777,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 788.3042514037654,
+      "gb_moved": 0.0004370895,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.0013401172273864012,
+      "tier_storage_added_usd": 0.0014189476525267777,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 788 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "YZplfQ4a1Xw",
+     "name": "GetCartAsync_called_with_userId",
+     "displayName": "GetCartAsync called with userId",
+     "dominantService": "cart",
+     "serviceMix": [
+      {
+       "service": "cart",
+       "sharePct": 100
+      }
+     ],
+     "severity": "INFO",
+     "billUsd": 0.00042805,
+     "skeleton": "info: cart.cartstore.ValkeyCartStore[$]",
+     "action": "tier_down",
+     "movedBytesMonthly": 154098,
+     "savedUsd": 0.0005752800000000001,
+     "addedUsd": 0.00060912,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 338.40000000000003,
+      "gb_moved": 0.000154098,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.0005752800000000001,
+      "tier_storage_added_usd": 0.00060912,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 338 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "eDSYlCMPqVY",
+     "name": "AddItemAsync_called_with_userId_productId_quantity",
+     "displayName": "AddItemAsync called with userId productId quantity",
+     "dominantService": "cart",
+     "serviceMix": [
+      {
+       "service": "cart",
+       "sharePct": 100
+      }
+     ],
+     "severity": "INFO",
+     "billUsd": 0.0002470875,
+     "skeleton": "info: cart.cartstore.ValkeyCartStore[$]",
+     "action": "tier_down",
+     "movedBytesMonthly": 88951.5,
+     "savedUsd": 0.00030293999999999997,
+     "addedUsd": 0.00032076,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 178.2,
+      "gb_moved": 0.0000889515,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.00030293999999999997,
+      "tier_storage_added_usd": 0.00032076,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 178 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "-FtZD9XArpU",
+     "name": "Order_details",
+     "displayName": "Order details",
+     "dominantService": "accounting",
+     "serviceMix": [
+      {
+       "service": "accounting",
+       "sharePct": 100
+      }
+     ],
+     "severity": "INFO",
+     "billUsd": 0.0001745225,
+     "skeleton": "info: Accounting.Consumer[$]",
+     "action": "tier_down",
+     "movedBytesMonthly": 62828.1,
+     "savedUsd": 0.00010251,
+     "addedUsd": 0.00010854000000000001,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 60.300000000000004,
+      "gb_moved": 0.0000628281,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.00010251,
+      "tier_storage_added_usd": 0.00010854000000000001,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 60 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "zxRYTKQNyBY",
+     "name": "GET_HTTP_Wget",
+     "displayName": "GET HTTP Wget",
+     "dominantService": "telemetry-docs",
+     "serviceMix": [
+      {
+       "service": "telemetry-docs",
+       "sharePct": 100
+      }
+     ],
+     "severity": "",
+     "billUsd": 0.00017095499999999998,
+     "skeleton": "JB:WQS#/j&",
+     "action": "tier_down",
+     "movedBytesMonthly": 61543.8,
+     "savedUsd": 0.00039933000000000004,
+     "addedUsd": 0.0004228200000000001,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 234.9,
+      "gb_moved": 0.0000615438,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.00039933000000000004,
+      "tier_storage_added_usd": 0.0004228200000000001,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 235 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "bzLB1zZCTIw",
+     "name": "Receive_ListRecommendations_for_product_ids",
+     "displayName": "Receive ListRecommendations for product ids",
+     "dominantService": "recommendation",
+     "serviceMix": [
+      {
+       "service": "recommendation",
+       "sharePct": 100
+      }
+     ],
+     "severity": "INFO",
+     "billUsd": 0.0001479225,
+     "skeleton": "$(yyyy-MM-dd HH:mm:ss,SSS) INFO [main] [recommendation_server.py:$] [trace_id=$ span_id=$ resource.service.name=recommendation trace_sampled=True] - Receive ListRecommendations for product ids:['$', '$', '$', '$', '$']",
+     "action": "tier_down",
+     "movedBytesMonthly": 53252.1,
+     "savedUsd": 0.00018512999999999998,
+     "addedUsd": 0.00019601999999999998,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 108.89999999999999,
+      "gb_moved": 0.0000532521,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.00018512999999999998,
+      "tier_storage_added_usd": 0.00019601999999999998,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 109 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "Xbm-ZA6Dxfo",
+     "name": "Transaction_complete_Order_confirmation_email_sent_for_order",
+     "displayName": "Transaction complete Order confirmation email sent for order",
+     "dominantService": "payment",
+     "serviceMix": [
+      {
+       "service": "payment",
+       "sharePct": 100
+      }
+     ],
+     "severity": "TRACE",
+     "billUsd": 0.0001047,
+     "skeleton": "{\"level\":\"info\",\"time\":$(+%s),\"pid\":$,\"hostname\":\"$\",\"trace_id\":\"$\",\"span_id\":\"$\",\"trace_flags\":\"$\",\"service.name\":\"payment\",\"transactionId\":\"$-$-$-$-$\",\"$\":\"visa\",\"$\":\"$\",\"amount\":{\"units\":{\"low\":$,\"high\":$,\"unsigned\":false},\"nanos\":$,\"currencyCode\":\"USD\"},\"loyalty_level\":\"platinum\",\"msg\":\"Transaction complete.\"}",
+     "action": "tier_down",
+     "movedBytesMonthly": 24896.7,
+     "savedUsd": 0.00004648810744985674,
+     "addedUsd": 0.00004922270200573066,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 27.345945558739256,
+      "gb_moved": 0.000024896700000000002,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.00004648810744985674,
+      "tier_storage_added_usd": 0.00004922270200573066,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 27 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "pFokWfyJRLU",
+     "name": "Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals",
+     "displayName": "Deleting segments due to log start offset breach LogSegment baseOffset size lastModifiedTime apache kafka storage internals",
+     "dominantService": "kafka",
+     "serviceMix": [
+      {
+       "service": "kafka",
+       "sharePct": 100
+      }
+     ],
+     "severity": "INFO",
+     "billUsd": 0.00008644,
+     "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [UnifiedLog partition=__cluster_metadata$, dir=//tmp//kafka-logs] Deleting segments due to log start offset $ breach: LogSegment(baseOffset=$, size=$, lastModifiedTime=$(+%s), $=$(+%s)) (org.apache.kafka.storage.internals.log.UnifiedLog)",
+     "action": "tier_down",
+     "movedBytesMonthly": 10494,
+     "savedUsd": 0.00003456925613142064,
+     "addedUsd": 0.000036602741786210086,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 20.334856547894493,
+      "gb_moved": 0.000010494,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.00003456925613142064,
+      "tier_storage_added_usd": 0.000036602741786210086,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 20 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "h3qY1nS1uxY",
+     "name": "EmptyCartAsync_called_with_userId",
+     "displayName": "EmptyCartAsync called with userId",
+     "dominantService": "cart",
+     "serviceMix": [
+      {
+       "service": "cart",
+       "sharePct": 100
+      }
+     ],
+     "severity": "INFO",
+     "billUsd": 0.000086315,
+     "skeleton": "info: cart.cartstore.ValkeyCartStore[$]",
+     "action": "tier_down",
+     "movedBytesMonthly": 31073.4,
+     "savedUsd": 0.00010251,
+     "addedUsd": 0.00010854000000000001,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 60.300000000000004,
+      "gb_moved": 0.0000310734,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.00010251,
+      "tier_storage_added_usd": 0.00010854000000000001,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 60 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "VnqlcNA_PIM",
+     "name": "Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager",
+     "displayName": "Wrote snapshot offset producer ids ms org apache kafka storage internals log ProducerStateManager",
+     "dominantService": "kafka",
+     "serviceMix": [
+      {
+       "service": "kafka",
+       "sharePct": 100
+      }
+     ],
+     "severity": "INFO",
+     "billUsd": 0.00008511,
+     "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [ProducerStateManager partition=__cluster_metadata$] Wrote producer snapshot at offset $ with $ producer ids in $1 ms. (org.apache.kafka.storage.internals.log.ProducerStateManager)",
+     "action": "tier_down",
+     "movedBytesMonthly": 10015.2,
+     "savedUsd": 0.00004400992597814593,
+     "addedUsd": 0.00004659874515333099,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 25.88819175185055,
+      "gb_moved": 0.0000100152,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.00004400992597814593,
+      "tier_storage_added_usd": 0.00004659874515333099,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 26 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "wyR-oWD2-hk",
+     "name": "Rolled_new_log_segment_at_offset_in_ms_org_apache_kafka_storage_internals_LocalLog",
+     "displayName": "Rolled new log segment at offset in ms org apache kafka storage internals LocalLog",
+     "dominantService": "kafka",
+     "serviceMix": [
+      {
+       "service": "kafka",
+       "sharePct": 100
+      }
+     ],
+     "severity": "INFO",
+     "billUsd": 0.000084455,
+     "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [LocalLog partition=__cluster_metadata$, dir=//tmp//kafka-logs//__cluster_metadata$1] Rolled new log segment at offset $ in $ ms. (org.apache.kafka.storage.internals.log.LocalLog)",
+     "action": "tier_down",
+     "movedBytesMonthly": 9779.4,
+     "savedUsd": 0.00004330703451542241,
+     "addedUsd": 0.00004585450713397668,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 25.474726185542597,
+      "gb_moved": 0.0000097794,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.00004330703451542241,
+      "tier_storage_added_usd": 0.00004585450713397668,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 25 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "-Jf8QdAufSM",
+     "name": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals_LocalLog",
+     "displayName": "Deleting segment files LogSegment baseOffset size lastModifiedTime apache kafka storage internals LocalLog",
+     "dominantService": "kafka",
+     "serviceMix": [
+      {
+       "service": "kafka",
+       "sharePct": 100
+      }
+     ],
+     "severity": "INFO",
+     "billUsd": 0.000084,
+     "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [LocalLog partition=__cluster_metadata$, dir=//tmp//kafka-logs//__cluster_metadata$1] Deleting segment files LogSegment(baseOffset=$, size=$, lastModifiedTime=$(+%s), $=$(+%s)) (org.apache.kafka.storage.internals.log.LocalLog)",
+     "action": "tier_down",
+     "movedBytesMonthly": 9615.6,
+     "savedUsd": 0.000032595739285714286,
+     "addedUsd": 0.000034513135714285716,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 19.173964285714288,
+      "gb_moved": 0.0000096156,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.000032595739285714286,
+      "tier_storage_added_usd": 0.000034513135714285716,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 19 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "xHrytxJfUdw",
+     "name": "oteldemo_AdService_Targeted_ad_request_received_for",
+     "displayName": "oteldemo AdService Targeted ad request received for",
+     "dominantService": "ad",
+     "serviceMix": [
+      {
+       "service": "ad",
+       "sharePct": 100
+      }
+     ],
+     "severity": "TRACE",
+     "billUsd": 0.000081375,
+     "skeleton": "$(yyyy-MM-dd HH:mm:ss) - oteldemo.AdService - Targeted ad request received for [assembly] trace_id=$ span_id=$ trace_flags=$ ",
+     "action": "tier_down",
+     "movedBytesMonthly": 23527.8,
+     "savedUsd": 0.00011796426912442397,
+     "addedUsd": 0.00012490334377880183,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 69.3907465437788,
+      "gb_moved": 0.0000235278,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.00011796426912442397,
+      "tier_storage_added_usd": 0.00012490334377880183,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 69 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "AMFi23Ga9wY",
+     "name": "Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile",
+     "displayName": "Deleted producer state snapshot tmp kafka logs cluster org apache storage internals log SnapshotFile",
+     "dominantService": "kafka",
+     "serviceMix": [
+      {
+       "service": "kafka",
+       "sharePct": 100
+      }
+     ],
+     "severity": "INFO",
+     "billUsd": 0.00007917,
+     "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Deleted producer state snapshot //tmp//kafka-logs//__cluster_metadata$//$.snapshot.deleted (org.apache.kafka.storage.internals.log.SnapshotFile)",
+     "action": "tier_down",
+     "movedBytesMonthly": 7876.8,
+     "savedUsd": 0.00003678725274725275,
+     "addedUsd": 0.000038951208791208796,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 21.63956043956044,
+      "gb_moved": 0.0000078768,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.00003678725274725275,
+      "tier_storage_added_usd": 0.000038951208791208796,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 22 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "BVtz4xhx64s",
+     "name": "older_than_retention_org_apache_kafka_raft_internals_KafkaRaftLog",
+     "displayName": "older than retention org apache kafka raft internals KafkaRaftLog",
+     "dominantService": "kafka",
+     "serviceMix": [
+      {
+       "service": "kafka",
+       "sharePct": 100
+      }
+     ],
+     "severity": "INFO",
+     "billUsd": 0.00007735,
+     "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [RaftLog partition=__cluster_metadata$, nodeId=$] Marking snapshot $[offset=$, epoch=$3] for deletion because its timestamp ($(+%s)) is now ($(+%s)) older than the retention ($) (org.apache.kafka.raft.internals.KafkaRaftLog)",
+     "action": "tier_down",
+     "movedBytesMonthly": 7221.6,
+     "savedUsd": 0.000026585010989010988,
+     "addedUsd": 0.000028148835164835166,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 15.638241758241758,
+      "gb_moved": 0.0000072216000000000004,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.000026585010989010988,
+      "tier_storage_added_usd": 0.000028148835164835166,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 16 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "q20KpyVGjSM",
+     "name": "Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+     "displayName": "Deleted index tmp cluster org apache kafka storage internals log LogSegment",
+     "dominantService": "kafka",
+     "serviceMix": [
+      {
+       "service": "kafka",
+       "sharePct": 100
+      }
+     ],
+     "severity": "INFO",
+     "billUsd": 0.0000763425,
+     "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Deleted time index //tmp//kafka-logs//__cluster_metadata$//$.timeindex.deleted. (org.apache.kafka.storage.internals.log.LogSegment)",
+     "action": "tier_down",
+     "movedBytesMonthly": 6858.900000000001,
+     "savedUsd": 0.00003321974358974359,
+     "addedUsd": 0.00003517384615384615,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 19.54102564102564,
+      "gb_moved": 0.0000068589000000000005,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.00003321974358974359,
+      "tier_storage_added_usd": 0.00003517384615384615,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 20 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "hl_fK-uzMu8",
+     "name": "Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+     "displayName": "Deleted offset index tmp cluster org apache kafka storage internals log LogSegment",
+     "dominantService": "kafka",
+     "serviceMix": [
+      {
+       "service": "kafka",
+       "sharePct": 100
+      }
+     ],
+     "severity": "INFO",
+     "billUsd": 0.0000759075,
+     "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Deleted offset index //tmp//kafka-logs//__cluster_metadata$//$.index.deleted. (org.apache.kafka.storage.internals.log.LogSegment)",
+     "action": "tier_down",
+     "movedBytesMonthly": 6702.3,
+     "savedUsd": 0.00003264730659025788,
+     "addedUsd": 0.00003456773638968482,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 19.204297994269343,
+      "gb_moved": 0.0000067023,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.00003264730659025788,
+      "tier_storage_added_usd": 0.00003456773638968482,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 19 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "WlIY0QjIiEg",
+     "name": "Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
+     "displayName": "Deleted tmp cluster org apache kafka storage internals log LogSegment",
+     "dominantService": "kafka",
+     "serviceMix": [
+      {
+       "service": "kafka",
+       "sharePct": 100
+      }
+     ],
+     "severity": "INFO",
+     "billUsd": 0.000073515,
+     "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Deleted log //tmp//kafka-logs//__cluster_metadata$//$.log.deleted. (org.apache.kafka.storage.internals.log.LogSegment)",
+     "action": "tier_down",
+     "movedBytesMonthly": 5841,
+     "savedUsd": 0.000029377810650887577,
+     "addedUsd": 0.00003110591715976331,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 17.281065088757398,
+      "gb_moved": 0.000005841,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.000029377810650887577,
+      "tier_storage_added_usd": 0.00003110591715976331,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 17 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "fg1YkiyrF3Q",
+     "name": "Charge_request_received",
+     "displayName": "Charge request received",
+     "dominantService": "payment",
+     "serviceMix": [
+      {
+       "service": "payment",
+       "sharePct": 100
+      }
+     ],
+     "severity": "TRACE",
+     "billUsd": 0.000072025,
+     "skeleton": "{\"level\":\"info\",\"time\":$(+%s),\"pid\":$,\"hostname\":\"$\",\"trace_id\":\"$\",\"span_id\":\"$\",\"trace_flags\":\"$\",\"service.name\":\"payment\",\"msg\":\"Charge request received.\"}",
+     "action": "tier_down",
+     "movedBytesMonthly": 13133.7,
+     "savedUsd": 0.00005192393023255814,
+     "addedUsd": 0.000054978279069767445,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 30.543488372093027,
+      "gb_moved": 0.000013133700000000001,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.00005192393023255814,
+      "tier_storage_added_usd": 0.000054978279069767445,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 31 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "kAB8PMmHyKM",
+     "name": "shipping_service_Requesting_quote_http_getquote",
+     "displayName": "shipping service Requesting quote http getquote",
+     "dominantService": "shipping",
+     "serviceMix": [
+      {
+       "service": "shipping",
+       "sharePct": 100
+      }
+     ],
+     "severity": "",
+     "billUsd": 0.00007035,
+     "skeleton": "$[$$-$:$:$.$[$ $8[$ $[$ $[$::shipping_service::$[$[$:$[$ Requesting quote $[$_service_$[$[$=$[$\"http:////quote:$//getquote\"",
+     "action": "tier_down",
+     "movedBytesMonthly": 21538.8,
+     "savedUsd": 0.00008718085714285714,
+     "addedUsd": 0.00009230914285714286,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 51.28285714285714,
+      "gb_moved": 0.000021538799999999998,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.00008718085714285714,
+      "tier_storage_added_usd": 0.00009230914285714286,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 51 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "LnOvjJt0La4",
+     "name": "Tracking_ID_Created",
+     "displayName": "Tracking ID Created",
+     "dominantService": "shipping",
+     "serviceMix": [
+      {
+       "service": "shipping",
+       "sharePct": 100
+      }
+     ],
+     "severity": "",
+     "billUsd": 0.0000701825,
+     "skeleton": "$[$$-$:$:$.$[$ $8[$ $[$ $[$::shipping_$[$[$:$[$ Tracking ID Created $[$_$[$[$=$[$\"$-$-$-$-$\"",
+     "action": "tier_down",
+     "movedBytesMonthly": 21478.5,
+     "savedUsd": 0.00008714427207637231,
+     "addedUsd": 0.00009227040572792364,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 51.26133651551313,
+      "gb_moved": 0.0000214785,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.00008714427207637231,
+      "tier_storage_added_usd": 0.00009227040572792364,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 51 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "PX-oZ7rxgZo",
+     "name": "Sending_Quote",
+     "displayName": "Sending Quote",
+     "dominantService": "shipping",
+     "serviceMix": [
+      {
+       "service": "shipping",
+       "sharePct": 100
+      }
+     ],
+     "severity": "",
+     "billUsd": 0.00006972,
+     "skeleton": "$[$$-$:$:$.$[$ $8[$ $[$ $[$::shipping_$[$[$:$[$ Sending Quote $[$[$[$=$[$ $[$[$[$=$[$",
+     "action": "tier_down",
+     "movedBytesMonthly": 21312,
+     "savedUsd": 0.00008704234079173837,
+     "addedUsd": 0.00009216247848537004,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 51.20137693631669,
+      "gb_moved": 0.000021312,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.00008704234079173837,
+      "tier_storage_added_usd": 0.00009216247848537004,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 51 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "YJTvxN0rObQ",
+     "name": "Creating_new_KRaft_snapshot_file_because_we_have_replayed_at_least_bytes_org_apache_kafka_image_publisher_SnapshotGenerator",
+     "displayName": "Creating new KRaft snapshot file because we have replayed at least bytes org apache kafka image publisher SnapshotGenerator",
+     "dominantService": "kafka",
+     "serviceMix": [
+      {
+       "service": "kafka",
+       "sharePct": 100
+      }
+     ],
+     "severity": "INFO",
+     "billUsd": 0.00006817,
+     "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [SnapshotGenerator id=$] Creating new KRaft snapshot file snapshot $$ because we have replayed at least $ bytes. (org.apache.kafka.image.publisher.SnapshotGenerator)",
+     "action": "tier_down",
+     "movedBytesMonthly": 3916.8,
+     "savedUsd": 0.00001660488778054863,
+     "addedUsd": 0.000017581645885286782,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 9.767581047381547,
+      "gb_moved": 0.0000039168,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.00001660488778054863,
+      "tier_storage_added_usd": 0.000017581645885286782,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 10 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "GKfNbCrpxxI",
+     "name": "fraud_detection_Consumed_record_with_orderId_and_updated_total_count_to_trace_id_span_flags",
+     "displayName": "fraud detection Consumed record with orderId and updated total count to trace id span flags",
+     "dominantService": "fraud-detection",
+     "serviceMix": [
+      {
+       "service": "fraud-detection",
+       "sharePct": 100
+      }
+     ],
+     "severity": "TRACE",
+     "billUsd": 0.0000676675,
+     "skeleton": "$(yyyy-MM-dd HH:mm:ss) - fraud-detection - Consumed record with orderId: $-$-$$-$, and updated total count to: $ trace_id=$ span_id=$ trace_flags=$ ",
+     "action": "tier_down",
+     "movedBytesMonthly": 24360.3,
+     "savedUsd": 0.00010250999999999999,
+     "addedUsd": 0.00010853999999999999,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 60.3,
+      "gb_moved": 0.000024360299999999998,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.00010250999999999999,
+      "tier_storage_added_usd": 0.00010853999999999999,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 60 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    },
+    {
+     "hash": "3AOokQ1Sq7k",
+     "name": "Incremented_log_start_offset_to_due_snapshot_generated_org_apache_kafka_storage_internals_UnifiedLog",
+     "displayName": "Incremented log start offset to due snapshot generated org apache kafka storage internals UnifiedLog",
+     "dominantService": "kafka",
+     "serviceMix": [
+      {
+       "service": "kafka",
+       "sharePct": 100
+      }
+     ],
+     "severity": "INFO",
+     "billUsd": 0.00006412,
+     "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [UnifiedLog partition=__cluster_metadata$, dir=//tmp//kafka-logs] Incremented log start offset to $ due to snapshot generated (org.apache.kafka.storage.internals.log.UnifiedLog)",
+     "action": "tier_down",
+     "movedBytesMonthly": 2458.8,
+     "savedUsd": 0.000010919265439800377,
+     "addedUsd": 0.00001156157517155334,
+     "perEventMove": {
+      "tier": "Datadog Flex Logs",
+      "pricing_tier": "starter",
+      "events_moved": 6.423097317529633,
+      "gb_moved": 0.0000024588,
+      "events_basis": "measured",
+      "standard_indexing_avoided_usd": 0.000010919265439800377,
+      "tier_storage_added_usd": 0.00001156157517155334,
+      "tier_retention_months": 3,
+      "compute": "Flex Starter compute is included in its rate",
+      "text": "Moves 6 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0/mo at $1.70 per million events (15-day retention). Flex Starter added: $0/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Priced at the tier of the 5,456 events a month moved in all. Datadog list prices and Flex Logs docs, read 2026-10-13."
+     },
+     "keepsEverything": true
+    }
+   ],
+   "kept": [
+    {
+     "hash": "fhu6rrW86b4",
+     "name": "error_Error_scraping_metrics",
+     "displayName": "error Error scraping metrics",
+     "dominantService": "otel-collector",
+     "serviceMix": [
+      {
+       "service": "otel-collector",
+       "sharePct": 100
+      }
+     ],
+     "severity": "ERROR",
+     "billUsd": 0.00021639,
+     "skeleton": "$(yyyy-MM-dd'T'HH:mm:ss.SSS'Z')\terror\tscraperhelper@v0.$.$//obs_metrics.go:$\tError scraping metrics\t{\"resource\": {\"service.instance.id\": \"$-$-$-$-$\", \"service.name\": \"otelcol-contrib\", \"service.version\": \"$7.$8.$7\"}, \"otelcol.component.id\": \"host_metrics\", \"otelcol.component.kind\": \"receiver\", \"otelcol.signal\": \"metrics\", \"scraper\": \"filesystem\", \"error\": \"failed to read usage at //$//$: no such file or directory\"}",
+     "action": "pass",
+     "savedUsd": 0,
+     "keepsEverything": true
+    },
+    {
+     "hash": "oUkuI8QT6s8",
+     "name": "role_root_does_not_exist",
+     "displayName": "role root does not exist",
+     "dominantService": "astronomy-db",
+     "serviceMix": [
+      {
+       "service": "astronomy-db",
+       "sharePct": 100
+      }
+     ],
+     "severity": "CRITICAL",
+     "billUsd": 0.0001625175,
+     "skeleton": "$(yyyy-MM-dd HH:mm:ss.SSS) $ [$] FATAL:  role \"root\" does not exist",
+     "action": "pass",
+     "savedUsd": 0,
+     "keepsEverything": true
+    },
+    {
+     "hash": "KSy6KmHbgEc",
+     "name": "Order_placed_successfully",
+     "displayName": "Order placed successfully",
+     "dominantService": "frontend",
+     "serviceMix": [
+      {
+       "service": "frontend",
+       "sharePct": 100
+      }
+     ],
+     "severity": "TRACE",
+     "billUsd": 0.00007638,
+     "skeleton": "{\"level\":$,\"time\":$(+%s),\"pid\":$,\"hostname\":\"$\",\"trace_id\":\"$\",\"span_id\":\"$\",\"trace_flags\":\"$\",\"demo.order.id\":\"$-$-$$-$\",\"msg\":\"Order placed successfully\"}",
+     "action": "pass",
+     "savedUsd": 0,
+     "keepsEverything": true
+    },
+    {
+     "hash": "TM6TaR-b4oE",
+     "name": "Successfully_wrote_snapshot_org_apache_kafka_image_publisher_SnapshotEmitter",
+     "displayName": "Successfully wrote snapshot org apache kafka image publisher SnapshotEmitter",
+     "dominantService": "kafka",
+     "serviceMix": [
+      {
+       "service": "kafka",
+       "sharePct": 100
+      }
+     ],
+     "severity": "INFO",
+     "billUsd": 0.000057289999999999995,
+     "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [SnapshotEmitter id=$] Successfully wrote snapshot $$ (org.apache.kafka.image.publisher.SnapshotEmitter)",
+     "action": "pass",
+     "savedUsd": 0,
+     "keepsEverything": true
+    },
+    {
+     "hash": "1Eg3qHK6Z9w",
+     "name": "Deleted_snapshot_files_for_apache_kafka_Snapshots",
+     "displayName": "Deleted snapshot files for apache kafka Snapshots",
+     "dominantService": "kafka",
+     "serviceMix": [
+      {
+       "service": "kafka",
+       "sharePct": 100
+      }
+     ],
+     "severity": "INFO",
+     "billUsd": 0.00005272,
+     "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO Deleted snapshot files for snapshot $[offset=$, epoch=$]. (org.apache.kafka.snapshot.Snapshots)",
+     "action": "pass",
+     "savedUsd": 0,
+     "keepsEverything": true
+    },
+    {
+     "hash": "1zhBPd1E9Bc",
+     "name": "POST_send_order_confirmation_HTTP",
+     "displayName": "POST send order confirmation HTTP",
+     "dominantService": "email",
+     "serviceMix": [
+      {
+       "service": "email",
+       "sharePct": 100
+      }
+     ],
+     "severity": "",
+     "billUsd": 0.0000480375,
+     "skeleton": "$.$.$.$ - - [$(dd/MMM/yyyy:HH:mm:ss Z)] \"POST //send_order_confirmation HTTP//$.$1\" $ - $4.$",
+     "action": "pass",
+     "savedUsd": 0,
+     "keepsEverything": true
+    },
+    {
+     "hash": "c4yR2F2cVfk",
+     "name": "POST_getquote_HTTP",
+     "displayName": "POST getquote HTTP",
+     "dominantService": "quote",
+     "serviceMix": [
+      {
+       "service": "quote",
+       "sharePct": 100
+      }
+     ],
+     "severity": "",
+     "billUsd": 0.0000393625,
+     "skeleton": "[$(yyyy-MM-dd HH:mm:ssZZZZZ)] \"POST //getquote HTTP//$.$1\" $ $ ",
+     "action": "pass",
+     "savedUsd": 0,
+     "keepsEverything": true
+    },
+    {
+     "hash": "9WbTsopbiXk",
+     "name": "Transaction_complete",
+     "displayName": "Transaction complete",
+     "dominantService": "payment",
+     "serviceMix": [
+      {
+       "service": "payment",
+       "sharePct": 100
+      }
+     ],
+     "severity": "TRACE",
+     "billUsd": 0.0000355425,
+     "skeleton": "{\"level\":\"info\",\"time\":$(+%s),\"pid\":$,\"hostname\":\"$\",\"trace_id\":\"$\",\"span_id\":\"$\",\"trace_flags\":\"$\",\"service.name\":\"payment\",\"transactionId\":\"$-$-$-$-$\",\"$\":\"visa\",\"$\":\"$\",\"amount\":{\"units\":{\"low\":$,\"high\":$,\"unsigned\":false},\"nanos\":$,\"currencyCode\":\"USD\"},\"loyalty_level\":\"bronze\",\"msg\":\"Transaction complete.\"}",
+     "action": "pass",
+     "savedUsd": 0,
+     "keepsEverything": true
+    },
+    {
+     "hash": "jN_dDVWoa78",
+     "name": "oteldemo_AdService_Non_targeted_ad_request_received_preparing_random_response_trace_id_span_flags",
+     "displayName": "oteldemo AdService Non targeted ad request received preparing random response trace id span flags",
+     "dominantService": "ad",
+     "serviceMix": [
+      {
+       "service": "ad",
+       "sharePct": 100
+      }
+     ],
+     "severity": "TRACE",
+     "billUsd": 0.00001602,
+     "skeleton": "$(yyyy-MM-dd HH:mm:ss) - oteldemo.AdService - Non-targeted ad request received, preparing random response. trace_id=$ span_id=$ trace_flags=$ ",
+     "action": "pass",
+     "savedUsd": 0,
+     "keepsEverything": true
+    },
+    {
+     "hash": "lL9RUMft8Us",
+     "name": "flagd_off",
+     "displayName": "flagd off",
+     "dominantService": "shipping",
+     "serviceMix": [
+      {
+       "service": "shipping",
+       "sharePct": 100
+      }
+     ],
+     "severity": "",
+     "billUsd": 0.000010520000000000001,
+     "skeleton": "$[$$-$:$:$.$[$ $8[$ $[$ $[$::shipping_$[$[$:$[$ $[$_flag_$[$[$=$[$\"$\" $[$_flag_provider_$[$[$=$[$\"flagd\" $[$_flag_$[$[$=$[$\"off\"",
+     "action": "pass",
+     "savedUsd": 0,
+     "keepsEverything": true
+    },
+    {
+     "hash": "kSaBbG9G3Nw",
+     "name": "LOG_checkpoint_complete_wrote_buffers_SLRU_WAL_file_s_added_removed_recycled_write_sync_total_files_longest_average_distance",
+     "displayName": "LOG checkpoint complete wrote buffers SLRU WAL file s added removed recycled write sync total files longest average distance",
+     "dominantService": "astronomy-db",
+     "serviceMix": [
+      {
+       "service": "astronomy-db",
+       "sharePct": 100
+      }
+     ],
+     "severity": "",
+     "billUsd": 0.0000049,
+     "skeleton": "$(yyyy-MM-dd HH:mm:ss.SSS) $ [$] LOG:  checkpoint complete: wrote $ buffers ($.$1%), wrote $ SLRU buffers; $2 WAL file(s) added, $2 removed, $2 recycled; write=$2.$ s, sync=$3.$ s, total=$4.$ s; sync files=$, longest=$6.$ s, average=$.$ s; distance=$ kB, estimate=$ kB; lsn=$//$, redo lsn=$//$",
+     "action": "pass",
+     "savedUsd": 0,
+     "keepsEverything": true
+    },
+    {
+     "hash": "uFiFj2oDd6k",
+     "name": "LOG_checkpoint_starting_time",
+     "displayName": "LOG checkpoint starting time",
+     "dominantService": "astronomy-db",
+     "serviceMix": [
+      {
+       "service": "astronomy-db",
+       "sharePct": 100
+      }
+     ],
+     "severity": "",
+     "billUsd": 0.0000030725,
+     "skeleton": "$(yyyy-MM-dd HH:mm:ss.SSS) $ [$] LOG:  checkpoint starting: time",
+     "action": "pass",
+     "savedUsd": 0,
+     "keepsEverything": true
+    },
+    {
+     "hash": "kodKFTs6ZHw",
+     "name": "Fork_CoW_RDB_current_peak_MB_average",
+     "displayName": "Fork CoW RDB current peak MB average",
+     "dominantService": "valkey-cart",
+     "serviceMix": [
+      {
+       "service": "valkey-cart",
+       "sharePct": 100
+      }
+     ],
+     "severity": "",
+     "billUsd": 0.0000026775,
+     "skeleton": "$:C $(dd MMM yyyy HH:mm:ss).$ * Fork CoW for RDB: current $ MB, peak $1 MB, average $1 MB",
+     "action": "pass",
+     "savedUsd": 0,
+     "keepsEverything": true
+    },
+    {
+     "hash": "sX9OKFLN168",
+     "name": "Background_saving_terminated_with_success",
+     "displayName": "Background saving terminated with success",
+     "dominantService": "valkey-cart",
+     "serviceMix": [
+      {
+       "service": "valkey-cart",
+       "sharePct": 100
+      }
+     ],
+     "severity": "",
+     "billUsd": 0.00000251,
+     "skeleton": "$:$ $(dd MMM yyyy HH:mm:ss).$ * Background saving terminated with success",
+     "action": "pass",
+     "savedUsd": 0,
+     "keepsEverything": true
+    },
+    {
+     "hash": "CqVDqv2uuq4",
+     "name": "changes_seconds_Saving",
+     "displayName": "changes seconds Saving",
+     "dominantService": "valkey-cart",
+     "serviceMix": [
+      {
+       "service": "valkey-cart",
+       "sharePct": 100
+      }
+     ],
+     "severity": "",
+     "billUsd": 0.0000024699999999999996,
+     "skeleton": "$:$ $(dd MMM yyyy HH:mm:ss).$ * $ changes in $ seconds. Saving...",
+     "action": "pass",
+     "savedUsd": 0,
+     "keepsEverything": true
+    },
+    {
+     "hash": "cSWpKn5pAUI",
+     "name": "Background_saving_started_by_pid",
+     "displayName": "Background saving started by pid",
+     "dominantService": "valkey-cart",
+     "serviceMix": [
+      {
+       "service": "valkey-cart",
+       "sharePct": 100
+      }
+     ],
+     "severity": "",
+     "billUsd": 0.0000024675,
+     "skeleton": "$:$ $(dd MMM yyyy HH:mm:ss).$ * Background saving started by pid $",
+     "action": "pass",
+     "savedUsd": 0,
+     "keepsEverything": true
+    },
+    {
+     "hash": "INXTRKqNcG8",
+     "name": "DB_saved_on_disk",
+     "displayName": "DB saved on disk",
+     "dominantService": "valkey-cart",
+     "serviceMix": [
+      {
+       "service": "valkey-cart",
+       "sharePct": 100
+      }
+     ],
+     "severity": "",
+     "billUsd": 0.0000022875,
+     "skeleton": "$:C $(dd MMM yyyy HH:mm:ss).$ * DB saved on disk",
+     "action": "pass",
+     "savedUsd": 0,
+     "keepsEverything": true
+    },
+    {
+     "hash": "32n9YngnbiQ",
+     "name": "Node_disconnected_org_apache_kafka_clients_NetworkClient",
+     "displayName": "Node disconnected org apache kafka clients NetworkClient",
+     "dominantService": "kafka",
+     "serviceMix": [
+      {
+       "service": "kafka",
+       "sharePct": 100
+      }
+     ],
+     "severity": "INFO",
+     "billUsd": 0.0000016,
+     "skeleton": "[$(yyyy-MM-dd HH:mm:ss,SSS)] INFO [NodeToControllerChannelManager id=$ name=registration] Node $1 disconnected. (org.apache.kafka.clients.NetworkClient)",
+     "action": "pass",
+     "savedUsd": 0,
+     "keepsEverything": true
+    },
+    {
+     "hash": "CF-DhVUoFVw",
+     "name": "shutting_down_parent_after_drain",
+     "displayName": "shutting down parent after drain",
+     "dominantService": "frontend-proxy",
+     "serviceMix": [
+      {
+       "service": "frontend-proxy",
+       "sharePct": 100
+      }
+     ],
+     "severity": "INFO",
+     "billUsd": 7.425000000000001e-7,
+     "skeleton": "-1_5oF9AUAn",
+     "action": "pass",
+     "savedUsd": 0,
+     "keepsEverything": true
+    }
+   ],
+   "gap": null
+  },
+  "commitment_artifact": {
+   "markdown": "## Projected commitment, local (file sample)\n\n- **Target reduction**: 70% of the volume out of the Standard index\n- **Projected max achievable**: 79.6% of the volume out of the Standard index (feasible)\n- **Datadog Flex**: Moves 5,456 events (0 GB) a month out of the Standard index into Datadog Flex Logs. Standard indexing avoided: $0.01/mo at $1.70 per million events (15-day retention). Flex Starter added: $0.01/mo at $0.60 per million events stored per month, compute included, held 3 months (the size Datadog recommends below 10 billion events stored). Datadog list prices and Flex Logs docs, read 2026-10-13.\n- **Sample bytes analyzed**: 2.1 MB\n- **Span**: 22 minutes (1,321 s), from the first to the last record timestamp (2026-10-14T20:49:18.587Z to 2026-10-14T21:11:19.670Z; 5,329 of 9,054 sampled records carry one).\n\n### Next step\n\n1. Re-run `log10x_poc_from_siem_submit` once log-analyzer credentials are available, the stack path produces the per-pattern action plan + native exclusion configs.\n2. Run `log10x_advise_install` to provision the Receiver in your forwarder pipeline.\n\n_This is a PRE-DEPLOY projection from a local file sample. Local-source feasibility carries higher uncertainty than the stack-attached path because the sample may not cover CloudTrail / ALB / VM-hosted apps the analyzer also ingests._",
+   "next_step": {
+    "tool": "log10x_advise_install",
+    "reason": "feasibility passes; provision Receiver"
+   }
+  },
+  "status": "success",
+  "query_count": 0,
+  "total_latency_ms": 8175,
+  "backend_pressure_hint": null,
+  "human_summary": "Sampled 7,979 events from 16 files (2.1 MB) covering 182 distinct patterns. Estimated byte reduction is 65-89% per day. At list prices and default rates the same volume costs roughly $0.0090-$0.77/day across vendors. The action-plan report was written to /Users/talweiss/git/l1x-co/benchmarks/datadog-containment/results/planner/log10x-poc-report.html; open it in a browser."
+ },
+ "actions": [
+  {
+   "tool": "log10x_resolve_batch",
+   "args": {
+    "source": "text",
+    "text": "..."
+   },
+   "reason": "run the same sample through resolve_batch for per-pattern variable concentration + next actions"
+  },
+  {
+   "tool": "log10x_emit_sample_plan",
+   "args": {
+    "siem": "datadog",
+    "window": "1h"
+   },
+   "reason": "Same POC, fenced: this renders a read-only export script the user runs themselves, then the analysis runs in a container started with --network none. Offer it; do not run it unless the user asks.",
+   "role": "alternative"
+  }
+ ],
+ "truncated": false,
+ "warnings": []
+}
