@@ -1,0 +1,30 @@
+[INFO ] 2026-10-15 20:19:49.965 [main] PipelineLauncher - launching 10x engine v1.1.142, flavor: 'runtime', pipeline: 'run'
+[INFO ] 2026-10-15 20:19:49.965 [main] PipelineLauncher - log4j2 config file loaded from: /etc/tenx/config/log4j2.yaml
+[WARN ] 2026-10-15 20:19:50.044 [main] PipelineLauncher - No license configured; running on the built-in evaluation license: 10 nodes, 30 days, airgapped.
+[WARN ] 2026-10-15 20:19:50.044 [main] PipelineLauncher - To license this deployment, set licenseFile / licenseKey, the TENX_LICENSE_FILE / TENX_LICENSE_KEY env var, or a licenseKey/licenseFile entry in your bootstrap .yaml. See https://doc.log10x.com/manage/license/
+[INFO ] 2026-10-15 20:19:50.075 [main] PipelineLauncher - pipelineConfigLoader took: 31ms
+[INFO ] 2026-10-15 20:19:50.075 [main] ExecutionPipeline - executing /opt/tenx-edge/lib/app/modules/pipelines/run/pipeline.yaml (myReceiver)
+[INFO ] 2026-10-15 20:19:50.076 [main] ExecutionPipeline - pipeline units: configLoader => symbolLoader(shared/symbols, tenx/symbols) => templateLoader => readStream(stream:fluentbit) => parallelize(0.5 / 1) => transform => group => aggregateSingle(emitted_events: 10000/2s) => aggregateSingle(all_events: 10000/2s) => logOutput(run/modules/output/event/forward) => printProgress => monitor => tokenizeStats => publishEnvMetrics
+🪵 Initializing 10x engine. Logging to SYS_OUT
+🚀 Launching 10x Engine: Receiver app
+📚 Loading symbol libraries from: /etc/tenx/config/data/shared/symbols,/etc/tenx/symbols
+📂 Loaded symbol files: /etc/tenx/symbols/tenx-symbols-1.1.142.10x.tar
+📂 Loading TenXTemplates from: data/templates/*.json,data/sample/output/*.json
+📥 Reading events from Fluent Bit via Forward protocol on tcp://0.0.0.0:24224
+💰 Loading rate cap file: /etc/tenx/lookups/caps.csv
+⚠️ rate receiver cap file is stale, lastModified: 1792082562558, retainInterval: 600000
+[INFO ] 2026-10-15 20:19:51.554 [main] TenXLog - fluentbit: rate receiver cap file is stale, lastModified: 1792082562558, retainInterval: 600000
+🚦 Applying rate regulator to: fluentbit
+[INFO ] 2026-10-15 20:19:51.674 [main] ForwardProtocolInputStream - initializing Forward protocol input stream on TCP port: 24224
+[INFO ] 2026-10-15 20:19:51.674 [main] ForwardProtocolInputStream - Forward protocol server listening on TCP port: 24224
+⚙️ Transforming events into TenXObjects using 50% of available cores
+ℹ️ Enriching TenXObjects with severity field: 'severity_level'
+🔲 Consolidating multi-line events into logical TenXObject groups
+💬 Enriching TenXObjects with message field: 'message_pattern'
+🌐 Enriching TenXObjects with HTTP code field: 'http_code'
+📋 Enriching TenXObjects with lookup field: 'http_message' from file: /etc/tenx/config/pipelines/run/initialize/lookup/http.csv
+☸️ Enriching TenXObjects with k8s container context using fluentK8s
+[INFO ] 2026-10-15 20:19:51.849 [main] EventLogPublisherConfigBuilder - Added new loggers to log4j: [tenxForward__fluent-bit_24225]
+📝 Writing TenXObject field: 'fullText("tenx_hash","routeState","message_pattern","severity_level")' → Fluentd: fluent-bit:24225
+[INFO ] 2026-10-15 20:19:51.869 [main] ResourceReloadUnit - resource reload: starting with 4 watched path(s); pollInterval=10s
+[INFO ] 2026-10-15 20:20:25.569 [AsyncWorkerTaskInput: readStream 20:19:51] ForwardProtocolInputStream - client connected to Forward protocol input: tcp://0.0.0.0:24224

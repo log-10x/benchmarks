@@ -448,6 +448,17 @@ The same replay with the install seed in place of the plan's rows, so every cont
 | records opened by a line that is not a head (within 7 s) | 0 (0; same pattern 0) | 173 (16; same pattern 0) | 172 (19; same pattern 0) |
 | lines written up to 60 s before the stop: raw / covered | 66,255 / 66,255 | 45,258 / 45,258 | 72,187 / 72,187 |
 
+## Receiver memory and CPU
+
+`raw.jsonl` from the moment the Receiver came up with the values above to the end of the capture, replayed at its captured pace through Fluent Bit into `log10x/edge-10x:1.1.142@sha256:24e31c07a95e1f7dc356f11dc5cac4b21602ff91040ea831f94668b05afe6bf1` with those values and their limits (0.5 CPU, 512 MiB): 57,353 records, 76.8 minutes to 60 s after the last one, one `docker stats` sample every 10 s (`rig/memory/`, `results/memory/`).
+
+| measure | samples | median | p99 | max |
+|---|---:|---:|---:|---:|
+| memory, MiB | 461 | 212.8 | 227.5 | 227.7 |
+| CPU, % of one core | 461 | 0.42 | 8.0 | 15.56 |
+
+Before the first record: 112.4 MiB and 0.08% of a core (median of 3 samples). OOM killed: false; restarts: 0. Returned by route in the replay: pass 16,836, offload 5,524, tier_down 22,655, other 0.
+
 ## Reading
 
 **Two runs on the released software.** Both ran edge-10x 1.1.142 with the values log10x-mcp 1.30.58 writes, seed 20261014, the same six flags, a 22-minute quiet run and a 75-minute schedule. In the first (scheduled 10:56:11 to 12:11:16 UTC, commit 4c2b610) kafkaQueueProblems never reached checkout: its Go flagd provider answered from its cache, and flagd counted 4 resolutions of the flag through it for the whole run, so there was no duplicate-order flood. That run stands for latency and false holds: median 2.02 s, p99 7.44 s, max 17.2 s, 59 records over 10 s, no fleet-default hold at all. This run (the one on this page) sets `FLAGD_CACHE=disabled` on checkout (README, "checkout's flag cache") and stands for the incident. Everything above is this run.

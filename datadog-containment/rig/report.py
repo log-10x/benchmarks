@@ -283,6 +283,25 @@ def main():
             L.append(f"| {name} | " + ' | '.join(f(r) for r in cols) + ' |')
         L.append('')
 
+    mem = os.path.join(RESULTS, 'memory', 'summary.json')
+    if os.path.exists(mem):
+        M = json.load(open(mem))
+        m, c, w = M['memory_mib'], M['cpu_percent_of_one_core'], M['window']
+        L.append('## Receiver memory and CPU\n')
+        L.append(f"`raw.jsonl` from the moment the Receiver came up with the values above to the end of the capture, "
+                 f"replayed at its captured pace through Fluent Bit into `{M['image']}` with those values and their limits "
+                 f"({M['limits']['cpus']:g} CPU, {M['limits']['memory_bytes'] / 2 ** 20:,.0f} MiB): {w['records_sent']:,} records, "
+                 f"{w['minutes']} minutes to 60 s after the last one, one `docker stats` sample every 10 s "
+                 f"(`rig/memory/`, `results/memory/`).\n")
+        L.append('| measure | samples | median | p99 | max |\n|---|---:|---:|---:|---:|')
+        L.append(f"| memory, MiB | {m['samples']} | {m['median']} | {m['p99']} | {m['max']} |")
+        L.append(f"| CPU, % of one core | {c['samples']} | {c['median']} | {c['p99']} | {c['max']} |")
+        L.append('')
+        i = M['idle_before_replay']
+        L.append(f"Before the first record: {i['memory_mib_median']} MiB and {i['cpu_percent_median']}% of a core (median of "
+                 f"{i['samples']} samples). OOM killed: {str(M['oom_killed']).lower()}; restarts: {M['restart_count']}. "
+                 "Returned by route in the replay: " + ', '.join(f"{k} {v:,}" for k, v in M['returned'].items()) + '.\n')
+
     notes = os.path.join(RESULTS, 'notes.md')
     if os.path.exists(notes):
         L.append('## Reading\n')
