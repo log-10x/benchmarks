@@ -36,6 +36,7 @@ rerun it and check every figure a post cites.
 | [`datadog-containment/`](datadog-containment/) | When a service floods its logs, does the released Receiver, installed with the values the MCP writes for Datadog, hold the flood before Datadog, including in a service with no rule, and what does it hold that it should not? The OpenTelemetry demo's own seeded failures on engine 1.1.142. | Current |
 | [`cloudwatch-ia-accounting/`](cloudwatch-ia-accounting/) | CloudWatch bills ingestion per GB, and an Infrequent Access log group ingests at half the Standard rate. When the 10x Receiver moves events to Infrequent Access or offloads them to S3 under the plan the 10x MCP writes, how many GB move, and what do they cost at AWS's list prices for us-east-1? Computed from the engine's counts at list price; no AWS account needed. | Current. Not behind a post. |
 | [`intent/`](intent/) | Does each pattern hold one logging statement? Every event of two OpenTelemetry-demo captures and a LogHub ZooKeeper capture is labelled with the source statement that wrote it, from the programs' own source, and the 10x engine (1.1.142, the current release, on all three; 1.1.132 and 1.1.133 on the demo captures; 1.1.136 on ZooKeeper) and Drain3 are scored against those labels: events merged with another statement, events split from their statement's main pattern, and exact grouping. | Current. Linked from [*How a Drain pattern group changes as more lines arrive*](https://www.log10x.com/blog/drain-pattern-groups-change/). |
+| [`naming-stability/`](naming-stability/) | When the engine moves to its next release, how many events change their pattern name, pattern hash or template hash? Engine 1.1.140, 1.1.141 and 1.1.142, each with the configuration and library its image ships, on the two OpenTelemetry-demo captures of `intent/`, compared event by event. | Current |
 | [`loghub-compaction/`](loghub-compaction/) | How much smaller is the engine's compact form than the original logs, on the 14 full public LogHub datasets, with the engine and library as they ship? The compact form is the encoded events plus the template dictionary, measured before any codec. | Current |
 | [`drain3-vs-log10x/`](drain3-vs-log10x/) | Log10x against [Drain3](https://github.com/logpai/Drain3) on the [LogHub](https://github.com/logpai/loghub) 2k sets: does a line get the same pattern ID regardless of file and order, and does the reduced form reverse to the original bytes? | Retired as a benchmark. The post it was written for never shipped. Its `tenx-encode.config.yaml` and `tenx-decode.config.yaml` are still cited elsewhere as the published round-trip configs, so the folder stays. |
 
@@ -61,6 +62,7 @@ each resolves its paths relative to itself, so a benchmark can be run from anywh
 | `datadog-containment/` | `rig/go.sh` | engine and Fluent Bit images by digest, log10x-mcp from npm at a pinned version, OpenTelemetry demo 3.1.0 | `results/` | the demo's images, pulled by tag |
 | `cloudwatch-ia-accounting/` | `./run.sh` | the same as `datadog-flex-accounting/` | `results/` | the same asset |
 | `intent/` | `./run.sh` | engine image digests (1.1.132, 1.1.133, 1.1.136, 1.1.142) and drain3 0.9.11 from `pattern-identity/requirements.txt` | `results/` | the `otel-sample-200mb.log` asset from `log-10x/config` tag `otel-sample-v1` and `rec1155.log.gz` from this repository's `intent-data-v1` release, fetched into `cache/` on first run |
+| `naming-stability/` | `./run.sh` | engine image digests (1.1.140, 1.1.141, 1.1.142) | `results/` | the same two captures as `intent/`, checked by sha256 |
 | `drain3-vs-log10x/` | see its README | `requirements.txt` | `bench/facts.json`, `bench/results.json` | LogHub 2k sets, fetched into `loghub/` |
 
 Large inputs are never committed. Each folder's `.gitignore` excludes whatever that benchmark
@@ -75,7 +77,7 @@ their artifacts are committed. `otel-denominators/report.py` is checked the same
 re-renders the committed CSV and fails if the rendered table does not match the committed
 `results.md`, so an edited number in the table without a rerun is caught. `splunk-license`
 carries the same guard against its own primary file: CI recomputes the licence figures from
-the `RolloverSummary` lines the run kept verbatim and fails if `results.json` disagrees. `intent` re-renders `results/results.md` from the committed score files and fails if the tables disagree.
+the `RolloverSummary` lines the run kept verbatim and fails if `results.json` disagrees. `intent` re-renders `results/results.md` from the committed score files and fails if the tables disagree. `naming-stability` does the same from its committed `compare.json`.
 
 ## License
 

@@ -1,0 +1,113 @@
+{
+ "versions": [
+  "1.1.140",
+  "1.1.141",
+  "1.1.142"
+ ],
+ "pairs": {
+  "rec1155 1.1.140 -> 1.1.141": {
+   "unit": "event",
+   "same_events": true,
+   "events_old": 41573,
+   "events_new": 41573,
+   "units": 41573,
+   "name_changed": 0,
+   "name_changed_pct": 0.0,
+   "hash_changed": 0,
+   "hash_changed_pct": 0.0,
+   "name_or_hash_changed": 0,
+   "name_or_hash_changed_pct": 0.0,
+   "template_changed": 0,
+   "template_changed_pct": 0.0,
+   "moved_between_events": 0,
+   "patterns_old": 582,
+   "patterns_renamed": 0,
+   "patterns_renamed_pct": 0.0,
+   "hashes_old": 582,
+   "hashes_changed": 0,
+   "hashes_changed_pct": 0.0,
+   "names_new_in_later": 0,
+   "changed_patterns": []
+  },
+  "rec1155 1.1.141 -> 1.1.142": {
+   "unit": "event",
+   "same_events": true,
+   "events_old": 41573,
+   "events_new": 41573,
+   "units": 41573,
+   "name_changed": 0,
+   "name_changed_pct": 0.0,
+   "hash_changed": 0,
+   "hash_changed_pct": 0.0,
+   "name_or_hash_changed": 0,
+   "name_or_hash_changed_pct": 0.0,
+   "template_changed": 0,
+   "template_changed_pct": 0.0,
+   "moved_between_events": 0,
+   "patterns_old": 582,
+   "patterns_renamed": 0,
+   "patterns_renamed_pct": 0.0,
+   "hashes_old": 582,
+   "hashes_changed": 0,
+   "hashes_changed_pct": 0.0,
+   "names_new_in_later": 0,
+   "changed_patterns": []
+  },
+  "otel215 1.1.140 -> 1.1.141": {
+   "unit": "event",
+   "same_events": true,
+   "events_old": 157228,
+   "events_new": 157228,
+   "units": 157228,
+   "name_changed": 0,
+   "name_changed_pct": 0.0,
+   "hash_changed": 0,
+   "hash_changed_pct": 0.0,
+   "name_or_hash_changed": 0,
+   "name_or_hash_changed_pct": 0.0,
+   "template_changed": 0,
+   "template_changed_pct": 0.0,
+   "moved_between_events": 0,
+   "patterns_old": 2687,
+   "patterns_renamed": 0,
+   "patterns_renamed_pct": 0.0,
+   "hashes_old": 2687,
+   "hashes_changed": 0,
+   "hashes_changed_pct": 0.0,
+   "names_new_in_later": 0,
+   "changed_patterns": []
+  },
+  "otel215 1.1.141 -> 1.1.142": {
+   "unit": "event",
+   "same_events": true,
+   "events_old": 157228,
+   "events_new": 157228,
+   "units": 157228,
+   "name_changed": 0,
+   "name_changed_pct": 0.0,
+   "hash_changed": 0,
+   "hash_changed_pct": 0.0,
+   "name_or_hash_changed": 0,
+   "name_or_hash_changed_pct": 0.0,
+   "template_changed": 0,
+   "template_changed_pct": 0.0,
+   "moved_between_events": 0,
+   "patterns_old": 2687,
+   "patterns_renamed": 0,
+   "patterns_renamed_pct": 0.0,
+   "hashes_old": 2687,
+   "hashes_changed": 0,
+   "hashes_changed_pct": 0.0,
+   "names_new_in_later": 0,
+   "changed_patterns": []
+  }
+ },
+ "captures": {
+  "rec1155": {
+   "records_opening_with_ansi_dim_code": 0
+  },
+  "otel215": {
+   "records_opening_with_ansi_dim_code": 0
+  }
+ }
+}

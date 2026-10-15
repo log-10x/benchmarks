@@ -201,6 +201,29 @@ jobs:
           python intent/bench/summarize.py > /tmp/results.md
           diff -u intent/results/results.md /tmp/results.md
 
+  naming-stability:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      # The run needs Docker, three engine images and both captures, so CI checks
+      # what it can without them.
+      - name: Syntax-check the harness
+        run: |
+          bash -n naming-stability/run.sh naming-stability/bench/engine.sh
+          python -m py_compile naming-stability/bench/compare.py
+
+      # results.md is rendered from the committed compare.json. Re-render it and fail
+      # if the committed table disagrees, so a number edited without a rerun is caught.
+      - name: The committed table follows from the committed comparison
+        run: |
+          python naming-stability/bench/compare.py --render > /tmp/results.md
+          diff -u naming-stability/results/results.md /tmp/results.md
+
   datadog-flex-accounting:
     runs-on: ubuntu-latest
     steps:
