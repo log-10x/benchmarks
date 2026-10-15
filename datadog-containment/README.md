@@ -1,0 +1,67 @@
+# Datadog containment
+
+One benchmark in the [log10x benchmarks](../) repository. It answers one question: when a
+service starts flooding its logs, does the released Receiver, installed with the values the
+released MCP writes for Datadog, hold the flood before it reaches Datadog, including in a
+service nobody wrote a rule for, and what does it hold that it should not?
+
+The incidents are the OpenTelemetry demo's own: demo 3.1.0 ships failure flags and a
+scheduler that turns them on and off, seeded so a run repeats. Nothing was sent to a Datadog
+account; the Receiver's output is split by the route it stamps (`pass`, `tier_down`,
+`offload`) and counted. The full figures, rendered from the committed captures, are in
+[`results/results.md`](results/results.md).
+
+## The result
+
+Engine `log10x/edge-10x:1.1.142` with its own config and modules, log10x-mcp 1.30.58, seed
+20261014, a 22-minute quiet run for the MCP's POC, then 75 minutes of scheduled failures.
+
+- **The flood was held, in a service with no rule.** `kafkaQueueProblems` makes checkout
+  publish each order 100 extra times; accounting logs a duplicate for each copy and its
+  insert fails, so Postgres writes an ERROR, a DETAIL and a STATEMENT line per copy. Postgres
+  had no rule of its own; the fleet default held 5,555 of its lines (1.59 MB), the first 26 s
+  after the first duplicate line, once the flood had filled the window's limit. accounting
+  and fraud-detection, which the POC gave rules, were held within 5 s by their own rules.
+- **No false holds.** Nothing was held by the fleet default outside a failure's causal path.
+- **Failures that do not flood logs held nothing new**: emailMemoryLeak and the homepage flood.
+- **Errors.** Above the limit, 48% of ERROR lines still reached Datadog against a floor of
+  0.5. Postgres's DETAIL and STATEMENT lines carry no level, so an ERROR that passes arrives
+  without them.
+- **Latency.** Median 2.15 s, p99 7.16 s, max 10.3 s from Fluent Bit to Fluent Bit through the
+  Receiver; every line written up to 60 s before the stop came back (72,187 of 72,187).
+
+## How the limits were set
+
+The MCP's own POC on the quiet run wrote 15 per-service rules (each service's limit between
+its largest kept statement and its smallest moved one, with the margin stated) and a fleet
+default for every other service: twice the largest per-window statement the plan keeps,
+71,247 bytes per window per node here, with the excess going to S3 (`offload`) and half of
+ERROR and CRITICAL kept above it. The Receiver ran with exactly the values the MCP rendered;
+the only substitution is mounted policy files in place of the cluster's ConfigMap pull
+([`results/results.md`](results/results.md), "The values the Receiver ran with").
+
+## Limits of this run
+
+- **One host, Docker.** The demo runs in Docker Compose; the rig reshapes each Docker record
+  the way a Kubernetes forwarder ships it, because the MCP and the Receiver key on
+  `kubernetes.container_name`. With plain Docker records the MCP attributes no service.
+- **One demo setting.** `FLAGD_CACHE=disabled` on checkout: with the cache on, checkout's
+  flagd provider answered from its cache and the scheduled Kafka failure never reached it
+  (a first run on 1.1.142 had no flood for that reason; its latency and false-hold figures
+  are kept beside this run's).
+- **The fleet default depends on the quiet run.** It is twice the largest statement the plan
+  keeps, so a noisy statement in the baseline raises it: 25,960 bytes in the first 1.1.142
+  run, 71,247 in this one, after a burst of the collector's Kafka scrape errors. A larger
+  default holds later in a flood (26 s here, 0.18 s at 10,288 bytes in an earlier run).
+- **S3 only.** Locally there is no Flex index; the fleet default's action is `offload`.
+- **Earlier runs.** On engine 1.1.141 the same rig showed a p99 of 28.9 s and a worst case of
+  472 s from an input-wide flush timer, fixed in 1.1.142, and one false hold from a cap unit
+  mismatch, fixed in log10x-mcp 1.30.55. Both runs are measured from git in
+  `results/results.md`, "Against the earlier runs".
+
+## Reproduce
+
+`rig/README.md` lists the images by digest, the demo checkout, the seed and the one command
+(`rig/go.sh`) that runs the quiet run, the POC, the install values and the scheduled run, and
+stops itself. `rig/analyze.py` and `rig/report.py` regenerate `results/results.md` byte for
+byte from the committed captures.
