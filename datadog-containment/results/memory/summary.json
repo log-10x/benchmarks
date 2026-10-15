@@ -1,0 +1,41 @@
+{
+ "window": {
+  "start_epoch": 1792095623,
+  "end_epoch": 1792100229,
+  "minutes": 76.8,
+  "records_sent": 57353,
+  "in_order_records_max_seconds_late": 0.106
+ },
+ "limits": {
+  "memory_bytes": 536870912,
+  "cpus": 0.5
+ },
+ "memory_mib": {
+  "samples": 461,
+  "median": 212.8,
+  "p99": 227.5,
+  "max": 227.7,
+  "min": 112.4
+ },
+ "cpu_percent_of_one_core": {
+  "samples": 461,
+  "median": 0.42,
+  "p99": 8.0,
+  "max": 15.56,
+  "min": 0.04
+ },
+ "idle_before_replay": {
+  "samples": 3,
+  "memory_mib_median": 112.4,
+  "cpu_percent_median": 0.08
+ },
+ "oom_killed": false,
+ "restart_count": 0,
+ "image": "log10x/edge-10x:1.1.142@sha256:24e31c07a95e1f7dc356f11dc5cac4b21602ff91040ea831f94668b05afe6bf1",
+ "returned": {
+  "pass": 16836,
+  "offload": 5524,
+  "tier_down": 22655,
+  "other": 0
+ }
+}

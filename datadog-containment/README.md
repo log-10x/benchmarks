@@ -40,6 +40,17 @@ ERROR and CRITICAL kept above it. The Receiver ran with exactly the values the M
 the only substitution is mounted policy files in place of the cluster's ConfigMap pull
 ([`results/results.md`](results/results.md), "The values the Receiver ran with").
 
+## The Receiver's memory and CPU
+
+The run's own capture, replayed: `results/data/raw.jsonl` from 12:47:16 UTC, when the Receiver came up with the fleet values, to the end of the capture, sent through Fluent Bit into the same image with the same arguments, policy files and container limits (0.5 CPU, 512 MiB memory) at the pace it was captured. 57,353 records over 76.8 minutes; `docker stats` sampled the Receiver every 10 s.
+
+| measure | samples | median | p99 | max |
+|---|---:|---:|---:|---:|
+| memory, MiB (limit 512) | 461 | 212.8 | 227.5 | 227.7 |
+| CPU, % of one core (limit 50) | 461 | 0.42 | 8.0 | 15.56 |
+
+Before the first record the Receiver sat at 112.4 MiB. It was not OOM killed and did not restart. The replay returned 16,836 pass, 5,524 offload, 22,655 tier_down; the run itself returned 16,480 pass, 5,555 offload, 22,732 tier_down over the scheduled run, which starts 35 s later. `rig/memory/run.sh` reproduces it, and `results/memory/` holds every sample. No other container ran on the host during the replay.
+
 ## Limits of this run
 
 - **One host, Docker.** The demo runs in Docker Compose; the rig reshapes each Docker record
@@ -53,6 +64,8 @@ the only substitution is mounted policy files in place of the cluster's ConfigMa
   keeps, so a noisy statement in the baseline raises it: 25,960 bytes in the first 1.1.142
   run, 71,247 in this one, after a burst of the collector's Kafka scrape errors. A larger
   default holds later in a flood (26 s here, 0.18 s at 10,288 bytes in an earlier run).
+- **Memory from a replay.** The memory and CPU figures come from replaying the run's capture through the Receiver, not from the live run, and a replay sends each record as Fluent Bit wrote it, so the Receiver sees the same records and pace but not the demo's other containers beside it. The figures are what `docker stats` reports for the container.
+- **The replay's policy files were older than the Receiver's retain interval.** At load the Receiver logged `rate receiver cap file is stale ... retainInterval: 600000` (`results/memory/receiver.log`): the mounted `caps.csv` kept its modification time from the git checkout, while the run's own file was written a minute before launch. The plan's rows still applied: the replay returned 22,655 tier_down and 5,524 offload records against the run's 22,732 and 5,555.
 - **S3 only.** Locally there is no Flex index; the fleet default's action is `offload`.
 - **Earlier runs.** On engine 1.1.141 the same rig showed a p99 of 28.9 s and a worst case of
   472 s from an input-wide flush timer, fixed in 1.1.142, and one false hold from a cap unit

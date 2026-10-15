@@ -35,6 +35,7 @@ Nothing leaves the machine.
 | `go.sh` | The whole run, one command. |
 | `analyze.py`, `report.py` | Every measure in `results/results.md`, then the page itself. |
 | `previous-run.py` | Earlier runs, each measured by the same `analyze.py` from its committed captures in git, into `results/previous-runs.json` for the comparison tables. |
+| `memory/run.sh`, `memory/replay.py`, `memory/fluent-bit.conf`, `memory/summarize.py` | The Receiver's memory and CPU: `raw.jsonl` replayed at its captured pace over the Fluent Forward protocol through Fluent Bit into the Receiver launched from `results/values-fleet/launch.json`, on a private internal Docker network, with `docker stats` every 10 s; writes `results/memory/`. |
 | `load-generator/Dockerfile` | The demo's load generator without the browser install. |
 | `NOTES.md` | Working log. |
 

@@ -272,6 +272,29 @@ jobs:
       - name: The committed figures follow from the kept outputs
         run: python datadog-service-control/report.py --check
 
+  datadog-containment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      # The runs need Docker, the demo and the Receiver image, so CI checks what it can
+      # without them: the memory replay's driver and helpers still parse, and results.md
+      # still follows from the committed analysis and memory summary.
+      - name: Syntax-check the memory replay
+        run: |
+          bash -n datadog-containment/rig/memory/run.sh
+          python -m py_compile datadog-containment/rig/memory/replay.py datadog-containment/rig/memory/summarize.py datadog-containment/rig/report.py
+
+      - name: The committed results.md follows from the committed analysis
+        run: |
+          cp datadog-containment/results/results.md /tmp/results.md
+          python datadog-containment/rig/report.py
+          diff -u /tmp/results.md datadog-containment/results/results.md
+
   cloudwatch-ia-accounting:
     runs-on: ubuntu-latest
     steps:
