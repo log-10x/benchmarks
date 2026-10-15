@@ -14,6 +14,7 @@
 #   multiline     about 65s
 #   coverage      about 2 minutes with the Docker image present, skipped without
 #   identity      about 19 minutes at full scale, about 3 with PIB_QUICK=1
+#   engine_split  about 35 minutes with the Docker image present, skipped without; engine_split_context about 3 more
 # The identity experiment is the long pole: three arms, ten trials each, two
 # instances trained per trial. Time it on the machine that publishes rather than
 # trusting these figures.
@@ -97,6 +98,10 @@ else
   say "identity: two instances, split halves, full file, 10 trials (~19min)"
   "$PY" bench/identity.py
 fi
+
+say "engine_split: two engine instances on halves of one stream (~35min, then ~3min for the context check; skips without Docker)"
+"$PY" bench/engine_split.py
+"$PY" bench/engine_split_context.py
 
 say "done. artifacts written to $REPO/results"
 ls -la results
