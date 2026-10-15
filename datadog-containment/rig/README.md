@@ -23,7 +23,7 @@ Nothing leaves the machine.
 
 | Path | What it is |
 |---|---|
-| `compose.rig.yaml` | Overlay for the demo's compose files: Fluent Bit at 172.28.0.250 on the demo's private network (no published port), the Docker `fluentd` log driver on every demo container. |
+| `compose.rig.yaml` | Overlay for the demo's compose files: Fluent Bit at 172.28.0.250 on the demo's private network (no published port), the Docker `fluentd` log driver on every demo container, `FLAGD_CACHE=disabled` on checkout (see "checkout's flag cache"). |
 | `fluent-bit/fluent-bit.conf`, `fluent-bit/rig.lua` | Ingest, raw copy, hand-off to the Receiver over Fluent Forward, return path split by `routeState`. The ingest filter puts the container in `kubernetes.container_name` (see "The container field"); the return filter stamps `rb_ts`. |
 | `run-planner.mjs` | log10x-mcp `poc_from_local`, file mode, on the quiet capture, with the fleet default. |
 | `gen-receiver-values.mjs` | Renders the Receiver values through the MCP's own functions and writes `compose.receiver.yaml` from them (see below). |
@@ -34,7 +34,7 @@ Nothing leaves the machine.
 | `detach.py` | Starts a process in its own session, so it outlives the shell that launched it. |
 | `go.sh` | The whole run, one command. |
 | `analyze.py`, `report.py` | Every measure in `results/results.md`, then the page itself. |
-| `previous-run.py` | The run this one replaced, measured by the same `analyze.py` from its committed captures in git, into `results/previous-run.json` for the comparison tables. |
+| `previous-run.py` | Earlier runs, each measured by the same `analyze.py` from its committed captures in git, into `results/previous-runs.json` for the comparison tables. |
 | `load-generator/Dockerfile` | The demo's load generator without the browser install. |
 | `NOTES.md` | Working log. |
 
@@ -72,8 +72,8 @@ values a Datadog Receiver gets before one, which set no cap, so every record pas
 
 ## This run's generated values
 
-POC on the quiet capture (10:33:48 to 10:55:48 UTC, 9,676 lines): `fleet_default` computed
-25,960 bytes per window per node, 2 x 12,979.8
+POC on the quiet capture (12:24:23 to 12:46:23 UTC, 9,118 lines): `fleet_default` computed
+71,247 bytes per window per node, 2 x 35,623.7
 (otel-collector `error_Error_scraping_metrics`), action `offload`, error floor 0.5. The Receiver
 ran with these arguments after the image (`results/values-fleet/values.yaml` is the rendered
 overlay, `results/values-fleet/launch.json` what was applied):
@@ -84,7 +84,7 @@ overlay, `results/values-fleet/launch.json` what was applied):
 symbolMessageHashField
 tenx_hash
 rateReceiverAbsoluteCap
-25960
+71247
 rateReceiverDefaultAction
 offload
 rateReceiverMinSharePercent
@@ -117,42 +117,44 @@ Environment: `TENX_AIRGAPPED=true`, `outputOffload=true`; `CAP_LOOKUP_FILE` and
 
 ```text
 container,cap
-accounting,3866::accounting any statement above 329 lines a day goes to Flex. Today that is these 71 statements about $0.26 a month.
-ad,1::ad every statement goes to Flex. Today that is these 7 statements about $0.41 a month.
-cart,1::cart every statement goes to Flex. Today that is these 5 statements about $2.7 a month.
-email,1::email every statement goes to Flex. Today that is these 3 statements about $0.26 a month.
-fraud-detection,1::fraud-detection every statement goes to Flex. Today that is this one statement about $0.26 a month.
-frontend,1::frontend every statement goes to Flex. Today that is these 8 statements about $4.6 a month.
-kafka,1669::kafka any statement above 171 lines a day goes to Flex. Today that is these 16 statements about $3.3 a month.
-otel-collector,37330::otel-collector any statement above 4145 lines a day goes to Flex. Today that is these 8 statements about $12 a month.
-payment,2731::payment any statement above 237 lines a day goes to Flex. Today that is these 24 statements about $0.52 a month.
-quote,1::quote every statement goes to Flex. Today that is this one statement about $0.26 a month.
-recommendation,1::recommendation every statement goes to Flex. Today that is these 6 statements about $0.41 a month.
-shipping,3879::shipping any statement above 807 lines a day goes to Flex. Today that is these 10 statements about $0.79 a month.
-telemetry-docs,1::telemetry-docs every statement goes to Flex. Today that is this one statement about $0.87 a month.
-valkey-cart,1::valkey-cart every statement goes to Flex. Today that is these 6 statements about $0.08 a month.
+accounting,2765::accounting any statement above 691 lines a day goes to Flex. Today that is these 45 statements about $0.16 a month.
+ad,1::ad every statement goes to Flex. Today that is these 7 statements about $0.32 a month.
+cart,1::cart every statement goes to Flex. Today that is these 9 statements about $1.8 a month.
+email,1::email every statement goes to Flex. Today that is these 4 statements about $0.16 a month.
+fraud-detection,1::fraud-detection every statement goes to Flex. Today that is these 2 statements about $0.16 a month.
+frontend,30210::frontend any statement above 8189 lines a day goes to Flex. Today that is these 7 statements about $3.5 a month.
+frontend-proxy,1::frontend-proxy every statement goes to Flex. Today that is this one statement about $0 a month.
+kafka,20074::kafka any statement above 1889 lines a day goes to Flex. Today that is these 12 statements about $1.6 a month.
+otel-collector,61996::otel-collector any statement above 2508 lines a day goes to Flex. Today that is these 9 statements about $12 a month.
+payment,2344::payment any statement above 204 lines a day goes to Flex. Today that is these 27 statements about $0.31 a month.
+quote,1::quote every statement goes to Flex. Today that is this one statement about $0.16 a month.
+recommendation,2330::recommendation any statement above 315 lines a day goes to Flex. Today that is these 6 statements about $0.32 a month.
+shipping,2721::shipping any statement above 849 lines a day goes to Flex. Today that is these 13 statements about $0.47 a month.
+telemetry-docs,1::telemetry-docs every statement goes to Flex. Today that is this one statement about $0.81 a month.
+valkey-cart,1::valkey-cart every statement goes to Flex. Today that is these 5 statements about $0.07 a month.
 ```
 
 ```text
 container,action
-accounting,tier_down::accounting any statement above 329 lines a day goes to Flex. Today that is these 71 statements about $0.26 a month.
-ad,tier_down::ad every statement goes to Flex. Today that is these 7 statements about $0.41 a month.
-cart,tier_down::cart every statement goes to Flex. Today that is these 5 statements about $2.7 a month.
-email,tier_down::email every statement goes to Flex. Today that is these 3 statements about $0.26 a month.
-fraud-detection,tier_down::fraud-detection every statement goes to Flex. Today that is this one statement about $0.26 a month.
-frontend,tier_down::frontend every statement goes to Flex. Today that is these 8 statements about $4.6 a month.
-kafka,tier_down::kafka any statement above 171 lines a day goes to Flex. Today that is these 16 statements about $3.3 a month.
-otel-collector,tier_down::otel-collector any statement above 4145 lines a day goes to Flex. Today that is these 8 statements about $12 a month.
-payment,tier_down::payment any statement above 237 lines a day goes to Flex. Today that is these 24 statements about $0.52 a month.
-quote,tier_down::quote every statement goes to Flex. Today that is this one statement about $0.26 a month.
-recommendation,tier_down::recommendation every statement goes to Flex. Today that is these 6 statements about $0.41 a month.
-shipping,tier_down::shipping any statement above 807 lines a day goes to Flex. Today that is these 10 statements about $0.79 a month.
-telemetry-docs,tier_down::telemetry-docs every statement goes to Flex. Today that is this one statement about $0.87 a month.
-valkey-cart,tier_down::valkey-cart every statement goes to Flex. Today that is these 6 statements about $0.08 a month.
+accounting,tier_down::accounting any statement above 691 lines a day goes to Flex. Today that is these 45 statements about $0.16 a month.
+ad,tier_down::ad every statement goes to Flex. Today that is these 7 statements about $0.32 a month.
+cart,tier_down::cart every statement goes to Flex. Today that is these 9 statements about $1.8 a month.
+email,tier_down::email every statement goes to Flex. Today that is these 4 statements about $0.16 a month.
+fraud-detection,tier_down::fraud-detection every statement goes to Flex. Today that is these 2 statements about $0.16 a month.
+frontend,tier_down::frontend any statement above 8189 lines a day goes to Flex. Today that is these 7 statements about $3.5 a month.
+frontend-proxy,tier_down::frontend-proxy every statement goes to Flex. Today that is this one statement about $0 a month.
+kafka,tier_down::kafka any statement above 1889 lines a day goes to Flex. Today that is these 12 statements about $1.6 a month.
+otel-collector,tier_down::otel-collector any statement above 2508 lines a day goes to Flex. Today that is these 9 statements about $12 a month.
+payment,tier_down::payment any statement above 204 lines a day goes to Flex. Today that is these 27 statements about $0.31 a month.
+quote,tier_down::quote every statement goes to Flex. Today that is this one statement about $0.16 a month.
+recommendation,tier_down::recommendation any statement above 315 lines a day goes to Flex. Today that is these 6 statements about $0.32 a month.
+shipping,tier_down::shipping any statement above 849 lines a day goes to Flex. Today that is these 13 statements about $0.47 a month.
+telemetry-docs,tier_down::telemetry-docs every statement goes to Flex. Today that is this one statement about $0.81 a month.
+valkey-cart,tier_down::valkey-cart every statement goes to Flex. Today that is these 5 statements about $0.07 a month.
 ```
 
 The scheduled run: seed 20261014, interval 600 s, hold 240 to 480 s, 75 minutes from the
-scheduler start (10:56:11 to 12:11:16 UTC). `results/results.md` has every measure.
+scheduler start (12:47:51 to 14:02:55 UTC). `results/results.md` has every measure.
 
 ## The container field
 
@@ -171,6 +173,23 @@ reported every pattern `(unattributed)` and wrote header-only policy files), so
 `fleet_default` has no baseline to compute, and the Receiver, given the MCP's values and no
 `rateReceiverContainerField`, keys every container as one: `rate-object-cap.js` uses
 `__node__` when the container field is empty.
+
+## checkout's flag cache
+
+The rig sets one environment variable on a demo service: `FLAGD_CACHE=disabled` on checkout.
+checkout is the service that turns kafkaQueueProblems into the incident: after each order it
+reads the flag through the Go flagd provider (go-sdk-contrib `providers/flagd` v0.6.0 in demo
+3.1.0) and, when the flag is on, publishes the order 100 more times. The provider caches
+resolved values by default. In the run of 2026-10-15 that started at 10:56 UTC (commit
+4c2b610) the cached value did not follow the flag: flagd's own metrics counted 4 resolutions
+of kafkaQueueProblems through the provider for the whole run, the activation reached
+fraud-detection (which logged its consumer delay) and never reached checkout, and no duplicate
+order was published. With the cache disabled every evaluation is a call to flagd, so a change
+the scheduler makes reaches checkout on its next order, which is how the demo's own failure
+injection is meant to work. In the published run flagd counted 5 resolutions for checkout's
+first 4 orders, and the kafkaQueueProblems activation at 12:59:19 UTC produced the
+duplicate-order flood 11 s later. Nothing about the Receiver, the plan or the values depends
+on it.
 
 ## Differences from a cluster install
 
@@ -203,7 +222,7 @@ the scheduled phase, the disk guard and the hard stop as detached processes; the
 itself 75 minutes after the scheduler starts. This run started `go.sh` itself through
 `detach.py` (`python3 rig/detach.py results/go.out env DEMO=... MCP=... rig/go.sh`), so no
 step depended on the shell that launched it. Then `python3 rig/analyze.py && python3
-rig/previous-run.py && python3 rig/report.py`.
+rig/previous-run.py 8e416c6='1.1.141 run' 4c2b610='first 1.1.142 run' && python3 rig/report.py`.
 
 Kafka's health window in the demo is short (10 s start period, 10 retries at 5 s); on a
 loaded host its JVM misses it, `compose up` exits 1 with "dependency failed to start" and

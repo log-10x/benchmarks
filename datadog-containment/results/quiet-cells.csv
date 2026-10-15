@@ -1,257 +1,298 @@
 container,pattern,message_pattern,window,events,record_bytes,sample
-otel-collector,KG8Fq0QFuoY,Logs,3,240,126260,"2026-10-15T10:29:08.525Z	info	Logs	{""resource"": {""service.instance.id"": ""99ea105d-3021-4f66-8217-3b1b922aab65"", ""service.name"": ""otelcol-contrib"", ""service.vers"
-otel-collector,KG8Fq0QFuoY,Logs,4,240,126252,"2026-10-15T10:29:08.525Z	info	Logs	{""resource"": {""service.instance.id"": ""99ea105d-3021-4f66-8217-3b1b922aab65"", ""service.name"": ""otelcol-contrib"", ""service.vers"
-otel-collector,KG8Fq0QFuoY,Logs,0,240,126243,"2026-10-15T10:29:08.525Z	info	Logs	{""resource"": {""service.instance.id"": ""99ea105d-3021-4f66-8217-3b1b922aab65"", ""service.name"": ""otelcol-contrib"", ""service.vers"
-otel-collector,Gl3Gtr_SH5w,Traces,4,240,126055,"2026-10-15T10:29:09.824Z	info	Traces	{""resource"": {""service.instance.id"": ""99ea105d-3021-4f66-8217-3b1b922aab65"", ""service.name"": ""otelcol-contrib"", ""service.ve"
-otel-collector,Gl3Gtr_SH5w,Traces,3,240,126054,"2026-10-15T10:29:09.824Z	info	Traces	{""resource"": {""service.instance.id"": ""99ea105d-3021-4f66-8217-3b1b922aab65"", ""service.name"": ""otelcol-contrib"", ""service.ve"
-otel-collector,Gl3Gtr_SH5w,Traces,2,240,126043,"2026-10-15T10:29:09.824Z	info	Traces	{""resource"": {""service.instance.id"": ""99ea105d-3021-4f66-8217-3b1b922aab65"", ""service.name"": ""otelcol-contrib"", ""service.ve"
-otel-collector,KG8Fq0QFuoY,Logs,1,239,125720,"2026-10-15T10:29:08.525Z	info	Logs	{""resource"": {""service.instance.id"": ""99ea105d-3021-4f66-8217-3b1b922aab65"", ""service.name"": ""otelcol-contrib"", ""service.vers"
-otel-collector,Gl3Gtr_SH5w,Traces,1,239,125533,"2026-10-15T10:29:09.824Z	info	Traces	{""resource"": {""service.instance.id"": ""99ea105d-3021-4f66-8217-3b1b922aab65"", ""service.name"": ""otelcol-contrib"", ""service.ve"
-frontend,INl44sUgFeY,API_request_completed,2,253,124788,"{""level"":30,""time"":1792060287816,""pid"":1,""hostname"":""73ce8ce5d637"",""trace_id"":""9a1b2000a6b742a52a0f624ba994111c"",""span_id"":""618ddf969fe1a150"",""trace_flags"":""01"""
-frontend,INl44sUgFeY,API_request_completed,4,248,122578,"{""level"":30,""time"":1792060287816,""pid"":1,""hostname"":""73ce8ce5d637"",""trace_id"":""9a1b2000a6b742a52a0f624ba994111c"",""span_id"":""618ddf969fe1a150"",""trace_flags"":""01"""
-otel-collector,Gl3Gtr_SH5w,Traces,0,232,121854,"2026-10-15T10:29:09.824Z	info	Traces	{""resource"": {""service.instance.id"": ""99ea105d-3021-4f66-8217-3b1b922aab65"", ""service.name"": ""otelcol-contrib"", ""service.ve"
-otel-collector,KG8Fq0QFuoY,Logs,2,231,121519,"2026-10-15T10:29:08.525Z	info	Logs	{""resource"": {""service.instance.id"": ""99ea105d-3021-4f66-8217-3b1b922aab65"", ""service.name"": ""otelcol-contrib"", ""service.vers"
-frontend,INl44sUgFeY,API_request_completed,0,233,114867,"{""level"":30,""time"":1792060287816,""pid"":1,""hostname"":""73ce8ce5d637"",""trace_id"":""9a1b2000a6b742a52a0f624ba994111c"",""span_id"":""618ddf969fe1a150"",""trace_flags"":""01"""
-frontend,INl44sUgFeY,API_request_completed,1,232,114419,"{""level"":30,""time"":1792060287816,""pid"":1,""hostname"":""73ce8ce5d637"",""trace_id"":""9a1b2000a6b742a52a0f624ba994111c"",""span_id"":""618ddf969fe1a150"",""trace_flags"":""01"""
-frontend,INl44sUgFeY,API_request_completed,3,228,112454,"{""level"":30,""time"":1792060287816,""pid"":1,""hostname"":""73ce8ce5d637"",""trace_id"":""9a1b2000a6b742a52a0f624ba994111c"",""span_id"":""618ddf969fe1a150"",""trace_flags"":""01"""
-otel-collector,PuWB8kkVbfw,Metrics,1,190,105153,"2026-10-15T10:29:08.635Z	info	Metrics	{""resource"": {""service.instance.id"": ""99ea105d-3021-4f66-8217-3b1b922aab65"", ""service.name"": ""otelcol-contrib"", ""service.v"
-otel-collector,PuWB8kkVbfw,Metrics,3,187,103498,"2026-10-15T10:29:08.635Z	info	Metrics	{""resource"": {""service.instance.id"": ""99ea105d-3021-4f66-8217-3b1b922aab65"", ""service.name"": ""otelcol-contrib"", ""service.v"
-otel-collector,PuWB8kkVbfw,Metrics,4,187,103490,"2026-10-15T10:29:08.635Z	info	Metrics	{""resource"": {""service.instance.id"": ""99ea105d-3021-4f66-8217-3b1b922aab65"", ""service.name"": ""otelcol-contrib"", ""service.v"
-otel-collector,PuWB8kkVbfw,Metrics,0,186,102937,"2026-10-15T10:29:08.635Z	info	Metrics	{""resource"": {""service.instance.id"": ""99ea105d-3021-4f66-8217-3b1b922aab65"", ""service.name"": ""otelcol-contrib"", ""service.v"
-otel-collector,PuWB8kkVbfw,Metrics,2,183,101282,"2026-10-15T10:29:08.635Z	info	Metrics	{""resource"": {""service.instance.id"": ""99ea105d-3021-4f66-8217-3b1b922aab65"", ""service.name"": ""otelcol-contrib"", ""service.v"
-cart,YZplfQ4a1Xw,GetCartAsync_called_with_userId,2,98,28010,"info: cart.cartstore.ValkeyCartStore[1662118147]
+otel-collector,KG8Fq0QFuoY,Logs,4,240,126257,"2026-10-15T12:15:25.001Z	info	Logs	{""resource"": {""service.instance.id"": ""37b4ecad-45b1-4cff-8bb4-4a39ded95915"", ""service.name"": ""otelcol-contrib"", ""service.vers"
+otel-collector,KG8Fq0QFuoY,Logs,0,240,126240,"2026-10-15T12:15:25.001Z	info	Logs	{""resource"": {""service.instance.id"": ""37b4ecad-45b1-4cff-8bb4-4a39ded95915"", ""service.name"": ""otelcol-contrib"", ""service.vers"
+otel-collector,Gl3Gtr_SH5w,Traces,4,240,126053,"2026-10-15T12:16:40.306Z	info	Traces	{""resource"": {""service.instance.id"": ""334c562a-2365-43d5-aca0-90e5b9c1e755"", ""service.name"": ""otelcol-contrib"", ""service.ve"
+otel-collector,Gl3Gtr_SH5w,Traces,3,240,126044,"2026-10-15T12:16:40.306Z	info	Traces	{""resource"": {""service.instance.id"": ""334c562a-2365-43d5-aca0-90e5b9c1e755"", ""service.name"": ""otelcol-contrib"", ""service.ve"
+otel-collector,Gl3Gtr_SH5w,Traces,0,239,125516,"2026-10-15T12:16:40.306Z	info	Traces	{""resource"": {""service.instance.id"": ""334c562a-2365-43d5-aca0-90e5b9c1e755"", ""service.name"": ""otelcol-contrib"", ""service.ve"
+otel-collector,KG8Fq0QFuoY,Logs,3,235,123612,"2026-10-15T12:15:25.001Z	info	Logs	{""resource"": {""service.instance.id"": ""37b4ecad-45b1-4cff-8bb4-4a39ded95915"", ""service.name"": ""otelcol-contrib"", ""service.vers"
+otel-collector,KG8Fq0QFuoY,Logs,1,225,118353,"2026-10-15T12:15:25.001Z	info	Logs	{""resource"": {""service.instance.id"": ""37b4ecad-45b1-4cff-8bb4-4a39ded95915"", ""service.name"": ""otelcol-contrib"", ""service.vers"
+otel-collector,Gl3Gtr_SH5w,Traces,1,225,118168,"2026-10-15T12:16:40.306Z	info	Traces	{""resource"": {""service.instance.id"": ""334c562a-2365-43d5-aca0-90e5b9c1e755"", ""service.name"": ""otelcol-contrib"", ""service.ve"
+otel-collector,KG8Fq0QFuoY,Logs,2,223,117317,"2026-10-15T12:15:25.001Z	info	Logs	{""resource"": {""service.instance.id"": ""37b4ecad-45b1-4cff-8bb4-4a39ded95915"", ""service.name"": ""otelcol-contrib"", ""service.vers"
+otel-collector,Gl3Gtr_SH5w,Traces,2,215,112903,"2026-10-15T12:16:40.306Z	info	Traces	{""resource"": {""service.instance.id"": ""334c562a-2365-43d5-aca0-90e5b9c1e755"", ""service.name"": ""otelcol-contrib"", ""service.ve"
+frontend,INl44sUgFeY,API_request_completed,4,215,106272,"{""level"":30,""time"":1792066920745,""pid"":1,""hostname"":""56affb348380"",""trace_id"":""3df5f4fb499b1ee1c0606ddc5128c408"",""span_id"":""28985b7900a288d3"",""trace_flags"":""01"""
+otel-collector,PuWB8kkVbfw,Metrics,4,191,105712,"2026-10-15T12:15:25.717Z	info	Metrics	{""resource"": {""service.instance.id"": ""37b4ecad-45b1-4cff-8bb4-4a39ded95915"", ""service.name"": ""otelcol-contrib"", ""service.v"
+otel-collector,PuWB8kkVbfw,Metrics,3,189,104598,"2026-10-15T12:15:25.717Z	info	Metrics	{""resource"": {""service.instance.id"": ""37b4ecad-45b1-4cff-8bb4-4a39ded95915"", ""service.name"": ""otelcol-contrib"", ""service.v"
+otel-collector,PuWB8kkVbfw,Metrics,0,184,101836,"2026-10-15T12:15:25.717Z	info	Metrics	{""resource"": {""service.instance.id"": ""37b4ecad-45b1-4cff-8bb4-4a39ded95915"", ""service.name"": ""otelcol-contrib"", ""service.v"
+otel-collector,PuWB8kkVbfw,Metrics,1,184,101834,"2026-10-15T12:15:25.717Z	info	Metrics	{""resource"": {""service.instance.id"": ""37b4ecad-45b1-4cff-8bb4-4a39ded95915"", ""service.name"": ""otelcol-contrib"", ""service.v"
+frontend,INl44sUgFeY,API_request_completed,3,199,98352,"{""level"":30,""time"":1792066920745,""pid"":1,""hostname"":""56affb348380"",""trace_id"":""3df5f4fb499b1ee1c0606ddc5128c408"",""span_id"":""28985b7900a288d3"",""trace_flags"":""01"""
+otel-collector,PuWB8kkVbfw,Metrics,2,172,95193,"2026-10-15T12:15:25.717Z	info	Metrics	{""resource"": {""service.instance.id"": ""37b4ecad-45b1-4cff-8bb4-4a39ded95915"", ""service.name"": ""otelcol-contrib"", ""service.v"
+frontend,INl44sUgFeY,API_request_completed,0,182,89898,"{""level"":30,""time"":1792066920745,""pid"":1,""hostname"":""56affb348380"",""trace_id"":""3df5f4fb499b1ee1c0606ddc5128c408"",""span_id"":""28985b7900a288d3"",""trace_flags"":""01"""
+frontend,INl44sUgFeY,API_request_completed,1,177,87502,"{""level"":30,""time"":1792066920745,""pid"":1,""hostname"":""56affb348380"",""trace_id"":""3df5f4fb499b1ee1c0606ddc5128c408"",""span_id"":""28985b7900a288d3"",""trace_flags"":""01"""
+frontend,INl44sUgFeY,API_request_completed,2,153,75587,"{""level"":30,""time"":1792066920745,""pid"":1,""hostname"":""56affb348380"",""trace_id"":""3df5f4fb499b1ee1c0606ddc5128c408"",""span_id"":""28985b7900a288d3"",""trace_flags"":""01"""
+kafka,Y_71jRCq5Cw,Scheduling_unloading_of_metadata_for_consumer_with_epoch_OptionalInt_apache_kafka_coordinator_common_runtime_CoordinatorRuntime,2,100,37580,"[2026-10-15 12:21:39,541] INFO [GroupCoordinator id=1] Scheduling unloading of metadata for __consumer_offsets-13 with epoch OptionalInt[1] (org.apache.kafka.co"
+otel-collector,fhu6rrW86b4,error_Error_scraping_metrics,2,19,37370,"2026-10-15T12:15:25.797Z	error	scraperhelper@v0.159.0/obs_metrics.go:61	Error scraping metrics	{""resource"": {""service.instance.id"": ""37b4ecad-45b1-4cff-8bb4-4a3"
+kafka,KjKx7VN7snY,was_spent_in_the_scheduler_Loaded_records_which_total_to_bytes_org_apache_kafka_coordinator_common_runtime_CoordinatorRuntime,2,83,37255,"[2026-10-15 12:21:39,372] INFO [GroupCoordinator id=1] Finished loading of metadata from __consumer_offsets-14 with epoch 0 in 153ms where 151ms was spent in th"
+kafka,wfraEN4ubTY,Finished_unloading_metadata_for_consumer_with_epoch_OptionalInt_apache_kafka_coordinator_common_runtime_CoordinatorRuntime,2,100,37180,"[2026-10-15 12:21:39,677] INFO [GroupCoordinator id=1] Finished unloading metadata for __consumer_offsets-13 with epoch OptionalInt[1]. (org.apache.kafka.coordi"
+kafka,VvBjD4t0T7w,Started_unloading_metadata_for_consumer_with_epoch_OptionalInt_apache_kafka_coordinator_common_runtime_CoordinatorRuntime,2,100,37080,"[2026-10-15 12:21:39,677] INFO [GroupCoordinator id=1] Started unloading metadata for __consumer_offsets-13 with epoch OptionalInt[1]. (org.apache.kafka.coordin"
+kafka,lfxNT0TdHRU,Scheduling_loading_of_metadata_from_consumer_with_epoch_org_apache_kafka_coordinator_common_runtime_CoordinatorRuntime,2,100,36180,"[2026-10-15 12:21:37,831] INFO [GroupCoordinator id=1] Scheduling loading of metadata from __consumer_offsets-13 with epoch 0 (org.apache.kafka.coordinator.comm"
+cart,YZplfQ4a1Xw,GetCartAsync_called_with_userId,4,63,17829,"info: cart.cartstore.ValkeyCartStore[1662118147]
       GetCartAsync called with userId="
-cart,YZplfQ4a1Xw,GetCartAsync_called_with_userId,0,86,24398,"info: cart.cartstore.ValkeyCartStore[1662118147]
+cart,YZplfQ4a1Xw,GetCartAsync_called_with_userId,3,59,16973,"info: cart.cartstore.ValkeyCartStore[1662118147]
       GetCartAsync called with userId="
-cart,YZplfQ4a1Xw,GetCartAsync_called_with_userId,1,82,23614,"info: cart.cartstore.ValkeyCartStore[1662118147]
+cart,YZplfQ4a1Xw,GetCartAsync_called_with_userId,2,54,15534,"info: cart.cartstore.ValkeyCartStore[1662118147]
       GetCartAsync called with userId="
-cart,YZplfQ4a1Xw,GetCartAsync_called_with_userId,4,79,22693,"info: cart.cartstore.ValkeyCartStore[1662118147]
+cart,YZplfQ4a1Xw,GetCartAsync_called_with_userId,1,53,14879,"info: cart.cartstore.ValkeyCartStore[1662118147]
       GetCartAsync called with userId="
-cart,YZplfQ4a1Xw,GetCartAsync_called_with_userId,3,77,21995,"info: cart.cartstore.ValkeyCartStore[1662118147]
+cart,YZplfQ4a1Xw,GetCartAsync_called_with_userId,0,47,13145,"info: cart.cartstore.ValkeyCartStore[1662118147]
       GetCartAsync called with userId="
-accounting,-FtZD9XArpU,Order_details,2,19,17769,"info: Accounting.Consumer[722003269]
-      Order details: { ""orderId"": ""a667437e-c883-11f1-a9fa-0242ac1c0016"", ""shippingTrackingId"": ""a09672b5-cb52-4842-a5d5-c7"
-cart,eDSYlCMPqVY,AddItemAsync_called_with_userId_productId_quantity,2,54,17720,"info: cart.cartstore.ValkeyCartStore[133092716]
-      AddItemAsync called with userId=940705e8-c883-11f1-8f4c-0242ac1c0018, productId=HQTGWGPNH4, quantity=1"
-cart,eDSYlCMPqVY,AddItemAsync_called_with_userId_productId_quantity,1,51,16737,"info: cart.cartstore.ValkeyCartStore[133092716]
-      AddItemAsync called with userId=940705e8-c883-11f1-8f4c-0242ac1c0018, productId=HQTGWGPNH4, quantity=1"
-cart,eDSYlCMPqVY,AddItemAsync_called_with_userId_productId_quantity,0,47,15422,"info: cart.cartstore.ValkeyCartStore[133092716]
-      AddItemAsync called with userId=940705e8-c883-11f1-8f4c-0242ac1c0018, productId=HQTGWGPNH4, quantity=1"
-cart,eDSYlCMPqVY,AddItemAsync_called_with_userId_productId_quantity,4,46,15096,"info: cart.cartstore.ValkeyCartStore[133092716]
-      AddItemAsync called with userId=940705e8-c883-11f1-8f4c-0242ac1c0018, productId=HQTGWGPNH4, quantity=1"
-recommendation,bzLB1zZCTIw,Receive_ListRecommendations_for_product_ids,0,30,14640,"2026-10-15 10:31:34,662 INFO [main] [recommendation_server.py:47] [trace_id=d9423b183af2f6feeb74a584e87c6025 span_id=28b126282750ff6b resource.service.name=reco"
-cart,eDSYlCMPqVY,AddItemAsync_called_with_userId_productId_quantity,3,44,14438,"info: cart.cartstore.ValkeyCartStore[133092716]
-      AddItemAsync called with userId=940705e8-c883-11f1-8f4c-0242ac1c0018, productId=HQTGWGPNH4, quantity=1"
-accounting,-FtZD9XArpU,Order_details,4,16,14362,"info: Accounting.Consumer[722003269]
-      Order details: { ""orderId"": ""a667437e-c883-11f1-a9fa-0242ac1c0016"", ""shippingTrackingId"": ""a09672b5-cb52-4842-a5d5-c7"
-accounting,-FtZD9XArpU,Order_details,1,15,13837,"info: Accounting.Consumer[722003269]
-      Order details: { ""orderId"": ""a667437e-c883-11f1-a9fa-0242ac1c0016"", ""shippingTrackingId"": ""a09672b5-cb52-4842-a5d5-c7"
-recommendation,bzLB1zZCTIw,Receive_ListRecommendations_for_product_ids,4,27,13176,"2026-10-15 10:31:34,662 INFO [main] [recommendation_server.py:47] [trace_id=d9423b183af2f6feeb74a584e87c6025 span_id=28b126282750ff6b resource.service.name=reco"
-payment,9WbTsopbiXk,Transaction_complete,2,19,12860,"{""level"":""info"",""time"":1792060319177,""pid"":1,""hostname"":""12cdf08779ff"",""trace_id"":""e022f217b2b3d7f6ade1a81e48608ba2"",""span_id"":""058660dbc7bec2a3"",""trace_flags"":"
-telemetry-docs,zxRYTKQNyBY,GET_HTTP_Wget,0,48,12528,"::1 - - [15/Oct/2026:10:28:32 +0000] ""GET / HTTP/1.1"" 200 29066 ""-"" ""Wget"""
-telemetry-docs,zxRYTKQNyBY,GET_HTTP_Wget,3,48,12528,"::1 - - [15/Oct/2026:10:28:32 +0000] ""GET / HTTP/1.1"" 200 29066 ""-"" ""Wget"""
-telemetry-docs,zxRYTKQNyBY,GET_HTTP_Wget,1,47,12267,"::1 - - [15/Oct/2026:10:28:32 +0000] ""GET / HTTP/1.1"" 200 29066 ""-"" ""Wget"""
-telemetry-docs,zxRYTKQNyBY,GET_HTTP_Wget,2,47,12267,"::1 - - [15/Oct/2026:10:28:32 +0000] ""GET / HTTP/1.1"" 200 29066 ""-"" ""Wget"""
-telemetry-docs,zxRYTKQNyBY,GET_HTTP_Wget,4,47,12267,"::1 - - [15/Oct/2026:10:28:32 +0000] ""GET / HTTP/1.1"" 200 29066 ""-"" ""Wget"""
-accounting,-FtZD9XArpU,Order_details,3,13,12105,"info: Accounting.Consumer[722003269]
-      Order details: { ""orderId"": ""a667437e-c883-11f1-a9fa-0242ac1c0016"", ""shippingTrackingId"": ""a09672b5-cb52-4842-a5d5-c7"
-astronomy-db,oUkuI8QT6s8,role_root_does_not_exist,2,48,12000,"2026-10-15 10:29:05.685 UTC [102] FATAL:  role ""root"" does not exist
-CREATE DATABASE
-CREATE ROLE
-GRANT ROLE
-You are now connected to database ""astronomy_db"" as "
-astronomy-db,oUkuI8QT6s8,role_root_does_not_exist,3,47,11750,"2026-10-15 10:29:05.685 UTC [102] FATAL:  role ""root"" does not exist
-CREATE DATABASE
-CREATE ROLE
-GRANT ROLE
-You are now connected to database ""astronomy_db"" as "
-astronomy-db,oUkuI8QT6s8,role_root_does_not_exist,4,47,11750,"2026-10-15 10:29:05.685 UTC [102] FATAL:  role ""root"" does not exist
-CREATE DATABASE
-CREATE ROLE
-GRANT ROLE
-You are now connected to database ""astronomy_db"" as "
-astronomy-db,oUkuI8QT6s8,role_root_does_not_exist,0,47,11705,"2026-10-15 10:29:05.685 UTC [102] FATAL:  role ""root"" does not exist
-CREATE DATABASE
-CREATE ROLE
-GRANT ROLE
-You are now connected to database ""astronomy_db"" as "
-astronomy-db,oUkuI8QT6s8,role_root_does_not_exist,1,46,11500,"2026-10-15 10:29:05.685 UTC [102] FATAL:  role ""root"" does not exist
-CREATE DATABASE
-CREATE ROLE
-GRANT ROLE
-You are now connected to database ""astronomy_db"" as "
-accounting,-FtZD9XArpU,Order_details,0,12,11449,"info: Accounting.Consumer[722003269]
-      Order details: { ""orderId"": ""a667437e-c883-11f1-a9fa-0242ac1c0016"", ""shippingTrackingId"": ""a09672b5-cb52-4842-a5d5-c7"
-otel-collector,fhu6rrW86b4,error_Error_scraping_metrics,2,7,11444,"2026-10-15T10:29:08.633Z	error	scraperhelper@v0.159.0/obs_metrics.go:61	Error scraping metrics	{""resource"": {""service.instance.id"": ""99ea105d-3021-4f66-8217-3b1"
-payment,9WbTsopbiXk,Transaction_complete,4,16,10832,"{""level"":""info"",""time"":1792060319177,""pid"":1,""hostname"":""12cdf08779ff"",""trace_id"":""e022f217b2b3d7f6ade1a81e48608ba2"",""span_id"":""058660dbc7bec2a3"",""trace_flags"":"
-payment,9WbTsopbiXk,Transaction_complete,1,15,10152,"{""level"":""info"",""time"":1792060319177,""pid"":1,""hostname"":""12cdf08779ff"",""trace_id"":""e022f217b2b3d7f6ade1a81e48608ba2"",""span_id"":""058660dbc7bec2a3"",""trace_flags"":"
-recommendation,bzLB1zZCTIw,Receive_ListRecommendations_for_product_ids,3,20,9760,"2026-10-15 10:31:34,662 INFO [main] [recommendation_server.py:47] [trace_id=d9423b183af2f6feeb74a584e87c6025 span_id=28b126282750ff6b resource.service.name=reco"
-otel-collector,fhu6rrW86b4,error_Error_scraping_metrics,4,6,9416,"2026-10-15T10:29:08.633Z	error	scraperhelper@v0.159.0/obs_metrics.go:61	Error scraping metrics	{""resource"": {""service.instance.id"": ""99ea105d-3021-4f66-8217-3b1"
-recommendation,bzLB1zZCTIw,Receive_ListRecommendations_for_product_ids,2,19,9272,"2026-10-15 10:31:34,662 INFO [main] [recommendation_server.py:47] [trace_id=d9423b183af2f6feeb74a584e87c6025 span_id=28b126282750ff6b resource.service.name=reco"
-payment,9WbTsopbiXk,Transaction_complete,3,13,8795,"{""level"":""info"",""time"":1792060319177,""pid"":1,""hostname"":""12cdf08779ff"",""trace_id"":""e022f217b2b3d7f6ade1a81e48608ba2"",""span_id"":""058660dbc7bec2a3"",""trace_flags"":"
-recommendation,bzLB1zZCTIw,Receive_ListRecommendations_for_product_ids,1,18,8784,"2026-10-15 10:31:34,662 INFO [main] [recommendation_server.py:47] [trace_id=d9423b183af2f6feeb74a584e87c6025 span_id=28b126282750ff6b resource.service.name=reco"
-frontend,KSy6KmHbgEc,Order_placed_successfully,2,19,8645,"{""level"":30,""time"":1792060320185,""pid"":1,""hostname"":""73ce8ce5d637"",""trace_id"":""e022f217b2b3d7f6ade1a81e48608ba2"",""span_id"":""1351de1b31976c14"",""trace_flags"":""01"""
-ad,xHrytxJfUdw,oteldemo_AdService_Targeted_ad_request_received_for,1,25,8460,2026-10-15 10:31:38 - oteldemo.AdService - Targeted ad request received for [assembly] trace_id=372ca3c93be2e7ad8cab7b1ef54f7eb0 span_id=7caed157b273ed44 trace_
-payment,fg1YkiyrF3Q,Charge_request_received,2,19,8151,"{""level"":""info"",""time"":1792060319047,""pid"":1,""hostname"":""12cdf08779ff"",""trace_id"":""e022f217b2b3d7f6ade1a81e48608ba2"",""span_id"":""058660dbc7bec2a3"",""trace_flags"":"
-payment,9WbTsopbiXk,Transaction_complete,0,12,8116,"{""level"":""info"",""time"":1792060319177,""pid"":1,""hostname"":""12cdf08779ff"",""trace_id"":""e022f217b2b3d7f6ade1a81e48608ba2"",""span_id"":""058660dbc7bec2a3"",""trace_flags"":"
-shipping,kAB8PMmHyKM,shipping_service_Requesting_quote_http_getquote,2,19,7961,"[2m2026-10-15T10:31:58.537887Z[0m [32m INFO[0m [2mshipping::shipping_service::quote[0m[2m:[0m Requesting quote [3mquote_service_addr[0m[2m=[0m""http:"
-shipping,LnOvjJt0La4,Tracking_ID_Created,2,19,7942,"[2m2026-10-15T10:31:59.196275Z[0m [32m INFO[0m [2mshipping::shipping_service[0m[2m:[0m Tracking ID Created [3mtracking_id[0m[2m=[0m""a09672b5-cb52-48"
-shipping,PX-oZ7rxgZo,Sending_Quote,2,19,7890,[2m2026-10-15T10:31:58.771496Z[0m [32m INFO[0m [2mshipping::shipping_service[0m[2m:[0m Sending Quote [3mdollars[0m[2m=[0m8 [3mcents[0m[2m=[0m99
-otel-collector,fhu6rrW86b4,error_Error_scraping_metrics,1,5,7876,"2026-10-15T10:29:08.633Z	error	scraperhelper@v0.159.0/obs_metrics.go:61	Error scraping metrics	{""resource"": {""service.instance.id"": ""99ea105d-3021-4f66-8217-3b1"
-otel-collector,fhu6rrW86b4,error_Error_scraping_metrics,3,5,7710,"2026-10-15T10:29:08.633Z	error	scraperhelper@v0.159.0/obs_metrics.go:61	Error scraping metrics	{""resource"": {""service.instance.id"": ""99ea105d-3021-4f66-8217-3b1"
-fraud-detection,GKfNbCrpxxI,fraud_detection_Consumed_record_with_orderId_and_updated_total_count_to_trace_id_span_flags,2,19,7657,"2026-10-15 10:32:00 - fraud-detection - Consumed record with orderId: a667437e-c883-11f1-a9fa-0242ac1c0016, and updated total count to: 1 trace_id=96bf16735d33e"
-frontend,KSy6KmHbgEc,Order_placed_successfully,4,16,7280,"{""level"":30,""time"":1792060320185,""pid"":1,""hostname"":""73ce8ce5d637"",""trace_id"":""e022f217b2b3d7f6ade1a81e48608ba2"",""span_id"":""1351de1b31976c14"",""trace_flags"":""01"""
-ad,xHrytxJfUdw,oteldemo_AdService_Targeted_ad_request_received_for,3,21,7096,2026-10-15 10:31:38 - oteldemo.AdService - Targeted ad request received for [assembly] trace_id=372ca3c93be2e7ad8cab7b1ef54f7eb0 span_id=7caed157b273ed44 trace_
-ad,xHrytxJfUdw,oteldemo_AdService_Targeted_ad_request_received_for,0,21,7093,2026-10-15 10:31:38 - oteldemo.AdService - Targeted ad request received for [assembly] trace_id=372ca3c93be2e7ad8cab7b1ef54f7eb0 span_id=7caed157b273ed44 trace_
-payment,fg1YkiyrF3Q,Charge_request_received,4,16,6864,"{""level"":""info"",""time"":1792060319047,""pid"":1,""hostname"":""12cdf08779ff"",""trace_id"":""e022f217b2b3d7f6ade1a81e48608ba2"",""span_id"":""058660dbc7bec2a3"",""trace_flags"":"
-frontend,KSy6KmHbgEc,Order_placed_successfully,1,15,6825,"{""level"":30,""time"":1792060320185,""pid"":1,""hostname"":""73ce8ce5d637"",""trace_id"":""e022f217b2b3d7f6ade1a81e48608ba2"",""span_id"":""1351de1b31976c14"",""trace_flags"":""01"""
-kafka,pFokWfyJRLU,Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals,2,13,6715,"[2026-10-15 10:32:08,100] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Deleting segments due to log start offset 120 breach: LogSegment"
-shipping,kAB8PMmHyKM,shipping_service_Requesting_quote_http_getquote,4,16,6704,"[2m2026-10-15T10:31:58.537887Z[0m [32m INFO[0m [2mshipping::shipping_service::quote[0m[2m:[0m Requesting quote [3mquote_service_addr[0m[2m=[0m""http:"
-shipping,LnOvjJt0La4,Tracking_ID_Created,4,16,6688,"[2m2026-10-15T10:31:59.196275Z[0m [32m INFO[0m [2mshipping::shipping_service[0m[2m:[0m Tracking ID Created [3mtracking_id[0m[2m=[0m""a09672b5-cb52-48"
-shipping,PX-oZ7rxgZo,Sending_Quote,4,16,6644,[2m2026-10-15T10:31:58.771496Z[0m [32m INFO[0m [2mshipping::shipping_service[0m[2m:[0m Sending Quote [3mdollars[0m[2m=[0m8 [3mcents[0m[2m=[0m99
-kafka,-Jf8QdAufSM,Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals_LocalLog,3,13,6524,"[2026-10-15 10:33:08,111] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Deleting segment files LogSegment(baseOffset="
-fraud-detection,GKfNbCrpxxI,fraud_detection_Consumed_record_with_orderId_and_updated_total_count_to_trace_id_span_flags,4,16,6448,"2026-10-15 10:32:00 - fraud-detection - Consumed record with orderId: a667437e-c883-11f1-a9fa-0242ac1c0016, and updated total count to: 1 trace_id=96bf16735d33e"
-payment,fg1YkiyrF3Q,Charge_request_received,1,15,6435,"{""level"":""info"",""time"":1792060319047,""pid"":1,""hostname"":""12cdf08779ff"",""trace_id"":""e022f217b2b3d7f6ade1a81e48608ba2"",""span_id"":""058660dbc7bec2a3"",""trace_flags"":"
-ad,xHrytxJfUdw,oteldemo_AdService_Targeted_ad_request_received_for,2,19,6433,2026-10-15 10:31:38 - oteldemo.AdService - Targeted ad request received for [assembly] trace_id=372ca3c93be2e7ad8cab7b1ef54f7eb0 span_id=7caed157b273ed44 trace_
-shipping,kAB8PMmHyKM,shipping_service_Requesting_quote_http_getquote,1,15,6285,"[2m2026-10-15T10:31:58.537887Z[0m [32m INFO[0m [2mshipping::shipping_service::quote[0m[2m:[0m Requesting quote [3mquote_service_addr[0m[2m=[0m""http:"
-shipping,LnOvjJt0La4,Tracking_ID_Created,1,15,6270,"[2m2026-10-15T10:31:59.196275Z[0m [32m INFO[0m [2mshipping::shipping_service[0m[2m:[0m Tracking ID Created [3mtracking_id[0m[2m=[0m""a09672b5-cb52-48"
-kafka,pFokWfyJRLU,Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals,4,12,6232,"[2026-10-15 10:32:08,100] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Deleting segments due to log start offset 120 breach: LogSegment"
-shipping,PX-oZ7rxgZo,Sending_Quote,1,15,6230,[2m2026-10-15T10:31:58.771496Z[0m [32m INFO[0m [2mshipping::shipping_service[0m[2m:[0m Sending Quote [3mdollars[0m[2m=[0m8 [3mcents[0m[2m=[0m99
-kafka,pFokWfyJRLU,Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals,1,12,6219,"[2026-10-15 10:32:08,100] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Deleting segments due to log start offset 120 breach: LogSegment"
-kafka,VnqlcNA_PIM,Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager,2,16,6176,"[2026-10-15 10:30:24,032] INFO [ProducerStateManager partition=__cluster_metadata-0] Wrote producer snapshot at offset 40 with 0 producer ids in 31 ms. (org.apa"
-kafka,VnqlcNA_PIM,Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager,3,16,6176,"[2026-10-15 10:30:24,032] INFO [ProducerStateManager partition=__cluster_metadata-0] Wrote producer snapshot at offset 40 with 0 producer ids in 31 ms. (org.apa"
-kafka,VnqlcNA_PIM,Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager,4,16,6176,"[2026-10-15 10:30:24,032] INFO [ProducerStateManager partition=__cluster_metadata-0] Wrote producer snapshot at offset 40 with 0 producer ids in 31 ms. (org.apa"
-kafka,VnqlcNA_PIM,Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager,1,16,6175,"[2026-10-15 10:30:24,032] INFO [ProducerStateManager partition=__cluster_metadata-0] Wrote producer snapshot at offset 40 with 0 producer ids in 31 ms. (org.apa"
-kafka,AMFi23Ga9wY,Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile,3,17,6171,"[2026-10-15 10:33:08,144] INFO Deleted producer state snapshot /tmp/kafka-logs/__cluster_metadata-0/00000000000000000040.snapshot.deleted (org.apache.kafka.stor"
-kafka,VnqlcNA_PIM,Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager,0,16,6160,"[2026-10-15 10:30:24,032] INFO [ProducerStateManager partition=__cluster_metadata-0] Wrote producer snapshot at offset 40 with 0 producer ids in 31 ms. (org.apa"
-otel-collector,fhu6rrW86b4,error_Error_scraping_metrics,0,4,6144,"2026-10-15T10:29:08.633Z	error	scraperhelper@v0.159.0/obs_metrics.go:61	Error scraping metrics	{""resource"": {""service.instance.id"": ""99ea105d-3021-4f66-8217-3b1"
-kafka,wyR-oWD2-hk,Rolled_new_log_segment_at_offset_in_ms_org_apache_kafka_storage_internals_LocalLog,2,16,6128,"[2026-10-15 10:30:23,991] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Rolled new log segment at offset 40 in 91 ms."
-kafka,wyR-oWD2-hk,Rolled_new_log_segment_at_offset_in_ms_org_apache_kafka_storage_internals_LocalLog,3,16,6128,"[2026-10-15 10:30:23,991] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Rolled new log segment at offset 40 in 91 ms."
-kafka,wyR-oWD2-hk,Rolled_new_log_segment_at_offset_in_ms_org_apache_kafka_storage_internals_LocalLog,4,16,6128,"[2026-10-15 10:30:23,991] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Rolled new log segment at offset 40 in 91 ms."
-kafka,wyR-oWD2-hk,Rolled_new_log_segment_at_offset_in_ms_org_apache_kafka_storage_internals_LocalLog,1,16,6127,"[2026-10-15 10:30:23,991] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Rolled new log segment at offset 40 in 91 ms."
-kafka,pFokWfyJRLU,Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals,3,12,6123,"[2026-10-15 10:32:08,100] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Deleting segments due to log start offset 120 breach: LogSegment"
-kafka,wyR-oWD2-hk,Rolled_new_log_segment_at_offset_in_ms_org_apache_kafka_storage_internals_LocalLog,0,16,6112,"[2026-10-15 10:30:23,991] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Rolled new log segment at offset 40 in 91 ms."
-kafka,pFokWfyJRLU,Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals,0,12,6096,"[2026-10-15 10:32:08,100] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Deleting segments due to log start offset 120 breach: LogSegment"
-kafka,-Jf8QdAufSM,Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals_LocalLog,4,12,6056,"[2026-10-15 10:33:08,111] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Deleting segment files LogSegment(baseOffset="
-fraud-detection,GKfNbCrpxxI,fraud_detection_Consumed_record_with_orderId_and_updated_total_count_to_trace_id_span_flags,1,15,6045,"2026-10-15 10:32:00 - fraud-detection - Consumed record with orderId: a667437e-c883-11f1-a9fa-0242ac1c0016, and updated total count to: 1 trace_id=96bf16735d33e"
-kafka,-Jf8QdAufSM,Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals_LocalLog,1,12,6044,"[2026-10-15 10:33:08,111] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Deleting segment files LogSegment(baseOffset="
-kafka,BVtz4xhx64s,older_than_retention_org_apache_kafka_raft_internals_KafkaRaftLog,2,13,5993,"[2026-10-15 10:32:08,121] INFO [RaftLog partition=__cluster_metadata-0, nodeId=1] Marking snapshot OffsetAndEpoch[offset=43, epoch=1] for deletion because its t"
-kafka,q20KpyVGjSM,Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,3,17,5950,"[2026-10-15 10:33:08,141] INFO Deleted time index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.timeindex.deleted. (org.apache.kafka.storage.interna"
-kafka,-Jf8QdAufSM,Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals_LocalLog,2,12,5946,"[2026-10-15 10:33:08,111] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Deleting segment files LogSegment(baseOffset="
-kafka,-Jf8QdAufSM,Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals_LocalLog,0,12,5931,"[2026-10-15 10:33:08,111] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Deleting segment files LogSegment(baseOffset="
-kafka,hl_fK-uzMu8,Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,3,17,5916,"[2026-10-15 10:33:08,140] INFO Deleted offset index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.index.deleted. (org.apache.kafka.storage.internals"
-frontend,KSy6KmHbgEc,Order_placed_successfully,3,13,5915,"{""level"":30,""time"":1792060320185,""pid"":1,""hostname"":""73ce8ce5d637"",""trace_id"":""e022f217b2b3d7f6ade1a81e48608ba2"",""span_id"":""1351de1b31976c14"",""trace_flags"":""01"""
-kafka,AMFi23Ga9wY,Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile,1,16,5808,"[2026-10-15 10:33:08,144] INFO Deleted producer state snapshot /tmp/kafka-logs/__cluster_metadata-0/00000000000000000040.snapshot.deleted (org.apache.kafka.stor"
-kafka,AMFi23Ga9wY,Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile,4,16,5808,"[2026-10-15 10:33:08,144] INFO Deleted producer state snapshot /tmp/kafka-logs/__cluster_metadata-0/00000000000000000040.snapshot.deleted (org.apache.kafka.stor"
-ad,xHrytxJfUdw,oteldemo_AdService_Targeted_ad_request_received_for,4,17,5761,2026-10-15 10:31:38 - oteldemo.AdService - Targeted ad request received for [assembly] trace_id=372ca3c93be2e7ad8cab7b1ef54f7eb0 span_id=7caed157b273ed44 trace_
-kafka,WlIY0QjIiEg,Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,3,17,5729,"[2026-10-15 10:33:08,139] INFO Deleted log /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.log.deleted. (org.apache.kafka.storage.internals.log.LogSeg"
-cart,h3qY1nS1uxY,EmptyCartAsync_called_with_userId,2,19,5624,"info: cart.cartstore.ValkeyCartStore[911421920]
-      EmptyCartAsync called with userId=a638c9b8-c883-11f1-8f4c-0242ac1c0018"
-kafka,q20KpyVGjSM,Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,1,16,5600,"[2026-10-15 10:33:08,141] INFO Deleted time index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.timeindex.deleted. (org.apache.kafka.storage.interna"
-kafka,q20KpyVGjSM,Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,4,16,5600,"[2026-10-15 10:33:08,141] INFO Deleted time index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.timeindex.deleted. (org.apache.kafka.storage.interna"
-payment,fg1YkiyrF3Q,Charge_request_received,3,13,5577,"{""level"":""info"",""time"":1792060319047,""pid"":1,""hostname"":""12cdf08779ff"",""trace_id"":""e022f217b2b3d7f6ade1a81e48608ba2"",""span_id"":""058660dbc7bec2a3"",""trace_flags"":"
-kafka,hl_fK-uzMu8,Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,1,16,5568,"[2026-10-15 10:33:08,140] INFO Deleted offset index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.index.deleted. (org.apache.kafka.storage.internals"
-kafka,hl_fK-uzMu8,Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,4,16,5568,"[2026-10-15 10:33:08,140] INFO Deleted offset index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.index.deleted. (org.apache.kafka.storage.internals"
-kafka,BVtz4xhx64s,older_than_retention_org_apache_kafka_raft_internals_KafkaRaftLog,3,12,5532,"[2026-10-15 10:32:08,121] INFO [RaftLog partition=__cluster_metadata-0, nodeId=1] Marking snapshot OffsetAndEpoch[offset=43, epoch=1] for deletion because its t"
-kafka,BVtz4xhx64s,older_than_retention_org_apache_kafka_raft_internals_KafkaRaftLog,4,12,5532,"[2026-10-15 10:32:08,121] INFO [RaftLog partition=__cluster_metadata-0, nodeId=1] Marking snapshot OffsetAndEpoch[offset=43, epoch=1] for deletion because its t"
-kafka,BVtz4xhx64s,older_than_retention_org_apache_kafka_raft_internals_KafkaRaftLog,1,12,5526,"[2026-10-15 10:32:08,121] INFO [RaftLog partition=__cluster_metadata-0, nodeId=1] Marking snapshot OffsetAndEpoch[offset=43, epoch=1] for deletion because its t"
-kafka,BVtz4xhx64s,older_than_retention_org_apache_kafka_raft_internals_KafkaRaftLog,0,12,5520,"[2026-10-15 10:32:08,121] INFO [RaftLog partition=__cluster_metadata-0, nodeId=1] Marking snapshot OffsetAndEpoch[offset=43, epoch=1] for deletion because its t"
-email,1zhBPd1E9Bc,POST_send_order_confirmation_HTTP,2,19,5480,"172.28.0.22 - - [15/Oct/2026:10:31:59 +0000] ""POST /send_order_confirmation HTTP/1.1"" 200 - 0.6164"
-frontend,KSy6KmHbgEc,Order_placed_successfully,0,12,5460,"{""level"":30,""time"":1792060320185,""pid"":1,""hostname"":""73ce8ce5d637"",""trace_id"":""e022f217b2b3d7f6ade1a81e48608ba2"",""span_id"":""1351de1b31976c14"",""trace_flags"":""01"""
-shipping,kAB8PMmHyKM,shipping_service_Requesting_quote_http_getquote,3,13,5447,"[2m2026-10-15T10:31:58.537887Z[0m [32m INFO[0m [2mshipping::shipping_service::quote[0m[2m:[0m Requesting quote [3mquote_service_addr[0m[2m=[0m""http:"
-kafka,AMFi23Ga9wY,Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile,0,15,5445,"[2026-10-15 10:33:08,144] INFO Deleted producer state snapshot /tmp/kafka-logs/__cluster_metadata-0/00000000000000000040.snapshot.deleted (org.apache.kafka.stor"
-kafka,AMFi23Ga9wY,Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile,2,15,5445,"[2026-10-15 10:33:08,144] INFO Deleted producer state snapshot /tmp/kafka-logs/__cluster_metadata-0/00000000000000000040.snapshot.deleted (org.apache.kafka.stor"
-shipping,LnOvjJt0La4,Tracking_ID_Created,3,13,5434,"[2m2026-10-15T10:31:59.196275Z[0m [32m INFO[0m [2mshipping::shipping_service[0m[2m:[0m Tracking ID Created [3mtracking_id[0m[2m=[0m""a09672b5-cb52-48"
-shipping,PX-oZ7rxgZo,Sending_Quote,3,13,5397,[2m2026-10-15T10:31:58.771496Z[0m [32m INFO[0m [2mshipping::shipping_service[0m[2m:[0m Sending Quote [3mdollars[0m[2m=[0m8 [3mcents[0m[2m=[0m99
-kafka,WlIY0QjIiEg,Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,1,16,5392,"[2026-10-15 10:33:08,139] INFO Deleted log /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.log.deleted. (org.apache.kafka.storage.internals.log.LogSeg"
-kafka,WlIY0QjIiEg,Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,4,16,5392,"[2026-10-15 10:33:08,139] INFO Deleted log /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.log.deleted. (org.apache.kafka.storage.internals.log.LogSeg"
-kafka,q20KpyVGjSM,Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,0,15,5250,"[2026-10-15 10:33:08,141] INFO Deleted time index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.timeindex.deleted. (org.apache.kafka.storage.interna"
-kafka,q20KpyVGjSM,Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,2,15,5250,"[2026-10-15 10:33:08,141] INFO Deleted time index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.timeindex.deleted. (org.apache.kafka.storage.interna"
-fraud-detection,GKfNbCrpxxI,fraud_detection_Consumed_record_with_orderId_and_updated_total_count_to_trace_id_span_flags,3,13,5239,"2026-10-15 10:32:00 - fraud-detection - Consumed record with orderId: a667437e-c883-11f1-a9fa-0242ac1c0016, and updated total count to: 1 trace_id=96bf16735d33e"
-kafka,hl_fK-uzMu8,Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,0,15,5220,"[2026-10-15 10:33:08,140] INFO Deleted offset index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.index.deleted. (org.apache.kafka.storage.internals"
-kafka,hl_fK-uzMu8,Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,2,15,5220,"[2026-10-15 10:33:08,140] INFO Deleted offset index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.index.deleted. (org.apache.kafka.storage.internals"
-kafka,YJTvxN0rObQ,Creating_new_KRaft_snapshot_file_because_we_have_replayed_at_least_bytes_org_apache_kafka_image_publisher_SnapshotGenerator,2,13,5200,"[2026-10-15 10:30:24,929] INFO [SnapshotGenerator id=1] Creating new KRaft snapshot file snapshot 00000000000000000043-0000000001 because we have replayed at le"
-payment,fg1YkiyrF3Q,Charge_request_received,0,12,5148,"{""level"":""info"",""time"":1792060319047,""pid"":1,""hostname"":""12cdf08779ff"",""trace_id"":""e022f217b2b3d7f6ade1a81e48608ba2"",""span_id"":""058660dbc7bec2a3"",""trace_flags"":"
-kafka,WlIY0QjIiEg,Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,0,15,5055,"[2026-10-15 10:33:08,139] INFO Deleted log /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.log.deleted. (org.apache.kafka.storage.internals.log.LogSeg"
-kafka,WlIY0QjIiEg,Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,2,15,5055,"[2026-10-15 10:33:08,139] INFO Deleted log /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.log.deleted. (org.apache.kafka.storage.internals.log.LogSeg"
-shipping,kAB8PMmHyKM,shipping_service_Requesting_quote_http_getquote,0,12,5028,"[2m2026-10-15T10:31:58.537887Z[0m [32m INFO[0m [2mshipping::shipping_service::quote[0m[2m:[0m Requesting quote [3mquote_service_addr[0m[2m=[0m""http:"
-shipping,LnOvjJt0La4,Tracking_ID_Created,0,12,5016,"[2m2026-10-15T10:31:59.196275Z[0m [32m INFO[0m [2mshipping::shipping_service[0m[2m:[0m Tracking ID Created [3mtracking_id[0m[2m=[0m""a09672b5-cb52-48"
-shipping,PX-oZ7rxgZo,Sending_Quote,0,12,4984,[2m2026-10-15T10:31:58.771496Z[0m [32m INFO[0m [2mshipping::shipping_service[0m[2m:[0m Sending Quote [3mdollars[0m[2m=[0m8 [3mcents[0m[2m=[0m99
-kafka,3AOokQ1Sq7k,Incremented_log_start_offset_to_due_snapshot_generated_org_apache_kafka_storage_internals_UnifiedLog,2,13,4966,"[2026-10-15 10:32:08,073] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Incremented log start offset to 120 due to snapshot generated (o"
-fraud-detection,GKfNbCrpxxI,fraud_detection_Consumed_record_with_orderId_and_updated_total_count_to_trace_id_span_flags,0,12,4836,"2026-10-15 10:32:00 - fraud-detection - Consumed record with orderId: a667437e-c883-11f1-a9fa-0242ac1c0016, and updated total count to: 1 trace_id=96bf16735d33e"
-kafka,YJTvxN0rObQ,Creating_new_KRaft_snapshot_file_because_we_have_replayed_at_least_bytes_org_apache_kafka_image_publisher_SnapshotGenerator,0,12,4800,"[2026-10-15 10:30:24,929] INFO [SnapshotGenerator id=1] Creating new KRaft snapshot file snapshot 00000000000000000043-0000000001 because we have replayed at le"
-kafka,YJTvxN0rObQ,Creating_new_KRaft_snapshot_file_because_we_have_replayed_at_least_bytes_org_apache_kafka_image_publisher_SnapshotGenerator,1,12,4800,"[2026-10-15 10:30:24,929] INFO [SnapshotGenerator id=1] Creating new KRaft snapshot file snapshot 00000000000000000043-0000000001 because we have replayed at le"
-kafka,YJTvxN0rObQ,Creating_new_KRaft_snapshot_file_because_we_have_replayed_at_least_bytes_org_apache_kafka_image_publisher_SnapshotGenerator,3,12,4800,"[2026-10-15 10:30:24,929] INFO [SnapshotGenerator id=1] Creating new KRaft snapshot file snapshot 00000000000000000043-0000000001 because we have replayed at le"
-kafka,YJTvxN0rObQ,Creating_new_KRaft_snapshot_file_because_we_have_replayed_at_least_bytes_org_apache_kafka_image_publisher_SnapshotGenerator,4,12,4800,"[2026-10-15 10:30:24,929] INFO [SnapshotGenerator id=1] Creating new KRaft snapshot file snapshot 00000000000000000043-0000000001 because we have replayed at le"
-email,1zhBPd1E9Bc,POST_send_order_confirmation_HTTP,4,16,4742,"172.28.0.22 - - [15/Oct/2026:10:31:59 +0000] ""POST /send_order_confirmation HTTP/1.1"" 200 - 0.6164"
-cart,h3qY1nS1uxY,EmptyCartAsync_called_with_userId,4,16,4736,"info: cart.cartstore.ValkeyCartStore[911421920]
-      EmptyCartAsync called with userId=a638c9b8-c883-11f1-8f4c-0242ac1c0018"
-kafka,3AOokQ1Sq7k,Incremented_log_start_offset_to_due_snapshot_generated_org_apache_kafka_storage_internals_UnifiedLog,3,12,4584,"[2026-10-15 10:32:08,073] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Incremented log start offset to 120 due to snapshot generated (o"
-kafka,3AOokQ1Sq7k,Incremented_log_start_offset_to_due_snapshot_generated_org_apache_kafka_storage_internals_UnifiedLog,4,12,4584,"[2026-10-15 10:32:08,073] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Incremented log start offset to 120 due to snapshot generated (o"
-kafka,3AOokQ1Sq7k,Incremented_log_start_offset_to_due_snapshot_generated_org_apache_kafka_storage_internals_UnifiedLog,1,12,4579,"[2026-10-15 10:32:08,073] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Incremented log start offset to 120 due to snapshot generated (o"
-kafka,3AOokQ1Sq7k,Incremented_log_start_offset_to_due_snapshot_generated_org_apache_kafka_storage_internals_UnifiedLog,0,12,4572,"[2026-10-15 10:32:08,073] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Incremented log start offset to 120 due to snapshot generated (o"
-quote,c4yR2F2cVfk,POST_getquote_HTTP,2,19,4446,"[2026-10-15 10:31:58+00:00] ""POST /getquote HTTP/1.1"" 200 4 "
-cart,h3qY1nS1uxY,EmptyCartAsync_called_with_userId,1,15,4440,"info: cart.cartstore.ValkeyCartStore[911421920]
-      EmptyCartAsync called with userId=a638c9b8-c883-11f1-8f4c-0242ac1c0018"
-kafka,TM6TaR-b4oE,Successfully_wrote_snapshot_org_apache_kafka_image_publisher_SnapshotEmitter,2,13,4368,"[2026-10-15 10:30:25,356] INFO [SnapshotEmitter id=1] Successfully wrote snapshot 00000000000000000043-0000000001 (org.apache.kafka.image.publisher.SnapshotEmit"
-email,1zhBPd1E9Bc,POST_send_order_confirmation_HTTP,1,15,4158,"172.28.0.22 - - [15/Oct/2026:10:31:59 +0000] ""POST /send_order_confirmation HTTP/1.1"" 200 - 0.6164"
-kafka,1Eg3qHK6Z9w,Deleted_snapshot_files_for_apache_kafka_Snapshots,3,13,4082,"[2026-10-15 10:33:08,145] INFO Deleted snapshot files for snapshot OffsetAndEpoch[offset=43, epoch=1]. (org.apache.kafka.snapshot.Snapshots)"
-kafka,TM6TaR-b4oE,Successfully_wrote_snapshot_org_apache_kafka_image_publisher_SnapshotEmitter,0,12,4032,"[2026-10-15 10:30:25,356] INFO [SnapshotEmitter id=1] Successfully wrote snapshot 00000000000000000043-0000000001 (org.apache.kafka.image.publisher.SnapshotEmit"
-kafka,TM6TaR-b4oE,Successfully_wrote_snapshot_org_apache_kafka_image_publisher_SnapshotEmitter,1,12,4032,"[2026-10-15 10:30:25,356] INFO [SnapshotEmitter id=1] Successfully wrote snapshot 00000000000000000043-0000000001 (org.apache.kafka.image.publisher.SnapshotEmit"
-kafka,TM6TaR-b4oE,Successfully_wrote_snapshot_org_apache_kafka_image_publisher_SnapshotEmitter,3,12,4032,"[2026-10-15 10:30:25,356] INFO [SnapshotEmitter id=1] Successfully wrote snapshot 00000000000000000043-0000000001 (org.apache.kafka.image.publisher.SnapshotEmit"
-kafka,TM6TaR-b4oE,Successfully_wrote_snapshot_org_apache_kafka_image_publisher_SnapshotEmitter,4,12,4032,"[2026-10-15 10:30:25,356] INFO [SnapshotEmitter id=1] Successfully wrote snapshot 00000000000000000043-0000000001 (org.apache.kafka.image.publisher.SnapshotEmit"
-cart,h3qY1nS1uxY,EmptyCartAsync_called_with_userId,3,13,3848,"info: cart.cartstore.ValkeyCartStore[911421920]
-      EmptyCartAsync called with userId=a638c9b8-c883-11f1-8f4c-0242ac1c0018"
-email,1zhBPd1E9Bc,POST_send_order_confirmation_HTTP,3,13,3848,"172.28.0.22 - - [15/Oct/2026:10:31:59 +0000] ""POST /send_order_confirmation HTTP/1.1"" 200 - 0.6164"
-kafka,1Eg3qHK6Z9w,Deleted_snapshot_files_for_apache_kafka_Snapshots,2,12,3768,"[2026-10-15 10:33:08,145] INFO Deleted snapshot files for snapshot OffsetAndEpoch[offset=43, epoch=1]. (org.apache.kafka.snapshot.Snapshots)"
-kafka,1Eg3qHK6Z9w,Deleted_snapshot_files_for_apache_kafka_Snapshots,4,12,3768,"[2026-10-15 10:33:08,145] INFO Deleted snapshot files for snapshot OffsetAndEpoch[offset=43, epoch=1]. (org.apache.kafka.snapshot.Snapshots)"
-kafka,1Eg3qHK6Z9w,Deleted_snapshot_files_for_apache_kafka_Snapshots,1,12,3759,"[2026-10-15 10:33:08,145] INFO Deleted snapshot files for snapshot OffsetAndEpoch[offset=43, epoch=1]. (org.apache.kafka.snapshot.Snapshots)"
-kafka,1Eg3qHK6Z9w,Deleted_snapshot_files_for_apache_kafka_Snapshots,0,12,3756,"[2026-10-15 10:33:08,145] INFO Deleted snapshot files for snapshot OffsetAndEpoch[offset=43, epoch=1]. (org.apache.kafka.snapshot.Snapshots)"
-quote,c4yR2F2cVfk,POST_getquote_HTTP,4,16,3744,"[2026-10-15 10:31:58+00:00] ""POST /getquote HTTP/1.1"" 200 4 "
-email,shf1OAS338c,Order_confirmation_email_sent_for_order,2,15,3720,Order confirmation email sent for order a667437e-c883-11f1-a9fa-0242ac1c0016
-cart,h3qY1nS1uxY,EmptyCartAsync_called_with_userId,0,12,3552,"info: cart.cartstore.ValkeyCartStore[911421920]
-      EmptyCartAsync called with userId=a638c9b8-c883-11f1-8f4c-0242ac1c0018"
-quote,c4yR2F2cVfk,POST_getquote_HTTP,1,15,3510,"[2026-10-15 10:31:58+00:00] ""POST /getquote HTTP/1.1"" 200 4 "
-email,shf1OAS338c,Order_confirmation_email_sent_for_order,1,14,3472,Order confirmation email sent for order a667437e-c883-11f1-a9fa-0242ac1c0016
-email,1zhBPd1E9Bc,POST_send_order_confirmation_HTTP,0,12,3342,"172.28.0.22 - - [15/Oct/2026:10:31:59 +0000] ""POST /send_order_confirmation HTTP/1.1"" 200 - 0.6164"
-quote,c4yR2F2cVfk,POST_getquote_HTTP,3,13,3042,"[2026-10-15 10:31:58+00:00] ""POST /getquote HTTP/1.1"" 200 4 "
-quote,c4yR2F2cVfk,POST_getquote_HTTP,0,12,2808,"[2026-10-15 10:31:58+00:00] ""POST /getquote HTTP/1.1"" 200 4 "
-email,shf1OAS338c,Order_confirmation_email_sent_for_order,0,11,2728,Order confirmation email sent for order a667437e-c883-11f1-a9fa-0242ac1c0016
-email,shf1OAS338c,Order_confirmation_email_sent_for_order,4,11,2728,Order confirmation email sent for order a667437e-c883-11f1-a9fa-0242ac1c0016
-ad,jN_dDVWoa78,oteldemo_AdService_Non_targeted_ad_request_received_preparing_random_response_trace_id_span_flags,3,7,2485,"2026-10-15 10:32:26 - oteldemo.AdService - Non-targeted ad request received, preparing random response. trace_id=8aef79e640a6db84b4dc35d602106e1b span_id=3662fe"
-email,shf1OAS338c,Order_confirmation_email_sent_for_order,3,9,2232,Order confirmation email sent for order a667437e-c883-11f1-a9fa-0242ac1c0016
-shipping,lL9RUMft8Us,flagd_off,0,3,1575,"[2m2026-10-15T10:33:34.533535Z[0m [32m INFO[0m [2mshipping::shipping_service[0m[2m:[0m [3mfeature_flag_key[0m[2m=[0m""intlShippingSlowdown"" [3mfeatu"
-shipping,lL9RUMft8Us,flagd_off,3,2,1050,"[2m2026-10-15T10:33:34.533535Z[0m [32m INFO[0m [2mshipping::shipping_service[0m[2m:[0m [3mfeature_flag_key[0m[2m=[0m""intlShippingSlowdown"" [3mfeatu"
-ad,jN_dDVWoa78,oteldemo_AdService_Non_targeted_ad_request_received_preparing_random_response_trace_id_span_flags,1,2,710,"2026-10-15 10:32:26 - oteldemo.AdService - Non-targeted ad request received, preparing random response. trace_id=8aef79e640a6db84b4dc35d602106e1b span_id=3662fe"
-ad,jN_dDVWoa78,oteldemo_AdService_Non_targeted_ad_request_received_preparing_random_response_trace_id_span_flags,2,2,710,"2026-10-15 10:32:26 - oteldemo.AdService - Non-targeted ad request received, preparing random response. trace_id=8aef79e640a6db84b4dc35d602106e1b span_id=3662fe"
-kafka,32n9YngnbiQ,Node_disconnected_org_apache_kafka_clients_NetworkClient,1,2,638,"[2026-10-15 10:40:09,985] INFO [NodeToControllerChannelManager id=1 name=registration] Node 1 disconnected. (org.apache.kafka.clients.NetworkClient)"
-astronomy-db,kSaBbG9G3Nw,LOG_checkpoint_complete_wrote_buffers_SLRU_WAL_file_s_added_removed_recycled_write_sync_total_files_longest_average_distance,0,1,494,"2026-10-15 10:29:08.365 UTC [85] LOG:  checkpoint complete: wrote 1053 buffers (6.4%), wrote 3 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0"
-astronomy-db,kSaBbG9G3Nw,LOG_checkpoint_complete_wrote_buffers_SLRU_WAL_file_s_added_removed_recycled_write_sync_total_files_longest_average_distance,3,1,491,"2026-10-15 10:29:08.365 UTC [85] LOG:  checkpoint complete: wrote 1053 buffers (6.4%), wrote 3 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0"
-astronomy-db,kSaBbG9G3Nw,LOG_checkpoint_complete_wrote_buffers_SLRU_WAL_file_s_added_removed_recycled_write_sync_total_files_longest_average_distance,2,1,490,"2026-10-15 10:29:08.365 UTC [85] LOG:  checkpoint complete: wrote 1053 buffers (6.4%), wrote 3 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0"
-astronomy-db,kSaBbG9G3Nw,LOG_checkpoint_complete_wrote_buffers_SLRU_WAL_file_s_added_removed_recycled_write_sync_total_files_longest_average_distance,1,1,488,"2026-10-15 10:29:08.365 UTC [85] LOG:  checkpoint complete: wrote 1053 buffers (6.4%), wrote 3 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0"
-ad,jN_dDVWoa78,oteldemo_AdService_Non_targeted_ad_request_received_preparing_random_response_trace_id_span_flags,0,1,355,"2026-10-15 10:32:26 - oteldemo.AdService - Non-targeted ad request received, preparing random response. trace_id=8aef79e640a6db84b4dc35d602106e1b span_id=3662fe"
-frontend-proxy,CF-DhVUoFVw,shutting_down_parent_after_drain,3,1,296,[2026-10-15 10:45:59.774][8][info][main] [source/server/drain_manager_impl.cc:226] shutting down parent after drain
-valkey-cart,kodKFTs6ZHw,Fork_CoW_RDB_current_peak_MB_average,2,1,267,"418:C 15 Oct 2026 10:34:42.213 * Fork CoW for RDB: current 0 MB, peak 0 MB, average 0 MB"
-valkey-cart,kodKFTs6ZHw,Fork_CoW_RDB_current_peak_MB_average,3,1,267,"418:C 15 Oct 2026 10:34:42.213 * Fork CoW for RDB: current 0 MB, peak 0 MB, average 0 MB"
-valkey-cart,kodKFTs6ZHw,Fork_CoW_RDB_current_peak_MB_average,0,1,266,"418:C 15 Oct 2026 10:34:42.213 * Fork CoW for RDB: current 0 MB, peak 0 MB, average 0 MB"
-valkey-cart,kodKFTs6ZHw,Fork_CoW_RDB_current_peak_MB_average,1,1,266,"418:C 15 Oct 2026 10:34:42.213 * Fork CoW for RDB: current 0 MB, peak 0 MB, average 0 MB"
-valkey-cart,sX9OKFLN168,Background_saving_terminated_with_success,0,1,250,1:M 15 Oct 2026 10:34:42.270 * Background saving terminated with success
-valkey-cart,sX9OKFLN168,Background_saving_terminated_with_success,1,1,250,1:M 15 Oct 2026 10:34:42.270 * Background saving terminated with success
-valkey-cart,sX9OKFLN168,Background_saving_terminated_with_success,2,1,250,1:M 15 Oct 2026 10:34:42.270 * Background saving terminated with success
-valkey-cart,sX9OKFLN168,Background_saving_terminated_with_success,3,1,250,1:M 15 Oct 2026 10:34:42.270 * Background saving terminated with success
-valkey-cart,CqVDqv2uuq4,changes_seconds_Saving,0,1,246,1:M 15 Oct 2026 10:34:42.153 * 100 changes in 300 seconds. Saving...
-valkey-cart,CqVDqv2uuq4,changes_seconds_Saving,1,1,246,1:M 15 Oct 2026 10:34:42.153 * 100 changes in 300 seconds. Saving...
-valkey-cart,CqVDqv2uuq4,changes_seconds_Saving,2,1,246,1:M 15 Oct 2026 10:34:42.153 * 100 changes in 300 seconds. Saving...
-valkey-cart,cSWpKn5pAUI,Background_saving_started_by_pid,2,1,246,1:M 15 Oct 2026 10:34:42.168 * Background saving started by pid 418
-valkey-cart,CqVDqv2uuq4,changes_seconds_Saving,3,1,246,1:M 15 Oct 2026 10:34:42.153 * 100 changes in 300 seconds. Saving...
-valkey-cart,cSWpKn5pAUI,Background_saving_started_by_pid,3,1,246,1:M 15 Oct 2026 10:34:42.168 * Background saving started by pid 418
-valkey-cart,cSWpKn5pAUI,Background_saving_started_by_pid,0,1,245,1:M 15 Oct 2026 10:34:42.168 * Background saving started by pid 418
-valkey-cart,cSWpKn5pAUI,Background_saving_started_by_pid,1,1,245,1:M 15 Oct 2026 10:34:42.168 * Background saving started by pid 418
-astronomy-db,uFiFj2oDd6k,LOG_checkpoint_starting_time,0,1,244,2026-10-15 10:34:09.416 UTC [109] LOG:  checkpoint starting: time
-astronomy-db,uFiFj2oDd6k,LOG_checkpoint_starting_time,1,1,244,2026-10-15 10:34:09.416 UTC [109] LOG:  checkpoint starting: time
-astronomy-db,uFiFj2oDd6k,LOG_checkpoint_starting_time,2,1,244,2026-10-15 10:34:09.416 UTC [109] LOG:  checkpoint starting: time
-astronomy-db,uFiFj2oDd6k,LOG_checkpoint_starting_time,3,1,244,2026-10-15 10:34:09.416 UTC [109] LOG:  checkpoint starting: time
-valkey-cart,INXTRKqNcG8,DB_saved_on_disk,2,1,228,418:C 15 Oct 2026 10:34:42.211 * DB saved on disk
-valkey-cart,INXTRKqNcG8,DB_saved_on_disk,3,1,228,418:C 15 Oct 2026 10:34:42.211 * DB saved on disk
-valkey-cart,INXTRKqNcG8,DB_saved_on_disk,0,1,227,418:C 15 Oct 2026 10:34:42.211 * DB saved on disk
-valkey-cart,INXTRKqNcG8,DB_saved_on_disk,1,1,227,418:C 15 Oct 2026 10:34:42.211 * DB saved on disk
+telemetry-docs,zxRYTKQNyBY,GET_HTTP_Wget,0,47,12267,"::1 - - [15/Oct/2026:12:14:55 +0000] ""GET / HTTP/1.1"" 200 29066 ""-"" ""Wget"""
+telemetry-docs,zxRYTKQNyBY,GET_HTTP_Wget,3,47,12267,"::1 - - [15/Oct/2026:12:14:55 +0000] ""GET / HTTP/1.1"" 200 29066 ""-"" ""Wget"""
+telemetry-docs,zxRYTKQNyBY,GET_HTTP_Wget,4,47,12267,"::1 - - [15/Oct/2026:12:14:55 +0000] ""GET / HTTP/1.1"" 200 29066 ""-"" ""Wget"""
+cart,eDSYlCMPqVY,AddItemAsync_called_with_userId_productId_quantity,3,36,11817,"info: cart.cartstore.ValkeyCartStore[133092716]
+      AddItemAsync called with userId=0fde71e2-c893-11f1-8baf-0242ac1c0018, productId=1YMWWN1N4O, quantity=3"
+astronomy-db,oUkuI8QT6s8,role_root_does_not_exist,0,47,11728,"2026-10-15 12:15:27.154 UTC [99] FATAL:  role ""root"" does not exist
+CREATE EXTENSION
+CREATE SCHEMA
+GRANT
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+GRANT
+CREATE SCH"
+astronomy-db,oUkuI8QT6s8,role_root_does_not_exist,3,46,11500,"2026-10-15 12:15:27.154 UTC [99] FATAL:  role ""root"" does not exist
+CREATE EXTENSION
+CREATE SCHEMA
+GRANT
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+GRANT
+CREATE SCH"
+astronomy-db,oUkuI8QT6s8,role_root_does_not_exist,4,46,11500,"2026-10-15 12:15:27.154 UTC [99] FATAL:  role ""root"" does not exist
+CREATE EXTENSION
+CREATE SCHEMA
+GRANT
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+GRANT
+CREATE SCH"
+otel-collector,fhu6rrW86b4,error_Error_scraping_metrics,4,7,11433,"2026-10-15T12:15:25.797Z	error	scraperhelper@v0.159.0/obs_metrics.go:61	Error scraping metrics	{""resource"": {""service.instance.id"": ""37b4ecad-45b1-4cff-8bb4-4a3"
+telemetry-docs,zxRYTKQNyBY,GET_HTTP_Wget,1,43,11223,"::1 - - [15/Oct/2026:12:14:55 +0000] ""GET / HTTP/1.1"" 200 29066 ""-"" ""Wget"""
+kafka,JUW-7iX1rdw,consumer_because_the_partition_is_not_online_or_no_longer_leader_org_apache_kafka_coordinator_common_runtime_CoordinatorRuntime,2,17,11143,"[2026-10-15 12:21:39,506] ERROR [GroupCoordinator id=1] Failed to load metadata from __consumer_offsets-13 with epoch 0 due to Stopped loading records from __co"
+otel-collector,fhu6rrW86b4,error_Error_scraping_metrics,0,7,11044,"2026-10-15T12:15:25.797Z	error	scraperhelper@v0.159.0/obs_metrics.go:61	Error scraping metrics	{""resource"": {""service.instance.id"": ""37b4ecad-45b1-4cff-8bb4-4a3"
+cart,eDSYlCMPqVY,AddItemAsync_called_with_userId_productId_quantity,4,32,10503,"info: cart.cartstore.ValkeyCartStore[133092716]
+      AddItemAsync called with userId=0fde71e2-c893-11f1-8baf-0242ac1c0018, productId=1YMWWN1N4O, quantity=3"
+cart,eDSYlCMPqVY,AddItemAsync_called_with_userId_productId_quantity,2,32,10497,"info: cart.cartstore.ValkeyCartStore[133092716]
+      AddItemAsync called with userId=0fde71e2-c893-11f1-8baf-0242ac1c0018, productId=1YMWWN1N4O, quantity=3"
+recommendation,bzLB1zZCTIw,Receive_ListRecommendations_for_product_ids,3,21,10248,"2026-10-15 12:22:20,218 INFO [main] [recommendation_server.py:47] [trace_id=89260d848a99e2a2cfdb6a0ff7afb1fb span_id=447437371cedad09 resource.service.name=reco"
+accounting,-FtZD9XArpU,Order_details,3,11,10050,"info: Accounting.Consumer[722003269]
+      Order details: { ""orderId"": ""1111e753-c893-11f1-b536-0242ac1c0016"", ""shippingTrackingId"": ""9d7c7789-4c1f-436f-bda5-39"
+astronomy-db,oUkuI8QT6s8,role_root_does_not_exist,1,40,10000,"2026-10-15 12:15:27.154 UTC [99] FATAL:  role ""root"" does not exist
+CREATE EXTENSION
+CREATE SCHEMA
+GRANT
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+GRANT
+CREATE SCH"
+recommendation,bzLB1zZCTIw,Receive_ListRecommendations_for_product_ids,0,20,9760,"2026-10-15 12:22:20,218 INFO [main] [recommendation_server.py:47] [trace_id=89260d848a99e2a2cfdb6a0ff7afb1fb span_id=447437371cedad09 resource.service.name=reco"
+accounting,-FtZD9XArpU,Order_details,4,10,9719,"info: Accounting.Consumer[722003269]
+      Order details: { ""orderId"": ""1111e753-c893-11f1-b536-0242ac1c0016"", ""shippingTrackingId"": ""9d7c7789-4c1f-436f-bda5-39"
+accounting,-FtZD9XArpU,Order_details,2,10,9394,"info: Accounting.Consumer[722003269]
+      Order details: { ""orderId"": ""1111e753-c893-11f1-b536-0242ac1c0016"", ""shippingTrackingId"": ""9d7c7789-4c1f-436f-bda5-39"
+otel-collector,fhu6rrW86b4,error_Error_scraping_metrics,3,6,9276,"2026-10-15T12:15:25.797Z	error	scraperhelper@v0.159.0/obs_metrics.go:61	Error scraping metrics	{""resource"": {""service.instance.id"": ""37b4ecad-45b1-4cff-8bb4-4a3"
+recommendation,bzLB1zZCTIw,Receive_ListRecommendations_for_product_ids,4,19,9272,"2026-10-15 12:22:20,218 INFO [main] [recommendation_server.py:47] [trace_id=89260d848a99e2a2cfdb6a0ff7afb1fb span_id=447437371cedad09 resource.service.name=reco"
+telemetry-docs,zxRYTKQNyBY,GET_HTTP_Wget,2,35,9135,"::1 - - [15/Oct/2026:12:14:55 +0000] ""GET / HTTP/1.1"" 200 29066 ""-"" ""Wget"""
+otel-collector,fhu6rrW86b4,error_Error_scraping_metrics,1,5,9028,"2026-10-15T12:15:25.797Z	error	scraperhelper@v0.159.0/obs_metrics.go:61	Error scraping metrics	{""resource"": {""service.instance.id"": ""37b4ecad-45b1-4cff-8bb4-4a3"
+cart,eDSYlCMPqVY,AddItemAsync_called_with_userId_productId_quantity,1,26,8531,"info: cart.cartstore.ValkeyCartStore[133092716]
+      AddItemAsync called with userId=0fde71e2-c893-11f1-8baf-0242ac1c0018, productId=1YMWWN1N4O, quantity=3"
+recommendation,bzLB1zZCTIw,Receive_ListRecommendations_for_product_ids,1,16,7808,"2026-10-15 12:22:20,218 INFO [main] [recommendation_server.py:47] [trace_id=89260d848a99e2a2cfdb6a0ff7afb1fb span_id=447437371cedad09 resource.service.name=reco"
+astronomy-db,oUkuI8QT6s8,role_root_does_not_exist,2,31,7750,"2026-10-15 12:15:27.154 UTC [99] FATAL:  role ""root"" does not exist
+CREATE EXTENSION
+CREATE SCHEMA
+GRANT
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+GRANT
+CREATE SCH"
+cart,eDSYlCMPqVY,AddItemAsync_called_with_userId_productId_quantity,0,23,7544,"info: cart.cartstore.ValkeyCartStore[133092716]
+      AddItemAsync called with userId=0fde71e2-c893-11f1-8baf-0242ac1c0018, productId=1YMWWN1N4O, quantity=3"
+ad,xHrytxJfUdw,oteldemo_AdService_Targeted_ad_request_received_for,0,22,7438,2026-10-15 12:22:55 - oteldemo.AdService - Targeted ad request received for [accessories] trace_id=7cee62991faf8e2394ee3baf00e400a6 span_id=99081569f7ddcf2a tra
+payment,9WbTsopbiXk,Transaction_complete,3,11,7435,"{""level"":""info"",""time"":1792066940820,""pid"":1,""hostname"":""7dd26cfd3747"",""trace_id"":""d35d5b9ba7d44c6b785709d3439b152d"",""span_id"":""466dd18b80838bd4"",""trace_flags"":"
+payment,9WbTsopbiXk,Transaction_complete,4,10,6773,"{""level"":""info"",""time"":1792066940820,""pid"":1,""hostname"":""7dd26cfd3747"",""trace_id"":""d35d5b9ba7d44c6b785709d3439b152d"",""span_id"":""466dd18b80838bd4"",""trace_flags"":"
+payment,9WbTsopbiXk,Transaction_complete,2,10,6769,"{""level"":""info"",""time"":1792066940820,""pid"":1,""hostname"":""7dd26cfd3747"",""trace_id"":""d35d5b9ba7d44c6b785709d3439b152d"",""span_id"":""466dd18b80838bd4"",""trace_flags"":"
+kafka,pFokWfyJRLU,Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals,3,12,6232,"[2026-10-15 12:21:08,607] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Deleting segments due to log start offset 85 breach: LogSegment("
+kafka,pFokWfyJRLU,Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals,4,12,6232,"[2026-10-15 12:21:08,607] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Deleting segments due to log start offset 85 breach: LogSegment("
+kafka,pFokWfyJRLU,Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals,0,12,6205,"[2026-10-15 12:21:08,607] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Deleting segments due to log start offset 85 breach: LogSegment("
+kafka,VnqlcNA_PIM,Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager,1,16,6176,"[2026-10-15 12:19:09,547] INFO [ProducerStateManager partition=__cluster_metadata-0] Wrote producer snapshot at offset 31 with 0 producer ids in 3 ms. (org.apac"
+kafka,VnqlcNA_PIM,Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager,3,16,6176,"[2026-10-15 12:19:09,547] INFO [ProducerStateManager partition=__cluster_metadata-0] Wrote producer snapshot at offset 31 with 0 producer ids in 3 ms. (org.apac"
+kafka,VnqlcNA_PIM,Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager,4,16,6176,"[2026-10-15 12:19:09,547] INFO [ProducerStateManager partition=__cluster_metadata-0] Wrote producer snapshot at offset 31 with 0 producer ids in 3 ms. (org.apac"
+kafka,AMFi23Ga9wY,Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile,2,17,6171,"[2026-10-15 12:22:10,065] INFO Deleted producer state snapshot /tmp/kafka-logs/__cluster_metadata-0/00000000000000000031.snapshot.deleted (org.apache.kafka.stor"
+kafka,VnqlcNA_PIM,Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager,0,16,6165,"[2026-10-15 12:19:09,547] INFO [ProducerStateManager partition=__cluster_metadata-0] Wrote producer snapshot at offset 31 with 0 producer ids in 3 ms. (org.apac"
+kafka,-Jf8QdAufSM,Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals_LocalLog,2,12,6164,"[2026-10-15 12:22:09,044] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Deleting segment files LogSegment(baseOffset="
+kafka,wyR-oWD2-hk,Rolled_new_log_segment_at_offset_in_ms_org_apache_kafka_storage_internals_LocalLog,1,16,6139,"[2026-10-15 12:19:09,543] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Rolled new log segment at offset 31 in 9 ms. "
+kafka,wyR-oWD2-hk,Rolled_new_log_segment_at_offset_in_ms_org_apache_kafka_storage_internals_LocalLog,3,16,6129,"[2026-10-15 12:19:09,543] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Rolled new log segment at offset 31 in 9 ms. "
+kafka,wyR-oWD2-hk,Rolled_new_log_segment_at_offset_in_ms_org_apache_kafka_storage_internals_LocalLog,4,16,6129,"[2026-10-15 12:19:09,543] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Rolled new log segment at offset 31 in 9 ms. "
+kafka,pFokWfyJRLU,Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals,1,12,6123,"[2026-10-15 12:21:08,607] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Deleting segments due to log start offset 85 breach: LogSegment("
+kafka,wyR-oWD2-hk,Rolled_new_log_segment_at_offset_in_ms_org_apache_kafka_storage_internals_LocalLog,0,16,6117,"[2026-10-15 12:19:09,543] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Rolled new log segment at offset 31 in 9 ms. "
+kafka,-Jf8QdAufSM,Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals_LocalLog,4,12,6056,"[2026-10-15 12:22:09,044] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Deleting segment files LogSegment(baseOffset="
+kafka,-Jf8QdAufSM,Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals_LocalLog,1,12,6052,"[2026-10-15 12:22:09,044] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Deleting segment files LogSegment(baseOffset="
+kafka,-Jf8QdAufSM,Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals_LocalLog,0,12,6040,"[2026-10-15 12:22:09,044] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Deleting segment files LogSegment(baseOffset="
+kafka,q20KpyVGjSM,Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,2,17,5950,"[2026-10-15 12:22:10,013] INFO Deleted time index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.timeindex.deleted. (org.apache.kafka.storage.interna"
+kafka,hl_fK-uzMu8,Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,2,17,5916,"[2026-10-15 12:22:10,008] INFO Deleted offset index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.index.deleted. (org.apache.kafka.storage.internals"
+kafka,pFokWfyJRLU,Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals,2,11,5856,"[2026-10-15 12:21:08,607] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Deleting segments due to log start offset 85 breach: LogSegment("
+kafka,Q40AUb4IlZM,Removed_fetcher_for_partitions_Set_consumer_kafka_server_ReplicaFetcherManager,2,4,5840,"[2026-10-15 12:20:39,265] INFO [ReplicaFetcherManager on broker 1] Removed fetcher for partitions Set(__consumer_offsets-13, __consumer_offsets-46, __consumer_o"
+kafka,AMFi23Ga9wY,Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile,0,16,5808,"[2026-10-15 12:22:10,065] INFO Deleted producer state snapshot /tmp/kafka-logs/__cluster_metadata-0/00000000000000000031.snapshot.deleted (org.apache.kafka.stor"
+kafka,AMFi23Ga9wY,Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile,1,16,5808,"[2026-10-15 12:22:10,065] INFO Deleted producer state snapshot /tmp/kafka-logs/__cluster_metadata-0/00000000000000000031.snapshot.deleted (org.apache.kafka.stor"
+kafka,AMFi23Ga9wY,Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile,4,16,5808,"[2026-10-15 12:22:10,065] INFO Deleted producer state snapshot /tmp/kafka-logs/__cluster_metadata-0/00000000000000000031.snapshot.deleted (org.apache.kafka.stor"
+kafka,WlIY0QjIiEg,Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,2,17,5729,"[2026-10-15 12:22:09,988] INFO Deleted log /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.log.deleted. (org.apache.kafka.storage.internals.log.LogSeg"
+kafka,q20KpyVGjSM,Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,0,16,5600,"[2026-10-15 12:22:10,013] INFO Deleted time index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.timeindex.deleted. (org.apache.kafka.storage.interna"
+kafka,q20KpyVGjSM,Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,1,16,5600,"[2026-10-15 12:22:10,013] INFO Deleted time index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.timeindex.deleted. (org.apache.kafka.storage.interna"
+kafka,q20KpyVGjSM,Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,4,16,5600,"[2026-10-15 12:22:10,013] INFO Deleted time index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.timeindex.deleted. (org.apache.kafka.storage.interna"
+kafka,hl_fK-uzMu8,Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,0,16,5568,"[2026-10-15 12:22:10,008] INFO Deleted offset index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.index.deleted. (org.apache.kafka.storage.internals"
+kafka,hl_fK-uzMu8,Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,1,16,5568,"[2026-10-15 12:22:10,008] INFO Deleted offset index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.index.deleted. (org.apache.kafka.storage.internals"
+kafka,hl_fK-uzMu8,Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,4,16,5568,"[2026-10-15 12:22:10,008] INFO Deleted offset index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.index.deleted. (org.apache.kafka.storage.internals"
+kafka,BVtz4xhx64s,older_than_retention_org_apache_kafka_raft_internals_KafkaRaftLog,1,12,5532,"[2026-10-15 12:21:09,451] INFO [RaftLog partition=__cluster_metadata-0, nodeId=1] Marking snapshot OffsetAndEpoch[offset=43, epoch=1] for deletion because its t"
+kafka,BVtz4xhx64s,older_than_retention_org_apache_kafka_raft_internals_KafkaRaftLog,3,12,5532,"[2026-10-15 12:21:09,451] INFO [RaftLog partition=__cluster_metadata-0, nodeId=1] Marking snapshot OffsetAndEpoch[offset=43, epoch=1] for deletion because its t"
+kafka,BVtz4xhx64s,older_than_retention_org_apache_kafka_raft_internals_KafkaRaftLog,4,12,5532,"[2026-10-15 12:21:09,451] INFO [RaftLog partition=__cluster_metadata-0, nodeId=1] Marking snapshot OffsetAndEpoch[offset=43, epoch=1] for deletion because its t"
+kafka,BVtz4xhx64s,older_than_retention_org_apache_kafka_raft_internals_KafkaRaftLog,0,12,5520,"[2026-10-15 12:21:09,451] INFO [RaftLog partition=__cluster_metadata-0, nodeId=1] Marking snapshot OffsetAndEpoch[offset=43, epoch=1] for deletion because its t"
+kafka,-Jf8QdAufSM,Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals_LocalLog,3,11,5478,"[2026-10-15 12:22:09,044] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Deleting segment files LogSegment(baseOffset="
+ad,xHrytxJfUdw,oteldemo_AdService_Targeted_ad_request_received_for,4,16,5424,2026-10-15 12:22:55 - oteldemo.AdService - Targeted ad request received for [accessories] trace_id=7cee62991faf8e2394ee3baf00e400a6 span_id=99081569f7ddcf2a tra
+kafka,VnqlcNA_PIM,Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager,2,14,5406,"[2026-10-15 12:19:09,547] INFO [ProducerStateManager partition=__cluster_metadata-0] Wrote producer snapshot at offset 31 with 0 producer ids in 3 ms. (org.apac"
+kafka,WlIY0QjIiEg,Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,0,16,5392,"[2026-10-15 12:22:09,988] INFO Deleted log /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.log.deleted. (org.apache.kafka.storage.internals.log.LogSeg"
+kafka,WlIY0QjIiEg,Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,1,16,5392,"[2026-10-15 12:22:09,988] INFO Deleted log /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.log.deleted. (org.apache.kafka.storage.internals.log.LogSeg"
+kafka,WlIY0QjIiEg,Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,4,16,5392,"[2026-10-15 12:22:09,988] INFO Deleted log /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.log.deleted. (org.apache.kafka.storage.internals.log.LogSeg"
+kafka,wyR-oWD2-hk,Rolled_new_log_segment_at_offset_in_ms_org_apache_kafka_storage_internals_LocalLog,2,14,5376,"[2026-10-15 12:19:09,543] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Rolled new log segment at offset 31 in 9 ms. "
+recommendation,bzLB1zZCTIw,Receive_ListRecommendations_for_product_ids,2,11,5368,"2026-10-15 12:22:20,218 INFO [main] [recommendation_server.py:47] [trace_id=89260d848a99e2a2cfdb6a0ff7afb1fb span_id=447437371cedad09 resource.service.name=reco"
+accounting,-FtZD9XArpU,Order_details,1,6,5362,"info: Accounting.Consumer[722003269]
+      Order details: { ""orderId"": ""1111e753-c893-11f1-b536-0242ac1c0016"", ""shippingTrackingId"": ""9d7c7789-4c1f-436f-bda5-39"
+kafka,AMFi23Ga9wY,Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile,3,14,5082,"[2026-10-15 12:22:10,065] INFO Deleted producer state snapshot /tmp/kafka-logs/__cluster_metadata-0/00000000000000000031.snapshot.deleted (org.apache.kafka.stor"
+kafka,BVtz4xhx64s,older_than_retention_org_apache_kafka_raft_internals_KafkaRaftLog,2,11,5071,"[2026-10-15 12:21:09,451] INFO [RaftLog partition=__cluster_metadata-0, nodeId=1] Marking snapshot OffsetAndEpoch[offset=43, epoch=1] for deletion because its t"
+frontend,KSy6KmHbgEc,Order_placed_successfully,3,11,5005,"{""level"":30,""time"":1792066942869,""pid"":1,""hostname"":""56affb348380"",""trace_id"":""d35d5b9ba7d44c6b785709d3439b152d"",""span_id"":""1d750c7856439bdf"",""trace_flags"":""01"""
+kafka,q20KpyVGjSM,Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,3,14,4900,"[2026-10-15 12:22:10,013] INFO Deleted time index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.timeindex.deleted. (org.apache.kafka.storage.interna"
+kafka,hl_fK-uzMu8,Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,3,14,4872,"[2026-10-15 12:22:10,008] INFO Deleted offset index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.index.deleted. (org.apache.kafka.storage.internals"
+kafka,YJTvxN0rObQ,Creating_new_KRaft_snapshot_file_because_we_have_replayed_at_least_bytes_org_apache_kafka_image_publisher_SnapshotGenerator,0,12,4800,"[2026-10-15 12:19:15,050] INFO [SnapshotGenerator id=1] Creating new KRaft snapshot file snapshot 00000000000000000043-0000000001 because we have replayed at le"
+kafka,YJTvxN0rObQ,Creating_new_KRaft_snapshot_file_because_we_have_replayed_at_least_bytes_org_apache_kafka_image_publisher_SnapshotGenerator,1,12,4800,"[2026-10-15 12:19:15,050] INFO [SnapshotGenerator id=1] Creating new KRaft snapshot file snapshot 00000000000000000043-0000000001 because we have replayed at le"
+kafka,YJTvxN0rObQ,Creating_new_KRaft_snapshot_file_because_we_have_replayed_at_least_bytes_org_apache_kafka_image_publisher_SnapshotGenerator,3,12,4800,"[2026-10-15 12:19:15,050] INFO [SnapshotGenerator id=1] Creating new KRaft snapshot file snapshot 00000000000000000043-0000000001 because we have replayed at le"
+kafka,YJTvxN0rObQ,Creating_new_KRaft_snapshot_file_because_we_have_replayed_at_least_bytes_org_apache_kafka_image_publisher_SnapshotGenerator,4,12,4800,"[2026-10-15 12:19:15,050] INFO [SnapshotGenerator id=1] Creating new KRaft snapshot file snapshot 00000000000000000043-0000000001 because we have replayed at le"
+ad,xHrytxJfUdw,oteldemo_AdService_Targeted_ad_request_received_for,3,14,4748,2026-10-15 12:22:55 - oteldemo.AdService - Targeted ad request received for [accessories] trace_id=7cee62991faf8e2394ee3baf00e400a6 span_id=99081569f7ddcf2a tra
+payment,fg1YkiyrF3Q,Charge_request_received,3,11,4719,"{""level"":""info"",""time"":1792066940534,""pid"":1,""hostname"":""7dd26cfd3747"",""trace_id"":""d35d5b9ba7d44c6b785709d3439b152d"",""span_id"":""466dd18b80838bd4"",""trace_flags"":"
+kafka,WlIY0QjIiEg,Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment,3,14,4718,"[2026-10-15 12:22:09,988] INFO Deleted log /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.log.deleted. (org.apache.kafka.storage.internals.log.LogSeg"
+kafka,EWF_GfgcUHg,due_node_being_disconnected_elapsed_time_since_creation_send_throttle_request_timeout_org_apache_kafka_clients_NetworkClient,2,9,4626,"[2026-10-15 12:19:34,619] INFO [NodeToControllerChannelManager id=1 name=heartbeat] Cancelled in-flight BROKER_HEARTBEAT request with correlation id 17 due to n"
+shipping,kAB8PMmHyKM,shipping_service_Requesting_quote_http_getquote,2,11,4609,"[2m2026-10-15T12:22:20.212109Z[0m [32m INFO[0m [2mshipping::shipping_service::quote[0m[2m:[0m Requesting quote [3mquote_service_addr[0m[2m=[0m""http:"
+shipping,kAB8PMmHyKM,shipping_service_Requesting_quote_http_getquote,3,11,4609,"[2m2026-10-15T12:22:20.212109Z[0m [32m INFO[0m [2mshipping::shipping_service::quote[0m[2m:[0m Requesting quote [3mquote_service_addr[0m[2m=[0m""http:"
+shipping,LnOvjJt0La4,Tracking_ID_Created,3,11,4598,"[2m2026-10-15T12:22:20.847381Z[0m [32m INFO[0m [2mshipping::shipping_service[0m[2m:[0m Tracking ID Created [3mtracking_id[0m[2m=[0m""9d7c7789-4c1f-43"
+kafka,3AOokQ1Sq7k,Incremented_log_start_offset_to_due_snapshot_generated_org_apache_kafka_storage_internals_UnifiedLog,1,12,4584,"[2026-10-15 12:21:05,883] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Incremented log start offset to 85 due to snapshot generated (or"
+kafka,3AOokQ1Sq7k,Incremented_log_start_offset_to_due_snapshot_generated_org_apache_kafka_storage_internals_UnifiedLog,3,12,4584,"[2026-10-15 12:21:05,883] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Incremented log start offset to 85 due to snapshot generated (or"
+kafka,3AOokQ1Sq7k,Incremented_log_start_offset_to_due_snapshot_generated_org_apache_kafka_storage_internals_UnifiedLog,4,12,4584,"[2026-10-15 12:21:05,883] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Incremented log start offset to 85 due to snapshot generated (or"
+kafka,3AOokQ1Sq7k,Incremented_log_start_offset_to_due_snapshot_generated_org_apache_kafka_storage_internals_UnifiedLog,0,12,4573,"[2026-10-15 12:21:05,883] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Incremented log start offset to 85 due to snapshot generated (or"
+shipping,PX-oZ7rxgZo,Sending_Quote,3,11,4567,[2m2026-10-15T12:22:20.413673Z[0m [32m INFO[0m [2mshipping::shipping_service[0m[2m:[0m Sending Quote [3mdollars[0m[2m=[0m26 [3mcents[0m[2m=[0m97
+frontend,KSy6KmHbgEc,Order_placed_successfully,2,10,4550,"{""level"":30,""time"":1792066942869,""pid"":1,""hostname"":""56affb348380"",""trace_id"":""d35d5b9ba7d44c6b785709d3439b152d"",""span_id"":""1d750c7856439bdf"",""trace_flags"":""01"""
+frontend,KSy6KmHbgEc,Order_placed_successfully,4,10,4550,"{""level"":30,""time"":1792066942869,""pid"":1,""hostname"":""56affb348380"",""trace_id"":""d35d5b9ba7d44c6b785709d3439b152d"",""span_id"":""1d750c7856439bdf"",""trace_flags"":""01"""
+fraud-detection,GKfNbCrpxxI,fraud_detection_Consumed_record_with_orderId_and_updated_total_count_to_trace_id_span_flags,3,11,4433,"2026-10-15 12:22:27 - fraud-detection - Consumed record with orderId: 1111e753-c893-11f1-b536-0242ac1c0016, and updated total count to: 1 trace_id=1174ca83b10ad"
+kafka,If7-94IIYwo,Unable_to_send_a_heartbeat_because_the_RPC_got_timed_out_before_it_could_be_sent_org_apache_kafka_server_BrokerLifecycleManager,2,12,4356,"[2026-10-15 12:19:34,642] INFO [BrokerLifecycleManager id=1] Unable to send a heartbeat because the RPC got timed out before it could be sent. (org.apache.kafka"
+kafka,ZGMc2KwI-ak,Recorded_new_KRaft_controller_from_now_on_will_use_node_kafka_id_rack_null_isFenced_false_org_apache_server_NodeToControllerRequestThread,2,12,4332,"[2026-10-15 12:18:55,024] INFO Recorded new KRaft controller, from now on will use node kafka:9093 (id: 1 rack: null isFenced: false) (org.apache.kafka.server.N"
+payment,fg1YkiyrF3Q,Charge_request_received,2,10,4290,"{""level"":""info"",""time"":1792066940534,""pid"":1,""hostname"":""7dd26cfd3747"",""trace_id"":""d35d5b9ba7d44c6b785709d3439b152d"",""span_id"":""466dd18b80838bd4"",""trace_flags"":"
+payment,fg1YkiyrF3Q,Charge_request_received,4,10,4290,"{""level"":""info"",""time"":1792066940534,""pid"":1,""hostname"":""7dd26cfd3747"",""trace_id"":""d35d5b9ba7d44c6b785709d3439b152d"",""span_id"":""466dd18b80838bd4"",""trace_flags"":"
+kafka,3AOokQ1Sq7k,Incremented_log_start_offset_to_due_snapshot_generated_org_apache_kafka_storage_internals_UnifiedLog,2,11,4202,"[2026-10-15 12:21:05,883] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Incremented log start offset to 85 due to snapshot generated (or"
+shipping,kAB8PMmHyKM,shipping_service_Requesting_quote_http_getquote,4,10,4190,"[2m2026-10-15T12:22:20.212109Z[0m [32m INFO[0m [2mshipping::shipping_service::quote[0m[2m:[0m Requesting quote [3mquote_service_addr[0m[2m=[0m""http:"
+shipping,LnOvjJt0La4,Tracking_ID_Created,2,10,4180,"[2m2026-10-15T12:22:20.847381Z[0m [32m INFO[0m [2mshipping::shipping_service[0m[2m:[0m Tracking ID Created [3mtracking_id[0m[2m=[0m""9d7c7789-4c1f-43"
+shipping,LnOvjJt0La4,Tracking_ID_Created,4,10,4180,"[2m2026-10-15T12:22:20.847381Z[0m [32m INFO[0m [2mshipping::shipping_service[0m[2m:[0m Tracking ID Created [3mtracking_id[0m[2m=[0m""9d7c7789-4c1f-43"
+shipping,PX-oZ7rxgZo,Sending_Quote,4,10,4155,[2m2026-10-15T12:22:20.413673Z[0m [32m INFO[0m [2mshipping::shipping_service[0m[2m:[0m Sending Quote [3mdollars[0m[2m=[0m26 [3mcents[0m[2m=[0m97
+shipping,PX-oZ7rxgZo,Sending_Quote,2,10,4151,[2m2026-10-15T12:22:20.413673Z[0m [32m INFO[0m [2mshipping::shipping_service[0m[2m:[0m Sending Quote [3mdollars[0m[2m=[0m26 [3mcents[0m[2m=[0m97
+payment,9WbTsopbiXk,Transaction_complete,1,6,4058,"{""level"":""info"",""time"":1792066940820,""pid"":1,""hostname"":""7dd26cfd3747"",""trace_id"":""d35d5b9ba7d44c6b785709d3439b152d"",""span_id"":""466dd18b80838bd4"",""trace_flags"":"
+ad,xHrytxJfUdw,oteldemo_AdService_Targeted_ad_request_received_for,1,12,4057,2026-10-15 12:22:55 - oteldemo.AdService - Targeted ad request received for [accessories] trace_id=7cee62991faf8e2394ee3baf00e400a6 span_id=99081569f7ddcf2a tra
+kafka,TM6TaR-b4oE,Successfully_wrote_snapshot_org_apache_kafka_image_publisher_SnapshotEmitter,0,12,4032,"[2026-10-15 12:19:15,125] INFO [SnapshotEmitter id=1] Successfully wrote snapshot 00000000000000000043-0000000001 (org.apache.kafka.image.publisher.SnapshotEmit"
+kafka,TM6TaR-b4oE,Successfully_wrote_snapshot_org_apache_kafka_image_publisher_SnapshotEmitter,1,12,4032,"[2026-10-15 12:19:15,125] INFO [SnapshotEmitter id=1] Successfully wrote snapshot 00000000000000000043-0000000001 (org.apache.kafka.image.publisher.SnapshotEmit"
+kafka,TM6TaR-b4oE,Successfully_wrote_snapshot_org_apache_kafka_image_publisher_SnapshotEmitter,3,12,4032,"[2026-10-15 12:19:15,125] INFO [SnapshotEmitter id=1] Successfully wrote snapshot 00000000000000000043-0000000001 (org.apache.kafka.image.publisher.SnapshotEmit"
+kafka,TM6TaR-b4oE,Successfully_wrote_snapshot_org_apache_kafka_image_publisher_SnapshotEmitter,4,12,4032,"[2026-10-15 12:19:15,125] INFO [SnapshotEmitter id=1] Successfully wrote snapshot 00000000000000000043-0000000001 (org.apache.kafka.image.publisher.SnapshotEmit"
+fraud-detection,GKfNbCrpxxI,fraud_detection_Consumed_record_with_orderId_and_updated_total_count_to_trace_id_span_flags,2,10,4030,"2026-10-15 12:22:27 - fraud-detection - Consumed record with orderId: 1111e753-c893-11f1-b536-0242ac1c0016, and updated total count to: 1 trace_id=1174ca83b10ad"
+fraud-detection,GKfNbCrpxxI,fraud_detection_Consumed_record_with_orderId_and_updated_total_count_to_trace_id_span_flags,4,10,4030,"2026-10-15 12:22:27 - fraud-detection - Consumed record with orderId: 1111e753-c893-11f1-b536-0242ac1c0016, and updated total count to: 1 trace_id=1174ca83b10ad"
+kafka,YJTvxN0rObQ,Creating_new_KRaft_snapshot_file_because_we_have_replayed_at_least_bytes_org_apache_kafka_image_publisher_SnapshotGenerator,2,10,4000,"[2026-10-15 12:19:15,050] INFO [SnapshotGenerator id=1] Creating new KRaft snapshot file snapshot 00000000000000000043-0000000001 because we have replayed at le"
+kafka,1Eg3qHK6Z9w,Deleted_snapshot_files_for_apache_kafka_Snapshots,2,12,3768,"[2026-10-15 12:22:10,102] INFO Deleted snapshot files for snapshot OffsetAndEpoch[offset=43, epoch=1]. (org.apache.kafka.snapshot.Snapshots)"
+kafka,1Eg3qHK6Z9w,Deleted_snapshot_files_for_apache_kafka_Snapshots,4,12,3768,"[2026-10-15 12:22:10,102] INFO Deleted snapshot files for snapshot OffsetAndEpoch[offset=43, epoch=1]. (org.apache.kafka.snapshot.Snapshots)"
+kafka,1Eg3qHK6Z9w,Deleted_snapshot_files_for_apache_kafka_Snapshots,1,12,3765,"[2026-10-15 12:22:10,102] INFO Deleted snapshot files for snapshot OffsetAndEpoch[offset=43, epoch=1]. (org.apache.kafka.snapshot.Snapshots)"
+kafka,1Eg3qHK6Z9w,Deleted_snapshot_files_for_apache_kafka_Snapshots,0,12,3756,"[2026-10-15 12:22:10,102] INFO Deleted snapshot files for snapshot OffsetAndEpoch[offset=43, epoch=1]. (org.apache.kafka.snapshot.Snapshots)"
+kafka,1Eg3qHK6Z9w,Deleted_snapshot_files_for_apache_kafka_Snapshots,3,11,3454,"[2026-10-15 12:22:10,102] INFO Deleted snapshot files for snapshot OffsetAndEpoch[offset=43, epoch=1]. (org.apache.kafka.snapshot.Snapshots)"
+otel-collector,bG57TmyjKmI,Could_not_fetch_docker_containerStats_for_container,2,4,3416,"2026-10-15T12:19:58.898Z	warn	docker@v0.159.0/docker.go:205	Could not fetch docker containerStats for container	{""resource"": {""service.instance.id"": ""334c562a-2"
+accounting,-FtZD9XArpU,Order_details,0,4,3361,"info: Accounting.Consumer[722003269]
+      Order details: { ""orderId"": ""1111e753-c893-11f1-b536-0242ac1c0016"", ""shippingTrackingId"": ""9d7c7789-4c1f-436f-bda5-39"
+kafka,TM6TaR-b4oE,Successfully_wrote_snapshot_org_apache_kafka_image_publisher_SnapshotEmitter,2,10,3360,"[2026-10-15 12:19:15,125] INFO [SnapshotEmitter id=1] Successfully wrote snapshot 00000000000000000043-0000000001 (org.apache.kafka.image.publisher.SnapshotEmit"
+email,1zhBPd1E9Bc,POST_send_order_confirmation_HTTP,3,11,3304,"172.28.0.22 - - [15/Oct/2026:12:22:22 +0000] ""POST /send_order_confirmation HTTP/1.1"" 200 - 1.7757"
+cart,h3qY1nS1uxY,EmptyCartAsync_called_with_userId,3,11,3256,"info: cart.cartstore.ValkeyCartStore[911421920]
+      EmptyCartAsync called with userId=0fde71e2-c893-11f1-8baf-0242ac1c0018"
+kafka,TPjVBviiL1M,Disconnecting_node_due_to_request_timeout_org_apache_kafka_clients_NetworkClient,2,9,3114,"[2026-10-15 12:19:34,076] INFO [NodeToControllerChannelManager id=1 name=heartbeat] Disconnecting from node 1 due to request timeout. (org.apache.kafka.clients."
+email,1zhBPd1E9Bc,POST_send_order_confirmation_HTTP,4,10,3110,"172.28.0.22 - - [15/Oct/2026:12:22:22 +0000] ""POST /send_order_confirmation HTTP/1.1"" 200 - 1.7757"
+email,1zhBPd1E9Bc,POST_send_order_confirmation_HTTP,2,10,3032,"172.28.0.22 - - [15/Oct/2026:12:22:22 +0000] ""POST /send_order_confirmation HTTP/1.1"" 200 - 1.7757"
+cart,h3qY1nS1uxY,EmptyCartAsync_called_with_userId,2,10,2960,"info: cart.cartstore.ValkeyCartStore[911421920]
+      EmptyCartAsync called with userId=0fde71e2-c893-11f1-8baf-0242ac1c0018"
+cart,h3qY1nS1uxY,EmptyCartAsync_called_with_userId,4,10,2960,"info: cart.cartstore.ValkeyCartStore[911421920]
+      EmptyCartAsync called with userId=0fde71e2-c893-11f1-8baf-0242ac1c0018"
+frontend,KSy6KmHbgEc,Order_placed_successfully,1,6,2730,"{""level"":30,""time"":1792066942869,""pid"":1,""hostname"":""56affb348380"",""trace_id"":""d35d5b9ba7d44c6b785709d3439b152d"",""span_id"":""1d750c7856439bdf"",""trace_flags"":""01"""
+ad,xHrytxJfUdw,oteldemo_AdService_Targeted_ad_request_received_for,2,8,2708,2026-10-15 12:22:55 - oteldemo.AdService - Targeted ad request received for [accessories] trace_id=7cee62991faf8e2394ee3baf00e400a6 span_id=99081569f7ddcf2a tra
+payment,9WbTsopbiXk,Transaction_complete,0,4,2705,"{""level"":""info"",""time"":1792066940820,""pid"":1,""hostname"":""7dd26cfd3747"",""trace_id"":""d35d5b9ba7d44c6b785709d3439b152d"",""span_id"":""466dd18b80838bd4"",""trace_flags"":"
+otel-collector,i2z5o5kWLMs,error_Could_not_parse_docker_containerStats_for_container_id,2,2,2700,"2026-10-15T12:33:22.449Z	error	docker@v0.159.0/docker.go:229	Could not parse docker containerStats for container id	{""resource"": {""service.instance.id"": ""334c56"
+payment,fg1YkiyrF3Q,Charge_request_received,1,6,2574,"{""level"":""info"",""time"":1792066940534,""pid"":1,""hostname"":""7dd26cfd3747"",""trace_id"":""d35d5b9ba7d44c6b785709d3439b152d"",""span_id"":""466dd18b80838bd4"",""trace_flags"":"
+quote,c4yR2F2cVfk,POST_getquote_HTTP,2,11,2574,"[2026-10-15 12:22:20+00:00] ""POST /getquote HTTP/1.1"" 200 5 "
+quote,c4yR2F2cVfk,POST_getquote_HTTP,3,11,2574,"[2026-10-15 12:22:20+00:00] ""POST /getquote HTTP/1.1"" 200 5 "
+shipping,kAB8PMmHyKM,shipping_service_Requesting_quote_http_getquote,1,6,2514,"[2m2026-10-15T12:22:20.212109Z[0m [32m INFO[0m [2mshipping::shipping_service::quote[0m[2m:[0m Requesting quote [3mquote_service_addr[0m[2m=[0m""http:"
+shipping,LnOvjJt0La4,Tracking_ID_Created,1,6,2508,"[2m2026-10-15T12:22:20.847381Z[0m [32m INFO[0m [2mshipping::shipping_service[0m[2m:[0m Tracking ID Created [3mtracking_id[0m[2m=[0m""9d7c7789-4c1f-43"
+shipping,PX-oZ7rxgZo,Sending_Quote,1,6,2491,[2m2026-10-15T12:22:20.413673Z[0m [32m INFO[0m [2mshipping::shipping_service[0m[2m:[0m Sending Quote [3mdollars[0m[2m=[0m26 [3mcents[0m[2m=[0m97
+fraud-detection,GKfNbCrpxxI,fraud_detection_Consumed_record_with_orderId_and_updated_total_count_to_trace_id_span_flags,1,6,2417,"2026-10-15 12:22:27 - fraud-detection - Consumed record with orderId: 1111e753-c893-11f1-b536-0242ac1c0016, and updated total count to: 1 trace_id=1174ca83b10ad"
+frontend,D8SzF8YfZYo,INTERNAL_shipping_quote_failure_failed_POST_to_service_expected_got,2,1,2390,"{""level"":50,""time"":1792067669126,""pid"":1,""hostname"":""56affb348380"",""trace_id"":""a2b58586da16f776b2d0ad17f462b712"",""span_id"":""18752a449b9a8440"",""trace_flags"":""01"""
+quote,c4yR2F2cVfk,POST_getquote_HTTP,4,10,2340,"[2026-10-15 12:22:20+00:00] ""POST /getquote HTTP/1.1"" 200 5 "
+frontend,KSy6KmHbgEc,Order_placed_successfully,0,4,1820,"{""level"":30,""time"":1792066942869,""pid"":1,""hostname"":""56affb348380"",""trace_id"":""d35d5b9ba7d44c6b785709d3439b152d"",""span_id"":""1d750c7856439bdf"",""trace_flags"":""01"""
+cart,h3qY1nS1uxY,EmptyCartAsync_called_with_userId,1,6,1776,"info: cart.cartstore.ValkeyCartStore[911421920]
+      EmptyCartAsync called with userId=0fde71e2-c893-11f1-8baf-0242ac1c0018"
+email,shf1OAS338c,Order_confirmation_email_sent_for_order,3,7,1736,Order confirmation email sent for order 1111e753-c893-11f1-b536-0242ac1c0016
+payment,fg1YkiyrF3Q,Charge_request_received,0,4,1716,"{""level"":""info"",""time"":1792066940534,""pid"":1,""hostname"":""7dd26cfd3747"",""trace_id"":""d35d5b9ba7d44c6b785709d3439b152d"",""span_id"":""466dd18b80838bd4"",""trace_flags"":"
+email,1zhBPd1E9Bc,POST_send_order_confirmation_HTTP,1,6,1710,"172.28.0.22 - - [15/Oct/2026:12:22:22 +0000] ""POST /send_order_confirmation HTTP/1.1"" 200 - 1.7757"
+shipping,kAB8PMmHyKM,shipping_service_Requesting_quote_http_getquote,0,4,1676,"[2m2026-10-15T12:22:20.212109Z[0m [32m INFO[0m [2mshipping::shipping_service::quote[0m[2m:[0m Requesting quote [3mquote_service_addr[0m[2m=[0m""http:"
+shipping,LnOvjJt0La4,Tracking_ID_Created,0,4,1672,"[2m2026-10-15T12:22:20.847381Z[0m [32m INFO[0m [2mshipping::shipping_service[0m[2m:[0m Tracking ID Created [3mtracking_id[0m[2m=[0m""9d7c7789-4c1f-43"
+shipping,PX-oZ7rxgZo,Sending_Quote,0,4,1660,[2m2026-10-15T12:22:20.413673Z[0m [32m INFO[0m [2mshipping::shipping_service[0m[2m:[0m Sending Quote [3mdollars[0m[2m=[0m26 [3mcents[0m[2m=[0m97
+fraud-detection,GKfNbCrpxxI,fraud_detection_Consumed_record_with_orderId_and_updated_total_count_to_trace_id_span_flags,0,4,1608,"2026-10-15 12:22:27 - fraud-detection - Consumed record with orderId: 1111e753-c893-11f1-b536-0242ac1c0016, and updated total count to: 1 trace_id=1174ca83b10ad"
+kafka,OuqKpfKq0iA,Unloading_group_metadata_for_generation_org_apache_kafka_coordinator_GroupMetadataManager,2,4,1554,"[2026-10-15 12:33:46,265] INFO [GroupCoordinator id=1 topic=__consumer_offsets partition=44] [GroupId=fraud-detection] Unloading group metadata for generation 1"
+email,shf1OAS338c,Order_confirmation_email_sent_for_order,2,6,1488,Order confirmation email sent for order 1111e753-c893-11f1-b536-0242ac1c0016
+ad,jN_dDVWoa78,oteldemo_AdService_Non_targeted_ad_request_received_preparing_random_response_trace_id_span_flags,3,4,1420,"2026-10-15 12:22:39 - oteldemo.AdService - Non-targeted ad request received, preparing random response. trace_id=4b1be7f0240dea0e56fab5f48d37c5d1 span_id=d7324f"
+quote,c4yR2F2cVfk,POST_getquote_HTTP,1,6,1404,"[2026-10-15 12:22:20+00:00] ""POST /getquote HTTP/1.1"" 200 5 "
+email,shf1OAS338c,Order_confirmation_email_sent_for_order,1,5,1240,Order confirmation email sent for order 1111e753-c893-11f1-b536-0242ac1c0016
+email,shf1OAS338c,Order_confirmation_email_sent_for_order,4,5,1240,Order confirmation email sent for order 1111e753-c893-11f1-b536-0242ac1c0016
+cart,h3qY1nS1uxY,EmptyCartAsync_called_with_userId,0,4,1184,"info: cart.cartstore.ValkeyCartStore[911421920]
+      EmptyCartAsync called with userId=0fde71e2-c893-11f1-8baf-0242ac1c0018"
+email,1zhBPd1E9Bc,POST_send_order_confirmation_HTTP,0,4,1088,"172.28.0.22 - - [15/Oct/2026:12:22:22 +0000] ""POST /send_order_confirmation HTTP/1.1"" 200 - 1.7757"
+ad,jN_dDVWoa78,oteldemo_AdService_Non_targeted_ad_request_received_preparing_random_response_trace_id_span_flags,4,3,1065,"2026-10-15 12:22:39 - oteldemo.AdService - Non-targeted ad request received, preparing random response. trace_id=4b1be7f0240dea0e56fab5f48d37c5d1 span_id=d7324f"
+shipping,lL9RUMft8Us,flagd_off,0,2,1050,"[2m2026-10-15T12:24:35.308057Z[0m [32m INFO[0m [2mshipping::shipping_service[0m[2m:[0m [3mfeature_flag_key[0m[2m=[0m""intlShippingSlowdown"" [3mfeatu"
+shipping,lL9RUMft8Us,flagd_off,2,2,1050,"[2m2026-10-15T12:24:35.308057Z[0m [32m INFO[0m [2mshipping::shipping_service[0m[2m:[0m [3mfeature_flag_key[0m[2m=[0m""intlShippingSlowdown"" [3mfeatu"
+email,shf1OAS338c,Order_confirmation_email_sent_for_order,0,4,992,Order confirmation email sent for order 1111e753-c893-11f1-b536-0242ac1c0016
+quote,c4yR2F2cVfk,POST_getquote_HTTP,0,4,936,"[2026-10-15 12:22:20+00:00] ""POST /getquote HTTP/1.1"" 200 5 "
+otel-collector,2K7oEKuNiqY,franz_read_broker_errored_killing_connection_after_successful_responses_is_SASL_missing,2,1,754,"2026-10-15T12:34:31.322Z	warn	franz	kzap@v1.1.2/kzap.go:116	read from broker errored, killing connection after 0 successful responses (is SASL missing?)	{""resou"
+kafka,et6l8-v3kYw,Loaded_classic_group_fraud_detection_with_members_org_apache_kafka_coordinator_GroupMetadataManager,2,2,750,"[2026-10-15 12:34:47,846] INFO [GroupCoordinator id=1 topic=__consumer_offsets partition=44] Loaded classic group fraud-detection with 1 members. (org.apache.ka"
+ad,jN_dDVWoa78,oteldemo_AdService_Non_targeted_ad_request_received_preparing_random_response_trace_id_span_flags,0,2,710,"2026-10-15 12:22:39 - oteldemo.AdService - Non-targeted ad request received, preparing random response. trace_id=4b1be7f0240dea0e56fab5f48d37c5d1 span_id=d7324f"
+ad,jN_dDVWoa78,oteldemo_AdService_Non_targeted_ad_request_received_preparing_random_response_trace_id_span_flags,2,2,710,"2026-10-15 12:22:39 - oteldemo.AdService - Non-targeted ad request received, preparing random response. trace_id=4b1be7f0240dea0e56fab5f48d37c5d1 span_id=d7324f"
+astronomy-db,SMz1fpt73f8,LOG_untracked_child_PID_exited_with_exit_code,2,2,550,2026-10-15 12:20:13.497 UTC [1] LOG:  untracked child process (PID 458) exited with exit code 0
+accounting,uDZ64jlpwhY,brokers_are_down,2,2,524,"%3|1792066798.892|ERROR|rdkafka#consumer-1| [thrd:kafka:9092/1]: 1/1 brokers are down
+%4|1792066798.892|REQTMOUT|rdkafka#consumer-1| [thrd:kafka:9092/1]: kafka:"
+astronomy-db,kSaBbG9G3Nw,LOG_checkpoint_complete_wrote_buffers_SLRU_WAL_file_s_added_removed_recycled_write_sync_total_files_longest_average_distance,0,1,490,"2026-10-15 12:15:29.885 UTC [79] LOG:  checkpoint complete: wrote 1053 buffers (6.4%), wrote 3 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0"
+astronomy-db,kSaBbG9G3Nw,LOG_checkpoint_complete_wrote_buffers_SLRU_WAL_file_s_added_removed_recycled_write_sync_total_files_longest_average_distance,4,1,489,"2026-10-15 12:15:29.885 UTC [79] LOG:  checkpoint complete: wrote 1053 buffers (6.4%), wrote 3 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0"
+astronomy-db,kSaBbG9G3Nw,LOG_checkpoint_complete_wrote_buffers_SLRU_WAL_file_s_added_removed_recycled_write_sync_total_files_longest_average_distance,2,1,488,"2026-10-15 12:15:29.885 UTC [79] LOG:  checkpoint complete: wrote 1053 buffers (6.4%), wrote 3 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0"
+astronomy-db,kSaBbG9G3Nw,LOG_checkpoint_complete_wrote_buffers_SLRU_WAL_file_s_added_removed_recycled_write_sync_total_files_longest_average_distance,1,1,487,"2026-10-15 12:15:29.885 UTC [79] LOG:  checkpoint complete: wrote 1053 buffers (6.4%), wrote 3 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0"
+recommendation,EMRn5Qt4AJY,Failed_to_export_metrics_otel_collector_error_code_StatusCode_DEADLINE_EXCEEDED_details_Deadline_Exceeded,2,1,484,"2026-10-15 12:20:17,036 ERROR [opentelemetry.exporter.otlp.proto.grpc.exporter] [exporter.py:513] [trace_id=0 span_id=0 resource.service.name=recommendation tra"
+kafka,jRxpwnV-J5Q,Loaded_classic_group_accounting_with_members_org_apache_kafka_coordinator_GroupMetadataManager,2,1,370,"[2026-10-15 12:35:02,360] INFO [GroupCoordinator id=1 topic=__consumer_offsets partition=43] Loaded classic group accounting with 1 members. (org.apache.kafka.c"
+ad,jN_dDVWoa78,oteldemo_AdService_Non_targeted_ad_request_received_preparing_random_response_trace_id_span_flags,1,1,355,"2026-10-15 12:22:39 - oteldemo.AdService - Non-targeted ad request received, preparing random response. trace_id=4b1be7f0240dea0e56fab5f48d37c5d1 span_id=d7324f"
+kafka,oONcvdeJMHY,Broker_sent_a_heartbeat_request_but_received_error_REQUEST_TIMED_OUT_org_apache_kafka_server_BrokerLifecycleManager,2,1,353,"[2026-10-15 12:20:26,589] WARN [BrokerLifecycleManager id=1] Broker 1 sent a heartbeat request but received error REQUEST_TIMED_OUT. (org.apache.kafka.server.Br"
+kafka,32n9YngnbiQ,Node_disconnected_org_apache_kafka_clients_NetworkClient,1,1,320,"[2026-10-15 12:28:55,630] INFO [NodeToControllerChannelManager id=1 name=registration] Node 1 disconnected. (org.apache.kafka.clients.NetworkClient)"
+kafka,32n9YngnbiQ,Node_disconnected_org_apache_kafka_clients_NetworkClient,2,1,318,"[2026-10-15 12:28:55,630] INFO [NodeToControllerChannelManager id=1 name=registration] Node 1 disconnected. (org.apache.kafka.clients.NetworkClient)"
+product-catalog,HEB27OwRkTA,export_timeout_rpc_error_code_DeadlineExceeded_desc_context_deadline_exceeded,2,1,309,2026/10/15 12:33:20 traces export: exporter export timeout: rpc error: code = DeadlineExceeded desc = context deadline exceeded
+frontend-proxy,CF-DhVUoFVw,shutting_down_parent_after_drain,3,1,296,[2026-10-15 12:36:25.900][7][info][main] [source/server/drain_manager_impl.cc:226] shutting down parent after drain
+valkey-cart,kodKFTs6ZHw,Fork_CoW_RDB_current_peak_MB_average,2,1,267,"945:C 15 Oct 2026 12:30:14.229 * Fork CoW for RDB: current 0 MB, peak 0 MB, average 0 MB"
+valkey-cart,kodKFTs6ZHw,Fork_CoW_RDB_current_peak_MB_average,4,1,267,"945:C 15 Oct 2026 12:30:14.229 * Fork CoW for RDB: current 0 MB, peak 0 MB, average 0 MB"
+valkey-cart,kodKFTs6ZHw,Fork_CoW_RDB_current_peak_MB_average,1,1,266,"945:C 15 Oct 2026 12:30:14.229 * Fork CoW for RDB: current 0 MB, peak 0 MB, average 0 MB"
+valkey-cart,sX9OKFLN168,Background_saving_terminated_with_success,1,1,250,1:M 15 Oct 2026 12:30:14.245 * Background saving terminated with success
+valkey-cart,sX9OKFLN168,Background_saving_terminated_with_success,2,1,250,1:M 15 Oct 2026 12:30:14.245 * Background saving terminated with success
+valkey-cart,sX9OKFLN168,Background_saving_terminated_with_success,4,1,250,1:M 15 Oct 2026 12:30:14.245 * Background saving terminated with success
+valkey-cart,CqVDqv2uuq4,changes_seconds_Saving,1,1,246,1:M 15 Oct 2026 12:30:14.063 * 100 changes in 300 seconds. Saving...
+valkey-cart,CqVDqv2uuq4,changes_seconds_Saving,2,1,246,1:M 15 Oct 2026 12:30:14.063 * 100 changes in 300 seconds. Saving...
+valkey-cart,cSWpKn5pAUI,Background_saving_started_by_pid,2,1,246,1:M 15 Oct 2026 12:30:14.142 * Background saving started by pid 945
+valkey-cart,CqVDqv2uuq4,changes_seconds_Saving,4,1,246,1:M 15 Oct 2026 12:30:14.063 * 100 changes in 300 seconds. Saving...
+valkey-cart,cSWpKn5pAUI,Background_saving_started_by_pid,4,1,246,1:M 15 Oct 2026 12:30:14.142 * Background saving started by pid 945
+valkey-cart,cSWpKn5pAUI,Background_saving_started_by_pid,1,1,245,1:M 15 Oct 2026 12:30:14.142 * Background saving started by pid 945
+astronomy-db,uFiFj2oDd6k,LOG_checkpoint_starting_time,0,1,244,2026-10-15 12:20:31.057 UTC [105] LOG:  checkpoint starting: time
+astronomy-db,uFiFj2oDd6k,LOG_checkpoint_starting_time,1,1,244,2026-10-15 12:20:31.057 UTC [105] LOG:  checkpoint starting: time
+astronomy-db,uFiFj2oDd6k,LOG_checkpoint_starting_time,2,1,244,2026-10-15 12:20:31.057 UTC [105] LOG:  checkpoint starting: time
+astronomy-db,uFiFj2oDd6k,LOG_checkpoint_starting_time,4,1,244,2026-10-15 12:20:31.057 UTC [105] LOG:  checkpoint starting: time
+valkey-cart,INXTRKqNcG8,DB_saved_on_disk,2,1,228,945:C 15 Oct 2026 12:30:14.226 * DB saved on disk
+valkey-cart,INXTRKqNcG8,DB_saved_on_disk,4,1,228,945:C 15 Oct 2026 12:30:14.226 * DB saved on disk
+valkey-cart,INXTRKqNcG8,DB_saved_on_disk,1,1,227,945:C 15 Oct 2026 12:30:14.226 * DB saved on disk

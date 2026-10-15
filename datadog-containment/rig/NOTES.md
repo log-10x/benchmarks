@@ -2,7 +2,7 @@
 
 ## Rerun on edge-10x 1.1.142 and log10x-mcp 1.30.58 (2026-10-15)
 
-Against the run this replaces (2026-10-14, scheduled 21:12 to 22:27 UTC, commit 8e416c6): engine 1.1.141 to 1.1.142 (per-source group flush, E81), log10x-mcp 1.30.54 to 1.30.58 (caps in the Receiver's unit, each row's cap at the geometric mean of its largest kept and smallest moved statement, E83); that run had a fleet default of 10,288 bytes and 11 plan rows, kafkaQueueProblems held astronomy-db 4,784 (fleet default, offload), accounting 1,990 and fraud-detection 446 (plan rows), one false-hold pattern (astronomy-db `FATAL: role "root" does not exist`, 43 of 52 held outside a causal span), and latency median 2.0 s, p99 28.9 s, max 472 s with 1,714 records over 10 s.
+Against the run this replaces (2026-10-14, scheduled 21:12 to 22:27 UTC, commit 8e416c6): engine 1.1.141 to 1.1.142 (per-source group flush, E81), log10x-mcp 1.30.54 to 1.30.58 (caps in the Receiver's unit, each row's cap at the geometric mean of its largest kept and smallest moved statement, E83); that run had a fleet default of 10,288 bytes and 11 plan rows, kafkaQueueProblems held astronomy-db 4,784 (fleet default, offload), accounting 1,990 and fraud-detection 446 (plan rows), one false-hold pattern (astronomy-db `FATAL: role "root" does not exist`, 43 of 52 held outside a causal span), and latency median 2.0 s, p99 28.9 s, max 472 s with 1,714 records over 10 s. Two runs on 1.1.142: run A (commit 4c2b610) never delivered kafkaQueueProblems to checkout and stands for latency and false holds (median 2.02 s, p99 7.44 s, max 17.2 s, 59 over 10 s; no false hold); run B, with `FLAGD_CACHE=disabled` on checkout, is the published run and stands for the incident (astronomy-db 5,555 held by the fleet default, accounting 2,680 and fraud-detection 437 by plan rows; no false hold; latency median 2.15 s, p99 7.16 s, max 10.3 s).
 
 ### Sources
 - Receiver `log10x/edge-10x:1.1.142@sha256:24e31c07a95e1f7dc356f11dc5cac4b21602ff91040ea831f94668b05afe6bf1`,
@@ -60,6 +60,39 @@ Against the run this replaces (2026-10-14, scheduled 21:12 to 22:27 UTC, commit 
   16 of them within 7 s of the previous record, none with its pattern; 6 ERROR records held;
   every line written up to 60 s before the stop returned.
 - Removed the four anonymous volumes this run's demo left (created 10:28:17).
+- Committed as 4c2b610 (run A's captures and tables), then replaced by run B.
+
+### Rig change between the runs
+- checkout's Go flagd provider (go-sdk-contrib `providers/flagd` v0.6.0; the binary reads
+  `FLAGD_CACHE`, `FLAGD_MAX_EVENT_STREAM_RETRIES` and the other `FLAGD_*` variables) caches
+  resolved values by default. `compose.rig.yaml` now sets `FLAGD_CACHE=disabled` on checkout
+  and nothing else on a demo service (coordinator ruling, 2026-10-15: a rig setting that makes the demo's
+  own failure injection work). Gate before the 75 minutes: the first kafkaQueueProblems
+  activation must produce the duplicate-order flood within 15 minutes of the scheduler start,
+  or the run stops.
+
+### Run B (go.sh started 12:14:17 UTC, detached; the published run)
+- Startup: kafka missed its health window again, `run.sh up` retried; demo up 12:21:15,
+  healthy 12:22:23. checkout's environment carried `FLAGD_CACHE=disabled`; flagd counted 5
+  `ResolveInt` resolutions of kafkaQueueProblems for checkout's first 4 orders (12:24).
+- Quiet run 12:24:23 to 12:46:23: 9,118 raw lines. POC: `met: false` at 49.7%, 31 planned and
+  40 kept; fleet default 71,247 (2 x 35,623.7, otel-collector `Error scraping metrics`),
+  offload, floor 0.5; caps.csv 15 rows, seven with a margin of 1.7x to 5.3x each way, eight
+  cap 1. Receiver relaunched 12:47:16 with the values as written.
+- Scheduled run 12:47:51 to 14:02:55, the same eight activations in the same order.
+  kafkaQueueProblems 12:59:19: first duplicate-key line 12:59:30, 100 duplicate orders by
+  12:59:35 (gate passed), 2,700 by the end. Supervisor stop at the planned end (14:02:52);
+  demo down 14:03:34; disk guard and hard stop exited on `run_end`. Lowest free disk
+  9,789 MB.
+- Results (scheduled run): kafkaQueueProblems held astronomy-db 5,555 (fleet default,
+  offload; first hold 12:59:56; kept 2,545 of the same patterns), accounting 2,680 and
+  fraud-detection 437 (plan rows); no false hold; 1,148 ERROR held, 2,510 ERROR and CRITICAL
+  passed, ERROR above the cap passed at 0.480 against the 0.5 floor; latency median 2.15 s,
+  p99 7.16 s, max 10.3 s, 3 records over 10 s; 1,501 records released 5.16 to 8.83 s after
+  their last line while their container was silent; 172 records opened by email's
+  `Order confirmation email sent` line, 19 within 7 s, none with the previous record's
+  pattern, no multi-line event split; every line written up to 60 s before the stop returned.
+- Removed the four anonymous volumes this run's demo left (created 12:14:36).
 
 ## Earlier run: edge-10x 1.1.140 with patched config and modules (2026-10-14, 01:25 to 17:36 UTC)
 

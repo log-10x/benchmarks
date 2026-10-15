@@ -1,7 +1,7 @@
 {
  "mcp_version": "1.30.58",
  "fleet_default_input": {
-  "capBytesPerWindowPerNode": 25960,
+  "capBytesPerWindowPerNode": 71247,
   "action": "offload",
   "errorFloor": 0.5
  },
@@ -12,7 +12,7 @@
   "symbolMessageHashField",
   "tenx_hash",
   "rateReceiverAbsoluteCap",
-  "25960",
+  "71247",
   "rateReceiverDefaultAction",
   "offload",
   "rateReceiverMinSharePercent",

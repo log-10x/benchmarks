@@ -48,7 +48,15 @@ services:
   # Demo containers: route stdout/stderr through the Docker fluentd driver.
   ad:              { logging: *riglog }
   cart:            { logging: *riglog }
-  checkout:        { logging: *riglog }
+  # checkout reads kafkaQueueProblems through the Go flagd provider, whose default cache did
+  # not follow the flag in the 2026-10-15 10:56 run: flagd counted 4 resolutions of the flag
+  # through the provider for the whole run, and the activation never reached checkout.
+  # FLAGD_CACHE=disabled (an env var the provider reads) makes every evaluation a call to
+  # flagd, so a scheduler change reaches checkout on its next order.
+  checkout:
+    logging: *riglog
+    environment:
+      - FLAGD_CACHE=disabled
   currency:        { logging: *riglog }
   email:           { logging: *riglog }
   frontend:        { logging: *riglog }

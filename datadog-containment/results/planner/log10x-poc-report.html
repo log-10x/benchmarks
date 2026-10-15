@@ -74,13 +74,13 @@ footer p{margin:0 0 9px} footer b{color:var(--dim);font-weight:600}
 <header>
 <p class="eyebrow">Log10x &middot; proof of concept, first run
 <span class="stack"><span>SIEM&nbsp;&middot;&nbsp;Datadog</span><span>forwarder&nbsp;&middot;&nbsp;fluent-bit</span></span></p>
-<h1>This log sample, 1 change, 73% less volume</h1>
-<p class="lede">This window produced <b>8.4K events</b>. They resolve to <b>184 distinct log statements</b>; the plan below acts on <b>15 of them</b>.</p>
+<h1>This log sample, 1 change, 70% less volume</h1>
+<p class="lede">This window produced <b>7.9K events</b>. They resolve to <b>219 distinct log statements</b>; the plan below acts on <b>15 of them</b>.</p>
 <div class="totals">
-<div class="tot"><b>2.18 MB</b><span>ingested this window</span></div>
-<div class="tot"><b>1.6 MB</b><span>removable, this plan</span></div>
-<div class="tot"><b>73%</b><span>of current volume</span></div>
-<div class="tot"><b>288</b><span>errors and warnings kept, all of them</span></div>
+<div class="tot"><b>2.12 MB</b><span>ingested this window</span></div>
+<div class="tot"><b>1.48 MB</b><span>removable, this plan</span></div>
+<div class="tot"><b>70%</b><span>of current volume</span></div>
+<div class="tot"><b>309</b><span>errors and warnings kept, all of them</span></div>
 </div>
 <div class="verdict">
 <h3>15 statements carry the removable volume in this window</h3>
@@ -91,56 +91,60 @@ footer p{margin:0 0 9px} footer b{color:var(--dim);font-weight:600}
 
 <h2>Action plan</h2>
 <article class="act">
-<div class="ahead"><span class="anum">1</span><h3>Route otel-collector and other low-severity statements to the retrievable tier</h3><span class="impact">&minus;1.6 MB this window</span></div>
-<p class="anote">15 low-severity statements carry 1.6 MB this window. They keep landing in your own bucket, retrievable on demand; they stop landing on the ingest path. Nothing is deleted.</p>
+<div class="ahead"><span class="anum">1</span><h3>Route otel-collector and other low-severity statements to the retrievable tier</h3><span class="impact">&minus;1.48 MB this window</span></div>
+<p class="anote">15 low-severity statements carry 1.48 MB this window. They keep landing in your own bucket, retrievable on demand; they stop landing on the ingest path. Nothing is deleted.</p>
 <div class="alabel">evidence, from your window</div>
-<pre class="face"><span class="fl"><i class="v">$</i>(yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;)<i class="tab">&#8677;</i>info<i class="tab">&#8677;</i>Traces<i class="tab">&#8677;</i>{&quot;resource&quot;: {&quot;service.instance.id&quot;: &quot;<i class="v">$</i><i class="v">$</i>-<i class="v">$</i><i class="v">$</i>-<i class="v">$</i>&quot;, &quot;service.name&quot;: &quot;otelcol-contrib&quot;, &quot;service.version&quot;: &quot;<i class="v">$</i>.<i class="v">$</i>.<i class="v">$</i>2&quot;}, &quot;otelcol.component.id&quot;: &quot;debug&quot;, &quot;otelcol.component.kind&quot;: &quot;exporter&quot;, &quot;otelcol.signal&quot;: &quot;traces&quot;, &quot;resource spans&quot;: <i class="v">$</i>, &quot;spans&quot;: <i class="v">$</i>}</span></pre><p class="evm">1.1K events &middot; 311 bytes each &middot; identifier <code>Gl3Gtr_SH5w</code></p>
-<pre class="face"><span class="fl"><i class="v">$</i>(yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;)<i class="tab">&#8677;</i>info<i class="tab">&#8677;</i>Metrics<i class="tab">&#8677;</i>{&quot;resource&quot;: {&quot;service.instance.id&quot;: &quot;<i class="v">$</i><i class="v">$</i>-<i class="v">$</i><i class="v">$</i>-<i class="v">$</i>&quot;, &quot;service.name&quot;: &quot;otelcol-contrib&quot;, &quot;service.version&quot;: &quot;<i class="v">$</i>.<i class="v">$</i>.<i class="v">$</i>2&quot;}, &quot;otelcol.component.id&quot;: &quot;debug&quot;, &quot;otelcol.component.kind&quot;: &quot;exporter&quot;, &quot;otelcol.signal&quot;: &quot;metrics&quot;, &quot;resource metrics&quot;: <i class="v">$</i>, &quot;metrics&quot;: <i class="v">$</i>, &quot;data points&quot;: <i class="v">$</i>}</span></pre><p class="evm">968 events &middot; 338 bytes each &middot; identifier <code>PuWB8kkVbfw</code></p>
-<pre class="face"><span class="fl"><i class="v">$</i>(yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;)<i class="tab">&#8677;</i>info<i class="tab">&#8677;</i>Logs<i class="tab">&#8677;</i>{&quot;resource&quot;: {&quot;service.instance.id&quot;: &quot;<i class="v">$</i><i class="v">$</i>-<i class="v">$</i><i class="v">$</i>-<i class="v">$</i>&quot;, &quot;service.name&quot;: &quot;otelcol-contrib&quot;, &quot;service.version&quot;: &quot;<i class="v">$</i>.<i class="v">$</i>.<i class="v">$</i>2&quot;}, &quot;otelcol.component.id&quot;: &quot;debug&quot;, &quot;otelcol.component.kind&quot;: &quot;exporter&quot;, &quot;otelcol.signal&quot;: &quot;logs&quot;, &quot;resource logs&quot;: <i class="v">$</i>, &quot;log records&quot;: <i class="v">$</i>}</span></pre><p class="evm">801 events &middot; 312 bytes each &middot; identifier <code>KG8Fq0QFuoY</code></p>
+<pre class="face"><span class="fl"><i class="v">$</i>(yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;)<i class="tab">&#8677;</i>info<i class="tab">&#8677;</i>Metrics<i class="tab">&#8677;</i>{&quot;resource&quot;: {&quot;service.instance.id&quot;: &quot;<i class="v">$</i><i class="v">$</i>-<i class="v">$</i>-aca0-<i class="v">$</i>&quot;, &quot;service.name&quot;: &quot;otelcol-contrib&quot;, &quot;service.version&quot;: &quot;<i class="v">$</i>.<i class="v">$</i>.<i class="v">$</i>2&quot;}, &quot;otelcol.component.id&quot;: &quot;debug&quot;, &quot;otelcol.component.kind&quot;: &quot;exporter&quot;, &quot;otelcol.signal&quot;: &quot;metrics&quot;, &quot;resource metrics&quot;: <i class="v">$</i>, &quot;metrics&quot;: <i class="v">$</i>, &quot;data points&quot;: <i class="v">$</i>}</span></pre><p class="evm">953 events &middot; 338 bytes each &middot; identifier <code>PuWB8kkVbfw</code></p>
+<pre class="face"><span class="fl"><i class="v">$</i>(yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;)<i class="tab">&#8677;</i>info<i class="tab">&#8677;</i>Traces<i class="tab">&#8677;</i>{&quot;resource&quot;: {&quot;service.instance.id&quot;: &quot;<i class="v">$</i><i class="v">$</i>-<i class="v">$</i>-aca0-<i class="v">$</i>&quot;, &quot;service.name&quot;: &quot;otelcol-contrib&quot;, &quot;service.version&quot;: &quot;<i class="v">$</i>.<i class="v">$</i>.<i class="v">$</i>2&quot;}, &quot;otelcol.component.id&quot;: &quot;debug&quot;, &quot;otelcol.component.kind&quot;: &quot;exporter&quot;, &quot;otelcol.signal&quot;: &quot;traces&quot;, &quot;resource spans&quot;: <i class="v">$</i>, &quot;spans&quot;: <i class="v">$</i>}</span></pre><p class="evm">1.0K events &middot; 311 bytes each &middot; identifier <code>Gl3Gtr_SH5w</code></p>
+<pre class="face"><span class="fl"><i class="v">$</i>(yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;)<i class="tab">&#8677;</i>info<i class="tab">&#8677;</i>Logs<i class="tab">&#8677;</i>{&quot;resource&quot;: {&quot;service.instance.id&quot;: &quot;<i class="v">$</i><i class="v">$</i>-<i class="v">$</i>-aca0-<i class="v">$</i>&quot;, &quot;service.name&quot;: &quot;otelcol-contrib&quot;, &quot;service.version&quot;: &quot;<i class="v">$</i>.<i class="v">$</i>.<i class="v">$</i>2&quot;}, &quot;otelcol.component.id&quot;: &quot;debug&quot;, &quot;otelcol.component.kind&quot;: &quot;exporter&quot;, &quot;otelcol.signal&quot;: &quot;logs&quot;, &quot;resource logs&quot;: <i class="v">$</i>, &quot;log records&quot;: <i class="v">$</i>}</span></pre><p class="evm">776 events &middot; 312 bytes each &middot; identifier <code>KG8Fq0QFuoY</code></p>
 <p class="evm">and 12 more statements in this class</p>
 <div class="alabel">the change</div>
-<pre class="cmd"># accounting: any statement above 329 lines a day goes to Flex. Today that is these 71 statements, about $0.26 a month.
-# ad: every statement goes to Flex. Today that is these 7 statements, about $0.41 a month.
-# cart: every statement goes to Flex. Today that is these 5 statements, about $2.7 a month.
-# email: every statement goes to Flex. Today that is these 3 statements, about $0.26 a month.
-# fraud-detection: every statement goes to Flex. Today that is this one statement, about $0.26 a month.
-# frontend: every statement goes to Flex. Today that is these 8 statements, about $4.6 a month.
-# kafka: any statement above 171 lines a day goes to Flex. Today that is these 16 statements, about $3.3 a month.
-# otel-collector: any statement above 4,145 lines a day goes to Flex. Today that is these 8 statements, about $12 a month.
-# payment: any statement above 237 lines a day goes to Flex. Today that is these 24 statements, about $0.52 a month.
-# quote: every statement goes to Flex. Today that is this one statement, about $0.26 a month.
-# recommendation: every statement goes to Flex. Today that is these 6 statements, about $0.41 a month.
-# shipping: any statement above 807 lines a day goes to Flex. Today that is these 10 statements, about $0.79 a month.
-# telemetry-docs: every statement goes to Flex. Today that is this one statement, about $0.87 a month.
-# valkey-cart: every statement goes to Flex. Today that is these 6 statements, about $0.08 a month.
-# accounting: the largest kept statement can grow 5x before it is held; the smallest moved one is 5x above the limit.
-# kafka: the largest kept statement can grow 2.6x before it is held; the smallest moved one is 2.6x above the limit.
-# otel-collector: the largest kept statement can grow 2.9x before it is held; the smallest moved one is 2.9x above the limit.
-# payment: the largest kept statement can grow 3.6x before it is held; the smallest moved one is 3.6x above the limit.
-# shipping: the largest kept statement can grow 2.5x before it is held; the smallest moved one is 2.5x above the limit.
-# Any service not listed: a statement above 6,084 lines a day goes to the offload bucket. Up to 1,800 lines a day of every statement always reach Standard on each node.
+<pre class="cmd"># accounting: any statement above 691 lines a day goes to Flex. Today that is these 45 statements, about $0.16 a month.
+# ad: every statement goes to Flex. Today that is these 7 statements, about $0.32 a month.
+# cart: every statement goes to Flex. Today that is these 9 statements, about $1.8 a month.
+# email: every statement goes to Flex. Today that is these 4 statements, about $0.16 a month.
+# fraud-detection: every statement goes to Flex. Today that is these 2 statements, about $0.16 a month.
+# frontend: any statement above 8,189 lines a day goes to Flex. Today that is these 7 statements, about $3.5 a month.
+# frontend-proxy: every statement goes to Flex. Today that is this one statement, about $0 a month.
+# kafka: any statement above 1,889 lines a day goes to Flex. Today that is these 12 statements, about $1.6 a month.
+# otel-collector: any statement above 2,508 lines a day goes to Flex. Today that is these 9 statements, about $12 a month.
+# payment: any statement above 204 lines a day goes to Flex. Today that is these 27 statements, about $0.31 a month.
+# quote: every statement goes to Flex. Today that is this one statement, about $0.16 a month.
+# recommendation: any statement above 315 lines a day goes to Flex. Today that is these 6 statements, about $0.32 a month.
+# shipping: any statement above 849 lines a day goes to Flex. Today that is these 13 statements, about $0.47 a month.
+# telemetry-docs: every statement goes to Flex. Today that is this one statement, about $0.81 a month.
+# valkey-cart: every statement goes to Flex. Today that is these 5 statements, about $0.07 a month.
+# accounting: the largest kept statement can grow 5.3x before it is held; the smallest moved one is 5.3x above the limit.
+# frontend: the largest kept statement can grow 3.9x before it is held; the smallest moved one is 3.9x above the limit.
+# kafka: the largest kept statement can grow 1.8x before it is held; the smallest moved one is 1.8x above the limit.
+# otel-collector: the largest kept statement can grow 1.7x before it is held; the smallest moved one is 1.7x above the limit.
+# payment: the largest kept statement can grow 3.1x before it is held; the smallest moved one is 3.1x above the limit.
+# recommendation: the largest kept statement can grow 4.8x before it is held; the smallest moved one is 4.8x above the limit.
+# shipping: the largest kept statement can grow 2.6x before it is held; the smallest moved one is 2.6x above the limit.
+# Any service not listed: a statement above 16,699 lines a day goes to the offload bucket. Up to 1,800 lines a day of every statement always reach Standard on each node.
 # The fleet default is the largest statement kept, error_Error_scraping_metrics in otel-collector, per node, times 2. It is a Receiver value, not a row in either file: log10x_advise_install writes it as rateReceiverAbsoluteCap with rateReceiverDefaultAction offload.
 # Log monitors and log-based metrics were not checked: no Datadog credentials in this session (need DD_API_KEY + DD_APP_KEY).
-# The dollar figures are the Standard indexing line at list. Flex Starter adds about $28 a month for all of them, compute included, held 3 months.
+# The dollar figures are the Standard indexing line at list. Flex Starter adds about $23 a month for all of them, compute included, held 3 months.
 # A limit sits between the largest statement the container keeps and the smallest it moves, at the same ratio from each.
 # log10x-caps.csv: each container&#39;s limit in the engine&#39;s units, bytes per node, with its sentence as the reason; log10x-actions.csv: where a container&#39;s excess goes.
 # Limits are in the Receiver&#39;s unit, measured on the forwarder&#39;s records in this capture: each record as it arrives, metadata included, continuation lines joined.
-# Limits are per node: accounting: node count unknown, written for one Receiver; ad: node count unknown, written for one Receiver; cart: node count unknown, written for one Receiver; email: node count unknown, written for one Receiver; fraud-detection: node count unknown, written for one Receiver; frontend: node count unknown, written for one Receiver; kafka: node count unknown, written for one Receiver; otel-collector: node count unknown, written for one Receiver; payment: node count unknown, written for one Receiver; quote: node count unknown, written for one Receiver; recommendation: node count unknown, written for one Receiver; shipping: node count unknown, written for one Receiver; telemetry-docs: node count unknown, written for one Receiver; valkey-cart: node count unknown, written for one Receiver; the fleet default: per node, its lines a day stated for 1 node, the median per container, no container&#39;s count known.
+# Limits are per node: accounting: node count unknown, written for one Receiver; ad: node count unknown, written for one Receiver; cart: node count unknown, written for one Receiver; email: node count unknown, written for one Receiver; fraud-detection: node count unknown, written for one Receiver; frontend: node count unknown, written for one Receiver; frontend-proxy: node count unknown, written for one Receiver; kafka: node count unknown, written for one Receiver; otel-collector: node count unknown, written for one Receiver; payment: node count unknown, written for one Receiver; quote: node count unknown, written for one Receiver; recommendation: node count unknown, written for one Receiver; shipping: node count unknown, written for one Receiver; telemetry-docs: node count unknown, written for one Receiver; valkey-cart: node count unknown, written for one Receiver; the fleet default: per node, its lines a day stated for 1 node, the median per container, no container&#39;s count known.
 # the engine applies each limit per container: every statement above it in a listed container takes the route, less the share its severity keeps
-accounting,3866::accounting any statement above 329 lines a day goes to Flex. Today that is these 71 statements about $0.26 a month.
-ad,1::ad every statement goes to Flex. Today that is these 7 statements about $0.41 a month.
-cart,1::cart every statement goes to Flex. Today that is these 5 statements about $2.7 a month.
-email,1::email every statement goes to Flex. Today that is these 3 statements about $0.26 a month.
-fraud-detection,1::fraud-detection every statement goes to Flex. Today that is this one statement about $0.26 a month.
-frontend,1::frontend every statement goes to Flex. Today that is these 8 statements about $4.6 a month.
-kafka,1669::kafka any statement above 171 lines a day goes to Flex. Today that is these 16 statements about $3.3 a month.
-otel-collector,37330::otel-collector any statement above 4145 lines a day goes to Flex. Today that is these 8 statements about $12 a month.
-payment,2731::payment any statement above 237 lines a day goes to Flex. Today that is these 24 statements about $0.52 a month.
-quote,1::quote every statement goes to Flex. Today that is this one statement about $0.26 a month.
-recommendation,1::recommendation every statement goes to Flex. Today that is these 6 statements about $0.41 a month.
-shipping,3879::shipping any statement above 807 lines a day goes to Flex. Today that is these 10 statements about $0.79 a month.
-telemetry-docs,1::telemetry-docs every statement goes to Flex. Today that is this one statement about $0.87 a month.
-valkey-cart,1::valkey-cart every statement goes to Flex. Today that is these 6 statements about $0.08 a month.</pre>
+accounting,2765::accounting any statement above 691 lines a day goes to Flex. Today that is these 45 statements about $0.16 a month.
+ad,1::ad every statement goes to Flex. Today that is these 7 statements about $0.32 a month.
+cart,1::cart every statement goes to Flex. Today that is these 9 statements about $1.8 a month.
+email,1::email every statement goes to Flex. Today that is these 4 statements about $0.16 a month.
+fraud-detection,1::fraud-detection every statement goes to Flex. Today that is these 2 statements about $0.16 a month.
+frontend,30210::frontend any statement above 8189 lines a day goes to Flex. Today that is these 7 statements about $3.5 a month.
+frontend-proxy,1::frontend-proxy every statement goes to Flex. Today that is this one statement about $0 a month.
+kafka,20074::kafka any statement above 1889 lines a day goes to Flex. Today that is these 12 statements about $1.6 a month.
+otel-collector,61996::otel-collector any statement above 2508 lines a day goes to Flex. Today that is these 9 statements about $12 a month.
+payment,2344::payment any statement above 204 lines a day goes to Flex. Today that is these 27 statements about $0.31 a month.
+quote,1::quote every statement goes to Flex. Today that is this one statement about $0.16 a month.
+recommendation,2330::recommendation any statement above 315 lines a day goes to Flex. Today that is these 6 statements about $0.32 a month.
+shipping,2721::shipping any statement above 849 lines a day goes to Flex. Today that is these 13 statements about $0.47 a month.
+telemetry-docs,1::telemetry-docs every statement goes to Flex. Today that is this one statement about $0.81 a month.
+valkey-cart,1::valkey-cart every statement goes to Flex. Today that is these 5 statements about $0.07 a month.</pre>
 <div class="alabel">apply</div>
 <pre class="cmd rb"># no verified commands for this stack (datadog / fluent-bit / k8s) in this version; run log10x_advise_install</pre>
 <div class="alabel">undo</div>
@@ -149,8 +153,8 @@ valkey-cart,1::valkey-cart every statement goes to Flex. Today that is these 6 s
 
 <h2>Expected result</h2>
 <div class="after">
-<div><b>2.18 MB</b><span>this window</span></div>
-<div class="goal"><b>0.58 MB</b><span>after the volume actions, same events</span></div>
+<div><b>2.12 MB</b><span>this window</span></div>
+<div class="goal"><b>0.633 MB</b><span>after the volume actions, same events</span></div>
 <div><b>0</b><span>events deleted</span></div>
 </div>
 <p class="sub">Apply, let one window pass, and run the analysis again: this report regenerates with a before and after column. That re-run, not this estimate, is the number to take to your team.</p>
@@ -158,20 +162,20 @@ valkey-cart,1::valkey-cart every statement goes to Flex. Today that is these 6 s
 <h2>What was verified on this run</h2>
 <div class="checks">
 <div class="chk ok"><i>&#10003;</i><div>engine ran locally <span>&middot; docker:log10x/edge-10x:1.1.142@sha256:24e31c07a95e1f7dc356f11dc5cac4b21602ff91040ea831f94668b05afe6bf1</span></div></div>
-<div class="chk ok"><i>&#10003;</i><div>8.4K events resolved to 184 statements</div></div>
-<div class="chk ok"><i>&#10003;</i><div>multi-line statements welded <span>&middot; 83 statements arrive whole</span></div></div>
+<div class="chk ok"><i>&#10003;</i><div>7.9K events resolved to 219 statements</div></div>
+<div class="chk ok"><i>&#10003;</i><div>multi-line statements welded <span>&middot; 73 statements arrive whole</span></div></div>
 <div class="chk ok"><i>&#10003;</i><div>severity attribution sufficient <span>&middot; 85% of statements</span></div></div>
 <div class="chk skip"><i>&ndash;</i><div>retrievable tier delivery <span>&middot; not configured in this window &middot; action 1 enables it</span></div></div>
 <div class="chk skip"><i>&ndash;</i><div>environment doctor <span>&middot; run log10x_doctor for engine + delivery checks &middot; not run on this pass</span></div></div>
 </div>
 <div class="kept">
-<p><b>What this plan does not touch:</b> every ERROR and WARN event (288 this window) stays on the ingest path in full. Statements routed by action 1 land in your own bucket and come back on demand with their statement identifier as the query key.</p>
+<p><b>What this plan does not touch:</b> every ERROR and WARN event (309 this window) stays on the ingest path in full. Statements routed by action 1 land in your own bucket and come back on demand with their statement identifier as the query key.</p>
 </div>
 
 <footer>
 <p><b>How to read this.</b> A statement is one line of code in one of your services, recognised across every line it produced. <i class="v" style="font-style:normal;color:var(--val);background:var(--val-bg);border-radius:2px;padding:0 2.5px;font-weight:600">$</i> marks a value that varied and was removed. The identifier on each statement is stable across restarts and deployments and works as a query key.</p>
 <p><b>Scope.</b> This log sample, analysed in place; no log data left the machine. Figures are this window's arithmetic, not an extrapolation. The re-run after applying is the authoritative measurement.</p>
-<p>template v1 &middot; generated 2026-10-15T10:55:55.930Z &middot; log10x-mcp 1.30.58 &middot; docker:log10x/edge-10x:1.1.142@sha256:24e31c07a95e1f7dc356f11dc5cac4b21602ff91040ea831f94668b05afe6bf1</p>
+<p>template v1 &middot; generated 2026-10-15T12:46:46.618Z &middot; log10x-mcp 1.30.58 &middot; docker:log10x/edge-10x:1.1.142@sha256:24e31c07a95e1f7dc356f11dc5cac4b21602ff91040ea831f94668b05afe6bf1</p>
 </footer>
 </div>
 </body>

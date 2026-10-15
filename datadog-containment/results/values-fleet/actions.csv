@@ -1,15 +1,16 @@
 container,action
-accounting,tier_down::accounting any statement above 329 lines a day goes to Flex. Today that is these 71 statements about $0.26 a month.
-ad,tier_down::ad every statement goes to Flex. Today that is these 7 statements about $0.41 a month.
-cart,tier_down::cart every statement goes to Flex. Today that is these 5 statements about $2.7 a month.
-email,tier_down::email every statement goes to Flex. Today that is these 3 statements about $0.26 a month.
-fraud-detection,tier_down::fraud-detection every statement goes to Flex. Today that is this one statement about $0.26 a month.
-frontend,tier_down::frontend every statement goes to Flex. Today that is these 8 statements about $4.6 a month.
-kafka,tier_down::kafka any statement above 171 lines a day goes to Flex. Today that is these 16 statements about $3.3 a month.
-otel-collector,tier_down::otel-collector any statement above 4145 lines a day goes to Flex. Today that is these 8 statements about $12 a month.
-payment,tier_down::payment any statement above 237 lines a day goes to Flex. Today that is these 24 statements about $0.52 a month.
-quote,tier_down::quote every statement goes to Flex. Today that is this one statement about $0.26 a month.
-recommendation,tier_down::recommendation every statement goes to Flex. Today that is these 6 statements about $0.41 a month.
-shipping,tier_down::shipping any statement above 807 lines a day goes to Flex. Today that is these 10 statements about $0.79 a month.
-telemetry-docs,tier_down::telemetry-docs every statement goes to Flex. Today that is this one statement about $0.87 a month.
-valkey-cart,tier_down::valkey-cart every statement goes to Flex. Today that is these 6 statements about $0.08 a month.
+accounting,tier_down::accounting any statement above 691 lines a day goes to Flex. Today that is these 45 statements about $0.16 a month.
+ad,tier_down::ad every statement goes to Flex. Today that is these 7 statements about $0.32 a month.
+cart,tier_down::cart every statement goes to Flex. Today that is these 9 statements about $1.8 a month.
+email,tier_down::email every statement goes to Flex. Today that is these 4 statements about $0.16 a month.
+fraud-detection,tier_down::fraud-detection every statement goes to Flex. Today that is these 2 statements about $0.16 a month.
+frontend,tier_down::frontend any statement above 8189 lines a day goes to Flex. Today that is these 7 statements about $3.5 a month.
+frontend-proxy,tier_down::frontend-proxy every statement goes to Flex. Today that is this one statement about $0 a month.
+kafka,tier_down::kafka any statement above 1889 lines a day goes to Flex. Today that is these 12 statements about $1.6 a month.
+otel-collector,tier_down::otel-collector any statement above 2508 lines a day goes to Flex. Today that is these 9 statements about $12 a month.
+payment,tier_down::payment any statement above 204 lines a day goes to Flex. Today that is these 27 statements about $0.31 a month.
+quote,tier_down::quote every statement goes to Flex. Today that is this one statement about $0.16 a month.
+recommendation,tier_down::recommendation any statement above 315 lines a day goes to Flex. Today that is these 6 statements about $0.32 a month.
+shipping,tier_down::shipping any statement above 849 lines a day goes to Flex. Today that is these 13 statements about $0.47 a month.
+telemetry-docs,tier_down::telemetry-docs every statement goes to Flex. Today that is this one statement about $0.81 a month.
+valkey-cart,tier_down::valkey-cart every statement goes to Flex. Today that is these 5 statements about $0.07 a month.

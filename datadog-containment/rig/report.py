@@ -43,6 +43,9 @@ def main():
     L.append(f"- OpenTelemetry demo 3.1.0 (`compose.yaml` + `compose.full.yaml`), every container's stdout and stderr through the Docker `fluentd` driver to Fluent Bit 4.2, which keeps a raw copy, hands each record to the log10x Receiver and writes what comes back to one file per `routeState`.")
     L.append(f"- Receiver: `{launch['image']}`, the released image with its own config and modules, launched with the values log10x-mcp {launch['mcp_version']} renders (below).")
     L.append(f"- Plan: log10x-mcp {poc['mcp_version']} `poc_from_local` on the quiet capture with `{json.dumps(poc['args']['fleet_default'])}`, engine `{poc['engine_image']}`.")
+    rig_overlay = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'compose.rig.yaml')
+    if os.path.exists(rig_overlay) and 'FLAGD_CACHE=disabled' in open(rig_overlay).read():
+        L.append("- Demo setting from the rig: `FLAGD_CACHE=disabled` on checkout, so its flagd provider asks flagd on every order and a scheduled kafkaQueueProblems change reaches it (`rig/README.md`, \"checkout's flag cache\").")
     acts = A.get('activations', [])
     if acts:
         L.append(f"- Scheduler: flagd-ui, seed {A['seed']}, interval 600 s, hold 240 to 480 s, one flag at a time, flags kafkaQueueProblems (on), cartFailure (100%), paymentFailure (100%), recommendationCacheFailure (on), loadGeneratorFloodHomepage (on), emailMemoryLeak (1000x). Scheduled run {hms(ph['scheduled'][0])} to {hms(ph['scheduled'][1])} UTC on {datetime.datetime.fromtimestamp(ph['scheduled'][0], datetime.timezone.utc).date()}.")
@@ -88,7 +91,7 @@ def main():
     span_s = (d.get('span') or {}).get('seconds') if isinstance(d.get('span'), dict) else None
     if cc and span_s:
         pw = lambda v: v * 240 / span_s   # the MCP's per-window figure (build-report-data.js)
-        L.append("Where each row's cap sits (`plan.containerCaps`; bytes per 4-minute window over the capture, the figure caps.csv is written from): between the largest statement the plan keeps and the smallest it moves, at their geometric mean, so the margin is the same each way. A row with no kept statement gets cap 1: every statement past the first 5 a window takes the row's action.\n")
+        L.append("Where each row's cap sits (`plan.containerCaps`, in bytes per 4-minute window: each statement at its busiest quiet window in the Receiver's unit, the figure caps.csv is written from): between the largest statement the plan keeps and the smallest it moves, at their geometric mean, so the margin is the same each way. A row with no kept statement gets cap 1: every statement past the first 5 a window takes the row's action.\n")
         L.append('| container | cap in caps.csv | largest kept statement | bytes per window | smallest moved statement | bytes per window | margin each way |\n|---|---|---|---|---|---|---|')
         for c, v in sorted(cc.items(), key=lambda kv: (not kv[1].get('separated'), -(kv[1].get('margin') or 0), kv[0])):
             L.append(f"| {c} | {A['config']['caps'].get(c, 0):,.0f} | {esc(v.get('keptMaxPattern') or '(none)', 50)} | {pw(v.get('keptMaxBytesMonthly') or 0):,.0f} | {esc(v.get('movedMinPattern') or '', 50)} | {pw(v.get('movedMinBytesMonthly') or 0):,.0f} | {(str(round(v['margin'], 1)) + 'x') if v.get('margin') else 'none'} |")

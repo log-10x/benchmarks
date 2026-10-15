@@ -1,51 +1,51 @@
  Network opentelemetry-demo  Creating
  Network opentelemetry-demo  Created
- Container rig-fluent-bit  Creating
  Container rig-tenx  Creating
+ Container rig-fluent-bit  Creating
  Container rig-tenx  Created
  Container rig-fluent-bit  Created
  Container rig-fluent-bit  Starting
  Container rig-tenx  Starting
  Container rig-tenx  Started
  Container rig-fluent-bit  Started
- Container valkey-cart  Creating
- Container astronomy-db  Creating
- Container telemetry-docs  Creating
- Container flagd  Creating
  Container kafka  Creating
- Container rig-fluent-bit  Running
  Container rig-tenx  Running
+ Container flagd  Creating
+ Container telemetry-docs  Creating
  Container otel-collector  Creating
- Container flagd  Created
- Container telemetry-docs  Created
+ Container astronomy-db  Creating
+ Container rig-fluent-bit  Running
+ Container valkey-cart  Creating
  Container valkey-cart  Created
  Container otel-collector  Created
- Container cart  Creating
- Container email  Creating
- Container ad  Creating
- Container quote  Creating
- Container payment  Creating
  Container image-provider  Creating
+ Container quote  Creating
  Container currency  Creating
- Container shipping  Creating
+ Container email  Creating
+ Container telemetry-docs  Created
+ Container flagd  Created
  Container flagd-ui  Creating
- Container kafka  Created
- Container accounting  Creating
- Container fraud-detection  Creating
+ Container shipping  Creating
+ Container ad  Creating
+ Container cart  Creating
+ Container payment  Creating
  Container astronomy-db  Created
  Container product-catalog  Creating
+ Container kafka  Created
+ Container fraud-detection  Creating
+ Container accounting  Creating
  Container currency  Created
- Container flagd-ui  Created
- Container accounting  Created
- Container image-provider  Created
- Container quote  Created
- Container ad  Created
  Container cart  Created
  Container email  Created
+ Container image-provider  Created
+ Container quote  Created
+ Container accounting  Created
+ Container ad  Created
  Container product-catalog  Created
  Container recommendation  Creating
- Container payment  Created
+ Container flagd-ui  Created
  Container shipping  Created
+ Container payment  Created
  Container checkout  Creating
  Container fraud-detection  Created
  Container recommendation  Created
@@ -57,37 +57,37 @@
  Container frontend-proxy  Creating
  Container frontend-proxy  Created
  Container otel-collector  Starting
+ Container flagd  Starting
  Container valkey-cart  Starting
+ Container astronomy-db  Starting
  Container kafka  Starting
  Container telemetry-docs  Starting
- Container astronomy-db  Starting
- Container flagd  Starting
  Container telemetry-docs  Started
  Container valkey-cart  Started
- Container flagd  Started
+ Container kafka  Started
  Container astronomy-db  Started
  Container otel-collector  Started
  Container quote  Starting
- Container payment  Starting
- Container valkey-cart  Waiting
- Container shipping  Starting
+ Container kafka  Waiting
  Container email  Starting
- Container flagd-ui  Starting
+ Container kafka  Waiting
  Container image-provider  Starting
  Container currency  Starting
- Container ad  Starting
+ Container flagd  Started
+ Container payment  Starting
  Container astronomy-db  Waiting
- Container kafka  Started
- Container kafka  Waiting
- Container kafka  Waiting
- Container payment  Started
- Container image-provider  Started
- Container shipping  Started
- Container currency  Started
- Container flagd-ui  Started
+ Container shipping  Starting
+ Container flagd-ui  Starting
+ Container valkey-cart  Waiting
+ Container ad  Starting
  Container email  Started
  Container quote  Started
+ Container currency  Started
+ Container image-provider  Started
  Container ad  Started
+ Container shipping  Started
+ Container flagd-ui  Started
+ Container payment  Started
  Container valkey-cart  Healthy
  Container cart  Starting
  Container cart  Started
@@ -95,9 +95,9 @@
  Container product-catalog  Starting
  Container product-catalog  Started
  Container recommendation  Starting
+ Container email  Waiting
  Container currency  Waiting
  Container payment  Waiting
- Container email  Waiting
  Container kafka  Waiting
  Container currency  Healthy
  Container recommendation  Started
@@ -108,97 +108,97 @@
  Container payment  Healthy
 dependency failed to start: container kafka is unhealthy
 compose up attempt 1 failed; waiting for kafka healthy
+ Container otel-collector  Running
  Container telemetry-docs  Running
- Container astronomy-db  Running
- Container rig-tenx  Running
+ Container kafka  Running
+ Container currency  Running
+ Container rig-fluent-bit  Running
+ Container email  Running
  Container flagd  Running
  Container valkey-cart  Running
- Container otel-collector  Running
- Container rig-fluent-bit  Running
- Container kafka  Running
- Container product-catalog  Running
- Container ad  Running
- Container recommendation  Running
- Container payment  Running
- Container currency  Running
- Container email  Running
  Container shipping  Running
- Container flagd-ui  Running
- Container quote  Running
- Container image-provider  Running
  Container cart  Running
+ Container quote  Running
+ Container ad  Running
+ Container payment  Running
+ Container flagd-ui  Running
+ Container astronomy-db  Running
+ Container rig-tenx  Running
+ Container image-provider  Running
+ Container product-catalog  Running
+ Container recommendation  Running
  Container kafka  Waiting
- Container valkey-cart  Waiting
+ Container kafka  Waiting
  Container astronomy-db  Waiting
- Container kafka  Waiting
- Container astronomy-db  Healthy
- Container kafka  Healthy
- Container accounting  Starting
+ Container valkey-cart  Waiting
  Container valkey-cart  Healthy
- Container kafka  Waiting
- Container payment  Waiting
+ Container astronomy-db  Healthy
  Container email  Waiting
+ Container payment  Waiting
  Container currency  Waiting
+ Container kafka  Waiting
  Container kafka  Healthy
  Container fraud-detection  Starting
+ Container kafka  Healthy
+ Container accounting  Starting
+ Container accounting  Started
+ Container fraud-detection  Started
  Container payment  Healthy
+ Container email  Healthy
  Container currency  Healthy
  Container kafka  Healthy
- Container email  Healthy
  Container checkout  Starting
- Container fraud-detection  Started
- Container accounting  Started
  Container checkout  Started
- Container recommendation  Waiting
+ Container ad  Waiting
  Container quote  Waiting
  Container currency  Waiting
+ Container recommendation  Waiting
  Container image-provider  Waiting
- Container ad  Waiting
- Container quote  Healthy
  Container ad  Healthy
+ Container quote  Healthy
+ Container recommendation  Healthy
  Container image-provider  Healthy
  Container currency  Healthy
- Container recommendation  Healthy
  Container frontend  Starting
  Container frontend  Started
  Container frontend  Waiting
  Container frontend  Healthy
  Container load-generator  Starting
  Container load-generator  Started
+ Container frontend  Waiting
  Container flagd-ui  Waiting
  Container telemetry-docs  Waiting
- Container frontend  Waiting
- Container flagd-ui  Healthy
  Container frontend  Healthy
  Container telemetry-docs  Healthy
+ Container flagd-ui  Healthy
  Container frontend-proxy  Starting
  Container frontend-proxy  Started
-accounting Up About a minute
-ad Up 3 minutes (healthy)
-astronomy-db Up 3 minutes (healthy)
-cart Up 3 minutes
-checkout Up About a minute (healthy)
-currency Up 3 minutes (healthy)
-email Up 3 minutes (healthy)
-flagd Up 3 minutes
-flagd-ui Up 3 minutes (healthy)
-fraud-detection Up About a minute
-frontend Up About a minute (healthy)
-frontend-proxy Up 54 seconds (healthy)
-image-provider Up 3 minutes (healthy)
-kafka Up 3 minutes (healthy)
-load-generator Up 57 seconds (healthy)
-otel-collector Up 3 minutes
-payment Up 3 minutes (healthy)
-product-catalog Up 2 minutes (healthy)
-quote Up 3 minutes (healthy)
-recommendation Up 2 minutes (healthy)
-rig-fluent-bit Up 3 minutes
-rig-tenx Up 3 minutes
-shipping Up 3 minutes (healthy)
-telemetry-docs Up 3 minutes (healthy)
-valkey-cart Up 3 minutes (healthy)
-quiet capture 9676 lines
+accounting Up 2 minutes
+ad Up 7 minutes (healthy)
+astronomy-db Up 7 minutes (healthy)
+cart Up 7 minutes
+checkout Up 2 minutes (healthy)
+currency Up 7 minutes (healthy)
+email Up 7 minutes (healthy)
+flagd Up 7 minutes
+flagd-ui Up 7 minutes (healthy)
+fraud-detection Up 2 minutes
+frontend Up 2 minutes (healthy)
+frontend-proxy Up About a minute (healthy)
+image-provider Up 7 minutes (healthy)
+kafka Up 7 minutes (healthy)
+load-generator Up About a minute (healthy)
+otel-collector Up 6 minutes
+payment Up 7 minutes (healthy)
+product-catalog Up 6 minutes (healthy)
+quote Up 7 minutes (healthy)
+recommendation Up 6 minutes (healthy)
+rig-fluent-bit Up 7 minutes
+rig-tenx Up 7 minutes
+shipping Up 7 minutes (healthy)
+telemetry-docs Up 7 minutes (healthy)
+valkey-cart Up 7 minutes (healthy)
+quiet capture 9118 lines
 mcp 1.30.58 envelope keys [
   'schema_version', 'schema_epoch',
   'tool',           'generated_at',
@@ -212,14 +212,14 @@ fleet_default {
  "action": "offload",
  "error_floor": 0.5,
  "headroom": 2,
- "cap_bytes_per_window_per_node": 25960,
- "baseline_bytes_per_window_per_node": 12979.753980288096,
+ "cap_bytes_per_window_per_node": 71247,
+ "baseline_bytes_per_window_per_node": 35623.67956330553,
  "baseline_statement": "error_Error_scraping_metrics",
  "baseline_container": "otel-collector",
- "limit_lines_per_day": 6084.375,
+ "limit_lines_per_day": 16698.515625,
  "nodes_for_lines": 1,
  "containers_with_known_nodes": 0,
- "sentence": "Any service not listed: a statement above 6,084 lines a day goes to the offload bucket. Up to 1,800 lines a day of every statement always reach Standard on each node."
+ "sentence": "Any service not listed: a statement above 16,699 lines a day goes to the offload bucket. Up to 1,800 lines a day of every statement always reach Standard on each node."
 }
 {
  "mcpVersion": "1.30.58",
@@ -230,7 +230,7 @@ fleet_default {
   "symbolMessageHashField",
   "tenx_hash",
   "rateReceiverAbsoluteCap",
-  "25960",
+  "71247",
   "rateReceiverDefaultAction",
   "offload",
   "rateReceiverMinSharePercent",

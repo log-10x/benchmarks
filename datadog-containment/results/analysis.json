@@ -1,64 +1,65 @@
 {
  "phases": {
   "quiet": [
-   1792060428,
-   1792061748
+   1792067063,
+   1792068383
   ],
-  "fleet_receiver_ready": 1792061769,
+  "fleet_receiver_ready": 1792068436,
   "scheduled": [
-   1792061771,
-   1792066276
+   1792068471,
+   1792072975
   ],
-  "first_receiver_ready": 1792060096,
+  "first_receiver_ready": 1792066469,
   "events": {
    "receiver_ready": [
-    "2026-10-15T10:28:16Z",
-    "2026-10-15T10:56:09Z"
+    "2026-10-15T12:14:29Z",
+    "2026-10-15T12:47:16Z"
    ],
    "demo_up": [
-    "2026-10-15T10:30:52Z"
+    "2026-10-15T12:21:15Z"
    ],
    "demo_healthy": [
-    "2026-10-15T10:31:48Z"
+    "2026-10-15T12:22:23Z"
    ],
    "quiet_start": [
-    "2026-10-15T10:33:48Z"
+    "2026-10-15T12:24:23Z"
    ],
    "quiet_end": [
-    "2026-10-15T10:55:48Z"
+    "2026-10-15T12:46:23Z"
    ],
    "scheduler_start": [
-    "2026-10-15T10:56:11Z"
+    "2026-10-15T12:47:51Z"
    ],
    "planned_end": [
-    "2026-10-15T12:11:11Z"
+    "2026-10-15T14:02:52Z"
    ],
    "scheduler_stop": [
-    "2026-10-15T12:11:14Z"
+    "2026-10-15T14:02:53Z"
    ],
    "run_end": [
-    "2026-10-15T12:11:16Z"
+    "2026-10-15T14:02:55Z"
    ],
    "demo_down": [
-    "2026-10-15T12:11:57Z"
+    "2026-10-15T14:03:34Z"
    ]
   }
  },
  "config": {
-  "fleet_cap": 25960.0,
+  "fleet_cap": 71247.0,
   "caps": {
-   "accounting": 3866.0,
+   "accounting": 2765.0,
    "ad": 1.0,
    "cart": 1.0,
    "email": 1.0,
    "fraud-detection": 1.0,
-   "frontend": 1.0,
-   "kafka": 1669.0,
-   "otel-collector": 37330.0,
-   "payment": 2731.0,
+   "frontend": 30210.0,
+   "frontend-proxy": 1.0,
+   "kafka": 20074.0,
+   "otel-collector": 61996.0,
+   "payment": 2344.0,
    "quote": 1.0,
-   "recommendation": 1.0,
-   "shipping": 3879.0,
+   "recommendation": 2330.0,
+   "shipping": 2721.0,
    "telemetry-docs": 1.0,
    "valkey-cart": 1.0
   },
@@ -73,7 +74,7 @@
   },
   "options": {
    "symbolMessageHashField": "tenx_hash",
-   "rateReceiverAbsoluteCap": "25960",
+   "rateReceiverAbsoluteCap": "71247",
    "rateReceiverDefaultAction": "offload",
    "rateReceiverMinSharePercent": "0",
    "rateReceiverWarmupMs": "0",
@@ -82,174 +83,174 @@
   }
  },
  "quiet": {
-  "start": 1792060428,
-  "end": 1792061748,
+  "start": 1792067063,
+  "end": 1792068383,
   "full_windows": 5,
-  "records": 8424,
-  "raw_lines": 9676,
-  "containers": 16,
-  "pairs": 47,
+  "records": 7938,
+  "raw_lines": 9118,
+  "containers": 17,
+  "pairs": 70,
   "held_in_quiet": 0,
   "top_pairs": [
    {
     "container": "otel-collector",
     "pattern": "KG8Fq0QFuoY",
     "name": "Logs",
-    "rule": "plan row: otel-collector, cap 37,330, tier_down",
+    "rule": "plan row: otel-collector, cap 61,996, tier_down",
     "max_events": 240,
-    "max_bytes": 126260
+    "max_bytes": 126257
    },
    {
     "container": "otel-collector",
     "pattern": "Gl3Gtr_SH5w",
     "name": "Traces",
-    "rule": "plan row: otel-collector, cap 37,330, tier_down",
+    "rule": "plan row: otel-collector, cap 61,996, tier_down",
     "max_events": 240,
-    "max_bytes": 126055
+    "max_bytes": 126053
    },
    {
     "container": "frontend",
     "pattern": "INl44sUgFeY",
     "name": "API_request_completed",
-    "rule": "plan row: frontend, cap 1, tier_down",
-    "max_events": 253,
-    "max_bytes": 124788
+    "rule": "plan row: frontend, cap 30,210, tier_down",
+    "max_events": 215,
+    "max_bytes": 106272
    },
    {
     "container": "otel-collector",
     "pattern": "PuWB8kkVbfw",
     "name": "Metrics",
-    "rule": "plan row: otel-collector, cap 37,330, tier_down",
-    "max_events": 190,
-    "max_bytes": 105153
+    "rule": "plan row: otel-collector, cap 61,996, tier_down",
+    "max_events": 191,
+    "max_bytes": 105712
+   },
+   {
+    "container": "kafka",
+    "pattern": "Y_71jRCq5Cw",
+    "name": "Scheduling_unloading_of_metadata_for_consumer_with_epoch_OptionalInt_apache_kafka_coordinator_common_runtime_CoordinatorRuntime",
+    "rule": "plan row: kafka, cap 20,074, tier_down",
+    "max_events": 100,
+    "max_bytes": 37580
+   },
+   {
+    "container": "otel-collector",
+    "pattern": "fhu6rrW86b4",
+    "name": "error_Error_scraping_metrics",
+    "rule": "plan row: otel-collector, cap 61,996, tier_down",
+    "max_events": 19,
+    "max_bytes": 37370
+   },
+   {
+    "container": "kafka",
+    "pattern": "KjKx7VN7snY",
+    "name": "was_spent_in_the_scheduler_Loaded_records_which_total_to_bytes_org_apache_kafka_coordinator_common_runtime_CoordinatorRuntime",
+    "rule": "plan row: kafka, cap 20,074, tier_down",
+    "max_events": 83,
+    "max_bytes": 37255
+   },
+   {
+    "container": "kafka",
+    "pattern": "wfraEN4ubTY",
+    "name": "Finished_unloading_metadata_for_consumer_with_epoch_OptionalInt_apache_kafka_coordinator_common_runtime_CoordinatorRuntime",
+    "rule": "plan row: kafka, cap 20,074, tier_down",
+    "max_events": 100,
+    "max_bytes": 37180
+   },
+   {
+    "container": "kafka",
+    "pattern": "VvBjD4t0T7w",
+    "name": "Started_unloading_metadata_for_consumer_with_epoch_OptionalInt_apache_kafka_coordinator_common_runtime_CoordinatorRuntime",
+    "rule": "plan row: kafka, cap 20,074, tier_down",
+    "max_events": 100,
+    "max_bytes": 37080
+   },
+   {
+    "container": "kafka",
+    "pattern": "lfxNT0TdHRU",
+    "name": "Scheduling_loading_of_metadata_from_consumer_with_epoch_org_apache_kafka_coordinator_common_runtime_CoordinatorRuntime",
+    "rule": "plan row: kafka, cap 20,074, tier_down",
+    "max_events": 100,
+    "max_bytes": 36180
    },
    {
     "container": "cart",
     "pattern": "YZplfQ4a1Xw",
     "name": "GetCartAsync_called_with_userId",
     "rule": "plan row: cart, cap 1, tier_down",
-    "max_events": 98,
-    "max_bytes": 28010
-   },
-   {
-    "container": "accounting",
-    "pattern": "-FtZD9XArpU",
-    "name": "Order_details",
-    "rule": "plan row: accounting, cap 3,866, tier_down",
-    "max_events": 19,
-    "max_bytes": 17769
-   },
-   {
-    "container": "cart",
-    "pattern": "eDSYlCMPqVY",
-    "name": "AddItemAsync_called_with_userId_productId_quantity",
-    "rule": "plan row: cart, cap 1, tier_down",
-    "max_events": 54,
-    "max_bytes": 17720
-   },
-   {
-    "container": "recommendation",
-    "pattern": "bzLB1zZCTIw",
-    "name": "Receive_ListRecommendations_for_product_ids",
-    "rule": "plan row: recommendation, cap 1, tier_down",
-    "max_events": 30,
-    "max_bytes": 14640
-   },
-   {
-    "container": "payment",
-    "pattern": "9WbTsopbiXk",
-    "name": "Transaction_complete",
-    "rule": "plan row: payment, cap 2,731, tier_down",
-    "max_events": 19,
-    "max_bytes": 12860
+    "max_events": 63,
+    "max_bytes": 17829
    },
    {
     "container": "telemetry-docs",
     "pattern": "zxRYTKQNyBY",
     "name": "GET_HTTP_Wget",
     "rule": "plan row: telemetry-docs, cap 1, tier_down",
-    "max_events": 48,
-    "max_bytes": 12528
+    "max_events": 47,
+    "max_bytes": 12267
+   },
+   {
+    "container": "cart",
+    "pattern": "eDSYlCMPqVY",
+    "name": "AddItemAsync_called_with_userId_productId_quantity",
+    "rule": "plan row: cart, cap 1, tier_down",
+    "max_events": 36,
+    "max_bytes": 11817
    },
    {
     "container": "astronomy-db",
     "pattern": "oUkuI8QT6s8",
     "name": "role_root_does_not_exist",
-    "rule": "fleet default: 25,960, offload",
-    "max_events": 48,
-    "max_bytes": 12000
+    "rule": "fleet default: 71,247, offload",
+    "max_events": 47,
+    "max_bytes": 11728
    },
    {
-    "container": "otel-collector",
-    "pattern": "fhu6rrW86b4",
-    "name": "error_Error_scraping_metrics",
-    "rule": "plan row: otel-collector, cap 37,330, tier_down",
-    "max_events": 7,
-    "max_bytes": 11444
+    "container": "kafka",
+    "pattern": "JUW-7iX1rdw",
+    "name": "consumer_because_the_partition_is_not_online_or_no_longer_leader_org_apache_kafka_coordinator_common_runtime_CoordinatorRuntime",
+    "rule": "plan row: kafka, cap 20,074, tier_down",
+    "max_events": 17,
+    "max_bytes": 11143
    },
    {
-    "container": "frontend",
-    "pattern": "KSy6KmHbgEc",
-    "name": "Order_placed_successfully",
-    "rule": "plan row: frontend, cap 1, tier_down",
-    "max_events": 19,
-    "max_bytes": 8645
+    "container": "recommendation",
+    "pattern": "bzLB1zZCTIw",
+    "name": "Receive_ListRecommendations_for_product_ids",
+    "rule": "plan row: recommendation, cap 2,330, tier_down",
+    "max_events": 21,
+    "max_bytes": 10248
+   },
+   {
+    "container": "accounting",
+    "pattern": "-FtZD9XArpU",
+    "name": "Order_details",
+    "rule": "plan row: accounting, cap 2,765, tier_down",
+    "max_events": 11,
+    "max_bytes": 10050
    },
    {
     "container": "ad",
     "pattern": "xHrytxJfUdw",
     "name": "oteldemo_AdService_Targeted_ad_request_received_for",
     "rule": "plan row: ad, cap 1, tier_down",
-    "max_events": 25,
-    "max_bytes": 8460
+    "max_events": 22,
+    "max_bytes": 7438
    },
    {
     "container": "payment",
-    "pattern": "fg1YkiyrF3Q",
-    "name": "Charge_request_received",
-    "rule": "plan row: payment, cap 2,731, tier_down",
-    "max_events": 19,
-    "max_bytes": 8151
-   },
-   {
-    "container": "shipping",
-    "pattern": "kAB8PMmHyKM",
-    "name": "shipping_service_Requesting_quote_http_getquote",
-    "rule": "plan row: shipping, cap 3,879, tier_down",
-    "max_events": 19,
-    "max_bytes": 7961
-   },
-   {
-    "container": "shipping",
-    "pattern": "LnOvjJt0La4",
-    "name": "Tracking_ID_Created",
-    "rule": "plan row: shipping, cap 3,879, tier_down",
-    "max_events": 19,
-    "max_bytes": 7942
-   },
-   {
-    "container": "shipping",
-    "pattern": "PX-oZ7rxgZo",
-    "name": "Sending_Quote",
-    "rule": "plan row: shipping, cap 3,879, tier_down",
-    "max_events": 19,
-    "max_bytes": 7890
-   },
-   {
-    "container": "fraud-detection",
-    "pattern": "GKfNbCrpxxI",
-    "name": "fraud_detection_Consumed_record_with_orderId_and_updated_total_count_to_trace_id_span_flags",
-    "rule": "plan row: fraud-detection, cap 1, tier_down",
-    "max_events": 19,
-    "max_bytes": 7657
+    "pattern": "9WbTsopbiXk",
+    "name": "Transaction_complete",
+    "rule": "plan row: payment, cap 2,344, tier_down",
+    "max_events": 11,
+    "max_bytes": 7435
    },
    {
     "container": "kafka",
     "pattern": "pFokWfyJRLU",
     "name": "Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals",
-    "rule": "plan row: kafka, cap 1,669, tier_down",
-    "max_events": 13,
-    "max_bytes": 6715
+    "rule": "plan row: kafka, cap 20,074, tier_down",
+    "max_events": 12,
+    "max_bytes": 6232
    }
   ]
  },
@@ -257,9 +258,9 @@
   "container": "otel-collector",
   "pattern": "fhu6rrW86b4",
   "name": "error_Error_scraping_metrics",
-  "avg_record_bytes_per_window": 8518.0,
-  "max_record_bytes_per_window": 11444,
-  "mcp_baseline_bytes_per_window": 12979.753980288096
+  "avg_record_bytes_per_window": 15630.2,
+  "max_record_bytes_per_window": 37370,
+  "mcp_baseline_bytes_per_window": 35623.67956330553
  },
  "seed": 20261014,
  "activations": [
@@ -267,120 +268,236 @@
    "n": 1,
    "flag": "cartFailure",
    "variant": "100%",
-   "on": 1792061835.69,
-   "off": 1792062250.86,
+   "on": 1792068535.598,
+   "off": 1792068950.777,
    "planned_s": 415.185,
-   "actual_s": 415.16999983787537,
-   "span_end": 1792062459.952
+   "actual_s": 415.17899990081787,
+   "span_end": 1792069159.88
   },
   {
    "n": 2,
    "flag": "kafkaQueueProblems",
    "variant": "on",
-   "on": 1792062459.952,
-   "off": 1792062918.627,
+   "on": 1792069159.88,
+   "off": 1792069618.552,
    "planned_s": 458.68,
-   "actual_s": 458.67500019073486,
-   "span_end": 1792063158.627
+   "actual_s": 458.67199993133545,
+   "span_end": 1792069858.552
   },
   {
    "n": 3,
    "flag": "paymentFailure",
    "variant": "100%",
-   "on": 1792063178.191,
-   "off": 1792063479.427,
+   "on": 1792069878.114,
+   "off": 1792070179.345,
    "planned_s": 301.235,
-   "actual_s": 301.23600006103516,
-   "span_end": 1792063691.93
+   "actual_s": 301.23099994659424,
+   "span_end": 1792070391.825
   },
   {
    "n": 4,
    "flag": "emailMemoryLeak",
    "variant": "1000x",
-   "on": 1792063691.93,
-   "off": 1792064163.499,
+   "on": 1792070391.825,
+   "off": 1792070863.4,
    "planned_s": 471.579,
-   "actual_s": 471.56900000572205,
-   "span_end": 1792064190.972
+   "actual_s": 471.5750000476837,
+   "span_end": 1792070890.859
   },
   {
    "n": 5,
    "flag": "emailMemoryLeak",
    "variant": "1000x",
-   "on": 1792064190.972,
-   "off": 1792064600.959,
+   "on": 1792070890.859,
+   "off": 1792071300.842,
    "planned_s": 409.995,
-   "actual_s": 409.9870002269745,
-   "span_end": 1792064840.959
+   "actual_s": 409.9830000400543,
+   "span_end": 1792071540.842
   },
   {
    "n": 6,
    "flag": "recommendationCacheFailure",
    "variant": "on",
-   "on": 1792064941.572,
-   "off": 1792065360.446,
+   "on": 1792071641.46,
+   "off": 1792072060.333,
    "planned_s": 418.882,
-   "actual_s": 418.87400007247925,
-   "span_end": 1792065426.41
+   "actual_s": 418.8729999065399,
+   "span_end": 1792072126.303
   },
   {
    "n": 7,
    "flag": "loadGeneratorFloodHomepage",
    "variant": "on",
-   "on": 1792065426.41,
-   "off": 1792065755.104,
+   "on": 1792072126.303,
+   "off": 1792072454.94,
    "planned_s": 328.644,
-   "actual_s": 328.69400000572205,
-   "span_end": 1792065995.104
+   "actual_s": 328.63700008392334,
+   "span_end": 1792072694.94
   },
   {
    "n": 8,
    "flag": "recommendationCacheFailure",
    "variant": "on",
-   "on": 1792066024.227,
-   "off": null,
+   "on": 1792072724.148,
+   "off": 1792072973.488,
    "planned_s": 345.214,
-   "actual_s": 251.77300000190735,
-   "span_end": 1792066276
+   "actual_s": 249.3399999141693,
+   "span_end": 1792072975
   }
  ],
  "window_phase": {
-  "phase_s_mod_240": 9.231856107711792,
+  "phase_s_mod_240": 196.08646392822266,
   "source": "receiver.log connect",
-  "connect": 1792061769.231856,
-  "inferred_phase": 12.0,
-  "share_of_resets_within_20s_of_inferred": 0.6287625418060201,
-  "resets": 598
+  "connect": 1792068436.086464,
+  "inferred_phase": 201.0,
+  "share_of_resets_within_20s_of_inferred": 0.29633740288568255,
+  "resets": 901
  },
  "held": [
   {
+   "route": "offload",
+   "rule": "fleet default: 71,247, offload",
+   "container": "astronomy-db",
+   "pattern": "6_l3eh1v8RE",
+   "name": "DETAIL_Key_order_already_exists",
+   "held": 2214,
+   "held_bytes": 646488,
+   "held_lines": 2214,
+   "severity": {
+    "none": 2214
+   },
+   "in_causal_span": 2214,
+   "outside": 0,
+   "flags": {
+    "kafkaQueueProblems": 2214
+   },
+   "windows": 2,
+   "first": 1792069196.97,
+   "last": 1792069614.853,
+   "listed_in_caps": false,
+   "quiet": {
+    "windows_seen": 0,
+    "max_events": 0,
+    "max_bytes": 0,
+    "median_bytes": 0
+   },
+   "sample": "2026-10-15 12:59:30.933 UTC [3902] DETAIL:  Key (order_id)=(42df1cc9-c898-11f1-b536-0242ac1c0016) already exists."
+  },
+  {
+   "route": "offload",
+   "rule": "fleet default: 71,247, offload",
+   "container": "astronomy-db",
+   "pattern": "GlK5AsFvcXg",
+   "name": "STATEMENT_INSERT_INTO_accounting_order_id_VALUES",
+   "held": 2200,
+   "held_bytes": 624800,
+   "held_lines": 4400,
+   "severity": {
+    "none": 2200
+   },
+   "in_causal_span": 2200,
+   "outside": 0,
+   "flags": {
+    "kafkaQueueProblems": 2200
+   },
+   "windows": 2,
+   "first": 1792069196.996,
+   "last": 1792069614.853,
+   "listed_in_caps": false,
+   "quiet": {
+    "windows_seen": 0,
+    "max_events": 0,
+    "max_bytes": 0,
+    "median_bytes": 0
+   },
+   "sample": "2026-10-15 12:59:30.933 UTC [3902] STATEMENT:  INSERT INTO accounting.\"order\" (order_id)\n\tVALUES ($1)"
+  },
+  {
+   "route": "offload",
+   "rule": "fleet default: 71,247, offload",
+   "container": "astronomy-db",
+   "pattern": "KSTuhseaGEc",
+   "name": "duplicate_key_value_violates_unique_constraint_order_pkey",
+   "held": 1141,
+   "held_bytes": 322903,
+   "held_lines": 1141,
+   "severity": {
+    "ERROR": 1141
+   },
+   "in_causal_span": 1141,
+   "outside": 0,
+   "flags": {
+    "kafkaQueueProblems": 1141
+   },
+   "windows": 2,
+   "first": 1792069197.012,
+   "last": 1792069614.85,
+   "listed_in_caps": false,
+   "quiet": {
+    "windows_seen": 0,
+    "max_events": 0,
+    "max_bytes": 0,
+    "median_bytes": 0
+   },
+   "sample": "2026-10-15 12:59:30.933 UTC [3902] ERROR:  duplicate key value violates unique constraint \"order_pkey\""
+  },
+  {
    "route": "tier_down",
-   "rule": "plan row: accounting, cap 3,866, tier_down",
+   "rule": "plan row: accounting, cap 2,765, tier_down",
    "container": "accounting",
    "pattern": "-FtZD9XArpU",
    "name": "Order_details",
-   "held": 134,
-   "held_bytes": 123655,
-   "held_lines": 268,
+   "held": 2849,
+   "held_bytes": 2577487,
+   "held_lines": 5698,
    "severity": {
-    "INFO": 134
+    "INFO": 2849
    },
-   "in_causal_span": 24,
-   "outside": 110,
+   "in_causal_span": 2720,
+   "outside": 129,
    "flags": {
-    "kafkaQueueProblems": 24
+    "kafkaQueueProblems": 2720
    },
    "windows": 18,
-   "first": 1792061908.233,
-   "last": 1792066270.72,
+   "first": 1792068487.189,
+   "last": 1792072972.529,
    "listed_in_caps": true,
    "quiet": {
     "windows_seen": 5,
-    "max_events": 19,
-    "max_bytes": 17769,
-    "median_bytes": 13837
+    "max_events": 11,
+    "max_bytes": 10050,
+    "median_bytes": 9394
    },
-   "sample": "info: Accounting.Consumer[722003269]\n      Order details: { \"orderId\": \"a667437e-c883-11f1-a9fa-0242ac1c0016\", \"shippingTrackingId\": \"a09672b5-cb52-4842-a5d5-c7"
+   "sample": "info: Accounting.Consumer[722003269]\n      Order details: { \"orderId\": \"1111e753-c893-11f1-b536-0242ac1c0016\", \"shippingTrackingId\": \"9d7c7789-4c1f-436f-bda5-39"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: accounting, cap 2,765, tier_down",
+   "container": "accounting",
+   "pattern": "XXzlsXqzuqc",
+   "name": "Duplicate_order_received_skipping",
+   "held": 2680,
+   "held_bytes": 688760,
+   "held_lines": 5360,
+   "severity": {
+    "INFO": 2680
+   },
+   "in_causal_span": 2680,
+   "outside": 0,
+   "flags": {
+    "kafkaQueueProblems": 2680
+   },
+   "windows": 2,
+   "first": 1792069171.424,
+   "last": 1792069614.855,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 0,
+    "max_events": 0,
+    "max_bytes": 0,
+    "median_bytes": 0
+   },
+   "sample": "info: Accounting.Consumer[1508330946]\n      Duplicate order received, skipping."
   },
   {
    "route": "tier_down",
@@ -388,28 +505,28 @@
    "container": "ad",
    "pattern": "xHrytxJfUdw",
    "name": "oteldemo_AdService_Targeted_ad_request_received_for",
-   "held": 221,
-   "held_bytes": 74777,
-   "held_lines": 221,
+   "held": 218,
+   "held_bytes": 73780,
+   "held_lines": 218,
    "severity": {
-    "TRACE": 221
+    "TRACE": 218
    },
-   "in_causal_span": 33,
-   "outside": 188,
+   "in_causal_span": 20,
+   "outside": 198,
    "flags": {
-    "loadGeneratorFloodHomepage": 33
+    "loadGeneratorFloodHomepage": 20
    },
    "windows": 19,
-   "first": 1792061849.015,
-   "last": 1792066272.353,
+   "first": 1792068473.058,
+   "last": 1792072963.235,
    "listed_in_caps": true,
    "quiet": {
     "windows_seen": 5,
-    "max_events": 25,
-    "max_bytes": 8460,
-    "median_bytes": 7093
+    "max_events": 22,
+    "max_bytes": 7438,
+    "median_bytes": 4748
    },
-   "sample": "2026-10-15 10:31:38 - oteldemo.AdService - Targeted ad request received for [assembly] trace_id=372ca3c93be2e7ad8cab7b1ef54f7eb0 span_id=7caed157b273ed44 trace_"
+   "sample": "2026-10-15 12:22:55 - oteldemo.AdService - Targeted ad request received for [accessories] trace_id=7cee62991faf8e2394ee3baf00e400a6 span_id=99081569f7ddcf2a tra"
   },
   {
    "route": "tier_down",
@@ -417,26 +534,26 @@
    "container": "ad",
    "pattern": "jN_dDVWoa78",
    "name": "oteldemo_AdService_Non_targeted_ad_request_received_preparing_random_response_trace_id_span_flags",
-   "held": 1,
-   "held_bytes": 355,
-   "held_lines": 1,
+   "held": 3,
+   "held_bytes": 1065,
+   "held_lines": 3,
    "severity": {
-    "TRACE": 1
+    "TRACE": 3
    },
    "in_causal_span": 0,
-   "outside": 1,
+   "outside": 3,
    "flags": {},
    "windows": 1,
-   "first": 1792066067.795,
-   "last": 1792066067.795,
+   "first": 1792072946.497,
+   "last": 1792072965.154,
    "listed_in_caps": true,
    "quiet": {
-    "windows_seen": 4,
-    "max_events": 7,
-    "max_bytes": 2485,
-    "median_bytes": 710.0
+    "windows_seen": 5,
+    "max_events": 4,
+    "max_bytes": 1420,
+    "median_bytes": 710
    },
-   "sample": "2026-10-15 10:32:26 - oteldemo.AdService - Non-targeted ad request received, preparing random response. trace_id=8aef79e640a6db84b4dc35d602106e1b span_id=3662fe"
+   "sample": "2026-10-15 12:22:39 - oteldemo.AdService - Non-targeted ad request received, preparing random response. trace_id=4b1be7f0240dea0e56fab5f48d37c5d1 span_id=d7324f"
   },
   {
    "route": "tier_down",
@@ -444,27 +561,27 @@
    "container": "cart",
    "pattern": "YZplfQ4a1Xw",
    "name": "GetCartAsync_called_with_userId",
-   "held": 1266,
-   "held_bytes": 360906,
-   "held_lines": 2532,
+   "held": 1273,
+   "held_bytes": 363655,
+   "held_lines": 2546,
    "severity": {
-    "INFO": 1266
+    "INFO": 1273
    },
-   "in_causal_span": 339,
-   "outside": 927,
+   "in_causal_span": 351,
+   "outside": 922,
    "flags": {
-    "cartFailure": 199,
-    "loadGeneratorFloodHomepage": 140
+    "cartFailure": 215,
+    "loadGeneratorFloodHomepage": 136
    },
    "windows": 19,
-   "first": 1792061817.056,
-   "last": 1792066272.885,
+   "first": 1792068476.214,
+   "last": 1792072972.478,
    "listed_in_caps": true,
    "quiet": {
     "windows_seen": 5,
-    "max_events": 98,
-    "max_bytes": 28010,
-    "median_bytes": 23614
+    "max_events": 63,
+    "max_bytes": 17829,
+    "median_bytes": 15534
    },
    "sample": "info: cart.cartstore.ValkeyCartStore[1662118147]\n      GetCartAsync called with userId="
   },
@@ -474,29 +591,29 @@
    "container": "cart",
    "pattern": "eDSYlCMPqVY",
    "name": "AddItemAsync_called_with_userId_productId_quantity",
-   "held": 635,
-   "held_bytes": 208381,
-   "held_lines": 1270,
+   "held": 661,
+   "held_bytes": 216909,
+   "held_lines": 1322,
    "severity": {
-    "INFO": 635
+    "INFO": 661
    },
-   "in_causal_span": 178,
-   "outside": 457,
+   "in_causal_span": 191,
+   "outside": 470,
    "flags": {
-    "cartFailure": 103,
-    "loadGeneratorFloodHomepage": 75
+    "cartFailure": 113,
+    "loadGeneratorFloodHomepage": 78
    },
    "windows": 19,
-   "first": 1792061857.591,
-   "last": 1792066272.882,
+   "first": 1792068480.397,
+   "last": 1792072972.463,
    "listed_in_caps": true,
    "quiet": {
     "windows_seen": 5,
-    "max_events": 54,
-    "max_bytes": 17720,
-    "median_bytes": 15422
+    "max_events": 36,
+    "max_bytes": 11817,
+    "median_bytes": 10497
    },
-   "sample": "info: cart.cartstore.ValkeyCartStore[133092716]\n      AddItemAsync called with userId=940705e8-c883-11f1-8f4c-0242ac1c0018, productId=HQTGWGPNH4, quantity=1"
+   "sample": "info: cart.cartstore.ValkeyCartStore[133092716]\n      AddItemAsync called with userId=0fde71e2-c893-11f1-8baf-0242ac1c0018, productId=1YMWWN1N4O, quantity=3"
   },
   {
    "route": "tier_down",
@@ -504,29 +621,29 @@
    "container": "cart",
    "pattern": "h3qY1nS1uxY",
    "name": "EmptyCartAsync_called_with_userId",
-   "held": 136,
-   "held_bytes": 41858,
-   "held_lines": 308,
+   "held": 149,
+   "held_bytes": 45973,
+   "held_lines": 340,
    "severity": {
-    "INFO": 136
+    "INFO": 149
    },
-   "in_causal_span": 33,
-   "outside": 103,
+   "in_causal_span": 50,
+   "outside": 99,
    "flags": {
-    "cartFailure": 18,
-    "loadGeneratorFloodHomepage": 15
+    "cartFailure": 34,
+    "loadGeneratorFloodHomepage": 16
    },
-   "windows": 17,
-   "first": 1792061908.074,
-   "last": 1792066270.695,
+   "windows": 18,
+   "first": 1792068487.034,
+   "last": 1792072972.515,
    "listed_in_caps": true,
    "quiet": {
     "windows_seen": 5,
-    "max_events": 19,
-    "max_bytes": 5624,
-    "median_bytes": 4440
+    "max_events": 11,
+    "max_bytes": 3256,
+    "median_bytes": 2960
    },
-   "sample": "info: cart.cartstore.ValkeyCartStore[911421920]\n      EmptyCartAsync called with userId=a638c9b8-c883-11f1-8f4c-0242ac1c0018"
+   "sample": "info: cart.cartstore.ValkeyCartStore[911421920]\n      EmptyCartAsync called with userId=0fde71e2-c893-11f1-8baf-0242ac1c0018"
   },
   {
    "route": "tier_down",
@@ -534,20 +651,20 @@
    "container": "cart",
    "pattern": "9-GL0Pp_Cts",
    "name": "Error_code_FailedPrecondition_detail_Can_access_cart_storage_System_ApplicationException_Wasn_t_able_to_connect_redis",
-   "held": 17,
-   "held_bytes": 10744,
-   "held_lines": 68,
+   "held": 16,
+   "held_bytes": 10112,
+   "held_lines": 64,
    "severity": {
-    "INFO": 17
+    "INFO": 16
    },
-   "in_causal_span": 17,
+   "in_causal_span": 16,
    "outside": 0,
    "flags": {
-    "cartFailure": 17
+    "cartFailure": 16
    },
    "windows": 3,
-   "first": 1792061929.319,
-   "last": 1792062246.184,
+   "first": 1792068600.709,
+   "last": 1792068914.546,
    "listed_in_caps": true,
    "quiet": {
     "windows_seen": 0,
@@ -563,28 +680,28 @@
    "container": "email",
    "pattern": "1zhBPd1E9Bc",
    "name": "POST_send_order_confirmation_HTTP",
-   "held": 136,
-   "held_bytes": 39644,
-   "held_lines": 170,
+   "held": 149,
+   "held_bytes": 43492,
+   "held_lines": 187,
    "severity": {
-    "none": 136
+    "none": 149
    },
-   "in_causal_span": 37,
-   "outside": 99,
+   "in_causal_span": 42,
+   "outside": 107,
    "flags": {
-    "emailMemoryLeak": 37
+    "emailMemoryLeak": 42
    },
    "windows": 18,
-   "first": 1792061908.224,
-   "last": 1792066270.706,
+   "first": 1792068487.181,
+   "last": 1792072972.523,
    "listed_in_caps": true,
    "quiet": {
     "windows_seen": 5,
-    "max_events": 19,
-    "max_bytes": 5480,
-    "median_bytes": 4158
+    "max_events": 11,
+    "max_bytes": 3304,
+    "median_bytes": 3032
    },
-   "sample": "172.28.0.22 - - [15/Oct/2026:10:31:59 +0000] \"POST /send_order_confirmation HTTP/1.1\" 200 - 0.6164"
+   "sample": "172.28.0.22 - - [15/Oct/2026:12:22:22 +0000] \"POST /send_order_confirmation HTTP/1.1\" 200 - 1.7757"
   },
   {
    "route": "tier_down",
@@ -592,28 +709,28 @@
    "container": "email",
    "pattern": "shf1OAS338c",
    "name": "Order_confirmation_email_sent_for_order",
-   "held": 84,
-   "held_bytes": 20832,
-   "held_lines": 84,
+   "held": 83,
+   "held_bytes": 20584,
+   "held_lines": 83,
    "severity": {
-    "none": 84
+    "none": 83
    },
-   "in_causal_span": 25,
+   "in_causal_span": 24,
    "outside": 59,
    "flags": {
-    "emailMemoryLeak": 25
+    "emailMemoryLeak": 24
    },
-   "windows": 16,
-   "first": 1792061956.057,
-   "last": 1792066270.705,
+   "windows": 18,
+   "first": 1792068544.664,
+   "last": 1792072968.649,
    "listed_in_caps": true,
    "quiet": {
     "windows_seen": 5,
-    "max_events": 15,
-    "max_bytes": 3720,
-    "median_bytes": 2728
+    "max_events": 7,
+    "max_bytes": 1736,
+    "median_bytes": 1240
    },
-   "sample": "Order confirmation email sent for order a667437e-c883-11f1-a9fa-0242ac1c0016"
+   "sample": "Order confirmation email sent for order 1111e753-c893-11f1-b536-0242ac1c0016"
   },
   {
    "route": "tier_down",
@@ -621,28 +738,28 @@
    "container": "fraud-detection",
    "pattern": "GKfNbCrpxxI",
    "name": "fraud_detection_Consumed_record_with_orderId_and_updated_total_count_to_trace_id_span_flags",
-   "held": 134,
-   "held_bytes": 54131,
-   "held_lines": 134,
+   "held": 3349,
+   "held_bytes": 1355393,
+   "held_lines": 3349,
    "severity": {
-    "TRACE": 134
+    "TRACE": 3349
    },
-   "in_causal_span": 24,
-   "outside": 110,
+   "in_causal_span": 3220,
+   "outside": 129,
    "flags": {
-    "kafkaQueueProblems": 24
+    "kafkaQueueProblems": 3220
    },
    "windows": 18,
-   "first": 1792061908.237,
-   "last": 1792066270.722,
+   "first": 1792068487.204,
+   "last": 1792072972.53,
    "listed_in_caps": true,
    "quiet": {
     "windows_seen": 5,
-    "max_events": 19,
-    "max_bytes": 7657,
-    "median_bytes": 6045
+    "max_events": 11,
+    "max_bytes": 4433,
+    "median_bytes": 4030
    },
-   "sample": "2026-10-15 10:32:00 - fraud-detection - Consumed record with orderId: a667437e-c883-11f1-a9fa-0242ac1c0016, and updated total count to: 1 trace_id=96bf16735d33e"
+   "sample": "2026-10-15 12:22:27 - fraud-detection - Consumed record with orderId: 1111e753-c893-11f1-b536-0242ac1c0016, and updated total count to: 1 trace_id=1174ca83b10ad"
   },
   {
    "route": "tier_down",
@@ -650,20 +767,20 @@
    "container": "fraud-detection",
    "pattern": "eT4avs-RfM8",
    "name": "fraud_detection_FeatureFlag_kafkaQueueProblems_is_enabled_sleeping_second_trace_id_span_flags",
-   "held": 20,
-   "held_bytes": 7340,
-   "held_lines": 20,
+   "held": 437,
+   "held_bytes": 160379,
+   "held_lines": 437,
    "severity": {
-    "TRACE": 20
+    "TRACE": 437
    },
-   "in_causal_span": 20,
+   "in_causal_span": 437,
    "outside": 0,
    "flags": {
-    "kafkaQueueProblems": 20
+    "kafkaQueueProblems": 437
    },
    "windows": 2,
-   "first": 1792062626.497,
-   "last": 1792062917.491,
+   "first": 1792069175.934,
+   "last": 1792069618.546,
    "listed_in_caps": true,
    "quiet": {
     "windows_seen": 0,
@@ -671,799 +788,199 @@
     "max_bytes": 0,
     "median_bytes": 0
    },
-   "sample": "2026-10-15 11:08:36 - fraud-detection - FeatureFlag 'kafkaQueueProblems' is enabled, sleeping 1 second trace_id=2941b9acdefc2ab6f5d8bcb684643e92 span_id=179db7f"
+   "sample": "2026-10-15 12:59:30 - fraud-detection - FeatureFlag 'kafkaQueueProblems' is enabled, sleeping 1 second trace_id=b8417ee933424e7f272a856e79769c13 span_id=28ccea4"
   },
   {
    "route": "tier_down",
-   "rule": "plan row: frontend, cap 1, tier_down",
+   "rule": "plan row: frontend, cap 30,210, tier_down",
    "container": "frontend",
    "pattern": "INl44sUgFeY",
    "name": "API_request_completed",
-   "held": 3979,
-   "held_bytes": 1964503,
-   "held_lines": 3979,
+   "held": 2914,
+   "held_bytes": 1438595,
+   "held_lines": 2914,
    "severity": {
-    "TRACE": 3979
+    "TRACE": 2914
    },
-   "in_causal_span": 2151,
-   "outside": 1828,
+   "in_causal_span": 1620,
+   "outside": 1294,
    "flags": {
-    "cartFailure": 598,
-    "paymentFailure": 440,
-    "recommendationCacheFailure": 643,
-    "loadGeneratorFloodHomepage": 470
+    "cartFailure": 515,
+    "paymentFailure": 322,
+    "recommendationCacheFailure": 472,
+    "loadGeneratorFloodHomepage": 311
    },
    "windows": 19,
-   "first": 1792061772.503,
-   "last": 1792066272.887,
+   "first": 1792068480.487,
+   "last": 1792072974.168,
    "listed_in_caps": true,
    "quiet": {
     "windows_seen": 5,
-    "max_events": 253,
-    "max_bytes": 124788,
-    "median_bytes": 114867
+    "max_events": 215,
+    "max_bytes": 106272,
+    "median_bytes": 89898
    },
-   "sample": "{\"level\":30,\"time\":1792060287816,\"pid\":1,\"hostname\":\"73ce8ce5d637\",\"trace_id\":\"9a1b2000a6b742a52a0f624ba994111c\",\"span_id\":\"618ddf969fe1a150\",\"trace_flags\":\"01\""
+   "sample": "{\"level\":30,\"time\":1792066920745,\"pid\":1,\"hostname\":\"56affb348380\",\"trace_id\":\"3df5f4fb499b1ee1c0606ddc5128c408\",\"span_id\":\"28985b7900a288d3\",\"trace_flags\":\"01\""
   },
   {
    "route": "tier_down",
-   "rule": "plan row: frontend, cap 1, tier_down",
-   "container": "frontend",
-   "pattern": "KSy6KmHbgEc",
-   "name": "Order_placed_successfully",
-   "held": 136,
-   "held_bytes": 61880,
-   "held_lines": 136,
-   "severity": {
-    "TRACE": 136
-   },
-   "in_causal_span": 70,
-   "outside": 66,
-   "flags": {
-    "cartFailure": 18,
-    "paymentFailure": 9,
-    "recommendationCacheFailure": 28,
-    "loadGeneratorFloodHomepage": 15
-   },
-   "windows": 17,
-   "first": 1792061908.261,
-   "last": 1792066270.756,
-   "listed_in_caps": true,
-   "quiet": {
-    "windows_seen": 5,
-    "max_events": 19,
-    "max_bytes": 8645,
-    "median_bytes": 6825
-   },
-   "sample": "{\"level\":30,\"time\":1792060320185,\"pid\":1,\"hostname\":\"73ce8ce5d637\",\"trace_id\":\"e022f217b2b3d7f6ade1a81e48608ba2\",\"span_id\":\"1351de1b31976c14\",\"trace_flags\":\"01\""
-  },
-  {
-   "route": "tier_down",
-   "rule": "plan row: frontend, cap 1, tier_down",
-   "container": "frontend",
-   "pattern": "SJz5BYn_Kzo",
-   "name": "Checkout_payment_declined",
-   "held": 9,
-   "held_bytes": 5139,
-   "held_lines": 9,
-   "severity": {
-    "TRACE": 9
-   },
-   "in_causal_span": 9,
-   "outside": 0,
-   "flags": {
-    "paymentFailure": 9
-   },
-   "windows": 2,
-   "first": 1792063322.965,
-   "last": 1792063448.733,
-   "listed_in_caps": true,
-   "quiet": {
-    "windows_seen": 0,
-    "max_events": 0,
-    "max_bytes": 0,
-    "median_bytes": 0
-   },
-   "sample": "{\"level\":30,\"time\":1792063200784,\"pid\":1,\"hostname\":\"73ce8ce5d637\",\"trace_id\":\"c676ebed9288091732d32492803e03b0\",\"span_id\":\"4a4c4d7f9cf8c5ab\",\"trace_flags\":\"01\""
-  },
-  {
-   "route": "tier_down",
-   "rule": "plan row: kafka, cap 1,669, tier_down",
-   "container": "kafka",
-   "pattern": "WlIY0QjIiEg",
-   "name": "Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
-   "held": 207,
-   "held_bytes": 69759,
-   "held_lines": 207,
-   "severity": {
-    "INFO": 207
-   },
-   "in_causal_span": 33,
-   "outside": 174,
-   "flags": {
-    "kafkaQueueProblems": 33
-   },
-   "windows": 19,
-   "first": 1792061828.093,
-   "last": 1792066268.248,
-   "listed_in_caps": true,
-   "quiet": {
-    "windows_seen": 5,
-    "max_events": 17,
-    "max_bytes": 5729,
-    "median_bytes": 5392
-   },
-   "sample": "[2026-10-15 10:33:08,139] INFO Deleted log /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.log.deleted. (org.apache.kafka.storage.internals.log.LogSeg"
-  },
-  {
-   "route": "tier_down",
-   "rule": "plan row: kafka, cap 1,669, tier_down",
-   "container": "kafka",
-   "pattern": "hl_fK-uzMu8",
-   "name": "Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
-   "held": 207,
-   "held_bytes": 72036,
-   "held_lines": 207,
-   "severity": {
-    "INFO": 207
-   },
-   "in_causal_span": 33,
-   "outside": 174,
-   "flags": {
-    "kafkaQueueProblems": 33
-   },
-   "windows": 19,
-   "first": 1792061828.093,
-   "last": 1792066268.248,
-   "listed_in_caps": true,
-   "quiet": {
-    "windows_seen": 5,
-    "max_events": 17,
-    "max_bytes": 5916,
-    "median_bytes": 5568
-   },
-   "sample": "[2026-10-15 10:33:08,140] INFO Deleted offset index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.index.deleted. (org.apache.kafka.storage.internals"
-  },
-  {
-   "route": "tier_down",
-   "rule": "plan row: kafka, cap 1,669, tier_down",
-   "container": "kafka",
-   "pattern": "q20KpyVGjSM",
-   "name": "Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment",
-   "held": 207,
-   "held_bytes": 72450,
-   "held_lines": 207,
-   "severity": {
-    "INFO": 207
-   },
-   "in_causal_span": 33,
-   "outside": 174,
-   "flags": {
-    "kafkaQueueProblems": 33
-   },
-   "windows": 19,
-   "first": 1792061828.094,
-   "last": 1792066268.248,
-   "listed_in_caps": true,
-   "quiet": {
-    "windows_seen": 5,
-    "max_events": 17,
-    "max_bytes": 5950,
-    "median_bytes": 5600
-   },
-   "sample": "[2026-10-15 10:33:08,141] INFO Deleted time index /tmp/kafka-logs/__cluster_metadata-0/00000000000000000000.timeindex.deleted. (org.apache.kafka.storage.interna"
-  },
-  {
-   "route": "tier_down",
-   "rule": "plan row: kafka, cap 1,669, tier_down",
-   "container": "kafka",
-   "pattern": "AMFi23Ga9wY",
-   "name": "Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile",
-   "held": 207,
-   "held_bytes": 75141,
-   "held_lines": 207,
-   "severity": {
-    "INFO": 207
-   },
-   "in_causal_span": 33,
-   "outside": 174,
-   "flags": {
-    "kafkaQueueProblems": 33
-   },
-   "windows": 19,
-   "first": 1792061828.094,
-   "last": 1792066268.249,
-   "listed_in_caps": true,
-   "quiet": {
-    "windows_seen": 5,
-    "max_events": 17,
-    "max_bytes": 6171,
-    "median_bytes": 5808
-   },
-   "sample": "[2026-10-15 10:33:08,144] INFO Deleted producer state snapshot /tmp/kafka-logs/__cluster_metadata-0/00000000000000000040.snapshot.deleted (org.apache.kafka.stor"
-  },
-  {
-   "route": "tier_down",
-   "rule": "plan row: kafka, cap 1,669, tier_down",
-   "container": "kafka",
-   "pattern": "wyR-oWD2-hk",
-   "name": "Rolled_new_log_segment_at_offset_in_ms_org_apache_kafka_storage_internals_LocalLog",
-   "held": 204,
-   "held_bytes": 78193,
-   "held_lines": 204,
-   "severity": {
-    "INFO": 204
-   },
-   "in_causal_span": 32,
-   "outside": 172,
-   "flags": {
-    "kafkaQueueProblems": 32
-   },
-   "windows": 19,
-   "first": 1792061848.282,
-   "last": 1792066265.137,
-   "listed_in_caps": true,
-   "quiet": {
-    "windows_seen": 5,
-    "max_events": 16,
-    "max_bytes": 6128,
-    "median_bytes": 6128
-   },
-   "sample": "[2026-10-15 10:30:23,991] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Rolled new log segment at offset 40 in 91 ms."
-  },
-  {
-   "route": "tier_down",
-   "rule": "plan row: kafka, cap 1,669, tier_down",
-   "container": "kafka",
-   "pattern": "VnqlcNA_PIM",
-   "name": "Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager",
-   "held": 204,
-   "held_bytes": 78796,
-   "held_lines": 204,
-   "severity": {
-    "INFO": 204
-   },
-   "in_causal_span": 32,
-   "outside": 172,
-   "flags": {
-    "kafkaQueueProblems": 32
-   },
-   "windows": 19,
-   "first": 1792061848.283,
-   "last": 1792066265.138,
-   "listed_in_caps": true,
-   "quiet": {
-    "windows_seen": 5,
-    "max_events": 16,
-    "max_bytes": 6176,
-    "median_bytes": 6176
-   },
-   "sample": "[2026-10-15 10:30:24,032] INFO [ProducerStateManager partition=__cluster_metadata-0] Wrote producer snapshot at offset 40 with 0 producer ids in 31 ms. (org.apa"
-  },
-  {
-   "route": "tier_down",
-   "rule": "plan row: kafka, cap 1,669, tier_down",
-   "container": "kafka",
-   "pattern": "3AOokQ1Sq7k",
-   "name": "Incremented_log_start_offset_to_due_snapshot_generated_org_apache_kafka_storage_internals_UnifiedLog",
-   "held": 138,
-   "held_bytes": 52748,
-   "held_lines": 138,
-   "severity": {
-    "INFO": 138
-   },
-   "in_causal_span": 22,
-   "outside": 116,
-   "flags": {
-    "kafkaQueueProblems": 22
-   },
-   "windows": 19,
-   "first": 1792061828.092,
-   "last": 1792066268.2,
-   "listed_in_caps": true,
-   "quiet": {
-    "windows_seen": 5,
-    "max_events": 13,
-    "max_bytes": 4966,
-    "median_bytes": 4584
-   },
-   "sample": "[2026-10-15 10:32:08,073] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Incremented log start offset to 120 due to snapshot generated (o"
-  },
-  {
-   "route": "tier_down",
-   "rule": "plan row: kafka, cap 1,669, tier_down",
-   "container": "kafka",
-   "pattern": "BVtz4xhx64s",
-   "name": "older_than_retention_org_apache_kafka_raft_internals_KafkaRaftLog",
-   "held": 138,
-   "held_bytes": 63649,
-   "held_lines": 138,
-   "severity": {
-    "INFO": 138
-   },
-   "in_causal_span": 22,
-   "outside": 116,
-   "flags": {
-    "kafkaQueueProblems": 22
-   },
-   "windows": 19,
-   "first": 1792061828.093,
-   "last": 1792066268.201,
-   "listed_in_caps": true,
-   "quiet": {
-    "windows_seen": 5,
-    "max_events": 13,
-    "max_bytes": 5993,
-    "median_bytes": 5532
-   },
-   "sample": "[2026-10-15 10:32:08,121] INFO [RaftLog partition=__cluster_metadata-0, nodeId=1] Marking snapshot OffsetAndEpoch[offset=43, epoch=1] for deletion because its t"
-  },
-  {
-   "route": "tier_down",
-   "rule": "plan row: kafka, cap 1,669, tier_down",
-   "container": "kafka",
-   "pattern": "1Eg3qHK6Z9w",
-   "name": "Deleted_snapshot_files_for_apache_kafka_Snapshots",
-   "held": 138,
-   "held_bytes": 43360,
-   "held_lines": 138,
-   "severity": {
-    "INFO": 138
-   },
-   "in_causal_span": 22,
-   "outside": 116,
-   "flags": {
-    "kafkaQueueProblems": 22
-   },
-   "windows": 19,
-   "first": 1792061828.1,
-   "last": 1792066268.249,
-   "listed_in_caps": true,
-   "quiet": {
-    "windows_seen": 5,
-    "max_events": 13,
-    "max_bytes": 4082,
-    "median_bytes": 3768
-   },
-   "sample": "[2026-10-15 10:33:08,145] INFO Deleted snapshot files for snapshot OffsetAndEpoch[offset=43, epoch=1]. (org.apache.kafka.snapshot.Snapshots)"
-  },
-  {
-   "route": "tier_down",
-   "rule": "plan row: kafka, cap 1,669, tier_down",
-   "container": "kafka",
-   "pattern": "pFokWfyJRLU",
-   "name": "Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals",
-   "held": 137,
-   "held_bytes": 70820,
-   "held_lines": 137,
-   "severity": {
-    "INFO": 137
-   },
-   "in_causal_span": 22,
-   "outside": 115,
-   "flags": {
-    "kafkaQueueProblems": 22
-   },
-   "windows": 19,
-   "first": 1792061828.093,
-   "last": 1792066268.2,
-   "listed_in_caps": true,
-   "quiet": {
-    "windows_seen": 5,
-    "max_events": 13,
-    "max_bytes": 6715,
-    "median_bytes": 6219
-   },
-   "sample": "[2026-10-15 10:32:08,100] INFO [UnifiedLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs] Deleting segments due to log start offset 120 breach: LogSegment"
-  },
-  {
-   "route": "tier_down",
-   "rule": "plan row: kafka, cap 1,669, tier_down",
-   "container": "kafka",
-   "pattern": "-Jf8QdAufSM",
-   "name": "Deleting_segment_files_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals_LocalLog",
-   "held": 137,
-   "held_bytes": 68882,
-   "held_lines": 137,
-   "severity": {
-    "INFO": 137
-   },
-   "in_causal_span": 22,
-   "outside": 115,
-   "flags": {
-    "kafkaQueueProblems": 22
-   },
-   "windows": 19,
-   "first": 1792061828.098,
-   "last": 1792066268.248,
-   "listed_in_caps": true,
-   "quiet": {
-    "windows_seen": 5,
-    "max_events": 13,
-    "max_bytes": 6524,
-    "median_bytes": 6044
-   },
-   "sample": "[2026-10-15 10:33:08,111] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Deleting segment files LogSegment(baseOffset="
-  },
-  {
-   "route": "tier_down",
-   "rule": "plan row: kafka, cap 1,669, tier_down",
-   "container": "kafka",
-   "pattern": "YJTvxN0rObQ",
-   "name": "Creating_new_KRaft_snapshot_file_because_we_have_replayed_at_least_bytes_org_apache_kafka_image_publisher_SnapshotGenerator",
-   "held": 136,
-   "held_bytes": 54400,
-   "held_lines": 136,
-   "severity": {
-    "INFO": 136
-   },
-   "in_causal_span": 21,
-   "outside": 115,
-   "flags": {
-    "kafkaQueueProblems": 21
-   },
-   "windows": 19,
-   "first": 1792061868.32,
-   "last": 1792066275.164,
-   "listed_in_caps": true,
-   "quiet": {
-    "windows_seen": 5,
-    "max_events": 13,
-    "max_bytes": 5200,
-    "median_bytes": 4800
-   },
-   "sample": "[2026-10-15 10:30:24,929] INFO [SnapshotGenerator id=1] Creating new KRaft snapshot file snapshot 00000000000000000043-0000000001 because we have replayed at le"
-  },
-  {
-   "route": "tier_down",
-   "rule": "plan row: kafka, cap 1,669, tier_down",
-   "container": "kafka",
-   "pattern": "TM6TaR-b4oE",
-   "name": "Successfully_wrote_snapshot_org_apache_kafka_image_publisher_SnapshotEmitter",
-   "held": 135,
-   "held_bytes": 45360,
-   "held_lines": 135,
-   "severity": {
-    "INFO": 135
-   },
-   "in_causal_span": 21,
-   "outside": 114,
-   "flags": {
-    "kafkaQueueProblems": 21
-   },
-   "windows": 19,
-   "first": 1792061868.324,
-   "last": 1792066255.631,
-   "listed_in_caps": true,
-   "quiet": {
-    "windows_seen": 5,
-    "max_events": 13,
-    "max_bytes": 4368,
-    "median_bytes": 4032
-   },
-   "sample": "[2026-10-15 10:30:25,356] INFO [SnapshotEmitter id=1] Successfully wrote snapshot 00000000000000000043-0000000001 (org.apache.kafka.image.publisher.SnapshotEmit"
-  },
-  {
-   "route": "tier_down",
-   "rule": "plan row: kafka, cap 1,669, tier_down",
-   "container": "kafka",
-   "pattern": "Y_71jRCq5Cw",
-   "name": "Scheduling_unloading_of_metadata_for_consumer_with_epoch_OptionalInt_apache_kafka_coordinator_common_runtime_CoordinatorRuntime",
-   "held": 45,
-   "held_bytes": 16911,
-   "held_lines": 45,
-   "severity": {
-    "INFO": 45
-   },
-   "in_causal_span": 0,
-   "outside": 45,
-   "flags": {},
-   "windows": 1,
-   "first": 1792065743.992,
-   "last": 1792065744.037,
-   "listed_in_caps": true,
-   "quiet": {
-    "windows_seen": 0,
-    "max_events": 0,
-    "max_bytes": 0,
-    "median_bytes": 0
-   },
-   "sample": "[2026-10-15 12:02:23,555] INFO [GroupCoordinator id=1] Scheduling unloading of metadata for __consumer_offsets-13 with epoch OptionalInt[1] (org.apache.kafka.co"
-  },
-  {
-   "route": "tier_down",
-   "rule": "plan row: kafka, cap 1,669, tier_down",
-   "container": "kafka",
-   "pattern": "VvBjD4t0T7w",
-   "name": "Started_unloading_metadata_for_consumer_with_epoch_OptionalInt_apache_kafka_coordinator_common_runtime_CoordinatorRuntime",
-   "held": 45,
-   "held_bytes": 16686,
-   "held_lines": 45,
-   "severity": {
-    "INFO": 45
-   },
-   "in_causal_span": 0,
-   "outside": 45,
-   "flags": {},
-   "windows": 1,
-   "first": 1792065744.025,
-   "last": 1792065744.193,
-   "listed_in_caps": true,
-   "quiet": {
-    "windows_seen": 0,
-    "max_events": 0,
-    "max_bytes": 0,
-    "median_bytes": 0
-   },
-   "sample": "[2026-10-15 12:02:23,987] INFO [GroupCoordinator id=1] Started unloading metadata for __consumer_offsets-46 with epoch OptionalInt[1]. (org.apache.kafka.coordin"
-  },
-  {
-   "route": "tier_down",
-   "rule": "plan row: kafka, cap 1,669, tier_down",
-   "container": "kafka",
-   "pattern": "wfraEN4ubTY",
-   "name": "Finished_unloading_metadata_for_consumer_with_epoch_OptionalInt_apache_kafka_coordinator_common_runtime_CoordinatorRuntime",
-   "held": 45,
-   "held_bytes": 16731,
-   "held_lines": 45,
-   "severity": {
-    "INFO": 45
-   },
-   "in_causal_span": 0,
-   "outside": 45,
-   "flags": {},
-   "windows": 1,
-   "first": 1792065744.029,
-   "last": 1792065744.2,
-   "listed_in_caps": true,
-   "quiet": {
-    "windows_seen": 0,
-    "max_events": 0,
-    "max_bytes": 0,
-    "median_bytes": 0
-   },
-   "sample": "[2026-10-15 12:02:24,001] INFO [GroupCoordinator id=1] Finished unloading metadata for __consumer_offsets-9 with epoch OptionalInt[1]. (org.apache.kafka.coordin"
-  },
-  {
-   "route": "tier_down",
-   "rule": "plan row: kafka, cap 1,669, tier_down",
-   "container": "kafka",
-   "pattern": "lfxNT0TdHRU",
-   "name": "Scheduling_loading_of_metadata_from_consumer_with_epoch_org_apache_kafka_coordinator_common_runtime_CoordinatorRuntime",
-   "held": 45,
-   "held_bytes": 16281,
-   "held_lines": 45,
-   "severity": {
-    "INFO": 45
-   },
-   "in_causal_span": 0,
-   "outside": 45,
-   "flags": {},
-   "windows": 1,
-   "first": 1792065746.379,
-   "last": 1792065746.461,
-   "listed_in_caps": true,
-   "quiet": {
-    "windows_seen": 0,
-    "max_events": 0,
-    "max_bytes": 0,
-    "median_bytes": 0
-   },
-   "sample": "[2026-10-15 10:30:47,417] INFO [GroupCoordinator id=1] Scheduling loading of metadata from __consumer_offsets-13 with epoch 0 (org.apache.kafka.coordinator.comm"
-  },
-  {
-   "route": "tier_down",
-   "rule": "plan row: kafka, cap 1,669, tier_down",
-   "container": "kafka",
-   "pattern": "KjKx7VN7snY",
-   "name": "was_spent_in_the_scheduler_Loaded_records_which_total_to_bytes_org_apache_kafka_coordinator_common_runtime_CoordinatorRuntime",
-   "held": 45,
-   "held_bytes": 20178,
-   "held_lines": 45,
-   "severity": {
-    "INFO": 45
-   },
-   "in_causal_span": 0,
-   "outside": 45,
-   "flags": {},
-   "windows": 1,
-   "first": 1792065746.44,
-   "last": 1792065749.24,
-   "listed_in_caps": true,
-   "quiet": {
-    "windows_seen": 0,
-    "max_events": 0,
-    "max_bytes": 0,
-    "median_bytes": 0
-   },
-   "sample": "[2026-10-15 10:30:49,649] INFO [GroupCoordinator id=1] Finished loading of metadata from __consumer_offsets-40 with epoch 0 in 137ms where 137ms was spent in th"
-  },
-  {
-   "route": "tier_down",
-   "rule": "plan row: otel-collector, cap 37,330, tier_down",
+   "rule": "plan row: otel-collector, cap 61,996, tier_down",
    "container": "otel-collector",
    "pattern": "KG8Fq0QFuoY",
    "name": "Logs",
-   "held": 3160,
-   "held_bytes": 1662308,
-   "held_lines": 3160,
+   "held": 2287,
+   "held_bytes": 1203067,
+   "held_lines": 2287,
    "severity": {
-    "INFO": 3160
+    "INFO": 2287
    },
    "in_causal_span": 0,
-   "outside": 3160,
+   "outside": 2287,
    "flags": {},
    "windows": 19,
-   "first": 1792061833.764,
-   "last": 1792066268.909,
+   "first": 1792068536.282,
+   "last": 1792072968.817,
    "listed_in_caps": true,
    "quiet": {
     "windows_seen": 5,
     "max_events": 240,
-    "max_bytes": 126260,
-    "median_bytes": 126243
+    "max_bytes": 126257,
+    "median_bytes": 123612
    },
-   "sample": "2026-10-15T10:29:08.525Z\tinfo\tLogs\t{\"resource\": {\"service.instance.id\": \"99ea105d-3021-4f66-8217-3b1b922aab65\", \"service.name\": \"otelcol-contrib\", \"service.vers"
+   "sample": "2026-10-15T12:15:25.001Z\tinfo\tLogs\t{\"resource\": {\"service.instance.id\": \"37b4ecad-45b1-4cff-8bb4-4a39ded95915\", \"service.name\": \"otelcol-contrib\", \"service.vers"
   },
   {
    "route": "tier_down",
-   "rule": "plan row: otel-collector, cap 37,330, tier_down",
+   "rule": "plan row: otel-collector, cap 61,996, tier_down",
    "container": "otel-collector",
    "pattern": "Gl3Gtr_SH5w",
    "name": "Traces",
-   "held": 3157,
-   "held_bytes": 1658122,
-   "held_lines": 3157,
+   "held": 2272,
+   "held_bytes": 1193317,
+   "held_lines": 2272,
    "severity": {
-    "INFO": 3157
+    "INFO": 2272
    },
    "in_causal_span": 0,
-   "outside": 3157,
+   "outside": 2272,
    "flags": {},
    "windows": 19,
-   "first": 1792061833.863,
-   "last": 1792066275.975,
+   "first": 1792068533.835,
+   "last": 1792072969.366,
    "listed_in_caps": true,
    "quiet": {
     "windows_seen": 5,
     "max_events": 240,
-    "max_bytes": 126055,
-    "median_bytes": 126043
+    "max_bytes": 126053,
+    "median_bytes": 125516
    },
-   "sample": "2026-10-15T10:29:09.824Z\tinfo\tTraces\t{\"resource\": {\"service.instance.id\": \"99ea105d-3021-4f66-8217-3b1b922aab65\", \"service.name\": \"otelcol-contrib\", \"service.ve"
+   "sample": "2026-10-15T12:16:40.306Z\tinfo\tTraces\t{\"resource\": {\"service.instance.id\": \"334c562a-2365-43d5-aca0-90e5b9c1e755\", \"service.name\": \"otelcol-contrib\", \"service.ve"
   },
   {
    "route": "tier_down",
-   "rule": "plan row: otel-collector, cap 37,330, tier_down",
+   "rule": "plan row: otel-collector, cap 61,996, tier_down",
    "container": "otel-collector",
    "pattern": "PuWB8kkVbfw",
    "name": "Metrics",
-   "held": 2278,
-   "held_bytes": 1260727,
-   "held_lines": 2278,
+   "held": 1446,
+   "held_bytes": 800318,
+   "held_lines": 1446,
    "severity": {
-    "INFO": 2278
+    "INFO": 1446
    },
    "in_causal_span": 0,
-   "outside": 2278,
+   "outside": 1446,
    "flags": {},
    "windows": 19,
-   "first": 1792061848.45,
-   "last": 1792066274.907,
+   "first": 1792068557.313,
+   "last": 1792072974.608,
    "listed_in_caps": true,
    "quiet": {
     "windows_seen": 5,
-    "max_events": 190,
-    "max_bytes": 105153,
-    "median_bytes": 103490
+    "max_events": 191,
+    "max_bytes": 105712,
+    "median_bytes": 101836
    },
-   "sample": "2026-10-15T10:29:08.635Z\tinfo\tMetrics\t{\"resource\": {\"service.instance.id\": \"99ea105d-3021-4f66-8217-3b1b922aab65\", \"service.name\": \"otelcol-contrib\", \"service.v"
+   "sample": "2026-10-15T12:15:25.717Z\tinfo\tMetrics\t{\"resource\": {\"service.instance.id\": \"37b4ecad-45b1-4cff-8bb4-4a39ded95915\", \"service.name\": \"otelcol-contrib\", \"service.v"
   },
   {
    "route": "tier_down",
-   "rule": "plan row: otel-collector, cap 37,330, tier_down",
-   "container": "otel-collector",
-   "pattern": "fhu6rrW86b4",
-   "name": "error_Error_scraping_metrics",
-   "held": 3,
-   "held_bytes": 14635,
-   "held_lines": 41,
-   "severity": {
-    "ERROR": 3
-   },
-   "in_causal_span": 0,
-   "outside": 3,
-   "flags": {},
-   "windows": 2,
-   "first": 1792062648.021,
-   "last": 1792062728.442,
-   "listed_in_caps": true,
-   "quiet": {
-    "windows_seen": 5,
-    "max_events": 7,
-    "max_bytes": 11444,
-    "median_bytes": 7876
-   },
-   "sample": "2026-10-15T10:29:08.633Z\terror\tscraperhelper@v0.159.0/obs_metrics.go:61\tError scraping metrics\t{\"resource\": {\"service.instance.id\": \"99ea105d-3021-4f66-8217-3b1"
-  },
-  {
-   "route": "tier_down",
-   "rule": "plan row: payment, cap 2,731, tier_down",
-   "container": "payment",
-   "pattern": "9WbTsopbiXk",
-   "name": "Transaction_complete",
-   "held": 136,
-   "held_bytes": 92026,
-   "held_lines": 136,
-   "severity": {
-    "TRACE": 136
-   },
-   "in_causal_span": 8,
-   "outside": 128,
-   "flags": {
-    "paymentFailure": 8
-   },
-   "windows": 18,
-   "first": 1792061908.06,
-   "last": 1792066270.69,
-   "listed_in_caps": true,
-   "quiet": {
-    "windows_seen": 5,
-    "max_events": 19,
-    "max_bytes": 12860,
-    "median_bytes": 10152
-   },
-   "sample": "{\"level\":\"info\",\"time\":1792060319177,\"pid\":1,\"hostname\":\"12cdf08779ff\",\"trace_id\":\"e022f217b2b3d7f6ade1a81e48608ba2\",\"span_id\":\"058660dbc7bec2a3\",\"trace_flags\":"
-  },
-  {
-   "route": "tier_down",
-   "rule": "plan row: payment, cap 2,731, tier_down",
+   "rule": "plan row: payment, cap 2,344, tier_down",
    "container": "payment",
    "pattern": "fg1YkiyrF3Q",
    "name": "Charge_request_received",
-   "held": 128,
-   "held_bytes": 54912,
-   "held_lines": 128,
+   "held": 159,
+   "held_bytes": 68211,
+   "held_lines": 159,
    "severity": {
-    "TRACE": 128
+    "TRACE": 159
    },
-   "in_causal_span": 17,
-   "outside": 111,
+   "in_causal_span": 16,
+   "outside": 143,
    "flags": {
-    "paymentFailure": 17
+    "paymentFailure": 16
    },
-   "windows": 18,
-   "first": 1792061929.035,
-   "last": 1792066270.689,
+   "windows": 19,
+   "first": 1792068486.997,
+   "last": 1792072972.509,
    "listed_in_caps": true,
    "quiet": {
     "windows_seen": 5,
-    "max_events": 19,
-    "max_bytes": 8151,
-    "median_bytes": 6435
+    "max_events": 11,
+    "max_bytes": 4719,
+    "median_bytes": 4290
    },
-   "sample": "{\"level\":\"info\",\"time\":1792060319047,\"pid\":1,\"hostname\":\"12cdf08779ff\",\"trace_id\":\"e022f217b2b3d7f6ade1a81e48608ba2\",\"span_id\":\"058660dbc7bec2a3\",\"trace_flags\":"
+   "sample": "{\"level\":\"info\",\"time\":1792066940534,\"pid\":1,\"hostname\":\"7dd26cfd3747\",\"trace_id\":\"d35d5b9ba7d44c6b785709d3439b152d\",\"span_id\":\"466dd18b80838bd4\",\"trace_flags\":"
   },
   {
    "route": "tier_down",
-   "rule": "plan row: payment, cap 2,731, tier_down",
+   "rule": "plan row: payment, cap 2,344, tier_down",
+   "container": "payment",
+   "pattern": "9WbTsopbiXk",
+   "name": "Transaction_complete",
+   "held": 149,
+   "held_bytes": 100761,
+   "held_lines": 149,
+   "severity": {
+    "TRACE": 149
+   },
+   "in_causal_span": 6,
+   "outside": 143,
+   "flags": {
+    "paymentFailure": 6
+   },
+   "windows": 18,
+   "first": 1792068486.998,
+   "last": 1792072972.511,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 11,
+    "max_bytes": 7435,
+    "median_bytes": 6769
+   },
+   "sample": "{\"level\":\"info\",\"time\":1792066940820,\"pid\":1,\"hostname\":\"7dd26cfd3747\",\"trace_id\":\"d35d5b9ba7d44c6b785709d3439b152d\",\"span_id\":\"466dd18b80838bd4\",\"trace_flags\":"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: payment, cap 2,344, tier_down",
    "container": "payment",
    "pattern": "_N7fwt_uqyQ",
    "name": "Payment_request_failed_Invalid_token_demo_user_context_loyalty_level_gold",
-   "held": 3,
-   "held_bytes": 2790,
-   "held_lines": 3,
+   "held": 7,
+   "held_bytes": 6510,
+   "held_lines": 7,
    "severity": {
-    "ERROR": 3
+    "ERROR": 7
    },
-   "in_causal_span": 3,
+   "in_causal_span": 7,
    "outside": 0,
    "flags": {
-    "paymentFailure": 3
+    "paymentFailure": 7
    },
    "windows": 1,
-   "first": 1792063331.351,
-   "last": 1792063442.908,
+   "first": 1792070039.879,
+   "last": 1792070095.061,
    "listed_in_caps": true,
    "quiet": {
     "windows_seen": 0,
@@ -1471,7 +988,7 @@
     "max_bytes": 0,
     "median_bytes": 0
    },
-   "sample": "{\"level\":\"warn\",\"time\":1792063200588,\"pid\":1,\"hostname\":\"12cdf08779ff\",\"trace_id\":\"c676ebed9288091732d32492803e03b0\",\"span_id\":\"d1a46a0a8234ae6e\",\"trace_flags\":"
+   "sample": "{\"level\":\"warn\",\"time\":1792069917530,\"pid\":1,\"hostname\":\"7dd26cfd3747\",\"trace_id\":\"76a3d40d7623dee41c36bd5126c87097\",\"span_id\":\"57a380963bc44924\",\"trace_flags\":"
   },
   {
    "route": "tier_down",
@@ -1479,77 +996,77 @@
    "container": "quote",
    "pattern": "c4yR2F2cVfk",
    "name": "POST_getquote_HTTP",
-   "held": 146,
-   "held_bytes": 34164,
-   "held_lines": 146,
+   "held": 159,
+   "held_bytes": 37206,
+   "held_lines": 159,
    "severity": {
-    "none": 146
+    "none": 159
    },
    "in_causal_span": 0,
-   "outside": 146,
+   "outside": 159,
    "flags": {},
    "windows": 19,
-   "first": 1792061908.043,
-   "last": 1792066270.682,
+   "first": 1792068486.977,
+   "last": 1792072972.498,
    "listed_in_caps": true,
    "quiet": {
     "windows_seen": 5,
-    "max_events": 19,
-    "max_bytes": 4446,
-    "median_bytes": 3510
+    "max_events": 11,
+    "max_bytes": 2574,
+    "median_bytes": 2340
    },
-   "sample": "[2026-10-15 10:31:58+00:00] \"POST /getquote HTTP/1.1\" 200 4 "
+   "sample": "[2026-10-15 12:22:20+00:00] \"POST /getquote HTTP/1.1\" 200 5 "
   },
   {
    "route": "tier_down",
-   "rule": "plan row: recommendation, cap 1, tier_down",
+   "rule": "plan row: recommendation, cap 2,330, tier_down",
    "container": "recommendation",
    "pattern": "bzLB1zZCTIw",
    "name": "Receive_ListRecommendations_for_product_ids",
-   "held": 299,
-   "held_bytes": 145912,
-   "held_lines": 299,
+   "held": 275,
+   "held_bytes": 134200,
+   "held_lines": 275,
    "severity": {
-    "INFO": 299
+    "INFO": 275
    },
-   "in_causal_span": 79,
-   "outside": 220,
+   "in_causal_span": 60,
+   "outside": 215,
    "flags": {
-    "recommendationCacheFailure": 52,
-    "loadGeneratorFloodHomepage": 27
+    "recommendationCacheFailure": 37,
+    "loadGeneratorFloodHomepage": 23
    },
    "windows": 19,
-   "first": 1792061809.814,
-   "last": 1792066264.962,
+   "first": 1792068527.373,
+   "last": 1792072946.037,
    "listed_in_caps": true,
    "quiet": {
     "windows_seen": 5,
-    "max_events": 30,
-    "max_bytes": 14640,
-    "median_bytes": 9760
+    "max_events": 21,
+    "max_bytes": 10248,
+    "median_bytes": 9272
    },
-   "sample": "2026-10-15 10:31:34,662 INFO [main] [recommendation_server.py:47] [trace_id=d9423b183af2f6feeb74a584e87c6025 span_id=28b126282750ff6b resource.service.name=reco"
+   "sample": "2026-10-15 12:22:20,218 INFO [main] [recommendation_server.py:47] [trace_id=89260d848a99e2a2cfdb6a0ff7afb1fb span_id=447437371cedad09 resource.service.name=reco"
   },
   {
    "route": "tier_down",
-   "rule": "plan row: recommendation, cap 1, tier_down",
+   "rule": "plan row: recommendation, cap 2,330, tier_down",
    "container": "recommendation",
    "pattern": "QE9Wwe64YPk",
    "name": "get_product_list_cache_hit",
-   "held": 13,
-   "held_bytes": 5213,
-   "held_lines": 13,
+   "held": 8,
+   "held_bytes": 3208,
+   "held_lines": 8,
    "severity": {
-    "INFO": 13
+    "INFO": 8
    },
-   "in_causal_span": 13,
+   "in_causal_span": 8,
    "outside": 0,
    "flags": {
-    "recommendationCacheFailure": 13
+    "recommendationCacheFailure": 8
    },
    "windows": 3,
-   "first": 1792065025.026,
-   "last": 1792066233.015,
+   "first": 1792071768.36,
+   "last": 1792072916.174,
    "listed_in_caps": true,
    "quiet": {
     "windows_seen": 0,
@@ -1557,28 +1074,28 @@
     "max_bytes": 0,
     "median_bytes": 0
    },
-   "sample": "2026-10-15 11:49:08,532 INFO [main] [recommendation_server.py:91] [trace_id=b84ac02d813767bc1d495698f648f357 span_id=184969df63e35d8b resource.service.name=reco"
+   "sample": "2026-10-15 13:41:24,363 INFO [main] [recommendation_server.py:91] [trace_id=80afe6e5c7209b3a99ff5582427a3aa7 span_id=40b875c0de01d118 resource.service.name=reco"
   },
   {
    "route": "tier_down",
-   "rule": "plan row: recommendation, cap 1, tier_down",
+   "rule": "plan row: recommendation, cap 2,330, tier_down",
    "container": "recommendation",
    "pattern": "pQCM0VaOm6U",
    "name": "get_product_list_cache_miss",
-   "held": 10,
-   "held_bytes": 4020,
-   "held_lines": 10,
+   "held": 8,
+   "held_bytes": 3216,
+   "held_lines": 8,
    "severity": {
-    "INFO": 10
+    "INFO": 8
    },
-   "in_causal_span": 10,
+   "in_causal_span": 8,
    "outside": 0,
    "flags": {
-    "recommendationCacheFailure": 10
+    "recommendationCacheFailure": 8
    },
    "windows": 3,
-   "first": 1792065095.938,
-   "last": 1792066264.949,
+   "first": 1792071910.154,
+   "last": 1792072946.024,
    "listed_in_caps": true,
    "quiet": {
     "windows_seen": 0,
@@ -1586,88 +1103,88 @@
     "max_bytes": 0,
     "median_bytes": 0
    },
-   "sample": "2026-10-15 11:49:08,257 INFO [main] [recommendation_server.py:83] [trace_id=4bdc81185198c78ed810393f9117dcc4 span_id=b053df331f4cd5dd resource.service.name=reco"
+   "sample": "2026-10-15 13:41:11,701 INFO [main] [recommendation_server.py:83] [trace_id=4704dd659a5791981e82047d810665ae span_id=0dc0a355428b37d2 resource.service.name=reco"
   },
   {
    "route": "tier_down",
-   "rule": "plan row: shipping, cap 3,879, tier_down",
+   "rule": "plan row: shipping, cap 2,721, tier_down",
    "container": "shipping",
    "pattern": "kAB8PMmHyKM",
    "name": "shipping_service_Requesting_quote_http_getquote",
-   "held": 75,
-   "held_bytes": 31425,
-   "held_lines": 75,
+   "held": 140,
+   "held_bytes": 58660,
+   "held_lines": 140,
    "severity": {
-    "none": 75
+    "none": 140
    },
    "in_causal_span": 0,
-   "outside": 75,
+   "outside": 140,
    "flags": {},
-   "windows": 17,
-   "first": 1792062003.16,
-   "last": 1792066270.68,
+   "windows": 19,
+   "first": 1792068501.091,
+   "last": 1792072972.493,
    "listed_in_caps": true,
    "quiet": {
     "windows_seen": 5,
-    "max_events": 19,
-    "max_bytes": 7961,
-    "median_bytes": 6285
+    "max_events": 11,
+    "max_bytes": 4609,
+    "median_bytes": 4190
    },
-   "sample": "\u001b[2m2026-10-15T10:31:58.537887Z\u001b[0m \u001b[32m INFO\u001b[0m \u001b[2mshipping::shipping_service::quote\u001b[0m\u001b[2m:\u001b[0m Requesting quote \u001b[3mquote_service_addr\u001b[0m\u001b[2m=\u001b[0m\"http:"
+   "sample": "\u001b[2m2026-10-15T12:22:20.212109Z\u001b[0m \u001b[32m INFO\u001b[0m \u001b[2mshipping::shipping_service::quote\u001b[0m\u001b[2m:\u001b[0m Requesting quote \u001b[3mquote_service_addr\u001b[0m\u001b[2m=\u001b[0m\"http:"
   },
   {
    "route": "tier_down",
-   "rule": "plan row: shipping, cap 3,879, tier_down",
+   "rule": "plan row: shipping, cap 2,721, tier_down",
    "container": "shipping",
    "pattern": "PX-oZ7rxgZo",
    "name": "Sending_Quote",
-   "held": 75,
-   "held_bytes": 31140,
-   "held_lines": 75,
+   "held": 140,
+   "held_bytes": 58117,
+   "held_lines": 140,
    "severity": {
-    "none": 75
+    "none": 140
    },
    "in_causal_span": 0,
-   "outside": 75,
+   "outside": 140,
    "flags": {},
-   "windows": 17,
-   "first": 1792062003.162,
-   "last": 1792066270.683,
+   "windows": 19,
+   "first": 1792068501.167,
+   "last": 1792072972.498,
    "listed_in_caps": true,
    "quiet": {
     "windows_seen": 5,
-    "max_events": 19,
-    "max_bytes": 7890,
-    "median_bytes": 6230
+    "max_events": 11,
+    "max_bytes": 4567,
+    "median_bytes": 4151
    },
-   "sample": "\u001b[2m2026-10-15T10:31:58.771496Z\u001b[0m \u001b[32m INFO\u001b[0m \u001b[2mshipping::shipping_service\u001b[0m\u001b[2m:\u001b[0m Sending Quote \u001b[3mdollars\u001b[0m\u001b[2m=\u001b[0m8 \u001b[3mcents\u001b[0m\u001b[2m=\u001b[0m99"
+   "sample": "\u001b[2m2026-10-15T12:22:20.413673Z\u001b[0m \u001b[32m INFO\u001b[0m \u001b[2mshipping::shipping_service\u001b[0m\u001b[2m:\u001b[0m Sending Quote \u001b[3mdollars\u001b[0m\u001b[2m=\u001b[0m26 \u001b[3mcents\u001b[0m\u001b[2m=\u001b[0m97"
   },
   {
    "route": "tier_down",
-   "rule": "plan row: shipping, cap 3,879, tier_down",
+   "rule": "plan row: shipping, cap 2,721, tier_down",
    "container": "shipping",
    "pattern": "LnOvjJt0La4",
    "name": "Tracking_ID_Created",
-   "held": 70,
-   "held_bytes": 29260,
-   "held_lines": 70,
+   "held": 131,
+   "held_bytes": 54758,
+   "held_lines": 131,
    "severity": {
-    "none": 70
+    "none": 131
    },
    "in_causal_span": 0,
-   "outside": 70,
+   "outside": 131,
    "flags": {},
-   "windows": 16,
-   "first": 1792062003.174,
-   "last": 1792066270.692,
+   "windows": 18,
+   "first": 1792068501.359,
+   "last": 1792072972.511,
    "listed_in_caps": true,
    "quiet": {
     "windows_seen": 5,
-    "max_events": 19,
-    "max_bytes": 7942,
-    "median_bytes": 6270
+    "max_events": 11,
+    "max_bytes": 4598,
+    "median_bytes": 4180
    },
-   "sample": "\u001b[2m2026-10-15T10:31:59.196275Z\u001b[0m \u001b[32m INFO\u001b[0m \u001b[2mshipping::shipping_service\u001b[0m\u001b[2m:\u001b[0m Tracking ID Created \u001b[3mtracking_id\u001b[0m\u001b[2m=\u001b[0m\"a09672b5-cb52-48"
+   "sample": "\u001b[2m2026-10-15T12:22:20.847381Z\u001b[0m \u001b[32m INFO\u001b[0m \u001b[2mshipping::shipping_service\u001b[0m\u001b[2m:\u001b[0m Tracking ID Created \u001b[3mtracking_id\u001b[0m\u001b[2m=\u001b[0m\"9d7c7789-4c1f-43"
   },
   {
    "route": "tier_down",
@@ -1675,26 +1192,26 @@
    "container": "telemetry-docs",
    "pattern": "zxRYTKQNyBY",
    "name": "GET_HTTP_Wget",
-   "held": 790,
-   "held_bytes": 206190,
-   "held_lines": 790,
+   "held": 770,
+   "held_bytes": 200970,
+   "held_lines": 770,
    "severity": {
-    "none": 790
+    "none": 770
    },
    "in_causal_span": 0,
-   "outside": 790,
+   "outside": 770,
    "flags": {},
    "windows": 19,
-   "first": 1792061787.75,
-   "last": 1792066270.49,
+   "first": 1792068473.614,
+   "last": 1792072972.865,
    "listed_in_caps": true,
    "quiet": {
     "windows_seen": 5,
-    "max_events": 48,
-    "max_bytes": 12528,
+    "max_events": 47,
+    "max_bytes": 12267,
     "median_bytes": 12267
    },
-   "sample": "::1 - - [15/Oct/2026:10:28:32 +0000] \"GET / HTTP/1.1\" 200 29066 \"-\" \"Wget\""
+   "sample": "::1 - - [15/Oct/2026:12:14:55 +0000] \"GET / HTTP/1.1\" 200 29066 \"-\" \"Wget\""
   }
  ],
  "per_activation": [
@@ -1702,413 +1219,69 @@
    "n": 1,
    "flag": "cartFailure",
    "variant": "100%",
-   "on": 1792061835.69,
-   "off": 1792062250.86,
-   "span_end": 1792062459.952,
+   "on": 1792068535.598,
+   "off": 1792068950.777,
+   "span_end": 1792069159.88,
    "containers": [
     {
      "container": "otel-collector",
-     "rule": "plan row: otel-collector, cap 37,330, tier_down",
+     "rule": "plan row: otel-collector, cap 61,996, tier_down",
      "in_causal_path": false,
      "first_noisy": null,
      "noisy_pattern": null,
      "noisy_name": null,
      "noisy_events_in_minute": null,
      "noisy_pre_rate_per_min": null,
-     "first_held": 1792061848.45,
+     "first_held": 1792068536.282,
      "noisy_to_held_s": null,
      "first_held_route": "tier_down",
-     "held": 343,
-     "held_bytes": 189813,
+     "held": 637,
+     "held_bytes": 341891,
      "held_offload": 0,
-     "held_tier_down": 343,
-     "kept_same_patterns": 143,
-     "kept_container": 438,
-     "steady_held": 965,
-     "steady_held_bytes": 507234,
+     "held_tier_down": 637,
+     "kept_same_patterns": 478,
+     "kept_container": 728,
+     "steady_held": 383,
+     "steady_held_bytes": 201163,
      "steady_patterns": {
-      "Logs": 487,
-      "Traces": 478
+      "Traces": 383
      },
      "patterns": [
+      {
+       "pattern": "KG8Fq0QFuoY",
+       "rule": "plan row: otel-collector, cap 61,996, tier_down",
+       "name": "Logs",
+       "held": 389,
+       "kept": 237,
+       "routes": {
+        "tier_down": 389
+       },
+       "severity": {
+        "INFO": 389
+       },
+       "bytes": 204621,
+       "first_held": 1792068536.282,
+       "last_held": 1792069156.536,
+       "first_seen": 1792068535.885,
+       "sample": "2026-10-15T12:15:25.001Z\tinfo\tLogs\t{\"resource\": {\"service.instance.id\": \"37b4ecad-45b1-4cff-8bb4-4a39ded95915\", \"service.name\": \"otelcol-contrib\", \"service.vers"
+      },
       {
        "pattern": "PuWB8kkVbfw",
-       "rule": "plan row: otel-collector, cap 37,330, tier_down",
+       "rule": "plan row: otel-collector, cap 61,996, tier_down",
        "name": "Metrics",
-       "held": 343,
-       "kept": 143,
+       "held": 248,
+       "kept": 241,
        "routes": {
-        "tier_down": 343
+        "tier_down": 248
        },
        "severity": {
-        "INFO": 343
+        "INFO": 248
        },
-       "bytes": 189813,
-       "first_held": 1792061848.45,
-       "last_held": 1792062458.444,
-       "first_seen": 1792061838.439,
-       "sample": "2026-10-15T10:29:08.635Z\tinfo\tMetrics\t{\"resource\": {\"service.instance.id\": \"99ea105d-3021-4f66-8217-3b1b922aab65\", \"service.name\": \"otelcol-contrib\", \"service.v"
-      }
-     ]
-    },
-    {
-     "container": "cart",
-     "rule": "plan row: cart, cap 1, tier_down",
-     "in_causal_path": true,
-     "first_noisy": 1792061897.632,
-     "noisy_pattern": "eDSYlCMPqVY",
-     "noisy_name": "AddItemAsync_called_with_userId_productId_quantity",
-     "noisy_events_in_minute": 19,
-     "noisy_pre_rate_per_min": 2.7,
-     "first_held": 1792061857.591,
-     "noisy_to_held_s": -40.04099988937378,
-     "first_held_route": "tier_down",
-     "held": 138,
-     "held_bytes": 51473,
-     "held_offload": 0,
-     "held_tier_down": 138,
-     "kept_same_patterns": 35,
-     "kept_container": 45,
-     "steady_held": 199,
-     "steady_held_bytes": 56689,
-     "steady_patterns": {
-      "GetCartAsync_called_with_userId": 199
-     },
-     "patterns": [
-      {
-       "pattern": "eDSYlCMPqVY",
-       "rule": "plan row: cart, cap 1, tier_down",
-       "name": "AddItemAsync_called_with_userId_productId_quantity",
-       "held": 103,
-       "kept": 11,
-       "routes": {
-        "tier_down": 103
-       },
-       "severity": {
-        "INFO": 103
-       },
-       "bytes": 33799,
-       "first_held": 1792061857.591,
-       "last_held": 1792062458.122,
-       "first_seen": 1792061850.745,
-       "sample": "info: cart.cartstore.ValkeyCartStore[133092716]\n      AddItemAsync called with userId=940705e8-c883-11f1-8f4c-0242ac1c0018, productId=HQTGWGPNH4, quantity=1"
-      },
-      {
-       "pattern": "h3qY1nS1uxY",
-       "rule": "plan row: cart, cap 1, tier_down",
-       "name": "EmptyCartAsync_called_with_userId",
-       "held": 18,
-       "kept": 14,
-       "routes": {
-        "tier_down": 18
-       },
-       "severity": {
-        "INFO": 18
-       },
-       "bytes": 6930,
-       "first_held": 1792061908.074,
-       "last_held": 1792062245.988,
-       "first_seen": 1792061886.592,
-       "sample": "info: cart.cartstore.ValkeyCartStore[911421920]\n      EmptyCartAsync called with userId=a638c9b8-c883-11f1-8f4c-0242ac1c0018"
-      },
-      {
-       "pattern": "9-GL0Pp_Cts",
-       "rule": "plan row: cart, cap 1, tier_down",
-       "name": "Error_code_FailedPrecondition_detail_Can_access_cart_storage_System_ApplicationException_Wasn_t_able_to_connect_redis",
-       "held": 17,
-       "kept": 10,
-       "routes": {
-        "tier_down": 17
-       },
-       "severity": {
-        "INFO": 17
-       },
-       "bytes": 10744,
-       "first_held": 1792061929.319,
-       "last_held": 1792062246.184,
-       "first_seen": 1792061886.921,
-       "sample": "info: Grpc.AspNetCore.Server.ServerCallHandler[7]\n      Error status code 'FailedPrecondition' with detail 'Can't access cart storage. System.ApplicationExcepti"
-      }
-     ]
-    },
-    {
-     "container": "kafka",
-     "rule": "plan row: kafka, cap 1,669, tier_down",
-     "in_causal_path": false,
-     "first_noisy": null,
-     "noisy_pattern": null,
-     "noisy_name": null,
-     "noisy_events_in_minute": null,
-     "noisy_pre_rate_per_min": null,
-     "first_held": 1792061848.282,
-     "noisy_to_held_s": null,
-     "first_held_route": "tier_down",
-     "held": 104,
-     "held_bytes": 39295,
-     "held_offload": 0,
-     "held_tier_down": 104,
-     "kept_same_patterns": 42,
-     "kept_container": 132,
-     "steady_held": 229,
-     "steady_held_bytes": 89029,
-     "steady_patterns": {
-      "Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment": 31,
-      "Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment": 31,
-      "Deleted_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment": 31,
-      "Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile": 31
-     },
-     "patterns": [
-      {
-       "pattern": "VnqlcNA_PIM",
-       "rule": "plan row: kafka, cap 1,669, tier_down",
-       "name": "Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager",
-       "held": 31,
-       "kept": 10,
-       "routes": {
-        "tier_down": 31
-       },
-       "severity": {
-        "INFO": 31
-       },
-       "bytes": 11966,
-       "first_held": 1792061848.283,
-       "last_held": 1792062449.406,
-       "first_seen": 1792061848.283,
-       "sample": "[2026-10-15 10:30:24,032] INFO [ProducerStateManager partition=__cluster_metadata-0] Wrote producer snapshot at offset 40 with 0 producer ids in 31 ms. (org.apa"
-      },
-      {
-       "pattern": "wyR-oWD2-hk",
-       "rule": "plan row: kafka, cap 1,669, tier_down",
-       "name": "Rolled_new_log_segment_at_offset_in_ms_org_apache_kafka_storage_internals_LocalLog",
-       "held": 31,
-       "kept": 10,
-       "routes": {
-        "tier_down": 31
-       },
-       "severity": {
-        "INFO": 31
-       },
-       "bytes": 11873,
-       "first_held": 1792061848.282,
-       "last_held": 1792062449.406,
-       "first_seen": 1792061848.282,
-       "sample": "[2026-10-15 10:30:23,991] INFO [LocalLog partition=__cluster_metadata-0, dir=/tmp/kafka-logs/__cluster_metadata-0] Rolled new log segment at offset 40 in 91 ms."
-      },
-      {
-       "pattern": "TM6TaR-b4oE",
-       "rule": "plan row: kafka, cap 1,669, tier_down",
-       "name": "Successfully_wrote_snapshot_org_apache_kafka_image_publisher_SnapshotEmitter",
-       "held": 21,
-       "kept": 11,
-       "routes": {
-        "tier_down": 21
-       },
-       "severity": {
-        "INFO": 21
-       },
-       "bytes": 7056,
-       "first_held": 1792061868.324,
-       "last_held": 1792062454.419,
-       "first_seen": 1792061848.813,
-       "sample": "[2026-10-15 10:30:25,356] INFO [SnapshotEmitter id=1] Successfully wrote snapshot 00000000000000000043-0000000001 (org.apache.kafka.image.publisher.SnapshotEmit"
-      },
-      {
-       "pattern": "YJTvxN0rObQ",
-       "rule": "plan row: kafka, cap 1,669, tier_down",
-       "name": "Creating_new_KRaft_snapshot_file_because_we_have_replayed_at_least_bytes_org_apache_kafka_image_publisher_SnapshotGenerator",
-       "held": 21,
-       "kept": 11,
-       "routes": {
-        "tier_down": 21
-       },
-       "severity": {
-        "INFO": 21
-       },
-       "bytes": 8400,
-       "first_held": 1792061868.32,
-       "last_held": 1792062454.414,
-       "first_seen": 1792061848.783,
-       "sample": "[2026-10-15 10:30:24,929] INFO [SnapshotGenerator id=1] Creating new KRaft snapshot file snapshot 00000000000000000043-0000000001 because we have replayed at le"
-      }
-     ]
-    },
-    {
-     "container": "ad",
-     "rule": "plan row: ad, cap 1, tier_down",
-     "in_causal_path": false,
-     "first_noisy": null,
-     "noisy_pattern": null,
-     "noisy_name": null,
-     "noisy_events_in_minute": null,
-     "noisy_pre_rate_per_min": null,
-     "first_held": 1792061849.015,
-     "noisy_to_held_s": null,
-     "first_held_route": "tier_down",
-     "held": 41,
-     "held_bytes": 13875,
-     "held_offload": 0,
-     "held_tier_down": 41,
-     "kept_same_patterns": 10,
-     "kept_container": 19,
-     "steady_held": 0,
-     "steady_held_bytes": 0,
-     "steady_patterns": {},
-     "patterns": [
-      {
-       "pattern": "xHrytxJfUdw",
-       "rule": "plan row: ad, cap 1, tier_down",
-       "name": "oteldemo_AdService_Targeted_ad_request_received_for",
-       "held": 41,
-       "kept": 10,
-       "routes": {
-        "tier_down": 41
-       },
-       "severity": {
-        "TRACE": 41
-       },
-       "bytes": 13875,
-       "first_held": 1792061849.015,
-       "last_held": 1792062449.566,
-       "first_seen": 1792061849.015,
-       "sample": "2026-10-15 10:31:38 - oteldemo.AdService - Targeted ad request received for [assembly] trace_id=372ca3c93be2e7ad8cab7b1ef54f7eb0 span_id=7caed157b273ed44 trace_"
-      }
-     ]
-    },
-    {
-     "container": "payment",
-     "rule": "plan row: payment, cap 2,731, tier_down",
-     "in_causal_path": false,
-     "first_noisy": 1792062027.702,
-     "noisy_pattern": "fg1YkiyrF3Q",
-     "noisy_name": "Charge_request_received",
-     "noisy_events_in_minute": 7,
-     "noisy_pre_rate_per_min": 0.9,
-     "first_held": 1792061908.06,
-     "noisy_to_held_s": -119.64199995994568,
-     "first_held_route": "tier_down",
-     "held": 34,
-     "held_bytes": 19054,
-     "held_offload": 0,
-     "held_tier_down": 34,
-     "kept_same_patterns": 30,
-     "kept_container": 30,
-     "steady_held": 0,
-     "steady_held_bytes": 0,
-     "steady_patterns": {},
-     "patterns": [
-      {
-       "pattern": "9WbTsopbiXk",
-       "rule": "plan row: payment, cap 2,731, tier_down",
-       "name": "Transaction_complete",
-       "held": 18,
-       "kept": 14,
-       "routes": {
-        "tier_down": 18
-       },
-       "severity": {
-        "TRACE": 18
-       },
-       "bytes": 12190,
-       "first_held": 1792061908.06,
-       "last_held": 1792062245.968,
-       "first_seen": 1792061886.584,
-       "sample": "{\"level\":\"info\",\"time\":1792060319177,\"pid\":1,\"hostname\":\"12cdf08779ff\",\"trace_id\":\"e022f217b2b3d7f6ade1a81e48608ba2\",\"span_id\":\"058660dbc7bec2a3\",\"trace_flags\":"
-      },
-      {
-       "pattern": "fg1YkiyrF3Q",
-       "rule": "plan row: payment, cap 2,731, tier_down",
-       "name": "Charge_request_received",
-       "held": 16,
-       "kept": 16,
-       "routes": {
-        "tier_down": 16
-       },
-       "severity": {
-        "TRACE": 16
-       },
-       "bytes": 6864,
-       "first_held": 1792061929.035,
-       "last_held": 1792062245.966,
-       "first_seen": 1792061886.582,
-       "sample": "{\"level\":\"info\",\"time\":1792060319047,\"pid\":1,\"hostname\":\"12cdf08779ff\",\"trace_id\":\"e022f217b2b3d7f6ade1a81e48608ba2\",\"span_id\":\"058660dbc7bec2a3\",\"trace_flags\":"
-      }
-     ]
-    },
-    {
-     "container": "shipping",
-     "rule": "plan row: shipping, cap 3,879, tier_down",
-     "in_causal_path": false,
-     "first_noisy": 1792062027.681,
-     "noisy_pattern": "kAB8PMmHyKM",
-     "noisy_name": "shipping_service_Requesting_quote_http_getquote",
-     "noisy_events_in_minute": 7,
-     "noisy_pre_rate_per_min": 0.9,
-     "first_held": 1792062003.16,
-     "noisy_to_held_s": -24.520999908447266,
-     "first_held_route": "tier_down",
-     "held": 30,
-     "held_bytes": 12521,
-     "held_offload": 0,
-     "held_tier_down": 30,
-     "kept_same_patterns": 66,
-     "kept_container": 68,
-     "steady_held": 0,
-     "steady_held_bytes": 0,
-     "steady_patterns": {},
-     "patterns": [
-      {
-       "pattern": "LnOvjJt0La4",
-       "rule": "plan row: shipping, cap 3,879, tier_down",
-       "name": "Tracking_ID_Created",
-       "held": 10,
-       "kept": 22,
-       "routes": {
-        "tier_down": 10
-       },
-       "severity": {
-        "none": 10
-       },
-       "bytes": 4180,
-       "first_held": 1792062003.174,
-       "last_held": 1792062245.982,
-       "first_seen": 1792061886.588,
-       "sample": "\u001b[2m2026-10-15T10:31:59.196275Z\u001b[0m \u001b[32m INFO\u001b[0m \u001b[2mshipping::shipping_service\u001b[0m\u001b[2m:\u001b[0m Tracking ID Created \u001b[3mtracking_id\u001b[0m\u001b[2m=\u001b[0m\"a09672b5-cb52-48"
-      },
-      {
-       "pattern": "PX-oZ7rxgZo",
-       "rule": "plan row: shipping, cap 3,879, tier_down",
-       "name": "Sending_Quote",
-       "held": 10,
-       "kept": 22,
-       "routes": {
-        "tier_down": 10
-       },
-       "severity": {
-        "none": 10
-       },
-       "bytes": 4151,
-       "first_held": 1792062003.162,
-       "last_held": 1792062245.943,
-       "first_seen": 1792061886.539,
-       "sample": "\u001b[2m2026-10-15T10:31:58.771496Z\u001b[0m \u001b[32m INFO\u001b[0m \u001b[2mshipping::shipping_service\u001b[0m\u001b[2m:\u001b[0m Sending Quote \u001b[3mdollars\u001b[0m\u001b[2m=\u001b[0m8 \u001b[3mcents\u001b[0m\u001b[2m=\u001b[0m99"
-      },
-      {
-       "pattern": "kAB8PMmHyKM",
-       "rule": "plan row: shipping, cap 3,879, tier_down",
-       "name": "shipping_service_Requesting_quote_http_getquote",
-       "held": 10,
-       "kept": 22,
-       "routes": {
-        "tier_down": 10
-       },
-       "severity": {
-        "none": 10
-       },
-       "bytes": 4190,
-       "first_held": 1792062003.16,
-       "last_held": 1792062245.939,
-       "first_seen": 1792061886.534,
-       "sample": "\u001b[2m2026-10-15T10:31:58.537887Z\u001b[0m \u001b[32m INFO\u001b[0m \u001b[2mshipping::shipping_service::quote\u001b[0m\u001b[2m:\u001b[0m Requesting quote \u001b[3mquote_service_addr\u001b[0m\u001b[2m=\u001b[0m\"http:"
+       "bytes": 137270,
+       "first_held": 1792068557.313,
+       "last_held": 1792069159.062,
+       "first_seen": 1792068537.018,
+       "sample": "2026-10-15T12:15:25.717Z\tinfo\tMetrics\t{\"resource\": {\"service.instance.id\": \"37b4ecad-45b1-4cff-8bb4-4a39ded95915\", \"service.name\": \"otelcol-contrib\", \"service.v"
       }
      ]
     },
@@ -2116,229 +1289,89 @@
      "container": "email",
      "rule": "plan row: email, cap 1, tier_down",
      "in_causal_path": false,
-     "first_noisy": 1792062027.914,
-     "noisy_pattern": "1zhBPd1E9Bc",
-     "noisy_name": "POST_send_order_confirmation_HTTP",
-     "noisy_events_in_minute": 7,
-     "noisy_pre_rate_per_min": 0.9,
-     "first_held": 1792061908.224,
-     "noisy_to_held_s": -119.69000005722046,
+     "first_noisy": null,
+     "noisy_pattern": null,
+     "noisy_name": null,
+     "noisy_events_in_minute": null,
+     "noisy_pre_rate_per_min": null,
+     "first_held": 1792068544.664,
+     "noisy_to_held_s": null,
      "first_held_route": "tier_down",
-     "held": 27,
-     "held_bytes": 7518,
+     "held": 19,
+     "held_bytes": 4712,
      "held_offload": 0,
-     "held_tier_down": 27,
-     "kept_same_patterns": 28,
-     "kept_container": 28,
-     "steady_held": 0,
-     "steady_held_bytes": 0,
-     "steady_patterns": {},
+     "held_tier_down": 19,
+     "kept_same_patterns": 10,
+     "kept_container": 20,
+     "steady_held": 34,
+     "steady_held_bytes": 10106,
+     "steady_patterns": {
+      "POST_send_order_confirmation_HTTP": 34
+     },
      "patterns": [
-      {
-       "pattern": "1zhBPd1E9Bc",
-       "rule": "plan row: email, cap 1, tier_down",
-       "name": "POST_send_order_confirmation_HTTP",
-       "held": 18,
-       "kept": 14,
-       "routes": {
-        "tier_down": 18
-       },
-       "severity": {
-        "none": 18
-       },
-       "bytes": 5286,
-       "first_held": 1792061908.224,
-       "last_held": 1792062246.195,
-       "first_seen": 1792061886.95,
-       "sample": "172.28.0.22 - - [15/Oct/2026:10:31:59 +0000] \"POST /send_order_confirmation HTTP/1.1\" 200 - 0.6164"
-      },
       {
        "pattern": "shf1OAS338c",
        "rule": "plan row: email, cap 1, tier_down",
        "name": "Order_confirmation_email_sent_for_order",
-       "held": 9,
-       "kept": 14,
+       "held": 19,
+       "kept": 10,
        "routes": {
-        "tier_down": 9
+        "tier_down": 19
        },
        "severity": {
-        "none": 9
+        "none": 19
        },
-       "bytes": 2232,
-       "first_held": 1792061956.057,
-       "last_held": 1792062246.195,
-       "first_seen": 1792061886.949,
-       "sample": "Order confirmation email sent for order a667437e-c883-11f1-a9fa-0242ac1c0016"
+       "bytes": 4712,
+       "first_held": 1792068544.664,
+       "last_held": 1792069138.863,
+       "first_seen": 1792068544.664,
+       "sample": "Order confirmation email sent for order 1111e753-c893-11f1-b536-0242ac1c0016"
       }
      ]
     },
     {
-     "container": "accounting",
-     "rule": "plan row: accounting, cap 3,866, tier_down",
-     "in_causal_path": false,
-     "first_noisy": 1792062027.945,
-     "noisy_pattern": "-FtZD9XArpU",
-     "noisy_name": "Order_details",
-     "noisy_events_in_minute": 7,
-     "noisy_pre_rate_per_min": 0.9,
-     "first_held": 1792061908.233,
-     "noisy_to_held_s": -119.71199989318848,
-     "first_held_route": "tier_down",
-     "held": 18,
-     "held_bytes": 17453,
-     "held_offload": 0,
-     "held_tier_down": 18,
-     "kept_same_patterns": 14,
-     "kept_container": 14,
-     "steady_held": 0,
-     "steady_held_bytes": 0,
-     "steady_patterns": {},
-     "patterns": [
-      {
-       "pattern": "-FtZD9XArpU",
-       "rule": "plan row: accounting, cap 3,866, tier_down",
-       "name": "Order_details",
-       "held": 18,
-       "kept": 14,
-       "routes": {
-        "tier_down": 18
-       },
-       "severity": {
-        "INFO": 18
-       },
-       "bytes": 17453,
-       "first_held": 1792061908.233,
-       "last_held": 1792062246.207,
-       "first_seen": 1792061886.986,
-       "sample": "info: Accounting.Consumer[722003269]\n      Order details: { \"orderId\": \"a667437e-c883-11f1-a9fa-0242ac1c0016\", \"shippingTrackingId\": \"a09672b5-cb52-4842-a5d5-c7"
-      }
-     ]
-    },
-    {
-     "container": "fraud-detection",
-     "rule": "plan row: fraud-detection, cap 1, tier_down",
-     "in_causal_path": false,
-     "first_noisy": 1792062027.948,
-     "noisy_pattern": "GKfNbCrpxxI",
-     "noisy_name": "fraud_detection_Consumed_record_with_orderId_and_updated_total_count_to_trace_id_span_flags",
-     "noisy_events_in_minute": 7,
-     "noisy_pre_rate_per_min": 0.9,
-     "first_held": 1792061908.237,
-     "noisy_to_held_s": -119.71099996566772,
-     "first_held_route": "tier_down",
-     "held": 18,
-     "held_bytes": 7267,
-     "held_offload": 0,
-     "held_tier_down": 18,
-     "kept_same_patterns": 14,
-     "kept_container": 14,
-     "steady_held": 0,
-     "steady_held_bytes": 0,
-     "steady_patterns": {},
-     "patterns": [
-      {
-       "pattern": "GKfNbCrpxxI",
-       "rule": "plan row: fraud-detection, cap 1, tier_down",
-       "name": "fraud_detection_Consumed_record_with_orderId_and_updated_total_count_to_trace_id_span_flags",
-       "held": 18,
-       "kept": 14,
-       "routes": {
-        "tier_down": 18
-       },
-       "severity": {
-        "TRACE": 18
-       },
-       "bytes": 7267,
-       "first_held": 1792061908.237,
-       "last_held": 1792062246.21,
-       "first_seen": 1792061886.989,
-       "sample": "2026-10-15 10:32:00 - fraud-detection - Consumed record with orderId: a667437e-c883-11f1-a9fa-0242ac1c0016, and updated total count to: 1 trace_id=96bf16735d33e"
-      }
-     ]
-    },
-    {
-     "container": "frontend",
-     "rule": "plan row: frontend, cap 1, tier_down",
+     "container": "cart",
+     "rule": "plan row: cart, cap 1, tier_down",
      "in_causal_path": true,
-     "first_noisy": 1792062027.99,
-     "noisy_pattern": "KSy6KmHbgEc",
-     "noisy_name": "Order_placed_successfully",
-     "noisy_events_in_minute": 7,
-     "noisy_pre_rate_per_min": 0.9,
-     "first_held": 1792061908.261,
-     "noisy_to_held_s": -119.72900009155273,
+     "first_noisy": 1792068837.972,
+     "noisy_pattern": "9-GL0Pp_Cts",
+     "noisy_name": "Error_code_FailedPrecondition_detail_Can_access_cart_storage_System_ApplicationException_Wasn_t_able_to_connect_redis",
+     "noisy_events_in_minute": 6,
+     "noisy_pre_rate_per_min": 0.0,
+     "first_held": 1792068600.709,
+     "noisy_to_held_s": -237.2629997730255,
      "first_held_route": "tier_down",
-     "held": 18,
-     "held_bytes": 8190,
+     "held": 16,
+     "held_bytes": 10112,
      "held_offload": 0,
-     "held_tier_down": 18,
-     "kept_same_patterns": 14,
-     "kept_container": 24,
-     "steady_held": 598,
-     "steady_held_bytes": 295071,
+     "held_tier_down": 16,
+     "kept_same_patterns": 12,
+     "kept_container": 42,
+     "steady_held": 362,
+     "steady_held_bytes": 110493,
      "steady_patterns": {
-      "API_request_completed": 598
+      "GetCartAsync_called_with_userId": 215,
+      "AddItemAsync_called_with_userId_productId_quantity": 113,
+      "EmptyCartAsync_called_with_userId": 34
      },
      "patterns": [
       {
-       "pattern": "KSy6KmHbgEc",
-       "rule": "plan row: frontend, cap 1, tier_down",
-       "name": "Order_placed_successfully",
-       "held": 18,
-       "kept": 14,
+       "pattern": "9-GL0Pp_Cts",
+       "rule": "plan row: cart, cap 1, tier_down",
+       "name": "Error_code_FailedPrecondition_detail_Can_access_cart_storage_System_ApplicationException_Wasn_t_able_to_connect_redis",
+       "held": 16,
+       "kept": 12,
        "routes": {
-        "tier_down": 18
+        "tier_down": 16
        },
        "severity": {
-        "TRACE": 18
+        "INFO": 16
        },
-       "bytes": 8190,
-       "first_held": 1792061908.261,
-       "last_held": 1792062246.25,
-       "first_seen": 1792061887.0,
-       "sample": "{\"level\":30,\"time\":1792060320185,\"pid\":1,\"hostname\":\"73ce8ce5d637\",\"trace_id\":\"e022f217b2b3d7f6ade1a81e48608ba2\",\"span_id\":\"1351de1b31976c14\",\"trace_flags\":\"01\""
-      }
-     ]
-    },
-    {
-     "container": "quote",
-     "rule": "plan row: quote, cap 1, tier_down",
-     "in_causal_path": false,
-     "first_noisy": 1792062027.685,
-     "noisy_pattern": "c4yR2F2cVfk",
-     "noisy_name": "POST_getquote_HTTP",
-     "noisy_events_in_minute": 7,
-     "noisy_pre_rate_per_min": 0.9,
-     "first_held": 1792061908.043,
-     "noisy_to_held_s": -119.64199995994568,
-     "first_held_route": "tier_down",
-     "held": 18,
-     "held_bytes": 4212,
-     "held_offload": 0,
-     "held_tier_down": 18,
-     "kept_same_patterns": 14,
-     "kept_container": 14,
-     "steady_held": 0,
-     "steady_held_bytes": 0,
-     "steady_patterns": {},
-     "patterns": [
-      {
-       "pattern": "c4yR2F2cVfk",
-       "rule": "plan row: quote, cap 1, tier_down",
-       "name": "POST_getquote_HTTP",
-       "held": 18,
-       "kept": 14,
-       "routes": {
-        "tier_down": 18
-       },
-       "severity": {
-        "none": 18
-       },
-       "bytes": 4212,
-       "first_held": 1792061908.043,
-       "last_held": 1792062245.942,
-       "first_seen": 1792061886.538,
-       "sample": "[2026-10-15 10:31:58+00:00] \"POST /getquote HTTP/1.1\" 200 4 "
+       "bytes": 10112,
+       "first_held": 1792068600.709,
+       "last_held": 1792068914.546,
+       "first_seen": 1792068544.634,
+       "sample": "info: Grpc.AspNetCore.Server.ServerCallHandler[7]\n      Error status code 'FailedPrecondition' with detail 'Can't access cart storage. System.ApplicationExcepti"
       }
      ]
     }
@@ -2348,97 +1381,173 @@
    "n": 2,
    "flag": "kafkaQueueProblems",
    "variant": "on",
-   "on": 1792062459.952,
-   "off": 1792062918.627,
-   "span_end": 1792063158.627,
+   "on": 1792069159.88,
+   "off": 1792069618.552,
+   "span_end": 1792069858.552,
    "containers": [
+    {
+     "container": "astronomy-db",
+     "rule": "fleet default: 71,247, offload",
+     "in_causal_path": true,
+     "first_noisy": 1792069170.934,
+     "noisy_pattern": "KSTuhseaGEc",
+     "noisy_name": "duplicate_key_value_violates_unique_constraint_order_pkey",
+     "noisy_events_in_minute": 400,
+     "noisy_pre_rate_per_min": 0.0,
+     "first_held": 1792069196.97,
+     "noisy_to_held_s": 26.03600001335144,
+     "first_held_route": "offload",
+     "held": 5555,
+     "held_bytes": 1594191,
+     "held_offload": 5555,
+     "held_tier_down": 0,
+     "kept_same_patterns": 2545,
+     "kept_container": 2687,
+     "steady_held": 0,
+     "steady_held_bytes": 0,
+     "steady_patterns": {},
+     "patterns": [
+      {
+       "pattern": "6_l3eh1v8RE",
+       "rule": "fleet default: 71,247, offload",
+       "name": "DETAIL_Key_order_already_exists",
+       "held": 2214,
+       "kept": 486,
+       "routes": {
+        "offload": 2214
+       },
+       "severity": {
+        "none": 2214
+       },
+       "bytes": 646488,
+       "first_held": 1792069196.97,
+       "last_held": 1792069614.853,
+       "first_seen": 1792069170.934,
+       "sample": "2026-10-15 12:59:30.933 UTC [3902] DETAIL:  Key (order_id)=(42df1cc9-c898-11f1-b536-0242ac1c0016) already exists."
+      },
+      {
+       "pattern": "GlK5AsFvcXg",
+       "rule": "fleet default: 71,247, offload",
+       "name": "STATEMENT_INSERT_INTO_accounting_order_id_VALUES",
+       "held": 2200,
+       "kept": 500,
+       "routes": {
+        "offload": 2200
+       },
+       "severity": {
+        "none": 2200
+       },
+       "bytes": 624800,
+       "first_held": 1792069196.996,
+       "last_held": 1792069614.853,
+       "first_seen": 1792069170.934,
+       "sample": "2026-10-15 12:59:30.933 UTC [3902] STATEMENT:  INSERT INTO accounting.\"order\" (order_id)\n\tVALUES ($1)"
+      },
+      {
+       "pattern": "KSTuhseaGEc",
+       "rule": "fleet default: 71,247, offload",
+       "name": "duplicate_key_value_violates_unique_constraint_order_pkey",
+       "held": 1141,
+       "kept": 1559,
+       "routes": {
+        "offload": 1141
+       },
+       "severity": {
+        "ERROR": 1141
+       },
+       "bytes": 322903,
+       "first_held": 1792069197.012,
+       "last_held": 1792069614.85,
+       "first_seen": 1792069170.934,
+       "sample": "2026-10-15 12:59:30.933 UTC [3902] ERROR:  duplicate key value violates unique constraint \"order_pkey\""
+      }
+     ]
+    },
+    {
+     "container": "accounting",
+     "rule": "plan row: accounting, cap 2,765, tier_down",
+     "in_causal_path": true,
+     "first_noisy": 1792069170.87,
+     "noisy_pattern": "-FtZD9XArpU",
+     "noisy_name": "Order_details",
+     "noisy_events_in_minute": 404,
+     "noisy_pre_rate_per_min": 4.2,
+     "first_held": 1792069171.424,
+     "noisy_to_held_s": 0.5540001392364502,
+     "first_held_route": "tier_down",
+     "held": 2680,
+     "held_bytes": 688760,
+     "held_offload": 0,
+     "held_tier_down": 2680,
+     "kept_same_patterns": 20,
+     "kept_container": 35,
+     "steady_held": 2720,
+     "steady_held_bytes": 2462786,
+     "steady_patterns": {
+      "Order_details": 2720
+     },
+     "patterns": [
+      {
+       "pattern": "XXzlsXqzuqc",
+       "rule": "plan row: accounting, cap 2,765, tier_down",
+       "name": "Duplicate_order_received_skipping",
+       "held": 2680,
+       "kept": 20,
+       "routes": {
+        "tier_down": 2680
+       },
+       "severity": {
+        "INFO": 2680
+       },
+       "bytes": 688760,
+       "first_held": 1792069171.424,
+       "last_held": 1792069614.855,
+       "first_seen": 1792069171.249,
+       "sample": "info: Accounting.Consumer[1508330946]\n      Duplicate order received, skipping."
+      }
+     ]
+    },
     {
      "container": "fraud-detection",
      "rule": "plan row: fraud-detection, cap 1, tier_down",
      "in_causal_path": true,
-     "first_noisy": 1792062656.1,
+     "first_noisy": 1792069170.906,
      "noisy_pattern": "eT4avs-RfM8",
      "noisy_name": "fraud_detection_FeatureFlag_kafkaQueueProblems_is_enabled_sleeping_second_trace_id_span_flags",
-     "noisy_events_in_minute": 7,
+     "noisy_events_in_minute": 49,
      "noisy_pre_rate_per_min": 0.0,
-     "first_held": 1792062626.497,
-     "noisy_to_held_s": -29.602999925613403,
+     "first_held": 1792069175.934,
+     "noisy_to_held_s": 5.028000116348267,
      "first_held_route": "tier_down",
-     "held": 20,
-     "held_bytes": 7340,
+     "held": 437,
+     "held_bytes": 160379,
      "held_offload": 0,
-     "held_tier_down": 20,
+     "held_tier_down": 437,
      "kept_same_patterns": 10,
      "kept_container": 25,
-     "steady_held": 24,
-     "steady_held_bytes": 9696,
+     "steady_held": 3220,
+     "steady_held_bytes": 1303216,
      "steady_patterns": {
-      "fraud_detection_Consumed_record_with_orderId_and_updated_total_count_to_trace_id_span_flags": 24
+      "fraud_detection_Consumed_record_with_orderId_and_updated_total_count_to_trace_id_span_flags": 3220
      },
      "patterns": [
       {
        "pattern": "eT4avs-RfM8",
        "rule": "plan row: fraud-detection, cap 1, tier_down",
        "name": "fraud_detection_FeatureFlag_kafkaQueueProblems_is_enabled_sleeping_second_trace_id_span_flags",
-       "held": 20,
+       "held": 437,
        "kept": 10,
        "routes": {
-        "tier_down": 20
+        "tier_down": 437
        },
        "severity": {
-        "TRACE": 20
+        "TRACE": 437
        },
-       "bytes": 7340,
-       "first_held": 1792062626.497,
-       "last_held": 1792062917.491,
-       "first_seen": 1792062516.77,
-       "sample": "2026-10-15 11:08:36 - fraud-detection - FeatureFlag 'kafkaQueueProblems' is enabled, sleeping 1 second trace_id=2941b9acdefc2ab6f5d8bcb684643e92 span_id=179db7f"
-      }
-     ]
-    },
-    {
-     "container": "otel-collector",
-     "rule": "plan row: otel-collector, cap 37,330, tier_down",
-     "in_causal_path": false,
-     "first_noisy": 1792062627.858,
-     "noisy_pattern": "bG57TmyjKmI",
-     "noisy_name": "Could_not_fetch_docker_containerStats_for_container",
-     "noisy_events_in_minute": 20,
-     "noisy_pre_rate_per_min": 0.0,
-     "first_held": 1792062648.021,
-     "noisy_to_held_s": 20.162999868392944,
-     "first_held_route": "tier_down",
-     "held": 3,
-     "held_bytes": 14635,
-     "held_offload": 0,
-     "held_tier_down": 3,
-     "kept_same_patterns": 14,
-     "kept_container": 668,
-     "steady_held": 1302,
-     "steady_held_bytes": 693970,
-     "steady_patterns": {
-      "Logs": 480,
-      "Traces": 477,
-      "Metrics": 345
-     },
-     "patterns": [
-      {
-       "pattern": "fhu6rrW86b4",
-       "rule": "plan row: otel-collector, cap 37,330, tier_down",
-       "name": "error_Error_scraping_metrics",
-       "held": 3,
-       "kept": 14,
-       "routes": {
-        "tier_down": 3
-       },
-       "severity": {
-        "ERROR": 3
-       },
-       "bytes": 14635,
-       "first_held": 1792062648.021,
-       "last_held": 1792062728.442,
-       "first_seen": 1792062488.45,
-       "sample": "2026-10-15T10:29:08.633Z\terror\tscraperhelper@v0.159.0/obs_metrics.go:61\tError scraping metrics\t{\"resource\": {\"service.instance.id\": \"99ea105d-3021-4f66-8217-3b1"
+       "bytes": 160379,
+       "first_held": 1792069175.934,
+       "last_held": 1792069618.546,
+       "first_seen": 1792069170.906,
+       "sample": "2026-10-15 12:59:30 - fraud-detection - FeatureFlag 'kafkaQueueProblems' is enabled, sleeping 1 second trace_id=b8417ee933424e7f272a856e79769c13 span_id=28ccea4"
       }
      ]
     }
@@ -2448,99 +1557,79 @@
    "n": 3,
    "flag": "paymentFailure",
    "variant": "100%",
-   "on": 1792063178.191,
-   "off": 1792063479.427,
-   "span_end": 1792063691.93,
+   "on": 1792069878.114,
+   "off": 1792070179.345,
+   "span_end": 1792070391.825,
    "containers": [
     {
-     "container": "frontend",
-     "rule": "plan row: frontend, cap 1, tier_down",
-     "in_causal_path": true,
-     "first_noisy": 1792063302.211,
-     "noisy_pattern": "SJz5BYn_Kzo",
-     "noisy_name": "Checkout_payment_declined",
-     "noisy_events_in_minute": 5,
-     "noisy_pre_rate_per_min": 0.0,
-     "first_held": 1792063322.965,
-     "noisy_to_held_s": 20.753999948501587,
-     "first_held_route": "tier_down",
-     "held": 9,
-     "held_bytes": 5139,
-     "held_offload": 0,
-     "held_tier_down": 9,
-     "kept_same_patterns": 6,
-     "kept_container": 22,
-     "steady_held": 449,
-     "steady_held_bytes": 221345,
-     "steady_patterns": {
-      "API_request_completed": 440,
-      "Order_placed_successfully": 9
-     },
-     "patterns": [
-      {
-       "pattern": "SJz5BYn_Kzo",
-       "rule": "plan row: frontend, cap 1, tier_down",
-       "name": "Checkout_payment_declined",
-       "held": 9,
-       "kept": 6,
-       "routes": {
-        "tier_down": 9
-       },
-       "severity": {
-        "TRACE": 9
-       },
-       "bytes": 5139,
-       "first_held": 1792063322.965,
-       "last_held": 1792063448.733,
-       "first_seen": 1792063200.785,
-       "sample": "{\"level\":30,\"time\":1792063200784,\"pid\":1,\"hostname\":\"73ce8ce5d637\",\"trace_id\":\"c676ebed9288091732d32492803e03b0\",\"span_id\":\"4a4c4d7f9cf8c5ab\",\"trace_flags\":\"01\""
-      }
-     ]
-    },
-    {
      "container": "payment",
-     "rule": "plan row: payment, cap 2,731, tier_down",
+     "rule": "plan row: payment, cap 2,344, tier_down",
      "in_causal_path": true,
-     "first_noisy": 1792063302.203,
+     "first_noisy": 1792070038.51,
      "noisy_pattern": "_N7fwt_uqyQ",
      "noisy_name": "Payment_request_failed_Invalid_token_demo_user_context_loyalty_level_gold",
      "noisy_events_in_minute": 5,
      "noisy_pre_rate_per_min": 0.0,
-     "first_held": 1792063331.351,
-     "noisy_to_held_s": 29.14800000190735,
+     "first_held": 1792070039.879,
+     "noisy_to_held_s": 1.36899995803833,
      "first_held_route": "tier_down",
-     "held": 3,
-     "held_bytes": 2790,
+     "held": 7,
+     "held_bytes": 6510,
      "held_offload": 0,
-     "held_tier_down": 3,
-     "kept_same_patterns": 12,
-     "kept_container": 30,
-     "steady_held": 25,
-     "steady_held_bytes": 12710,
+     "held_tier_down": 7,
+     "kept_same_patterns": 8,
+     "kept_container": 27,
+     "steady_held": 22,
+     "steady_held_bytes": 10917,
      "steady_patterns": {
-      "Charge_request_received": 17,
-      "Transaction_complete": 8
+      "Charge_request_received": 16,
+      "Transaction_complete": 6
      },
      "patterns": [
       {
        "pattern": "_N7fwt_uqyQ",
-       "rule": "plan row: payment, cap 2,731, tier_down",
+       "rule": "plan row: payment, cap 2,344, tier_down",
        "name": "Payment_request_failed_Invalid_token_demo_user_context_loyalty_level_gold",
-       "held": 3,
-       "kept": 12,
+       "held": 7,
+       "kept": 8,
        "routes": {
-        "tier_down": 3
+        "tier_down": 7
        },
        "severity": {
-        "ERROR": 3
+        "ERROR": 7
        },
-       "bytes": 2790,
-       "first_held": 1792063331.351,
-       "last_held": 1792063442.908,
-       "first_seen": 1792063200.59,
-       "sample": "{\"level\":\"warn\",\"time\":1792063200588,\"pid\":1,\"hostname\":\"12cdf08779ff\",\"trace_id\":\"c676ebed9288091732d32492803e03b0\",\"span_id\":\"d1a46a0a8234ae6e\",\"trace_flags\":"
+       "bytes": 6510,
+       "first_held": 1792070039.879,
+       "last_held": 1792070095.061,
+       "first_seen": 1792069917.533,
+       "sample": "{\"level\":\"warn\",\"time\":1792069917530,\"pid\":1,\"hostname\":\"7dd26cfd3747\",\"trace_id\":\"76a3d40d7623dee41c36bd5126c87097\",\"span_id\":\"57a380963bc44924\",\"trace_flags\":"
       }
      ]
+    },
+    {
+     "container": "frontend",
+     "rule": "plan row: frontend, cap 30,210, tier_down",
+     "in_causal_path": true,
+     "first_noisy": 1792070038.513,
+     "noisy_pattern": "SJz5BYn_Kzo",
+     "noisy_name": "Checkout_payment_declined",
+     "noisy_events_in_minute": 5,
+     "noisy_pre_rate_per_min": 0.0,
+     "first_held": null,
+     "noisy_to_held_s": null,
+     "first_held_route": null,
+     "held": 0,
+     "held_bytes": 0,
+     "held_offload": 0,
+     "held_tier_down": 0,
+     "kept_same_patterns": 0,
+     "kept_container": 184,
+     "steady_held": 322,
+     "steady_held_bytes": 158936,
+     "steady_patterns": {
+      "API_request_completed": 322
+     },
+     "patterns": []
     }
    ]
   },
@@ -2548,87 +1637,114 @@
    "n": 4,
    "flag": "emailMemoryLeak",
    "variant": "1000x",
-   "on": 1792063691.93,
-   "off": 1792064163.499,
-   "span_end": 1792064190.972,
-   "containers": []
+   "on": 1792070391.825,
+   "off": 1792070863.4,
+   "span_end": 1792070890.859,
+   "containers": [
+    {
+     "container": "email",
+     "rule": "plan row: email, cap 1, tier_down",
+     "in_causal_path": true,
+     "first_noisy": 1792070754.871,
+     "noisy_pattern": "shf1OAS338c",
+     "noisy_name": "Order_confirmation_email_sent_for_order",
+     "noisy_events_in_minute": 5,
+     "noisy_pre_rate_per_min": 1.0,
+     "first_held": null,
+     "noisy_to_held_s": null,
+     "first_held_route": null,
+     "held": 0,
+     "held_bytes": 0,
+     "held_offload": 0,
+     "held_tier_down": 0,
+     "kept_same_patterns": 0,
+     "kept_container": 20,
+     "steady_held": 32,
+     "steady_held_bytes": 8728,
+     "steady_patterns": {
+      "POST_send_order_confirmation_HTTP": 20,
+      "Order_confirmation_email_sent_for_order": 12
+     },
+     "patterns": []
+    }
+   ]
   },
   {
    "n": 5,
    "flag": "emailMemoryLeak",
    "variant": "1000x",
-   "on": 1792064190.972,
-   "off": 1792064600.959,
-   "span_end": 1792064840.959,
+   "on": 1792070890.859,
+   "off": 1792071300.842,
+   "span_end": 1792071540.842,
    "containers": []
   },
   {
    "n": 6,
    "flag": "recommendationCacheFailure",
    "variant": "on",
-   "on": 1792064941.572,
-   "off": 1792065360.446,
-   "span_end": 1792065426.41,
+   "on": 1792071641.46,
+   "off": 1792072060.333,
+   "span_end": 1792072126.303,
    "containers": [
     {
      "container": "recommendation",
-     "rule": "plan row: recommendation, cap 1, tier_down",
+     "rule": "plan row: recommendation, cap 2,330, tier_down",
      "in_causal_path": true,
-     "first_noisy": 1792065089.883,
-     "noisy_pattern": "pQCM0VaOm6U",
-     "noisy_name": "get_product_list_cache_miss",
-     "noisy_events_in_minute": 5,
-     "noisy_pre_rate_per_min": 0.0,
-     "first_held": 1792065025.026,
-     "noisy_to_held_s": -64.85699987411499,
+     "first_noisy": null,
+     "noisy_pattern": null,
+     "noisy_name": null,
+     "noisy_events_in_minute": null,
+     "noisy_pre_rate_per_min": null,
+     "first_held": 1792071768.36,
+     "noisy_to_held_s": null,
      "first_held_route": "tier_down",
-     "held": 18,
-     "held_bytes": 7225,
+     "held": 12,
+     "held_bytes": 4818,
      "held_offload": 0,
-     "held_tier_down": 18,
+     "held_tier_down": 12,
      "kept_same_patterns": 20,
-     "kept_container": 30,
-     "steady_held": 36,
-     "steady_held_bytes": 17568,
+     "kept_container": 29,
+     "steady_held": 25,
+     "steady_held_bytes": 12200,
      "steady_patterns": {
-      "Receive_ListRecommendations_for_product_ids": 36
+      "Receive_ListRecommendations_for_product_ids": 25
      },
      "patterns": [
       {
        "pattern": "QE9Wwe64YPk",
-       "rule": "plan row: recommendation, cap 1, tier_down",
+       "rule": "plan row: recommendation, cap 2,330, tier_down",
        "name": "get_product_list_cache_hit",
-       "held": 11,
+       "held": 6,
        "kept": 10,
        "routes": {
-        "tier_down": 11
+        "tier_down": 6
        },
        "severity": {
-        "INFO": 11
+        "INFO": 6
        },
-       "bytes": 4411,
-       "first_held": 1792065025.026,
-       "last_held": 1792065353.902,
-       "first_seen": 1792064948.534,
-       "sample": "2026-10-15 11:49:08,532 INFO [main] [recommendation_server.py:91] [trace_id=b84ac02d813767bc1d495698f648f357 span_id=184969df63e35d8b resource.service.name=reco"
+       "bytes": 2406,
+       "first_held": 1792071768.36,
+       "last_held": 1792071964.193,
+       "first_seen": 1792071684.372,
+       "sample": "2026-10-15 13:41:24,363 INFO [main] [recommendation_server.py:91] [trace_id=80afe6e5c7209b3a99ff5582427a3aa7 span_id=40b875c0de01d118 resource.service.name=reco"
       },
       {
        "pattern": "pQCM0VaOm6U",
-       "rule": "plan row: recommendation, cap 1, tier_down",
+       "rule": "plan row: recommendation, cap 2,330, tier_down",
        "name": "get_product_list_cache_miss",
-       "held": 7,
+       "held": 6,
        "kept": 10,
        "routes": {
-        "tier_down": 7
+        "tier_down": 6
        },
        "severity": {
-        "INFO": 7
+        "INFO": 6
        },
-       "bytes": 2814,
-       "first_held": 1792065095.938,
-       "last_held": 1792065340.524,
-       "first_seen": 1792064948.258,
-       "sample": "2026-10-15 11:49:08,257 INFO [main] [recommendation_server.py:83] [trace_id=4bdc81185198c78ed810393f9117dcc4 span_id=b053df331f4cd5dd resource.service.name=reco"
+       "bytes": 2412,
+       "first_held": 1792071910.154,
+       "last_held": 1792072038.992,
+       "first_seen": 1792071671.703,
+       "sample": "2026-10-15 13:41:11,701 INFO [main] [recommendation_server.py:83] [trace_id=4704dd659a5791981e82047d810665ae span_id=0dc0a355428b37d2 resource.service.name=reco"
       }
      ]
     }
@@ -2638,187 +1754,49 @@
    "n": 7,
    "flag": "loadGeneratorFloodHomepage",
    "variant": "on",
-   "on": 1792065426.41,
-   "off": 1792065755.104,
-   "span_end": 1792065995.104,
-   "containers": [
-    {
-     "container": "kafka",
-     "rule": "plan row: kafka, cap 1,669, tier_down",
-     "in_causal_path": false,
-     "first_noisy": 1792065743.556,
-     "noisy_pattern": "Y_71jRCq5Cw",
-     "noisy_name": "Scheduling_unloading_of_metadata_for_consumer_with_epoch_OptionalInt_apache_kafka_coordinator_common_runtime_CoordinatorRuntime",
-     "noisy_events_in_minute": 50,
-     "noisy_pre_rate_per_min": 0.0,
-     "first_held": 1792065743.992,
-     "noisy_to_held_s": 0.43600010871887207,
-     "first_held_route": "tier_down",
-     "held": 225,
-     "held_bytes": 86787,
-     "held_offload": 0,
-     "held_tier_down": 225,
-     "kept_same_patterns": 25,
-     "kept_container": 230,
-     "steady_held": 263,
-     "steady_held_bytes": 101313,
-     "steady_patterns": {
-      "Rolled_new_log_segment_at_offset_in_ms_org_apache_kafka_storage_internals_LocalLog": 26,
-      "Wrote_snapshot_offset_producer_ids_ms_org_apache_kafka_storage_internals_log_ProducerStateManager": 26,
-      "Deleted_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment": 25,
-      "Deleted_offset_index_tmp_cluster_org_apache_kafka_storage_internals_log_LogSegment": 25
-     },
-     "patterns": [
-      {
-       "pattern": "KjKx7VN7snY",
-       "rule": "plan row: kafka, cap 1,669, tier_down",
-       "name": "was_spent_in_the_scheduler_Loaded_records_which_total_to_bytes_org_apache_kafka_coordinator_common_runtime_CoordinatorRuntime",
-       "held": 45,
-       "kept": 5,
-       "routes": {
-        "tier_down": 45
-       },
-       "severity": {
-        "INFO": 45
-       },
-       "bytes": 20178,
-       "first_held": 1792065746.44,
-       "last_held": 1792065749.24,
-       "first_seen": 1792065746.32,
-       "sample": "[2026-10-15 10:30:49,649] INFO [GroupCoordinator id=1] Finished loading of metadata from __consumer_offsets-40 with epoch 0 in 137ms where 137ms was spent in th"
-      },
-      {
-       "pattern": "VvBjD4t0T7w",
-       "rule": "plan row: kafka, cap 1,669, tier_down",
-       "name": "Started_unloading_metadata_for_consumer_with_epoch_OptionalInt_apache_kafka_coordinator_common_runtime_CoordinatorRuntime",
-       "held": 45,
-       "kept": 5,
-       "routes": {
-        "tier_down": 45
-       },
-       "severity": {
-        "INFO": 45
-       },
-       "bytes": 16686,
-       "first_held": 1792065744.025,
-       "last_held": 1792065744.193,
-       "first_seen": 1792065743.99,
-       "sample": "[2026-10-15 12:02:23,987] INFO [GroupCoordinator id=1] Started unloading metadata for __consumer_offsets-46 with epoch OptionalInt[1]. (org.apache.kafka.coordin"
-      },
-      {
-       "pattern": "Y_71jRCq5Cw",
-       "rule": "plan row: kafka, cap 1,669, tier_down",
-       "name": "Scheduling_unloading_of_metadata_for_consumer_with_epoch_OptionalInt_apache_kafka_coordinator_common_runtime_CoordinatorRuntime",
-       "held": 45,
-       "kept": 5,
-       "routes": {
-        "tier_down": 45
-       },
-       "severity": {
-        "INFO": 45
-       },
-       "bytes": 16911,
-       "first_held": 1792065743.992,
-       "last_held": 1792065744.037,
-       "first_seen": 1792065743.556,
-       "sample": "[2026-10-15 12:02:23,555] INFO [GroupCoordinator id=1] Scheduling unloading of metadata for __consumer_offsets-13 with epoch OptionalInt[1] (org.apache.kafka.co"
-      },
-      {
-       "pattern": "lfxNT0TdHRU",
-       "rule": "plan row: kafka, cap 1,669, tier_down",
-       "name": "Scheduling_loading_of_metadata_from_consumer_with_epoch_org_apache_kafka_coordinator_common_runtime_CoordinatorRuntime",
-       "held": 45,
-       "kept": 5,
-       "routes": {
-        "tier_down": 45
-       },
-       "severity": {
-        "INFO": 45
-       },
-       "bytes": 16281,
-       "first_held": 1792065746.379,
-       "last_held": 1792065746.461,
-       "first_seen": 1792065746.297,
-       "sample": "[2026-10-15 10:30:47,417] INFO [GroupCoordinator id=1] Scheduling loading of metadata from __consumer_offsets-13 with epoch 0 (org.apache.kafka.coordinator.comm"
-      },
-      {
-       "pattern": "wfraEN4ubTY",
-       "rule": "plan row: kafka, cap 1,669, tier_down",
-       "name": "Finished_unloading_metadata_for_consumer_with_epoch_OptionalInt_apache_kafka_coordinator_common_runtime_CoordinatorRuntime",
-       "held": 45,
-       "kept": 5,
-       "routes": {
-        "tier_down": 45
-       },
-       "severity": {
-        "INFO": 45
-       },
-       "bytes": 16731,
-       "first_held": 1792065744.029,
-       "last_held": 1792065744.2,
-       "first_seen": 1792065744.007,
-       "sample": "[2026-10-15 12:02:24,001] INFO [GroupCoordinator id=1] Finished unloading metadata for __consumer_offsets-9 with epoch OptionalInt[1]. (org.apache.kafka.coordin"
-      }
-     ]
-    }
-   ]
+   "on": 1792072126.303,
+   "off": 1792072454.94,
+   "span_end": 1792072694.94,
+   "containers": []
   },
   {
    "n": 8,
    "flag": "recommendationCacheFailure",
    "variant": "on",
-   "on": 1792066024.227,
-   "off": null,
-   "span_end": 1792066276,
+   "on": 1792072724.148,
+   "off": 1792072973.488,
+   "span_end": 1792072975,
    "containers": [
     {
      "container": "recommendation",
-     "rule": "plan row: recommendation, cap 1, tier_down",
+     "rule": "plan row: recommendation, cap 2,330, tier_down",
      "in_causal_path": true,
-     "first_noisy": 1792066092.303,
-     "noisy_pattern": "QE9Wwe64YPk",
-     "noisy_name": "get_product_list_cache_hit",
-     "noisy_events_in_minute": 6,
-     "noisy_pre_rate_per_min": 0.0,
-     "first_held": 1792066138.053,
-     "noisy_to_held_s": 45.75,
+     "first_noisy": null,
+     "noisy_pattern": null,
+     "noisy_name": null,
+     "noisy_events_in_minute": null,
+     "noisy_pre_rate_per_min": null,
+     "first_held": 1792072890.508,
+     "noisy_to_held_s": null,
      "first_held_route": "tier_down",
-     "held": 5,
-     "held_bytes": 2008,
+     "held": 4,
+     "held_bytes": 1606,
      "held_offload": 0,
-     "held_tier_down": 5,
-     "kept_same_patterns": 16,
-     "kept_container": 21,
-     "steady_held": 16,
-     "steady_held_bytes": 7808,
+     "held_tier_down": 4,
+     "kept_same_patterns": 12,
+     "kept_container": 17,
+     "steady_held": 12,
+     "steady_held_bytes": 5856,
      "steady_patterns": {
-      "Receive_ListRecommendations_for_product_ids": 16
+      "Receive_ListRecommendations_for_product_ids": 12
      },
      "patterns": [
       {
-       "pattern": "pQCM0VaOm6U",
-       "rule": "plan row: recommendation, cap 1, tier_down",
-       "name": "get_product_list_cache_miss",
-       "held": 3,
-       "kept": 8,
-       "routes": {
-        "tier_down": 3
-       },
-       "severity": {
-        "INFO": 3
-       },
-       "bytes": 1206,
-       "first_held": 1792066252.569,
-       "last_held": 1792066264.949,
-       "first_seen": 1792066034.898,
-       "sample": "2026-10-15 11:49:08,257 INFO [main] [recommendation_server.py:83] [trace_id=4bdc81185198c78ed810393f9117dcc4 span_id=b053df331f4cd5dd resource.service.name=reco"
-      },
-      {
        "pattern": "QE9Wwe64YPk",
-       "rule": "plan row: recommendation, cap 1, tier_down",
+       "rule": "plan row: recommendation, cap 2,330, tier_down",
        "name": "get_product_list_cache_hit",
        "held": 2,
-       "kept": 8,
+       "kept": 7,
        "routes": {
         "tier_down": 2
        },
@@ -2826,10 +1804,28 @@
         "INFO": 2
        },
        "bytes": 802,
-       "first_held": 1792066138.053,
-       "last_held": 1792066233.015,
-       "first_seen": 1792066027.473,
-       "sample": "2026-10-15 11:49:08,532 INFO [main] [recommendation_server.py:91] [trace_id=b84ac02d813767bc1d495698f648f357 span_id=184969df63e35d8b resource.service.name=reco"
+       "first_held": 1792072890.508,
+       "last_held": 1792072916.174,
+       "first_seen": 1792072745.823,
+       "sample": "2026-10-15 13:41:24,363 INFO [main] [recommendation_server.py:91] [trace_id=80afe6e5c7209b3a99ff5582427a3aa7 span_id=40b875c0de01d118 resource.service.name=reco"
+      },
+      {
+       "pattern": "pQCM0VaOm6U",
+       "rule": "plan row: recommendation, cap 2,330, tier_down",
+       "name": "get_product_list_cache_miss",
+       "held": 2,
+       "kept": 5,
+       "routes": {
+        "tier_down": 2
+       },
+       "severity": {
+        "INFO": 2
+       },
+       "bytes": 804,
+       "first_held": 1792072913.365,
+       "last_held": 1792072946.024,
+       "first_seen": 1792072766.246,
+       "sample": "2026-10-15 13:41:11,701 INFO [main] [recommendation_server.py:83] [trace_id=4704dd659a5791981e82047d810665ae span_id=0dc0a355428b37d2 resource.service.name=reco"
       }
      ]
     },
@@ -2842,38 +1838,38 @@
      "noisy_name": null,
      "noisy_events_in_minute": null,
      "noisy_pre_rate_per_min": null,
-     "first_held": 1792066067.795,
+     "first_held": 1792072946.497,
      "noisy_to_held_s": null,
      "first_held_route": "tier_down",
-     "held": 1,
-     "held_bytes": 355,
+     "held": 3,
+     "held_bytes": 1065,
      "held_offload": 0,
-     "held_tier_down": 1,
-     "kept_same_patterns": 2,
-     "kept_container": 9,
-     "steady_held": 13,
-     "steady_held_bytes": 4403,
+     "held_tier_down": 3,
+     "kept_same_patterns": 5,
+     "kept_container": 10,
+     "steady_held": 16,
+     "steady_held_bytes": 5436,
      "steady_patterns": {
-      "oteldemo_AdService_Targeted_ad_request_received_for": 13
+      "oteldemo_AdService_Targeted_ad_request_received_for": 16
      },
      "patterns": [
       {
        "pattern": "jN_dDVWoa78",
        "rule": "plan row: ad, cap 1, tier_down",
        "name": "oteldemo_AdService_Non_targeted_ad_request_received_preparing_random_response_trace_id_span_flags",
-       "held": 1,
-       "kept": 2,
+       "held": 3,
+       "kept": 5,
        "routes": {
-        "tier_down": 1
+        "tier_down": 3
        },
        "severity": {
-        "TRACE": 1
+        "TRACE": 3
        },
-       "bytes": 355,
-       "first_held": 1792066067.795,
-       "last_held": 1792066067.795,
-       "first_seen": 1792066043.348,
-       "sample": "2026-10-15 10:32:26 - oteldemo.AdService - Non-targeted ad request received, preparing random response. trace_id=8aef79e640a6db84b4dc35d602106e1b span_id=3662fe"
+       "bytes": 1065,
+       "first_held": 1792072946.497,
+       "last_held": 1792072965.154,
+       "first_seen": 1792072757.169,
+       "sample": "2026-10-15 12:22:39 - oteldemo.AdService - Non-targeted ad request received, preparing random response. trace_id=4b1be7f0240dea0e56fab5f48d37c5d1 span_id=d7324f"
       }
      ]
     }
@@ -2881,608 +1877,611 @@
   }
  ],
  "plan_moves_per_window": {
-  "frontend": {
+  "ad": {
    "windows": 19,
-   "median": 217,
-   "max": 276,
-   "total": 4124
+   "median": 12,
+   "max": 18,
+   "total": 221
   },
   "telemetry-docs": {
    "windows": 19,
    "median": 42,
    "max": 43,
-   "total": 790
-  },
-  "recommendation": {
-   "windows": 19,
-   "median": 17,
-   "max": 28,
-   "total": 322
+   "total": 770
   },
   "cart": {
    "windows": 19,
-   "median": 107,
-   "max": 164,
-   "total": 2054
+   "median": 104,
+   "max": 158,
+   "total": 2099
   },
-  "kafka": {
+  "frontend": {
    "windows": 19,
-   "median": 115,
-   "max": 335,
-   "total": 2420
-  },
-  "otel-collector": {
-   "windows": 19,
-   "median": 459,
-   "max": 481,
-   "total": 8598
-  },
-  "ad": {
-   "windows": 19,
-   "median": 12,
-   "max": 22,
-   "total": 222
+   "median": 152,
+   "max": 196,
+   "total": 2914
   },
   "quote": {
    "windows": 19,
-   "median": 8,
-   "max": 13,
-   "total": 146
+   "median": 7,
+   "max": 14,
+   "total": 159
   },
   "payment": {
    "windows": 19,
-   "median": 13,
-   "max": 25,
-   "total": 267
+   "median": 15,
+   "max": 28,
+   "total": 315
   },
   "email": {
    "windows": 18,
    "median": 12.0,
-   "max": 22,
-   "total": 220
+   "max": 21,
+   "total": 232
   },
   "accounting": {
    "windows": 18,
-   "median": 7.0,
-   "max": 13,
-   "total": 134
+   "median": 7.5,
+   "max": 3603,
+   "total": 5529
   },
   "fraud-detection": {
    "windows": 18,
-   "median": 7.0,
-   "max": 24,
-   "total": 154
+   "median": 7.5,
+   "max": 3221,
+   "total": 3786
   },
   "shipping": {
-   "windows": 18,
-   "median": 10.0,
-   "max": 27,
-   "total": 220
+   "windows": 19,
+   "median": 18,
+   "max": 39,
+   "total": 411
+  },
+  "recommendation": {
+   "windows": 19,
+   "median": 15,
+   "max": 26,
+   "total": 291
+  },
+  "otel-collector": {
+   "windows": 19,
+   "median": 318,
+   "max": 356,
+   "total": 6005
   }
  },
  "floor_check": {
-  "INFO": {
-   "tier_down": 12826,
-   "pass": 635
-  },
   "TRACE": {
-   "tier_down": 4688,
-   "pass": 69
+   "tier_down": 7091,
+   "pass": 104
+  },
+  "INFO": {
+   "tier_down": 13414,
+   "pass": 448
   },
   "none": {
-   "tier_down": 1337,
-   "pass": 36
+   "tier_down": 1527,
+   "pass": 34,
+   "offload": 4414
   },
   "ERROR": {
-   "tier_down": 5,
-   "pass": 5
+   "pass": 1059,
+   "offload": 1141,
+   "tier_down": 7
   }
  },
  "replay_vs_actual": {
-  "under_and_passed": 7602,
-  "over_and_held": 18856,
-  "under_and_held": 815,
-  "over_and_passed": 745
+  "under_and_held": 693,
+  "over_and_held": 27594,
+  "under_and_passed": 14835,
+  "over_and_passed": 1645
  },
  "errors": {
-  "held": 6,
-  "passed": 972,
+  "held": 1148,
+  "passed": 2510,
   "by_pattern": [
    {
-    "container": "otel-collector",
-    "rule": "plan row: otel-collector, cap 37,330, tier_down",
-    "pattern": "fhu6rrW86b4",
-    "name": "error_Error_scraping_metrics",
+    "container": "astronomy-db",
+    "rule": "fleet default: 71,247, offload",
+    "pattern": "KSTuhseaGEc",
+    "name": "duplicate_key_value_violates_unique_constraint_order_pkey",
     "severity": "ERROR",
     "held": {
-     "tier_down": 3
+     "offload": 1141
     },
-    "passed": 85,
-    "flags": {}
+    "passed": 1559,
+    "flags": {
+     "kafkaQueueProblems": 1141
+    }
    },
    {
     "container": "payment",
-    "rule": "plan row: payment, cap 2,731, tier_down",
+    "rule": "plan row: payment, cap 2,344, tier_down",
     "pattern": "_N7fwt_uqyQ",
     "name": "Payment_request_failed_Invalid_token_demo_user_context_loyalty_level_gold",
     "severity": "ERROR",
     "held": {
-     "tier_down": 3
+     "tier_down": 7
     },
-    "passed": 12,
+    "passed": 8,
     "flags": {
-     "paymentFailure": 3
+     "paymentFailure": 7
     }
    }
   ]
  },
  "latency": {
   "accounting": {
-   "records": 339,
-   "median": 6.368000030517578,
-   "p99": 51.33800005912781,
-   "max": 51.38700008392334,
-   "over_10s": 23
+   "records": 5729,
+   "median": 2.171999931335449,
+   "p99": 7.210359983444217,
+   "max": 27.866999864578247,
+   "over_10s": 27
   },
   "ad": {
-   "records": 518,
-   "median": 6.152500033378601,
-   "p99": 7.83824015378952,
-   "max": 15.273000001907349,
-   "over_10s": 3
+   "records": 502,
+   "median": 6.0325000286102295,
+   "p99": 24.342959935665153,
+   "max": 42.549999952316284,
+   "over_10s": 9
   },
   "astronomy-db": {
-   "records": 1262,
-   "median": 6.065500020980835,
-   "p99": 13.505270092487415,
-   "max": 74.49599981307983,
-   "over_10s": 19
+   "records": 9356,
+   "median": 2.2879998683929443,
+   "p99": 7.082350099086764,
+   "max": 56.014999866485596,
+   "over_10s": 23
   },
   "cart": {
-   "records": 3245,
-   "median": 1.9709999561309814,
-   "p99": 7.501999988555908,
-   "max": 14.53600001335144,
-   "over_10s": 4
+   "records": 3007,
+   "median": 2.0939998626708984,
+   "p99": 7.811700029373169,
+   "max": 44.98699998855591,
+   "over_10s": 22
   },
   "currency": {
    "records": 1,
-   "median": 8.858999967575073,
-   "p99": 8.858999967575073,
-   "max": 8.858999967575073,
+   "median": 9.44700002670288,
+   "p99": 9.44700002670288,
+   "max": 9.44700002670288,
    "over_10s": 0
   },
   "email": {
-   "records": 580,
-   "median": 4.420500040054321,
-   "p99": 7.835810165405276,
-   "max": 16.907999992370605,
-   "over_10s": 3
+   "records": 520,
+   "median": 5.377499938011169,
+   "p99": 9.629630177020916,
+   "max": 45.33199977874756,
+   "over_10s": 6
   },
   "flagd": {
    "records": 33,
-   "median": 8.370999813079834,
-   "p99": 11.988920078277587,
-   "max": 13.195000171661377,
-   "over_10s": 1
+   "median": 5.751000165939331,
+   "p99": 9.429559965133667,
+   "max": 9.858999967575073,
+   "over_10s": 0
   },
   "flagd-ui": {
    "records": 36,
-   "median": 2.925999879837036,
-   "p99": 8.200050044059752,
-   "max": 8.360000133514404,
+   "median": 4.210500001907349,
+   "p99": 8.93374992609024,
+   "max": 8.98799991607666,
    "over_10s": 0
   },
   "fraud-detection": {
-   "records": 351,
-   "median": 6.093000173568726,
-   "p99": 7.895999908447266,
-   "max": 61.37400007247925,
-   "over_10s": 3
+   "records": 3947,
+   "median": 2.8410000801086426,
+   "p99": 7.101859917640685,
+   "max": 57.27300000190735,
+   "over_10s": 5
   },
   "frontend": {
-   "records": 5860,
-   "median": 2.241499900817871,
-   "p99": 6.606430025100705,
-   "max": 48.34400010108948,
-   "over_10s": 9
+   "records": 5566,
+   "median": 2.2410000562667847,
+   "p99": 7.187099957466128,
+   "max": 38.67899990081787,
+   "over_10s": 37
   },
   "frontend-proxy": {
    "records": 128,
-   "median": 30.370999813079834,
-   "p99": 30.374189994335175,
-   "max": 33.347999811172485,
+   "median": 27.93649995326996,
+   "p99": 27.953380150794985,
+   "max": 30.31500005722046,
    "over_10s": 127
   },
   "image-provider": {
-   "records": 47,
-   "median": 3.921999931335449,
-   "p99": 10.321760020256038,
-   "max": 12.871999979019165,
-   "over_10s": 1
+   "records": 58,
+   "median": 4.119999885559082,
+   "p99": 9.573190066814423,
+   "max": 9.706000089645386,
+   "over_10s": 0
   },
   "kafka": {
-   "records": 5300,
-   "median": 1.8459999561309814,
-   "p99": 73.07700990200043,
-   "max": 73.5,
-   "over_10s": 535
+   "records": 5933,
+   "median": 2.0299999713897705,
+   "p99": 51.46600008010864,
+   "max": 54.09100008010864,
+   "over_10s": 613
   },
   "otel-collector": {
-   "records": 17157,
-   "median": 1.8250000476837158,
-   "p99": 13.180639991760247,
-   "max": 74.27999997138977,
-   "over_10s": 214
+   "records": 17793,
+   "median": 1.752000093460083,
+   "p99": 24.04723993301391,
+   "max": 53.996999979019165,
+   "over_10s": 350
   },
   "payment": {
-   "records": 663,
-   "median": 2.5160000324249268,
-   "p99": 7.66382001876831,
-   "max": 7.942999839782715,
-   "over_10s": 0
+   "records": 617,
+   "median": 2.6679999828338623,
+   "p99": 8.07015994071961,
+   "max": 40.39100003242493,
+   "over_10s": 6
   },
-  "quote": {
-   "records": 331,
-   "median": 6.241000175476074,
-   "p99": 7.816900086402892,
-   "max": 8.03600001335144,
-   "over_10s": 0
-  },
-  "recommendation": {
-   "records": 599,
-   "median": 5.855000019073486,
-   "p99": 7.80401997566223,
-   "max": 10.569000005722046,
+  "product-catalog": {
+   "records": 2,
+   "median": 10.662499904632568,
+   "p99": 13.047329955101013,
+   "max": 13.095999956130981,
    "over_10s": 1
   },
+  "quote": {
+   "records": 310,
+   "median": 6.2505000829696655,
+   "p99": 11.345859818458583,
+   "max": 45.07200002670288,
+   "over_10s": 5
+  },
+  "recommendation": {
+   "records": 528,
+   "median": 6.016500115394592,
+   "p99": 7.890419998168946,
+   "max": 32.55199980735779,
+   "over_10s": 3
+  },
   "shipping": {
-   "records": 1020,
-   "median": 1.933500051498413,
-   "p99": 7.618239967823028,
-   "max": 8.053000211715698,
-   "over_10s": 0
+   "records": 947,
+   "median": 2.1030001640319824,
+   "p99": 8.022440075874323,
+   "max": 63.53499984741211,
+   "over_10s": 8
   },
   "telemetry-docs": {
-   "records": 1213,
-   "median": 6.072000026702881,
-   "p99": 12.445279960632309,
-   "max": 76.13899993896484,
-   "over_10s": 15
+   "records": 1230,
+   "median": 6.052499890327454,
+   "p99": 23.486890013218012,
+   "max": 54.78099989891052,
+   "over_10s": 31
   },
   "valkey-cart": {
    "records": 102,
-   "median": 1.7035001516342163,
-   "p99": 8.856879968643188,
-   "max": 9.155999898910522,
-   "over_10s": 0
+   "median": 2.0370001792907715,
+   "p99": 16.20800018310547,
+   "max": 21.138999938964844,
+   "over_10s": 7
   }
  },
  "latency_all": {
-  "records": 38785,
-  "median": 2.0840001106262207,
-  "p99": 38.10379994392393,
-  "max": 76.13899993896484,
-  "over_10s": 958
+  "records": 56345,
+  "median": 2.1710000038146973,
+  "p99": 27.466079893111967,
+  "max": 63.53499984741211,
+  "over_10s": 1280
  },
  "latency_over_10s_by_container": {
-  "kafka": 535,
-  "flagd": 1,
-  "email": 3,
-  "otel-collector": 214,
-  "astronomy-db": 19,
-  "image-provider": 1,
-  "telemetry-docs": 15,
-  "fraud-detection": 3,
-  "accounting": 23,
-  "frontend": 9,
+  "valkey-cart": 7,
+  "quote": 5,
+  "email": 6,
+  "ad": 9,
+  "telemetry-docs": 31,
+  "astronomy-db": 23,
+  "cart": 22,
+  "otel-collector": 350,
+  "payment": 6,
+  "kafka": 613,
+  "fraud-detection": 5,
+  "accounting": 27,
+  "recommendation": 3,
   "frontend-proxy": 127,
-  "recommendation": 1,
-  "cart": 4,
-  "ad": 3
+  "product-catalog": 1,
+  "shipping": 8,
+  "frontend": 37
  },
  "latency_scheduled": {
   "accounting": {
-   "records": 225,
-   "median": 6.289999961853027,
-   "p99": 7.866639995574951,
-   "max": 7.953999996185303,
+   "records": 5635,
+   "median": 2.1649999618530273,
+   "p99": 6.835980124473571,
+   "max": 9.900000095367432,
    "over_10s": 0
   },
   "ad": {
-   "records": 371,
-   "median": 6.124000072479248,
-   "p99": 7.712899923324585,
-   "max": 12.230999946594238,
-   "over_10s": 1
+   "records": 375,
+   "median": 6.016000032424927,
+   "p99": 7.428659954071045,
+   "max": 7.876000165939331,
+   "over_10s": 0
   },
   "astronomy-db": {
-   "records": 901,
-   "median": 6.052000045776367,
-   "p99": 6.9709999561309814,
-   "max": 14.450999975204468,
-   "over_10s": 4
+   "records": 8971,
+   "median": 2.2660000324249268,
+   "p99": 6.717100143432612,
+   "max": 8.66100001335144,
+   "over_10s": 0
   },
   "cart": {
-   "records": 2341,
-   "median": 1.9509999752044678,
-   "p99": 7.4162000656127915,
-   "max": 11.477999925613403,
-   "over_10s": 1
+   "records": 2377,
+   "median": 2.0320000648498535,
+   "p99": 7.445520057678218,
+   "max": 8.868000030517578,
+   "over_10s": 0
   },
   "email": {
-   "records": 400,
-   "median": 3.6904999017715454,
-   "p99": 7.70418999671936,
-   "max": 7.884999990463257,
-   "over_10s": 0
+   "records": 407,
+   "median": 4.505999803543091,
+   "p99": 7.715119953155518,
+   "max": 10.014000177383423,
+   "over_10s": 1
   },
   "flagd": {
    "records": 15,
-   "median": 6.7820000648498535,
-   "p99": 7.757899942398071,
-   "max": 7.829999923706055,
+   "median": 6.7200000286102295,
+   "p99": 8.423339972496033,
+   "max": 8.516999959945679,
    "over_10s": 0
   },
   "flagd-ui": {
    "records": 33,
-   "median": 2.4660000801086426,
-   "p99": 8.073280086517334,
-   "max": 8.360000133514404,
+   "median": 2.886000156402588,
+   "p99": 8.523239965438842,
+   "max": 8.83299994468689,
    "over_10s": 0
   },
   "fraud-detection": {
-   "records": 254,
-   "median": 6.039999961853027,
-   "p99": 7.761350028514862,
-   "max": 7.885999917984009,
+   "records": 3882,
+   "median": 2.8329999446868896,
+   "p99": 6.995899956226349,
+   "max": 9.956000089645386,
    "over_10s": 0
   },
   "frontend": {
-   "records": 4310,
-   "median": 2.230000138282776,
-   "p99": 6.519459977149962,
-   "max": 15.075000047683716,
-   "over_10s": 2
-  },
-  "kafka": {
-   "records": 3668,
-   "median": 1.683000087738037,
-   "p99": 8.16621005535124,
-   "max": 17.197999954223633,
-   "over_10s": 35
-  },
-  "otel-collector": {
-   "records": 12637,
-   "median": 1.7909998893737793,
-   "p99": 5.711440048217761,
-   "max": 14.942000150680542,
-   "over_10s": 15
-  },
-  "payment": {
-   "records": 482,
-   "median": 2.5110000371932983,
-   "p99": 7.729829893112182,
-   "max": 7.942999839782715,
+   "records": 4271,
+   "median": 2.2070000171661377,
+   "p99": 6.55470006465912,
+   "max": 8.404000043869019,
    "over_10s": 0
   },
+  "kafka": {
+   "records": 3392,
+   "median": 1.7939999103546143,
+   "p99": 7.325180056095124,
+   "max": 8.586999893188477,
+   "over_10s": 0
+  },
+  "otel-collector": {
+   "records": 12550,
+   "median": 1.7000000476837158,
+   "p99": 5.3635299992561345,
+   "max": 7.52400016784668,
+   "over_10s": 0
+  },
+  "payment": {
+   "records": 500,
+   "median": 2.6079999208450317,
+   "p99": 7.66436003446579,
+   "max": 10.284000158309937,
+   "over_10s": 1
+  },
   "quote": {
-   "records": 241,
-   "median": 6.240999937057495,
-   "p99": 7.8132000923156735,
-   "max": 7.950999975204468,
+   "records": 250,
+   "median": 6.2505000829696655,
+   "p99": 7.870880005359649,
+   "max": 8.158999919891357,
    "over_10s": 0
   },
   "recommendation": {
-   "records": 454,
-   "median": 5.799999952316284,
-   "p99": 7.781349985599518,
-   "max": 8.044000148773193,
+   "records": 416,
+   "median": 6.023000001907349,
+   "p99": 7.688100123405457,
+   "max": 7.819000005722046,
    "over_10s": 0
   },
   "shipping": {
-   "records": 733,
-   "median": 1.9090001583099365,
-   "p99": 7.62419991493225,
-   "max": 7.927000045776367,
-   "over_10s": 0
-  },
-  "telemetry-docs": {
-   "records": 883,
-   "median": 6.051000118255615,
-   "p99": 6.895860023498534,
-   "max": 13.749000072479248,
+   "records": 758,
+   "median": 2.028499960899353,
+   "p99": 7.573910062313078,
+   "max": 10.270999908447266,
    "over_10s": 1
   },
+  "telemetry-docs": {
+   "records": 860,
+   "median": 6.019500017166138,
+   "p99": 7.382410037517547,
+   "max": 8.161999940872192,
+   "over_10s": 0
+  },
   "valkey-cart": {
-   "records": 70,
-   "median": 1.6965000629425049,
-   "p99": 8.712720041275025,
-   "max": 8.858999967575073,
+   "records": 75,
+   "median": 1.9240000247955322,
+   "p99": 7.231719985008242,
+   "max": 7.506999969482422,
    "over_10s": 0
   }
  },
  "latency_scheduled_all": {
-  "records": 28018,
-  "median": 2.0169999599456787,
-  "p99": 7.441660134792324,
-  "max": 17.197999954223633,
-  "over_10s": 59
+  "records": 44767,
+  "median": 2.1500000953674316,
+  "p99": 7.158339967727658,
+  "max": 10.284000158309937,
+  "over_10s": 3
  },
  "latency_over_10s_wait": {
-  "over_10s": 59,
+  "over_10s": 3,
   "by_cause": {
-   "back more than 5 s after its container's next line": 54,
-   "back within 5 s after its container's next line": 4,
-   "back before its container wrote again": 1
+   "back within 5 s after its container's next line": 3
   },
-  "median_s_after_next_line": 2.6494998931884766
+  "median_s_after_next_line": 1.3240001201629639
  },
  "latency_over_10s_by_phase": {
-  "before the quiet run": 846,
-  "between quiet end and scheduler start": 53,
-  "scheduled run": 59
+  "before the quiet run": 852,
+  "quiet run": 206,
+  "between quiet end and scheduler start": 219,
+  "scheduled run": 3
  },
  "release_after_quiet": {
   "all": {
-   "records": 1544,
-   "median": 6.495000004768372,
-   "p99": 7.92985011100769,
-   "min": 5.069999933242798,
-   "max": 12.230999946594238,
+   "records": 1501,
+   "median": 6.552999973297119,
+   "p99": 7.91100001335144,
+   "min": 5.162999868392944,
+   "max": 8.83299994468689,
    "waited_for_next_line": 0
   },
   "waited_for_next_line": {},
   "containers": {
    "accounting": {
-    "records": 139,
-    "median": 6.457000017166138,
-    "max": 7.953999996185303
+    "records": 132,
+    "median": 6.528500080108643,
+    "max": 7.91100001335144
    },
    "ad": {
-    "records": 154,
-    "median": 6.526000022888184,
-    "max": 12.230999946594238
-   },
-   "astronomy-db": {
-    "records": 1,
-    "median": 5.940000057220459,
-    "max": 5.940000057220459
+    "records": 165,
+    "median": 6.365000009536743,
+    "max": 7.876000165939331
    },
    "cart": {
-    "records": 117,
-    "median": 6.550000190734863,
-    "max": 8.682000160217285
+    "records": 105,
+    "median": 6.608999967575073,
+    "max": 8.112000226974487
    },
    "email": {
-    "records": 140,
-    "median": 6.465999960899353,
-    "max": 7.884999990463257
+    "records": 133,
+    "median": 6.546999931335449,
+    "max": 7.928999900817871
    },
    "flagd": {
     "records": 15,
-    "median": 6.7820000648498535,
-    "max": 7.829999923706055
+    "median": 6.7200000286102295,
+    "max": 8.516999959945679
    },
    "flagd-ui": {
     "records": 16,
-    "median": 6.383500099182129,
-    "max": 8.360000133514404
+    "median": 6.787499904632568,
+    "max": 8.83299994468689
    },
    "fraud-detection": {
-    "records": 137,
-    "median": 6.380000114440918,
-    "max": 7.885999917984009
+    "records": 120,
+    "median": 6.5329999923706055,
+    "max": 8.074000120162964
+   },
+   "frontend": {
+    "records": 1,
+    "median": 6.060999870300293,
+    "max": 6.060999870300293
    },
    "kafka": {
-    "records": 194,
-    "median": 6.571000099182129,
-    "max": 8.440000057220459
+    "records": 205,
+    "median": 6.518999814987183,
+    "max": 7.944999933242798
    },
    "payment": {
-    "records": 150,
-    "median": 6.51800000667572,
-    "max": 7.942999839782715
+    "records": 140,
+    "median": 6.605499982833862,
+    "max": 7.966000080108643
    },
    "quote": {
-    "records": 150,
-    "median": 6.490499973297119,
-    "max": 7.950999975204468
+    "records": 140,
+    "median": 6.620000004768372,
+    "max": 8.158999919891357
    },
    "recommendation": {
-    "records": 166,
-    "median": 6.424499988555908,
-    "max": 8.044000148773193
+    "records": 176,
+    "median": 6.57200014591217,
+    "max": 7.819000005722046
    },
    "shipping": {
-    "records": 150,
-    "median": 6.51200008392334,
-    "max": 7.927000045776367
-   },
-   "telemetry-docs": {
-    "records": 1,
-    "median": 7.390000104904175,
-    "max": 7.390000104904175
+    "records": 138,
+    "median": 6.559000134468079,
+    "max": 7.949000120162964
    },
    "valkey-cart": {
-    "records": 14,
-    "median": 6.5975000858306885,
-    "max": 8.858999967575073
+    "records": 15,
+    "median": 6.540999889373779,
+    "max": 7.506999969482422
    }
   }
  },
  "early_close": {
-  "scheduled_records_opened_by_a_non_head_line": 173,
+  "scheduled_records_opened_by_a_non_head_line": 172,
   "by_pause": {
-   "over 7 s": 157,
-   "5 to 7 s": 13,
-   "3 to 5 s": 3
+   "over 7 s": 153,
+   "5 to 7 s": 18,
+   "3 to 5 s": 1
   },
-  "within_7s_of_prev_first_line": 16,
+  "within_7s_of_prev_first_line": 19,
   "within_7s_same_pattern": 0,
-  "whole_run_records_opened_by_a_non_head_line": 245,
+  "whole_run_records_opened_by_a_non_head_line": 209,
   "groups": [
    {
     "container": "email",
     "prev_pattern": "POST_send_order_confirmation_HTTP",
     "first_line_kind": "Order confirmation email sent for order 0-0-0-0-",
-    "records": 173,
+    "records": 172,
     "by_pause": {
-     "over 7 s": 157,
-     "5 to 7 s": 13,
-     "3 to 5 s": 3
+     "over 7 s": 153,
+     "5 to 7 s": 18,
+     "3 to 5 s": 1
     },
-    "within_7s": 16,
+    "within_7s": 19,
     "same_pattern": 0,
-    "pause_min_s": 4.4690001010894775,
-    "example_at": 1792061886.949,
-    "example_line": "Order confirmation email sent for order 4d0f9d1c-c887-11f1-a9fa-0242ac1c0016",
+    "pause_min_s": 4.952999830245972,
+    "example_at": 1792068480.622,
+    "example_line": "Order confirmation email sent for order a776d3ac-c896-11f1-b536-0242ac1c0016",
     "example_pattern": "Order_confirmation_email_sent_for_order"
    }
   ]
  },
  "delivery_whole_run": {
   "span": [
-   1792060096,
-   1792066276
+   1792066469,
+   1792072975
   ],
   "containers": {
    "accounting": {
-    "raw_lines": 662,
-    "returned_records": 339,
-    "lines_covered": 662,
+    "raw_lines": 11426,
+    "returned_records": 5729,
+    "lines_covered": 11426,
     "routes": {
-     "pass": 205,
-     "tier_down": 134
+     "pass": 200,
+     "tier_down": 5529
     },
     "covered_minus_raw": 0
    },
    "ad": {
-    "raw_lines": 568,
-    "returned_records": 518,
-    "lines_covered": 568,
+    "raw_lines": 690,
+    "returned_records": 502,
+    "lines_covered": 690,
     "routes": {
-     "pass": 296,
+     "pass": 280,
      "tier_down": 222
     },
     "covered_minus_raw": 0
    },
    "astronomy-db": {
-    "raw_lines": 1300,
-    "returned_records": 1262,
-    "lines_covered": 1299,
+    "raw_lines": 12086,
+    "returned_records": 9356,
+    "lines_covered": 12085,
     "routes": {
-     "pass": 1262
+     "pass": 3801,
+     "offload": 5555
     },
     "covered_minus_raw": -1
    },
    "cart": {
-    "raw_lines": 6598,
-    "returned_records": 3245,
-    "lines_covered": 6598,
+    "raw_lines": 6126,
+    "returned_records": 3007,
+    "lines_covered": 6126,
     "routes": {
-     "pass": 1191,
-     "tier_down": 2054
+     "pass": 887,
+     "tier_down": 2120
     },
     "covered_minus_raw": 0
    },
@@ -3496,12 +2495,12 @@
     "covered_minus_raw": 0
    },
    "email": {
-    "raw_lines": 659,
-    "returned_records": 580,
-    "lines_covered": 659,
+    "raw_lines": 613,
+    "returned_records": 520,
+    "lines_covered": 613,
     "routes": {
-     "pass": 360,
-     "tier_down": 220
+     "pass": 288,
+     "tier_down": 232
     },
     "covered_minus_raw": 0
    },
@@ -3524,24 +2523,24 @@
     "covered_minus_raw": -1
    },
    "fraud-detection": {
-    "raw_lines": 351,
-    "returned_records": 351,
-    "lines_covered": 351,
+    "raw_lines": 3947,
+    "returned_records": 3947,
+    "lines_covered": 3947,
     "routes": {
-     "pass": 197,
-     "tier_down": 154
+     "pass": 161,
+     "tier_down": 3786
     },
     "covered_minus_raw": 0
    },
    "frontend": {
-    "raw_lines": 5866,
-    "returned_records": 5860,
-    "lines_covered": 5865,
+    "raw_lines": 5569,
+    "returned_records": 5564,
+    "lines_covered": 5569,
     "routes": {
-     "pass": 1732,
-     "tier_down": 4128
+     "pass": 2650,
+     "tier_down": 2914
     },
-    "covered_minus_raw": -1
+    "covered_minus_raw": 0
    },
    "frontend-proxy": {
     "raw_lines": 135,
@@ -3553,83 +2552,91 @@
     "covered_minus_raw": 0
    },
    "image-provider": {
-    "raw_lines": 47,
-    "returned_records": 47,
-    "lines_covered": 47,
+    "raw_lines": 58,
+    "returned_records": 58,
+    "lines_covered": 58,
     "routes": {
-     "pass": 47
+     "pass": 58
     },
     "covered_minus_raw": 0
    },
    "kafka": {
-    "raw_lines": 6501,
-    "returned_records": 5300,
-    "lines_covered": 6500,
+    "raw_lines": 7207,
+    "returned_records": 5933,
+    "lines_covered": 7207,
     "routes": {
-     "pass": 2880,
-     "tier_down": 2420
+     "pass": 5933
     },
-    "covered_minus_raw": -1
+    "covered_minus_raw": 0
    },
    "otel-collector": {
-    "raw_lines": 19070,
-    "returned_records": 17148,
-    "lines_covered": 19070,
+    "raw_lines": 20891,
+    "returned_records": 17775,
+    "lines_covered": 20891,
     "routes": {
-     "pass": 8550,
-     "tier_down": 8598
+     "pass": 11770,
+     "tier_down": 6005
     },
     "covered_minus_raw": 0
    },
    "payment": {
-    "raw_lines": 664,
-    "returned_records": 663,
-    "lines_covered": 664,
+    "raw_lines": 618,
+    "returned_records": 617,
+    "lines_covered": 618,
     "routes": {
-     "pass": 396,
-     "tier_down": 267
+     "pass": 302,
+     "tier_down": 315
+    },
+    "covered_minus_raw": 0
+   },
+   "product-catalog": {
+    "raw_lines": 2,
+    "returned_records": 2,
+    "lines_covered": 2,
+    "routes": {
+     "pass": 2
     },
     "covered_minus_raw": 0
    },
    "quote": {
-    "raw_lines": 331,
-    "returned_records": 331,
-    "lines_covered": 331,
+    "raw_lines": 320,
+    "returned_records": 310,
+    "lines_covered": 320,
     "routes": {
-     "pass": 185,
-     "tier_down": 146
+     "pass": 151,
+     "tier_down": 159
     },
     "covered_minus_raw": 0
    },
    "recommendation": {
-    "raw_lines": 599,
-    "returned_records": 599,
-    "lines_covered": 599,
+    "raw_lines": 528,
+    "returned_records": 528,
+    "lines_covered": 528,
     "routes": {
-     "pass": 277,
-     "tier_down": 322
+     "pass": 237,
+     "tier_down": 291
     },
     "covered_minus_raw": 0
    },
    "shipping": {
-    "raw_lines": 1020,
-    "returned_records": 1020,
-    "lines_covered": 1020,
+    "raw_lines": 947,
+    "returned_records": 947,
+    "lines_covered": 947,
     "routes": {
-     "pass": 800,
-     "tier_down": 220
+     "pass": 536,
+     "tier_down": 411
     },
     "covered_minus_raw": 0
    },
    "telemetry-docs": {
-    "raw_lines": 1214,
-    "returned_records": 1213,
-    "lines_covered": 1213,
+    "raw_lines": 1230,
+    "returned_records": 1230,
+    "lines_covered": 1230,
     "routes": {
-     "pass": 423,
-     "tier_down": 790
+     "pass": 455,
+     "tier_down": 775
     },
-    "covered_minus_raw": -1
+    "covered_minus_raw": 0
    },
    "valkey-cart": {
     "raw_lines": 102,
@@ -3644,56 +2651,57 @@
  },
  "delivery_scheduled": {
   "span": [
-   1792061771,
-   1792066276
+   1792068471,
+   1792072975
   ],
   "containers": {
    "accounting": {
-    "raw_lines": 449,
-    "returned_records": 225,
-    "lines_covered": 449,
+    "raw_lines": 11270,
+    "returned_records": 5635,
+    "lines_covered": 11270,
     "routes": {
-     "pass": 91,
-     "tier_down": 134
+     "pass": 106,
+     "tier_down": 5529
     },
     "covered_minus_raw": 0
    },
    "ad": {
-    "raw_lines": 417,
-    "returned_records": 371,
-    "lines_covered": 417,
+    "raw_lines": 559,
+    "returned_records": 375,
+    "lines_covered": 559,
     "routes": {
-     "pass": 149,
-     "tier_down": 222
+     "tier_down": 221,
+     "pass": 154
     },
     "covered_minus_raw": 0
    },
    "astronomy-db": {
-    "raw_lines": 902,
-    "returned_records": 901,
-    "lines_covered": 901,
+    "raw_lines": 11672,
+    "returned_records": 8971,
+    "lines_covered": 11671,
     "routes": {
-     "pass": 901
+     "pass": 3416,
+     "offload": 5555
     },
     "covered_minus_raw": -1
    },
    "cart": {
-    "raw_lines": 4790,
-    "returned_records": 2341,
-    "lines_covered": 4790,
+    "raw_lines": 4866,
+    "returned_records": 2377,
+    "lines_covered": 4866,
     "routes": {
-     "pass": 287,
-     "tier_down": 2054
+     "tier_down": 2099,
+     "pass": 278
     },
     "covered_minus_raw": 0
    },
    "email": {
-    "raw_lines": 452,
-    "returned_records": 400,
-    "lines_covered": 452,
+    "raw_lines": 470,
+    "returned_records": 407,
+    "lines_covered": 470,
     "routes": {
-     "pass": 180,
-     "tier_down": 220
+     "pass": 175,
+     "tier_down": 232
     },
     "covered_minus_raw": 0
    },
@@ -3716,101 +2724,100 @@
     "covered_minus_raw": -1
    },
    "fraud-detection": {
-    "raw_lines": 254,
-    "returned_records": 254,
-    "lines_covered": 254,
+    "raw_lines": 3882,
+    "returned_records": 3882,
+    "lines_covered": 3882,
     "routes": {
-     "pass": 100,
-     "tier_down": 154
+     "pass": 96,
+     "tier_down": 3786
     },
     "covered_minus_raw": 0
    },
    "frontend": {
-    "raw_lines": 4311,
-    "returned_records": 4310,
-    "lines_covered": 4310,
+    "raw_lines": 4271,
+    "returned_records": 4271,
+    "lines_covered": 4271,
     "routes": {
-     "tier_down": 4124,
-     "pass": 186
+     "pass": 1357,
+     "tier_down": 2914
     },
-    "covered_minus_raw": -1
+    "covered_minus_raw": 0
    },
    "kafka": {
-    "raw_lines": 3670,
-    "returned_records": 3668,
-    "lines_covered": 3669,
+    "raw_lines": 3392,
+    "returned_records": 3392,
+    "lines_covered": 3392,
     "routes": {
-     "pass": 1248,
-     "tier_down": 2420
+     "pass": 3392
     },
-    "covered_minus_raw": -1
+    "covered_minus_raw": 0
    },
    "otel-collector": {
-    "raw_lines": 13699,
-    "returned_records": 12637,
-    "lines_covered": 13699,
+    "raw_lines": 13774,
+    "returned_records": 12550,
+    "lines_covered": 13774,
     "routes": {
-     "pass": 4039,
-     "tier_down": 8598
+     "pass": 6545,
+     "tier_down": 6005
     },
     "covered_minus_raw": 0
    },
    "payment": {
-    "raw_lines": 482,
-    "returned_records": 482,
-    "lines_covered": 482,
+    "raw_lines": 500,
+    "returned_records": 500,
+    "lines_covered": 500,
     "routes": {
-     "pass": 215,
-     "tier_down": 267
+     "pass": 185,
+     "tier_down": 315
     },
     "covered_minus_raw": 0
    },
    "quote": {
-    "raw_lines": 241,
-    "returned_records": 241,
-    "lines_covered": 241,
+    "raw_lines": 250,
+    "returned_records": 250,
+    "lines_covered": 250,
     "routes": {
-     "pass": 95,
-     "tier_down": 146
+     "pass": 91,
+     "tier_down": 159
     },
     "covered_minus_raw": 0
    },
    "recommendation": {
-    "raw_lines": 454,
-    "returned_records": 454,
-    "lines_covered": 454,
+    "raw_lines": 416,
+    "returned_records": 416,
+    "lines_covered": 416,
     "routes": {
-     "pass": 132,
-     "tier_down": 322
+     "pass": 125,
+     "tier_down": 291
     },
     "covered_minus_raw": 0
    },
    "shipping": {
-    "raw_lines": 733,
-    "returned_records": 733,
-    "lines_covered": 733,
+    "raw_lines": 758,
+    "returned_records": 758,
+    "lines_covered": 758,
     "routes": {
-     "pass": 513,
-     "tier_down": 220
+     "pass": 347,
+     "tier_down": 411
     },
     "covered_minus_raw": 0
    },
    "telemetry-docs": {
-    "raw_lines": 884,
-    "returned_records": 883,
-    "lines_covered": 883,
+    "raw_lines": 860,
+    "returned_records": 860,
+    "lines_covered": 860,
     "routes": {
-     "pass": 93,
-     "tier_down": 790
+     "tier_down": 770,
+     "pass": 90
     },
-    "covered_minus_raw": -1
+    "covered_minus_raw": 0
    },
    "valkey-cart": {
-    "raw_lines": 70,
-    "returned_records": 70,
-    "lines_covered": 70,
+    "raw_lines": 75,
+    "returned_records": 75,
+    "lines_covered": 75,
     "routes": {
-     "pass": 70
+     "pass": 75
     },
     "covered_minus_raw": 0
    }
@@ -3818,31 +2825,32 @@
  },
  "delivery_split": {
   "to_60s_before_stop": {
-   "raw_lines": 45258,
-   "lines_covered": 45258
+   "raw_lines": 72187,
+   "lines_covered": 72187
   },
   "last_60s": {
-   "raw_lines": 501,
-   "lines_covered": 495
+   "raw_lines": 380,
+   "lines_covered": 377
   }
  },
  "totals_scheduled": {
-  "raw_lines": 31858,
-  "returned": 28018,
+  "raw_lines": 57065,
+  "returned": 44767,
   "routes": {
-   "pass": 8347,
-   "tier_down": 19671
+   "pass": 16480,
+   "tier_down": 22732,
+   "offload": 5555
   },
   "bytes_by_route": {
-   "pass": 3871459,
-   "offload": 0,
-   "tier_down": 9139370,
+   "pass": 7245689,
+   "offload": 1594191,
+   "tier_down": 10918703,
    "other": 0
   }
  },
  "what_if_fleet_default_alone": {
-  "held_expected": 12880.0,
-  "held_expected_in_causal_span": 1709.0,
-  "held_expected_errors": 1.0
+  "held_expected": 19475.0,
+  "held_expected_in_causal_span": 13929.0,
+  "held_expected_errors": 1099.0
  }
 }

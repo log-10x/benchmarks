@@ -18,7 +18,7 @@ services:
       - "symbolMessageHashField"
       - "tenx_hash"
       - "rateReceiverAbsoluteCap"
-      - "25960"
+      - "71247"
       - "rateReceiverDefaultAction"
       - "offload"
       - "rateReceiverMinSharePercent"

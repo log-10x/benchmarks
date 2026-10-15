@@ -1,30 +1,30 @@
 :ok
-2026-10-15T10:56:11Z scheduler started; planned end 2026-10-15T12:11:11Z
-2026-10-15T12:11:11Z planned end; stopping
+2026-10-15T12:47:51Z scheduler started; planned end 2026-10-15T14:02:51Z
+2026-10-15T14:02:52Z planned end; stopping
 :ok
  Container fraud-detection  Stopping
  Container rig-fluent-bit  Stopping
  Container rig-tenx  Stopping
- Container accounting  Stopping
  Container frontend-proxy  Stopping
+ Container accounting  Stopping
  Container fraud-detection  Stopped
  Container fraud-detection  Removing
- Container rig-fluent-bit  Stopped
- Container rig-fluent-bit  Removing
- Container fraud-detection  Removed
- Container rig-fluent-bit  Removed
- Container accounting  Stopped
- Container accounting  Removing
- Container accounting  Removed
  Container rig-tenx  Stopped
  Container rig-tenx  Removing
+ Container rig-fluent-bit  Stopped
+ Container rig-fluent-bit  Removing
+ Container accounting  Stopped
+ Container accounting  Removing
+ Container fraud-detection  Removed
+ Container accounting  Removed
+ Container rig-tenx  Removed
+ Container rig-fluent-bit  Removed
  Container frontend-proxy  Stopped
  Container frontend-proxy  Removing
- Container rig-tenx  Removed
  Container frontend-proxy  Removed
  Container load-generator  Stopping
- Container telemetry-docs  Stopping
  Container flagd-ui  Stopping
+ Container telemetry-docs  Stopping
  Container telemetry-docs  Stopped
  Container telemetry-docs  Removing
  Container telemetry-docs  Removed
@@ -38,42 +38,42 @@
  Container frontend  Stopped
  Container frontend  Removing
  Container frontend  Removed
- Container image-provider  Stopping
- Container quote  Stopping
- Container ad  Stopping
  Container recommendation  Stopping
  Container checkout  Stopping
- Container quote  Stopped
- Container quote  Removing
- Container quote  Removed
+ Container ad  Stopping
+ Container quote  Stopping
+ Container image-provider  Stopping
  Container checkout  Stopped
  Container checkout  Removing
+ Container checkout  Removed
+ Container email  Stopping
+ Container shipping  Stopping
+ Container cart  Stopping
+ Container payment  Stopping
+ Container currency  Stopping
+ Container kafka  Stopping
+ Container quote  Stopped
+ Container quote  Removing
  Container image-provider  Stopped
  Container image-provider  Removing
- Container checkout  Removed
- Container currency  Stopping
- Container payment  Stopping
- Container email  Stopping
- Container cart  Stopping
- Container kafka  Stopping
- Container shipping  Stopping
+ Container quote  Removed
  Container image-provider  Removed
- Container ad  Stopped
- Container ad  Removing
- Container ad  Removed
- Container currency  Stopped
- Container currency  Removing
  Container shipping  Stopped
  Container shipping  Removing
- Container currency  Removed
+ Container ad  Stopped
+ Container ad  Removing
+ Container currency  Stopped
+ Container currency  Removing
  Container shipping  Removed
+ Container ad  Removed
+ Container currency  Removed
  Container email  Stopped
  Container email  Removing
- Container email  Removed
  Container cart  Stopped
  Container cart  Removing
  Container cart  Removed
  Container valkey-cart  Stopping
+ Container email  Removed
  Container valkey-cart  Stopped
  Container valkey-cart  Removing
  Container valkey-cart  Removed
@@ -86,20 +86,20 @@
  Container product-catalog  Stopping
  Container product-catalog  Stopped
  Container product-catalog  Removing
- Container payment  Stopped
- Container payment  Removing
  Container product-catalog  Removed
  Container astronomy-db  Stopping
- Container payment  Removed
- Container otel-collector  Stopping
- Container flagd  Stopping
- Container flagd  Stopped
- Container flagd  Removing
  Container astronomy-db  Stopped
  Container astronomy-db  Removing
+ Container astronomy-db  Removed
+ Container payment  Stopped
+ Container payment  Removing
+ Container payment  Removed
+ Container flagd  Stopping
+ Container otel-collector  Stopping
+ Container flagd  Stopped
+ Container flagd  Removing
  Container otel-collector  Stopped
  Container otel-collector  Removing
- Container astronomy-db  Removed
  Container flagd  Removed
  Container otel-collector  Removed
  Network opentelemetry-demo  Removing
