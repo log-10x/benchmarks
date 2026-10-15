@@ -10,12 +10,12 @@
 #
 # Environment:
 #   INTENT_ENGINES   space-separated engine images to run on rec1155 and
-#                    otel215 (default: the two pinned below). Any image tag or
+#                    otel215 (default: the three pinned below). Any image tag or
 #                    digest of log10x/pipeline-10x works; results are named
 #                    after the part after the last ':' or '@'.
 #   INTENT_HELDOUT_ENGINES
 #                    engine images to run on the zookeeper capture
-#                    (default: the one pinned below).
+#                    (default: the two pinned below).
 #   INTENT_CACHE     where inputs and engine output go (default: ./cache)
 #   INTENT_PYTHON    interpreter for the Drain3 virtualenv (default: python3)
 #
@@ -32,8 +32,8 @@ cd "$HERE"
 CACHE="${INTENT_CACHE:-$HERE/cache}"
 PY="${INTENT_PYTHON:-python3}"
 VENV="$HERE/.venv"
-ENGINES="${INTENT_ENGINES:-log10x/pipeline-10x:1.1.132@sha256:3e21cd41cde6d8263b5fa1b121ff15587a6bfe33ca4b3338b08bbb8c0e7a0c5f log10x/pipeline-10x:1.1.133@sha256:fe3dcdefdc2f42fa7117c4f63fe97b28508fbf1356725422703f0dfab55f2360}"
-HELDOUT_ENGINES="${INTENT_HELDOUT_ENGINES:-log10x/pipeline-10x:1.1.136@sha256:fccff37a6a41e52eb4df8a108d042b0176210842b7ed25f08b1419df3a37904f}"
+ENGINES="${INTENT_ENGINES:-log10x/pipeline-10x:1.1.132@sha256:3e21cd41cde6d8263b5fa1b121ff15587a6bfe33ca4b3338b08bbb8c0e7a0c5f log10x/pipeline-10x:1.1.133@sha256:fe3dcdefdc2f42fa7117c4f63fe97b28508fbf1356725422703f0dfab55f2360 log10x/pipeline-10x:1.1.142@sha256:22ae67148bd7f6cbdf171c1b8da1c9c6c801290d43488693dfd8527e27138d05}"
+HELDOUT_ENGINES="${INTENT_HELDOUT_ENGINES:-log10x/pipeline-10x:1.1.136@sha256:fccff37a6a41e52eb4df8a108d042b0176210842b7ed25f08b1419df3a37904f log10x/pipeline-10x:1.1.142@sha256:22ae67148bd7f6cbdf171c1b8da1c9c6c801290d43488693dfd8527e27138d05}"
 
 OTEL_URL="https://github.com/log-10x/config/releases/download/otel-sample-v1/otel-sample-200mb.log.gz"
 OTEL_GZ_SHA="c118e55f1e431d9ff43fe1b3b62237d2fbd7c6e27821a8a9c4c57757786b0eb9"
