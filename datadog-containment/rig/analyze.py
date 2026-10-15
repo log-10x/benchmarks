@@ -62,7 +62,7 @@ def pct(vals, p):
 
 
 class Rec:
-    __slots__ = ('ts', 'rb', 'route', 'c', 'h', 'name', 'sev', 'bytes', 'lines', 'head')
+    __slots__ = ('ts', 'rb', 'route', 'c', 'h', 'name', 'sev', 'bytes', 'lines', 'head', 'text')
 
 
 def load(name, route=None):
@@ -99,6 +99,7 @@ def load(name, route=None):
             log = str(r.get('log', ''))
             x.lines = log.count('\n') + 1
             x.head = None
+            x.text = log
             if (c, x.h) not in samples:
                 samples[(c, x.h)] = log[:200]
             out.append(x)
@@ -476,40 +477,137 @@ def main():
             wr.writerow([x.c, hms(x.ts), hms(x.rb), round(dlt, 3), x.route, x.lines, x.h, names.get((x.c, x.h), ''), samples.get((x.c, x.h), '')[:100]])
     A['latency_over_10s_by_container'] = dict(collections.Counter(x.c for x, d in slow))
 
-    # scheduled phase alone, and what the records over 10 s waited for: the container's next
-    # raw line (an event stays open until its source's next head; E81)
-    lat_s = collections.defaultdict(list)
-    raw_ts = collections.defaultdict(list)
+    # Each returned record against the raw lines it covers. The Receiver joins consecutive lines
+    # of one source (the forwarder tag, here one container) into a record, in order, so a
+    # record's first line is found by its time and text and its last line is lines - 1 further.
+    raw_by_c = collections.defaultdict(list)
     for x in raw:
-        raw_ts[x.c].append(x.ts)
-    for c in raw_ts:
-        raw_ts[c].sort()
-    waits = []
-    no_next = 0
+        raw_by_c[x.c].append(x)
+    pos = {}
+    for c, rs in raw_by_c.items():
+        for i, x in enumerate(rs):
+            pos.setdefault((c, x.ts, x.text), i)
+    def last_index(x):
+        i = pos.get((x.c, x.ts, x.text.split('\n')[0]))
+        if i is None:
+            return None
+        j = i + x.lines - 1
+        return j if j < len(raw_by_c[x.c]) else None
+
+    # scheduled phase alone, and what the records over 10 s waited for
+    lat_s = collections.defaultdict(list)
+    wait = collections.Counter()
+    after_next = []
     for x in ret:
         if x.rb is None or not (s0 <= x.ts < s1):
             continue
         dlt = x.rb - x.ts
         lat_s[x.c].append(dlt)
         if dlt > 10:
-            ts = raw_ts[x.c]
-            i = bisect.bisect_right(ts, x.ts + 0.0005)
-            if i < len(ts):
-                waits.append(x.rb - ts[i])
+            j = last_index(x)
+            rl = raw_by_c[x.c]
+            if j is None:
+                wait['not aligned to raw lines'] += 1
+            elif j + 1 >= len(rl) or rl[j + 1].ts > x.rb + 1:
+                wait['back before its container wrote again'] += 1
+            elif x.rb - rl[j + 1].ts <= 5:
+                wait['back within 5 s after its container\'s next line'] += 1
+                after_next.append(x.rb - rl[j + 1].ts)
             else:
-                no_next += 1
+                wait['back more than 5 s after its container\'s next line'] += 1
     A['latency_scheduled'] = {c: {'records': len(v), 'median': pct(v, 0.5), 'p99': pct(v, 0.99), 'max': max(v), 'over_10s': sum(1 for d in v if d > 10)}
                               for c, v in sorted(lat_s.items())}
     alls = [d for v in lat_s.values() for d in v]
     A['latency_scheduled_all'] = {'records': len(alls), 'median': pct(alls, 0.5), 'p99': pct(alls, 0.99), 'max': max(alls) if alls else None,
                                   'over_10s': sum(1 for d in alls if d > 10)}
-    A['latency_over_10s_wait'] = {'over_10s': len(waits) + no_next, 'with_a_next_line': len(waits),
-                                  'back_within_5s_after_next_line': sum(1 for w in waits if -1 <= w <= 5),
-                                  'median_s_after_next_line': pct(waits, 0.5), 'no_next_line_before_stop': no_next}
+    A['latency_over_10s_wait'] = {'over_10s': sum(wait.values()), 'by_cause': dict(wait), 'median_s_after_next_line': pct(after_next, 0.5)}
     by_phase = collections.Counter()
     for x, dlt in slow:
         by_phase['before the quiet run' if x.ts < q0 else 'quiet run' if x.ts < q1 else 'between quiet end and scheduler start' if x.ts < s0 else 'scheduled run' if x.ts < s1 else 'after run end'] += 1
     A['latency_over_10s_by_phase'] = dict(by_phase)
+
+    # Release after a source goes quiet: records of the scheduled run whose container wrote
+    # nothing for at least 10 s after the record's last line, so only a timer could release
+    # them; seconds from that last line to rb_ts.
+    rel = collections.defaultdict(list)
+    waited = collections.Counter()
+    for x in ret:
+        if x.rb is None or not (s0 <= x.ts < s1):
+            continue
+        j = last_index(x)
+        if j is None:
+            continue
+        rl = raw_by_c[x.c]
+        nxt = rl[j + 1].ts if j + 1 < len(rl) else s1
+        if nxt - rl[j].ts >= 10:
+            if x.rb < nxt:
+                rel[x.c].append(x.rb - rl[j].ts)
+            else:
+                waited[x.c] += 1
+    allr = [d for v in rel.values() for d in v]
+    A['release_after_quiet'] = {'all': {'records': len(allr), 'median': pct(allr, 0.5), 'p99': pct(allr, 0.99), 'min': min(allr) if allr else None, 'max': max(allr) if allr else None,
+                                        'waited_for_next_line': sum(waited.values())},
+                                'waited_for_next_line': dict(waited),
+                                'containers': {c: {'records': len(v), 'median': pct(v, 0.5), 'max': max(v)} for c, v in sorted(rel.items())}}
+
+    # Multi-line events closed by a source's own pause. A line kind the Receiver joins to the
+    # record before it anywhere in the run is not a group head; a record that begins with such
+    # a line was opened after the source's previous group had been sealed by something other
+    # than a head line, which in a running demo is the per-source flush timer. Each such record
+    # is set against the record before it from the same container: the pause is from that
+    # record's last raw line to this record's first.
+    ANSI = re.compile(r'\x1b\[[0-9;]*m')
+    def kind(line):
+        return re.sub(r'[0-9a-fA-F]{4,}|\d+', '0', ANSI.sub('', line).rstrip())[:48]
+    rr = sorted((x for x in ret if first_ready <= x.ts < s1), key=lambda x: (x.ts, x.rb or 0))
+    by_c = collections.defaultdict(list)
+    for x in rr:
+        by_c[x.c].append(x)
+    inner = collections.defaultdict(collections.Counter)
+    for c, rs in by_c.items():
+        for x in rs:
+            for l in x.text.split('\n')[1:]:
+                inner[c][kind(l)] += 1
+    splits = []
+    for c, rs in by_c.items():
+        for a, b in zip(rs, rs[1:]):
+            k = kind(b.text.split('\n')[0])
+            if not k.strip() or not inner[c][k]:
+                continue   # a blank line is left out: the Receiver both opens and joins on one
+            j = last_index(a)
+            a_last = raw_by_c[c][j].ts if j is not None else None
+            splits.append({'container': c, 'at': b.ts, 'phase': 'scheduled' if b.ts >= s0 else 'before the scheduled run',
+                           'receiver_restart_between': bool(fr and a.ts < fr <= b.ts),
+                           'prev_pattern': a.name or a.h, 'prev_lines': a.lines, 'pattern': b.name or b.h, 'lines': b.lines,
+                           'same_pattern': (a.name or a.h) == (b.name or b.h),
+                           'first_line_kind': k, 'joined_elsewhere': inner[c][k],
+                           'pause_s': (b.ts - a_last) if a_last is not None else None, 'from_prev_first_line_s': b.ts - a.ts,
+                           'route': b.route, 'first_line': ANSI.sub('', b.text.split('\n')[0])[:120]})
+    def bucket(p):
+        return 'unaligned' if p is None else 'under 3 s' if p < 3 else '3 to 5 s' if p < 5 else '5 to 7 s' if p <= 7 else 'over 7 s'
+    sched = [r for r in splits if r['phase'] == 'scheduled' and not r['receiver_restart_between']]
+    groups = collections.defaultdict(list)
+    for r in sched:
+        groups[(r['container'], r['prev_pattern'], r['first_line_kind'])].append(r)
+    A['early_close'] = {
+        'scheduled_records_opened_by_a_non_head_line': len(sched),
+        'by_pause': dict(collections.Counter(bucket(r['pause_s']) for r in sched)),
+        'within_7s_of_prev_first_line': sum(1 for r in sched if r['from_prev_first_line_s'] <= 7),
+        'within_7s_same_pattern': sum(1 for r in sched if r['from_prev_first_line_s'] <= 7 and r['same_pattern']),
+        'whole_run_records_opened_by_a_non_head_line': len(splits),
+        'groups': sorted(({'container': c, 'prev_pattern': pp, 'first_line_kind': k, 'records': len(v),
+                           'by_pause': dict(collections.Counter(bucket(r['pause_s']) for r in v)),
+                           'within_7s': sum(1 for r in v if r['pause_s'] is not None and r['pause_s'] <= 7),
+                           'same_pattern': sum(1 for r in v if r['same_pattern']),
+                           'pause_min_s': min((r['pause_s'] for r in v if r['pause_s'] is not None), default=None),
+                           'example_at': v[0]['at'], 'example_line': v[0]['first_line'], 'example_pattern': v[0]['pattern']}
+                          for (c, pp, k), v in groups.items()), key=lambda g: (-g['within_7s'], -g['records']))}
+    with open(os.path.join(RESULTS, 'early-close.csv'), 'w', newline='') as f:
+        wr = csv.writer(f)
+        cols = ['container', 'at', 'phase', 'receiver_restart_between', 'pause_s', 'from_prev_first_line_s', 'prev_pattern', 'prev_lines', 'pattern', 'lines', 'same_pattern', 'route', 'joined_elsewhere', 'first_line']
+        wr.writerow(cols)
+        for r in splits:
+            wr.writerow([hms(r['at']) if k == 'at' else (round(r[k], 3) if isinstance(r[k], float) else r[k]) for k in cols])
 
     # delivery: raw lines against the lines the returned records cover, whole run and scheduled run
     def delivery(t0, t1):

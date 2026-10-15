@@ -1,12 +1,15 @@
 container,cap
-accounting,1::accounting every statement goes to Flex. Today that is these 60 statements about $0.22 a month.
-ad,1164::ad any statement above 1177 lines a day goes to Flex. Today that is these 6 statements about $0.32 a month.
-cart,1::cart every statement goes to Flex. Today that is these 6 statements about $2.1 a month.
-fraud-detection,1::fraud-detection every statement goes to Flex. Today that is this one statement about $0.22 a month.
-frontend,5551::frontend any statement above 4382 lines a day goes to Flex. Today that is these 7 statements about $3.9 a month.
-kafka,4163::kafka any statement above 4448 lines a day goes to Flex. Today that is these 16 statements about $2.9 a month.
-otel-collector,15726::otel-collector any statement above 1439 lines a day goes to Flex. Today that is these 10 statements about $12 a month.
-payment,2583::payment any statement above 262 lines a day goes to Flex. Today that is these 21 statements about $0.38 a month.
-recommendation,1::recommendation every statement goes to Flex. Today that is these 6 statements about $0.4 a month.
-shipping,765::shipping any statement above 523 lines a day goes to Flex. Today that is these 11 statements about $0.67 a month.
+accounting,3866::accounting any statement above 329 lines a day goes to Flex. Today that is these 71 statements about $0.26 a month.
+ad,1::ad every statement goes to Flex. Today that is these 7 statements about $0.41 a month.
+cart,1::cart every statement goes to Flex. Today that is these 5 statements about $2.7 a month.
+email,1::email every statement goes to Flex. Today that is these 3 statements about $0.26 a month.
+fraud-detection,1::fraud-detection every statement goes to Flex. Today that is this one statement about $0.26 a month.
+frontend,1::frontend every statement goes to Flex. Today that is these 8 statements about $4.6 a month.
+kafka,1669::kafka any statement above 171 lines a day goes to Flex. Today that is these 16 statements about $3.3 a month.
+otel-collector,37330::otel-collector any statement above 4145 lines a day goes to Flex. Today that is these 8 statements about $12 a month.
+payment,2731::payment any statement above 237 lines a day goes to Flex. Today that is these 24 statements about $0.52 a month.
+quote,1::quote every statement goes to Flex. Today that is this one statement about $0.26 a month.
+recommendation,1::recommendation every statement goes to Flex. Today that is these 6 statements about $0.41 a month.
+shipping,3879::shipping any statement above 807 lines a day goes to Flex. Today that is these 10 statements about $0.79 a month.
 telemetry-docs,1::telemetry-docs every statement goes to Flex. Today that is this one statement about $0.87 a month.
+valkey-cart,1::valkey-cart every statement goes to Flex. Today that is these 6 statements about $0.08 a month.

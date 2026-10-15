@@ -1,18 +1,19 @@
 # Rig notes (working log, facts only)
 
-## Released engine, MCP values (2026-10-14, from 20:20 UTC)
+## Rerun on edge-10x 1.1.142 and log10x-mcp 1.30.58 (2026-10-15)
+
+Against the run this replaces (2026-10-14, scheduled 21:12 to 22:27 UTC, commit 8e416c6): engine 1.1.141 to 1.1.142 (per-source group flush, E81), log10x-mcp 1.30.54 to 1.30.58 (caps in the Receiver's unit, each row's cap at the geometric mean of its largest kept and smallest moved statement, E83); that run had a fleet default of 10,288 bytes and 11 plan rows, kafkaQueueProblems held astronomy-db 4,784 (fleet default, offload), accounting 1,990 and fraud-detection 446 (plan rows), one false-hold pattern (astronomy-db `FATAL: role "root" does not exist`, 43 of 52 held outside a causal span), and latency median 2.0 s, p99 28.9 s, max 472 s with 1,714 records over 10 s.
 
 ### Sources
-- Receiver `log10x/edge-10x:1.1.141@sha256:45157d0bdf506615aa015db7b8b7251ae39be5f4330233d2d2d659c69d1f93d1`,
-  its own config and modules (no mounts). Its `rate-object-cap.js` reads
-  `rateReceiverDefaultAction`; the rate config keys the cap on `k8sContainerNameField`, which
-  the fluentK8s extractor fills from `kubernetes.container_name`.
-- log10x-mcp 1.30.54 from npm (tarball sha256 98e90780...bb5aa). Its `build/` matches a build
-  of the merged #266 branch (f293590) byte for byte on fleet-default-install.js,
-  fleet-default.js, poc-from-local.js, build-report-data.js, reporter-forwarders.js and
-  runtime-image.js. Dependencies linked from that branch's install (same dependency list).
-- No Datadog credentials in the environment, so the POC's dependency check reports that it did
-  not run.
+- Receiver `log10x/edge-10x:1.1.142@sha256:24e31c07a95e1f7dc356f11dc5cac4b21602ff91040ea831f94668b05afe6bf1`,
+  its own config and modules (no mounts). Its group settings: `groupFlushTimeout` 5000 ms per
+  source, `parallelEventFlushInterval` 2 s, `groupMaxSize` 20,000 objects.
+- log10x-mcp 1.30.58 from npm (tarball sha256 ea1ec0c4...9ee0); `EDGE_MANIFEST_IMAGE` in its
+  `runtime-image.js` is the 1.1.142 digest above. Dependencies linked from the npx install of
+  1.30.45, whose dependency list is the same.
+- A dry run of 1.30.58's POC on the 1.1.141 run's quiet capture (9,054 lines): fleet default
+  24,003 (2 x 12,001.4, astronomy-db `role_root_does_not_exist`), 13 rows; the generated
+  values launched as written.
 
 ### Record shape (why the `kubernetes` map)
 - The MCP's file mode takes the service from `kubernetes.container_name` (or Datadog's
@@ -25,13 +26,6 @@
   `kubernetes: {container_name, docker_id}`. Both the MCP and the Receiver then find the
   container with no extra option.
 
-### Dry run (20:26 UTC, the 1.1.140 quiet capture reshaped, 8,347 lines)
-- `poc_from_local` with `fleet_default {headroom 2, action offload, error_floor 0.5}`:
-  `computed: true`, cap 10,249 bytes per window per node, baseline 5,124.7 (otel-collector
-  `Error scraping metrics`); caps.csv and actions.csv with 11 container rows, all `tier_down`.
-- The baseline is the kept statement's bytes over the whole capture scaled to one 240 s
-  window (an average, not the largest window), in the MCP's byte measure.
-
 ### Smoke 4 (20:31 to 20:33 UTC, three emitters, the dry run's values)
 - Fluent Bit on 172.28.0.250, no published port; the Docker log driver reached it at that
   address. `fluentd-sub-second-precision` gives `fb_ts` millisecond resolution; the return
@@ -43,66 +37,29 @@
   included: the 39th record would have made 10,257 bytes and was the first offload.
 - The cap file's staleness check is advisory (module.yaml: entries continue to apply).
 
-### Disk and memory at the start
-- 20:35 UTC: 4,989 MB free, swap 8.2 GB used of 9 GB (a ninth 1 GB swap file was created at
-  16:30 local during the dry run and smoke). The Docker VM process held its full 8 GB.
-  20:45: 8,884 MB free, swap 3.8 GB.
-- Removed the four anonymous volumes the 13:53 rig run left (67 MB); the two linked to
-  obj30-splunk stay.
-
-### Previous run's captures
-- While archiving, the 14:07 to 17:35 run's `raw.jsonl` and `pass.jsonl` were overwritten by a
-  `mv` of the tracked morning gzips onto the same names, after the originals had been
-  removed. No local snapshot exists. Its `offload.jsonl` is kept
-  (`results/data/run-1.1.140/scheduled-run-offload.jsonl.gz`); its derived tables remain in
-  git history (a66a7b9).
-
-### Startup
-- 20:35:53 Receiver ready (quiet values). The first `compose up` exited 1: kafka missed its
-  health window (its JVM was still loading the OpenTelemetry agent; obj30-splunk at about
-  300% CPU). `run.sh up` waited for kafka healthy and ran it again: demo up 20:46:45, healthy
-  20:47:17.
-
-### Quiet run, POC, values (20:49:17 to 21:12:28 UTC)
-- Quiet run 20:49:17 to 21:11:20 (two minutes after demo healthy; 22 minutes): 9,054 raw
-  lines, 7,979 returned records, none held, 16 containers, 5 full 4-minute windows.
-- POC on those 9,054 lines (`results/planner`): `met: true` at 70.3%, 28 planned and 19 kept
-  statements, every planned statement attributed (`unattributed_planned: 0`), span 1,321 s.
-  Fleet default `computed: true`: 10,288 bytes per window per node, 2 x 5,144.1 (otel-collector
-  `Error scraping metrics`), offload, error floor 0.5. caps.csv and actions.csv: 11 rows,
-  every one `tier_down`; cap 1 (every statement) for accounting, cart, fraud-detection,
-  recommendation and telemetry-docs.
-- The MCP's baseline counts the unwrapped payload (the POC's note: "analysed bytes count the
-  unwrapped payload"). The same statement's records in the Receiver's measure averaged 7,103
-  bytes per quiet window (max 7,811), so the cap is 1.45 times that statement's average, not 2.
-- Quiet cells of containers with no row, against 10,288: one pattern over it, astronomy-db
-  `FATAL: role "root" does not exist` (11,750 bytes, 47 lines in one window); next is email
-  `POST /send_order_confirmation` at 5,950.
-- 21:11:55 Receiver relaunched from `results/values-fleet` (no launch warning beyond the
-  evaluation licence; cap file loaded; Forward client connected 21:11:55.510).
-- 21:12:28 scheduler started (`run-unattended.sh`, detached), planned end 22:27:28; disk guard
-  and hard stop detached since 20:35.
-- `results/planner/poc-envelope.json` is the POC's result as returned, except that the six em
-  dashes in its markdown text are written as ", " in sentences and "-" in empty table cells.
-- Coordinator, 21:13: the record shape and the plan rows plus fleet default are the
-  customer's path; the cap stays as generated.
-
-### Scheduled run (21:12:28 to 22:29:45 UTC)
-- Eight activations: cartFailure, kafkaQueueProblems (21:23:56, the second, as with this seed
-  before), paymentFailure, emailMemoryLeak twice, recommendationCacheFailure,
-  loadGeneratorFloodHomepage, recommendationCacheFailure (reverted at 259 of 345 s by the stop).
-- The stop ran unattended: `planned_end` 22:27:37, scheduler stopped 22:27:40, `run_end`
-  22:27:44, demo down 22:29:45. The disk guard and the hard stop then exited on `run_end`.
-  The hard stop's first deadline (21:35:40) was moved to the planned end when the scheduler
-  started and never fired.
-- Disk: lowest reading 5,553 MB free (21:40:52), no floor warning. `docker stats` read the
-  Receiver at under 1% of a CPU at 20:43, 21:13 and 21:25 (the last during the kafka flood),
-  against its 0.5 CPU limit.
-- Removed the four anonymous volumes this run's demo left (created 20:35:54).
-- The window phase comes from the Forward client's connection to the fleet Receiver
-  (21:11:55.511, 235.5 s past a multiple of 240 s). A replay of the cap rule on those windows,
-  keyed by `message_pattern` per container as the regulator keys it, matches the Receiver on
-  all but 297 under-cap holds and 279 over-cap passes of levels with a 0 floor, out of 40,575.
+### Run A (go.sh started 10:28:10 UTC, detached)
+- Startup: first `compose up` exited 1 (kafka missed its health window), `run.sh up` waited for
+  kafka healthy and ran it again; demo up 10:30:52, healthy 10:31:48.
+- Quiet run 10:33:48 to 10:55:48: 9,676 raw lines. POC: `met: true` at 70.3%, 39 planned and 9
+  kept statements; fleet default 25,960 (2 x 12,979.8, otel-collector `Error scraping
+  metrics`), offload, floor 0.5; caps.csv 14 rows (email, quote and valkey-cart are new against
+  the 1.1.141 run, and frontend's row went from 5,551 to cap 1; five rows with a kept statement carry a margin of 2.5x to
+  5x each way, nine are cap 1). Receiver relaunched 10:56:09 with the values as written.
+- Scheduled run 10:56:11 to 12:11:16, seed 20261014, the same eight activations as the 1.1.141
+  run in the same order. The supervisor stopped it at the planned end (12:11:11); demo down
+  12:11:57; disk guard and hard stop exited on `run_end`. Lowest free disk 11,619 MB.
+- kafkaQueueProblems (11:07:39 to 11:15:18) reached fraud-detection (29 `sleeping 1 second`
+  lines) but not checkout: no duplicate-order flood, 0 `Duplicate order received` and 0
+  `duplicate key` lines. flagd's metrics (port 8014, read at 11:19 and 11:41) counted 4
+  `ResolveInt` resolutions of the flag through the v2 API for the whole run (3 `off`, 1 `on`),
+  so checkout's Go provider answered from its cache. The fleet default held nothing.
+- Results (scheduled run): latency median 2.02 s, p99 7.44 s, max 17.2 s, 59 records over 10 s
+  (57 of them written 12:02:03 to 12:02:10 and returned together at 12:02:2x); no false hold;
+  1,544 records released 5.07 to 12.2 s after their last line while their container was
+  silent; 173 records opened by email's `Order confirmation email sent` line (no head),
+  16 of them within 7 s of the previous record, none with its pattern; 6 ERROR records held;
+  every line written up to 60 s before the stop returned.
+- Removed the four anonymous volumes this run's demo left (created 10:28:17).
 
 ## Earlier run: edge-10x 1.1.140 with patched config and modules (2026-10-14, 01:25 to 17:36 UTC)
 

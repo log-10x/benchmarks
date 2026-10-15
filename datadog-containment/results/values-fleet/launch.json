@@ -1,18 +1,18 @@
 {
- "mcp_version": "1.30.54",
+ "mcp_version": "1.30.58",
  "fleet_default_input": {
-  "capBytesPerWindowPerNode": 10288,
+  "capBytesPerWindowPerNode": 25960,
   "action": "offload",
   "errorFloor": 0.5
  },
- "image": "log10x/edge-10x:1.1.141@sha256:45157d0bdf506615aa015db7b8b7251ae39be5f4330233d2d2d659c69d1f93d1",
+ "image": "log10x/edge-10x:1.1.142@sha256:24e31c07a95e1f7dc356f11dc5cac4b21602ff91040ea831f94668b05afe6bf1",
  "args_from_values": [
   "@run/input/forwarder/fluentbit",
   "@apps/receiver",
   "symbolMessageHashField",
   "tenx_hash",
   "rateReceiverAbsoluteCap",
-  "10288",
+  "25960",
   "rateReceiverDefaultAction",
   "offload",
   "rateReceiverMinSharePercent",

@@ -19,64 +19,64 @@
   history: [
     %{
       flag: "recommendationCacheFailure",
-      started_at: ~U[2026-10-14 22:23:20.869809Z],
-      until: -576453979405,
+      started_at: ~U[2026-10-15 12:07:04.228023Z],
+      until: -576454497495,
       duration_ms: 345214,
       resting_variant: "off",
       variant: "on"
     },
     %{
       flag: "loadGeneratorFloodHomepage",
-      started_at: ~U[2026-10-14 22:13:23.041159Z],
-      until: -576454593821,
+      started_at: ~U[2026-10-15 11:57:06.410572Z],
+      until: -576455111914,
       duration_ms: 328644,
       resting_variant: "off",
       variant: "on"
     },
     %{
       flag: "recommendationCacheFailure",
-      started_at: ~U[2026-10-14 22:05:18.207767Z],
-      until: -576454988432,
+      started_at: ~U[2026-10-15 11:49:01.572894Z],
+      until: -576455506525,
       duration_ms: 418882,
       resting_variant: "off",
       variant: "on"
     },
     %{
       flag: "emailMemoryLeak",
-      started_at: ~U[2026-10-14 21:52:47.600839Z],
-      until: -576455747948,
+      started_at: ~U[2026-10-15 11:36:30.972940Z],
+      until: -576456266029,
       duration_ms: 409995,
       resting_variant: "off",
       variant: "1000x"
     },
     %{
       flag: "emailMemoryLeak",
-      started_at: ~U[2026-10-14 21:44:28.559340Z],
-      until: -576456185420,
+      started_at: ~U[2026-10-15 11:28:11.930497Z],
+      until: -576456703500,
       duration_ms: 471579,
       resting_variant: "off",
       variant: "1000x"
     },
     %{
       flag: "paymentFailure",
-      started_at: ~U[2026-10-14 21:35:54.764613Z],
-      until: -576456869476,
+      started_at: ~U[2026-10-15 11:19:38.192054Z],
+      until: -576457387550,
       duration_ms: 301235,
       resting_variant: "off",
       variant: "100%"
     },
     %{
       flag: "kafkaQueueProblems",
-      started_at: ~U[2026-10-14 21:23:56.617834Z],
-      until: -576457430293,
+      started_at: ~U[2026-10-15 11:07:39.953034Z],
+      until: -576457948373,
       duration_ms: 458680,
       resting_variant: "off",
       variant: "on"
     },
     %{
       flag: "cartFailure",
-      started_at: ~U[2026-10-14 21:13:32.353627Z],
-      until: -576458098074,
+      started_at: ~U[2026-10-15 10:57:15.691137Z],
+      until: -576458616155,
       duration_ms: 415185,
       resting_variant: "off",
       variant: "100%"

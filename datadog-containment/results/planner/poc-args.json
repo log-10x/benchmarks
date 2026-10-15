@@ -1,6 +1,6 @@
 {
- "mcp_version": "1.30.54",
- "engine_image": "log10x/edge-10x:1.1.141@sha256:45157d0bdf506615aa015db7b8b7251ae39be5f4330233d2d2d659c69d1f93d1",
+ "mcp_version": "1.30.58",
+ "engine_image": "log10x/edge-10x:1.1.142@sha256:24e31c07a95e1f7dc356f11dc5cac4b21602ff91040ea831f94668b05afe6bf1",
  "args": {
   "source": "file",
   "path": "/Users/talweiss/git/l1x-co/benchmarks/datadog-containment/results/planner/quiet-raw.jsonl",

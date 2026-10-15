@@ -24,6 +24,8 @@ def esc(t, k=90):
 
 def main():
     A = json.load(open(os.path.join(RESULTS, 'analysis.json')))
+    prev = os.path.join(RESULTS, 'previous-runs.json')
+    A['previous'] = json.load(open(prev))['runs'] if os.path.exists(prev) else []
     launch = json.load(open(os.path.join(RESULTS, 'values-fleet', 'launch.json')))
     poc = json.load(open(os.path.join(RESULTS, 'planner', 'poc-args.json')))
     env = json.load(open(os.path.join(RESULTS, 'planner', 'poc-envelope.json')))
@@ -82,6 +84,15 @@ def main():
     L.append(f"Policy files: {launch['policy_files']}.\n")
     L.append('```text\n' + caps + '\n```\n')
     L.append('```text\n' + actions + '\n```\n')
+    cc = plan.get('containerCaps') or {}
+    span_s = (d.get('span') or {}).get('seconds') if isinstance(d.get('span'), dict) else None
+    if cc and span_s:
+        pw = lambda v: v * 240 / span_s   # the MCP's per-window figure (build-report-data.js)
+        L.append("Where each row's cap sits (`plan.containerCaps`; bytes per 4-minute window over the capture, the figure caps.csv is written from): between the largest statement the plan keeps and the smallest it moves, at their geometric mean, so the margin is the same each way. A row with no kept statement gets cap 1: every statement past the first 5 a window takes the row's action.\n")
+        L.append('| container | cap in caps.csv | largest kept statement | bytes per window | smallest moved statement | bytes per window | margin each way |\n|---|---|---|---|---|---|---|')
+        for c, v in sorted(cc.items(), key=lambda kv: (not kv[1].get('separated'), -(kv[1].get('margin') or 0), kv[0])):
+            L.append(f"| {c} | {A['config']['caps'].get(c, 0):,.0f} | {esc(v.get('keptMaxPattern') or '(none)', 50)} | {pw(v.get('keptMaxBytesMonthly') or 0):,.0f} | {esc(v.get('movedMinPattern') or '', 50)} | {pw(v.get('movedMinBytesMonthly') or 0):,.0f} | {(str(round(v['margin'], 1)) + 'x') if v.get('margin') else 'none'} |")
+        L.append('')
 
     if not acts:
         open(os.path.join(RESULTS, 'results.md'), 'w').write('\n'.join(L) + '\n')
@@ -164,13 +175,47 @@ def main():
         L.append(f"| {c} | {v['records']:,} | {s(v['median'], 2)} | {s(v['p99'], 2)} | {s(v['max'], 1)} | {v['over_10s']:,} |")
     L.append('')
     w = A['latency_over_10s_wait']
-    L.append(f"What the scheduled run's {w['over_10s']:,} records over 10 s waited for: {w['back_within_5s_after_next_line']:,} came back within 5 s after their own container's next raw line (median {s(w['median_s_after_next_line'], 2)} s after it), {w['with_a_next_line'] - w['back_within_5s_after_next_line']:,} later than that, {w['no_next_line_before_stop']:,} had no next line before the stop. The Receiver seals an open event on its source's next head line, on the group size limit, or after 5 s with nothing arriving on the whole input, a timer that is not per source (E81). The waits measured here match the first case: a record came back once its container wrote again.\n")
+    if w['over_10s']:
+        L.append(f"What the scheduled run's {w['over_10s']:,} records over 10 s waited for, from each record's last raw line and its container's next one: " +
+                 ', '.join(f"{k} {v:,}" for k, v in sorted(w['by_cause'].items(), key=lambda kv: -kv[1])) +
+                 (f" (median {s(w['median_s_after_next_line'], 2)} s after that line)" if w.get('median_s_after_next_line') is not None else '') + '.\n')
+    ra = A.get('release_after_quiet', {}).get('all')
+    if ra:
+        L.append(f"Records after which their container wrote nothing for 10 s or more: {ra['records'] + ra.get('waited_for_next_line', 0):,}. {ra['records']:,} came back before the container's next line, so a timer released them" +
+                 (f", {s(ra['median'], 2)} s after their last line at the median, {s(ra['min'], 2)} s at least, {s(ra['p99'], 2)} s at p99 and {s(ra['max'], 2)} s at most" if ra['records'] else '') +
+                 f"; {ra.get('waited_for_next_line', 0):,} came back only with or after that next line." +
+                 f" The Receiver's group step seals a source's open event on the source's next head line, on the group size limit (20,000 lines), or 5 s (`groupFlushTimeout`, which the values leave at its default) after the batch that carried the source's last line; a batch leaves the forwarder input up to 2 s after its last line (`parallelEventFlushInterval`).\n")
+    if A['previous']:
+        L.append("Against the earlier runs (`previous-runs.json`: each run's committed captures measured by this `analyze.py`), scheduled run, seconds as median / p99 / max:\n")
+        runs = A['previous']
+        L.append('| container | ' + ' | '.join(f"{r['label']} ({r['receiver_image'].split('@')[0].split(':')[-1]}, MCP {r['mcp_version']})" for r in runs) + ' | this run |\n|---|' + '---|' * (len(runs) + 1))
+        cell = lambda v: f"{s(v['median'], 2)} / {s(v['p99'], 2)} / {s(v['max'], 1)} ({v['records']:,})" if v else ''
+        L.append('| all | ' + ' | '.join(cell(r['latency_scheduled_all']) for r in runs) + f" | {cell(ls)} |")
+        for c in sorted(set(A['latency_scheduled']).union(*[set(r['latency_scheduled']) for r in runs])):
+            L.append(f"| {c} | " + ' | '.join(cell(r['latency_scheduled'].get(c)) for r in runs) + f" | {cell(A['latency_scheduled'].get(c))} |")
+        L.append('')
     la = A['latency_all']
     L.append(f"Every returned record from the first Receiver start ({la['records']:,}): median {s(la['median'], 2)}, p99 {s(la['p99'], 2)}, max {s(la['max'], 1)}; {la['over_10s']:,} over 10 s, by when the line was written: " + ', '.join(f"{k} {v:,}" for k, v in A['latency_over_10s_by_phase'].items()) + '. `latency-over-10s.csv` lists every one with its container.\n')
     L.append('| container | records | median | p99 | max | over 10 s |\n|---|---|---|---|---|---|')
     for c, v in A['latency'].items():
         L.append(f"| {c} | {v['records']:,} | {s(v['median'], 2)} | {s(v['p99'], 2)} | {s(v['max'], 1)} | {v['over_10s']:,} |")
     L.append('')
+
+    ec = A.get('early_close')
+    if ec:
+        L.append('## Multi-line events closed by a source\'s pause\n')
+        L.append("A line of a kind the Receiver joins to the record before it anywhere in the run is not a group head. A record that begins with such a line was opened after its source's previous group had been sealed by something other than a head line, which in a running demo is the per-source flush timer. Each is set against the record before it from the same container; the pause runs from that record's last raw line to this record's first. Blank lines are left out. `early-close.csv` lists every one.\n")
+        L.append(f"Scheduled run: {ec['scheduled_records_opened_by_a_non_head_line']:,} records opened by a line that is not a head; " +
+                 (', '.join(f"{k} {v:,}" for k, v in ec['by_pause'].items()) + '; ' if ec['by_pause'] else '') +
+                 f"{ec['within_7s_of_prev_first_line']:,} within 7 s of the previous record's first line, {ec['within_7s_same_pattern']:,} of them with the previous record's pattern.\n")
+        for pr in A['previous']:
+            pe = pr['early_close']
+            L.append(f"{pr['label'][:1].upper() + pr['label'][1:]}, same measure: {pe['scheduled_records_opened_by_a_non_head_line']:,} records, {pe['within_7s_of_prev_first_line']:,} within 7 s of the previous record's first line, {pe['within_7s_same_pattern']:,} with its pattern.\n")
+        if ec['groups']:
+            L.append('| container | previous record\'s pattern | first line of the record opened | records | by pause | within 7 s | same pattern | shortest pause s | example |\n|---|---|---|---|---|---|---|---|---|')
+            for g in ec['groups'][:20]:
+                L.append(f"| {g['container']} | {esc(g['prev_pattern'], 50)} | `{esc(g['first_line_kind'], 48)}` | {g['records']:,} | {', '.join(f'{k} {v}' for k, v in g['by_pause'].items())} | {g['within_7s']:,} | {g['same_pattern']:,} | {s(g['pause_min_s'], 2)} | {hms(g['example_at'])} {esc(g['example_line'], 60)} |")
+            L.append('')
 
     L.append('## Delivery\n')
     for key, title in (('delivery_scheduled', 'Scheduled run'), ('delivery_whole_run', 'Whole run, from the first Receiver start')):
@@ -190,6 +235,50 @@ def main():
     if wi:
         L.append('## What the fleet default would hold alone\n')
         L.append(f"The same replay with the install seed in place of the plan's rows, so every container takes the fleet default ({A['config']['fleet_cap']:,.0f} bytes): {wi.get('held_expected', 0):,.0f} records held (expected, floors applied), {wi.get('held_expected_in_causal_span', 0):,.0f} of them inside a flag's causal span, {wi.get('held_expected_errors', 0):,.0f} ERROR or CRITICAL.\n")
+
+    runs = A['previous']
+    if runs:
+        L.append('## Against the earlier runs\n')
+        L.append("`previous-runs.json`: " + '; '.join(f"{r['label']}, commit {r['commit']}" for r in runs) + ". Each run's committed captures are measured by this `analyze.py`.\n")
+        fh_now = [{'container': r['container'], 'name': r['name'], 'outside': r['outside'], 'held': r['held']} for r in A['held'] if r['route'] == 'offload' and r['outside'] > 0]
+        fl = lambda f: ', '.join(f"{x['container']} `{x['name']}` {x['outside']:,} of {x['held']:,}" for x in f) or 'none'
+        share = lambda fc, sev: (lambda v: f"{v.get('pass', 0) / max(sum(v.values()), 1):.3f} of {sum(v.values()):,}")(fc.get(sev, {}))
+        lat = lambda v: f"{s(v['median'], 2)} / {s(v['p99'], 2)} / {s(v['max'], 1)}"
+        ec = lambda e: f"{e['scheduled_records_opened_by_a_non_head_line']:,} ({e['within_7s_of_prev_first_line']:,}; same pattern {e['within_7s_same_pattern']:,})"
+        dl = lambda d_: f"{d_['to_60s_before_stop']['raw_lines']:,} / {d_['to_60s_before_stop']['lines_covered']:,}"
+        def kafka(pa_list):
+            out = []
+            for pa in pa_list:
+                if pa['flag'] != 'kafkaQueueProblems':
+                    continue
+                out.append(f"#{pa['n']}: " + (', '.join(f"{r['container']} {r['held']:,}" for r in pa['containers'] if r['in_causal_path'] and r['held']) or 'none'))
+            return '; '.join(out) or 'no activation'
+        me = {'receiver_image': launch['image'], 'mcp_version': poc['mcp_version'], 'fleet_cap': A['config']['fleet_cap'], 'caps': A['config']['caps'],
+              'totals_scheduled': A['totals_scheduled'], 'false_holds': fh_now, 'errors': A['errors'], 'floor_check': A['floor_check'],
+              'latency_scheduled_all': A['latency_scheduled_all'], 'early_close': A['early_close'], 'delivery_split': A['delivery_split'],
+              'per_activation': A['per_activation']}
+        cols = runs + [me]
+        rows = [
+            ('Receiver', lambda r: r['receiver_image'].split('@')[0]),
+            ('log10x-mcp', lambda r: r['mcp_version']),
+            ('fleet default cap, bytes per window per node', lambda r: f"{r['fleet_cap']:,.0f}"),
+            ('plan rows in caps.csv', lambda r: f"{len(r['caps'])}"),
+            ('returned records, scheduled run', lambda r: f"{r['totals_scheduled']['returned']:,}"),
+            ('routes', lambda r: ', '.join(f"{k} {v:,}" for k, v in sorted(r['totals_scheduled']['routes'].items()))),
+            ('kafkaQueueProblems: new holds on the causal path', lambda r: kafka(r['per_activation'])),
+            ('fleet-default holds outside every causal span (outside of held)', lambda r: fl(r['false_holds'])),
+            ('ERROR and CRITICAL held / passed', lambda r: f"{r['errors']['held']:,} / {r['errors']['passed']:,}"),
+            ('ERROR over the cap, share passed', lambda r: share(r['floor_check'], 'ERROR')),
+            ('CRITICAL over the cap, share passed', lambda r: share(r['floor_check'], 'CRITICAL')),
+            ('latency median / p99 / max, s', lambda r: lat(r['latency_scheduled_all'])),
+            ('records over 10 s', lambda r: f"{r['latency_scheduled_all']['over_10s']:,}"),
+            ('records opened by a line that is not a head (within 7 s)', lambda r: ec(r['early_close'])),
+            ('lines written up to 60 s before the stop: raw / covered', lambda r: dl(r['delivery_split'])),
+        ]
+        L.append('| measure | ' + ' | '.join(r['label'] for r in runs) + ' | this run |\n|---|' + '---|' * len(cols))
+        for name, f in rows:
+            L.append(f"| {name} | " + ' | '.join(f(r) for r in cols) + ' |')
+        L.append('')
 
     notes = os.path.join(RESULTS, 'notes.md')
     if os.path.exists(notes):

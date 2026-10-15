@@ -1,171 +1,110 @@
-2026-10-14T20:35:50.101559186Z Fluent Bit v4.2.8
-2026-10-14T20:35:50.101701434Z * Copyright (C) 2015-2026 The Fluent Bit Authors
-2026-10-14T20:35:50.101716002Z * Fluent Bit is a CNCF graduated project under the Fluent organization
-2026-10-14T20:35:50.101722379Z * https://fluentbit.io
-2026-10-14T20:35:50.101725537Z 
-2026-10-14T20:35:50.101728584Z ______ _                  _    ______ _ _             ___   _____ 
-2026-10-14T20:35:50.101894703Z |  ___| |                | |   | ___ (_) |           /   | / __  \
-2026-10-14T20:35:50.101905506Z | |_  | |_   _  ___ _ __ | |_  | |_/ /_| |_  __   __/ /| | `' / /'
-2026-10-14T20:35:50.101909040Z |  _| | | | | |/ _ \ '_ \| __| | ___ \ | __| \ \ / / /_| |   / /  
-2026-10-14T20:35:50.101912702Z | |   | | |_| |  __/ | | | |_  | |_/ / | |_   \ V /\___  |_./ /___
-2026-10-14T20:35:50.101915650Z \_|   |_|\__,_|\___|_| |_|\__| \____/|_|\__|   \_/     |_(_)_____/
-2026-10-14T20:35:50.101918838Z                                                                   
-2026-10-14T20:35:50.101922084Z              Fluent Bit v4.2 – Direct Routes Ahead
-2026-10-14T20:35:50.101928447Z          Celebrating 10 Years of Open, Fluent Innovation!
-2026-10-14T20:35:50.101933898Z 
-2026-10-14T20:35:50.117952274Z [2026/10/14 20:35:50.116864220] [ info] [fluent bit] version=4.2.8, commit=419540c428, pid=1
-2026-10-14T20:35:50.118107914Z [2026/10/14 20:35:50.116988651] [ info] [storage] ver=1.5.4, type=memory, sync=normal, checksum=off, max_chunks_up=128
-2026-10-14T20:35:50.118122335Z [2026/10/14 20:35:50.116998789] [ info] [simd    ] SSE2
-2026-10-14T20:35:50.118127096Z [2026/10/14 20:35:50.117003071] [ info] [cmetrics] version=1.0.6
-2026-10-14T20:35:50.118130807Z [2026/10/14 20:35:50.117007235] [ info] [ctraces ] version=0.6.6
-2026-10-14T20:35:50.118134407Z [2026/10/14 20:35:50.117161564] [ info] [input:forward:forward.0] initializing
-2026-10-14T20:35:50.118137704Z [2026/10/14 20:35:50.117172316] [ info] [input:forward:forward.0] storage_strategy='memory' (memory only)
-2026-10-14T20:35:50.118140986Z [2026/10/14 20:35:50.117316639] [ info] [input:forward:forward.0] listening on 0.0.0.0:24224
-2026-10-14T20:35:50.118144192Z [2026/10/14 20:35:50.117368957] [ info] [input:forward:forward.1] initializing
-2026-10-14T20:35:50.118147310Z [2026/10/14 20:35:50.117375466] [ info] [input:forward:forward.1] storage_strategy='memory' (memory only)
-2026-10-14T20:35:50.118150645Z [2026/10/14 20:35:50.117471236] [ info] [input:forward:forward.1] listening on 0.0.0.0:24225
-2026-10-14T20:35:50.139805288Z [2026/10/14 20:35:50.139472654] [ info] [input:emitter:emitter_for_rewrite_tag.2] initializing
-2026-10-14T20:35:50.139833750Z [2026/10/14 20:35:50.139550276] [ info] [input:emitter:emitter_for_rewrite_tag.2] storage_strategy='memory' (memory only)
-2026-10-14T20:35:50.143288768Z [2026/10/14 20:35:50.143046869] [ info] [output:file:file.0] worker #0 started
-2026-10-14T20:35:50.144401850Z [2026/10/14 20:35:50.143694265] [ info] [output:forward:forward.1] worker #0 started
-2026-10-14T20:35:50.164488825Z [2026/10/14 20:35:50.164069537] [ info] [output:file:file.2] worker #0 started
-2026-10-14T20:35:50.165163302Z [2026/10/14 20:35:50.164597086] [ info] [output:file:file.3] worker #0 started
-2026-10-14T20:35:50.165279411Z [2026/10/14 20:35:50.165180545] [ info] [output:file:file.4] worker #0 started
-2026-10-14T20:35:50.173166312Z [2026/10/14 20:35:50.172921582] [ info] [output:file:file.5] worker #0 started
-2026-10-14T20:35:50.173390268Z [2026/10/14 20:35:50.173212955] [ info] [http_server] listen iface=0.0.0.0 tcp_port=2020
-2026-10-14T20:35:50.173398625Z [2026/10/14 20:35:50.173232546] [ info] [sp] stream processor started
-2026-10-14T20:35:50.173400974Z [2026/10/14 20:35:50.173274035] [ info] [engine] Shutdown Grace Period=10, Shutdown Input Grace Period=5
-2026-10-14T21:11:44.529950726Z [2026/10/14 21:11:44.526547269] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:44.530591496Z [2026/10/14 21:11:44.528588304] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:44.530610738Z [2026/10/14 21:11:44.529610616] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:44.530881021Z [2026/10/14 21:11:44.530480132] [ warn] [engine] failed to flush chunk '1-1792012303.786836276.flb', retry in 11 seconds: task_id=1, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:44.530902727Z [2026/10/14 21:11:44.530541475] [ warn] [engine] failed to flush chunk '1-1792012303.907873930.flb', retry in 10 seconds: task_id=2, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:44.530907721Z [2026/10/14 21:11:44.530561817] [ warn] [engine] failed to flush chunk '1-1792012303.780938528.flb', retry in 7 seconds: task_id=0, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:45.511567323Z [2026/10/14 21:11:45.511243270] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:45.511773629Z [2026/10/14 21:11:45.511438519] [ warn] [engine] failed to flush chunk '1-1792012305.225818303.flb', retry in 7 seconds: task_id=4, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:45.512395803Z [2026/10/14 21:11:45.512060970] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:45.512619692Z [2026/10/14 21:11:45.512226622] [ warn] [engine] failed to flush chunk '1-1792012305.144174462.flb', retry in 11 seconds: task_id=3, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:46.511614110Z [2026/10/14 21:11:46.511188938] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:46.511650007Z [2026/10/14 21:11:46.511241300] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:46.511800514Z [2026/10/14 21:11:46.511369957] [ warn] [engine] failed to flush chunk '1-1792012306.118713470.flb', retry in 9 seconds: task_id=6, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:46.511811880Z [2026/10/14 21:11:46.511334204] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:46.511815524Z [2026/10/14 21:11:46.511394865] [ warn] [engine] failed to flush chunk '1-1792012306.194054222.flb', retry in 9 seconds: task_id=7, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:46.511836181Z [2026/10/14 21:11:46.511409753] [ warn] [engine] failed to flush chunk '1-1792012306.368153759.flb', retry in 9 seconds: task_id=8, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:46.512308919Z [2026/10/14 21:11:46.512041440] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:46.512437132Z [2026/10/14 21:11:46.512198144] [ warn] [engine] failed to flush chunk '1-1792012305.772592476.flb', retry in 8 seconds: task_id=5, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:47.555662487Z [2026/10/14 21:11:47.554397679] [ warn] [net] getaddrinfo(host='tenx', err=4): Domain name not found
-2026-10-14T21:11:47.555702603Z [2026/10/14 21:11:47.554634803] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:47.555712695Z [2026/10/14 21:11:47.554684641] [ warn] [engine] failed to flush chunk '1-1792012306.586993536.flb', retry in 11 seconds: task_id=9, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:48.508833302Z [2026/10/14 21:11:48.508629505] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:48.508865952Z [2026/10/14 21:11:48.508656488] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:48.509548699Z [2026/10/14 21:11:48.509221252] [ warn] [engine] failed to flush chunk '1-1792012307.729796124.flb', retry in 6 seconds: task_id=11, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:48.509578231Z [2026/10/14 21:11:48.509290654] [ warn] [engine] failed to flush chunk '1-1792012307.736392516.flb', retry in 11 seconds: task_id=12, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:48.514843049Z [2026/10/14 21:11:48.514494270] [ warn] [net] getaddrinfo(host='tenx', err=4): Domain name not found
-2026-10-14T21:11:48.514883317Z [2026/10/14 21:11:48.514599969] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:48.514973012Z [2026/10/14 21:11:48.514740678] [ warn] [engine] failed to flush chunk '1-1792012307.722943543.flb', retry in 6 seconds: task_id=10, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:49.523172161Z [2026/10/14 21:11:49.517158856] [ warn] [net] getaddrinfo(host='tenx', err=4): Domain name not found
-2026-10-14T21:11:49.523215002Z [2026/10/14 21:11:49.517236102] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:49.523223413Z [2026/10/14 21:11:49.517782685] [ warn] [engine] failed to flush chunk '1-1792012308.674711345.flb', retry in 7 seconds: task_id=13, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:50.514252201Z [2026/10/14 21:11:50.513711771] [ warn] [net] getaddrinfo(host='tenx', err=4): Domain name not found
-2026-10-14T21:11:50.514293012Z [2026/10/14 21:11:50.513761821] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:50.514298951Z [2026/10/14 21:11:50.513871474] [ warn] [engine] failed to flush chunk '1-1792012309.554396206.flb', retry in 11 seconds: task_id=14, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:51.509462254Z [2026/10/14 21:11:51.508853585] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:51.509519192Z [2026/10/14 21:11:51.508875354] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:51.509528896Z [2026/10/14 21:11:51.508927656] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:51.509532959Z [2026/10/14 21:11:51.508944032] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:51.509536685Z [2026/10/14 21:11:51.509065017] [ warn] [engine] failed to flush chunk '1-1792012311.73458721.flb', retry in 6 seconds: task_id=15, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:51.509540698Z [2026/10/14 21:11:51.509161355] [ warn] [engine] failed to flush chunk '1-1792012311.86638665.flb', retry in 7 seconds: task_id=16, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:51.509544527Z [2026/10/14 21:11:51.509182824] [ warn] [engine] failed to flush chunk '1-1792012311.387388112.flb', retry in 7 seconds: task_id=17, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:51.509548388Z [2026/10/14 21:11:51.509200417] [ warn] [engine] failed to flush chunk '1-1792012311.454669485.flb', retry in 8 seconds: task_id=18, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:52.509334038Z [2026/10/14 21:11:52.508398760] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:52.509365297Z [2026/10/14 21:11:52.508457377] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:52.509368705Z [2026/10/14 21:11:52.508476257] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:52.509371392Z [2026/10/14 21:11:52.508487220] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:52.509373790Z [2026/10/14 21:11:52.508692196] [ warn] [engine] failed to flush chunk '1-1792012305.225818303.flb', retry in 19 seconds: task_id=4, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:52.509376622Z [2026/10/14 21:11:52.508497205] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:52.509378948Z [2026/10/14 21:11:52.508709138] [ warn] [engine] failed to flush chunk '1-1792012311.572976835.flb', retry in 11 seconds: task_id=19, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:52.509381414Z [2026/10/14 21:11:52.508507507] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:52.509383676Z [2026/10/14 21:11:52.508735244] [ warn] [engine] failed to flush chunk '1-1792012311.576401467.flb', retry in 9 seconds: task_id=20, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:52.509386057Z [2026/10/14 21:11:52.508516977] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:52.509388290Z [2026/10/14 21:11:52.508751699] [ warn] [engine] failed to flush chunk '1-1792012311.584537949.flb', retry in 8 seconds: task_id=21, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:52.509390731Z [2026/10/14 21:11:52.508527324] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:52.509476918Z [2026/10/14 21:11:52.508766790] [ warn] [engine] failed to flush chunk '1-1792012311.607321482.flb', retry in 6 seconds: task_id=22, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:52.509483206Z [2026/10/14 21:11:52.508542532] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:52.509485286Z [2026/10/14 21:11:52.508782687] [ warn] [engine] failed to flush chunk '1-1792012311.642317372.flb', retry in 6 seconds: task_id=23, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:52.509488933Z [2026/10/14 21:11:52.508569333] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:52.509491023Z [2026/10/14 21:11:52.508796254] [ warn] [engine] failed to flush chunk '1-1792012311.652646384.flb', retry in 10 seconds: task_id=24, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:52.509493287Z [2026/10/14 21:11:52.508804936] [ warn] [engine] failed to flush chunk '1-1792012311.665831329.flb', retry in 11 seconds: task_id=25, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:52.509495574Z [2026/10/14 21:11:52.508827849] [ warn] [engine] failed to flush chunk '1-1792012311.736312030.flb', retry in 11 seconds: task_id=26, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:52.509497857Z [2026/10/14 21:11:52.508852704] [ warn] [engine] failed to flush chunk '1-1792012311.744776100.flb', retry in 8 seconds: task_id=27, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:52.536520167Z [2026/10/14 21:11:52.535969970] [error] [net] TCP connection failed: tenx:24224 (Connection refused)
-2026-10-14T21:11:52.536941825Z [2026/10/14 21:11:52.536062891] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:52.536960454Z [2026/10/14 21:11:52.536493887] [ warn] [engine] failed to flush chunk '1-1792012303.780938528.flb', retry in 19 seconds: task_id=0, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:53.509282335Z [2026/10/14 21:11:53.509041403] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:53.509398743Z [2026/10/14 21:11:53.509218535] [ warn] [engine] failed to flush chunk '1-1792012313.271421682.flb', retry in 10 seconds: task_id=29, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:53.509985323Z [2026/10/14 21:11:53.509592918] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:53.510009223Z [2026/10/14 21:11:53.509724352] [ warn] [engine] failed to flush chunk '1-1792012313.157584643.flb', retry in 7 seconds: task_id=28, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:54.510268912Z [2026/10/14 21:11:54.509908093] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:54.510312845Z [2026/10/14 21:11:54.509929418] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:54.510320125Z [2026/10/14 21:11:54.509940011] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:54.510323711Z [2026/10/14 21:11:54.509947659] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:54.510505758Z [2026/10/14 21:11:54.509955066] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:54.510532900Z [2026/10/14 21:11:54.510267901] [ warn] [engine] failed to flush chunk '1-1792012305.772592476.flb', retry in 14 seconds: task_id=5, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:54.510538051Z [2026/10/14 21:11:54.510287345] [ warn] [engine] failed to flush chunk '1-1792012307.729796124.flb', retry in 18 seconds: task_id=11, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:54.510541836Z [2026/10/14 21:11:54.510310006] [ warn] [engine] failed to flush chunk '1-1792012307.722943543.flb', retry in 8 seconds: task_id=10, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:54.510545666Z [2026/10/14 21:11:54.510329328] [ warn] [engine] failed to flush chunk '1-1792012313.908192341.flb', retry in 9 seconds: task_id=30, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:54.510549771Z [2026/10/14 21:11:54.510344936] [ warn] [engine] failed to flush chunk '1-1792012314.68668728.flb', retry in 8 seconds: task_id=31, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:54.511311278Z [2026/10/14 21:11:54.510869792] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:54.511334673Z [2026/10/14 21:11:54.511076291] [ warn] [engine] failed to flush chunk '1-1792012303.907873930.flb', retry in 15 seconds: task_id=2, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:55.509086692Z [2026/10/14 21:11:55.508736558] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:55.509370114Z [2026/10/14 21:11:55.508801108] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:55.509381368Z [2026/10/14 21:11:55.508927161] [ warn] [engine] failed to flush chunk '1-1792012306.194054222.flb', retry in 16 seconds: task_id=7, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:55.509386201Z [2026/10/14 21:11:55.508821604] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:55.509389759Z [2026/10/14 21:11:55.508836378] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:55.509392986Z [2026/10/14 21:11:55.508851132] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:11:55.509623138Z [2026/10/14 21:11:55.509224961] [ warn] [engine] failed to flush chunk '1-1792012306.368153759.flb', retry in 10 seconds: task_id=8, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:55.509633312Z [2026/10/14 21:11:55.509293889] [ warn] [engine] failed to flush chunk '1-1792012303.786836276.flb', retry in 17 seconds: task_id=1, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:55.509638004Z [2026/10/14 21:11:55.509316422] [ warn] [engine] failed to flush chunk '1-1792012314.885014832.flb', retry in 9 seconds: task_id=32, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:55.509641899Z [2026/10/14 21:11:55.509340095] [ warn] [engine] failed to flush chunk '1-1792012314.891799137.flb', retry in 9 seconds: task_id=33, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:55.512554730Z [2026/10/14 21:11:55.510739975] [ info] [engine] flush chunk '1-1792012306.118713470.flb' succeeded at retry 1: task_id=6, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:56.513611765Z [2026/10/14 21:11:56.512666248] [ info] [engine] flush chunk '1-1792012308.674711345.flb' succeeded at retry 1: task_id=13, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:56.513651386Z [2026/10/14 21:11:56.512701941] [ info] [engine] flush chunk '1-1792012305.144174462.flb' succeeded at retry 1: task_id=3, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:57.509445315Z [2026/10/14 21:11:57.508728124] [ info] [engine] flush chunk '1-1792012311.73458721.flb' succeeded at retry 1: task_id=15, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:58.509533095Z [2026/10/14 21:11:58.509071644] [ info] [engine] flush chunk '1-1792012311.86638665.flb' succeeded at retry 1: task_id=16, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:58.509566703Z [2026/10/14 21:11:58.509115524] [ info] [engine] flush chunk '1-1792012306.586993536.flb' succeeded at retry 1: task_id=9, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:58.509570734Z [2026/10/14 21:11:58.509130259] [ info] [engine] flush chunk '1-1792012311.607321482.flb' succeeded at retry 1: task_id=22, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:58.509573238Z [2026/10/14 21:11:58.509145121] [ info] [engine] flush chunk '1-1792012311.387388112.flb' succeeded at retry 1: task_id=17, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:58.509575702Z [2026/10/14 21:11:58.509156768] [ info] [engine] flush chunk '1-1792012311.642317372.flb' succeeded at retry 1: task_id=23, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:59.511932580Z [2026/10/14 21:11:59.510716080] [ info] [engine] flush chunk '1-1792012311.454669485.flb' succeeded at retry 1: task_id=18, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:11:59.537865698Z [2026/10/14 21:11:59.536276872] [ info] [engine] flush chunk '1-1792012307.736392516.flb' succeeded at retry 1: task_id=12, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:12:00.509162968Z [2026/10/14 21:12:00.508759546] [ info] [engine] flush chunk '1-1792012313.157584643.flb' succeeded at retry 1: task_id=28, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:12:00.509195393Z [2026/10/14 21:12:00.508825976] [ info] [engine] flush chunk '1-1792012311.584537949.flb' succeeded at retry 1: task_id=21, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:12:00.509199820Z [2026/10/14 21:12:00.508841596] [ info] [engine] flush chunk '1-1792012311.744776100.flb' succeeded at retry 1: task_id=27, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:12:01.509535761Z [2026/10/14 21:12:01.509100156] [ info] [engine] flush chunk '1-1792012309.554396206.flb' succeeded at retry 1: task_id=14, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:12:01.509581185Z [2026/10/14 21:12:01.509151308] [ info] [engine] flush chunk '1-1792012311.576401467.flb' succeeded at retry 1: task_id=20, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:12:02.509838584Z [2026/10/14 21:12:02.509372822] [ info] [engine] flush chunk '1-1792012307.722943543.flb' succeeded at retry 2: task_id=10, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:12:02.509874847Z [2026/10/14 21:12:02.509447600] [ info] [engine] flush chunk '1-1792012314.68668728.flb' succeeded at retry 1: task_id=31, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:12:02.509889733Z [2026/10/14 21:12:02.509461621] [ info] [engine] flush chunk '1-1792012311.652646384.flb' succeeded at retry 1: task_id=24, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:12:03.509894278Z [2026/10/14 21:12:03.509403224] [ info] [engine] flush chunk '1-1792012311.572976835.flb' succeeded at retry 1: task_id=19, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:12:03.509988096Z [2026/10/14 21:12:03.509512635] [ info] [engine] flush chunk '1-1792012313.908192341.flb' succeeded at retry 1: task_id=30, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:12:03.510005238Z [2026/10/14 21:12:03.509533411] [ info] [engine] flush chunk '1-1792012313.271421682.flb' succeeded at retry 1: task_id=29, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:12:03.510012611Z [2026/10/14 21:12:03.509543925] [ info] [engine] flush chunk '1-1792012311.665831329.flb' succeeded at retry 1: task_id=25, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:12:03.510021548Z [2026/10/14 21:12:03.509552951] [ info] [engine] flush chunk '1-1792012311.736312030.flb' succeeded at retry 1: task_id=26, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:12:04.509675734Z [2026/10/14 21:12:04.508900179] [ info] [engine] flush chunk '1-1792012314.885014832.flb' succeeded at retry 1: task_id=32, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:12:04.509716810Z [2026/10/14 21:12:04.508970634] [ info] [engine] flush chunk '1-1792012314.891799137.flb' succeeded at retry 1: task_id=33, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:12:05.509527752Z [2026/10/14 21:12:05.509056942] [ info] [engine] flush chunk '1-1792012306.368153759.flb' succeeded at retry 2: task_id=8, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:12:08.509089702Z [2026/10/14 21:12:08.508673780] [ info] [engine] flush chunk '1-1792012305.772592476.flb' succeeded at retry 2: task_id=5, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:12:09.511960952Z [2026/10/14 21:12:09.510204413] [ info] [engine] flush chunk '1-1792012303.907873930.flb' succeeded at retry 2: task_id=2, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:12:11.509931868Z [2026/10/14 21:12:11.509448711] [ info] [engine] flush chunk '1-1792012305.225818303.flb' succeeded at retry 2: task_id=4, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:12:11.510523943Z [2026/10/14 21:12:11.510136409] [ info] [engine] flush chunk '1-1792012303.780938528.flb' succeeded at retry 2: task_id=0, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:12:11.510535300Z [2026/10/14 21:12:11.510337601] [ info] [engine] flush chunk '1-1792012306.194054222.flb' succeeded at retry 2: task_id=7, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:12:12.509479115Z [2026/10/14 21:12:12.509084172] [ info] [engine] flush chunk '1-1792012307.729796124.flb' succeeded at retry 2: task_id=11, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:12:12.509515045Z [2026/10/14 21:12:12.509120955] [ info] [engine] flush chunk '1-1792012303.786836276.flb' succeeded at retry 2: task_id=1, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:31:36.397687599Z [2026/10/14 21:31:36.397252027] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:31:36.397851291Z [2026/10/14 21:31:36.397340534] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:31:36.397862123Z [2026/10/14 21:31:36.397417176] [error] [output:forward:forward.1] no upstream connections available
-2026-10-14T21:31:36.397887954Z [2026/10/14 21:31:36.397635974] [ warn] [engine] failed to flush chunk '1-1792013495.428500391.flb', retry in 11 seconds: task_id=1, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:31:36.399357174Z [2026/10/14 21:31:36.397737090] [ warn] [engine] failed to flush chunk '1-1792013495.976814715.flb', retry in 7 seconds: task_id=2, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:31:36.399514257Z [2026/10/14 21:31:36.397766023] [ warn] [engine] failed to flush chunk '1-1792013496.78209896.flb', retry in 11 seconds: task_id=3, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:31:43.384022613Z [2026/10/14 21:31:43.383508482] [ info] [engine] flush chunk '1-1792013495.976814715.flb' succeeded at retry 1: task_id=2, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:31:47.385402689Z [2026/10/14 21:31:47.383565721] [ info] [engine] flush chunk '1-1792013495.428500391.flb' succeeded at retry 1: task_id=1, input=forward.0 > output=forward.1 (out_id=1)
-2026-10-14T21:31:47.385448497Z [2026/10/14 21:31:47.383610247] [ info] [engine] flush chunk '1-1792013496.78209896.flb' succeeded at retry 1: task_id=3, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:28:13.363778291Z Fluent Bit v4.2.8
+2026-10-15T10:28:13.363824619Z * Copyright (C) 2015-2026 The Fluent Bit Authors
+2026-10-15T10:28:13.363828205Z * Fluent Bit is a CNCF graduated project under the Fluent organization
+2026-10-15T10:28:13.363830403Z * https://fluentbit.io
+2026-10-15T10:28:13.363832807Z 
+2026-10-15T10:28:13.363834737Z ______ _                  _    ______ _ _             ___   _____ 
+2026-10-15T10:28:13.363836722Z |  ___| |                | |   | ___ (_) |           /   | / __  \
+2026-10-15T10:28:13.363838751Z | |_  | |_   _  ___ _ __ | |_  | |_/ /_| |_  __   __/ /| | `' / /'
+2026-10-15T10:28:13.363840727Z |  _| | | | | |/ _ \ '_ \| __| | ___ \ | __| \ \ / / /_| |   / /  
+2026-10-15T10:28:13.363842959Z | |   | | |_| |  __/ | | | |_  | |_/ / | |_   \ V /\___  |_./ /___
+2026-10-15T10:28:13.363845097Z \_|   |_|\__,_|\___|_| |_|\__| \____/|_|\__|   \_/     |_(_)_____/
+2026-10-15T10:28:13.363847369Z                                                                   
+2026-10-15T10:28:13.363849390Z              Fluent Bit v4.2 – Direct Routes Ahead
+2026-10-15T10:28:13.363852114Z          Celebrating 10 Years of Open, Fluent Innovation!
+2026-10-15T10:28:13.363854137Z 
+2026-10-15T10:28:13.385235645Z [2026/10/15 10:28:13.382718472] [ info] [fluent bit] version=4.2.8, commit=419540c428, pid=1
+2026-10-15T10:28:13.388646832Z [2026/10/15 10:28:13.388268719] [ info] [storage] ver=1.5.4, type=memory, sync=normal, checksum=off, max_chunks_up=128
+2026-10-15T10:28:13.388663102Z [2026/10/15 10:28:13.388308236] [ info] [simd    ] SSE2
+2026-10-15T10:28:13.388666183Z [2026/10/15 10:28:13.388313494] [ info] [cmetrics] version=1.0.6
+2026-10-15T10:28:13.389138523Z [2026/10/15 10:28:13.388814792] [ info] [ctraces ] version=0.6.6
+2026-10-15T10:28:13.391054496Z [2026/10/15 10:28:13.390742055] [ info] [input:forward:forward.0] initializing
+2026-10-15T10:28:13.391065805Z [2026/10/15 10:28:13.390778998] [ info] [input:forward:forward.0] storage_strategy='memory' (memory only)
+2026-10-15T10:28:13.394408802Z [2026/10/15 10:28:13.394011731] [ info] [input:forward:forward.0] listening on 0.0.0.0:24224
+2026-10-15T10:28:13.394428107Z [2026/10/15 10:28:13.394093615] [ info] [input:forward:forward.1] initializing
+2026-10-15T10:28:13.394430699Z [2026/10/15 10:28:13.394098551] [ info] [input:forward:forward.1] storage_strategy='memory' (memory only)
+2026-10-15T10:28:13.394432841Z [2026/10/15 10:28:13.394136796] [ info] [input:forward:forward.1] listening on 0.0.0.0:24225
+2026-10-15T10:28:13.414469038Z [2026/10/15 10:28:13.414059220] [ info] [input:emitter:emitter_for_rewrite_tag.2] initializing
+2026-10-15T10:28:13.414493719Z [2026/10/15 10:28:13.414102798] [ info] [input:emitter:emitter_for_rewrite_tag.2] storage_strategy='memory' (memory only)
+2026-10-15T10:28:13.418651196Z [2026/10/15 10:28:13.418223651] [ info] [output:file:file.0] worker #0 started
+2026-10-15T10:28:13.438022967Z [2026/10/15 10:28:13.437534618] [ info] [output:forward:forward.1] worker #0 started
+2026-10-15T10:28:13.438460808Z [2026/10/15 10:28:13.438082795] [ info] [output:file:file.2] worker #0 started
+2026-10-15T10:28:13.439311717Z [2026/10/15 10:28:13.438823049] [ info] [output:file:file.3] worker #0 started
+2026-10-15T10:28:13.439562320Z [2026/10/15 10:28:13.439179709] [ info] [output:file:file.5] worker #0 started
+2026-10-15T10:28:13.440401588Z [2026/10/15 10:28:13.439862043] [ info] [output:file:file.4] worker #0 started
+2026-10-15T10:28:13.485254739Z [2026/10/15 10:28:13.484758634] [ info] [http_server] listen iface=0.0.0.0 tcp_port=2020
+2026-10-15T10:28:13.485278875Z [2026/10/15 10:28:13.484830742] [ info] [sp] stream processor started
+2026-10-15T10:28:13.485907409Z [2026/10/15 10:28:13.485618567] [ info] [engine] Shutdown Grace Period=10, Shutdown Input Grace Period=5
+2026-10-15T10:28:29.939624624Z [2026/10/15 10:28:29.921374201] [error] [output:forward:forward.1] no upstream connections available
+2026-10-15T10:28:29.960152959Z [2026/10/15 10:28:29.933656016] [ warn] [engine] failed to flush chunk '1-1792060109.278105258.flb', retry in 10 seconds: task_id=1, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:28:39.351219259Z [2026/10/15 10:28:39.348626082] [ info] [engine] flush chunk '1-1792060109.278105258.flb' succeeded at retry 1: task_id=1, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:01.246657651Z [2026/10/15 10:56:01.244002092] [error] [output:forward:forward.1] no upstream connections available
+2026-10-15T10:56:01.247301806Z [2026/10/15 10:56:01.245809556] [ warn] [engine] failed to flush chunk '1-1792061760.751259675.flb', retry in 10 seconds: task_id=0, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:03.232368096Z [2026/10/15 10:56:03.231234979] [error] [output:forward:forward.1] no upstream connections available
+2026-10-15T10:56:03.232450695Z [2026/10/15 10:56:03.231309279] [error] [output:forward:forward.1] no upstream connections available
+2026-10-15T10:56:03.232503805Z [2026/10/15 10:56:03.231414961] [ warn] [engine] failed to flush chunk '1-1792061762.455478436.flb', retry in 7 seconds: task_id=2, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:03.232515371Z [2026/10/15 10:56:03.231488194] [ warn] [engine] failed to flush chunk '1-1792061762.941431989.flb', retry in 7 seconds: task_id=3, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:03.238282787Z [2026/10/15 10:56:03.237452015] [ warn] [net] getaddrinfo(host='tenx', err=4): Domain name not found
+2026-10-15T10:56:03.238311406Z [2026/10/15 10:56:03.237568099] [error] [output:forward:forward.1] no upstream connections available
+2026-10-15T10:56:03.238315583Z [2026/10/15 10:56:03.237827634] [ warn] [engine] failed to flush chunk '1-1792061762.392470963.flb', retry in 6 seconds: task_id=1, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:04.231212344Z [2026/10/15 10:56:04.230475146] [error] [output:forward:forward.1] no upstream connections available
+2026-10-15T10:56:04.231244550Z [2026/10/15 10:56:04.230526002] [error] [output:forward:forward.1] no upstream connections available
+2026-10-15T10:56:04.231248523Z [2026/10/15 10:56:04.230645508] [ warn] [engine] failed to flush chunk '1-1792061764.20221278.flb', retry in 11 seconds: task_id=5, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:04.231271480Z [2026/10/15 10:56:04.230685005] [ warn] [engine] failed to flush chunk '1-1792061764.166178100.flb', retry in 7 seconds: task_id=6, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:04.236652362Z [2026/10/15 10:56:04.236167009] [ warn] [net] getaddrinfo(host='tenx', err=4): Domain name not found
+2026-10-15T10:56:04.236690183Z [2026/10/15 10:56:04.236271963] [error] [output:forward:forward.1] no upstream connections available
+2026-10-15T10:56:04.236754926Z [2026/10/15 10:56:04.236503024] [ warn] [engine] failed to flush chunk '1-1792061763.692972408.flb', retry in 8 seconds: task_id=4, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:05.231230008Z [2026/10/15 10:56:05.230465891] [error] [output:forward:forward.1] no upstream connections available
+2026-10-15T10:56:05.231262705Z [2026/10/15 10:56:05.230532906] [error] [output:forward:forward.1] no upstream connections available
+2026-10-15T10:56:05.231270940Z [2026/10/15 10:56:05.230656696] [ warn] [engine] failed to flush chunk '1-1792061764.282023295.flb', retry in 7 seconds: task_id=8, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:05.232000551Z [2026/10/15 10:56:05.231108234] [ warn] [engine] failed to flush chunk '1-1792061764.287140240.flb', retry in 7 seconds: task_id=9, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:05.238337365Z [2026/10/15 10:56:05.237797414] [ warn] [net] getaddrinfo(host='tenx', err=4): Domain name not found
+2026-10-15T10:56:05.238356482Z [2026/10/15 10:56:05.237817498] [error] [output:forward:forward.1] no upstream connections available
+2026-10-15T10:56:05.238359476Z [2026/10/15 10:56:05.237959253] [ warn] [engine] failed to flush chunk '1-1792061764.276101987.flb', retry in 6 seconds: task_id=7, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:06.230745262Z [2026/10/15 10:56:06.230377980] [error] [output:forward:forward.1] no upstream connections available
+2026-10-15T10:56:06.230789766Z [2026/10/15 10:56:06.230430636] [error] [output:forward:forward.1] no upstream connections available
+2026-10-15T10:56:06.230797684Z [2026/10/15 10:56:06.230543264] [ warn] [engine] failed to flush chunk '1-1792061765.856068234.flb', retry in 9 seconds: task_id=11, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:06.230802916Z [2026/10/15 10:56:06.230480637] [error] [output:forward:forward.1] no upstream connections available
+2026-10-15T10:56:06.230810761Z [2026/10/15 10:56:06.230579770] [ warn] [engine] failed to flush chunk '1-1792061765.916339731.flb', retry in 8 seconds: task_id=12, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:06.231097643Z [2026/10/15 10:56:06.230602785] [ warn] [engine] failed to flush chunk '1-1792061765.919036208.flb', retry in 7 seconds: task_id=13, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:07.230096862Z [2026/10/15 10:56:07.229931753] [error] [output:forward:forward.1] no upstream connections available
+2026-10-15T10:56:07.230542909Z [2026/10/15 10:56:07.230394304] [ warn] [engine] failed to flush chunk '1-1792061766.392372885.flb', retry in 6 seconds: task_id=14, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:07.257829348Z [2026/10/15 10:56:07.257480460] [error] [net] TCP connection failed: tenx:24224 (Connection refused)
+2026-10-15T10:56:07.258269544Z [2026/10/15 10:56:07.257595146] [error] [output:forward:forward.1] no upstream connections available
+2026-10-15T10:56:07.258281117Z [2026/10/15 10:56:07.258017153] [ warn] [engine] failed to flush chunk '1-1792061765.355387679.flb', retry in 9 seconds: task_id=10, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:08.230875287Z [2026/10/15 10:56:08.230392674] [error] [output:forward:forward.1] no upstream connections available
+2026-10-15T10:56:08.230911059Z [2026/10/15 10:56:08.230454504] [error] [output:forward:forward.1] no upstream connections available
+2026-10-15T10:56:08.230914365Z [2026/10/15 10:56:08.230516555] [error] [output:forward:forward.1] no upstream connections available
+2026-10-15T10:56:08.230916549Z [2026/10/15 10:56:08.230588601] [ warn] [engine] failed to flush chunk '1-1792061768.88793446.flb', retry in 10 seconds: task_id=16, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:08.230918850Z [2026/10/15 10:56:08.230627351] [ warn] [engine] failed to flush chunk '1-1792061768.151354501.flb', retry in 10 seconds: task_id=17, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:08.230921110Z [2026/10/15 10:56:08.230648745] [ warn] [engine] failed to flush chunk '1-1792061768.153333975.flb', retry in 10 seconds: task_id=18, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:08.231781891Z [2026/10/15 10:56:08.231369881] [error] [output:forward:forward.1] no upstream connections available
+2026-10-15T10:56:08.231814615Z [2026/10/15 10:56:08.231519243] [ warn] [engine] failed to flush chunk '1-1792061767.490086085.flb', retry in 9 seconds: task_id=15, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:09.230963258Z [2026/10/15 10:56:09.230370826] [error] [output:forward:forward.1] no upstream connections available
+2026-10-15T10:56:09.230991214Z [2026/10/15 10:56:09.230423436] [error] [output:forward:forward.1] no upstream connections available
+2026-10-15T10:56:09.230994071Z [2026/10/15 10:56:09.230445532] [error] [output:forward:forward.1] no upstream connections available
+2026-10-15T10:56:09.230996448Z [2026/10/15 10:56:09.230674554] [ warn] [engine] failed to flush chunk '1-1792061768.450029626.flb', retry in 8 seconds: task_id=19, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:09.231103415Z [2026/10/15 10:56:09.230793991] [ warn] [engine] failed to flush chunk '1-1792061768.548066342.flb', retry in 9 seconds: task_id=20, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:09.231111786Z [2026/10/15 10:56:09.230864431] [ warn] [engine] failed to flush chunk '1-1792061768.551039641.flb', retry in 8 seconds: task_id=21, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:09.231824683Z [2026/10/15 10:56:09.231443303] [ info] [engine] flush chunk '1-1792061762.392470963.flb' succeeded at retry 1: task_id=1, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:10.234119758Z [2026/10/15 10:56:10.232384830] [ info] [engine] flush chunk '1-1792061762.455478436.flb' succeeded at retry 1: task_id=2, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:10.234188666Z [2026/10/15 10:56:10.232454994] [ info] [engine] flush chunk '1-1792061762.941431989.flb' succeeded at retry 1: task_id=3, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:11.229721109Z [2026/10/15 10:56:11.229275312] [ info] [engine] flush chunk '1-1792061764.166178100.flb' succeeded at retry 1: task_id=6, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:11.229753806Z [2026/10/15 10:56:11.229343629] [ info] [engine] flush chunk '1-1792061760.751259675.flb' succeeded at retry 1: task_id=0, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:11.229756699Z [2026/10/15 10:56:11.229359820] [ info] [engine] flush chunk '1-1792061764.276101987.flb' succeeded at retry 1: task_id=7, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:12.229893025Z [2026/10/15 10:56:12.229366263] [ info] [engine] flush chunk '1-1792061764.282023295.flb' succeeded at retry 1: task_id=8, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:12.229919720Z [2026/10/15 10:56:12.229618292] [ info] [engine] flush chunk '1-1792061763.692972408.flb' succeeded at retry 1: task_id=4, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:12.229922970Z [2026/10/15 10:56:12.229639634] [ info] [engine] flush chunk '1-1792061764.287140240.flb' succeeded at retry 1: task_id=9, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:13.230169180Z [2026/10/15 10:56:13.229639335] [ info] [engine] flush chunk '1-1792061766.392372885.flb' succeeded at retry 1: task_id=14, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:13.230201719Z [2026/10/15 10:56:13.229691643] [ info] [engine] flush chunk '1-1792061765.919036208.flb' succeeded at retry 1: task_id=13, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:14.230261265Z [2026/10/15 10:56:14.229786734] [ info] [engine] flush chunk '1-1792061765.916339731.flb' succeeded at retry 1: task_id=12, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:15.230112805Z [2026/10/15 10:56:15.229597833] [ info] [engine] flush chunk '1-1792061765.856068234.flb' succeeded at retry 1: task_id=11, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:15.230147724Z [2026/10/15 10:56:15.229631672] [ info] [engine] flush chunk '1-1792061764.20221278.flb' succeeded at retry 1: task_id=5, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:16.229475559Z [2026/10/15 10:56:16.229203804] [ info] [engine] flush chunk '1-1792061765.355387679.flb' succeeded at retry 1: task_id=10, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:17.232260386Z [2026/10/15 10:56:17.231542436] [ info] [engine] flush chunk '1-1792061768.450029626.flb' succeeded at retry 1: task_id=19, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:17.232302616Z [2026/10/15 10:56:17.231617703] [ info] [engine] flush chunk '1-1792061768.551039641.flb' succeeded at retry 1: task_id=21, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:17.232310383Z [2026/10/15 10:56:17.231637966] [ info] [engine] flush chunk '1-1792061767.490086085.flb' succeeded at retry 1: task_id=15, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:18.230000559Z [2026/10/15 10:56:18.229531586] [ info] [engine] flush chunk '1-1792061768.548066342.flb' succeeded at retry 1: task_id=20, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:18.230051941Z [2026/10/15 10:56:18.229602230] [ info] [engine] flush chunk '1-1792061768.88793446.flb' succeeded at retry 1: task_id=16, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:18.230057699Z [2026/10/15 10:56:18.229666194] [ info] [engine] flush chunk '1-1792061768.151354501.flb' succeeded at retry 1: task_id=17, input=forward.0 > output=forward.1 (out_id=1)
+2026-10-15T10:56:18.230060005Z [2026/10/15 10:56:18.229677414] [ info] [engine] flush chunk '1-1792061768.153333975.flb' succeeded at retry 1: task_id=18, input=forward.0 > output=forward.1 (out_id=1)

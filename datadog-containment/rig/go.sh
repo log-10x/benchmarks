@@ -2,13 +2,13 @@
 # The whole run, one command: quiet run, POC and fleet values, scheduled run. The scheduled
 # phase, the disk guard and the hard stop run detached, so the run stops itself at the
 # planned end even if this shell goes away.
-#   DEMO=<demo 3.1.0 clone> MCP=<log10x-mcp 1.30.54, unpacked, dependencies installed> rig/go.sh
+#   DEMO=<demo 3.1.0 clone> MCP=<log10x-mcp 1.30.58, unpacked, dependencies installed> rig/go.sh
 # Settings: SETTLE_S (120), QUIET_MIN (22), RUN_MIN (75), SEED (20261014), FLOOR_MB (4500).
 set -euo pipefail
 HERE=$(cd "$(dirname "$0")" && pwd)
 RESULTS=${RESULTS:-$HERE/../results}
 export DEMO=${DEMO:?demo clone} MCP=${MCP:?log10x-mcp package}
-ENGINE=log10x/edge-10x:1.1.141@sha256:45157d0bdf506615aa015db7b8b7251ae39be5f4330233d2d2d659c69d1f93d1
+ENGINE=log10x/edge-10x:1.1.142@sha256:24e31c07a95e1f7dc356f11dc5cac4b21602ff91040ea831f94668b05afe6bf1
 SETTLE_S=${SETTLE_S:-120}; QUIET_MIN=${QUIET_MIN:-22}; RUN_MIN=${RUN_MIN:-75}; SEED=${SEED:-20261014}; FLOOR_MB=${FLOOR_MB:-4500}
 T=$RESULTS/timeline.jsonl
 mkdir -p "$RESULTS/data" "$RESULTS/planner"

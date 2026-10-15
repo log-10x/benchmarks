@@ -6,15 +6,20 @@
 
 extraContainers:
   - name: log10x
-    image: log10x/edge-10x:1.1.141@sha256:45157d0bdf506615aa015db7b8b7251ae39be5f4330233d2d2d659c69d1f93d1
+    image: log10x/edge-10x:1.1.142@sha256:24e31c07a95e1f7dc356f11dc5cac4b21602ff91040ea831f94668b05afe6bf1
     imagePullPolicy: IfNotPresent
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      readOnlyRootFilesystem: true
+      allowPrivilegeEscalation: false
     args:
       - "@run/input/forwarder/fluentbit"
       - "@apps/receiver"
       - "symbolMessageHashField"
       - "tenx_hash"
       - "rateReceiverAbsoluteCap"
-      - "10288"
+      - "25960"
       - "rateReceiverDefaultAction"
       - "offload"
       - "rateReceiverMinSharePercent"
@@ -58,9 +63,16 @@ extraContainers:
         value: /tmp/tenx/kubernetes/$(K8S_NAMESPACE)/log10x-action-intent/config-generation.csv
       - name: outputOffload
         value: "true"
+    volumeMounts:
+      - name: tenx-tmp
+        mountPath: /tmp
     resources:
       requests: { cpu: 100m, memory: 256Mi }
       limits:   { cpu: 500m, memory: 512Mi }
+
+extraVolumes:
+  - name: tenx-tmp
+    emptyDir: {}
 
 # Replace the chart's default config with the sidecar bypass pattern.
 # Inputs: tail your sources + receive processed events back from the
