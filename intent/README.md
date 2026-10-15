@@ -18,7 +18,7 @@ Three outcomes, per event:
 - **exact grouping**: the event's statement has exactly one pattern, and that pattern holds only that statement.
 
 Two tools are scored on the same events:
-- the 10x engine (versions 1.1.132 and 1.1.133 on the two demo captures, 1.1.136 on the ZooKeeper capture);
+- the 10x engine: 1.1.142, the current release, on all three captures; 1.1.132 and 1.1.133 on the two demo captures; 1.1.136 on the ZooKeeper capture;
 - [Drain3](https://github.com/logpai/Drain3) 0.9.11, in two arms with the settings of [`../pattern-identity`](../pattern-identity), and at drain3's factory defaults.
 
 ## Results
@@ -27,6 +27,7 @@ Two tools are scored on the same events:
 
 | tool | merged events | split events | exact grouping | statements with one pattern of their own | patterns |
 |---|---:|---:|---:|---:|---:|
+| 10x engine 1.1.142 | 0.01% (13) | 4.59% | 91.38% | 77.59% of 299 | 2,277 |
 | 10x engine 1.1.133 | 0.01% (13) | 4.59% | 91.38% | 77.59% of 299 | 2,277 |
 | 10x engine 1.1.132 | 4.44% (6,944) | 4.59% | 78.83% | 75.92% of 299 | 2,274 |
 | Drain3, strong arm | 0.05% (83) | 3.47% | 80.95% | 76.25% of 299 | 865 |
@@ -38,6 +39,7 @@ Two tools are scored on the same events:
 
 | tool | merged events | split events | exact grouping | statements with one pattern of their own | patterns |
 |---|---:|---:|---:|---:|---:|
+| 10x engine 1.1.142 | 0.15% (63) | 9.95% | 85.94% | 78.4% of 213 | 406 |
 | 10x engine 1.1.133 | 0.15% (63) | 9.95% | 85.94% | 78.4% of 213 | 406 |
 | 10x engine 1.1.132 | 1.1% (454) | 9.95% | 84.05% | 77.0% of 213 | 404 |
 | Drain3, strong arm | 1.78% (734) | 10.37% | 28.42% | 63.38% of 213 | 386 |
@@ -49,11 +51,14 @@ Without the opentelemetry-collector container (57% of otel215's events, 46% of r
 
 | tool | otel215 merged | otel215 exact grouping | rec1155 merged | rec1155 exact grouping |
 |---|---:|---:|---:|---:|
+| 10x engine 1.1.142 | 0.02% (13) | 79.8% | 0.28% (63) | 73.91% |
 | 10x engine 1.1.133 | 0.02% (13) | 79.8% | 0.28% (63) | 73.91% |
 | 10x engine 1.1.132 | 10.39% (6,944) | 50.41% | 2.04% (454) | 70.4% |
 | Drain3, strong arm | 0.12% (79) | 55.61% | 3.3% (734) | 52.71% |
 | Drain3, baseline arm | 0.14% (94) | 55.54% | 3.36% (749) | 52.42% |
 | Drain3, factory defaults | 0.35% (233) | 54.72% | 6.2% (1,381) | 48.58% |
+
+1.1.142 scores the same as 1.1.133 on both demo captures and the same as 1.1.136 on ZooKeeper: each of its score files equals the earlier one byte for byte, the lists of merged patterns and split statements included.
 
 [`results/results.md`](results/results.md) has every table:
 - split shares without the collector;
@@ -65,7 +70,7 @@ The `results/*.json` files list every merged pattern with its statements, and ev
 
 ## Reading the numbers
 
-**Merges.** 1.1.133 merges the fewest events on both captures.
+**Merges.** 1.1.133 and 1.1.142 merge the fewest events on both captures.
 - On otel215 the gap to Drain3 is small when Drain3 is given the engine's events: 13 events against 83. Drain3's merges there pair statements that differ in one word, such as Grafana's `starting to provision dashboards` and `finished to provision dashboards`, or OpenSearch's `Starting housekeeping task for auto refresh streaming jobs.` and its `Finished` twin.
 - Fed one record at a time, as Drain3 normally runs, it also merges the cart service's three statements (6,930 events). The .NET console logger prints the same header line before each message, so every cart event starts with the same line. 1.1.132 made the same merge; 1.1.133 names such an event from its first record that holds a message.
 - On rec1155, Drain3 merges 734 events against 63. The largest are payment's two OpenTelemetry log dumps (390 events each) and two product-reviews statements (225 each).
@@ -86,11 +91,12 @@ Two Grafana statements account for 1,331 of 1.1.133's 2,277 otel215 patterns. Th
 `zookeeper` is LogHub's ZooKeeper log: 74,380 lines from a three-server ZooKeeper 3.4.5
 ensemble, every one labelled, 84 statements. Its labels were frozen and committed before any
 tool ran on it (`labels/FROZEN_zookeeper.json`). It is not held out from the engine's development: LogHub's 2,000-line ZooKeeper sample, drawn from this log, was one of 16 LogHub sets the rule work scored by LogHub's template labels, so 2,000 of its lines were in view; no rule was built from the statement labels, which did not exist until this capture was labelled. Each tool then ran once: the released engine 1.1.136
-with its shipped configuration, and Drain3 in its two arms and at its factory defaults. [METHOD.md](METHOD.md#the-third-capture-zookeeper)
+with its shipped configuration, and Drain3 in its two arms and at its factory defaults. The current release, 1.1.142, ran later on the same frozen labels. [METHOD.md](METHOD.md#the-third-capture-zookeeper)
 gives the version evidence and how the labels were made.
 
 | tool | merged events | split events | exact grouping | statements with one pattern of their own | patterns |
 |---|---:|---:|---:|---:|---:|
+| 10x engine 1.1.142 | 0.21% (153) | 1.21% | 95.38% | 69.05% of 84 | 97 |
 | 10x engine 1.1.136 | 0.21% (153) | 1.21% | 95.38% | 69.05% of 84 | 97 |
 | Drain3, strong arm | 0.75% (555) | 0.32% | 91.31% | 50.0% of 84 | 58 |
 | Drain3, baseline arm | 0.55% (412) | 0.32% | 93.25% | 55.95% of 84 | 64 |
@@ -125,7 +131,7 @@ library" group and that split equals the table above.
   - The manifest does not list ZooKeeper, so the ZooKeeper capture is scored entirely outside the library.
 - **Event boundaries are the engine's.** An event is one record or a run of records the engine groups (a stack trace, a .NET header and its message). Drain3 is scored on those events, either given each event's text (the default rows) or fed one record at a time (the "per record" rows).
 - **Who wrote the labels.** Log10x wrote them, from source code alone, and froze them before any tool's output was read: otel215 and rec1155 on 2026-10-05 (`labels/FROZEN.json`), zookeeper on 2026-10-07 (`labels/FROZEN_zookeeper.json`), before any tool ran on it. Every label names a repository, ref, path and line in `labels/statements.tsv` or `labels/statements_zookeeper.tsv`, so any one can be checked against its source.
-- **The 1.1.133 column is in-sample.** Engine 1.1.133's group-lead rule (a multi-line event is named from its first record that holds a message) was developed after the freeze, with these two captures in view. Its column shows the rule on the data it was built against. The ZooKeeper column is labelled after the fact but is not a clean out-of-sample test (see its section); a capture never used in the engine's development would be. Drain3 ran at the pattern-identity harness's fixed settings, listed below, which were not tuned to these captures, and at drain3's factory defaults.
+- **Which columns are in-sample.** The 1.1.133 column is in-sample. Engine 1.1.133's group-lead rule (a multi-line event is named from its first record that holds a message) was developed after the freeze, with otel215 and rec1155 in view, so its column shows the rule on the data it was built against. 1.1.142 is the current release (2026-10-15) and carries the same rule, so on otel215 and rec1155 it is in-sample in the same sense; the release notes of 1.1.141 report this benchmark's merged and split counts on both captures as a check on that release. The ZooKeeper columns are labelled after the fact but are not a clean out-of-sample test (see its section). 1.1.142 ran on those labels after the 1.1.136 scores were published, and the release notes of 1.1.137 to 1.1.142 name no change made for ZooKeeper. A capture never used in the engine's development would be a clean out-of-sample test; none is scored here. Drain3 ran at the pattern-identity harness's fixed settings, listed below, which were not tuned to these captures, and at drain3's factory defaults.
 
 ## Drain3 settings
 
@@ -147,13 +153,14 @@ Fed one record at a time, the run reproduces the harness's own reference pass on
 
 | engine | image | library inside |
 |---|---|---|
+| 1.1.142 (all three captures) | `log10x/pipeline-10x:1.1.142@sha256:22ae67148bd7f6cbdf171c1b8da1c9c6c801290d43488693dfd8527e27138d05` | the 1.1.89 library |
 | 1.1.136 (ZooKeeper capture) | `log10x/pipeline-10x:1.1.136@sha256:fccff37a6a41e52eb4df8a108d042b0176210842b7ed25f08b1419df3a37904f` | the 1.1.89 library |
 | 1.1.133 | `log10x/pipeline-10x:1.1.133@sha256:fe3dcdefdc2f42fa7117c4f63fe97b28508fbf1356725422703f0dfab55f2360` | the 1.1.89 library |
 | 1.1.132 | `log10x/pipeline-10x:1.1.132@sha256:3e21cd41cde6d8263b5fa1b121ff15587a6bfe33ca4b3338b08bbb8c0e7a0c5f` | the 1.1.89 library |
 
-The library files inside the three images are byte-identical: manifest `4ad0993d5e32b9b6`, symbols `1c539d9496761c8d` (JSON) and `e5544b5f274b876d` (protobuf), first 16 hex digits of SHA-256.
+The library files inside the four images are byte-identical: manifest `4ad0993d5e32b9b6`, symbols `1c539d9496761c8d` (JSON) and `e5544b5f274b876d` (protobuf), first 16 hex digits of SHA-256.
 
-All three engines run with their shipped configuration through the dev app (`@apps/dev`), which writes each event's pattern name, typed origin and text. `bench/engine.sh` mounts an empty directory over the sample input the image ships, so the engine reads the capture alone.
+All four engines run with their shipped configuration through the dev app (`@apps/dev`), which writes each event's pattern name, typed origin and text. `bench/engine.sh` mounts an empty directory over the sample input the image ships, so the engine reads the capture alone.
 
 ## Reproduce
 
@@ -163,10 +170,10 @@ All three engines run with their shipped configuration through the dev app (`@ap
 
 This needs Docker, curl and Python 3. `run.sh` does the following:
 - downloads otel215 from the `otel-sample-v1` release of log-10x/config, rec1155 from this repository's `intent-data-v1` release and `Zookeeper.tar.gz` from LogHub's [Zenodo record 8196385](https://zenodo.org/records/8196385), checking every hash (the ZooKeeper log's CRLF line ends are converted to LF);
-- runs the 1.1.132 and 1.1.133 images on the demo captures, the 1.1.136 image on zookeeper, and the six Drain3 combinations (three arms, each given events or records) on each capture;
+- runs the 1.1.132, 1.1.133 and 1.1.142 images on the demo captures, the 1.1.136 and 1.1.142 images on zookeeper, and the six Drain3 combinations (three arms, each given events or records) on each capture;
 - scores every run and writes `results/`.
 
-On an Intel laptop with Docker Desktop it takes about 45 minutes.
+On an Intel laptop with Docker Desktop it takes about 55 minutes. The 1.1.142 runs were made on 2026-10-15 with no other container running on the host.
 
 To score another engine image:
 

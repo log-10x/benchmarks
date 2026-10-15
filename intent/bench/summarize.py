@@ -10,9 +10,11 @@ CAPTURES = ('otel215', 'rec1155', 'zookeeper')
 DRAIN = [('drain3-strong-event', 'Drain3, strong arm'), ('drain3-baseline-event', 'Drain3, baseline arm'),
          ('drain3-factory-event', 'Drain3, factory defaults')]
 ENGINES = {
-    'otel215': [('engine-1.1.132', '10x engine 1.1.132'), ('engine-1.1.133', '10x engine 1.1.133')],
-    'rec1155': [('engine-1.1.132', '10x engine 1.1.132'), ('engine-1.1.133', '10x engine 1.1.133')],
-    'zookeeper': [('engine-1.1.136', '10x engine 1.1.136')],
+    'otel215': [('engine-1.1.142', '10x engine 1.1.142'), ('engine-1.1.133', '10x engine 1.1.133'),
+                ('engine-1.1.132', '10x engine 1.1.132')],
+    'rec1155': [('engine-1.1.142', '10x engine 1.1.142'), ('engine-1.1.133', '10x engine 1.1.133'),
+                ('engine-1.1.132', '10x engine 1.1.132')],
+    'zookeeper': [('engine-1.1.142', '10x engine 1.1.142'), ('engine-1.1.136', '10x engine 1.1.136')],
 }
 NO_CONTAINERS = {'zookeeper'}  # the program's own lines: no container metadata
 SENSITIVITY = [('drain3-strong-record', 'Drain3, strong arm, per record'),
