@@ -1,0 +1,22 @@
+# 1.1.140 -> 1.1.141: files of the shipped config that differ
+changed pipelines/compile/link/config.yaml
+changed pipelines/compile/link/schema.json
+changed pipelines/compile/scanners/executable/strings-nix.yaml
+changed pipelines/run/initialize/group/config.yaml
+changed pipelines/run/initialize/group/schema.json
+changed pipelines/run/initialize/k8s/config.yaml
+changed pipelines/run/initialize/k8s/schema.json
+changed pipelines/run/output/metric/datadog/config.yaml
+changed pipelines/run/receive/rate/config.yaml
+changed pipelines/run/receive/rate/rate-object-cap.js
+changed pipelines/run/receive/rate/rate-object-local.js
+changed pipelines/run/receive/rate/rate-object-lookup-cap.js
+changed pipelines/run/receive/rate/rate-object-lookup.js
+changed pipelines/run/receive/rate/schema.json
+changed pipelines/run/template/config.yaml
+changed pipelines/run/template/schema.json
+changed pipelines/run/transform/group/config.yaml
+changed pipelines/run/transform/group/schema.json
+
+# 1.1.141 -> 1.1.142: files of the shipped config that differ
+

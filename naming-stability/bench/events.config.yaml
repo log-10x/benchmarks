@@ -1,0 +1,17 @@
+# Writes one JSON record per event: the pattern name, the pattern hash (the hash of
+# the name), the template hash and the event's text. Run with @apps/dev, which reads
+# the input file and names every event.
+tenx: run
+
+include:
+  - run/modules/output/event/file
+
+outputFile:
+  - path: $=TenXEnv.get("OUTPUT_DIR") + "/events.jsonl"
+    filter: null
+    encodeType: json
+    fields:
+      - message_pattern
+      - tenx_hash
+      - templateHash
+      - text
