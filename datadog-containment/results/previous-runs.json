@@ -1,0 +1,1061 @@
+{
+ "runs": [
+  {
+   "label": "1.1.141 run",
+   "commit": "8e416c6",
+   "receiver_image": "log10x/edge-10x:1.1.141@sha256:45157d0bdf506615aa015db7b8b7251ae39be5f4330233d2d2d659c69d1f93d1",
+   "mcp_version": "1.30.54",
+   "scheduled": [
+    1792012348,
+    1792016864
+   ],
+   "fleet_cap": 10288.0,
+   "caps": {
+    "accounting": 1.0,
+    "ad": 1164.0,
+    "cart": 1.0,
+    "fraud-detection": 1.0,
+    "frontend": 5551.0,
+    "kafka": 4163.0,
+    "otel-collector": 15726.0,
+    "payment": 2583.0,
+    "recommendation": 1.0,
+    "shipping": 765.0,
+    "telemetry-docs": 1.0
+   },
+   "totals_scheduled": {
+    "raw_lines": 50580,
+    "returned": 40575,
+    "routes": {
+     "tier_down": 27184,
+     "pass": 8555,
+     "offload": 4836
+    },
+    "bytes_by_route": {
+     "pass": 3444071,
+     "offload": 1386179,
+     "tier_down": 13199054,
+     "other": 0
+    }
+   },
+   "activations": [
+    {
+     "n": 1,
+     "flag": "cartFailure",
+     "variant": "100%",
+     "on": 1792012412.353,
+     "off": 1792012827.523,
+     "planned_s": 415.185,
+     "actual_s": 415.17000007629395,
+     "span_end": 1792013036.617
+    },
+    {
+     "n": 2,
+     "flag": "kafkaQueueProblems",
+     "variant": "on",
+     "on": 1792013036.617,
+     "off": 1792013495.197,
+     "planned_s": 458.68,
+     "actual_s": 458.57999992370605,
+     "span_end": 1792013735.197
+    },
+    {
+     "n": 3,
+     "flag": "paymentFailure",
+     "variant": "100%",
+     "on": 1792013754.764,
+     "off": 1792014056.089,
+     "planned_s": 301.235,
+     "actual_s": 301.3250000476837,
+     "span_end": 1792014268.559
+    },
+    {
+     "n": 4,
+     "flag": "emailMemoryLeak",
+     "variant": "1000x",
+     "on": 1792014268.559,
+     "off": 1792014740.137,
+     "planned_s": 471.579,
+     "actual_s": 471.57800006866455,
+     "span_end": 1792014767.6
+    },
+    {
+     "n": 5,
+     "flag": "emailMemoryLeak",
+     "variant": "1000x",
+     "on": 1792014767.6,
+     "off": 1792015177.584,
+     "planned_s": 409.995,
+     "actual_s": 409.98400020599365,
+     "span_end": 1792015417.584
+    },
+    {
+     "n": 6,
+     "flag": "recommendationCacheFailure",
+     "variant": "on",
+     "on": 1792015518.207,
+     "off": 1792015937.085,
+     "planned_s": 418.882,
+     "actual_s": 418.87800002098083,
+     "span_end": 1792016003.04
+    },
+    {
+     "n": 7,
+     "flag": "loadGeneratorFloodHomepage",
+     "variant": "on",
+     "on": 1792016003.04,
+     "off": 1792016331.677,
+     "planned_s": 328.644,
+     "actual_s": 328.63700008392334,
+     "span_end": 1792016571.677
+    },
+    {
+     "n": 8,
+     "flag": "recommendationCacheFailure",
+     "variant": "on",
+     "on": 1792016600.869,
+     "off": 1792016859.953,
+     "planned_s": 345.214,
+     "actual_s": 259.0840001106262,
+     "span_end": 1792016864
+    }
+   ],
+   "per_activation": [
+    {
+     "n": 1,
+     "flag": "cartFailure",
+     "containers": [
+      {
+       "container": "kafka",
+       "rule": "plan row: kafka, cap 4,163, tier_down",
+       "in_causal_path": false,
+       "held": 145,
+       "held_offload": 0,
+       "held_tier_down": 145,
+       "kept_same_patterns": 283,
+       "first_held": 1792012455.504
+      },
+      {
+       "container": "astronomy-db",
+       "rule": "fleet default: 10,288, offload",
+       "in_causal_path": false,
+       "held": 8,
+       "held_offload": 8,
+       "held_tier_down": 0,
+       "kept_same_patterns": 114,
+       "first_held": 1792012521.736
+      },
+      {
+       "container": "ad",
+       "rule": "plan row: ad, cap 1,164, tier_down",
+       "in_causal_path": false,
+       "held": 2,
+       "held_offload": 0,
+       "held_tier_down": 2,
+       "kept_same_patterns": 8,
+       "first_held": 1792012708.992
+      },
+      {
+       "container": "cart",
+       "rule": "plan row: cart, cap 1, tier_down",
+       "in_causal_path": true,
+       "held": 1,
+       "held_offload": 0,
+       "held_tier_down": 1,
+       "kept_same_patterns": 12,
+       "first_held": 1792012657.063
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "flag": "kafkaQueueProblems",
+     "containers": [
+      {
+       "container": "astronomy-db",
+       "rule": "fleet default: 10,288, offload",
+       "in_causal_path": true,
+       "held": 4784,
+       "held_offload": 4784,
+       "held_tier_down": 0,
+       "kept_same_patterns": 1216,
+       "first_held": 1792013038.404
+      },
+      {
+       "container": "accounting",
+       "rule": "plan row: accounting, cap 1, tier_down",
+       "in_causal_path": true,
+       "held": 1990,
+       "held_offload": 0,
+       "held_tier_down": 1990,
+       "kept_same_patterns": 10,
+       "first_held": 1792013038.302
+      },
+      {
+       "container": "fraud-detection",
+       "rule": "plan row: fraud-detection, cap 1, tier_down",
+       "in_causal_path": true,
+       "held": 446,
+       "held_offload": 0,
+       "held_tier_down": 446,
+       "kept_same_patterns": 10,
+       "first_held": 1792013043.238
+      },
+      {
+       "container": "frontend",
+       "rule": "plan row: frontend, cap 5,551, tier_down",
+       "in_causal_path": false,
+       "held": 1,
+       "held_offload": 0,
+       "held_tier_down": 1,
+       "kept_same_patterns": 32,
+       "first_held": 1792013250.389
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "flag": "paymentFailure",
+     "containers": [
+      {
+       "container": "frontend",
+       "rule": "plan row: frontend, cap 5,551, tier_down",
+       "in_causal_path": true,
+       "held": 6,
+       "held_offload": 0,
+       "held_tier_down": 6,
+       "kept_same_patterns": 12,
+       "first_held": 1792013887.658
+      },
+      {
+       "container": "payment",
+       "rule": "plan row: payment, cap 2,583, tier_down",
+       "in_causal_path": true,
+       "held": 4,
+       "held_offload": 0,
+       "held_tier_down": 4,
+       "kept_same_patterns": 14,
+       "first_held": 1792013847.593
+      }
+     ]
+    },
+    {
+     "n": 4,
+     "flag": "emailMemoryLeak",
+     "containers": []
+    },
+    {
+     "n": 5,
+     "flag": "emailMemoryLeak",
+     "containers": []
+    },
+    {
+     "n": 6,
+     "flag": "recommendationCacheFailure",
+     "containers": [
+      {
+       "container": "recommendation",
+       "rule": "plan row: recommendation, cap 1, tier_down",
+       "in_causal_path": true,
+       "held": 12,
+       "held_offload": 0,
+       "held_tier_down": 12,
+       "kept_same_patterns": 22,
+       "first_held": 1792015637.687
+      },
+      {
+       "container": "kafka",
+       "rule": "plan row: kafka, cap 4,163, tier_down",
+       "in_causal_path": false,
+       "held": 1,
+       "held_offload": 0,
+       "held_tier_down": 1,
+       "kept_same_patterns": 23,
+       "first_held": 1792015672.374
+      }
+     ]
+    },
+    {
+     "n": 7,
+     "flag": "loadGeneratorFloodHomepage",
+     "containers": [
+      {
+       "container": "ad",
+       "rule": "plan row: ad, cap 1,164, tier_down",
+       "in_causal_path": true,
+       "held": 2,
+       "held_offload": 0,
+       "held_tier_down": 2,
+       "kept_same_patterns": 8,
+       "first_held": 1792016131.719
+      }
+     ]
+    },
+    {
+     "n": 8,
+     "flag": "recommendationCacheFailure",
+     "containers": [
+      {
+       "container": "recommendation",
+       "rule": "plan row: recommendation, cap 1, tier_down",
+       "in_causal_path": true,
+       "held": 7,
+       "held_offload": 0,
+       "held_tier_down": 7,
+       "kept_same_patterns": 5,
+       "first_held": 1792016762.197
+      }
+     ]
+    }
+   ],
+   "false_holds": [
+    {
+     "container": "astronomy-db",
+     "pattern": "oUkuI8QT6s8",
+     "name": "role_root_does_not_exist",
+     "outside": 43,
+     "held": 52
+    }
+   ],
+   "errors": {
+    "held": 982,
+    "passed": 1999
+   },
+   "floor_check": {
+    "INFO": {
+     "tier_down": 18127,
+     "pass": 174
+    },
+    "TRACE": {
+     "tier_down": 7536,
+     "pass": 84
+    },
+    "none": {
+     "tier_down": 1227,
+     "pass": 21,
+     "offload": 3858
+    },
+    "CRITICAL": {
+     "offload": 45,
+     "pass": 59
+    },
+    "ERROR": {
+     "offload": 926,
+     "pass": 1007,
+     "tier_down": 4
+    }
+   },
+   "latency_scheduled_all": {
+    "records": 40575,
+    "median": 2.01200008392334,
+    "p99": 28.8581599235535,
+    "max": 472.3070001602173,
+    "over_10s": 1714
+   },
+   "latency_scheduled": {
+    "accounting": {
+     "records": 4230,
+     "median": 1.7994998693466187,
+     "p99": 32.001620020866405,
+     "max": 308.9739999771118,
+     "over_10s": 139
+    },
+    "ad": {
+     "records": 405,
+     "median": 9.217000007629395,
+     "p99": 55.485559949874826,
+     "max": 70.94799995422363,
+     "over_10s": 187
+    },
+    "astronomy-db": {
+     "records": 6903,
+     "median": 2.004000186920166,
+     "p99": 7.689880056381223,
+     "max": 9.870999813079834,
+     "over_10s": 0
+    },
+    "cart": {
+     "records": 2349,
+     "median": 2.046999931335449,
+     "p99": 19.205960006713866,
+     "max": 32.444000005722046,
+     "over_10s": 170
+    },
+    "email": {
+     "records": 230,
+     "median": 12.957499980926514,
+     "p99": 94.63484006881721,
+     "max": 308.9839999675751,
+     "over_10s": 140
+    },
+    "flagd": {
+     "records": 15,
+     "median": 302.981999874115,
+     "p99": 469.6943601226807,
+     "max": 471.518000125885,
+     "over_10s": 15
+    },
+    "flagd-ui": {
+     "records": 33,
+     "median": 3.115000009536743,
+     "p99": 468.1348401260376,
+     "max": 472.3070001602173,
+     "over_10s": 16
+    },
+    "fraud-detection": {
+     "records": 3186,
+     "median": 2.0320000648498535,
+     "p99": 34.66614984273914,
+     "max": 308.97199988365173,
+     "over_10s": 129
+    },
+    "frontend": {
+     "records": 4394,
+     "median": 2.3079999685287476,
+     "p99": 7.252559864521024,
+     "max": 12.361999988555908,
+     "over_10s": 2
+    },
+    "kafka": {
+     "records": 3409,
+     "median": 1.938999891281128,
+     "p99": 16.531400079727177,
+     "max": 17.92799997329712,
+     "over_10s": 266
+    },
+    "otel-collector": {
+     "records": 12551,
+     "median": 1.820000171661377,
+     "p99": 5.516999959945679,
+     "max": 8.115000009536743,
+     "over_10s": 0
+    },
+    "payment": {
+     "records": 497,
+     "median": 2.5490000247955322,
+     "p99": 85.08431995391848,
+     "max": 130.59599995613098,
+     "over_10s": 150
+    },
+    "quote": {
+     "records": 248,
+     "median": 13.347000002861023,
+     "p99": 87.87396996259689,
+     "max": 130.8230001926422,
+     "over_10s": 150
+    },
+    "recommendation": {
+     "records": 414,
+     "median": 8.625499963760376,
+     "p99": 58.74803000926972,
+     "max": 95.48099994659424,
+     "over_10s": 186
+    },
+    "shipping": {
+     "records": 760,
+     "median": 1.9999998807907104,
+     "p99": 70.60112993717193,
+     "max": 130.58899998664856,
+     "over_10s": 150
+    },
+    "telemetry-docs": {
+     "records": 882,
+     "median": 6.667499899864197,
+     "p99": 8.052009940147395,
+     "max": 11.000999927520752,
+     "over_10s": 1
+    },
+    "valkey-cart": {
+     "records": 69,
+     "median": 1.5269999504089355,
+     "p99": 369.9434799194333,
+     "max": 399.6689999103546,
+     "over_10s": 13
+    }
+   },
+   "latency_over_10s_wait": {
+    "over_10s": 1714,
+    "by_cause": {
+     "back within 5 s after its container's next line": 1705,
+     "back more than 5 s after its container's next line": 9
+    },
+    "median_s_after_next_line": 1.6549999713897705
+   },
+   "release_after_quiet": {
+    "records": 0,
+    "median": null,
+    "p99": null,
+    "min": null,
+    "max": null,
+    "waited_for_next_line": 1323
+   },
+   "early_close": {
+    "scheduled_records_opened_by_a_non_head_line": 0,
+    "by_pause": {},
+    "within_7s_of_prev_first_line": 0,
+    "within_7s_same_pattern": 0,
+    "whole_run_records_opened_by_a_non_head_line": 2
+   },
+   "delivery_split": {
+    "to_60s_before_stop": {
+     "raw_lines": 66255,
+     "lines_covered": 66255
+    },
+    "last_60s": {
+     "raw_lines": 336,
+     "lines_covered": 321
+    }
+   }
+  },
+  {
+   "label": "first 1.1.142 run",
+   "commit": "4c2b610",
+   "receiver_image": "log10x/edge-10x:1.1.142@sha256:24e31c07a95e1f7dc356f11dc5cac4b21602ff91040ea831f94668b05afe6bf1",
+   "mcp_version": "1.30.58",
+   "scheduled": [
+    1792061771,
+    1792066276
+   ],
+   "fleet_cap": 25960.0,
+   "caps": {
+    "accounting": 3866.0,
+    "ad": 1.0,
+    "cart": 1.0,
+    "email": 1.0,
+    "fraud-detection": 1.0,
+    "frontend": 1.0,
+    "kafka": 1669.0,
+    "otel-collector": 37330.0,
+    "payment": 2731.0,
+    "quote": 1.0,
+    "recommendation": 1.0,
+    "shipping": 3879.0,
+    "telemetry-docs": 1.0,
+    "valkey-cart": 1.0
+   },
+   "totals_scheduled": {
+    "raw_lines": 31858,
+    "returned": 28018,
+    "routes": {
+     "pass": 8347,
+     "tier_down": 19671
+    },
+    "bytes_by_route": {
+     "pass": 3871459,
+     "offload": 0,
+     "tier_down": 9139370,
+     "other": 0
+    }
+   },
+   "activations": [
+    {
+     "n": 1,
+     "flag": "cartFailure",
+     "variant": "100%",
+     "on": 1792061835.69,
+     "off": 1792062250.86,
+     "planned_s": 415.185,
+     "actual_s": 415.16999983787537,
+     "span_end": 1792062459.952
+    },
+    {
+     "n": 2,
+     "flag": "kafkaQueueProblems",
+     "variant": "on",
+     "on": 1792062459.952,
+     "off": 1792062918.627,
+     "planned_s": 458.68,
+     "actual_s": 458.67500019073486,
+     "span_end": 1792063158.627
+    },
+    {
+     "n": 3,
+     "flag": "paymentFailure",
+     "variant": "100%",
+     "on": 1792063178.191,
+     "off": 1792063479.427,
+     "planned_s": 301.235,
+     "actual_s": 301.23600006103516,
+     "span_end": 1792063691.93
+    },
+    {
+     "n": 4,
+     "flag": "emailMemoryLeak",
+     "variant": "1000x",
+     "on": 1792063691.93,
+     "off": 1792064163.499,
+     "planned_s": 471.579,
+     "actual_s": 471.56900000572205,
+     "span_end": 1792064190.972
+    },
+    {
+     "n": 5,
+     "flag": "emailMemoryLeak",
+     "variant": "1000x",
+     "on": 1792064190.972,
+     "off": 1792064600.959,
+     "planned_s": 409.995,
+     "actual_s": 409.9870002269745,
+     "span_end": 1792064840.959
+    },
+    {
+     "n": 6,
+     "flag": "recommendationCacheFailure",
+     "variant": "on",
+     "on": 1792064941.572,
+     "off": 1792065360.446,
+     "planned_s": 418.882,
+     "actual_s": 418.87400007247925,
+     "span_end": 1792065426.41
+    },
+    {
+     "n": 7,
+     "flag": "loadGeneratorFloodHomepage",
+     "variant": "on",
+     "on": 1792065426.41,
+     "off": 1792065755.104,
+     "planned_s": 328.644,
+     "actual_s": 328.69400000572205,
+     "span_end": 1792065995.104
+    },
+    {
+     "n": 8,
+     "flag": "recommendationCacheFailure",
+     "variant": "on",
+     "on": 1792066024.227,
+     "off": null,
+     "planned_s": 345.214,
+     "actual_s": 251.77300000190735,
+     "span_end": 1792066276
+    }
+   ],
+   "per_activation": [
+    {
+     "n": 1,
+     "flag": "cartFailure",
+     "containers": [
+      {
+       "container": "otel-collector",
+       "rule": "plan row: otel-collector, cap 37,330, tier_down",
+       "in_causal_path": false,
+       "held": 343,
+       "held_offload": 0,
+       "held_tier_down": 343,
+       "kept_same_patterns": 143,
+       "first_held": 1792061848.45
+      },
+      {
+       "container": "cart",
+       "rule": "plan row: cart, cap 1, tier_down",
+       "in_causal_path": true,
+       "held": 138,
+       "held_offload": 0,
+       "held_tier_down": 138,
+       "kept_same_patterns": 35,
+       "first_held": 1792061857.591
+      },
+      {
+       "container": "kafka",
+       "rule": "plan row: kafka, cap 1,669, tier_down",
+       "in_causal_path": false,
+       "held": 104,
+       "held_offload": 0,
+       "held_tier_down": 104,
+       "kept_same_patterns": 42,
+       "first_held": 1792061848.282
+      },
+      {
+       "container": "ad",
+       "rule": "plan row: ad, cap 1, tier_down",
+       "in_causal_path": false,
+       "held": 41,
+       "held_offload": 0,
+       "held_tier_down": 41,
+       "kept_same_patterns": 10,
+       "first_held": 1792061849.015
+      },
+      {
+       "container": "payment",
+       "rule": "plan row: payment, cap 2,731, tier_down",
+       "in_causal_path": false,
+       "held": 34,
+       "held_offload": 0,
+       "held_tier_down": 34,
+       "kept_same_patterns": 30,
+       "first_held": 1792061908.06
+      },
+      {
+       "container": "shipping",
+       "rule": "plan row: shipping, cap 3,879, tier_down",
+       "in_causal_path": false,
+       "held": 30,
+       "held_offload": 0,
+       "held_tier_down": 30,
+       "kept_same_patterns": 66,
+       "first_held": 1792062003.16
+      },
+      {
+       "container": "email",
+       "rule": "plan row: email, cap 1, tier_down",
+       "in_causal_path": false,
+       "held": 27,
+       "held_offload": 0,
+       "held_tier_down": 27,
+       "kept_same_patterns": 28,
+       "first_held": 1792061908.224
+      },
+      {
+       "container": "accounting",
+       "rule": "plan row: accounting, cap 3,866, tier_down",
+       "in_causal_path": false,
+       "held": 18,
+       "held_offload": 0,
+       "held_tier_down": 18,
+       "kept_same_patterns": 14,
+       "first_held": 1792061908.233
+      },
+      {
+       "container": "fraud-detection",
+       "rule": "plan row: fraud-detection, cap 1, tier_down",
+       "in_causal_path": false,
+       "held": 18,
+       "held_offload": 0,
+       "held_tier_down": 18,
+       "kept_same_patterns": 14,
+       "first_held": 1792061908.237
+      },
+      {
+       "container": "frontend",
+       "rule": "plan row: frontend, cap 1, tier_down",
+       "in_causal_path": true,
+       "held": 18,
+       "held_offload": 0,
+       "held_tier_down": 18,
+       "kept_same_patterns": 14,
+       "first_held": 1792061908.261
+      },
+      {
+       "container": "quote",
+       "rule": "plan row: quote, cap 1, tier_down",
+       "in_causal_path": false,
+       "held": 18,
+       "held_offload": 0,
+       "held_tier_down": 18,
+       "kept_same_patterns": 14,
+       "first_held": 1792061908.043
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "flag": "kafkaQueueProblems",
+     "containers": [
+      {
+       "container": "fraud-detection",
+       "rule": "plan row: fraud-detection, cap 1, tier_down",
+       "in_causal_path": true,
+       "held": 20,
+       "held_offload": 0,
+       "held_tier_down": 20,
+       "kept_same_patterns": 10,
+       "first_held": 1792062626.497
+      },
+      {
+       "container": "otel-collector",
+       "rule": "plan row: otel-collector, cap 37,330, tier_down",
+       "in_causal_path": false,
+       "held": 3,
+       "held_offload": 0,
+       "held_tier_down": 3,
+       "kept_same_patterns": 14,
+       "first_held": 1792062648.021
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "flag": "paymentFailure",
+     "containers": [
+      {
+       "container": "frontend",
+       "rule": "plan row: frontend, cap 1, tier_down",
+       "in_causal_path": true,
+       "held": 9,
+       "held_offload": 0,
+       "held_tier_down": 9,
+       "kept_same_patterns": 6,
+       "first_held": 1792063322.965
+      },
+      {
+       "container": "payment",
+       "rule": "plan row: payment, cap 2,731, tier_down",
+       "in_causal_path": true,
+       "held": 3,
+       "held_offload": 0,
+       "held_tier_down": 3,
+       "kept_same_patterns": 12,
+       "first_held": 1792063331.351
+      }
+     ]
+    },
+    {
+     "n": 4,
+     "flag": "emailMemoryLeak",
+     "containers": []
+    },
+    {
+     "n": 5,
+     "flag": "emailMemoryLeak",
+     "containers": []
+    },
+    {
+     "n": 6,
+     "flag": "recommendationCacheFailure",
+     "containers": [
+      {
+       "container": "recommendation",
+       "rule": "plan row: recommendation, cap 1, tier_down",
+       "in_causal_path": true,
+       "held": 18,
+       "held_offload": 0,
+       "held_tier_down": 18,
+       "kept_same_patterns": 20,
+       "first_held": 1792065025.026
+      }
+     ]
+    },
+    {
+     "n": 7,
+     "flag": "loadGeneratorFloodHomepage",
+     "containers": [
+      {
+       "container": "kafka",
+       "rule": "plan row: kafka, cap 1,669, tier_down",
+       "in_causal_path": false,
+       "held": 225,
+       "held_offload": 0,
+       "held_tier_down": 225,
+       "kept_same_patterns": 25,
+       "first_held": 1792065743.992
+      }
+     ]
+    },
+    {
+     "n": 8,
+     "flag": "recommendationCacheFailure",
+     "containers": [
+      {
+       "container": "recommendation",
+       "rule": "plan row: recommendation, cap 1, tier_down",
+       "in_causal_path": true,
+       "held": 5,
+       "held_offload": 0,
+       "held_tier_down": 5,
+       "kept_same_patterns": 16,
+       "first_held": 1792066138.053
+      },
+      {
+       "container": "ad",
+       "rule": "plan row: ad, cap 1, tier_down",
+       "in_causal_path": false,
+       "held": 1,
+       "held_offload": 0,
+       "held_tier_down": 1,
+       "kept_same_patterns": 2,
+       "first_held": 1792066067.795
+      }
+     ]
+    }
+   ],
+   "false_holds": [],
+   "errors": {
+    "held": 6,
+    "passed": 972
+   },
+   "floor_check": {
+    "INFO": {
+     "tier_down": 12826,
+     "pass": 635
+    },
+    "TRACE": {
+     "tier_down": 4688,
+     "pass": 69
+    },
+    "none": {
+     "tier_down": 1337,
+     "pass": 36
+    },
+    "ERROR": {
+     "tier_down": 5,
+     "pass": 5
+    }
+   },
+   "latency_scheduled_all": {
+    "records": 28018,
+    "median": 2.0169999599456787,
+    "p99": 7.441660134792324,
+    "max": 17.197999954223633,
+    "over_10s": 59
+   },
+   "latency_scheduled": {
+    "accounting": {
+     "records": 225,
+     "median": 6.289999961853027,
+     "p99": 7.866639995574951,
+     "max": 7.953999996185303,
+     "over_10s": 0
+    },
+    "ad": {
+     "records": 371,
+     "median": 6.124000072479248,
+     "p99": 7.712899923324585,
+     "max": 12.230999946594238,
+     "over_10s": 1
+    },
+    "astronomy-db": {
+     "records": 901,
+     "median": 6.052000045776367,
+     "p99": 6.9709999561309814,
+     "max": 14.450999975204468,
+     "over_10s": 4
+    },
+    "cart": {
+     "records": 2341,
+     "median": 1.9509999752044678,
+     "p99": 7.4162000656127915,
+     "max": 11.477999925613403,
+     "over_10s": 1
+    },
+    "email": {
+     "records": 400,
+     "median": 3.6904999017715454,
+     "p99": 7.70418999671936,
+     "max": 7.884999990463257,
+     "over_10s": 0
+    },
+    "flagd": {
+     "records": 15,
+     "median": 6.7820000648498535,
+     "p99": 7.757899942398071,
+     "max": 7.829999923706055,
+     "over_10s": 0
+    },
+    "flagd-ui": {
+     "records": 33,
+     "median": 2.4660000801086426,
+     "p99": 8.073280086517334,
+     "max": 8.360000133514404,
+     "over_10s": 0
+    },
+    "fraud-detection": {
+     "records": 254,
+     "median": 6.039999961853027,
+     "p99": 7.761350028514862,
+     "max": 7.885999917984009,
+     "over_10s": 0
+    },
+    "frontend": {
+     "records": 4310,
+     "median": 2.230000138282776,
+     "p99": 6.519459977149962,
+     "max": 15.075000047683716,
+     "over_10s": 2
+    },
+    "kafka": {
+     "records": 3668,
+     "median": 1.683000087738037,
+     "p99": 8.16621005535124,
+     "max": 17.197999954223633,
+     "over_10s": 35
+    },
+    "otel-collector": {
+     "records": 12637,
+     "median": 1.7909998893737793,
+     "p99": 5.711440048217761,
+     "max": 14.942000150680542,
+     "over_10s": 15
+    },
+    "payment": {
+     "records": 482,
+     "median": 2.5110000371932983,
+     "p99": 7.729829893112182,
+     "max": 7.942999839782715,
+     "over_10s": 0
+    },
+    "quote": {
+     "records": 241,
+     "median": 6.240999937057495,
+     "p99": 7.8132000923156735,
+     "max": 7.950999975204468,
+     "over_10s": 0
+    },
+    "recommendation": {
+     "records": 454,
+     "median": 5.799999952316284,
+     "p99": 7.781349985599518,
+     "max": 8.044000148773193,
+     "over_10s": 0
+    },
+    "shipping": {
+     "records": 733,
+     "median": 1.9090001583099365,
+     "p99": 7.62419991493225,
+     "max": 7.927000045776367,
+     "over_10s": 0
+    },
+    "telemetry-docs": {
+     "records": 883,
+     "median": 6.051000118255615,
+     "p99": 6.895860023498534,
+     "max": 13.749000072479248,
+     "over_10s": 1
+    },
+    "valkey-cart": {
+     "records": 70,
+     "median": 1.6965000629425049,
+     "p99": 8.712720041275025,
+     "max": 8.858999967575073,
+     "over_10s": 0
+    }
+   },
+   "latency_over_10s_wait": {
+    "over_10s": 59,
+    "by_cause": {
+     "back more than 5 s after its container's next line": 54,
+     "back within 5 s after its container's next line": 4,
+     "back before its container wrote again": 1
+    },
+    "median_s_after_next_line": 2.6494998931884766
+   },
+   "release_after_quiet": {
+    "records": 1544,
+    "median": 6.495000004768372,
+    "p99": 7.92985011100769,
+    "min": 5.069999933242798,
+    "max": 12.230999946594238,
+    "waited_for_next_line": 0
+   },
+   "early_close": {
+    "scheduled_records_opened_by_a_non_head_line": 173,
+    "by_pause": {
+     "over 7 s": 157,
+     "5 to 7 s": 13,
+     "3 to 5 s": 3
+    },
+    "within_7s_of_prev_first_line": 16,
+    "within_7s_same_pattern": 0,
+    "whole_run_records_opened_by_a_non_head_line": 245
+   },
+   "delivery_split": {
+    "to_60s_before_stop": {
+     "raw_lines": 45258,
+     "lines_covered": 45258
+    },
+    "last_60s": {
+     "raw_lines": 501,
+     "lines_covered": 495
+    }
+   }
+  }
+ ]
+}

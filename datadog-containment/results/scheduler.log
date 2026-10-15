@@ -1,0 +1,18 @@
+2026-10-15T12:47:51.538000Z 12:47:51.330 [info] Flag scheduler started with seed 20261014
+2026-10-15T12:48:55.600000Z 12:48:55.598 [info] Flag scheduler set cartFailure to 100% for 415185ms
+2026-10-15T12:55:50.784000Z 12:55:50.777 [info] Flag scheduler reverted cartFailure to off
+2026-10-15T12:59:19.882000Z 12:59:19.880 [info] Flag scheduler set kafkaQueueProblems to on for 458680ms
+2026-10-15T13:06:58.554000Z 13:06:58.552 [info] Flag scheduler reverted kafkaQueueProblems to off
+2026-10-15T13:11:18.117000Z 13:11:18.114 [info] Flag scheduler set paymentFailure to 100% for 301235ms
+2026-10-15T13:16:19.351000Z 13:16:19.345 [info] Flag scheduler reverted paymentFailure to off
+2026-10-15T13:19:51.847000Z 13:19:51.825 [info] Flag scheduler set emailMemoryLeak to 1000x for 471579ms
+2026-10-15T13:27:43.403000Z 13:27:43.400 [info] Flag scheduler reverted emailMemoryLeak to off
+2026-10-15T13:28:10.860000Z 13:28:10.859 [info] Flag scheduler set emailMemoryLeak to 1000x for 409995ms
+2026-10-15T13:35:00.879000Z 13:35:00.842 [info] Flag scheduler reverted emailMemoryLeak to off
+2026-10-15T13:40:41.461000Z 13:40:41.460 [info] Flag scheduler set recommendationCacheFailure to on for 418882ms
+2026-10-15T13:47:40.349000Z 13:47:40.333 [info] Flag scheduler reverted recommendationCacheFailure to off
+2026-10-15T13:48:46.320000Z 13:48:46.303 [info] Flag scheduler set loadGeneratorFloodHomepage to on for 328644ms
+2026-10-15T13:54:14.943000Z 13:54:14.940 [info] Flag scheduler reverted loadGeneratorFloodHomepage to off
+2026-10-15T13:58:44.178000Z 13:58:44.148 [info] Flag scheduler set recommendationCacheFailure to on for 345214ms
+2026-10-15T14:02:53.490000Z 14:02:53.488 [info] Flag scheduler reverted recommendationCacheFailure to off
+2026-10-15T14:02:53.490000Z 14:02:53.488 [info] Flag scheduler stopped

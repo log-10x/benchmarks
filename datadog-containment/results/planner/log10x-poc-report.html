@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Log10x &mdash; log volume action plan</title>
+<style>
+:root{--bg:#f2f4f6;--panel:#fff;--sunk:#eaeef2;--line:#dde3e9;--line2:#c8d1da;--ink:#161c23;--dim:#5d6773;--faint:#8b95a1;--val:#8a3f76;--val-bg:#f6ecf3;--bar:#2c3540;--ok:#2e6b4f;--ok-bg:#ddefe6;--wrn:#8a5c10;--skip:#8b95a1}
+@media (prefers-color-scheme:dark){:root{--bg:#101419;--panel:#171c22;--sunk:#12161b;--line:#242b34;--line2:#333c47;--ink:#dfe5ec;--dim:#8b96a4;--faint:#6a7481;--val:#d091c0;--val-bg:#2a1e28;--bar:#9aa6b4;--ok:#79b39c;--ok-bg:#1c2b25;--wrn:#d5a445;--skip:#6a7481}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:880px;margin:0 auto;padding:0 22px 90px}
+header{padding:44px 0 28px;border-bottom:2px solid var(--line2)}
+.eyebrow{display:flex;gap:8px;align-items:center;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin:0 0 12px;font-weight:600;flex-wrap:wrap}
+.stack{display:inline-flex;gap:6px;margin-left:auto;letter-spacing:.02em;text-transform:none}
+.stack span{background:var(--sunk);border:1px solid var(--line);border-radius:4px;padding:2px 8px;font-size:11px;color:var(--dim);font-weight:600}
+h1{font-size:clamp(26px,4.2vw,36px);line-height:1.12;letter-spacing:-.022em;font-weight:680;margin:0 0 14px;text-wrap:balance}
+.lede{max-width:64ch;color:var(--dim);font-size:14.5px;margin:0 0 8px}
+.lede b{color:var(--ink);font-weight:600}
+.totals{display:flex;flex-wrap:wrap;gap:28px;margin-top:24px}
+.tot b{display:block;font-size:23px;font-weight:660;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.15}
+.tot span{font-size:11.5px;color:var(--dim)}
+.verdict{margin:30px 0 0;padding:20px 22px;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--val);border-radius:5px}
+.verdict h3{margin:0 0 8px;font-size:16.5px;font-weight:650;letter-spacing:-.01em}
+.verdict p{margin:0;color:var(--dim);font-size:14px;max-width:72ch}
+.split{margin:14px 0 0;display:flex;flex-direction:column;gap:9px}
+.split-row{display:flex;align-items:baseline;gap:13px}
+.split-pct{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:650;font-size:19px;flex:0 0 auto;min-width:52px;font-variant-numeric:tabular-nums}
+.split-pct.lossless{color:var(--ok)}
+.split-pct.source{color:var(--wrn)}
+.split-lab{color:var(--dim);font-size:13.5px;line-height:1.4}
+h2{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);font-weight:650;margin:50px 0 6px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+.sub{max-width:66ch;color:var(--dim);font-size:13.5px;margin:12px 0 4px}
+.act{padding:26px 0;border-bottom:1px solid var(--line)}
+.ahead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.anum{flex:0 0 26px;height:26px;display:inline-flex;align-items:center;justify-content:center;background:var(--bar);color:var(--bg);border-radius:50%;font-size:13px;font-weight:700;align-self:center}
+.ahead h3{margin:0;font-size:17.5px;font-weight:650;letter-spacing:-.012em}
+.impact{margin-left:auto;font-size:14px;font-weight:650;font-variant-numeric:tabular-nums;color:var(--ok);background:var(--ok-bg);border-radius:4px;padding:3px 10px}
+.anote{max-width:70ch;color:var(--dim);font-size:13.5px;margin:10px 0 0}
+.annot{max-width:70ch;color:var(--dim);font-size:13px;font-style:italic;margin:6px 0 0}
+.alabel{font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--faint);font-weight:650;margin:16px 0 6px}
+.face{margin:0 0 4px;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--line2);border-radius:4px;padding:11px 13px;overflow-x:auto;font:12px/1.7 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.fl{display:block;white-space:pre}
+.fl.cont{padding-left:2.2em;color:var(--dim)}
+.face .v{font-style:normal;color:var(--val);background:var(--val-bg);border-radius:2px;padding:0 2.5px;font-weight:600}
+.face .tab{font-style:normal;color:var(--line2);padding:0 3px}
+.more{display:block;margin-top:4px;font-size:11px;color:var(--faint)}
+.evm{font-size:11.5px;color:var(--faint);margin:2px 0 10px;font-variant-numeric:tabular-nums}
+.evm code{font-size:11px}
+.cmd{margin:0;background:var(--sunk);border:1px solid var(--line);border-radius:4px;padding:11px 13px;overflow-x:auto;font:12px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink);white-space:pre}
+.cmd.rb{color:var(--dim)}
+code{font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.after{display:flex;gap:0;align-items:stretch;margin-top:16px;border:1px solid var(--line);border-radius:5px;overflow:hidden}
+.after>div{flex:1;padding:16px 18px;background:var(--panel)}
+.after>div+div{border-left:1px solid var(--line)}
+.after b{display:block;font-size:22px;font-weight:660;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.after span{font-size:11.5px;color:var(--dim)}
+.after .goal b{color:var(--ok)}
+.checks{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px;margin-top:14px}
+.chk{display:flex;gap:9px;align-items:baseline;background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:9px 12px;font-size:12.5px}
+.chk i{font-style:normal;font-weight:700}
+.chk.ok i{color:var(--ok)} .chk.warn i{color:var(--wrn)} .chk.skip i{color:var(--skip)}
+.chk span{color:var(--dim)}
+.chk.skip{opacity:.75}
+.kept{margin-top:14px;padding:14px 18px;background:var(--panel);border:1px solid var(--line);border-radius:5px;max-width:none}
+.kept p{margin:0;font-size:13.5px;color:var(--dim);max-width:72ch}
+.kept b{color:var(--ink);font-weight:600}
+footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-size:12.5px;color:var(--faint);max-width:72ch}
+footer p{margin:0 0 9px} footer b{color:var(--dim);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<p class="eyebrow">Log10x &middot; proof of concept, first run
+<span class="stack"><span>SIEM&nbsp;&middot;&nbsp;Datadog</span><span>forwarder&nbsp;&middot;&nbsp;fluent-bit</span></span></p>
+<h1>This log sample, 1 change, 70% less volume</h1>
+<p class="lede">This window produced <b>7.9K events</b>. They resolve to <b>219 distinct log statements</b>; the plan below acts on <b>15 of them</b>.</p>
+<div class="totals">
+<div class="tot"><b>2.12 MB</b><span>ingested this window</span></div>
+<div class="tot"><b>1.48 MB</b><span>removable, this plan</span></div>
+<div class="tot"><b>70%</b><span>of current volume</span></div>
+<div class="tot"><b>309</b><span>errors and warnings kept, all of them</span></div>
+</div>
+<div class="verdict">
+<h3>15 statements carry the removable volume in this window</h3>
+<p>Action 1 routes low-severity statements off the ingest path; nothing is deleted.</p>
+</div>
+
+</header>
+
+<h2>Action plan</h2>
+<article class="act">
+<div class="ahead"><span class="anum">1</span><h3>Route otel-collector and other low-severity statements to the retrievable tier</h3><span class="impact">&minus;1.48 MB this window</span></div>
+<p class="anote">15 low-severity statements carry 1.48 MB this window. They keep landing in your own bucket, retrievable on demand; they stop landing on the ingest path. Nothing is deleted.</p>
+<div class="alabel">evidence, from your window</div>
+<pre class="face"><span class="fl"><i class="v">$</i>(yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;)<i class="tab">&#8677;</i>info<i class="tab">&#8677;</i>Metrics<i class="tab">&#8677;</i>{&quot;resource&quot;: {&quot;service.instance.id&quot;: &quot;<i class="v">$</i><i class="v">$</i>-<i class="v">$</i>-aca0-<i class="v">$</i>&quot;, &quot;service.name&quot;: &quot;otelcol-contrib&quot;, &quot;service.version&quot;: &quot;<i class="v">$</i>.<i class="v">$</i>.<i class="v">$</i>2&quot;}, &quot;otelcol.component.id&quot;: &quot;debug&quot;, &quot;otelcol.component.kind&quot;: &quot;exporter&quot;, &quot;otelcol.signal&quot;: &quot;metrics&quot;, &quot;resource metrics&quot;: <i class="v">$</i>, &quot;metrics&quot;: <i class="v">$</i>, &quot;data points&quot;: <i class="v">$</i>}</span></pre><p class="evm">953 events &middot; 338 bytes each &middot; identifier <code>PuWB8kkVbfw</code></p>
+<pre class="face"><span class="fl"><i class="v">$</i>(yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;)<i class="tab">&#8677;</i>info<i class="tab">&#8677;</i>Traces<i class="tab">&#8677;</i>{&quot;resource&quot;: {&quot;service.instance.id&quot;: &quot;<i class="v">$</i><i class="v">$</i>-<i class="v">$</i>-aca0-<i class="v">$</i>&quot;, &quot;service.name&quot;: &quot;otelcol-contrib&quot;, &quot;service.version&quot;: &quot;<i class="v">$</i>.<i class="v">$</i>.<i class="v">$</i>2&quot;}, &quot;otelcol.component.id&quot;: &quot;debug&quot;, &quot;otelcol.component.kind&quot;: &quot;exporter&quot;, &quot;otelcol.signal&quot;: &quot;traces&quot;, &quot;resource spans&quot;: <i class="v">$</i>, &quot;spans&quot;: <i class="v">$</i>}</span></pre><p class="evm">1.0K events &middot; 311 bytes each &middot; identifier <code>Gl3Gtr_SH5w</code></p>
+<pre class="face"><span class="fl"><i class="v">$</i>(yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;)<i class="tab">&#8677;</i>info<i class="tab">&#8677;</i>Logs<i class="tab">&#8677;</i>{&quot;resource&quot;: {&quot;service.instance.id&quot;: &quot;<i class="v">$</i><i class="v">$</i>-<i class="v">$</i>-aca0-<i class="v">$</i>&quot;, &quot;service.name&quot;: &quot;otelcol-contrib&quot;, &quot;service.version&quot;: &quot;<i class="v">$</i>.<i class="v">$</i>.<i class="v">$</i>2&quot;}, &quot;otelcol.component.id&quot;: &quot;debug&quot;, &quot;otelcol.component.kind&quot;: &quot;exporter&quot;, &quot;otelcol.signal&quot;: &quot;logs&quot;, &quot;resource logs&quot;: <i class="v">$</i>, &quot;log records&quot;: <i class="v">$</i>}</span></pre><p class="evm">776 events &middot; 312 bytes each &middot; identifier <code>KG8Fq0QFuoY</code></p>
+<p class="evm">and 12 more statements in this class</p>
+<div class="alabel">the change</div>
+<pre class="cmd"># accounting: any statement above 691 lines a day goes to Flex. Today that is these 45 statements, about $0.16 a month.
+# ad: every statement goes to Flex. Today that is these 7 statements, about $0.32 a month.
+# cart: every statement goes to Flex. Today that is these 9 statements, about $1.8 a month.
+# email: every statement goes to Flex. Today that is these 4 statements, about $0.16 a month.
+# fraud-detection: every statement goes to Flex. Today that is these 2 statements, about $0.16 a month.
+# frontend: any statement above 8,189 lines a day goes to Flex. Today that is these 7 statements, about $3.5 a month.
+# frontend-proxy: every statement goes to Flex. Today that is this one statement, about $0 a month.
+# kafka: any statement above 1,889 lines a day goes to Flex. Today that is these 12 statements, about $1.6 a month.
+# otel-collector: any statement above 2,508 lines a day goes to Flex. Today that is these 9 statements, about $12 a month.
+# payment: any statement above 204 lines a day goes to Flex. Today that is these 27 statements, about $0.31 a month.
+# quote: every statement goes to Flex. Today that is this one statement, about $0.16 a month.
+# recommendation: any statement above 315 lines a day goes to Flex. Today that is these 6 statements, about $0.32 a month.
+# shipping: any statement above 849 lines a day goes to Flex. Today that is these 13 statements, about $0.47 a month.
+# telemetry-docs: every statement goes to Flex. Today that is this one statement, about $0.81 a month.
+# valkey-cart: every statement goes to Flex. Today that is these 5 statements, about $0.07 a month.
+# accounting: the largest kept statement can grow 5.3x before it is held; the smallest moved one is 5.3x above the limit.
+# frontend: the largest kept statement can grow 3.9x before it is held; the smallest moved one is 3.9x above the limit.
+# kafka: the largest kept statement can grow 1.8x before it is held; the smallest moved one is 1.8x above the limit.
+# otel-collector: the largest kept statement can grow 1.7x before it is held; the smallest moved one is 1.7x above the limit.
+# payment: the largest kept statement can grow 3.1x before it is held; the smallest moved one is 3.1x above the limit.
+# recommendation: the largest kept statement can grow 4.8x before it is held; the smallest moved one is 4.8x above the limit.
+# shipping: the largest kept statement can grow 2.6x before it is held; the smallest moved one is 2.6x above the limit.
+# Any service not listed: a statement above 16,699 lines a day goes to the offload bucket. Up to 1,800 lines a day of every statement always reach Standard on each node.
+# The fleet default is the largest statement kept, error_Error_scraping_metrics in otel-collector, per node, times 2. It is a Receiver value, not a row in either file: log10x_advise_install writes it as rateReceiverAbsoluteCap with rateReceiverDefaultAction offload.
+# Log monitors and log-based metrics were not checked: no Datadog credentials in this session (need DD_API_KEY + DD_APP_KEY).
+# The dollar figures are the Standard indexing line at list. Flex Starter adds about $23 a month for all of them, compute included, held 3 months.
+# A limit sits between the largest statement the container keeps and the smallest it moves, at the same ratio from each.
+# log10x-caps.csv: each container&#39;s limit in the engine&#39;s units, bytes per node, with its sentence as the reason; log10x-actions.csv: where a container&#39;s excess goes.
+# Limits are in the Receiver&#39;s unit, measured on the forwarder&#39;s records in this capture: each record as it arrives, metadata included, continuation lines joined.
+# Limits are per node: accounting: node count unknown, written for one Receiver; ad: node count unknown, written for one Receiver; cart: node count unknown, written for one Receiver; email: node count unknown, written for one Receiver; fraud-detection: node count unknown, written for one Receiver; frontend: node count unknown, written for one Receiver; frontend-proxy: node count unknown, written for one Receiver; kafka: node count unknown, written for one Receiver; otel-collector: node count unknown, written for one Receiver; payment: node count unknown, written for one Receiver; quote: node count unknown, written for one Receiver; recommendation: node count unknown, written for one Receiver; shipping: node count unknown, written for one Receiver; telemetry-docs: node count unknown, written for one Receiver; valkey-cart: node count unknown, written for one Receiver; the fleet default: per node, its lines a day stated for 1 node, the median per container, no container&#39;s count known.
+# the engine applies each limit per container: every statement above it in a listed container takes the route, less the share its severity keeps
+accounting,2765::accounting any statement above 691 lines a day goes to Flex. Today that is these 45 statements about $0.16 a month.
+ad,1::ad every statement goes to Flex. Today that is these 7 statements about $0.32 a month.
+cart,1::cart every statement goes to Flex. Today that is these 9 statements about $1.8 a month.
+email,1::email every statement goes to Flex. Today that is these 4 statements about $0.16 a month.
+fraud-detection,1::fraud-detection every statement goes to Flex. Today that is these 2 statements about $0.16 a month.
+frontend,30210::frontend any statement above 8189 lines a day goes to Flex. Today that is these 7 statements about $3.5 a month.
+frontend-proxy,1::frontend-proxy every statement goes to Flex. Today that is this one statement about $0 a month.
+kafka,20074::kafka any statement above 1889 lines a day goes to Flex. Today that is these 12 statements about $1.6 a month.
+otel-collector,61996::otel-collector any statement above 2508 lines a day goes to Flex. Today that is these 9 statements about $12 a month.
+payment,2344::payment any statement above 204 lines a day goes to Flex. Today that is these 27 statements about $0.31 a month.
+quote,1::quote every statement goes to Flex. Today that is this one statement about $0.16 a month.
+recommendation,2330::recommendation any statement above 315 lines a day goes to Flex. Today that is these 6 statements about $0.32 a month.
+shipping,2721::shipping any statement above 849 lines a day goes to Flex. Today that is these 13 statements about $0.47 a month.
+telemetry-docs,1::telemetry-docs every statement goes to Flex. Today that is this one statement about $0.81 a month.
+valkey-cart,1::valkey-cart every statement goes to Flex. Today that is these 5 statements about $0.07 a month.</pre>
+<div class="alabel">apply</div>
+<pre class="cmd rb"># no verified commands for this stack (datadog / fluent-bit / k8s) in this version; run log10x_advise_install</pre>
+<div class="alabel">undo</div>
+<pre class="cmd rb"># no verified commands for this stack (datadog / fluent-bit / k8s) in this version; run log10x_advise_install</pre>
+</article>
+
+<h2>Expected result</h2>
+<div class="after">
+<div><b>2.12 MB</b><span>this window</span></div>
+<div class="goal"><b>0.633 MB</b><span>after the volume actions, same events</span></div>
+<div><b>0</b><span>events deleted</span></div>
+</div>
+<p class="sub">Apply, let one window pass, and run the analysis again: this report regenerates with a before and after column. That re-run, not this estimate, is the number to take to your team.</p>
+
+<h2>What was verified on this run</h2>
+<div class="checks">
+<div class="chk ok"><i>&#10003;</i><div>engine ran locally <span>&middot; docker:log10x/edge-10x:1.1.142@sha256:24e31c07a95e1f7dc356f11dc5cac4b21602ff91040ea831f94668b05afe6bf1</span></div></div>
+<div class="chk ok"><i>&#10003;</i><div>7.9K events resolved to 219 statements</div></div>
+<div class="chk ok"><i>&#10003;</i><div>multi-line statements welded <span>&middot; 73 statements arrive whole</span></div></div>
+<div class="chk ok"><i>&#10003;</i><div>severity attribution sufficient <span>&middot; 85% of statements</span></div></div>
+<div class="chk skip"><i>&ndash;</i><div>retrievable tier delivery <span>&middot; not configured in this window &middot; action 1 enables it</span></div></div>
+<div class="chk skip"><i>&ndash;</i><div>environment doctor <span>&middot; run log10x_doctor for engine + delivery checks &middot; not run on this pass</span></div></div>
+</div>
+<div class="kept">
+<p><b>What this plan does not touch:</b> every ERROR and WARN event (309 this window) stays on the ingest path in full. Statements routed by action 1 land in your own bucket and come back on demand with their statement identifier as the query key.</p>
+</div>
+
+<footer>
+<p><b>How to read this.</b> A statement is one line of code in one of your services, recognised across every line it produced. <i class="v" style="font-style:normal;color:var(--val);background:var(--val-bg);border-radius:2px;padding:0 2.5px;font-weight:600">$</i> marks a value that varied and was removed. The identifier on each statement is stable across restarts and deployments and works as a query key.</p>
+<p><b>Scope.</b> This log sample, analysed in place; no log data left the machine. Figures are this window's arithmetic, not an extrapolation. The re-run after applying is the authoritative measurement.</p>
+<p>template v1 &middot; generated 2026-10-15T12:46:46.618Z &middot; log10x-mcp 1.30.58 &middot; docker:log10x/edge-10x:1.1.142@sha256:24e31c07a95e1f7dc356f11dc5cac4b21602ff91040ea831f94668b05afe6bf1</p>
+</footer>
+</div>
+</body>
+</html>

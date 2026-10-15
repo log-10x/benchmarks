@@ -1,0 +1,89 @@
+%{
+  active: [],
+  running: false,
+  config: %{
+    flags: %{
+      "cartFailure" => ["100%"],
+      "emailMemoryLeak" => ["1000x"],
+      "kafkaQueueProblems" => ["on"],
+      "loadGeneratorFloodHomepage" => ["on"],
+      "paymentFailure" => ["100%"],
+      "recommendationCacheFailure" => ["on"]
+    },
+    seed: 20261014,
+    interval_ms: 600000,
+    concurrency: 1,
+    min_duration_ms: 240000,
+    max_duration_ms: 480000
+  },
+  history: [
+    %{
+      flag: "recommendationCacheFailure",
+      started_at: ~U[2026-10-15 13:58:44.148922Z],
+      until: -576454176997,
+      duration_ms: 345214,
+      resting_variant: "off",
+      variant: "on"
+    },
+    %{
+      flag: "loadGeneratorFloodHomepage",
+      started_at: ~U[2026-10-15 13:48:46.303494Z],
+      until: -576454791425,
+      duration_ms: 328644,
+      resting_variant: "off",
+      variant: "on"
+    },
+    %{
+      flag: "recommendationCacheFailure",
+      started_at: ~U[2026-10-15 13:40:41.460242Z],
+      until: -576455186043,
+      duration_ms: 418882,
+      resting_variant: "off",
+      variant: "on"
+    },
+    %{
+      flag: "emailMemoryLeak",
+      started_at: ~U[2026-10-15 13:28:10.859766Z],
+      until: -576455945548,
+      duration_ms: 409995,
+      resting_variant: "off",
+      variant: "1000x"
+    },
+    %{
+      flag: "emailMemoryLeak",
+      started_at: ~U[2026-10-15 13:19:51.826669Z],
+      until: -576456383006,
+      duration_ms: 471579,
+      resting_variant: "off",
+      variant: "1000x"
+    },
+    %{
+      flag: "paymentFailure",
+      started_at: ~U[2026-10-15 13:11:18.115682Z],
+      until: -576457067075,
+      duration_ms: 301235,
+      resting_variant: "off",
+      variant: "100%"
+    },
+    %{
+      flag: "kafkaQueueProblems",
+      started_at: ~U[2026-10-15 12:59:19.881164Z],
+      until: -576457627882,
+      duration_ms: 458680,
+      resting_variant: "off",
+      variant: "on"
+    },
+    %{
+      flag: "cartFailure",
+      started_at: ~U[2026-10-15 12:48:55.599149Z],
+      until: -576458295672,
+      duration_ms: 415185,
+      resting_variant: "off",
+      variant: "100%"
+    }
+  ],
+  interval_count: 8,
+  next_up: [],
+  seed_used: 20261014,
+  next_trigger_at: nil
+}

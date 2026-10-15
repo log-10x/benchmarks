@@ -1,0 +1,131 @@
+{
+ "mcp_version": "1.30.58",
+ "fleet_default_input": {
+  "capBytesPerWindowPerNode": 71247,
+  "action": "offload",
+  "errorFloor": 0.5
+ },
+ "image": "log10x/edge-10x:1.1.142@sha256:24e31c07a95e1f7dc356f11dc5cac4b21602ff91040ea831f94668b05afe6bf1",
+ "args_from_values": [
+  "@run/input/forwarder/fluentbit",
+  "@apps/receiver",
+  "symbolMessageHashField",
+  "tenx_hash",
+  "rateReceiverAbsoluteCap",
+  "71247",
+  "rateReceiverDefaultAction",
+  "offload",
+  "rateReceiverMinSharePercent",
+  "0",
+  "rateReceiverWarmupMs",
+  "0",
+  "rateReceiverBaselineCount",
+  "5",
+  "rateReceiverMinRetentionThreshold",
+  "0",
+  "rateReceiverSeverityFloors",
+  "TRACE=0",
+  "rateReceiverSeverityFloors",
+  "DEBUG=0",
+  "rateReceiverSeverityFloors",
+  "INFO=0",
+  "rateReceiverSeverityFloors",
+  "WARN=0",
+  "rateReceiverSeverityFloors",
+  "ERROR=0.5",
+  "rateReceiverSeverityFloors",
+  "CRITICAL=0.5",
+  "rateReceiverSeverityFloors",
+  "FATAL=0.5"
+ ],
+ "env_from_values": [
+  {
+   "name": "TENX_AIRGAPPED",
+   "value": "true"
+  },
+  {
+   "name": "K8S_NAMESPACE",
+   "valueFrom": "valueFrom:\n          fieldRef:\n            fieldPath: metadata.namespace"
+  },
+  {
+   "name": "K8S_ENABLED",
+   "value": "true"
+  },
+  {
+   "name": "K8S_CONFIGMAP",
+   "value": "log10x-action-intent"
+  },
+  {
+   "name": "CAP_LOOKUP_FILE",
+   "value": "/tmp/tenx/kubernetes/$(K8S_NAMESPACE)/log10x-action-intent/caps.csv"
+  },
+  {
+   "name": "ACTION_LOOKUP_FILE",
+   "value": "/tmp/tenx/kubernetes/$(K8S_NAMESPACE)/log10x-action-intent/actions.csv"
+  },
+  {
+   "name": "CONFIG_GENERATION_FILE",
+   "value": "/tmp/tenx/kubernetes/$(K8S_NAMESPACE)/log10x-action-intent/config-generation.csv"
+  },
+  {
+   "name": "outputOffload",
+   "value": "true"
+  }
+ ],
+ "env_applied": [
+  {
+   "name": "TENX_AIRGAPPED",
+   "value": "true"
+  },
+  {
+   "name": "outputOffload",
+   "value": "true"
+  }
+ ],
+ "env_substituted": [
+  {
+   "name": "CAP_LOOKUP_FILE",
+   "value": "/tmp/tenx/kubernetes/$(K8S_NAMESPACE)/log10x-action-intent/caps.csv",
+   "rig_value": "/etc/tenx/lookups/caps.csv"
+  },
+  {
+   "name": "ACTION_LOOKUP_FILE",
+   "value": "/tmp/tenx/kubernetes/$(K8S_NAMESPACE)/log10x-action-intent/actions.csv",
+   "rig_value": "/etc/tenx/lookups/actions.csv"
+  }
+ ],
+ "env_left_out_cluster_only": [
+  {
+   "name": "K8S_NAMESPACE",
+   "valueFrom": "valueFrom:\n          fieldRef:\n            fieldPath: metadata.namespace"
+  },
+  {
+   "name": "K8S_ENABLED",
+   "value": "true"
+  },
+  {
+   "name": "K8S_CONFIGMAP",
+   "value": "log10x-action-intent"
+  },
+  {
+   "name": "CONFIG_GENERATION_FILE",
+   "value": "/tmp/tenx/kubernetes/$(K8S_NAMESPACE)/log10x-action-intent/config-generation.csv"
+  }
+ ],
+ "rig_env": [
+  [
+   "TENX_FLUENTBIT_OUTPUT_HOST",
+   "fluent-bit"
+  ]
+ ],
+ "measurement_args": [
+  "outputEncodeField",
+  "fullText(\"tenx_hash\",\"routeState\",\"message_pattern\",\"severity_level\")"
+ ],
+ "resources_limits": {
+  "cpus": "0.5",
+  "memory": "512M"
+ },
+ "policy_files": "the POC's log10x-caps.csv and log10x-actions.csv",
+ "notes": []
+}

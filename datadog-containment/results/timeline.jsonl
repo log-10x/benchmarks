@@ -1,0 +1,11 @@
+{"event":"receiver_ready","at":"2026-10-15T12:14:29Z","epoch":1792066469,"cap":0,"values":"/Users/talweiss/git/l1x-co/benchmarks/datadog-containment/rig/../results/values-quiet"}
+{"event":"demo_up","at":"2026-10-15T12:21:15Z","epoch":1792066875}
+{"event":"demo_healthy","at":"2026-10-15T12:22:23Z","epoch":1792066943}
+{"event":"quiet_start","at":"2026-10-15T12:24:23Z","epoch":1792067063}
+{"event":"quiet_end","at":"2026-10-15T12:46:23Z","epoch":1792068383}
+{"event":"receiver_ready","at":"2026-10-15T12:47:16Z","epoch":1792068436,"cap":71247,"values":"/Users/talweiss/git/l1x-co/benchmarks/datadog-containment/rig/../results/values-fleet"}
+{"event":"scheduler_start","at":"2026-10-15T12:47:51Z","epoch":1792068471,"seed":20261014,"interval_s":600,"min_hold_s":240,"max_hold_s":480,"planned_end":1792072971}
+{"event":"planned_end","at":"2026-10-15T14:02:52Z","epoch":1792072972}
+{"event":"scheduler_stop","at":"2026-10-15T14:02:53Z","epoch":1792072973}
+{"event":"run_end","at":"2026-10-15T14:02:55Z","epoch":1792072975}
+{"event":"demo_down","at":"2026-10-15T14:03:34Z","epoch":1792073014}

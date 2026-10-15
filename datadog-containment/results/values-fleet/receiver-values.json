@@ -1,0 +1,70 @@
+{
+ "options": [
+  [
+   "symbolMessageHashField",
+   "tenx_hash"
+  ],
+  [
+   "rateReceiverAbsoluteCap",
+   "71247"
+  ],
+  [
+   "rateReceiverDefaultAction",
+   "offload"
+  ],
+  [
+   "rateReceiverMinSharePercent",
+   "0"
+  ],
+  [
+   "rateReceiverWarmupMs",
+   "0"
+  ],
+  [
+   "rateReceiverBaselineCount",
+   "5"
+  ],
+  [
+   "rateReceiverMinRetentionThreshold",
+   "0"
+  ],
+  [
+   "rateReceiverSeverityFloors",
+   "TRACE=0"
+  ],
+  [
+   "rateReceiverSeverityFloors",
+   "DEBUG=0"
+  ],
+  [
+   "rateReceiverSeverityFloors",
+   "INFO=0"
+  ],
+  [
+   "rateReceiverSeverityFloors",
+   "WARN=0"
+  ],
+  [
+   "rateReceiverSeverityFloors",
+   "ERROR=0.5"
+  ],
+  [
+   "rateReceiverSeverityFloors",
+   "CRITICAL=0.5"
+  ],
+  [
+   "rateReceiverSeverityFloors",
+   "FATAL=0.5"
+  ]
+ ],
+ "env": [
+  [
+   "outputOffload",
+   "true"
+  ]
+ ],
+ "fleetDefaultWritten": true,
+ "teamLabelWritten": false,
+ "engineVersion": "1.1.142",
+ "notes": []
+}

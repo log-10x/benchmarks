@@ -1,0 +1,2856 @@
+{
+ "phases": {
+  "quiet": [
+   1792067063,
+   1792068383
+  ],
+  "fleet_receiver_ready": 1792068436,
+  "scheduled": [
+   1792068471,
+   1792072975
+  ],
+  "first_receiver_ready": 1792066469,
+  "events": {
+   "receiver_ready": [
+    "2026-10-15T12:14:29Z",
+    "2026-10-15T12:47:16Z"
+   ],
+   "demo_up": [
+    "2026-10-15T12:21:15Z"
+   ],
+   "demo_healthy": [
+    "2026-10-15T12:22:23Z"
+   ],
+   "quiet_start": [
+    "2026-10-15T12:24:23Z"
+   ],
+   "quiet_end": [
+    "2026-10-15T12:46:23Z"
+   ],
+   "scheduler_start": [
+    "2026-10-15T12:47:51Z"
+   ],
+   "planned_end": [
+    "2026-10-15T14:02:52Z"
+   ],
+   "scheduler_stop": [
+    "2026-10-15T14:02:53Z"
+   ],
+   "run_end": [
+    "2026-10-15T14:02:55Z"
+   ],
+   "demo_down": [
+    "2026-10-15T14:03:34Z"
+   ]
+  }
+ },
+ "config": {
+  "fleet_cap": 71247.0,
+  "caps": {
+   "accounting": 2765.0,
+   "ad": 1.0,
+   "cart": 1.0,
+   "email": 1.0,
+   "fraud-detection": 1.0,
+   "frontend": 30210.0,
+   "frontend-proxy": 1.0,
+   "kafka": 20074.0,
+   "otel-collector": 61996.0,
+   "payment": 2344.0,
+   "quote": 1.0,
+   "recommendation": 2330.0,
+   "shipping": 2721.0,
+   "telemetry-docs": 1.0,
+   "valkey-cart": 1.0
+  },
+  "floors": {
+   "TRACE": 0.0,
+   "DEBUG": 0.0,
+   "INFO": 0.0,
+   "WARN": 0.0,
+   "ERROR": 0.5,
+   "CRITICAL": 0.5,
+   "FATAL": 0.5
+  },
+  "options": {
+   "symbolMessageHashField": "tenx_hash",
+   "rateReceiverAbsoluteCap": "71247",
+   "rateReceiverDefaultAction": "offload",
+   "rateReceiverMinSharePercent": "0",
+   "rateReceiverWarmupMs": "0",
+   "rateReceiverBaselineCount": "5",
+   "rateReceiverMinRetentionThreshold": "0"
+  }
+ },
+ "quiet": {
+  "start": 1792067063,
+  "end": 1792068383,
+  "full_windows": 5,
+  "records": 7938,
+  "raw_lines": 9118,
+  "containers": 17,
+  "pairs": 70,
+  "held_in_quiet": 0,
+  "top_pairs": [
+   {
+    "container": "otel-collector",
+    "pattern": "KG8Fq0QFuoY",
+    "name": "Logs",
+    "rule": "plan row: otel-collector, cap 61,996, tier_down",
+    "max_events": 240,
+    "max_bytes": 126257
+   },
+   {
+    "container": "otel-collector",
+    "pattern": "Gl3Gtr_SH5w",
+    "name": "Traces",
+    "rule": "plan row: otel-collector, cap 61,996, tier_down",
+    "max_events": 240,
+    "max_bytes": 126053
+   },
+   {
+    "container": "frontend",
+    "pattern": "INl44sUgFeY",
+    "name": "API_request_completed",
+    "rule": "plan row: frontend, cap 30,210, tier_down",
+    "max_events": 215,
+    "max_bytes": 106272
+   },
+   {
+    "container": "otel-collector",
+    "pattern": "PuWB8kkVbfw",
+    "name": "Metrics",
+    "rule": "plan row: otel-collector, cap 61,996, tier_down",
+    "max_events": 191,
+    "max_bytes": 105712
+   },
+   {
+    "container": "kafka",
+    "pattern": "Y_71jRCq5Cw",
+    "name": "Scheduling_unloading_of_metadata_for_consumer_with_epoch_OptionalInt_apache_kafka_coordinator_common_runtime_CoordinatorRuntime",
+    "rule": "plan row: kafka, cap 20,074, tier_down",
+    "max_events": 100,
+    "max_bytes": 37580
+   },
+   {
+    "container": "otel-collector",
+    "pattern": "fhu6rrW86b4",
+    "name": "error_Error_scraping_metrics",
+    "rule": "plan row: otel-collector, cap 61,996, tier_down",
+    "max_events": 19,
+    "max_bytes": 37370
+   },
+   {
+    "container": "kafka",
+    "pattern": "KjKx7VN7snY",
+    "name": "was_spent_in_the_scheduler_Loaded_records_which_total_to_bytes_org_apache_kafka_coordinator_common_runtime_CoordinatorRuntime",
+    "rule": "plan row: kafka, cap 20,074, tier_down",
+    "max_events": 83,
+    "max_bytes": 37255
+   },
+   {
+    "container": "kafka",
+    "pattern": "wfraEN4ubTY",
+    "name": "Finished_unloading_metadata_for_consumer_with_epoch_OptionalInt_apache_kafka_coordinator_common_runtime_CoordinatorRuntime",
+    "rule": "plan row: kafka, cap 20,074, tier_down",
+    "max_events": 100,
+    "max_bytes": 37180
+   },
+   {
+    "container": "kafka",
+    "pattern": "VvBjD4t0T7w",
+    "name": "Started_unloading_metadata_for_consumer_with_epoch_OptionalInt_apache_kafka_coordinator_common_runtime_CoordinatorRuntime",
+    "rule": "plan row: kafka, cap 20,074, tier_down",
+    "max_events": 100,
+    "max_bytes": 37080
+   },
+   {
+    "container": "kafka",
+    "pattern": "lfxNT0TdHRU",
+    "name": "Scheduling_loading_of_metadata_from_consumer_with_epoch_org_apache_kafka_coordinator_common_runtime_CoordinatorRuntime",
+    "rule": "plan row: kafka, cap 20,074, tier_down",
+    "max_events": 100,
+    "max_bytes": 36180
+   },
+   {
+    "container": "cart",
+    "pattern": "YZplfQ4a1Xw",
+    "name": "GetCartAsync_called_with_userId",
+    "rule": "plan row: cart, cap 1, tier_down",
+    "max_events": 63,
+    "max_bytes": 17829
+   },
+   {
+    "container": "telemetry-docs",
+    "pattern": "zxRYTKQNyBY",
+    "name": "GET_HTTP_Wget",
+    "rule": "plan row: telemetry-docs, cap 1, tier_down",
+    "max_events": 47,
+    "max_bytes": 12267
+   },
+   {
+    "container": "cart",
+    "pattern": "eDSYlCMPqVY",
+    "name": "AddItemAsync_called_with_userId_productId_quantity",
+    "rule": "plan row: cart, cap 1, tier_down",
+    "max_events": 36,
+    "max_bytes": 11817
+   },
+   {
+    "container": "astronomy-db",
+    "pattern": "oUkuI8QT6s8",
+    "name": "role_root_does_not_exist",
+    "rule": "fleet default: 71,247, offload",
+    "max_events": 47,
+    "max_bytes": 11728
+   },
+   {
+    "container": "kafka",
+    "pattern": "JUW-7iX1rdw",
+    "name": "consumer_because_the_partition_is_not_online_or_no_longer_leader_org_apache_kafka_coordinator_common_runtime_CoordinatorRuntime",
+    "rule": "plan row: kafka, cap 20,074, tier_down",
+    "max_events": 17,
+    "max_bytes": 11143
+   },
+   {
+    "container": "recommendation",
+    "pattern": "bzLB1zZCTIw",
+    "name": "Receive_ListRecommendations_for_product_ids",
+    "rule": "plan row: recommendation, cap 2,330, tier_down",
+    "max_events": 21,
+    "max_bytes": 10248
+   },
+   {
+    "container": "accounting",
+    "pattern": "-FtZD9XArpU",
+    "name": "Order_details",
+    "rule": "plan row: accounting, cap 2,765, tier_down",
+    "max_events": 11,
+    "max_bytes": 10050
+   },
+   {
+    "container": "ad",
+    "pattern": "xHrytxJfUdw",
+    "name": "oteldemo_AdService_Targeted_ad_request_received_for",
+    "rule": "plan row: ad, cap 1, tier_down",
+    "max_events": 22,
+    "max_bytes": 7438
+   },
+   {
+    "container": "payment",
+    "pattern": "9WbTsopbiXk",
+    "name": "Transaction_complete",
+    "rule": "plan row: payment, cap 2,344, tier_down",
+    "max_events": 11,
+    "max_bytes": 7435
+   },
+   {
+    "container": "kafka",
+    "pattern": "pFokWfyJRLU",
+    "name": "Deleting_segments_due_to_log_start_offset_breach_LogSegment_baseOffset_size_lastModifiedTime_apache_kafka_storage_internals",
+    "rule": "plan row: kafka, cap 20,074, tier_down",
+    "max_events": 12,
+    "max_bytes": 6232
+   }
+  ]
+ },
+ "baseline_in_receiver_bytes": {
+  "container": "otel-collector",
+  "pattern": "fhu6rrW86b4",
+  "name": "error_Error_scraping_metrics",
+  "avg_record_bytes_per_window": 15630.2,
+  "max_record_bytes_per_window": 37370,
+  "mcp_baseline_bytes_per_window": 35623.67956330553
+ },
+ "seed": 20261014,
+ "activations": [
+  {
+   "n": 1,
+   "flag": "cartFailure",
+   "variant": "100%",
+   "on": 1792068535.598,
+   "off": 1792068950.777,
+   "planned_s": 415.185,
+   "actual_s": 415.17899990081787,
+   "span_end": 1792069159.88
+  },
+  {
+   "n": 2,
+   "flag": "kafkaQueueProblems",
+   "variant": "on",
+   "on": 1792069159.88,
+   "off": 1792069618.552,
+   "planned_s": 458.68,
+   "actual_s": 458.67199993133545,
+   "span_end": 1792069858.552
+  },
+  {
+   "n": 3,
+   "flag": "paymentFailure",
+   "variant": "100%",
+   "on": 1792069878.114,
+   "off": 1792070179.345,
+   "planned_s": 301.235,
+   "actual_s": 301.23099994659424,
+   "span_end": 1792070391.825
+  },
+  {
+   "n": 4,
+   "flag": "emailMemoryLeak",
+   "variant": "1000x",
+   "on": 1792070391.825,
+   "off": 1792070863.4,
+   "planned_s": 471.579,
+   "actual_s": 471.5750000476837,
+   "span_end": 1792070890.859
+  },
+  {
+   "n": 5,
+   "flag": "emailMemoryLeak",
+   "variant": "1000x",
+   "on": 1792070890.859,
+   "off": 1792071300.842,
+   "planned_s": 409.995,
+   "actual_s": 409.9830000400543,
+   "span_end": 1792071540.842
+  },
+  {
+   "n": 6,
+   "flag": "recommendationCacheFailure",
+   "variant": "on",
+   "on": 1792071641.46,
+   "off": 1792072060.333,
+   "planned_s": 418.882,
+   "actual_s": 418.8729999065399,
+   "span_end": 1792072126.303
+  },
+  {
+   "n": 7,
+   "flag": "loadGeneratorFloodHomepage",
+   "variant": "on",
+   "on": 1792072126.303,
+   "off": 1792072454.94,
+   "planned_s": 328.644,
+   "actual_s": 328.63700008392334,
+   "span_end": 1792072694.94
+  },
+  {
+   "n": 8,
+   "flag": "recommendationCacheFailure",
+   "variant": "on",
+   "on": 1792072724.148,
+   "off": 1792072973.488,
+   "planned_s": 345.214,
+   "actual_s": 249.3399999141693,
+   "span_end": 1792072975
+  }
+ ],
+ "window_phase": {
+  "phase_s_mod_240": 196.08646392822266,
+  "source": "receiver.log connect",
+  "connect": 1792068436.086464,
+  "inferred_phase": 201.0,
+  "share_of_resets_within_20s_of_inferred": 0.29633740288568255,
+  "resets": 901
+ },
+ "held": [
+  {
+   "route": "offload",
+   "rule": "fleet default: 71,247, offload",
+   "container": "astronomy-db",
+   "pattern": "6_l3eh1v8RE",
+   "name": "DETAIL_Key_order_already_exists",
+   "held": 2214,
+   "held_bytes": 646488,
+   "held_lines": 2214,
+   "severity": {
+    "none": 2214
+   },
+   "in_causal_span": 2214,
+   "outside": 0,
+   "flags": {
+    "kafkaQueueProblems": 2214
+   },
+   "windows": 2,
+   "first": 1792069196.97,
+   "last": 1792069614.853,
+   "listed_in_caps": false,
+   "quiet": {
+    "windows_seen": 0,
+    "max_events": 0,
+    "max_bytes": 0,
+    "median_bytes": 0
+   },
+   "sample": "2026-10-15 12:59:30.933 UTC [3902] DETAIL:  Key (order_id)=(42df1cc9-c898-11f1-b536-0242ac1c0016) already exists."
+  },
+  {
+   "route": "offload",
+   "rule": "fleet default: 71,247, offload",
+   "container": "astronomy-db",
+   "pattern": "GlK5AsFvcXg",
+   "name": "STATEMENT_INSERT_INTO_accounting_order_id_VALUES",
+   "held": 2200,
+   "held_bytes": 624800,
+   "held_lines": 4400,
+   "severity": {
+    "none": 2200
+   },
+   "in_causal_span": 2200,
+   "outside": 0,
+   "flags": {
+    "kafkaQueueProblems": 2200
+   },
+   "windows": 2,
+   "first": 1792069196.996,
+   "last": 1792069614.853,
+   "listed_in_caps": false,
+   "quiet": {
+    "windows_seen": 0,
+    "max_events": 0,
+    "max_bytes": 0,
+    "median_bytes": 0
+   },
+   "sample": "2026-10-15 12:59:30.933 UTC [3902] STATEMENT:  INSERT INTO accounting.\"order\" (order_id)\n\tVALUES ($1)"
+  },
+  {
+   "route": "offload",
+   "rule": "fleet default: 71,247, offload",
+   "container": "astronomy-db",
+   "pattern": "KSTuhseaGEc",
+   "name": "duplicate_key_value_violates_unique_constraint_order_pkey",
+   "held": 1141,
+   "held_bytes": 322903,
+   "held_lines": 1141,
+   "severity": {
+    "ERROR": 1141
+   },
+   "in_causal_span": 1141,
+   "outside": 0,
+   "flags": {
+    "kafkaQueueProblems": 1141
+   },
+   "windows": 2,
+   "first": 1792069197.012,
+   "last": 1792069614.85,
+   "listed_in_caps": false,
+   "quiet": {
+    "windows_seen": 0,
+    "max_events": 0,
+    "max_bytes": 0,
+    "median_bytes": 0
+   },
+   "sample": "2026-10-15 12:59:30.933 UTC [3902] ERROR:  duplicate key value violates unique constraint \"order_pkey\""
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: accounting, cap 2,765, tier_down",
+   "container": "accounting",
+   "pattern": "-FtZD9XArpU",
+   "name": "Order_details",
+   "held": 2849,
+   "held_bytes": 2577487,
+   "held_lines": 5698,
+   "severity": {
+    "INFO": 2849
+   },
+   "in_causal_span": 2720,
+   "outside": 129,
+   "flags": {
+    "kafkaQueueProblems": 2720
+   },
+   "windows": 18,
+   "first": 1792068487.189,
+   "last": 1792072972.529,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 11,
+    "max_bytes": 10050,
+    "median_bytes": 9394
+   },
+   "sample": "info: Accounting.Consumer[722003269]\n      Order details: { \"orderId\": \"1111e753-c893-11f1-b536-0242ac1c0016\", \"shippingTrackingId\": \"9d7c7789-4c1f-436f-bda5-39"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: accounting, cap 2,765, tier_down",
+   "container": "accounting",
+   "pattern": "XXzlsXqzuqc",
+   "name": "Duplicate_order_received_skipping",
+   "held": 2680,
+   "held_bytes": 688760,
+   "held_lines": 5360,
+   "severity": {
+    "INFO": 2680
+   },
+   "in_causal_span": 2680,
+   "outside": 0,
+   "flags": {
+    "kafkaQueueProblems": 2680
+   },
+   "windows": 2,
+   "first": 1792069171.424,
+   "last": 1792069614.855,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 0,
+    "max_events": 0,
+    "max_bytes": 0,
+    "median_bytes": 0
+   },
+   "sample": "info: Accounting.Consumer[1508330946]\n      Duplicate order received, skipping."
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: ad, cap 1, tier_down",
+   "container": "ad",
+   "pattern": "xHrytxJfUdw",
+   "name": "oteldemo_AdService_Targeted_ad_request_received_for",
+   "held": 218,
+   "held_bytes": 73780,
+   "held_lines": 218,
+   "severity": {
+    "TRACE": 218
+   },
+   "in_causal_span": 20,
+   "outside": 198,
+   "flags": {
+    "loadGeneratorFloodHomepage": 20
+   },
+   "windows": 19,
+   "first": 1792068473.058,
+   "last": 1792072963.235,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 22,
+    "max_bytes": 7438,
+    "median_bytes": 4748
+   },
+   "sample": "2026-10-15 12:22:55 - oteldemo.AdService - Targeted ad request received for [accessories] trace_id=7cee62991faf8e2394ee3baf00e400a6 span_id=99081569f7ddcf2a tra"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: ad, cap 1, tier_down",
+   "container": "ad",
+   "pattern": "jN_dDVWoa78",
+   "name": "oteldemo_AdService_Non_targeted_ad_request_received_preparing_random_response_trace_id_span_flags",
+   "held": 3,
+   "held_bytes": 1065,
+   "held_lines": 3,
+   "severity": {
+    "TRACE": 3
+   },
+   "in_causal_span": 0,
+   "outside": 3,
+   "flags": {},
+   "windows": 1,
+   "first": 1792072946.497,
+   "last": 1792072965.154,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 4,
+    "max_bytes": 1420,
+    "median_bytes": 710
+   },
+   "sample": "2026-10-15 12:22:39 - oteldemo.AdService - Non-targeted ad request received, preparing random response. trace_id=4b1be7f0240dea0e56fab5f48d37c5d1 span_id=d7324f"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: cart, cap 1, tier_down",
+   "container": "cart",
+   "pattern": "YZplfQ4a1Xw",
+   "name": "GetCartAsync_called_with_userId",
+   "held": 1273,
+   "held_bytes": 363655,
+   "held_lines": 2546,
+   "severity": {
+    "INFO": 1273
+   },
+   "in_causal_span": 351,
+   "outside": 922,
+   "flags": {
+    "cartFailure": 215,
+    "loadGeneratorFloodHomepage": 136
+   },
+   "windows": 19,
+   "first": 1792068476.214,
+   "last": 1792072972.478,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 63,
+    "max_bytes": 17829,
+    "median_bytes": 15534
+   },
+   "sample": "info: cart.cartstore.ValkeyCartStore[1662118147]\n      GetCartAsync called with userId="
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: cart, cap 1, tier_down",
+   "container": "cart",
+   "pattern": "eDSYlCMPqVY",
+   "name": "AddItemAsync_called_with_userId_productId_quantity",
+   "held": 661,
+   "held_bytes": 216909,
+   "held_lines": 1322,
+   "severity": {
+    "INFO": 661
+   },
+   "in_causal_span": 191,
+   "outside": 470,
+   "flags": {
+    "cartFailure": 113,
+    "loadGeneratorFloodHomepage": 78
+   },
+   "windows": 19,
+   "first": 1792068480.397,
+   "last": 1792072972.463,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 36,
+    "max_bytes": 11817,
+    "median_bytes": 10497
+   },
+   "sample": "info: cart.cartstore.ValkeyCartStore[133092716]\n      AddItemAsync called with userId=0fde71e2-c893-11f1-8baf-0242ac1c0018, productId=1YMWWN1N4O, quantity=3"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: cart, cap 1, tier_down",
+   "container": "cart",
+   "pattern": "h3qY1nS1uxY",
+   "name": "EmptyCartAsync_called_with_userId",
+   "held": 149,
+   "held_bytes": 45973,
+   "held_lines": 340,
+   "severity": {
+    "INFO": 149
+   },
+   "in_causal_span": 50,
+   "outside": 99,
+   "flags": {
+    "cartFailure": 34,
+    "loadGeneratorFloodHomepage": 16
+   },
+   "windows": 18,
+   "first": 1792068487.034,
+   "last": 1792072972.515,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 11,
+    "max_bytes": 3256,
+    "median_bytes": 2960
+   },
+   "sample": "info: cart.cartstore.ValkeyCartStore[911421920]\n      EmptyCartAsync called with userId=0fde71e2-c893-11f1-8baf-0242ac1c0018"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: cart, cap 1, tier_down",
+   "container": "cart",
+   "pattern": "9-GL0Pp_Cts",
+   "name": "Error_code_FailedPrecondition_detail_Can_access_cart_storage_System_ApplicationException_Wasn_t_able_to_connect_redis",
+   "held": 16,
+   "held_bytes": 10112,
+   "held_lines": 64,
+   "severity": {
+    "INFO": 16
+   },
+   "in_causal_span": 16,
+   "outside": 0,
+   "flags": {
+    "cartFailure": 16
+   },
+   "windows": 3,
+   "first": 1792068600.709,
+   "last": 1792068914.546,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 0,
+    "max_events": 0,
+    "max_bytes": 0,
+    "median_bytes": 0
+   },
+   "sample": "info: Grpc.AspNetCore.Server.ServerCallHandler[7]\n      Error status code 'FailedPrecondition' with detail 'Can't access cart storage. System.ApplicationExcepti"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: email, cap 1, tier_down",
+   "container": "email",
+   "pattern": "1zhBPd1E9Bc",
+   "name": "POST_send_order_confirmation_HTTP",
+   "held": 149,
+   "held_bytes": 43492,
+   "held_lines": 187,
+   "severity": {
+    "none": 149
+   },
+   "in_causal_span": 42,
+   "outside": 107,
+   "flags": {
+    "emailMemoryLeak": 42
+   },
+   "windows": 18,
+   "first": 1792068487.181,
+   "last": 1792072972.523,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 11,
+    "max_bytes": 3304,
+    "median_bytes": 3032
+   },
+   "sample": "172.28.0.22 - - [15/Oct/2026:12:22:22 +0000] \"POST /send_order_confirmation HTTP/1.1\" 200 - 1.7757"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: email, cap 1, tier_down",
+   "container": "email",
+   "pattern": "shf1OAS338c",
+   "name": "Order_confirmation_email_sent_for_order",
+   "held": 83,
+   "held_bytes": 20584,
+   "held_lines": 83,
+   "severity": {
+    "none": 83
+   },
+   "in_causal_span": 24,
+   "outside": 59,
+   "flags": {
+    "emailMemoryLeak": 24
+   },
+   "windows": 18,
+   "first": 1792068544.664,
+   "last": 1792072968.649,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 7,
+    "max_bytes": 1736,
+    "median_bytes": 1240
+   },
+   "sample": "Order confirmation email sent for order 1111e753-c893-11f1-b536-0242ac1c0016"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: fraud-detection, cap 1, tier_down",
+   "container": "fraud-detection",
+   "pattern": "GKfNbCrpxxI",
+   "name": "fraud_detection_Consumed_record_with_orderId_and_updated_total_count_to_trace_id_span_flags",
+   "held": 3349,
+   "held_bytes": 1355393,
+   "held_lines": 3349,
+   "severity": {
+    "TRACE": 3349
+   },
+   "in_causal_span": 3220,
+   "outside": 129,
+   "flags": {
+    "kafkaQueueProblems": 3220
+   },
+   "windows": 18,
+   "first": 1792068487.204,
+   "last": 1792072972.53,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 11,
+    "max_bytes": 4433,
+    "median_bytes": 4030
+   },
+   "sample": "2026-10-15 12:22:27 - fraud-detection - Consumed record with orderId: 1111e753-c893-11f1-b536-0242ac1c0016, and updated total count to: 1 trace_id=1174ca83b10ad"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: fraud-detection, cap 1, tier_down",
+   "container": "fraud-detection",
+   "pattern": "eT4avs-RfM8",
+   "name": "fraud_detection_FeatureFlag_kafkaQueueProblems_is_enabled_sleeping_second_trace_id_span_flags",
+   "held": 437,
+   "held_bytes": 160379,
+   "held_lines": 437,
+   "severity": {
+    "TRACE": 437
+   },
+   "in_causal_span": 437,
+   "outside": 0,
+   "flags": {
+    "kafkaQueueProblems": 437
+   },
+   "windows": 2,
+   "first": 1792069175.934,
+   "last": 1792069618.546,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 0,
+    "max_events": 0,
+    "max_bytes": 0,
+    "median_bytes": 0
+   },
+   "sample": "2026-10-15 12:59:30 - fraud-detection - FeatureFlag 'kafkaQueueProblems' is enabled, sleeping 1 second trace_id=b8417ee933424e7f272a856e79769c13 span_id=28ccea4"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: frontend, cap 30,210, tier_down",
+   "container": "frontend",
+   "pattern": "INl44sUgFeY",
+   "name": "API_request_completed",
+   "held": 2914,
+   "held_bytes": 1438595,
+   "held_lines": 2914,
+   "severity": {
+    "TRACE": 2914
+   },
+   "in_causal_span": 1620,
+   "outside": 1294,
+   "flags": {
+    "cartFailure": 515,
+    "paymentFailure": 322,
+    "recommendationCacheFailure": 472,
+    "loadGeneratorFloodHomepage": 311
+   },
+   "windows": 19,
+   "first": 1792068480.487,
+   "last": 1792072974.168,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 215,
+    "max_bytes": 106272,
+    "median_bytes": 89898
+   },
+   "sample": "{\"level\":30,\"time\":1792066920745,\"pid\":1,\"hostname\":\"56affb348380\",\"trace_id\":\"3df5f4fb499b1ee1c0606ddc5128c408\",\"span_id\":\"28985b7900a288d3\",\"trace_flags\":\"01\""
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: otel-collector, cap 61,996, tier_down",
+   "container": "otel-collector",
+   "pattern": "KG8Fq0QFuoY",
+   "name": "Logs",
+   "held": 2287,
+   "held_bytes": 1203067,
+   "held_lines": 2287,
+   "severity": {
+    "INFO": 2287
+   },
+   "in_causal_span": 0,
+   "outside": 2287,
+   "flags": {},
+   "windows": 19,
+   "first": 1792068536.282,
+   "last": 1792072968.817,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 240,
+    "max_bytes": 126257,
+    "median_bytes": 123612
+   },
+   "sample": "2026-10-15T12:15:25.001Z\tinfo\tLogs\t{\"resource\": {\"service.instance.id\": \"37b4ecad-45b1-4cff-8bb4-4a39ded95915\", \"service.name\": \"otelcol-contrib\", \"service.vers"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: otel-collector, cap 61,996, tier_down",
+   "container": "otel-collector",
+   "pattern": "Gl3Gtr_SH5w",
+   "name": "Traces",
+   "held": 2272,
+   "held_bytes": 1193317,
+   "held_lines": 2272,
+   "severity": {
+    "INFO": 2272
+   },
+   "in_causal_span": 0,
+   "outside": 2272,
+   "flags": {},
+   "windows": 19,
+   "first": 1792068533.835,
+   "last": 1792072969.366,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 240,
+    "max_bytes": 126053,
+    "median_bytes": 125516
+   },
+   "sample": "2026-10-15T12:16:40.306Z\tinfo\tTraces\t{\"resource\": {\"service.instance.id\": \"334c562a-2365-43d5-aca0-90e5b9c1e755\", \"service.name\": \"otelcol-contrib\", \"service.ve"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: otel-collector, cap 61,996, tier_down",
+   "container": "otel-collector",
+   "pattern": "PuWB8kkVbfw",
+   "name": "Metrics",
+   "held": 1446,
+   "held_bytes": 800318,
+   "held_lines": 1446,
+   "severity": {
+    "INFO": 1446
+   },
+   "in_causal_span": 0,
+   "outside": 1446,
+   "flags": {},
+   "windows": 19,
+   "first": 1792068557.313,
+   "last": 1792072974.608,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 191,
+    "max_bytes": 105712,
+    "median_bytes": 101836
+   },
+   "sample": "2026-10-15T12:15:25.717Z\tinfo\tMetrics\t{\"resource\": {\"service.instance.id\": \"37b4ecad-45b1-4cff-8bb4-4a39ded95915\", \"service.name\": \"otelcol-contrib\", \"service.v"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: payment, cap 2,344, tier_down",
+   "container": "payment",
+   "pattern": "fg1YkiyrF3Q",
+   "name": "Charge_request_received",
+   "held": 159,
+   "held_bytes": 68211,
+   "held_lines": 159,
+   "severity": {
+    "TRACE": 159
+   },
+   "in_causal_span": 16,
+   "outside": 143,
+   "flags": {
+    "paymentFailure": 16
+   },
+   "windows": 19,
+   "first": 1792068486.997,
+   "last": 1792072972.509,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 11,
+    "max_bytes": 4719,
+    "median_bytes": 4290
+   },
+   "sample": "{\"level\":\"info\",\"time\":1792066940534,\"pid\":1,\"hostname\":\"7dd26cfd3747\",\"trace_id\":\"d35d5b9ba7d44c6b785709d3439b152d\",\"span_id\":\"466dd18b80838bd4\",\"trace_flags\":"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: payment, cap 2,344, tier_down",
+   "container": "payment",
+   "pattern": "9WbTsopbiXk",
+   "name": "Transaction_complete",
+   "held": 149,
+   "held_bytes": 100761,
+   "held_lines": 149,
+   "severity": {
+    "TRACE": 149
+   },
+   "in_causal_span": 6,
+   "outside": 143,
+   "flags": {
+    "paymentFailure": 6
+   },
+   "windows": 18,
+   "first": 1792068486.998,
+   "last": 1792072972.511,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 11,
+    "max_bytes": 7435,
+    "median_bytes": 6769
+   },
+   "sample": "{\"level\":\"info\",\"time\":1792066940820,\"pid\":1,\"hostname\":\"7dd26cfd3747\",\"trace_id\":\"d35d5b9ba7d44c6b785709d3439b152d\",\"span_id\":\"466dd18b80838bd4\",\"trace_flags\":"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: payment, cap 2,344, tier_down",
+   "container": "payment",
+   "pattern": "_N7fwt_uqyQ",
+   "name": "Payment_request_failed_Invalid_token_demo_user_context_loyalty_level_gold",
+   "held": 7,
+   "held_bytes": 6510,
+   "held_lines": 7,
+   "severity": {
+    "ERROR": 7
+   },
+   "in_causal_span": 7,
+   "outside": 0,
+   "flags": {
+    "paymentFailure": 7
+   },
+   "windows": 1,
+   "first": 1792070039.879,
+   "last": 1792070095.061,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 0,
+    "max_events": 0,
+    "max_bytes": 0,
+    "median_bytes": 0
+   },
+   "sample": "{\"level\":\"warn\",\"time\":1792069917530,\"pid\":1,\"hostname\":\"7dd26cfd3747\",\"trace_id\":\"76a3d40d7623dee41c36bd5126c87097\",\"span_id\":\"57a380963bc44924\",\"trace_flags\":"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: quote, cap 1, tier_down",
+   "container": "quote",
+   "pattern": "c4yR2F2cVfk",
+   "name": "POST_getquote_HTTP",
+   "held": 159,
+   "held_bytes": 37206,
+   "held_lines": 159,
+   "severity": {
+    "none": 159
+   },
+   "in_causal_span": 0,
+   "outside": 159,
+   "flags": {},
+   "windows": 19,
+   "first": 1792068486.977,
+   "last": 1792072972.498,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 11,
+    "max_bytes": 2574,
+    "median_bytes": 2340
+   },
+   "sample": "[2026-10-15 12:22:20+00:00] \"POST /getquote HTTP/1.1\" 200 5 "
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: recommendation, cap 2,330, tier_down",
+   "container": "recommendation",
+   "pattern": "bzLB1zZCTIw",
+   "name": "Receive_ListRecommendations_for_product_ids",
+   "held": 275,
+   "held_bytes": 134200,
+   "held_lines": 275,
+   "severity": {
+    "INFO": 275
+   },
+   "in_causal_span": 60,
+   "outside": 215,
+   "flags": {
+    "recommendationCacheFailure": 37,
+    "loadGeneratorFloodHomepage": 23
+   },
+   "windows": 19,
+   "first": 1792068527.373,
+   "last": 1792072946.037,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 21,
+    "max_bytes": 10248,
+    "median_bytes": 9272
+   },
+   "sample": "2026-10-15 12:22:20,218 INFO [main] [recommendation_server.py:47] [trace_id=89260d848a99e2a2cfdb6a0ff7afb1fb span_id=447437371cedad09 resource.service.name=reco"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: recommendation, cap 2,330, tier_down",
+   "container": "recommendation",
+   "pattern": "QE9Wwe64YPk",
+   "name": "get_product_list_cache_hit",
+   "held": 8,
+   "held_bytes": 3208,
+   "held_lines": 8,
+   "severity": {
+    "INFO": 8
+   },
+   "in_causal_span": 8,
+   "outside": 0,
+   "flags": {
+    "recommendationCacheFailure": 8
+   },
+   "windows": 3,
+   "first": 1792071768.36,
+   "last": 1792072916.174,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 0,
+    "max_events": 0,
+    "max_bytes": 0,
+    "median_bytes": 0
+   },
+   "sample": "2026-10-15 13:41:24,363 INFO [main] [recommendation_server.py:91] [trace_id=80afe6e5c7209b3a99ff5582427a3aa7 span_id=40b875c0de01d118 resource.service.name=reco"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: recommendation, cap 2,330, tier_down",
+   "container": "recommendation",
+   "pattern": "pQCM0VaOm6U",
+   "name": "get_product_list_cache_miss",
+   "held": 8,
+   "held_bytes": 3216,
+   "held_lines": 8,
+   "severity": {
+    "INFO": 8
+   },
+   "in_causal_span": 8,
+   "outside": 0,
+   "flags": {
+    "recommendationCacheFailure": 8
+   },
+   "windows": 3,
+   "first": 1792071910.154,
+   "last": 1792072946.024,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 0,
+    "max_events": 0,
+    "max_bytes": 0,
+    "median_bytes": 0
+   },
+   "sample": "2026-10-15 13:41:11,701 INFO [main] [recommendation_server.py:83] [trace_id=4704dd659a5791981e82047d810665ae span_id=0dc0a355428b37d2 resource.service.name=reco"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: shipping, cap 2,721, tier_down",
+   "container": "shipping",
+   "pattern": "kAB8PMmHyKM",
+   "name": "shipping_service_Requesting_quote_http_getquote",
+   "held": 140,
+   "held_bytes": 58660,
+   "held_lines": 140,
+   "severity": {
+    "none": 140
+   },
+   "in_causal_span": 0,
+   "outside": 140,
+   "flags": {},
+   "windows": 19,
+   "first": 1792068501.091,
+   "last": 1792072972.493,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 11,
+    "max_bytes": 4609,
+    "median_bytes": 4190
+   },
+   "sample": "\u001b[2m2026-10-15T12:22:20.212109Z\u001b[0m \u001b[32m INFO\u001b[0m \u001b[2mshipping::shipping_service::quote\u001b[0m\u001b[2m:\u001b[0m Requesting quote \u001b[3mquote_service_addr\u001b[0m\u001b[2m=\u001b[0m\"http:"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: shipping, cap 2,721, tier_down",
+   "container": "shipping",
+   "pattern": "PX-oZ7rxgZo",
+   "name": "Sending_Quote",
+   "held": 140,
+   "held_bytes": 58117,
+   "held_lines": 140,
+   "severity": {
+    "none": 140
+   },
+   "in_causal_span": 0,
+   "outside": 140,
+   "flags": {},
+   "windows": 19,
+   "first": 1792068501.167,
+   "last": 1792072972.498,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 11,
+    "max_bytes": 4567,
+    "median_bytes": 4151
+   },
+   "sample": "\u001b[2m2026-10-15T12:22:20.413673Z\u001b[0m \u001b[32m INFO\u001b[0m \u001b[2mshipping::shipping_service\u001b[0m\u001b[2m:\u001b[0m Sending Quote \u001b[3mdollars\u001b[0m\u001b[2m=\u001b[0m26 \u001b[3mcents\u001b[0m\u001b[2m=\u001b[0m97"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: shipping, cap 2,721, tier_down",
+   "container": "shipping",
+   "pattern": "LnOvjJt0La4",
+   "name": "Tracking_ID_Created",
+   "held": 131,
+   "held_bytes": 54758,
+   "held_lines": 131,
+   "severity": {
+    "none": 131
+   },
+   "in_causal_span": 0,
+   "outside": 131,
+   "flags": {},
+   "windows": 18,
+   "first": 1792068501.359,
+   "last": 1792072972.511,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 11,
+    "max_bytes": 4598,
+    "median_bytes": 4180
+   },
+   "sample": "\u001b[2m2026-10-15T12:22:20.847381Z\u001b[0m \u001b[32m INFO\u001b[0m \u001b[2mshipping::shipping_service\u001b[0m\u001b[2m:\u001b[0m Tracking ID Created \u001b[3mtracking_id\u001b[0m\u001b[2m=\u001b[0m\"9d7c7789-4c1f-43"
+  },
+  {
+   "route": "tier_down",
+   "rule": "plan row: telemetry-docs, cap 1, tier_down",
+   "container": "telemetry-docs",
+   "pattern": "zxRYTKQNyBY",
+   "name": "GET_HTTP_Wget",
+   "held": 770,
+   "held_bytes": 200970,
+   "held_lines": 770,
+   "severity": {
+    "none": 770
+   },
+   "in_causal_span": 0,
+   "outside": 770,
+   "flags": {},
+   "windows": 19,
+   "first": 1792068473.614,
+   "last": 1792072972.865,
+   "listed_in_caps": true,
+   "quiet": {
+    "windows_seen": 5,
+    "max_events": 47,
+    "max_bytes": 12267,
+    "median_bytes": 12267
+   },
+   "sample": "::1 - - [15/Oct/2026:12:14:55 +0000] \"GET / HTTP/1.1\" 200 29066 \"-\" \"Wget\""
+  }
+ ],
+ "per_activation": [
+  {
+   "n": 1,
+   "flag": "cartFailure",
+   "variant": "100%",
+   "on": 1792068535.598,
+   "off": 1792068950.777,
+   "span_end": 1792069159.88,
+   "containers": [
+    {
+     "container": "otel-collector",
+     "rule": "plan row: otel-collector, cap 61,996, tier_down",
+     "in_causal_path": false,
+     "first_noisy": null,
+     "noisy_pattern": null,
+     "noisy_name": null,
+     "noisy_events_in_minute": null,
+     "noisy_pre_rate_per_min": null,
+     "first_held": 1792068536.282,
+     "noisy_to_held_s": null,
+     "first_held_route": "tier_down",
+     "held": 637,
+     "held_bytes": 341891,
+     "held_offload": 0,
+     "held_tier_down": 637,
+     "kept_same_patterns": 478,
+     "kept_container": 728,
+     "steady_held": 383,
+     "steady_held_bytes": 201163,
+     "steady_patterns": {
+      "Traces": 383
+     },
+     "patterns": [
+      {
+       "pattern": "KG8Fq0QFuoY",
+       "rule": "plan row: otel-collector, cap 61,996, tier_down",
+       "name": "Logs",
+       "held": 389,
+       "kept": 237,
+       "routes": {
+        "tier_down": 389
+       },
+       "severity": {
+        "INFO": 389
+       },
+       "bytes": 204621,
+       "first_held": 1792068536.282,
+       "last_held": 1792069156.536,
+       "first_seen": 1792068535.885,
+       "sample": "2026-10-15T12:15:25.001Z\tinfo\tLogs\t{\"resource\": {\"service.instance.id\": \"37b4ecad-45b1-4cff-8bb4-4a39ded95915\", \"service.name\": \"otelcol-contrib\", \"service.vers"
+      },
+      {
+       "pattern": "PuWB8kkVbfw",
+       "rule": "plan row: otel-collector, cap 61,996, tier_down",
+       "name": "Metrics",
+       "held": 248,
+       "kept": 241,
+       "routes": {
+        "tier_down": 248
+       },
+       "severity": {
+        "INFO": 248
+       },
+       "bytes": 137270,
+       "first_held": 1792068557.313,
+       "last_held": 1792069159.062,
+       "first_seen": 1792068537.018,
+       "sample": "2026-10-15T12:15:25.717Z\tinfo\tMetrics\t{\"resource\": {\"service.instance.id\": \"37b4ecad-45b1-4cff-8bb4-4a39ded95915\", \"service.name\": \"otelcol-contrib\", \"service.v"
+      }
+     ]
+    },
+    {
+     "container": "email",
+     "rule": "plan row: email, cap 1, tier_down",
+     "in_causal_path": false,
+     "first_noisy": null,
+     "noisy_pattern": null,
+     "noisy_name": null,
+     "noisy_events_in_minute": null,
+     "noisy_pre_rate_per_min": null,
+     "first_held": 1792068544.664,
+     "noisy_to_held_s": null,
+     "first_held_route": "tier_down",
+     "held": 19,
+     "held_bytes": 4712,
+     "held_offload": 0,
+     "held_tier_down": 19,
+     "kept_same_patterns": 10,
+     "kept_container": 20,
+     "steady_held": 34,
+     "steady_held_bytes": 10106,
+     "steady_patterns": {
+      "POST_send_order_confirmation_HTTP": 34
+     },
+     "patterns": [
+      {
+       "pattern": "shf1OAS338c",
+       "rule": "plan row: email, cap 1, tier_down",
+       "name": "Order_confirmation_email_sent_for_order",
+       "held": 19,
+       "kept": 10,
+       "routes": {
+        "tier_down": 19
+       },
+       "severity": {
+        "none": 19
+       },
+       "bytes": 4712,
+       "first_held": 1792068544.664,
+       "last_held": 1792069138.863,
+       "first_seen": 1792068544.664,
+       "sample": "Order confirmation email sent for order 1111e753-c893-11f1-b536-0242ac1c0016"
+      }
+     ]
+    },
+    {
+     "container": "cart",
+     "rule": "plan row: cart, cap 1, tier_down",
+     "in_causal_path": true,
+     "first_noisy": 1792068837.972,
+     "noisy_pattern": "9-GL0Pp_Cts",
+     "noisy_name": "Error_code_FailedPrecondition_detail_Can_access_cart_storage_System_ApplicationException_Wasn_t_able_to_connect_redis",
+     "noisy_events_in_minute": 6,
+     "noisy_pre_rate_per_min": 0.0,
+     "first_held": 1792068600.709,
+     "noisy_to_held_s": -237.2629997730255,
+     "first_held_route": "tier_down",
+     "held": 16,
+     "held_bytes": 10112,
+     "held_offload": 0,
+     "held_tier_down": 16,
+     "kept_same_patterns": 12,
+     "kept_container": 42,
+     "steady_held": 362,
+     "steady_held_bytes": 110493,
+     "steady_patterns": {
+      "GetCartAsync_called_with_userId": 215,
+      "AddItemAsync_called_with_userId_productId_quantity": 113,
+      "EmptyCartAsync_called_with_userId": 34
+     },
+     "patterns": [
+      {
+       "pattern": "9-GL0Pp_Cts",
+       "rule": "plan row: cart, cap 1, tier_down",
+       "name": "Error_code_FailedPrecondition_detail_Can_access_cart_storage_System_ApplicationException_Wasn_t_able_to_connect_redis",
+       "held": 16,
+       "kept": 12,
+       "routes": {
+        "tier_down": 16
+       },
+       "severity": {
+        "INFO": 16
+       },
+       "bytes": 10112,
+       "first_held": 1792068600.709,
+       "last_held": 1792068914.546,
+       "first_seen": 1792068544.634,
+       "sample": "info: Grpc.AspNetCore.Server.ServerCallHandler[7]\n      Error status code 'FailedPrecondition' with detail 'Can't access cart storage. System.ApplicationExcepti"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "flag": "kafkaQueueProblems",
+   "variant": "on",
+   "on": 1792069159.88,
+   "off": 1792069618.552,
+   "span_end": 1792069858.552,
+   "containers": [
+    {
+     "container": "astronomy-db",
+     "rule": "fleet default: 71,247, offload",
+     "in_causal_path": true,
+     "first_noisy": 1792069170.934,
+     "noisy_pattern": "KSTuhseaGEc",
+     "noisy_name": "duplicate_key_value_violates_unique_constraint_order_pkey",
+     "noisy_events_in_minute": 400,
+     "noisy_pre_rate_per_min": 0.0,
+     "first_held": 1792069196.97,
+     "noisy_to_held_s": 26.03600001335144,
+     "first_held_route": "offload",
+     "held": 5555,
+     "held_bytes": 1594191,
+     "held_offload": 5555,
+     "held_tier_down": 0,
+     "kept_same_patterns": 2545,
+     "kept_container": 2687,
+     "steady_held": 0,
+     "steady_held_bytes": 0,
+     "steady_patterns": {},
+     "patterns": [
+      {
+       "pattern": "6_l3eh1v8RE",
+       "rule": "fleet default: 71,247, offload",
+       "name": "DETAIL_Key_order_already_exists",
+       "held": 2214,
+       "kept": 486,
+       "routes": {
+        "offload": 2214
+       },
+       "severity": {
+        "none": 2214
+       },
+       "bytes": 646488,
+       "first_held": 1792069196.97,
+       "last_held": 1792069614.853,
+       "first_seen": 1792069170.934,
+       "sample": "2026-10-15 12:59:30.933 UTC [3902] DETAIL:  Key (order_id)=(42df1cc9-c898-11f1-b536-0242ac1c0016) already exists."
+      },
+      {
+       "pattern": "GlK5AsFvcXg",
+       "rule": "fleet default: 71,247, offload",
+       "name": "STATEMENT_INSERT_INTO_accounting_order_id_VALUES",
+       "held": 2200,
+       "kept": 500,
+       "routes": {
+        "offload": 2200
+       },
+       "severity": {
+        "none": 2200
+       },
+       "bytes": 624800,
+       "first_held": 1792069196.996,
+       "last_held": 1792069614.853,
+       "first_seen": 1792069170.934,
+       "sample": "2026-10-15 12:59:30.933 UTC [3902] STATEMENT:  INSERT INTO accounting.\"order\" (order_id)\n\tVALUES ($1)"
+      },
+      {
+       "pattern": "KSTuhseaGEc",
+       "rule": "fleet default: 71,247, offload",
+       "name": "duplicate_key_value_violates_unique_constraint_order_pkey",
+       "held": 1141,
+       "kept": 1559,
+       "routes": {
+        "offload": 1141
+       },
+       "severity": {
+        "ERROR": 1141
+       },
+       "bytes": 322903,
+       "first_held": 1792069197.012,
+       "last_held": 1792069614.85,
+       "first_seen": 1792069170.934,
+       "sample": "2026-10-15 12:59:30.933 UTC [3902] ERROR:  duplicate key value violates unique constraint \"order_pkey\""
+      }
+     ]
+    },
+    {
+     "container": "accounting",
+     "rule": "plan row: accounting, cap 2,765, tier_down",
+     "in_causal_path": true,
+     "first_noisy": 1792069170.87,
+     "noisy_pattern": "-FtZD9XArpU",
+     "noisy_name": "Order_details",
+     "noisy_events_in_minute": 404,
+     "noisy_pre_rate_per_min": 4.2,
+     "first_held": 1792069171.424,
+     "noisy_to_held_s": 0.5540001392364502,
+     "first_held_route": "tier_down",
+     "held": 2680,
+     "held_bytes": 688760,
+     "held_offload": 0,
+     "held_tier_down": 2680,
+     "kept_same_patterns": 20,
+     "kept_container": 35,
+     "steady_held": 2720,
+     "steady_held_bytes": 2462786,
+     "steady_patterns": {
+      "Order_details": 2720
+     },
+     "patterns": [
+      {
+       "pattern": "XXzlsXqzuqc",
+       "rule": "plan row: accounting, cap 2,765, tier_down",
+       "name": "Duplicate_order_received_skipping",
+       "held": 2680,
+       "kept": 20,
+       "routes": {
+        "tier_down": 2680
+       },
+       "severity": {
+        "INFO": 2680
+       },
+       "bytes": 688760,
+       "first_held": 1792069171.424,
+       "last_held": 1792069614.855,
+       "first_seen": 1792069171.249,
+       "sample": "info: Accounting.Consumer[1508330946]\n      Duplicate order received, skipping."
+      }
+     ]
+    },
+    {
+     "container": "fraud-detection",
+     "rule": "plan row: fraud-detection, cap 1, tier_down",
+     "in_causal_path": true,
+     "first_noisy": 1792069170.906,
+     "noisy_pattern": "eT4avs-RfM8",
+     "noisy_name": "fraud_detection_FeatureFlag_kafkaQueueProblems_is_enabled_sleeping_second_trace_id_span_flags",
+     "noisy_events_in_minute": 49,
+     "noisy_pre_rate_per_min": 0.0,
+     "first_held": 1792069175.934,
+     "noisy_to_held_s": 5.028000116348267,
+     "first_held_route": "tier_down",
+     "held": 437,
+     "held_bytes": 160379,
+     "held_offload": 0,
+     "held_tier_down": 437,
+     "kept_same_patterns": 10,
+     "kept_container": 25,
+     "steady_held": 3220,
+     "steady_held_bytes": 1303216,
+     "steady_patterns": {
+      "fraud_detection_Consumed_record_with_orderId_and_updated_total_count_to_trace_id_span_flags": 3220
+     },
+     "patterns": [
+      {
+       "pattern": "eT4avs-RfM8",
+       "rule": "plan row: fraud-detection, cap 1, tier_down",
+       "name": "fraud_detection_FeatureFlag_kafkaQueueProblems_is_enabled_sleeping_second_trace_id_span_flags",
+       "held": 437,
+       "kept": 10,
+       "routes": {
+        "tier_down": 437
+       },
+       "severity": {
+        "TRACE": 437
+       },
+       "bytes": 160379,
+       "first_held": 1792069175.934,
+       "last_held": 1792069618.546,
+       "first_seen": 1792069170.906,
+       "sample": "2026-10-15 12:59:30 - fraud-detection - FeatureFlag 'kafkaQueueProblems' is enabled, sleeping 1 second trace_id=b8417ee933424e7f272a856e79769c13 span_id=28ccea4"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "flag": "paymentFailure",
+   "variant": "100%",
+   "on": 1792069878.114,
+   "off": 1792070179.345,
+   "span_end": 1792070391.825,
+   "containers": [
+    {
+     "container": "payment",
+     "rule": "plan row: payment, cap 2,344, tier_down",
+     "in_causal_path": true,
+     "first_noisy": 1792070038.51,
+     "noisy_pattern": "_N7fwt_uqyQ",
+     "noisy_name": "Payment_request_failed_Invalid_token_demo_user_context_loyalty_level_gold",
+     "noisy_events_in_minute": 5,
+     "noisy_pre_rate_per_min": 0.0,
+     "first_held": 1792070039.879,
+     "noisy_to_held_s": 1.36899995803833,
+     "first_held_route": "tier_down",
+     "held": 7,
+     "held_bytes": 6510,
+     "held_offload": 0,
+     "held_tier_down": 7,
+     "kept_same_patterns": 8,
+     "kept_container": 27,
+     "steady_held": 22,
+     "steady_held_bytes": 10917,
+     "steady_patterns": {
+      "Charge_request_received": 16,
+      "Transaction_complete": 6
+     },
+     "patterns": [
+      {
+       "pattern": "_N7fwt_uqyQ",
+       "rule": "plan row: payment, cap 2,344, tier_down",
+       "name": "Payment_request_failed_Invalid_token_demo_user_context_loyalty_level_gold",
+       "held": 7,
+       "kept": 8,
+       "routes": {
+        "tier_down": 7
+       },
+       "severity": {
+        "ERROR": 7
+       },
+       "bytes": 6510,
+       "first_held": 1792070039.879,
+       "last_held": 1792070095.061,
+       "first_seen": 1792069917.533,
+       "sample": "{\"level\":\"warn\",\"time\":1792069917530,\"pid\":1,\"hostname\":\"7dd26cfd3747\",\"trace_id\":\"76a3d40d7623dee41c36bd5126c87097\",\"span_id\":\"57a380963bc44924\",\"trace_flags\":"
+      }
+     ]
+    },
+    {
+     "container": "frontend",
+     "rule": "plan row: frontend, cap 30,210, tier_down",
+     "in_causal_path": true,
+     "first_noisy": 1792070038.513,
+     "noisy_pattern": "SJz5BYn_Kzo",
+     "noisy_name": "Checkout_payment_declined",
+     "noisy_events_in_minute": 5,
+     "noisy_pre_rate_per_min": 0.0,
+     "first_held": null,
+     "noisy_to_held_s": null,
+     "first_held_route": null,
+     "held": 0,
+     "held_bytes": 0,
+     "held_offload": 0,
+     "held_tier_down": 0,
+     "kept_same_patterns": 0,
+     "kept_container": 184,
+     "steady_held": 322,
+     "steady_held_bytes": 158936,
+     "steady_patterns": {
+      "API_request_completed": 322
+     },
+     "patterns": []
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "flag": "emailMemoryLeak",
+   "variant": "1000x",
+   "on": 1792070391.825,
+   "off": 1792070863.4,
+   "span_end": 1792070890.859,
+   "containers": [
+    {
+     "container": "email",
+     "rule": "plan row: email, cap 1, tier_down",
+     "in_causal_path": true,
+     "first_noisy": 1792070754.871,
+     "noisy_pattern": "shf1OAS338c",
+     "noisy_name": "Order_confirmation_email_sent_for_order",
+     "noisy_events_in_minute": 5,
+     "noisy_pre_rate_per_min": 1.0,
+     "first_held": null,
+     "noisy_to_held_s": null,
+     "first_held_route": null,
+     "held": 0,
+     "held_bytes": 0,
+     "held_offload": 0,
+     "held_tier_down": 0,
+     "kept_same_patterns": 0,
+     "kept_container": 20,
+     "steady_held": 32,
+     "steady_held_bytes": 8728,
+     "steady_patterns": {
+      "POST_send_order_confirmation_HTTP": 20,
+      "Order_confirmation_email_sent_for_order": 12
+     },
+     "patterns": []
+    }
+   ]
+  },
+  {
+   "n": 5,
+   "flag": "emailMemoryLeak",
+   "variant": "1000x",
+   "on": 1792070890.859,
+   "off": 1792071300.842,
+   "span_end": 1792071540.842,
+   "containers": []
+  },
+  {
+   "n": 6,
+   "flag": "recommendationCacheFailure",
+   "variant": "on",
+   "on": 1792071641.46,
+   "off": 1792072060.333,
+   "span_end": 1792072126.303,
+   "containers": [
+    {
+     "container": "recommendation",
+     "rule": "plan row: recommendation, cap 2,330, tier_down",
+     "in_causal_path": true,
+     "first_noisy": null,
+     "noisy_pattern": null,
+     "noisy_name": null,
+     "noisy_events_in_minute": null,
+     "noisy_pre_rate_per_min": null,
+     "first_held": 1792071768.36,
+     "noisy_to_held_s": null,
+     "first_held_route": "tier_down",
+     "held": 12,
+     "held_bytes": 4818,
+     "held_offload": 0,
+     "held_tier_down": 12,
+     "kept_same_patterns": 20,
+     "kept_container": 29,
+     "steady_held": 25,
+     "steady_held_bytes": 12200,
+     "steady_patterns": {
+      "Receive_ListRecommendations_for_product_ids": 25
+     },
+     "patterns": [
+      {
+       "pattern": "QE9Wwe64YPk",
+       "rule": "plan row: recommendation, cap 2,330, tier_down",
+       "name": "get_product_list_cache_hit",
+       "held": 6,
+       "kept": 10,
+       "routes": {
+        "tier_down": 6
+       },
+       "severity": {
+        "INFO": 6
+       },
+       "bytes": 2406,
+       "first_held": 1792071768.36,
+       "last_held": 1792071964.193,
+       "first_seen": 1792071684.372,
+       "sample": "2026-10-15 13:41:24,363 INFO [main] [recommendation_server.py:91] [trace_id=80afe6e5c7209b3a99ff5582427a3aa7 span_id=40b875c0de01d118 resource.service.name=reco"
+      },
+      {
+       "pattern": "pQCM0VaOm6U",
+       "rule": "plan row: recommendation, cap 2,330, tier_down",
+       "name": "get_product_list_cache_miss",
+       "held": 6,
+       "kept": 10,
+       "routes": {
+        "tier_down": 6
+       },
+       "severity": {
+        "INFO": 6
+       },
+       "bytes": 2412,
+       "first_held": 1792071910.154,
+       "last_held": 1792072038.992,
+       "first_seen": 1792071671.703,
+       "sample": "2026-10-15 13:41:11,701 INFO [main] [recommendation_server.py:83] [trace_id=4704dd659a5791981e82047d810665ae span_id=0dc0a355428b37d2 resource.service.name=reco"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 7,
+   "flag": "loadGeneratorFloodHomepage",
+   "variant": "on",
+   "on": 1792072126.303,
+   "off": 1792072454.94,
+   "span_end": 1792072694.94,
+   "containers": []
+  },
+  {
+   "n": 8,
+   "flag": "recommendationCacheFailure",
+   "variant": "on",
+   "on": 1792072724.148,
+   "off": 1792072973.488,
+   "span_end": 1792072975,
+   "containers": [
+    {
+     "container": "recommendation",
+     "rule": "plan row: recommendation, cap 2,330, tier_down",
+     "in_causal_path": true,
+     "first_noisy": null,
+     "noisy_pattern": null,
+     "noisy_name": null,
+     "noisy_events_in_minute": null,
+     "noisy_pre_rate_per_min": null,
+     "first_held": 1792072890.508,
+     "noisy_to_held_s": null,
+     "first_held_route": "tier_down",
+     "held": 4,
+     "held_bytes": 1606,
+     "held_offload": 0,
+     "held_tier_down": 4,
+     "kept_same_patterns": 12,
+     "kept_container": 17,
+     "steady_held": 12,
+     "steady_held_bytes": 5856,
+     "steady_patterns": {
+      "Receive_ListRecommendations_for_product_ids": 12
+     },
+     "patterns": [
+      {
+       "pattern": "QE9Wwe64YPk",
+       "rule": "plan row: recommendation, cap 2,330, tier_down",
+       "name": "get_product_list_cache_hit",
+       "held": 2,
+       "kept": 7,
+       "routes": {
+        "tier_down": 2
+       },
+       "severity": {
+        "INFO": 2
+       },
+       "bytes": 802,
+       "first_held": 1792072890.508,
+       "last_held": 1792072916.174,
+       "first_seen": 1792072745.823,
+       "sample": "2026-10-15 13:41:24,363 INFO [main] [recommendation_server.py:91] [trace_id=80afe6e5c7209b3a99ff5582427a3aa7 span_id=40b875c0de01d118 resource.service.name=reco"
+      },
+      {
+       "pattern": "pQCM0VaOm6U",
+       "rule": "plan row: recommendation, cap 2,330, tier_down",
+       "name": "get_product_list_cache_miss",
+       "held": 2,
+       "kept": 5,
+       "routes": {
+        "tier_down": 2
+       },
+       "severity": {
+        "INFO": 2
+       },
+       "bytes": 804,
+       "first_held": 1792072913.365,
+       "last_held": 1792072946.024,
+       "first_seen": 1792072766.246,
+       "sample": "2026-10-15 13:41:11,701 INFO [main] [recommendation_server.py:83] [trace_id=4704dd659a5791981e82047d810665ae span_id=0dc0a355428b37d2 resource.service.name=reco"
+      }
+     ]
+    },
+    {
+     "container": "ad",
+     "rule": "plan row: ad, cap 1, tier_down",
+     "in_causal_path": false,
+     "first_noisy": null,
+     "noisy_pattern": null,
+     "noisy_name": null,
+     "noisy_events_in_minute": null,
+     "noisy_pre_rate_per_min": null,
+     "first_held": 1792072946.497,
+     "noisy_to_held_s": null,
+     "first_held_route": "tier_down",
+     "held": 3,
+     "held_bytes": 1065,
+     "held_offload": 0,
+     "held_tier_down": 3,
+     "kept_same_patterns": 5,
+     "kept_container": 10,
+     "steady_held": 16,
+     "steady_held_bytes": 5436,
+     "steady_patterns": {
+      "oteldemo_AdService_Targeted_ad_request_received_for": 16
+     },
+     "patterns": [
+      {
+       "pattern": "jN_dDVWoa78",
+       "rule": "plan row: ad, cap 1, tier_down",
+       "name": "oteldemo_AdService_Non_targeted_ad_request_received_preparing_random_response_trace_id_span_flags",
+       "held": 3,
+       "kept": 5,
+       "routes": {
+        "tier_down": 3
+       },
+       "severity": {
+        "TRACE": 3
+       },
+       "bytes": 1065,
+       "first_held": 1792072946.497,
+       "last_held": 1792072965.154,
+       "first_seen": 1792072757.169,
+       "sample": "2026-10-15 12:22:39 - oteldemo.AdService - Non-targeted ad request received, preparing random response. trace_id=4b1be7f0240dea0e56fab5f48d37c5d1 span_id=d7324f"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "plan_moves_per_window": {
+  "ad": {
+   "windows": 19,
+   "median": 12,
+   "max": 18,
+   "total": 221
+  },
+  "telemetry-docs": {
+   "windows": 19,
+   "median": 42,
+   "max": 43,
+   "total": 770
+  },
+  "cart": {
+   "windows": 19,
+   "median": 104,
+   "max": 158,
+   "total": 2099
+  },
+  "frontend": {
+   "windows": 19,
+   "median": 152,
+   "max": 196,
+   "total": 2914
+  },
+  "quote": {
+   "windows": 19,
+   "median": 7,
+   "max": 14,
+   "total": 159
+  },
+  "payment": {
+   "windows": 19,
+   "median": 15,
+   "max": 28,
+   "total": 315
+  },
+  "email": {
+   "windows": 18,
+   "median": 12.0,
+   "max": 21,
+   "total": 232
+  },
+  "accounting": {
+   "windows": 18,
+   "median": 7.5,
+   "max": 3603,
+   "total": 5529
+  },
+  "fraud-detection": {
+   "windows": 18,
+   "median": 7.5,
+   "max": 3221,
+   "total": 3786
+  },
+  "shipping": {
+   "windows": 19,
+   "median": 18,
+   "max": 39,
+   "total": 411
+  },
+  "recommendation": {
+   "windows": 19,
+   "median": 15,
+   "max": 26,
+   "total": 291
+  },
+  "otel-collector": {
+   "windows": 19,
+   "median": 318,
+   "max": 356,
+   "total": 6005
+  }
+ },
+ "floor_check": {
+  "TRACE": {
+   "tier_down": 7091,
+   "pass": 104
+  },
+  "INFO": {
+   "tier_down": 13414,
+   "pass": 448
+  },
+  "none": {
+   "tier_down": 1527,
+   "pass": 34,
+   "offload": 4414
+  },
+  "ERROR": {
+   "pass": 1059,
+   "offload": 1141,
+   "tier_down": 7
+  }
+ },
+ "replay_vs_actual": {
+  "under_and_held": 693,
+  "over_and_held": 27594,
+  "under_and_passed": 14835,
+  "over_and_passed": 1645
+ },
+ "errors": {
+  "held": 1148,
+  "passed": 2510,
+  "by_pattern": [
+   {
+    "container": "astronomy-db",
+    "rule": "fleet default: 71,247, offload",
+    "pattern": "KSTuhseaGEc",
+    "name": "duplicate_key_value_violates_unique_constraint_order_pkey",
+    "severity": "ERROR",
+    "held": {
+     "offload": 1141
+    },
+    "passed": 1559,
+    "flags": {
+     "kafkaQueueProblems": 1141
+    }
+   },
+   {
+    "container": "payment",
+    "rule": "plan row: payment, cap 2,344, tier_down",
+    "pattern": "_N7fwt_uqyQ",
+    "name": "Payment_request_failed_Invalid_token_demo_user_context_loyalty_level_gold",
+    "severity": "ERROR",
+    "held": {
+     "tier_down": 7
+    },
+    "passed": 8,
+    "flags": {
+     "paymentFailure": 7
+    }
+   }
+  ]
+ },
+ "latency": {
+  "accounting": {
+   "records": 5729,
+   "median": 2.171999931335449,
+   "p99": 7.210359983444217,
+   "max": 27.866999864578247,
+   "over_10s": 27
+  },
+  "ad": {
+   "records": 502,
+   "median": 6.0325000286102295,
+   "p99": 24.342959935665153,
+   "max": 42.549999952316284,
+   "over_10s": 9
+  },
+  "astronomy-db": {
+   "records": 9356,
+   "median": 2.2879998683929443,
+   "p99": 7.082350099086764,
+   "max": 56.014999866485596,
+   "over_10s": 23
+  },
+  "cart": {
+   "records": 3007,
+   "median": 2.0939998626708984,
+   "p99": 7.811700029373169,
+   "max": 44.98699998855591,
+   "over_10s": 22
+  },
+  "currency": {
+   "records": 1,
+   "median": 9.44700002670288,
+   "p99": 9.44700002670288,
+   "max": 9.44700002670288,
+   "over_10s": 0
+  },
+  "email": {
+   "records": 520,
+   "median": 5.377499938011169,
+   "p99": 9.629630177020916,
+   "max": 45.33199977874756,
+   "over_10s": 6
+  },
+  "flagd": {
+   "records": 33,
+   "median": 5.751000165939331,
+   "p99": 9.429559965133667,
+   "max": 9.858999967575073,
+   "over_10s": 0
+  },
+  "flagd-ui": {
+   "records": 36,
+   "median": 4.210500001907349,
+   "p99": 8.93374992609024,
+   "max": 8.98799991607666,
+   "over_10s": 0
+  },
+  "fraud-detection": {
+   "records": 3947,
+   "median": 2.8410000801086426,
+   "p99": 7.101859917640685,
+   "max": 57.27300000190735,
+   "over_10s": 5
+  },
+  "frontend": {
+   "records": 5566,
+   "median": 2.2410000562667847,
+   "p99": 7.187099957466128,
+   "max": 38.67899990081787,
+   "over_10s": 37
+  },
+  "frontend-proxy": {
+   "records": 128,
+   "median": 27.93649995326996,
+   "p99": 27.953380150794985,
+   "max": 30.31500005722046,
+   "over_10s": 127
+  },
+  "image-provider": {
+   "records": 58,
+   "median": 4.119999885559082,
+   "p99": 9.573190066814423,
+   "max": 9.706000089645386,
+   "over_10s": 0
+  },
+  "kafka": {
+   "records": 5933,
+   "median": 2.0299999713897705,
+   "p99": 51.46600008010864,
+   "max": 54.09100008010864,
+   "over_10s": 613
+  },
+  "otel-collector": {
+   "records": 17793,
+   "median": 1.752000093460083,
+   "p99": 24.04723993301391,
+   "max": 53.996999979019165,
+   "over_10s": 350
+  },
+  "payment": {
+   "records": 617,
+   "median": 2.6679999828338623,
+   "p99": 8.07015994071961,
+   "max": 40.39100003242493,
+   "over_10s": 6
+  },
+  "product-catalog": {
+   "records": 2,
+   "median": 10.662499904632568,
+   "p99": 13.047329955101013,
+   "max": 13.095999956130981,
+   "over_10s": 1
+  },
+  "quote": {
+   "records": 310,
+   "median": 6.2505000829696655,
+   "p99": 11.345859818458583,
+   "max": 45.07200002670288,
+   "over_10s": 5
+  },
+  "recommendation": {
+   "records": 528,
+   "median": 6.016500115394592,
+   "p99": 7.890419998168946,
+   "max": 32.55199980735779,
+   "over_10s": 3
+  },
+  "shipping": {
+   "records": 947,
+   "median": 2.1030001640319824,
+   "p99": 8.022440075874323,
+   "max": 63.53499984741211,
+   "over_10s": 8
+  },
+  "telemetry-docs": {
+   "records": 1230,
+   "median": 6.052499890327454,
+   "p99": 23.486890013218012,
+   "max": 54.78099989891052,
+   "over_10s": 31
+  },
+  "valkey-cart": {
+   "records": 102,
+   "median": 2.0370001792907715,
+   "p99": 16.20800018310547,
+   "max": 21.138999938964844,
+   "over_10s": 7
+  }
+ },
+ "latency_all": {
+  "records": 56345,
+  "median": 2.1710000038146973,
+  "p99": 27.466079893111967,
+  "max": 63.53499984741211,
+  "over_10s": 1280
+ },
+ "latency_over_10s_by_container": {
+  "valkey-cart": 7,
+  "quote": 5,
+  "email": 6,
+  "ad": 9,
+  "telemetry-docs": 31,
+  "astronomy-db": 23,
+  "cart": 22,
+  "otel-collector": 350,
+  "payment": 6,
+  "kafka": 613,
+  "fraud-detection": 5,
+  "accounting": 27,
+  "recommendation": 3,
+  "frontend-proxy": 127,
+  "product-catalog": 1,
+  "shipping": 8,
+  "frontend": 37
+ },
+ "latency_scheduled": {
+  "accounting": {
+   "records": 5635,
+   "median": 2.1649999618530273,
+   "p99": 6.835980124473571,
+   "max": 9.900000095367432,
+   "over_10s": 0
+  },
+  "ad": {
+   "records": 375,
+   "median": 6.016000032424927,
+   "p99": 7.428659954071045,
+   "max": 7.876000165939331,
+   "over_10s": 0
+  },
+  "astronomy-db": {
+   "records": 8971,
+   "median": 2.2660000324249268,
+   "p99": 6.717100143432612,
+   "max": 8.66100001335144,
+   "over_10s": 0
+  },
+  "cart": {
+   "records": 2377,
+   "median": 2.0320000648498535,
+   "p99": 7.445520057678218,
+   "max": 8.868000030517578,
+   "over_10s": 0
+  },
+  "email": {
+   "records": 407,
+   "median": 4.505999803543091,
+   "p99": 7.715119953155518,
+   "max": 10.014000177383423,
+   "over_10s": 1
+  },
+  "flagd": {
+   "records": 15,
+   "median": 6.7200000286102295,
+   "p99": 8.423339972496033,
+   "max": 8.516999959945679,
+   "over_10s": 0
+  },
+  "flagd-ui": {
+   "records": 33,
+   "median": 2.886000156402588,
+   "p99": 8.523239965438842,
+   "max": 8.83299994468689,
+   "over_10s": 0
+  },
+  "fraud-detection": {
+   "records": 3882,
+   "median": 2.8329999446868896,
+   "p99": 6.995899956226349,
+   "max": 9.956000089645386,
+   "over_10s": 0
+  },
+  "frontend": {
+   "records": 4271,
+   "median": 2.2070000171661377,
+   "p99": 6.55470006465912,
+   "max": 8.404000043869019,
+   "over_10s": 0
+  },
+  "kafka": {
+   "records": 3392,
+   "median": 1.7939999103546143,
+   "p99": 7.325180056095124,
+   "max": 8.586999893188477,
+   "over_10s": 0
+  },
+  "otel-collector": {
+   "records": 12550,
+   "median": 1.7000000476837158,
+   "p99": 5.3635299992561345,
+   "max": 7.52400016784668,
+   "over_10s": 0
+  },
+  "payment": {
+   "records": 500,
+   "median": 2.6079999208450317,
+   "p99": 7.66436003446579,
+   "max": 10.284000158309937,
+   "over_10s": 1
+  },
+  "quote": {
+   "records": 250,
+   "median": 6.2505000829696655,
+   "p99": 7.870880005359649,
+   "max": 8.158999919891357,
+   "over_10s": 0
+  },
+  "recommendation": {
+   "records": 416,
+   "median": 6.023000001907349,
+   "p99": 7.688100123405457,
+   "max": 7.819000005722046,
+   "over_10s": 0
+  },
+  "shipping": {
+   "records": 758,
+   "median": 2.028499960899353,
+   "p99": 7.573910062313078,
+   "max": 10.270999908447266,
+   "over_10s": 1
+  },
+  "telemetry-docs": {
+   "records": 860,
+   "median": 6.019500017166138,
+   "p99": 7.382410037517547,
+   "max": 8.161999940872192,
+   "over_10s": 0
+  },
+  "valkey-cart": {
+   "records": 75,
+   "median": 1.9240000247955322,
+   "p99": 7.231719985008242,
+   "max": 7.506999969482422,
+   "over_10s": 0
+  }
+ },
+ "latency_scheduled_all": {
+  "records": 44767,
+  "median": 2.1500000953674316,
+  "p99": 7.158339967727658,
+  "max": 10.284000158309937,
+  "over_10s": 3
+ },
+ "latency_over_10s_wait": {
+  "over_10s": 3,
+  "by_cause": {
+   "back within 5 s after its container's next line": 3
+  },
+  "median_s_after_next_line": 1.3240001201629639
+ },
+ "latency_over_10s_by_phase": {
+  "before the quiet run": 852,
+  "quiet run": 206,
+  "between quiet end and scheduler start": 219,
+  "scheduled run": 3
+ },
+ "release_after_quiet": {
+  "all": {
+   "records": 1501,
+   "median": 6.552999973297119,
+   "p99": 7.91100001335144,
+   "min": 5.162999868392944,
+   "max": 8.83299994468689,
+   "waited_for_next_line": 0
+  },
+  "waited_for_next_line": {},
+  "containers": {
+   "accounting": {
+    "records": 132,
+    "median": 6.528500080108643,
+    "max": 7.91100001335144
+   },
+   "ad": {
+    "records": 165,
+    "median": 6.365000009536743,
+    "max": 7.876000165939331
+   },
+   "cart": {
+    "records": 105,
+    "median": 6.608999967575073,
+    "max": 8.112000226974487
+   },
+   "email": {
+    "records": 133,
+    "median": 6.546999931335449,
+    "max": 7.928999900817871
+   },
+   "flagd": {
+    "records": 15,
+    "median": 6.7200000286102295,
+    "max": 8.516999959945679
+   },
+   "flagd-ui": {
+    "records": 16,
+    "median": 6.787499904632568,
+    "max": 8.83299994468689
+   },
+   "fraud-detection": {
+    "records": 120,
+    "median": 6.5329999923706055,
+    "max": 8.074000120162964
+   },
+   "frontend": {
+    "records": 1,
+    "median": 6.060999870300293,
+    "max": 6.060999870300293
+   },
+   "kafka": {
+    "records": 205,
+    "median": 6.518999814987183,
+    "max": 7.944999933242798
+   },
+   "payment": {
+    "records": 140,
+    "median": 6.605499982833862,
+    "max": 7.966000080108643
+   },
+   "quote": {
+    "records": 140,
+    "median": 6.620000004768372,
+    "max": 8.158999919891357
+   },
+   "recommendation": {
+    "records": 176,
+    "median": 6.57200014591217,
+    "max": 7.819000005722046
+   },
+   "shipping": {
+    "records": 138,
+    "median": 6.559000134468079,
+    "max": 7.949000120162964
+   },
+   "valkey-cart": {
+    "records": 15,
+    "median": 6.540999889373779,
+    "max": 7.506999969482422
+   }
+  }
+ },
+ "early_close": {
+  "scheduled_records_opened_by_a_non_head_line": 172,
+  "by_pause": {
+   "over 7 s": 153,
+   "5 to 7 s": 18,
+   "3 to 5 s": 1
+  },
+  "within_7s_of_prev_first_line": 19,
+  "within_7s_same_pattern": 0,
+  "whole_run_records_opened_by_a_non_head_line": 209,
+  "groups": [
+   {
+    "container": "email",
+    "prev_pattern": "POST_send_order_confirmation_HTTP",
+    "first_line_kind": "Order confirmation email sent for order 0-0-0-0-",
+    "records": 172,
+    "by_pause": {
+     "over 7 s": 153,
+     "5 to 7 s": 18,
+     "3 to 5 s": 1
+    },
+    "within_7s": 19,
+    "same_pattern": 0,
+    "pause_min_s": 4.952999830245972,
+    "example_at": 1792068480.622,
+    "example_line": "Order confirmation email sent for order a776d3ac-c896-11f1-b536-0242ac1c0016",
+    "example_pattern": "Order_confirmation_email_sent_for_order"
+   }
+  ]
+ },
+ "delivery_whole_run": {
+  "span": [
+   1792066469,
+   1792072975
+  ],
+  "containers": {
+   "accounting": {
+    "raw_lines": 11426,
+    "returned_records": 5729,
+    "lines_covered": 11426,
+    "routes": {
+     "pass": 200,
+     "tier_down": 5529
+    },
+    "covered_minus_raw": 0
+   },
+   "ad": {
+    "raw_lines": 690,
+    "returned_records": 502,
+    "lines_covered": 690,
+    "routes": {
+     "pass": 280,
+     "tier_down": 222
+    },
+    "covered_minus_raw": 0
+   },
+   "astronomy-db": {
+    "raw_lines": 12086,
+    "returned_records": 9356,
+    "lines_covered": 12085,
+    "routes": {
+     "pass": 3801,
+     "offload": 5555
+    },
+    "covered_minus_raw": -1
+   },
+   "cart": {
+    "raw_lines": 6126,
+    "returned_records": 3007,
+    "lines_covered": 6126,
+    "routes": {
+     "pass": 887,
+     "tier_down": 2120
+    },
+    "covered_minus_raw": 0
+   },
+   "currency": {
+    "raw_lines": 1,
+    "returned_records": 1,
+    "lines_covered": 1,
+    "routes": {
+     "pass": 1
+    },
+    "covered_minus_raw": 0
+   },
+   "email": {
+    "raw_lines": 613,
+    "returned_records": 520,
+    "lines_covered": 613,
+    "routes": {
+     "pass": 288,
+     "tier_down": 232
+    },
+    "covered_minus_raw": 0
+   },
+   "flagd": {
+    "raw_lines": 34,
+    "returned_records": 33,
+    "lines_covered": 33,
+    "routes": {
+     "pass": 33
+    },
+    "covered_minus_raw": -1
+   },
+   "flagd-ui": {
+    "raw_lines": 37,
+    "returned_records": 36,
+    "lines_covered": 36,
+    "routes": {
+     "pass": 36
+    },
+    "covered_minus_raw": -1
+   },
+   "fraud-detection": {
+    "raw_lines": 3947,
+    "returned_records": 3947,
+    "lines_covered": 3947,
+    "routes": {
+     "pass": 161,
+     "tier_down": 3786
+    },
+    "covered_minus_raw": 0
+   },
+   "frontend": {
+    "raw_lines": 5569,
+    "returned_records": 5564,
+    "lines_covered": 5569,
+    "routes": {
+     "pass": 2650,
+     "tier_down": 2914
+    },
+    "covered_minus_raw": 0
+   },
+   "frontend-proxy": {
+    "raw_lines": 135,
+    "returned_records": 128,
+    "lines_covered": 135,
+    "routes": {
+     "pass": 128
+    },
+    "covered_minus_raw": 0
+   },
+   "image-provider": {
+    "raw_lines": 58,
+    "returned_records": 58,
+    "lines_covered": 58,
+    "routes": {
+     "pass": 58
+    },
+    "covered_minus_raw": 0
+   },
+   "kafka": {
+    "raw_lines": 7207,
+    "returned_records": 5933,
+    "lines_covered": 7207,
+    "routes": {
+     "pass": 5933
+    },
+    "covered_minus_raw": 0
+   },
+   "otel-collector": {
+    "raw_lines": 20891,
+    "returned_records": 17775,
+    "lines_covered": 20891,
+    "routes": {
+     "pass": 11770,
+     "tier_down": 6005
+    },
+    "covered_minus_raw": 0
+   },
+   "payment": {
+    "raw_lines": 618,
+    "returned_records": 617,
+    "lines_covered": 618,
+    "routes": {
+     "pass": 302,
+     "tier_down": 315
+    },
+    "covered_minus_raw": 0
+   },
+   "product-catalog": {
+    "raw_lines": 2,
+    "returned_records": 2,
+    "lines_covered": 2,
+    "routes": {
+     "pass": 2
+    },
+    "covered_minus_raw": 0
+   },
+   "quote": {
+    "raw_lines": 320,
+    "returned_records": 310,
+    "lines_covered": 320,
+    "routes": {
+     "pass": 151,
+     "tier_down": 159
+    },
+    "covered_minus_raw": 0
+   },
+   "recommendation": {
+    "raw_lines": 528,
+    "returned_records": 528,
+    "lines_covered": 528,
+    "routes": {
+     "pass": 237,
+     "tier_down": 291
+    },
+    "covered_minus_raw": 0
+   },
+   "shipping": {
+    "raw_lines": 947,
+    "returned_records": 947,
+    "lines_covered": 947,
+    "routes": {
+     "pass": 536,
+     "tier_down": 411
+    },
+    "covered_minus_raw": 0
+   },
+   "telemetry-docs": {
+    "raw_lines": 1230,
+    "returned_records": 1230,
+    "lines_covered": 1230,
+    "routes": {
+     "pass": 455,
+     "tier_down": 775
+    },
+    "covered_minus_raw": 0
+   },
+   "valkey-cart": {
+    "raw_lines": 102,
+    "returned_records": 102,
+    "lines_covered": 102,
+    "routes": {
+     "pass": 102
+    },
+    "covered_minus_raw": 0
+   }
+  }
+ },
+ "delivery_scheduled": {
+  "span": [
+   1792068471,
+   1792072975
+  ],
+  "containers": {
+   "accounting": {
+    "raw_lines": 11270,
+    "returned_records": 5635,
+    "lines_covered": 11270,
+    "routes": {
+     "pass": 106,
+     "tier_down": 5529
+    },
+    "covered_minus_raw": 0
+   },
+   "ad": {
+    "raw_lines": 559,
+    "returned_records": 375,
+    "lines_covered": 559,
+    "routes": {
+     "tier_down": 221,
+     "pass": 154
+    },
+    "covered_minus_raw": 0
+   },
+   "astronomy-db": {
+    "raw_lines": 11672,
+    "returned_records": 8971,
+    "lines_covered": 11671,
+    "routes": {
+     "pass": 3416,
+     "offload": 5555
+    },
+    "covered_minus_raw": -1
+   },
+   "cart": {
+    "raw_lines": 4866,
+    "returned_records": 2377,
+    "lines_covered": 4866,
+    "routes": {
+     "tier_down": 2099,
+     "pass": 278
+    },
+    "covered_minus_raw": 0
+   },
+   "email": {
+    "raw_lines": 470,
+    "returned_records": 407,
+    "lines_covered": 470,
+    "routes": {
+     "pass": 175,
+     "tier_down": 232
+    },
+    "covered_minus_raw": 0
+   },
+   "flagd": {
+    "raw_lines": 16,
+    "returned_records": 15,
+    "lines_covered": 15,
+    "routes": {
+     "pass": 15
+    },
+    "covered_minus_raw": -1
+   },
+   "flagd-ui": {
+    "raw_lines": 34,
+    "returned_records": 33,
+    "lines_covered": 33,
+    "routes": {
+     "pass": 33
+    },
+    "covered_minus_raw": -1
+   },
+   "fraud-detection": {
+    "raw_lines": 3882,
+    "returned_records": 3882,
+    "lines_covered": 3882,
+    "routes": {
+     "pass": 96,
+     "tier_down": 3786
+    },
+    "covered_minus_raw": 0
+   },
+   "frontend": {
+    "raw_lines": 4271,
+    "returned_records": 4271,
+    "lines_covered": 4271,
+    "routes": {
+     "pass": 1357,
+     "tier_down": 2914
+    },
+    "covered_minus_raw": 0
+   },
+   "kafka": {
+    "raw_lines": 3392,
+    "returned_records": 3392,
+    "lines_covered": 3392,
+    "routes": {
+     "pass": 3392
+    },
+    "covered_minus_raw": 0
+   },
+   "otel-collector": {
+    "raw_lines": 13774,
+    "returned_records": 12550,
+    "lines_covered": 13774,
+    "routes": {
+     "pass": 6545,
+     "tier_down": 6005
+    },
+    "covered_minus_raw": 0
+   },
+   "payment": {
+    "raw_lines": 500,
+    "returned_records": 500,
+    "lines_covered": 500,
+    "routes": {
+     "pass": 185,
+     "tier_down": 315
+    },
+    "covered_minus_raw": 0
+   },
+   "quote": {
+    "raw_lines": 250,
+    "returned_records": 250,
+    "lines_covered": 250,
+    "routes": {
+     "pass": 91,
+     "tier_down": 159
+    },
+    "covered_minus_raw": 0
+   },
+   "recommendation": {
+    "raw_lines": 416,
+    "returned_records": 416,
+    "lines_covered": 416,
+    "routes": {
+     "pass": 125,
+     "tier_down": 291
+    },
+    "covered_minus_raw": 0
+   },
+   "shipping": {
+    "raw_lines": 758,
+    "returned_records": 758,
+    "lines_covered": 758,
+    "routes": {
+     "pass": 347,
+     "tier_down": 411
+    },
+    "covered_minus_raw": 0
+   },
+   "telemetry-docs": {
+    "raw_lines": 860,
+    "returned_records": 860,
+    "lines_covered": 860,
+    "routes": {
+     "tier_down": 770,
+     "pass": 90
+    },
+    "covered_minus_raw": 0
+   },
+   "valkey-cart": {
+    "raw_lines": 75,
+    "returned_records": 75,
+    "lines_covered": 75,
+    "routes": {
+     "pass": 75
+    },
+    "covered_minus_raw": 0
+   }
+  }
+ },
+ "delivery_split": {
+  "to_60s_before_stop": {
+   "raw_lines": 72187,
+   "lines_covered": 72187
+  },
+  "last_60s": {
+   "raw_lines": 380,
+   "lines_covered": 377
+  }
+ },
+ "totals_scheduled": {
+  "raw_lines": 57065,
+  "returned": 44767,
+  "routes": {
+   "pass": 16480,
+   "tier_down": 22732,
+   "offload": 5555
+  },
+  "bytes_by_route": {
+   "pass": 7245689,
+   "offload": 1594191,
+   "tier_down": 10918703,
+   "other": 0
+  }
+ },
+ "what_if_fleet_default_alone": {
+  "held_expected": 19475.0,
+  "held_expected_in_causal_span": 13929.0,
+  "held_expected_errors": 1099.0
+ }
+}
