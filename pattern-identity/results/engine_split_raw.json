@@ -1,0 +1,3592 @@
+{
+ "config": {
+  "engine_app": "@apps/dev",
+  "half_order": "the order bench/identity.py feeds Drain3 (shuffled)",
+  "output_config": "bench/engine_split.config.yaml",
+  "pattern_agreement_floor": 0.99,
+  "probes": 30000,
+  "seed": 100,
+  "trials": 10
+ },
+ "dataset": {
+  "asset": "otel-sample-200mb.log",
+  "records": 197430
+ },
+ "disagreements": [
+  {
+   "a": {
+    "event_records": 2,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-7m1gMJe0&&",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 2,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "<+Ddt8HFAn",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 56100,
+   "log": "logger=ngalert.notifier t=2025-10-01T22:51:30.033374928Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-01T22:51:30.032552483Z aggrGroup=\"{}/{__grafana_autogener",
+   "probe_position": 771,
+   "trial": 1
+  },
+  {
+   "a": {
+    "event_records": 2,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 1,
+    "templateHash": "-7m1gMJe0&&",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 2,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 1,
+    "templateHash": "<+Ddt8HFAn",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 2314,
+   "line": 146786,
+   "log": "    at new Promise (<anonymous>) {",
+   "probe_position": 772,
+   "trial": 1
+  },
+  {
+   "a": {
+    "event_records": 3,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "4l4BD]lW$<",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 3,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "NiDLy+jwhB",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 144833,
+   "log": "logger=ngalert.notifier t=2025-10-02T03:41:30.070282872Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-02T03:41:30.068681016Z aggrGroup=\"{}/{__grafana_autogener",
+   "probe_position": 5145,
+   "trial": 1
+  },
+  {
+   "a": {
+    "event_records": 3,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 1,
+    "templateHash": "4l4BD]lW$<",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 3,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 1,
+    "templateHash": "NiDLy+jwhB",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 6929,
+   "line": 184016,
+   "log": "      AddItemAsync called with userId=f946580a-9f53-11f0-9b9e-a666c4b68b87, productId=HQTGWGPNH4, quantity=10",
+   "probe_position": 5146,
+   "trial": 1
+  },
+  {
+   "a": {
+    "event_records": 3,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 2,
+    "templateHash": "4l4BD]lW$<",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 3,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 2,
+    "templateHash": "NiDLy+jwhB",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 12709,
+   "line": 169860,
+   "log": "      GetCartAsync called with userId=525de8ce-9f4d-11f0-9b9e-a666c4b68b87",
+   "probe_position": 5147,
+   "trial": 1
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "F1fD##w*u3",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-t_oVAL_P{",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 121662,
+   "log": "logger=ngalert.notifier t=2025-10-02T02:26:30.060804921Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-02T02:26:30.059776179Z aggrGroup=\"{}/{__grafana_autogener",
+   "probe_position": 7313,
+   "trial": 1
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "<<r!rLKd]n",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-3MO.r2/Jot",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 168798,
+   "log": "logger=ngalert.notifier t=2025-10-02T05:01:30.080591523Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-02T05:01:30.07918714Z aggrGroup=\"{}/{__grafana_autogenera",
+   "probe_position": 9154,
+   "trial": 1
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "F1fD##w*u3",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-t_oVAL_P{",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 115720,
+   "log": "logger=ngalert.notifier t=2025-10-02T02:06:30.058359525Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-02T02:06:30.057244119Z aggrGroup=\"{}/{__grafana_autogener",
+   "probe_position": 10193,
+   "trial": 1
+  },
+  {
+   "a": {
+    "event_records": 3,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-*Mryt2E3Uw",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 3,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-AIe{@G3N^j",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 100257,
+   "log": "logger=ngalert.notifier t=2025-10-02T01:16:30.050818045Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-02T01:16:30.049678492Z aggrGroup=\"{}/{__grafana_autogener",
+   "probe_position": 15790,
+   "trial": 1
+  },
+  {
+   "a": {
+    "event_records": 3,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 1,
+    "templateHash": "-*Mryt2E3Uw",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 3,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 1,
+    "templateHash": "-AIe{@G3N^j",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 12709,
+   "line": 15902,
+   "log": "      GetCartAsync called with userId=",
+   "probe_position": 15791,
+   "trial": 1
+  },
+  {
+   "a": {
+    "event_records": 3,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 2,
+    "templateHash": "-*Mryt2E3Uw",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 3,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 2,
+    "templateHash": "-AIe{@G3N^j",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 2314,
+   "line": 123222,
+   "log": "    at new Promise (<anonymous>) {",
+   "probe_position": 15792,
+   "trial": 1
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "F1fD##w*u3",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-t_oVAL_P{",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 103414,
+   "log": "logger=ngalert.notifier t=2025-10-02T01:26:30.052548262Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-02T01:26:30.051206338Z aggrGroup=\"{}/{__grafana_autogener",
+   "probe_position": 16436,
+   "trial": 1
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "F1fD##w*u3",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-t_oVAL_P{",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 132369,
+   "log": "logger=ngalert.notifier t=2025-10-02T03:01:30.063841429Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-02T03:01:30.062897809Z aggrGroup=\"{}/{__grafana_autogener",
+   "probe_position": 19504,
+   "trial": 1
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "<<r!rLKd]n",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-3MO.r2/Jot",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 39643,
+   "log": "logger=ngalert.notifier t=2025-10-01T21:56:30.024707224Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-01T21:56:30.02351674Z aggrGroup=\"{}/{__grafana_autogenera",
+   "probe_position": 20103,
+   "trial": 1
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "F1fD##w*u3",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-t_oVAL_P{",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 180705,
+   "log": "logger=ngalert.notifier t=2025-10-02T05:41:30.089912877Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-02T05:41:30.085613277Z aggrGroup=\"{}/{__grafana_autogener",
+   "probe_position": 20723,
+   "trial": 1
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "<<r!rLKd]n",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-3MO.r2/Jot",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 138547,
+   "log": "logger=ngalert.notifier t=2025-10-02T03:21:30.066052615Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-02T03:21:30.06520314Z aggrGroup=\"{}/{__grafana_autogenera",
+   "probe_position": 24242,
+   "trial": 1
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "RptOemE.E;",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "F1fD##w*u3",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 42632,
+   "log": "logger=ngalert.notifier t=2025-10-01T22:06:30.02644752Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-01T22:06:30.024940581Z aggrGroup=\"{}/{__grafana_autogenera",
+   "probe_position": 24684,
+   "trial": 1
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "RptOemE.E;",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "F1fD##w*u3",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 124775,
+   "log": "logger=ngalert.notifier t=2025-10-02T02:36:30.06155538Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-02T02:36:30.060719594Z aggrGroup=\"{}/{__grafana_autogenera",
+   "probe_position": 26926,
+   "trial": 1
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "F1fD##w*u3",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-t_oVAL_P{",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 70060,
+   "log": "logger=ngalert.notifier t=2025-10-01T23:36:30.038077968Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-01T23:36:30.037230098Z aggrGroup=\"{}/{__grafana_autogener",
+   "probe_position": 27338,
+   "trial": 1
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-t_oVAL_P{",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "F1fD##w*u3",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 85126,
+   "log": "logger=ngalert.notifier t=2025-10-02T00:26:30.043805107Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-02T00:26:30.042589679Z aggrGroup=\"{}/{__grafana_autogener",
+   "probe_position": 1483,
+   "trial": 5
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "F1fD##w*u3",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "RptOemE.E;",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 109563,
+   "log": "logger=ngalert.notifier t=2025-10-02T01:46:30.05581731Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-02T01:46:30.054851993Z aggrGroup=\"{}/{__grafana_autogenera",
+   "probe_position": 1756,
+   "trial": 5
+  },
+  {
+   "a": {
+    "event_records": 3,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "6BwB+5VLJE",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 3,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "F:@@G{?mBg",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 30503,
+   "log": "logger=ngalert.notifier t=2025-10-01T21:26:30.020734815Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-01T21:26:30.019248118Z aggrGroup=\"{}/{__grafana_autogener",
+   "probe_position": 1939,
+   "trial": 5
+  },
+  {
+   "a": {
+    "event_records": 3,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 1,
+    "templateHash": "6BwB+5VLJE",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 3,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 1,
+    "templateHash": "F:@@G{?mBg",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 124,
+   "line": 8633,
+   "log": "\tgithub.com/opensearch-project/opensearch-go/v4@v4.5.0/opensearchutil/bulk_indexer.go:237",
+   "probe_position": 1940,
+   "trial": 5
+  },
+  {
+   "a": {
+    "event_records": 3,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 2,
+    "templateHash": "6BwB+5VLJE",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 3,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 2,
+    "templateHash": "F:@@G{?mBg",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 12709,
+   "line": 63523,
+   "log": "      GetCartAsync called with userId=809a1dba-9f1c-11f0-9b9e-a666c4b68b87",
+   "probe_position": 1941,
+   "trial": 5
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-3MO.r2/Jot",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-SFm4jdWS7b",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 161213,
+   "log": "logger=ngalert.notifier t=2025-10-02T04:36:30.076438873Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-02T04:36:30.0756241Z aggrGroup=\"{}/{__grafana_autogenerat",
+   "probe_position": 3067,
+   "trial": 5
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-t_oVAL_P{",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "F1fD##w*u3",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 1125,
+   "log": "logger=ngalert.notifier t=2025-10-01T20:16:30.011086178Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-01T20:16:30.009704785Z aggrGroup=\"{}/{__grafana_autogener",
+   "probe_position": 7453,
+   "trial": 5
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-t_oVAL_P{",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "F1fD##w*u3",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 17031,
+   "log": "logger=ngalert.notifier t=2025-10-01T20:41:30.014370683Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-01T20:41:30.013225277Z aggrGroup=\"{}/{__grafana_autogener",
+   "probe_position": 7567,
+   "trial": 5
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-t_oVAL_P{",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "F1fD##w*u3",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 182260,
+   "log": "logger=ngalert.notifier t=2025-10-02T05:46:30.090577561Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-02T05:46:30.089232523Z aggrGroup=\"{}/{__grafana_autogener",
+   "probe_position": 7916,
+   "trial": 5
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-t_oVAL_P{",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "F1fD##w*u3",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 24517,
+   "log": "logger=ngalert.notifier t=2025-10-01T21:06:30.016844932Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-01T21:06:30.015818719Z aggrGroup=\"{}/{__grafana_autogener",
+   "probe_position": 9712,
+   "trial": 5
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-3MO.r2/Jot",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "<<r!rLKd]n",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 177717,
+   "log": "logger=ngalert.notifier t=2025-10-02T05:31:30.085315713Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-02T05:31:30.08444607Z aggrGroup=\"{}/{__grafana_autogenera",
+   "probe_position": 11075,
+   "trial": 5
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-t_oVAL_P{",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "F1fD##w*u3",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 76124,
+   "log": "logger=ngalert.notifier t=2025-10-01T23:56:30.039559538Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-01T23:56:30.038871498Z aggrGroup=\"{}/{__grafana_autogener",
+   "probe_position": 12512,
+   "trial": 5
+  },
+  {
+   "a": {
+    "event_records": 2,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-Q$ZQOiS+o7",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 2,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-NjJ9xt0]@y",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 193077,
+   "log": "logger=ngalert.notifier t=2025-10-02T06:21:30.095646963Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-02T06:21:30.094627469Z aggrGroup=\"{}/{__grafana_autogener",
+   "probe_position": 13985,
+   "trial": 5
+  },
+  {
+   "a": {
+    "event_records": 2,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 1,
+    "templateHash": "-Q$ZQOiS+o7",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 2,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 1,
+    "templateHash": "-NjJ9xt0]@y",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 12709,
+   "line": 189478,
+   "log": "      GetCartAsync called with userId=6486406a-9f56-11f0-9b9e-a666c4b68b87",
+   "probe_position": 13986,
+   "trial": 5
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-3MO.r2/Jot",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "<<r!rLKd]n",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 107921,
+   "log": "logger=ngalert.notifier t=2025-10-02T01:41:30.055312032Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-02T01:41:30.05430403Z aggrGroup=\"{}/{__grafana_autogenera",
+   "probe_position": 15563,
+   "trial": 5
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-t_oVAL_P{",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "F1fD##w*u3",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 132369,
+   "log": "logger=ngalert.notifier t=2025-10-02T03:01:30.063841429Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-02T03:01:30.062897809Z aggrGroup=\"{}/{__grafana_autogener",
+   "probe_position": 15724,
+   "trial": 5
+  },
+  {
+   "a": {
+    "event_records": 2,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "RiwSTCzJBS",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 2,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "1+y[7woQV",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 126274,
+   "log": "logger=ngalert.notifier t=2025-10-02T02:41:30.061833737Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-02T02:41:30.060870992Z aggrGroup=\"{}/{__grafana_autogener",
+   "probe_position": 17041,
+   "trial": 5
+  },
+  {
+   "a": {
+    "event_records": 2,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 1,
+    "templateHash": "RiwSTCzJBS",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 2,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 1,
+    "templateHash": "1+y[7woQV",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 2324,
+   "line": 175931,
+   "log": "}",
+   "probe_position": 17042,
+   "trial": 5
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-t_oVAL_P{",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "F1fD##w*u3",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 111174,
+   "log": "logger=ngalert.notifier t=2025-10-02T01:51:30.056393292Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-02T01:51:30.055335831Z aggrGroup=\"{}/{__grafana_autogener",
+   "probe_position": 18687,
+   "trial": 5
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-t_oVAL_P{",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "F1fD##w*u3",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 50195,
+   "log": "logger=ngalert.notifier t=2025-10-01T22:31:30.030652999Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-01T22:31:30.029628176Z aggrGroup=\"{}/{__grafana_autogener",
+   "probe_position": 22741,
+   "trial": 5
+  },
+  {
+   "a": {
+    "event_records": 2,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "8]qrseq]Fs",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 2,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-1Mds y!Lvs",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 100257,
+   "log": "logger=ngalert.notifier t=2025-10-02T01:16:30.050818045Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-02T01:16:30.049678492Z aggrGroup=\"{}/{__grafana_autogener",
+   "probe_position": 28622,
+   "trial": 5
+  },
+  {
+   "a": {
+    "event_records": 2,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 1,
+    "templateHash": "8]qrseq]Fs",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 2,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 1,
+    "templateHash": "-1Mds y!Lvs",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 2312,
+   "line": 12830,
+   "log": "  details: 'shipping quote failure: failed POST to shipping service: Post \"shipping:8080/get-quote\": unsupported protocol scheme \"shipping\"',",
+   "probe_position": 28623,
+   "trial": 5
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-t_oVAL_P{",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "F1fD##w*u3",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 158076,
+   "log": "logger=ngalert.notifier t=2025-10-02T04:26:30.075824514Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-02T04:26:30.075001337Z aggrGroup=\"{}/{__grafana_autogener",
+   "probe_position": 28953,
+   "trial": 5
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-t_oVAL_P{",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "F1fD##w*u3",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 86593,
+   "log": "logger=ngalert.notifier t=2025-10-02T00:31:30.044684866Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-02T00:31:30.043352099Z aggrGroup=\"{}/{__grafana_autogener",
+   "probe_position": 29261,
+   "trial": 5
+  },
+  {
+   "a": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "-3MO.r2/Jot",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "b": {
+    "event_records": 1,
+    "pattern": "notify_retry_canceled_due_unrecoverable_error_after_attempts_SMTP_not_configured_check_your_grafana_ini_config_file_s_section",
+    "position_in_event": 0,
+    "templateHash": "<<r!rLKd]n",
+    "tenx_hash": "udYJnEDiCao"
+   },
+   "drain3_frequency": 126,
+   "line": 139959,
+   "log": "logger=ngalert.notifier t=2025-10-02T03:26:30.066931496Z level=error component=alertmanager orgID=1 component=dispatcher pipeline_time=2025-10-02T03:26:30.06556344Z aggrGroup=\"{}/{__grafana_autogenera",
+   "probe_position": 29300,
+   "trial": 5
+  },
+  {
+   "a": {
+    "event_records": 5,
+    "pattern": "Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile",
+    "position_in_event": 2,
+    "templateHash": "K;4MOq:[$2",
+    "tenx_hash": "AMFi23Ga9wY"
+   },
+   "b": {
+    "event_records": 4,
+    "pattern": "metrics_data_points_docker_kubernetes",
+    "position_in_event": 1,
+    "templateHash": "&#89?:S@BW",
+    "tenx_hash": "C-EIuCUqJiI"
+   },
+   "drain3_frequency": 12709,
+   "line": 28622,
+   "log": "      GetCartAsync called with userId=",
+   "probe_position": 0,
+   "trial": 9
+  },
+  {
+   "a": {
+    "event_records": 5,
+    "pattern": "Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile",
+    "position_in_event": 3,
+    "templateHash": "K;4MOq:[$2",
+    "tenx_hash": "AMFi23Ga9wY"
+   },
+   "b": {
+    "event_records": 4,
+    "pattern": "metrics_data_points_docker_kubernetes",
+    "position_in_event": 2,
+    "templateHash": "&#89?:S@BW",
+    "tenx_hash": "C-EIuCUqJiI"
+   },
+   "drain3_frequency": 12709,
+   "line": 151653,
+   "log": "      GetCartAsync called with userId=e1a51f7e-9f44-11f0-9b9e-a666c4b68b87",
+   "probe_position": 1,
+   "trial": 9
+  },
+  {
+   "a": {
+    "event_records": 5,
+    "pattern": "Deleted_producer_state_snapshot_tmp_kafka_logs_cluster_org_apache_storage_internals_log_SnapshotFile",
+    "position_in_event": 4,
+    "templateHash": "K;4MOq:[$2",
+    "tenx_hash": "AMFi23Ga9wY"
+   },
+   "b": {
+    "event_records": 4,
+    "pattern": "metrics_data_points_docker_kubernetes",
+    "position_in_event": 3,
+    "templateHash": "&#89?:S@BW",
+    "tenx_hash": "C-EIuCUqJiI"
+   },
+   "drain3_frequency": 2324,
+   "line": 28114,
+   "log": "}",
+   "probe_position": 2,
+   "trial": 9
+  }
+ ],
+ "drain3_reference": {
+  "clusters": 1481,
+  "distinct_shapes": 1481,
+  "singleton_shapes": 921,
+  "unmatched_probes": 0
+ },
+ "drain3_rerun_matches_identity_raw": true,
+ "engine_reference": {
+  "distinct_pattern_hashes": 2687,
+  "distinct_template_hashes": 3028,
+  "events": 157228,
+  "records": 197430,
+  "single_record_events": 133173
+ },
+ "falsifier": [
+  {
+   "pattern_hash_agreement": 1.0,
+   "stratum": "seen once",
+   "triggered": false
+  },
+  {
+   "pattern_hash_agreement": 1.0,
+   "stratum": "2 to 10",
+   "triggered": false
+  },
+  {
+   "pattern_hash_agreement": 1.0,
+   "stratum": "11 to 100",
+   "triggered": false
+  },
+  {
+   "pattern_hash_agreement": 1.0,
+   "stratum": "101 to 1,000",
+   "triggered": false
+  },
+  {
+   "pattern_hash_agreement": 0.9999893677346187,
+   "stratum": "over 1,000",
+   "triggered": false
+  }
+ ],
+ "image": "log10x/pipeline-10x:1.1.142@sha256:22ae67148bd7f6cbdf171c1b8da1c9c6c801290d43488693dfd8527e27138d05",
+ "image_repo_digest": "log10x/pipeline-10x@sha256:22ae67148bd7f6cbdf171c1b8da1c9c6c801290d43488693dfd8527e27138d05",
+ "same_line_in_halves": {
+  "half_records": 98715,
+  "half_single_record_events_mean": 62273.95,
+  "summary": {
+   "101 to 1,000": {
+    "all_hash": 0.00011115227862171174,
+    "all_records_per_trial": 2699,
+    "all_tpl": 0.0,
+    "single_hash": null,
+    "single_records_per_trial": 0,
+    "single_tpl": null
+   },
+   "11 to 100": {
+    "all_hash": 0.014644053475636572,
+    "all_records_per_trial": 1714,
+    "all_tpl": 0.008517959077556486,
+    "single_hash": 1.0,
+    "single_records_per_trial": 33.9,
+    "single_tpl": 1.0
+   },
+   "2 to 10": {
+    "all_hash": 0.2205534238965944,
+    "all_records_per_trial": 118.4,
+    "all_tpl": 0.11719852471095037,
+    "single_hash": 1.0,
+    "single_records_per_trial": 14.7,
+    "single_tpl": 1.0
+   },
+   "all events": {
+    "all_hash": 0.054635014437023253,
+    "all_records_per_trial": 50910.5,
+    "all_tpl": 0.002975823555818195,
+    "single_hash": 1.0,
+    "single_records_per_trial": 17480.6,
+    "single_tpl": 1.0
+   },
+   "over 1,000": {
+    "all_hash": 0.05886264596115336,
+    "all_records_per_trial": 46379.1,
+    "all_tpl": 0.0026520407812296947,
+    "single_hash": 1.0,
+    "single_records_per_trial": 17432,
+    "single_tpl": 1.0
+   },
+   "seen once": {
+    "all_hash": null,
+    "all_records_per_trial": 0,
+    "all_tpl": null,
+    "single_hash": null,
+    "single_records_per_trial": 0,
+    "single_tpl": null
+   }
+  },
+  "trials": [
+   {
+    "101 to 1,000": {
+     "all_hash": 0,
+     "all_n": 2699,
+     "all_tpl": 0
+    },
+    "11 to 100": {
+     "all_hash": 22,
+     "all_n": 1714,
+     "all_tpl": 10,
+     "single_hash": 30,
+     "single_n": 30,
+     "single_tpl": 30
+    },
+    "2 to 10": {
+     "all_hash": 30,
+     "all_n": 116,
+     "all_tpl": 13,
+     "single_hash": 13,
+     "single_n": 13,
+     "single_tpl": 13
+    },
+    "all events": {
+     "all_hash": 2752,
+     "all_n": 50930,
+     "all_tpl": 139,
+     "single_hash": 17492,
+     "single_n": 17492,
+     "single_tpl": 17492
+    },
+    "over 1,000": {
+     "all_hash": 2700,
+     "all_n": 46401,
+     "all_tpl": 116,
+     "single_hash": 17449,
+     "single_n": 17449,
+     "single_tpl": 17449
+    },
+    "seen once": {}
+   },
+   {
+    "101 to 1,000": {
+     "all_hash": 0,
+     "all_n": 2699,
+     "all_tpl": 0
+    },
+    "11 to 100": {
+     "all_hash": 19,
+     "all_n": 1714,
+     "all_tpl": 13,
+     "single_hash": 32,
+     "single_n": 32,
+     "single_tpl": 32
+    },
+    "2 to 10": {
+     "all_hash": 26,
+     "all_n": 106,
+     "all_tpl": 16,
+     "single_hash": 18,
+     "single_n": 18,
+     "single_tpl": 18
+    },
+    "all events": {
+     "all_hash": 2770,
+     "all_n": 50898,
+     "all_tpl": 137,
+     "single_hash": 17548,
+     "single_n": 17548,
+     "single_tpl": 17548
+    },
+    "over 1,000": {
+     "all_hash": 2725,
+     "all_n": 46379,
+     "all_tpl": 108,
+     "single_hash": 17498,
+     "single_n": 17498,
+     "single_tpl": 17498
+    },
+    "seen once": {}
+   },
+   {
+    "101 to 1,000": {
+     "all_hash": 0,
+     "all_n": 2699,
+     "all_tpl": 0
+    },
+    "11 to 100": {
+     "all_hash": 16,
+     "all_n": 1714,
+     "all_tpl": 12,
+     "single_hash": 34,
+     "single_n": 34,
+     "single_tpl": 34
+    },
+    "2 to 10": {
+     "all_hash": 23,
+     "all_n": 124,
+     "all_tpl": 15,
+     "single_hash": 17,
+     "single_n": 17,
+     "single_tpl": 17
+    },
+    "all events": {
+     "all_hash": 2809,
+     "all_n": 50934,
+     "all_tpl": 172,
+     "single_hash": 17513,
+     "single_n": 17513,
+     "single_tpl": 17513
+    },
+    "over 1,000": {
+     "all_hash": 2770,
+     "all_n": 46397,
+     "all_tpl": 145,
+     "single_hash": 17462,
+     "single_n": 17462,
+     "single_tpl": 17462
+    },
+    "seen once": {}
+   },
+   {
+    "101 to 1,000": {
+     "all_hash": 0,
+     "all_n": 2699,
+     "all_tpl": 0
+    },
+    "11 to 100": {
+     "all_hash": 26,
+     "all_n": 1714,
+     "all_tpl": 6,
+     "single_hash": 31,
+     "single_n": 31,
+     "single_tpl": 31
+    },
+    "2 to 10": {
+     "all_hash": 27,
+     "all_n": 111,
+     "all_tpl": 10,
+     "single_hash": 13,
+     "single_n": 13,
+     "single_tpl": 13
+    },
+    "all events": {
+     "all_hash": 2770,
+     "all_n": 50897,
+     "all_tpl": 120,
+     "single_hash": 17543,
+     "single_n": 17543,
+     "single_tpl": 17543
+    },
+    "over 1,000": {
+     "all_hash": 2717,
+     "all_n": 46373,
+     "all_tpl": 104,
+     "single_hash": 17499,
+     "single_n": 17499,
+     "single_tpl": 17499
+    },
+    "seen once": {}
+   },
+   {
+    "101 to 1,000": {
+     "all_hash": 2,
+     "all_n": 2699,
+     "all_tpl": 0
+    },
+    "11 to 100": {
+     "all_hash": 39,
+     "all_n": 1712,
+     "all_tpl": 22,
+     "single_hash": 37,
+     "single_n": 37,
+     "single_tpl": 37
+    },
+    "2 to 10": {
+     "all_hash": 20,
+     "all_n": 121,
+     "all_tpl": 9,
+     "single_hash": 11,
+     "single_n": 11,
+     "single_tpl": 11
+    },
+    "all events": {
+     "all_hash": 2847,
+     "all_n": 50934,
+     "all_tpl": 167,
+     "single_hash": 17479,
+     "single_n": 17479,
+     "single_tpl": 17479
+    },
+    "over 1,000": {
+     "all_hash": 2786,
+     "all_n": 46402,
+     "all_tpl": 136,
+     "single_hash": 17431,
+     "single_n": 17431,
+     "single_tpl": 17431
+    },
+    "seen once": {}
+   },
+   {
+    "101 to 1,000": {
+     "all_hash": 0,
+     "all_n": 2699,
+     "all_tpl": 0
+    },
+    "11 to 100": {
+     "all_hash": 37,
+     "all_n": 1714,
+     "all_tpl": 35,
+     "single_hash": 40,
+     "single_n": 40,
+     "single_tpl": 40
+    },
+    "2 to 10": {
+     "all_hash": 37,
+     "all_n": 126,
+     "all_tpl": 26,
+     "single_hash": 21,
+     "single_n": 21,
+     "single_tpl": 21
+    },
+    "all events": {
+     "all_hash": 2779,
+     "all_n": 50881,
+     "all_tpl": 175,
+     "single_hash": 17445,
+     "single_n": 17445,
+     "single_tpl": 17445
+    },
+    "over 1,000": {
+     "all_hash": 2705,
+     "all_n": 46342,
+     "all_tpl": 114,
+     "single_hash": 17384,
+     "single_n": 17384,
+     "single_tpl": 17384
+    },
+    "seen once": {}
+   },
+   {
+    "101 to 1,000": {
+     "all_hash": 1,
+     "all_n": 2699,
+     "all_tpl": 0
+    },
+    "11 to 100": {
+     "all_hash": 23,
+     "all_n": 1714,
+     "all_tpl": 7,
+     "single_hash": 31,
+     "single_n": 31,
+     "single_tpl": 31
+    },
+    "2 to 10": {
+     "all_hash": 22,
+     "all_n": 124,
+     "all_tpl": 8,
+     "single_hash": 10,
+     "single_n": 10,
+     "single_tpl": 10
+    },
+    "all events": {
+     "all_hash": 2783,
+     "all_n": 50905,
+     "all_tpl": 131,
+     "single_hash": 17418,
+     "single_n": 17418,
+     "single_tpl": 17418
+    },
+    "over 1,000": {
+     "all_hash": 2737,
+     "all_n": 46368,
+     "all_tpl": 116,
+     "single_hash": 17377,
+     "single_n": 17377,
+     "single_tpl": 17377
+    },
+    "seen once": {}
+   },
+   {
+    "101 to 1,000": {
+     "all_hash": 0,
+     "all_n": 2699,
+     "all_tpl": 0
+    },
+    "11 to 100": {
+     "all_hash": 19,
+     "all_n": 1714,
+     "all_tpl": 8,
+     "single_hash": 35,
+     "single_n": 35,
+     "single_tpl": 35
+    },
+    "2 to 10": {
+     "all_hash": 32,
+     "all_n": 126,
+     "all_tpl": 20,
+     "single_hash": 20,
+     "single_n": 20,
+     "single_tpl": 20
+    },
+    "all events": {
+     "all_hash": 2775,
+     "all_n": 50924,
+     "all_tpl": 145,
+     "single_hash": 17480,
+     "single_n": 17480,
+     "single_tpl": 17480
+    },
+    "over 1,000": {
+     "all_hash": 2724,
+     "all_n": 46385,
+     "all_tpl": 117,
+     "single_hash": 17425,
+     "single_n": 17425,
+     "single_tpl": 17425
+    },
+    "seen once": {}
+   },
+   {
+    "101 to 1,000": {
+     "all_hash": 0,
+     "all_n": 2699,
+     "all_tpl": 0
+    },
+    "11 to 100": {
+     "all_hash": 20,
+     "all_n": 1712,
+     "all_tpl": 14,
+     "single_hash": 31,
+     "single_n": 31,
+     "single_tpl": 31
+    },
+    "2 to 10": {
+     "all_hash": 21,
+     "all_n": 110,
+     "all_tpl": 14,
+     "single_hash": 14,
+     "single_n": 14,
+     "single_tpl": 14
+    },
+    "all events": {
+     "all_hash": 2761,
+     "all_n": 50835,
+     "all_tpl": 169,
+     "single_hash": 17499,
+     "single_n": 17499,
+     "single_tpl": 17499
+    },
+    "over 1,000": {
+     "all_hash": 2720,
+     "all_n": 46314,
+     "all_tpl": 141,
+     "single_hash": 17454,
+     "single_n": 17454,
+     "single_tpl": 17454
+    },
+    "seen once": {}
+   },
+   {
+    "101 to 1,000": {
+     "all_hash": 0,
+     "all_n": 2699,
+     "all_tpl": 0
+    },
+    "11 to 100": {
+     "all_hash": 30,
+     "all_n": 1718,
+     "all_tpl": 19,
+     "single_hash": 38,
+     "single_n": 38,
+     "single_tpl": 38
+    },
+    "2 to 10": {
+     "all_hash": 23,
+     "all_n": 120,
+     "all_tpl": 8,
+     "single_hash": 10,
+     "single_n": 10,
+     "single_tpl": 10
+    },
+    "all events": {
+     "all_hash": 2769,
+     "all_n": 50967,
+     "all_tpl": 160,
+     "single_hash": 17389,
+     "single_n": 17389,
+     "single_tpl": 17389
+    },
+    "over 1,000": {
+     "all_hash": 2716,
+     "all_n": 46430,
+     "all_tpl": 133,
+     "single_hash": 17341,
+     "single_n": 17341,
+     "single_tpl": 17341
+    },
+    "seen once": {}
+   }
+  ]
+ },
+ "script": "bench/engine_split.py",
+ "summary": {
+  "drain3/all": {
+   "101 to 1,000": {
+    "drain": 0.978844577724661,
+    "drain_differ_total": 194,
+    "drain_stdev": 0.004531605073116295,
+    "event": 1.0,
+    "event_differ_total": 0,
+    "event_stdev": 0.0,
+    "hash": 1.0,
+    "hash_differ_total": 0,
+    "hash_stdev": 0.0,
+    "name": 1.0,
+    "name_differ_total": 0,
+    "name_stdev": 0.0,
+    "probes_per_trial": 916,
+    "probes_total": 9160,
+    "tpl": 0.9961920911277199,
+    "tpl_differ_total": 35,
+    "tpl_stdev": 0.008160748186472012
+   },
+   "11 to 100": {
+    "drain": 0.9118149756109735,
+    "drain_differ_total": 518,
+    "drain_stdev": 0.01578354531088923,
+    "event": 1.0,
+    "event_differ_total": 0,
+    "event_stdev": 0.0,
+    "hash": 1.0,
+    "hash_differ_total": 0,
+    "hash_stdev": 0.0,
+    "name": 1.0,
+    "name_differ_total": 0,
+    "name_stdev": 0.0,
+    "probes_per_trial": 589.7,
+    "probes_total": 5897,
+    "tpl": 1.0,
+    "tpl_differ_total": 0,
+    "tpl_stdev": 0.0
+   },
+   "2 to 10": {
+    "drain": 0.6022399484712035,
+    "drain_differ_total": 814,
+    "drain_stdev": 0.02430678963457371,
+    "event": 1.0,
+    "event_differ_total": 0,
+    "event_stdev": 0.0,
+    "hash": 1.0,
+    "hash_differ_total": 0,
+    "hash_stdev": 0.0,
+    "name": 1.0,
+    "name_differ_total": 0,
+    "name_stdev": 0.0,
+    "probes_per_trial": 204.9,
+    "probes_total": 2049,
+    "tpl": 1.0,
+    "tpl_differ_total": 0,
+    "tpl_stdev": 0.0
+   },
+   "all events": {
+    "drain": 0.99485,
+    "drain_differ_total": 1545,
+    "drain_stdev": 0.00032020441002199865,
+    "event": 0.99999,
+    "event_differ_total": 3,
+    "event_stdev": 3.162277660168031e-05,
+    "hash": 0.99999,
+    "hash_differ_total": 3,
+    "hash_stdev": 3.162277660168031e-05,
+    "name": 0.99999,
+    "name_differ_total": 3,
+    "name_stdev": 3.162277660168031e-05,
+    "probes_per_trial": 30000,
+    "probes_total": 300000,
+    "tpl": 0.9998433333333333,
+    "tpl_differ_total": 47,
+    "tpl_stdev": 0.00030914058490365726
+   },
+   "over 1,000": {
+    "drain": 1.0,
+    "drain_differ_total": 0,
+    "drain_stdev": 0.0,
+    "event": 0.9999893677346187,
+    "event_differ_total": 3,
+    "event_stdev": 3.362217529238817e-05,
+    "hash": 0.9999893677346187,
+    "hash_differ_total": 3,
+    "hash_stdev": 3.362217529238817e-05,
+    "name": 0.9999893677346187,
+    "name_differ_total": 3,
+    "name_stdev": 3.362217529238817e-05,
+    "probes_per_trial": 28152.6,
+    "probes_total": 281526,
+    "tpl": 0.9999574227206451,
+    "tpl_differ_total": 12,
+    "tpl_stdev": 7.056763405863726e-05
+   },
+   "seen once": {
+    "drain": 0.9858825959055036,
+    "drain_differ_total": 19,
+    "drain_stdev": 0.008546711946076539,
+    "event": 1.0,
+    "event_differ_total": 0,
+    "event_stdev": 0.0,
+    "hash": 1.0,
+    "hash_differ_total": 0,
+    "hash_stdev": 0.0,
+    "name": 1.0,
+    "name_differ_total": 0,
+    "name_stdev": 0.0,
+    "probes_per_trial": 136.8,
+    "probes_total": 1368,
+    "tpl": 1.0,
+    "tpl_differ_total": 0,
+    "tpl_stdev": 0.0
+   }
+  },
+  "drain3/both_halves": {
+   "101 to 1,000": {
+    "drain": 0.978844577724661,
+    "drain_differ_total": 194,
+    "drain_stdev": 0.004531605073116295,
+    "event": 1.0,
+    "event_differ_total": 0,
+    "event_stdev": 0.0,
+    "hash": 1.0,
+    "hash_differ_total": 0,
+    "hash_stdev": 0.0,
+    "name": 1.0,
+    "name_differ_total": 0,
+    "name_stdev": 0.0,
+    "probes_per_trial": 916,
+    "probes_total": 9160,
+    "tpl": 0.9961920911277199,
+    "tpl_differ_total": 35,
+    "tpl_stdev": 0.008160748186472012
+   },
+   "11 to 100": {
+    "drain": 0.9122743701068818,
+    "drain_differ_total": 515,
+    "drain_stdev": 0.016410159415387957,
+    "event": 1.0,
+    "event_differ_total": 0,
+    "event_stdev": 0.0,
+    "hash": 1.0,
+    "hash_differ_total": 0,
+    "hash_stdev": 0.0,
+    "name": 1.0,
+    "name_differ_total": 0,
+    "name_stdev": 0.0,
+    "probes_per_trial": 589.4,
+    "probes_total": 5894,
+    "tpl": 1.0,
+    "tpl_differ_total": 0,
+    "tpl_stdev": 0.0
+   },
+   "2 to 10": {
+    "drain": 0.6554758673017704,
+    "drain_differ_total": 564,
+    "drain_stdev": 0.03871686019791995,
+    "event": 1.0,
+    "event_differ_total": 0,
+    "event_stdev": 0.0,
+    "hash": 1.0,
+    "hash_differ_total": 0,
+    "hash_stdev": 0.0,
+    "name": 1.0,
+    "name_differ_total": 0,
+    "name_stdev": 0.0,
+    "probes_per_trial": 164.3,
+    "probes_total": 1643,
+    "tpl": 1.0,
+    "tpl_differ_total": 0,
+    "tpl_stdev": 0.0
+   },
+   "all events": {
+    "drain": 0.9957313247727393,
+    "drain_differ_total": 1273,
+    "drain_stdev": 0.0003532043440685679,
+    "event": 0.99998994199886,
+    "event_differ_total": 3,
+    "event_stdev": 3.1806192310692016e-05,
+    "hash": 0.99998994199886,
+    "hash_differ_total": 3,
+    "hash_stdev": 3.1806192310692016e-05,
+    "name": 0.99998994199886,
+    "name_differ_total": 3,
+    "name_stdev": 3.1806192310692016e-05,
+    "probes_per_trial": 29822.3,
+    "probes_total": 298223,
+    "tpl": 0.9998424062116359,
+    "tpl_differ_total": 47,
+    "tpl_stdev": 0.0003109692638245047
+   },
+   "over 1,000": {
+    "drain": 1.0,
+    "drain_differ_total": 0,
+    "drain_stdev": 0.0,
+    "event": 0.9999893677346187,
+    "event_differ_total": 3,
+    "event_stdev": 3.362217529238817e-05,
+    "hash": 0.9999893677346187,
+    "hash_differ_total": 3,
+    "hash_stdev": 3.362217529238817e-05,
+    "name": 0.9999893677346187,
+    "name_differ_total": 3,
+    "name_stdev": 3.362217529238817e-05,
+    "probes_per_trial": 28152.6,
+    "probes_total": 281526,
+    "tpl": 0.9999574227206451,
+    "tpl_differ_total": 12,
+    "tpl_stdev": 7.056763405863726e-05
+   },
+   "seen once": {
+    "drain": null,
+    "drain_differ_total": 0,
+    "drain_stdev": 0.0,
+    "event": null,
+    "event_differ_total": 0,
+    "event_stdev": 0.0,
+    "hash": null,
+    "hash_differ_total": 0,
+    "hash_stdev": 0.0,
+    "name": null,
+    "name_differ_total": 0,
+    "name_stdev": 0.0,
+    "probes_per_trial": 0,
+    "probes_total": 0,
+    "tpl": null,
+    "tpl_differ_total": 0,
+    "tpl_stdev": 0.0
+   }
+  },
+  "engine/all": {
+   "101 to 1,000": {
+    "drain": 0.9465464427480381,
+    "drain_differ_total": 171,
+    "drain_stdev": 0.013759948546549055,
+    "event": 1.0,
+    "event_differ_total": 0,
+    "event_stdev": 0.0,
+    "hash": 1.0,
+    "hash_differ_total": 0,
+    "hash_stdev": 0.0,
+    "name": 1.0,
+    "name_differ_total": 0,
+    "name_stdev": 0.0,
+    "probes_per_trial": 319,
+    "probes_total": 3190,
+    "tpl": 0.9895529865125241,
+    "tpl_differ_total": 34,
+    "tpl_stdev": 0.022180115736063873
+   },
+   "11 to 100": {
+    "drain": 0.9021435874845067,
+    "drain_differ_total": 255,
+    "drain_stdev": 0.030930276303669325,
+    "event": 1.0,
+    "event_differ_total": 0,
+    "event_stdev": 0.0,
+    "hash": 1.0,
+    "hash_differ_total": 0,
+    "hash_stdev": 0.0,
+    "name": 1.0,
+    "name_differ_total": 0,
+    "name_stdev": 0.0,
+    "probes_per_trial": 262.4,
+    "probes_total": 2624,
+    "tpl": 1.0,
+    "tpl_differ_total": 0,
+    "tpl_stdev": 0.0
+   },
+   "2 to 10": {
+    "drain": 0.794374241707156,
+    "drain_differ_total": 270,
+    "drain_stdev": 0.02775498055833507,
+    "event": 1.0,
+    "event_differ_total": 0,
+    "event_stdev": 0.0,
+    "hash": 1.0,
+    "hash_differ_total": 0,
+    "hash_stdev": 0.0,
+    "name": 1.0,
+    "name_differ_total": 0,
+    "name_stdev": 0.0,
+    "probes_per_trial": 131.6,
+    "probes_total": 1316,
+    "tpl": 1.0,
+    "tpl_differ_total": 0,
+    "tpl_stdev": 0.0
+   },
+   "all events": {
+    "drain": 0.99485,
+    "drain_differ_total": 1545,
+    "drain_stdev": 0.00032020441002199865,
+    "event": 0.99999,
+    "event_differ_total": 3,
+    "event_stdev": 3.162277660168031e-05,
+    "hash": 0.99999,
+    "hash_differ_total": 3,
+    "hash_stdev": 3.162277660168031e-05,
+    "name": 0.99999,
+    "name_differ_total": 3,
+    "name_stdev": 3.162277660168031e-05,
+    "probes_per_trial": 30000,
+    "probes_total": 300000,
+    "tpl": 0.9998433333333333,
+    "tpl_differ_total": 47,
+    "tpl_stdev": 0.00030914058490365726
+   },
+   "over 1,000": {
+    "drain": 0.9999689011650732,
+    "drain_differ_total": 9,
+    "drain_stdev": 2.5502138092496125e-05,
+    "event": 0.9999896412416698,
+    "event_differ_total": 3,
+    "event_stdev": 3.2757270054562397e-05,
+    "hash": 0.9999896412416698,
+    "hash_differ_total": 3,
+    "hash_stdev": 3.2757270054562397e-05,
+    "name": 0.9999896412416698,
+    "name_differ_total": 3,
+    "name_stdev": 3.2757270054562397e-05,
+    "probes_per_trial": 28948.2,
+    "probes_total": 289482,
+    "tpl": 0.9999551060779193,
+    "tpl_differ_total": 13,
+    "tpl_stdev": 7.469168762343777e-05
+   },
+   "seen once": {
+    "drain": 0.7519326760543872,
+    "drain_differ_total": 840,
+    "drain_stdev": 0.01751666649935731,
+    "event": 1.0,
+    "event_differ_total": 0,
+    "event_stdev": 0.0,
+    "hash": 1.0,
+    "hash_differ_total": 0,
+    "hash_stdev": 0.0,
+    "name": 1.0,
+    "name_differ_total": 0,
+    "name_stdev": 0.0,
+    "probes_per_trial": 338.8,
+    "probes_total": 3388,
+    "tpl": 1.0,
+    "tpl_differ_total": 0,
+    "tpl_stdev": 0.0
+   }
+  },
+  "engine/both_halves": {
+   "101 to 1,000": {
+    "drain": 0.9465464427480381,
+    "drain_differ_total": 171,
+    "drain_stdev": 0.013759948546549055,
+    "event": 1.0,
+    "event_differ_total": 0,
+    "event_stdev": 0.0,
+    "hash": 1.0,
+    "hash_differ_total": 0,
+    "hash_stdev": 0.0,
+    "name": 1.0,
+    "name_differ_total": 0,
+    "name_stdev": 0.0,
+    "probes_per_trial": 319,
+    "probes_total": 3190,
+    "tpl": 0.9895529865125241,
+    "tpl_differ_total": 34,
+    "tpl_stdev": 0.022180115736063873
+   },
+   "11 to 100": {
+    "drain": 0.9021435874845067,
+    "drain_differ_total": 255,
+    "drain_stdev": 0.030930276303669325,
+    "event": 1.0,
+    "event_differ_total": 0,
+    "event_stdev": 0.0,
+    "hash": 1.0,
+    "hash_differ_total": 0,
+    "hash_stdev": 0.0,
+    "name": 1.0,
+    "name_differ_total": 0,
+    "name_stdev": 0.0,
+    "probes_per_trial": 262.4,
+    "probes_total": 2624,
+    "tpl": 1.0,
+    "tpl_differ_total": 0,
+    "tpl_stdev": 0.0
+   },
+   "2 to 10": {
+    "drain": 0.8126345056361305,
+    "drain_differ_total": 174,
+    "drain_stdev": 0.045002309096319026,
+    "event": 1.0,
+    "event_differ_total": 0,
+    "event_stdev": 0.0,
+    "hash": 1.0,
+    "hash_differ_total": 0,
+    "hash_stdev": 0.0,
+    "name": 1.0,
+    "name_differ_total": 0,
+    "name_stdev": 0.0,
+    "probes_per_trial": 93.4,
+    "probes_total": 934,
+    "tpl": 1.0,
+    "tpl_differ_total": 0,
+    "tpl_stdev": 0.0
+   },
+   "all events": {
+    "drain": 0.9979441661409325,
+    "drain_differ_total": 609,
+    "drain_stdev": 0.000317281873735093,
+    "event": 0.9999898720502346,
+    "event_differ_total": 3,
+    "event_stdev": 3.202738928633893e-05,
+    "hash": 0.9999898720502346,
+    "hash_differ_total": 3,
+    "hash_stdev": 3.202738928633893e-05,
+    "name": 0.9999898720502346,
+    "name_differ_total": 3,
+    "name_stdev": 3.202738928633893e-05,
+    "probes_per_trial": 29623,
+    "probes_total": 296230,
+    "tpl": 0.999841383693375,
+    "tpl_differ_total": 47,
+    "tpl_stdev": 0.00031296717514172544
+   },
+   "over 1,000": {
+    "drain": 0.9999689011650732,
+    "drain_differ_total": 9,
+    "drain_stdev": 2.5502138092496125e-05,
+    "event": 0.9999896412416698,
+    "event_differ_total": 3,
+    "event_stdev": 3.2757270054562397e-05,
+    "hash": 0.9999896412416698,
+    "hash_differ_total": 3,
+    "hash_stdev": 3.2757270054562397e-05,
+    "name": 0.9999896412416698,
+    "name_differ_total": 3,
+    "name_stdev": 3.2757270054562397e-05,
+    "probes_per_trial": 28948.2,
+    "probes_total": 289482,
+    "tpl": 0.9999551060779193,
+    "tpl_differ_total": 13,
+    "tpl_stdev": 7.469168762343777e-05
+   },
+   "seen once": {
+    "drain": null,
+    "drain_differ_total": 0,
+    "drain_stdev": 0.0,
+    "event": null,
+    "event_differ_total": 0,
+    "event_stdev": 0.0,
+    "hash": null,
+    "hash_differ_total": 0,
+    "hash_stdev": 0.0,
+    "name": null,
+    "name_differ_total": 0,
+    "name_stdev": 0.0,
+    "probes_per_trial": 0,
+    "probes_total": 0,
+    "tpl": null,
+    "tpl_differ_total": 0,
+    "tpl_stdev": 0.0
+   }
+  }
+ },
+ "trials": [
+  {
+   "drain3": {
+    "101 to 1,000": {
+     "all_drain": 923,
+     "all_event": 944,
+     "all_hash": 944,
+     "all_n": 944,
+     "all_name": 944,
+     "all_tpl": 944,
+     "both_halves_drain": 923,
+     "both_halves_event": 944,
+     "both_halves_hash": 944,
+     "both_halves_n": 944,
+     "both_halves_name": 944,
+     "both_halves_tpl": 944
+    },
+    "11 to 100": {
+     "all_drain": 567,
+     "all_event": 610,
+     "all_hash": 610,
+     "all_n": 610,
+     "all_name": 610,
+     "all_tpl": 610,
+     "both_halves_drain": 567,
+     "both_halves_event": 607,
+     "both_halves_hash": 607,
+     "both_halves_n": 607,
+     "both_halves_name": 607,
+     "both_halves_tpl": 607
+    },
+    "2 to 10": {
+     "all_drain": 133,
+     "all_event": 216,
+     "all_hash": 216,
+     "all_n": 216,
+     "all_name": 216,
+     "all_tpl": 216,
+     "both_halves_drain": 123,
+     "both_halves_event": 177,
+     "both_halves_hash": 177,
+     "both_halves_n": 177,
+     "both_halves_name": 177,
+     "both_halves_tpl": 177
+    },
+    "all events": {
+     "all_drain": 29850,
+     "all_event": 30000,
+     "all_hash": 30000,
+     "all_n": 30000,
+     "all_name": 30000,
+     "all_tpl": 30000,
+     "both_halves_drain": 29723,
+     "both_halves_event": 29838,
+     "both_halves_hash": 29838,
+     "both_halves_n": 29838,
+     "both_halves_name": 29838,
+     "both_halves_tpl": 29838
+    },
+    "over 1,000": {
+     "all_drain": 28110,
+     "all_event": 28110,
+     "all_hash": 28110,
+     "all_n": 28110,
+     "all_name": 28110,
+     "all_tpl": 28110,
+     "both_halves_drain": 28110,
+     "both_halves_event": 28110,
+     "both_halves_hash": 28110,
+     "both_halves_n": 28110,
+     "both_halves_name": 28110,
+     "both_halves_tpl": 28110
+    },
+    "seen once": {
+     "all_drain": 117,
+     "all_event": 120,
+     "all_hash": 120,
+     "all_n": 120,
+     "all_name": 120,
+     "all_tpl": 120
+    }
+   },
+   "engine": {
+    "101 to 1,000": {
+     "all_drain": 298,
+     "all_event": 317,
+     "all_hash": 317,
+     "all_n": 317,
+     "all_name": 317,
+     "all_tpl": 317,
+     "both_halves_drain": 298,
+     "both_halves_event": 317,
+     "both_halves_hash": 317,
+     "both_halves_n": 317,
+     "both_halves_name": 317,
+     "both_halves_tpl": 317
+    },
+    "11 to 100": {
+     "all_drain": 255,
+     "all_event": 280,
+     "all_hash": 280,
+     "all_n": 280,
+     "all_name": 280,
+     "all_tpl": 280,
+     "both_halves_drain": 255,
+     "both_halves_event": 280,
+     "both_halves_hash": 280,
+     "both_halves_n": 280,
+     "both_halves_name": 280,
+     "both_halves_tpl": 280
+    },
+    "2 to 10": {
+     "all_drain": 113,
+     "all_event": 143,
+     "all_hash": 143,
+     "all_n": 143,
+     "all_name": 143,
+     "all_tpl": 143,
+     "both_halves_drain": 85,
+     "both_halves_event": 103,
+     "both_halves_hash": 103,
+     "both_halves_n": 103,
+     "both_halves_name": 103,
+     "both_halves_tpl": 103
+    },
+    "all events": {
+     "all_drain": 29850,
+     "all_event": 30000,
+     "all_hash": 30000,
+     "all_n": 30000,
+     "all_name": 30000,
+     "all_tpl": 30000,
+     "both_halves_drain": 29578,
+     "both_halves_event": 29641,
+     "both_halves_hash": 29641,
+     "both_halves_n": 29641,
+     "both_halves_name": 29641,
+     "both_halves_tpl": 29641
+    },
+    "over 1,000": {
+     "all_drain": 28940,
+     "all_event": 28941,
+     "all_hash": 28941,
+     "all_n": 28941,
+     "all_name": 28941,
+     "all_tpl": 28941,
+     "both_halves_drain": 28940,
+     "both_halves_event": 28941,
+     "both_halves_hash": 28941,
+     "both_halves_n": 28941,
+     "both_halves_name": 28941,
+     "both_halves_tpl": 28941
+    },
+    "seen once": {
+     "all_drain": 244,
+     "all_event": 319,
+     "all_hash": 319,
+     "all_n": 319,
+     "all_name": 319,
+     "all_tpl": 319
+    }
+   }
+  },
+  {
+   "drain3": {
+    "101 to 1,000": {
+     "all_drain": 863,
+     "all_event": 879,
+     "all_hash": 879,
+     "all_n": 879,
+     "all_name": 879,
+     "all_tpl": 865,
+     "both_halves_drain": 863,
+     "both_halves_event": 879,
+     "both_halves_hash": 879,
+     "both_halves_n": 879,
+     "both_halves_name": 879,
+     "both_halves_tpl": 865
+    },
+    "11 to 100": {
+     "all_drain": 510,
+     "all_event": 576,
+     "all_hash": 576,
+     "all_n": 576,
+     "all_name": 576,
+     "all_tpl": 576,
+     "both_halves_drain": 510,
+     "both_halves_event": 576,
+     "both_halves_hash": 576,
+     "both_halves_n": 576,
+     "both_halves_name": 576,
+     "both_halves_tpl": 576
+    },
+    "2 to 10": {
+     "all_drain": 133,
+     "all_event": 217,
+     "all_hash": 217,
+     "all_n": 217,
+     "all_name": 217,
+     "all_tpl": 217,
+     "both_halves_drain": 111,
+     "both_halves_event": 165,
+     "both_halves_hash": 165,
+     "both_halves_n": 165,
+     "both_halves_name": 165,
+     "both_halves_tpl": 165
+    },
+    "all events": {
+     "all_drain": 29831,
+     "all_event": 30000,
+     "all_hash": 30000,
+     "all_n": 30000,
+     "all_name": 30000,
+     "all_tpl": 29981,
+     "both_halves_drain": 29685,
+     "both_halves_event": 29821,
+     "both_halves_hash": 29821,
+     "both_halves_n": 29821,
+     "both_halves_name": 29821,
+     "both_halves_tpl": 29802
+    },
+    "over 1,000": {
+     "all_drain": 28201,
+     "all_event": 28201,
+     "all_hash": 28201,
+     "all_n": 28201,
+     "all_name": 28201,
+     "all_tpl": 28196,
+     "both_halves_drain": 28201,
+     "both_halves_event": 28201,
+     "both_halves_hash": 28201,
+     "both_halves_n": 28201,
+     "both_halves_name": 28201,
+     "both_halves_tpl": 28196
+    },
+    "seen once": {
+     "all_drain": 124,
+     "all_event": 127,
+     "all_hash": 127,
+     "all_n": 127,
+     "all_name": 127,
+     "all_tpl": 127
+    }
+   },
+   "engine": {
+    "101 to 1,000": {
+     "all_drain": 285,
+     "all_event": 300,
+     "all_hash": 300,
+     "all_n": 300,
+     "all_name": 300,
+     "all_tpl": 286,
+     "both_halves_drain": 285,
+     "both_halves_event": 300,
+     "both_halves_hash": 300,
+     "both_halves_n": 300,
+     "both_halves_name": 300,
+     "both_halves_tpl": 286
+    },
+    "11 to 100": {
+     "all_drain": 225,
+     "all_event": 265,
+     "all_hash": 265,
+     "all_n": 265,
+     "all_name": 265,
+     "all_tpl": 265,
+     "both_halves_drain": 225,
+     "both_halves_event": 265,
+     "both_halves_hash": 265,
+     "both_halves_n": 265,
+     "both_halves_name": 265,
+     "both_halves_tpl": 265
+    },
+    "2 to 10": {
+     "all_drain": 105,
+     "all_event": 136,
+     "all_hash": 136,
+     "all_n": 136,
+     "all_name": 136,
+     "all_tpl": 136,
+     "both_halves_drain": 71,
+     "both_halves_event": 90,
+     "both_halves_hash": 90,
+     "both_halves_n": 90,
+     "both_halves_name": 90,
+     "both_halves_tpl": 90
+    },
+    "all events": {
+     "all_drain": 29831,
+     "all_event": 30000,
+     "all_hash": 30000,
+     "all_n": 30000,
+     "all_name": 30000,
+     "all_tpl": 29981,
+     "both_halves_drain": 29550,
+     "both_halves_event": 29624,
+     "both_halves_hash": 29624,
+     "both_halves_n": 29624,
+     "both_halves_name": 29624,
+     "both_halves_tpl": 29605
+    },
+    "over 1,000": {
+     "all_drain": 28969,
+     "all_event": 28969,
+     "all_hash": 28969,
+     "all_n": 28969,
+     "all_name": 28969,
+     "all_tpl": 28964,
+     "both_halves_drain": 28969,
+     "both_halves_event": 28969,
+     "both_halves_hash": 28969,
+     "both_halves_n": 28969,
+     "both_halves_name": 28969,
+     "both_halves_tpl": 28964
+    },
+    "seen once": {
+     "all_drain": 247,
+     "all_event": 330,
+     "all_hash": 330,
+     "all_n": 330,
+     "all_name": 330,
+     "all_tpl": 330
+    }
+   }
+  },
+  {
+   "drain3": {
+    "101 to 1,000": {
+     "all_drain": 887,
+     "all_event": 897,
+     "all_hash": 897,
+     "all_n": 897,
+     "all_name": 897,
+     "all_tpl": 897,
+     "both_halves_drain": 887,
+     "both_halves_event": 897,
+     "both_halves_hash": 897,
+     "both_halves_n": 897,
+     "both_halves_name": 897,
+     "both_halves_tpl": 897
+    },
+    "11 to 100": {
+     "all_drain": 570,
+     "all_event": 616,
+     "all_hash": 616,
+     "all_n": 616,
+     "all_name": 616,
+     "all_tpl": 616,
+     "both_halves_drain": 570,
+     "both_halves_event": 616,
+     "both_halves_hash": 616,
+     "both_halves_n": 616,
+     "both_halves_name": 616,
+     "both_halves_tpl": 616
+    },
+    "2 to 10": {
+     "all_drain": 122,
+     "all_event": 200,
+     "all_hash": 200,
+     "all_n": 200,
+     "all_name": 200,
+     "all_tpl": 200,
+     "both_halves_drain": 104,
+     "both_halves_event": 158,
+     "both_halves_hash": 158,
+     "both_halves_n": 158,
+     "both_halves_name": 158,
+     "both_halves_tpl": 158
+    },
+    "all events": {
+     "all_drain": 29865,
+     "all_event": 30000,
+     "all_hash": 30000,
+     "all_n": 30000,
+     "all_name": 30000,
+     "all_tpl": 30000,
+     "both_halves_drain": 29714,
+     "both_halves_event": 29824,
+     "both_halves_hash": 29824,
+     "both_halves_n": 29824,
+     "both_halves_name": 29824,
+     "both_halves_tpl": 29824
+    },
+    "over 1,000": {
+     "all_drain": 28153,
+     "all_event": 28153,
+     "all_hash": 28153,
+     "all_n": 28153,
+     "all_name": 28153,
+     "all_tpl": 28153,
+     "both_halves_drain": 28153,
+     "both_halves_event": 28153,
+     "both_halves_hash": 28153,
+     "both_halves_n": 28153,
+     "both_halves_name": 28153,
+     "both_halves_tpl": 28153
+    },
+    "seen once": {
+     "all_drain": 133,
+     "all_event": 134,
+     "all_hash": 134,
+     "all_n": 134,
+     "all_name": 134,
+     "all_tpl": 134
+    }
+   },
+   "engine": {
+    "101 to 1,000": {
+     "all_drain": 306,
+     "all_event": 312,
+     "all_hash": 312,
+     "all_n": 312,
+     "all_name": 312,
+     "all_tpl": 312,
+     "both_halves_drain": 306,
+     "both_halves_event": 312,
+     "both_halves_hash": 312,
+     "both_halves_n": 312,
+     "both_halves_name": 312,
+     "both_halves_tpl": 312
+    },
+    "11 to 100": {
+     "all_drain": 241,
+     "all_event": 262,
+     "all_hash": 262,
+     "all_n": 262,
+     "all_name": 262,
+     "all_tpl": 262,
+     "both_halves_drain": 241,
+     "both_halves_event": 262,
+     "both_halves_hash": 262,
+     "both_halves_n": 262,
+     "both_halves_name": 262,
+     "both_halves_tpl": 262
+    },
+    "2 to 10": {
+     "all_drain": 99,
+     "all_event": 125,
+     "all_hash": 125,
+     "all_n": 125,
+     "all_name": 125,
+     "all_tpl": 125,
+     "both_halves_drain": 69,
+     "both_halves_event": 85,
+     "both_halves_hash": 85,
+     "both_halves_n": 85,
+     "both_halves_name": 85,
+     "both_halves_tpl": 85
+    },
+    "all events": {
+     "all_drain": 29865,
+     "all_event": 30000,
+     "all_hash": 30000,
+     "all_n": 30000,
+     "all_name": 30000,
+     "all_tpl": 30000,
+     "both_halves_drain": 29572,
+     "both_halves_event": 29615,
+     "both_halves_hash": 29615,
+     "both_halves_n": 29615,
+     "both_halves_name": 29615,
+     "both_halves_tpl": 29615
+    },
+    "over 1,000": {
+     "all_drain": 28956,
+     "all_event": 28956,
+     "all_hash": 28956,
+     "all_n": 28956,
+     "all_name": 28956,
+     "all_tpl": 28956,
+     "both_halves_drain": 28956,
+     "both_halves_event": 28956,
+     "both_halves_hash": 28956,
+     "both_halves_n": 28956,
+     "both_halves_name": 28956,
+     "both_halves_tpl": 28956
+    },
+    "seen once": {
+     "all_drain": 263,
+     "all_event": 345,
+     "all_hash": 345,
+     "all_n": 345,
+     "all_name": 345,
+     "all_tpl": 345
+    }
+   }
+  },
+  {
+   "drain3": {
+    "101 to 1,000": {
+     "all_drain": 887,
+     "all_event": 911,
+     "all_hash": 911,
+     "all_n": 911,
+     "all_name": 911,
+     "all_tpl": 911,
+     "both_halves_drain": 887,
+     "both_halves_event": 911,
+     "both_halves_hash": 911,
+     "both_halves_n": 911,
+     "both_halves_name": 911,
+     "both_halves_tpl": 911
+    },
+    "11 to 100": {
+     "all_drain": 510,
+     "all_event": 561,
+     "all_hash": 561,
+     "all_n": 561,
+     "all_name": 561,
+     "all_tpl": 561,
+     "both_halves_drain": 510,
+     "both_halves_event": 561,
+     "both_halves_hash": 561,
+     "both_halves_n": 561,
+     "both_halves_name": 561,
+     "both_halves_tpl": 561
+    },
+    "2 to 10": {
+     "all_drain": 133,
+     "all_event": 214,
+     "all_hash": 214,
+     "all_n": 214,
+     "all_name": 214,
+     "all_tpl": 214,
+     "both_halves_drain": 117,
+     "both_halves_event": 174,
+     "both_halves_hash": 174,
+     "both_halves_n": 174,
+     "both_halves_name": 174,
+     "both_halves_tpl": 174
+    },
+    "all events": {
+     "all_drain": 29842,
+     "all_event": 30000,
+     "all_hash": 30000,
+     "all_n": 30000,
+     "all_name": 30000,
+     "all_tpl": 30000,
+     "both_halves_drain": 29692,
+     "both_halves_event": 29824,
+     "both_halves_hash": 29824,
+     "both_halves_n": 29824,
+     "both_halves_name": 29824,
+     "both_halves_tpl": 29824
+    },
+    "over 1,000": {
+     "all_drain": 28178,
+     "all_event": 28178,
+     "all_hash": 28178,
+     "all_n": 28178,
+     "all_name": 28178,
+     "all_tpl": 28178,
+     "both_halves_drain": 28178,
+     "both_halves_event": 28178,
+     "both_halves_hash": 28178,
+     "both_halves_n": 28178,
+     "both_halves_name": 28178,
+     "both_halves_tpl": 28178
+    },
+    "seen once": {
+     "all_drain": 134,
+     "all_event": 136,
+     "all_hash": 136,
+     "all_n": 136,
+     "all_name": 136,
+     "all_tpl": 136
+    }
+   },
+   "engine": {
+    "101 to 1,000": {
+     "all_drain": 309,
+     "all_event": 331,
+     "all_hash": 331,
+     "all_n": 331,
+     "all_name": 331,
+     "all_tpl": 331,
+     "both_halves_drain": 309,
+     "both_halves_event": 331,
+     "both_halves_hash": 331,
+     "both_halves_n": 331,
+     "both_halves_name": 331,
+     "both_halves_tpl": 331
+    },
+    "11 to 100": {
+     "all_drain": 211,
+     "all_event": 242,
+     "all_hash": 242,
+     "all_n": 242,
+     "all_name": 242,
+     "all_tpl": 242,
+     "both_halves_drain": 211,
+     "both_halves_event": 242,
+     "both_halves_hash": 242,
+     "both_halves_n": 242,
+     "both_halves_name": 242,
+     "both_halves_tpl": 242
+    },
+    "2 to 10": {
+     "all_drain": 123,
+     "all_event": 147,
+     "all_hash": 147,
+     "all_n": 147,
+     "all_name": 147,
+     "all_tpl": 147,
+     "both_halves_drain": 91,
+     "both_halves_event": 103,
+     "both_halves_hash": 103,
+     "both_halves_n": 103,
+     "both_halves_name": 103,
+     "both_halves_tpl": 103
+    },
+    "all events": {
+     "all_drain": 29842,
+     "all_event": 30000,
+     "all_hash": 30000,
+     "all_n": 30000,
+     "all_name": 30000,
+     "all_tpl": 30000,
+     "both_halves_drain": 29571,
+     "both_halves_event": 29637,
+     "both_halves_hash": 29637,
+     "both_halves_n": 29637,
+     "both_halves_name": 29637,
+     "both_halves_tpl": 29637
+    },
+    "over 1,000": {
+     "all_drain": 28960,
+     "all_event": 28961,
+     "all_hash": 28961,
+     "all_n": 28961,
+     "all_name": 28961,
+     "all_tpl": 28961,
+     "both_halves_drain": 28960,
+     "both_halves_event": 28961,
+     "both_halves_hash": 28961,
+     "both_halves_n": 28961,
+     "both_halves_name": 28961,
+     "both_halves_tpl": 28961
+    },
+    "seen once": {
+     "all_drain": 239,
+     "all_event": 319,
+     "all_hash": 319,
+     "all_n": 319,
+     "all_name": 319,
+     "all_tpl": 319
+    }
+   }
+  },
+  {
+   "drain3": {
+    "101 to 1,000": {
+     "all_drain": 879,
+     "all_event": 896,
+     "all_hash": 896,
+     "all_n": 896,
+     "all_name": 896,
+     "all_tpl": 896,
+     "both_halves_drain": 879,
+     "both_halves_event": 896,
+     "both_halves_hash": 896,
+     "both_halves_n": 896,
+     "both_halves_name": 896,
+     "both_halves_tpl": 896
+    },
+    "11 to 100": {
+     "all_drain": 552,
+     "all_event": 601,
+     "all_hash": 601,
+     "all_n": 601,
+     "all_name": 601,
+     "all_tpl": 601,
+     "both_halves_drain": 552,
+     "both_halves_event": 601,
+     "both_halves_hash": 601,
+     "both_halves_n": 601,
+     "both_halves_name": 601,
+     "both_halves_tpl": 601
+    },
+    "2 to 10": {
+     "all_drain": 130,
+     "all_event": 215,
+     "all_hash": 215,
+     "all_n": 215,
+     "all_name": 215,
+     "all_tpl": 215,
+     "both_halves_drain": 120,
+     "both_halves_event": 174,
+     "both_halves_hash": 174,
+     "both_halves_n": 174,
+     "both_halves_name": 174,
+     "both_halves_tpl": 174
+    },
+    "all events": {
+     "all_drain": 29846,
+     "all_event": 30000,
+     "all_hash": 30000,
+     "all_n": 30000,
+     "all_name": 30000,
+     "all_tpl": 30000,
+     "both_halves_drain": 29698,
+     "both_halves_event": 29818,
+     "both_halves_hash": 29818,
+     "both_halves_n": 29818,
+     "both_halves_name": 29818,
+     "both_halves_tpl": 29818
+    },
+    "over 1,000": {
+     "all_drain": 28147,
+     "all_event": 28147,
+     "all_hash": 28147,
+     "all_n": 28147,
+     "all_name": 28147,
+     "all_tpl": 28147,
+     "both_halves_drain": 28147,
+     "both_halves_event": 28147,
+     "both_halves_hash": 28147,
+     "both_halves_n": 28147,
+     "both_halves_name": 28147,
+     "both_halves_tpl": 28147
+    },
+    "seen once": {
+     "all_drain": 138,
+     "all_event": 141,
+     "all_hash": 141,
+     "all_n": 141,
+     "all_name": 141,
+     "all_tpl": 141
+    }
+   },
+   "engine": {
+    "101 to 1,000": {
+     "all_drain": 290,
+     "all_event": 305,
+     "all_hash": 305,
+     "all_n": 305,
+     "all_name": 305,
+     "all_tpl": 305,
+     "both_halves_drain": 290,
+     "both_halves_event": 305,
+     "both_halves_hash": 305,
+     "both_halves_n": 305,
+     "both_halves_name": 305,
+     "both_halves_tpl": 305
+    },
+    "11 to 100": {
+     "all_drain": 248,
+     "all_event": 263,
+     "all_hash": 263,
+     "all_n": 263,
+     "all_name": 263,
+     "all_tpl": 263,
+     "both_halves_drain": 248,
+     "both_halves_event": 263,
+     "both_halves_hash": 263,
+     "both_halves_n": 263,
+     "both_halves_name": 263,
+     "both_halves_tpl": 263
+    },
+    "2 to 10": {
+     "all_drain": 120,
+     "all_event": 148,
+     "all_hash": 148,
+     "all_n": 148,
+     "all_name": 148,
+     "all_tpl": 148,
+     "both_halves_drain": 94,
+     "both_halves_event": 110,
+     "both_halves_hash": 110,
+     "both_halves_n": 110,
+     "both_halves_name": 110,
+     "both_halves_tpl": 110
+    },
+    "all events": {
+     "all_drain": 29846,
+     "all_event": 30000,
+     "all_hash": 30000,
+     "all_n": 30000,
+     "all_name": 30000,
+     "all_tpl": 30000,
+     "both_halves_drain": 29578,
+     "both_halves_event": 29626,
+     "both_halves_hash": 29626,
+     "both_halves_n": 29626,
+     "both_halves_name": 29626,
+     "both_halves_tpl": 29626
+    },
+    "over 1,000": {
+     "all_drain": 28946,
+     "all_event": 28948,
+     "all_hash": 28948,
+     "all_n": 28948,
+     "all_name": 28948,
+     "all_tpl": 28948,
+     "both_halves_drain": 28946,
+     "both_halves_event": 28948,
+     "both_halves_hash": 28948,
+     "both_halves_n": 28948,
+     "both_halves_name": 28948,
+     "both_halves_tpl": 28948
+    },
+    "seen once": {
+     "all_drain": 242,
+     "all_event": 336,
+     "all_hash": 336,
+     "all_n": 336,
+     "all_name": 336,
+     "all_tpl": 336
+    }
+   }
+  },
+  {
+   "drain3": {
+    "101 to 1,000": {
+     "all_drain": 926,
+     "all_event": 948,
+     "all_hash": 948,
+     "all_n": 948,
+     "all_name": 948,
+     "all_tpl": 927,
+     "both_halves_drain": 926,
+     "both_halves_event": 948,
+     "both_halves_hash": 948,
+     "both_halves_n": 948,
+     "both_halves_name": 948,
+     "both_halves_tpl": 927
+    },
+    "11 to 100": {
+     "all_drain": 527,
+     "all_event": 583,
+     "all_hash": 583,
+     "all_n": 583,
+     "all_name": 583,
+     "all_tpl": 583,
+     "both_halves_drain": 527,
+     "both_halves_event": 583,
+     "both_halves_hash": 583,
+     "both_halves_n": 583,
+     "both_halves_name": 583,
+     "both_halves_tpl": 583
+    },
+    "2 to 10": {
+     "all_drain": 114,
+     "all_event": 189,
+     "all_hash": 189,
+     "all_n": 189,
+     "all_name": 189,
+     "all_tpl": 189,
+     "both_halves_drain": 99,
+     "both_halves_event": 155,
+     "both_halves_hash": 155,
+     "both_halves_n": 155,
+     "both_halves_name": 155,
+     "both_halves_tpl": 155
+    },
+    "all events": {
+     "all_drain": 29847,
+     "all_event": 30000,
+     "all_hash": 30000,
+     "all_n": 30000,
+     "all_name": 30000,
+     "all_tpl": 29975,
+     "both_halves_drain": 29691,
+     "both_halves_event": 29825,
+     "both_halves_hash": 29825,
+     "both_halves_n": 29825,
+     "both_halves_name": 29825,
+     "both_halves_tpl": 29800
+    },
+    "over 1,000": {
+     "all_drain": 28139,
+     "all_event": 28139,
+     "all_hash": 28139,
+     "all_n": 28139,
+     "all_name": 28139,
+     "all_tpl": 28135,
+     "both_halves_drain": 28139,
+     "both_halves_event": 28139,
+     "both_halves_hash": 28139,
+     "both_halves_n": 28139,
+     "both_halves_name": 28139,
+     "both_halves_tpl": 28135
+    },
+    "seen once": {
+     "all_drain": 141,
+     "all_event": 141,
+     "all_hash": 141,
+     "all_n": 141,
+     "all_name": 141,
+     "all_tpl": 141
+    }
+   },
+   "engine": {
+    "101 to 1,000": {
+     "all_drain": 326,
+     "all_event": 346,
+     "all_hash": 346,
+     "all_n": 346,
+     "all_name": 346,
+     "all_tpl": 326,
+     "both_halves_drain": 326,
+     "both_halves_event": 346,
+     "both_halves_hash": 346,
+     "both_halves_n": 346,
+     "both_halves_name": 346,
+     "both_halves_tpl": 326
+    },
+    "11 to 100": {
+     "all_drain": 243,
+     "all_event": 264,
+     "all_hash": 264,
+     "all_n": 264,
+     "all_name": 264,
+     "all_tpl": 264,
+     "both_halves_drain": 243,
+     "both_halves_event": 264,
+     "both_halves_hash": 264,
+     "both_halves_n": 264,
+     "both_halves_name": 264,
+     "both_halves_tpl": 264
+    },
+    "2 to 10": {
+     "all_drain": 98,
+     "all_event": 122,
+     "all_hash": 122,
+     "all_n": 122,
+     "all_name": 122,
+     "all_tpl": 122,
+     "both_halves_drain": 68,
+     "both_halves_event": 85,
+     "both_halves_hash": 85,
+     "both_halves_n": 85,
+     "both_halves_name": 85,
+     "both_halves_tpl": 85
+    },
+    "all events": {
+     "all_drain": 29847,
+     "all_event": 30000,
+     "all_hash": 30000,
+     "all_n": 30000,
+     "all_name": 30000,
+     "all_tpl": 29975,
+     "both_halves_drain": 29579,
+     "both_halves_event": 29638,
+     "both_halves_hash": 29638,
+     "both_halves_n": 29638,
+     "both_halves_name": 29638,
+     "both_halves_tpl": 29613
+    },
+    "over 1,000": {
+     "all_drain": 28942,
+     "all_event": 28943,
+     "all_hash": 28943,
+     "all_n": 28943,
+     "all_name": 28943,
+     "all_tpl": 28938,
+     "both_halves_drain": 28942,
+     "both_halves_event": 28943,
+     "both_halves_hash": 28943,
+     "both_halves_n": 28943,
+     "both_halves_name": 28943,
+     "both_halves_tpl": 28938
+    },
+    "seen once": {
+     "all_drain": 238,
+     "all_event": 325,
+     "all_hash": 325,
+     "all_n": 325,
+     "all_name": 325,
+     "all_tpl": 325
+    }
+   }
+  },
+  {
+   "drain3": {
+    "101 to 1,000": {
+     "all_drain": 915,
+     "all_event": 938,
+     "all_hash": 938,
+     "all_n": 938,
+     "all_name": 938,
+     "all_tpl": 938,
+     "both_halves_drain": 915,
+     "both_halves_event": 938,
+     "both_halves_hash": 938,
+     "both_halves_n": 938,
+     "both_halves_name": 938,
+     "both_halves_tpl": 938
+    },
+    "11 to 100": {
+     "all_drain": 515,
+     "all_event": 576,
+     "all_hash": 576,
+     "all_n": 576,
+     "all_name": 576,
+     "all_tpl": 576,
+     "both_halves_drain": 515,
+     "both_halves_event": 576,
+     "both_halves_hash": 576,
+     "both_halves_n": 576,
+     "both_halves_name": 576,
+     "both_halves_tpl": 576
+    },
+    "2 to 10": {
+     "all_drain": 121,
+     "all_event": 192,
+     "all_hash": 192,
+     "all_n": 192,
+     "all_name": 192,
+     "all_tpl": 192,
+     "both_halves_drain": 102,
+     "both_halves_event": 152,
+     "both_halves_hash": 152,
+     "both_halves_n": 152,
+     "both_halves_name": 152,
+     "both_halves_tpl": 152
+    },
+    "all events": {
+     "all_drain": 29844,
+     "all_event": 30000,
+     "all_hash": 30000,
+     "all_n": 30000,
+     "all_name": 30000,
+     "all_tpl": 30000,
+     "both_halves_drain": 29690,
+     "both_halves_event": 29824,
+     "both_halves_hash": 29824,
+     "both_halves_n": 29824,
+     "both_halves_name": 29824,
+     "both_halves_tpl": 29824
+    },
+    "over 1,000": {
+     "all_drain": 28158,
+     "all_event": 28158,
+     "all_hash": 28158,
+     "all_n": 28158,
+     "all_name": 28158,
+     "all_tpl": 28158,
+     "both_halves_drain": 28158,
+     "both_halves_event": 28158,
+     "both_halves_hash": 28158,
+     "both_halves_n": 28158,
+     "both_halves_name": 28158,
+     "both_halves_tpl": 28158
+    },
+    "seen once": {
+     "all_drain": 135,
+     "all_event": 136,
+     "all_hash": 136,
+     "all_n": 136,
+     "all_name": 136,
+     "all_tpl": 136
+    }
+   },
+   "engine": {
+    "101 to 1,000": {
+     "all_drain": 306,
+     "all_event": 327,
+     "all_hash": 327,
+     "all_n": 327,
+     "all_name": 327,
+     "all_tpl": 327,
+     "both_halves_drain": 306,
+     "both_halves_event": 327,
+     "both_halves_hash": 327,
+     "both_halves_n": 327,
+     "both_halves_name": 327,
+     "both_halves_tpl": 327
+    },
+    "11 to 100": {
+     "all_drain": 220,
+     "all_event": 253,
+     "all_hash": 253,
+     "all_n": 253,
+     "all_name": 253,
+     "all_tpl": 253,
+     "both_halves_drain": 220,
+     "both_halves_event": 253,
+     "both_halves_hash": 253,
+     "both_halves_n": 253,
+     "both_halves_name": 253,
+     "both_halves_tpl": 253
+    },
+    "2 to 10": {
+     "all_drain": 94,
+     "all_event": 115,
+     "all_hash": 115,
+     "all_n": 115,
+     "all_name": 115,
+     "all_tpl": 115,
+     "both_halves_drain": 60,
+     "both_halves_event": 73,
+     "both_halves_hash": 73,
+     "both_halves_n": 73,
+     "both_halves_name": 73,
+     "both_halves_tpl": 73
+    },
+    "all events": {
+     "all_drain": 29844,
+     "all_event": 30000,
+     "all_hash": 30000,
+     "all_n": 30000,
+     "all_name": 30000,
+     "all_tpl": 30000,
+     "both_halves_drain": 29546,
+     "both_halves_event": 29614,
+     "both_halves_hash": 29614,
+     "both_halves_n": 29614,
+     "both_halves_name": 29614,
+     "both_halves_tpl": 29614
+    },
+    "over 1,000": {
+     "all_drain": 28960,
+     "all_event": 28961,
+     "all_hash": 28961,
+     "all_n": 28961,
+     "all_name": 28961,
+     "all_tpl": 28961,
+     "both_halves_drain": 28960,
+     "both_halves_event": 28961,
+     "both_halves_hash": 28961,
+     "both_halves_n": 28961,
+     "both_halves_name": 28961,
+     "both_halves_tpl": 28961
+    },
+    "seen once": {
+     "all_drain": 264,
+     "all_event": 344,
+     "all_hash": 344,
+     "all_n": 344,
+     "all_name": 344,
+     "all_tpl": 344
+    }
+   }
+  },
+  {
+   "drain3": {
+    "101 to 1,000": {
+     "all_drain": 954,
+     "all_event": 972,
+     "all_hash": 972,
+     "all_n": 972,
+     "all_name": 972,
+     "all_tpl": 972,
+     "both_halves_drain": 954,
+     "both_halves_event": 972,
+     "both_halves_hash": 972,
+     "both_halves_n": 972,
+     "both_halves_name": 972,
+     "both_halves_tpl": 972
+    },
+    "11 to 100": {
+     "all_drain": 506,
+     "all_event": 561,
+     "all_hash": 561,
+     "all_n": 561,
+     "all_name": 561,
+     "all_tpl": 561,
+     "both_halves_drain": 506,
+     "both_halves_event": 561,
+     "both_halves_hash": 561,
+     "both_halves_n": 561,
+     "both_halves_name": 561,
+     "both_halves_tpl": 561
+    },
+    "2 to 10": {
+     "all_drain": 131,
+     "all_event": 216,
+     "all_hash": 216,
+     "all_n": 216,
+     "all_name": 216,
+     "all_tpl": 216,
+     "both_halves_drain": 118,
+     "both_halves_event": 174,
+     "both_halves_hash": 174,
+     "both_halves_n": 174,
+     "both_halves_name": 174,
+     "both_halves_tpl": 174
+    },
+    "all events": {
+     "all_drain": 29841,
+     "all_event": 30000,
+     "all_hash": 30000,
+     "all_n": 30000,
+     "all_name": 30000,
+     "all_tpl": 30000,
+     "both_halves_drain": 29690,
+     "both_halves_event": 29819,
+     "both_halves_hash": 29819,
+     "both_halves_n": 29819,
+     "both_halves_name": 29819,
+     "both_halves_tpl": 29819
+    },
+    "over 1,000": {
+     "all_drain": 28112,
+     "all_event": 28112,
+     "all_hash": 28112,
+     "all_n": 28112,
+     "all_name": 28112,
+     "all_tpl": 28112,
+     "both_halves_drain": 28112,
+     "both_halves_event": 28112,
+     "both_halves_hash": 28112,
+     "both_halves_n": 28112,
+     "both_halves_name": 28112,
+     "both_halves_tpl": 28112
+    },
+    "seen once": {
+     "all_drain": 138,
+     "all_event": 139,
+     "all_hash": 139,
+     "all_n": 139,
+     "all_name": 139,
+     "all_tpl": 139
+    }
+   },
+   "engine": {
+    "101 to 1,000": {
+     "all_drain": 325,
+     "all_event": 342,
+     "all_hash": 342,
+     "all_n": 342,
+     "all_name": 342,
+     "all_tpl": 342,
+     "both_halves_drain": 325,
+     "both_halves_event": 342,
+     "both_halves_hash": 342,
+     "both_halves_n": 342,
+     "both_halves_name": 342,
+     "both_halves_tpl": 342
+    },
+    "11 to 100": {
+     "all_drain": 217,
+     "all_event": 242,
+     "all_hash": 242,
+     "all_n": 242,
+     "all_name": 242,
+     "all_tpl": 242,
+     "both_halves_drain": 217,
+     "both_halves_event": 242,
+     "both_halves_hash": 242,
+     "both_halves_n": 242,
+     "both_halves_name": 242,
+     "both_halves_tpl": 242
+    },
+    "2 to 10": {
+     "all_drain": 107,
+     "all_event": 132,
+     "all_hash": 132,
+     "all_n": 132,
+     "all_name": 132,
+     "all_tpl": 132,
+     "both_halves_drain": 83,
+     "both_halves_event": 100,
+     "both_halves_hash": 100,
+     "both_halves_n": 100,
+     "both_halves_name": 100,
+     "both_halves_tpl": 100
+    },
+    "all events": {
+     "all_drain": 29841,
+     "all_event": 30000,
+     "all_hash": 30000,
+     "all_n": 30000,
+     "all_name": 30000,
+     "all_tpl": 30000,
+     "both_halves_drain": 29550,
+     "both_halves_event": 29610,
+     "both_halves_hash": 29610,
+     "both_halves_n": 29610,
+     "both_halves_name": 29610,
+     "both_halves_tpl": 29610
+    },
+    "over 1,000": {
+     "all_drain": 28925,
+     "all_event": 28926,
+     "all_hash": 28926,
+     "all_n": 28926,
+     "all_name": 28926,
+     "all_tpl": 28926,
+     "both_halves_drain": 28925,
+     "both_halves_event": 28926,
+     "both_halves_hash": 28926,
+     "both_halves_n": 28926,
+     "both_halves_name": 28926,
+     "both_halves_tpl": 28926
+    },
+    "seen once": {
+     "all_drain": 267,
+     "all_event": 358,
+     "all_hash": 358,
+     "all_n": 358,
+     "all_name": 358,
+     "all_tpl": 358
+    }
+   }
+  },
+  {
+   "drain3": {
+    "101 to 1,000": {
+     "all_drain": 889,
+     "all_event": 912,
+     "all_hash": 912,
+     "all_n": 912,
+     "all_name": 912,
+     "all_tpl": 912,
+     "both_halves_drain": 889,
+     "both_halves_event": 912,
+     "both_halves_hash": 912,
+     "both_halves_n": 912,
+     "both_halves_name": 912,
+     "both_halves_tpl": 912
+    },
+    "11 to 100": {
+     "all_drain": 567,
+     "all_event": 619,
+     "all_hash": 619,
+     "all_n": 619,
+     "all_name": 619,
+     "all_tpl": 619,
+     "both_halves_drain": 567,
+     "both_halves_event": 619,
+     "both_halves_hash": 619,
+     "both_halves_n": 619,
+     "both_halves_name": 619,
+     "both_halves_tpl": 619
+    },
+    "2 to 10": {
+     "all_drain": 113,
+     "all_event": 201,
+     "all_hash": 201,
+     "all_n": 201,
+     "all_name": 201,
+     "all_tpl": 201,
+     "both_halves_drain": 92,
+     "both_halves_event": 160,
+     "both_halves_hash": 160,
+     "both_halves_n": 160,
+     "both_halves_name": 160,
+     "both_halves_tpl": 160
+    },
+    "all events": {
+     "all_drain": 29835,
+     "all_event": 30000,
+     "all_hash": 30000,
+     "all_n": 30000,
+     "all_name": 30000,
+     "all_tpl": 30000,
+     "both_halves_drain": 29660,
+     "both_halves_event": 29803,
+     "both_halves_hash": 29803,
+     "both_halves_n": 29803,
+     "both_halves_name": 29803,
+     "both_halves_tpl": 29803
+    },
+    "over 1,000": {
+     "all_drain": 28112,
+     "all_event": 28112,
+     "all_hash": 28112,
+     "all_n": 28112,
+     "all_name": 28112,
+     "all_tpl": 28112,
+     "both_halves_drain": 28112,
+     "both_halves_event": 28112,
+     "both_halves_hash": 28112,
+     "both_halves_n": 28112,
+     "both_halves_name": 28112,
+     "both_halves_tpl": 28112
+    },
+    "seen once": {
+     "all_drain": 154,
+     "all_event": 156,
+     "all_hash": 156,
+     "all_n": 156,
+     "all_name": 156,
+     "all_tpl": 156
+    }
+   },
+   "engine": {
+    "101 to 1,000": {
+     "all_drain": 286,
+     "all_event": 306,
+     "all_hash": 306,
+     "all_n": 306,
+     "all_name": 306,
+     "all_tpl": 306,
+     "both_halves_drain": 286,
+     "both_halves_event": 306,
+     "both_halves_hash": 306,
+     "both_halves_n": 306,
+     "both_halves_name": 306,
+     "both_halves_tpl": 306
+    },
+    "11 to 100": {
+     "all_drain": 264,
+     "all_event": 281,
+     "all_hash": 281,
+     "all_n": 281,
+     "all_name": 281,
+     "all_tpl": 281,
+     "both_halves_drain": 264,
+     "both_halves_event": 281,
+     "both_halves_hash": 281,
+     "both_halves_n": 281,
+     "both_halves_name": 281,
+     "both_halves_tpl": 281
+    },
+    "2 to 10": {
+     "all_drain": 100,
+     "all_event": 135,
+     "all_hash": 135,
+     "all_n": 135,
+     "all_name": 135,
+     "all_tpl": 135,
+     "both_halves_drain": 72,
+     "both_halves_event": 101,
+     "both_halves_hash": 101,
+     "both_halves_n": 101,
+     "both_halves_name": 101,
+     "both_halves_tpl": 101
+    },
+    "all events": {
+     "all_drain": 29835,
+     "all_event": 30000,
+     "all_hash": 30000,
+     "all_n": 30000,
+     "all_name": 30000,
+     "all_tpl": 30000,
+     "both_halves_drain": 29536,
+     "both_halves_event": 29604,
+     "both_halves_hash": 29604,
+     "both_halves_n": 29604,
+     "both_halves_name": 29604,
+     "both_halves_tpl": 29604
+    },
+    "over 1,000": {
+     "all_drain": 28914,
+     "all_event": 28916,
+     "all_hash": 28916,
+     "all_n": 28916,
+     "all_name": 28916,
+     "all_tpl": 28916,
+     "both_halves_drain": 28914,
+     "both_halves_event": 28916,
+     "both_halves_hash": 28916,
+     "both_halves_n": 28916,
+     "both_halves_name": 28916,
+     "both_halves_tpl": 28916
+    },
+    "seen once": {
+     "all_drain": 271,
+     "all_event": 362,
+     "all_hash": 362,
+     "all_n": 362,
+     "all_name": 362,
+     "all_tpl": 362
+    }
+   }
+  },
+  {
+   "drain3": {
+    "101 to 1,000": {
+     "all_drain": 843,
+     "all_event": 863,
+     "all_hash": 863,
+     "all_n": 863,
+     "all_name": 863,
+     "all_tpl": 863,
+     "both_halves_drain": 843,
+     "both_halves_event": 863,
+     "both_halves_hash": 863,
+     "both_halves_n": 863,
+     "both_halves_name": 863,
+     "both_halves_tpl": 863
+    },
+    "11 to 100": {
+     "all_drain": 555,
+     "all_event": 594,
+     "all_hash": 594,
+     "all_n": 594,
+     "all_name": 594,
+     "all_tpl": 594,
+     "both_halves_drain": 555,
+     "both_halves_event": 594,
+     "both_halves_hash": 594,
+     "both_halves_n": 594,
+     "both_halves_name": 594,
+     "both_halves_tpl": 594
+    },
+    "2 to 10": {
+     "all_drain": 105,
+     "all_event": 189,
+     "all_hash": 189,
+     "all_n": 189,
+     "all_name": 189,
+     "all_tpl": 189,
+     "both_halves_drain": 93,
+     "both_halves_event": 154,
+     "both_halves_hash": 154,
+     "both_halves_n": 154,
+     "both_halves_name": 154,
+     "both_halves_tpl": 154
+    },
+    "all events": {
+     "all_drain": 29854,
+     "all_event": 29997,
+     "all_hash": 29997,
+     "all_n": 30000,
+     "all_name": 29997,
+     "all_tpl": 29997,
+     "both_halves_drain": 29707,
+     "both_halves_event": 29824,
+     "both_halves_hash": 29824,
+     "both_halves_n": 29827,
+     "both_halves_name": 29824,
+     "both_halves_tpl": 29824
+    },
+    "over 1,000": {
+     "all_drain": 28216,
+     "all_event": 28213,
+     "all_hash": 28213,
+     "all_n": 28216,
+     "all_name": 28213,
+     "all_tpl": 28213,
+     "both_halves_drain": 28216,
+     "both_halves_event": 28213,
+     "both_halves_hash": 28213,
+     "both_halves_n": 28216,
+     "both_halves_name": 28213,
+     "both_halves_tpl": 28213
+    },
+    "seen once": {
+     "all_drain": 135,
+     "all_event": 138,
+     "all_hash": 138,
+     "all_n": 138,
+     "all_name": 138,
+     "all_tpl": 138
+    }
+   },
+   "engine": {
+    "101 to 1,000": {
+     "all_drain": 288,
+     "all_event": 304,
+     "all_hash": 304,
+     "all_n": 304,
+     "all_name": 304,
+     "all_tpl": 304,
+     "both_halves_drain": 288,
+     "both_halves_event": 304,
+     "both_halves_hash": 304,
+     "both_halves_n": 304,
+     "both_halves_name": 304,
+     "both_halves_tpl": 304
+    },
+    "11 to 100": {
+     "all_drain": 245,
+     "all_event": 272,
+     "all_hash": 272,
+     "all_n": 272,
+     "all_name": 272,
+     "all_tpl": 272,
+     "both_halves_drain": 245,
+     "both_halves_event": 272,
+     "both_halves_hash": 272,
+     "both_halves_n": 272,
+     "both_halves_name": 272,
+     "both_halves_tpl": 272
+    },
+    "2 to 10": {
+     "all_drain": 87,
+     "all_event": 113,
+     "all_hash": 113,
+     "all_n": 113,
+     "all_name": 113,
+     "all_tpl": 113,
+     "both_halves_drain": 67,
+     "both_halves_event": 84,
+     "both_halves_hash": 84,
+     "both_halves_n": 84,
+     "both_halves_name": 84,
+     "both_halves_tpl": 84
+    },
+    "all events": {
+     "all_drain": 29854,
+     "all_event": 29997,
+     "all_hash": 29997,
+     "all_n": 30000,
+     "all_name": 29997,
+     "all_tpl": 29997,
+     "both_halves_drain": 29561,
+     "both_halves_event": 29618,
+     "both_halves_hash": 29618,
+     "both_halves_n": 29621,
+     "both_halves_name": 29618,
+     "both_halves_tpl": 29618
+    },
+    "over 1,000": {
+     "all_drain": 28961,
+     "all_event": 28958,
+     "all_hash": 28958,
+     "all_n": 28961,
+     "all_name": 28958,
+     "all_tpl": 28958,
+     "both_halves_drain": 28961,
+     "both_halves_event": 28958,
+     "both_halves_hash": 28958,
+     "both_halves_n": 28961,
+     "both_halves_name": 28958,
+     "both_halves_tpl": 28958
+    },
+    "seen once": {
+     "all_drain": 273,
+     "all_event": 350,
+     "all_hash": 350,
+     "all_n": 350,
+     "all_name": 350,
+     "all_tpl": 350
+    }
+   }
+  }
+ ]
+}
