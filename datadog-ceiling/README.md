@@ -9,7 +9,7 @@ Every line went to a real Datadog org. The proof is Datadog's meter,
 `datadog.estimated_usage.logs.ingested_events{datadog_is_excluded:false}` by `datadog_index`,
 read hourly; numbers taken from it are labelled "meter". The rig's own captures (what the
 Receiver returned, split by `routeState`) are labelled "local" and agree with the meter to
-within 10 events an hour in every hour both were read.
+within 16 events an hour in every hour both were read.
 
 ## The result
 
@@ -18,12 +18,12 @@ for every container, 2026-10-20.
 
 | | Criterion | Result |
 |---|---|---|
-| 1 | Hourly Standard (`main`, meter) at or under the allowed rate plus the allowances through the growth; Flex absorbs the rest | **Pass.** 20,123, 21,020, 22,744 and 21,138 events (meter, 04:00 to 07:00) against 22,351 allowed and 23,826 to 25,136 with the allowances; 21,080 (local) at 08:00. Ingested events 2.91x, 2.69x and 2.63x the baseline at 06:00, 07:00 and 08:00; Flex took 42,268 and 38,957 (meter). |
+| 1 | Hourly Standard (`main`, meter) at or under the allowed rate plus the allowances through the growth; Flex absorbs the rest | **Pass.** 20,123, 21,020, 22,744, 21,138 and 21,080 events (meter, 04:00 to 08:00) against 22,351 allowed and 23,826 to 25,136 with the allowances. Ingested events 2.91x, 2.69x and 2.63x the baseline at 06:00, 07:00 and 08:00; Flex took 42,268, 38,957 and 37,651 (meter). |
 | 2 | A statement new mid-run is held from its first window | **Pass.** A new service, `inventory`, with one new statement at 476 lines a window: 31 lines a window in Standard from its first window (the `*` row's total of 31; 35 once and 27 the next), the rest in Flex, until the 07:00 run gave it a row of its own (85). |
 | 3 | The budget run runs at least twice, an hour or more apart, and its files change with spend | **Pass.** Six applied runs, hourly from 04:02 to 09:00, each a direct commit to the policy branch with a diff ([`results/budget-runs/`](results/budget-runs/)). |
 | 4 | Error lines in Standard per storming error statement per node per window at most the statement's limit plus K = 50, the rule the [regulator page](https://doc.log10x.com/run/receive/rate/) states | **Pass, within one line.** The storming payment statement put 68, 66 and 69 lines a window in Standard against 68 (limit 18 plus 50), the 69 in the window that spans the 06:00 run, and 151, 118 and 119 against 188 once that run raised its limit to 138, with 328 to 460 a window moved to Flex. |
-| 5 | One service with `service_budgets` held to its own number | **Pass.** `frontend`, own number $0.88 a month (1,792 events an hour): 1,774, 1,763 and 1,760 events (meter, `service:frontend`, 05:00 to 07:00), 1,770 (local) at 08:00. Its 04:00 hour reads 1,957 because 165 lines passed in the 3 minutes before the first budget run; after it, 1,790 in 57 minutes. Metered spend through 07:59: 16,021 events, $0.027 of the $0.88. |
-| 6 | Delivery complete; an error monitor still fires | **Pass.** 381,856 of 381,856 non-blank lines the Receiver received came back in its returned records, and every returned record went to Datadog (pass to `main`, tier_down to `tenx-offload`). A log monitor on the payment error statement in `main` went to Alert at 06:03:43 during the storm. |
+| 5 | One service with `service_budgets` held to its own number | **Pass.** `frontend`, own number $0.88 a month (1,792 events an hour): 1,774, 1,763, 1,760 and 1,770 events (meter, `service:frontend`, 05:00 to 08:00). Its 04:00 hour reads 1,957 because 165 lines passed in the 3 minutes before the first budget run; after it, 1,790 in 57 minutes. Metered spend through 07:59: 16,021 events, $0.027 of the $0.88. |
+| 6 | Delivery complete; an error monitor still fires | **Pass.** 381,856 of 381,856 non-blank lines the Receiver received came back in its returned records, and every returned record went to Datadog (pass to `main`, tier_down to `tenx-offload`). A log monitor on the payment error statement in `main` went to Alert at 06:03:43 during the storm and back to OK at 06:22:43, after the storm line stopped at 06:16. |
 
 Month to date the budget run read 164,330 Standard events ($0.28 of $10.89) at 09:00, against
 170,061 on the path X allows (59,139 at 04:02:21 plus 22,351 an hour).
@@ -51,9 +51,9 @@ changed during the run; the numbers are in [`results/x.json`](results/x.json).
 
 ## The hourly table
 
-Datadog's meter for 01:00 to 07:00 was read at 08:01 UTC; the 07:00 hour matched the local
-count exactly, and every earlier complete hour within 10 events. The 08:00 hour has local
-counts only (see "What could not be done").
+Datadog's meter was read at 08:01 UTC and again at 18:04 UTC, which gave the same counts for
+01:00 to 07:00 and the first complete count for 08:00. Every complete hour matched the local
+count within 16 events.
 
 | Hour (UTC) | Phase | Standard, meter | Flex, meter | Standard, local | Flex, local | Ingested vs baseline | Allowed + allowances | frontend Standard (allowed 1,792) |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
@@ -64,7 +64,7 @@ counts only (see "What could not be done").
 | 05:00 | budget | 21,020 | 22,090 | 21,028 | 22,093 | 1.93 | 24,166 | 1,774 |
 | 06:00 | budget | 22,744 | 42,268 | 22,735 | 42,259 | 2.91 | 25,136 | 1,763 |
 | 07:00 | budget | 21,138 | 38,957 | 21,138 | 38,957 | 2.69 | 24,606 | 1,760 |
-| 08:00 | budget | | | 21,080 | 37,635 | 2.63 | 24,196 | 1,770 (local) |
+| 08:00 | budget | 21,080 | 37,651 | 21,080 | 37,635 | 2.63 | 24,196 | 1,770 |
 
 The 01:00 hour holds the 20 routing-check lines (10 in each index). The 06:00 hour is 393
 events over the allowed rate alone and inside the allowances.
@@ -192,7 +192,7 @@ records; the delivery totals are unaffected); the Receiver's windows start at a 
 | `results/policy.yaml` | The policy the budget runs read |
 | `results/budget-runs/<stamp>/` | Each run: the report, the four files and the report as committed, the diff |
 | `results/policy-branch-log.txt` | The policy branch's commits |
-| `results/meter-hourly-0801.json` | Datadog's meter, hourly, as read at 08:01 |
+| `results/meter-hourly-0801.json`, `results/meter-hourly-1804.json` | Datadog's meter, hourly, as read at 08:01 and 18:04 |
 | `results/captures/*.tsv.gz` | The rig's captures without log text: container, times, route, hash, statement, level, lines |
 | `results/datadog-state/` | The org before the run, and the monitor |
 | `results/timeline.jsonl` | Every step with its time |
@@ -222,12 +222,3 @@ rig/ddenv.sh python3 rig/analyze.py   # after the last hour has reported
 
 `rig/analyze.py` reads `results/data/` when the full captures are there and the committed
 `results/captures/` otherwise; without Datadog keys it reads the saved meter file.
-
-## What could not be done
-
-- **The meter for 08:00.** The AWS SSO session that reads the Datadog keys from SSM expired
-  before 05:37 and the run's keys left with the Receiver container at 09:05, so the 08:00 hour has
-  local counts only. A read after `aws sso login --profile l1x-admin`, then
-  `rig/ddenv.sh python3 rig/analyze.py`, fills it in.
-- **The monitor's later state.** It was in Alert at 06:10; whether and when it resolved was
-  not read, for the same reason.
