@@ -1,0 +1,6 @@
+{
+ "id": 23222383,
+ "query": "logs(\"@kubernetes.container_name:payment @severity_level:ERROR @message_pattern:Payment_request_failed_Invalid_token_demo_user_context_loyalty_level_gold\").index(\"main\").rollup(\"count\").last(\"5m\") > 10",
+ "modified": "2026-10-20T06:03:05.542935+00:00",
+ "overall_state": "No Data"
+}

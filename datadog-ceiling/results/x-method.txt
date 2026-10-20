@@ -1,0 +1,11 @@
+Written 2026-10-20T03:08:51Z, before X is computed and before the first budget run. Not changed after.
+
+Baseline Standard rate B: Datadog's usage metric, sum:datadog.estimated_usage.logs.ingested_events{datadog_is_excluded:false,datadog_index:main}, hourly buckets 2026-10-20 02:00 and 03:00 UTC (two full hours, Receiver with the seed policy: every line passes), mean of the two, events an hour. Load: 5 users, no flags.
+
+Month to date: the budget run's own read (tenx-recur --dry-run on the same policy). spent = the Standard events it reports this month through hour T, T = the end of the last hour Datadog's usage metric returned; hours_left = (2026-11-01T00:00Z - T) / 3600.
+
+X = (spent + B x hours_left) x 1.70 / 1,000,000 dollars (Datadog Standard indexing, 15-day retention, list price per million events, the MCP's default standard_rate_per_million). The allowed rate for the rest of the month is then B events an hour.
+
+Service with its own number: frontend (the container and Datadog service tag). Its baseline rate Bf is the same two hours of the usage metric under service:frontend in main. Its number = (frontend spent through T + 0.5 x Bf x hours_left) x 1.70 / 1,000,000: held to half its baseline rate for the rest of the month. It is part of X.
+
+Limits the run never changes: X, the frontend number, keep_count 50, standard_indexes [main], default_action tier_down, nodes 1 per container, lookback 24h (the policy default), the Receiver's values as rendered.

@@ -1,0 +1,123 @@
+{
+ "mcp_version": "1.30.71",
+ "image": "log10x/edge-10x:1.1.146@sha256:4d7be22e5e91ffe344ec9878b45063d21a9c2eb4909799a6d5a7f456db5f0c3a",
+ "args_from_values": [
+  "@run/input/forwarder/fluentbit",
+  "@apps/receiver",
+  "@run/output/metric/datadog",
+  "symbolMessageHashField",
+  "tenx_hash",
+  "rateReceiverUnit",
+  "events",
+  "rateReceiverMinSharePercent",
+  "0",
+  "rateReceiverWarmupMs",
+  "0",
+  "rateReceiverBaselineCount",
+  "5",
+  "rateReceiverMinRetentionThreshold",
+  "0",
+  "rateReceiverSeverityFloors",
+  "TRACE=0",
+  "rateReceiverSeverityFloors",
+  "DEBUG=0",
+  "rateReceiverSeverityFloors",
+  "INFO=0",
+  "rateReceiverSeverityFloors",
+  "WARN=0",
+  "rateReceiverSeverityFloors",
+  "ERROR=0",
+  "rateReceiverSeverityFloors",
+  "CRITICAL=0",
+  "rateReceiverSeverityFloors",
+  "FATAL=0",
+  "rateReceiverKeepCounts",
+  "ERROR=50",
+  "rateReceiverKeepCounts",
+  "CRITICAL=50",
+  "rateReceiverKeepCounts",
+  "FATAL=50"
+ ],
+ "env_from_values": [
+  {
+   "name": "TENX_AIRGAPPED",
+   "value": "true"
+  },
+  {
+   "name": "DD_API_KEY",
+   "valueFrom": "valueFrom:\n          secretKeyRef:\n            name: datadog-credentials\n            key: api-key"
+  },
+  {
+   "name": "DD_APP_KEY",
+   "valueFrom": "valueFrom:\n          secretKeyRef:\n            name: datadog-credentials\n            key: app-key"
+  },
+  {
+   "name": "DD_SITE",
+   "value": "us5.datadoghq.com"
+  },
+  {
+   "name": "GH_ENABLED",
+   "value": "true"
+  },
+  {
+   "name": "GH_REPO",
+   "value": "log-10x/config"
+  },
+  {
+   "name": "GH_BRANCH",
+   "value": "test/datadog-ceiling-policy"
+  },
+  {
+   "name": "GH_TOKEN",
+   "valueFrom": "valueFrom:\n          secretKeyRef:\n            name: log10x-policy-git\n            key: GH_TOKEN"
+  }
+ ],
+ "env_applied": [
+  {
+   "name": "TENX_AIRGAPPED",
+   "value": "true"
+  },
+  {
+   "name": "DD_SITE",
+   "value": "us5.datadoghq.com"
+  },
+  {
+   "name": "GH_ENABLED",
+   "value": "true"
+  },
+  {
+   "name": "GH_REPO",
+   "value": "log-10x/config"
+  },
+  {
+   "name": "GH_BRANCH",
+   "value": "test/datadog-ceiling-policy"
+  }
+ ],
+ "env_from_shell_by_name": [
+  "DD_API_KEY",
+  "DD_APP_KEY",
+  "GH_TOKEN"
+ ],
+ "env_left_out": [],
+ "rig_env": [
+  [
+   "TENX_FLUENTBIT_OUTPUT_HOST",
+   "fluent-bit"
+  ]
+ ],
+ "measurement_args": [
+  "outputEncodeField",
+  "fullText(\"tenx_hash\",\"routeState\",\"message_pattern\",\"severity_level\")"
+ ],
+ "resources_limits": {
+  "cpus": "0.5",
+  "memory": "512M"
+ },
+ "policy_git": {
+  "repo": "log-10x/config",
+  "branch": "test/datadog-ceiling-policy",
+  "tokenSecretName": "log10x-policy-git"
+ },
+ "notes": []
+}

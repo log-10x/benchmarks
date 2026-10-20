@@ -1,0 +1,170 @@
+diff --git a/log10x/policy/caps.csv b/log10x/policy/caps.csv
+index 2223ae3..fd768d3 100644
+--- a/log10x/policy/caps.csv
++++ b/log10x/policy/caps.csv
+@@ -1,23 +1,23 @@
+ container,cap
+-accounting,74::budget run
+-ad,74::budget run
+-astronomy-db,74::budget run
+-cart,74::budget run
+-email,74::budget run
+-flagd,74::budget run
+-flagd-ui,74::budget run
+-fraud-detection,74::budget run
+-frontend,77::budget run
+-frontend-proxy,74::budget run
+-image-provider,74::budget run
+-inventory,74::budget run
+-kafka,74::budget run
+-otel-collector,74::budget run
+-payment,74::budget run
+-product-catalog,74::budget run
+-quote,74::budget run
+-recommendation,74::budget run
+-shipping,74::budget run
+-telemetry-docs,74::budget run
+-valkey-cart,74::budget run
+-*,74::budget run
++accounting,65::budget run
++ad,65::budget run
++astronomy-db,65::budget run
++cart,65::budget run
++email,65::budget run
++flagd,65::budget run
++flagd-ui,65::budget run
++fraud-detection,65::budget run
++frontend,73::budget run
++frontend-proxy,65::budget run
++image-provider,65::budget run
++inventory,65::budget run
++kafka,65::budget run
++otel-collector,65::budget run
++payment,65::budget run
++product-catalog,65::budget run
++quote,65::budget run
++recommendation,65::budget run
++shipping,65::budget run
++telemetry-docs,65::budget run
++valkey-cart,65::budget run
++*,65::budget run
+diff --git a/log10x/policy/config-generation.csv b/log10x/policy/config-generation.csv
+index b0e90ad..5213770 100644
+--- a/log10x/policy/config-generation.csv
++++ b/log10x/policy/config-generation.csv
+@@ -1,2 +1,2 @@
+ key,value
+-generation,a78c50b2f388
++generation,dd800285d5c8
+diff --git a/log10x/policy/totals.csv b/log10x/policy/totals.csv
+index 9b302b7..3251453 100644
+--- a/log10x/policy/totals.csv
++++ b/log10x/policy/totals.csv
+@@ -1,23 +1,23 @@
+ container,total
+ accounting,1::budget run
+-ad,50::budget run
+-astronomy-db,57::budget run
+-cart,178::budget run
+-email,43::budget run
++ad,54::budget run
++astronomy-db,61::budget run
++cart,164::budget run
++email,47::budget run
+ flagd,1::budget run
+ flagd-ui,1::budget run
+-fraud-detection,29::budget run
++fraud-detection,33::budget run
+ frontend,119::budget run
+ frontend-proxy,3::budget run
+ image-provider,2::budget run
+-inventory,74::budget run
+-kafka,313::budget run
+-otel-collector,233::budget run
+-payment,139::budget run
++inventory,65::budget run
++kafka,327::budget run
++otel-collector,207::budget run
++payment,137::budget run
+ product-catalog,1::budget run
+-quote,33::budget run
+-recommendation,49::budget run
+-shipping,99::budget run
+-telemetry-docs,55::budget run
++quote,36::budget run
++recommendation,54::budget run
++shipping,109::budget run
++telemetry-docs,59::budget run
+ valkey-cart,5::budget run
+-*,46::budget run
++*,51::budget run
+diff --git a/reports/latest.md b/reports/latest.md
+index f40b062..1b22410 100644
+--- a/reports/latest.md
++++ b/reports/latest.md
+@@ -1,37 +1,37 @@
+-# Budget run: 2026-10-20T08:00:02.000Z
++# Budget run: 2026-10-20T09:00:03.000Z
+ 
+-Standard held at $11 a month: $0.24 so far this month. Moved this month: 118,670 events to Flex, about $0.01 a month of Flex storage at $0.05 per million (Flex compute is unpriced and left out), $0.2 at the Standard rate.
++Standard held at $11 a month: $0.28 so far this month. Moved this month: 156,268 events to Flex, about $0.01 a month of Flex storage at $0.05 per million (Flex compute is unpriced and left out), $0.27 at the Standard rate.
+ 
+-- Standard indexing this month: $0.24 of $11 (143,238 events through 2026-10-20 08:00 UTC), 280 hours left.
+-- Lines that do not pass the Receiver, outside the services with their own number: 415 events in Standard this month, about $0 by the month's end at this rate. The Receiver's other services get the rest of $10.
+-- The Receiver's other services may send 20,574 events an hour to Standard against 33,836 now: each statement keeps up to 1,117 an hour, and the noisiest move to Flex first. A service the run has not seen gets the same level and the median service's 699 an hour until the next run, which takes any overshoot back from the rest of the month.
++- Standard indexing this month: $0.28 of $11 (164,330 events through 2026-10-20 09:00 UTC), 279 hours left.
++- Lines that do not pass the Receiver, outside the services with their own number: 380 events in Standard this month, about $0 by the month's end at this rate. The Receiver's other services get the rest of $10.
++- The Receiver's other services may send 20,579 events an hour to Standard against 35,945 now: each statement keeps up to 983 an hour, and the noisiest move to Flex first. A service the run has not seen gets the same level and the median service's 766 an hour until the next run, which takes any overshoot back from the rest of the month.
+ - Node counts from nodes_by_container in policy.yaml; 1 Receiver. The `*` row is divided by 1 node, the median known service's count. The division assumes a DaemonSet Receiver, one per node, each holding its node's share.
+-- frontend is held to its own $0.88 a month: $0.03 spent so far by Datadog's usage count for service:frontend, 1,791 events an hour for the rest of the month, a limit of 77 per statement and a total of 119 per window per node.
++- frontend is held to its own $0.88 a month: $0.03 spent so far by Datadog's usage count for service:frontend, 1,792 events an hour for the rest of the month, a limit of 73 per statement and a total of 119 per window per node.
+ - Warning: No node count for inventory: its limits are written for one Receiver.
+ 
+ | Service | Destination | Nodes | Events an hour now | Kept an hour | Limit per statement | Total |
+ |---|---|---|---|---|---|---|
+-| accounting | Flex | 1 | 4 | 4 | 74 | 1 |
+-| ad | Flex | 1 | 757 | 757 | 74 | 50 |
+-| astronomy-db | Flex | 1 | 862 | 862 | 74 | 57 |
+-| cart | Flex | 1 | 4,731 | 2,684 | 74 | 178 |
+-| email | Flex | 1 | 650 | 650 | 74 | 43 |
+-| flagd | Flex | 1 | 18 | 18 | 74 | 1 |
+-| flagd-ui | Flex | 1 | 3 | 3 | 74 | 1 |
+-| fraud-detection | Flex | 1 | 444 | 444 | 74 | 29 |
+-| frontend (own $0.88 a month) | Flex | 1 | 8,867 | 1,791 | 77 | 119 |
+-| frontend-proxy | Flex | 1 | 55 | 55 | 74 | 3 |
+-| image-provider | Flex | 1 | 41 | 41 | 74 | 2 |
+-| inventory | Flex | 1 | 3,488 | 1,117 | 74 | 74 |
+-| kafka | Flex | 1 | 4,699 | 4,699 | 74 | 313 |
+-| otel-collector | Flex | 1 | 11,848 | 3,502 | 74 | 233 |
+-| payment | Flex | 1 | 2,591 | 2,092 | 74 | 139 |
+-| product-catalog | Flex | 1 | 1 | 1 | 74 | 1 |
+-| quote | Flex | 1 | 496 | 496 | 74 | 33 |
+-| recommendation | Flex | 1 | 748 | 748 | 74 | 49 |
+-| shipping | Flex | 1 | 1,490 | 1,490 | 74 | 99 |
+-| telemetry-docs | Flex | 1 | 836 | 836 | 74 | 55 |
+-| valkey-cart | Flex | 1 | 75 | 75 | 74 | 5 |
+-| `*` (any other service) | Flex | 1 | | 699 | 74 | 46 |
++| accounting | Flex | 1 | 4 | 4 | 65 | 1 |
++| ad | Flex | 1 | 822 | 822 | 65 | 54 |
++| astronomy-db | Flex | 1 | 916 | 916 | 65 | 61 |
++| cart | Flex | 1 | 5,175 | 2,470 | 65 | 164 |
++| email | Flex | 1 | 716 | 716 | 65 | 47 |
++| flagd | Flex | 1 | 18 | 18 | 65 | 1 |
++| flagd-ui | Flex | 1 | 3 | 3 | 65 | 1 |
++| fraud-detection | Flex | 1 | 498 | 498 | 65 | 33 |
++| frontend (own $0.88 a month) | Flex | 1 | 9,651 | 1,792 | 73 | 119 |
++| frontend-proxy | Flex | 1 | 55 | 55 | 65 | 3 |
++| image-provider | Flex | 1 | 41 | 41 | 65 | 2 |
++| inventory | Flex | 1 | 3,488 | 983 | 65 | 65 |
++| kafka | Flex | 1 | 4,912 | 4,912 | 65 | 327 |
++| otel-collector | Flex | 1 | 12,631 | 3,105 | 65 | 207 |
++| payment | Flex | 1 | 2,690 | 2,058 | 65 | 137 |
++| product-catalog | Flex | 1 | 1 | 1 | 65 | 1 |
++| quote | Flex | 1 | 543 | 543 | 65 | 36 |
++| recommendation | Flex | 1 | 816 | 816 | 65 | 54 |
++| shipping | Flex | 1 | 1,646 | 1,646 | 65 | 109 |
++| telemetry-docs | Flex | 1 | 891 | 891 | 65 | 59 |
++| valkey-cart | Flex | 1 | 80 | 80 | 65 | 5 |
++| `*` (any other service) | Flex | 1 | | 766 | 65 | 51 |
+ 
+ Limits and totals are events per 4-minute window per node. Error lines pass 50 over a limit per statement per node per window.

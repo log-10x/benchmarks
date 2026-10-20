@@ -1,0 +1,12 @@
+46dda27aa1b91444ba4a55b087d8f305c3da0221 2026-10-20T05:00:04-04:00 chore(log10x): budget run, 10.89 USD a month on Standard
+028813eb98561e34d350d2b843786a526c038775 2026-10-20T04:00:03-04:00 chore(log10x): budget run, 10.89 USD a month on Standard
+74739d5ff79d1329ce877564fd81cc98846d9f0d 2026-10-20T03:00:02-04:00 chore(log10x): budget run, 10.89 USD a month on Standard
+538c500825e956aa32a31b216f4e0e240dc012c3 2026-10-20T02:00:06-04:00 chore(log10x): budget run, 10.89 USD a month on Standard
+409766a572d2fde5084cabf5a38c08263a9d45b7 2026-10-20T01:00:03-04:00 chore(log10x): budget run, 10.89 USD a month on Standard
+c1d86692ba1b9347a8e602248d648a13abf28f47 2026-10-20T00:02:50-04:00 chore(log10x): budget run, 10.89 USD a month on Standard
+3e63b71c56ae070a2075d03ae960312bb4dad84d 2026-10-19T21:22:36-04:00 log10x: seed the policy files
+076412f5d03c5d12e404aa446111c5beb3778ca4 2026-10-19T12:38:33-04:00 Merge pull request #107 from log-10x/feat/ceiling-regulator
+49dd66548bd9d4c24e472bae4e930a51864f6516 2026-10-19T12:02:48-04:00 rate regulator: roll on the sweep, drop only same-sweep duplicates
+f5eba594bc4135ecf5fd5d91cd5fa6825286cef1 2026-10-19T11:04:15-04:00 rate regulator: one roll per window, a running floor on the scale, scaled gate cases
+262884025af15aa54b07a7016f741763773bea10 2026-10-19T10:00:23-04:00 rate regulator: scale caps by the previous window, plus comment fixes
+2149a7c17b2e30adfccf9dfe45bbb69026a52157 2026-10-18T23:02:41-04:00 gitops lane: live pull check, one lane for the policy files, GH_ENABLED spellings

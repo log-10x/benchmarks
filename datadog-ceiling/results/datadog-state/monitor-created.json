@@ -1,0 +1,8 @@
+{
+ "id": 23222383,
+ "name": "tenx ceiling rig: payment error statement in Standard",
+ "type": "log alert",
+ "query": "logs(\"service:payment @severity_level:ERROR @message_pattern:Payment_request_failed_Invalid_token_demo_user_context_loyalty_level_gold\").index(\"main\").rollup(\"count\").last(\"5m\") > 10",
+ "created": "2026-10-20T05:38:14.604209+00:00",
+ "overall_state": "No Data"
+}

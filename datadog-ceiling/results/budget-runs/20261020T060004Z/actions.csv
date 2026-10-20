@@ -1,0 +1,22 @@
+container,action
+accounting,tier_down::budget run
+ad,tier_down::budget run
+astronomy-db,tier_down::budget run
+cart,tier_down::budget run
+email,tier_down::budget run
+flagd,tier_down::budget run
+flagd-ui,tier_down::budget run
+fraud-detection,tier_down::budget run
+frontend,tier_down::budget run
+frontend-proxy,tier_down::budget run
+image-provider,tier_down::budget run
+kafka,tier_down::budget run
+otel-collector,tier_down::budget run
+payment,tier_down::budget run
+product-catalog,tier_down::budget run
+quote,tier_down::budget run
+recommendation,tier_down::budget run
+shipping,tier_down::budget run
+telemetry-docs,tier_down::budget run
+valkey-cart,tier_down::budget run
+*,tier_down::budget run

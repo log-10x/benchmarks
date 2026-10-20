@@ -1,0 +1,78 @@
+{
+ "options": [
+  [
+   "symbolMessageHashField",
+   "tenx_hash"
+  ],
+  [
+   "rateReceiverUnit",
+   "events"
+  ],
+  [
+   "rateReceiverMinSharePercent",
+   "0"
+  ],
+  [
+   "rateReceiverWarmupMs",
+   "0"
+  ],
+  [
+   "rateReceiverBaselineCount",
+   "5"
+  ],
+  [
+   "rateReceiverMinRetentionThreshold",
+   "0"
+  ],
+  [
+   "rateReceiverSeverityFloors",
+   "TRACE=0"
+  ],
+  [
+   "rateReceiverSeverityFloors",
+   "DEBUG=0"
+  ],
+  [
+   "rateReceiverSeverityFloors",
+   "INFO=0"
+  ],
+  [
+   "rateReceiverSeverityFloors",
+   "WARN=0"
+  ],
+  [
+   "rateReceiverSeverityFloors",
+   "ERROR=0"
+  ],
+  [
+   "rateReceiverSeverityFloors",
+   "CRITICAL=0"
+  ],
+  [
+   "rateReceiverSeverityFloors",
+   "FATAL=0"
+  ],
+  [
+   "rateReceiverKeepCounts",
+   "ERROR=50"
+  ],
+  [
+   "rateReceiverKeepCounts",
+   "CRITICAL=50"
+  ],
+  [
+   "rateReceiverKeepCounts",
+   "FATAL=50"
+  ]
+ ],
+ "env": [],
+ "fleetDefaultWritten": false,
+ "teamLabelWritten": false,
+ "regulatorValuesWritten": true,
+ "keepCountsWritten": true,
+ "eventsUnitWritten": true,
+ "keepCount": 50,
+ "errorFloor": 0,
+ "engineVersion": "1.1.146",
+ "notes": []
+}

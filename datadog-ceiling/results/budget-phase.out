@@ -1,0 +1,138 @@
+2026-10-20T04:07:53Z load 12
+ Container load-generator  Recreate
+ Container load-generator  Recreated
+ Container load-generator  Starting
+ Container load-generator  Started
+2026-10-20T04:26:50Z load 24
+ Container load-generator  Recreate
+ Container load-generator  Recreated
+ Container load-generator  Starting
+ Container load-generator  Started
+2026-10-20T05:00:01Z budget
+budget run exit 0
+2026-10-20T05:07:57Z load 40
+ Container load-generator  Recreate
+ Container load-generator  Recreated
+ Container load-generator  Starting
+ Container load-generator  Started
+2026-10-20T05:32:53Z storm on
+:ok
+2026-10-20T06:00:04Z budget
+budget run exit 0
+2026-10-20T06:02:55Z storm off
+:ok
+2026-10-20T06:17:54Z inject start
+ae222bf41df1169546ce269f4a96527c117c6e713e6ceeaf0611e4b2fae3737c
+2026-10-20T07:00:00Z budget
+budget run exit 0
+2026-10-20T07:17:53Z inject stop
+inventory
+2026-10-20T08:00:02Z budget
+budget run exit 0
+2026-10-20T09:00:02Z budget
+budget run exit 0
+2026-10-20T09:05:03Z down
+rig-replay
+rig-storm
+ Container frontend-proxy  Stopping
+ Container accounting  Stopping
+ Container rig-fluent-bit  Stopping
+ Container fraud-detection  Stopping
+ Container rig-tenx  Stopping
+ Container fraud-detection  Stopped
+ Container fraud-detection  Removing
+ Container rig-fluent-bit  Stopped
+ Container rig-fluent-bit  Removing
+ Container fraud-detection  Removed
+ Container rig-fluent-bit  Removed
+ Container accounting  Stopped
+ Container accounting  Removing
+ Container rig-tenx  Stopped
+ Container rig-tenx  Removing
+ Container accounting  Removed
+ Container rig-tenx  Removed
+ Container frontend-proxy  Stopped
+ Container frontend-proxy  Removing
+ Container frontend-proxy  Removed
+ Container telemetry-docs  Stopping
+ Container flagd-ui  Stopping
+ Container load-generator  Stopping
+ Container telemetry-docs  Stopped
+ Container telemetry-docs  Removing
+ Container telemetry-docs  Removed
+ Container flagd-ui  Stopped
+ Container flagd-ui  Removing
+ Container flagd-ui  Removed
+ Container load-generator  Stopped
+ Container load-generator  Removing
+ Container load-generator  Removed
+ Container frontend  Stopping
+ Container frontend  Stopped
+ Container frontend  Removing
+ Container frontend  Removed
+ Container ad  Stopping
+ Container recommendation  Stopping
+ Container quote  Stopping
+ Container image-provider  Stopping
+ Container checkout  Stopping
+ Container image-provider  Stopped
+ Container image-provider  Removing
+ Container image-provider  Removed
+ Container ad  Stopped
+ Container ad  Removing
+ Container quote  Stopped
+ Container quote  Removing
+ Container checkout  Stopped
+ Container checkout  Removing
+ Container ad  Removed
+ Container quote  Removed
+ Container checkout  Removed
+ Container kafka  Stopping
+ Container email  Stopping
+ Container currency  Stopping
+ Container cart  Stopping
+ Container shipping  Stopping
+ Container payment  Stopping
+ Container shipping  Stopped
+ Container shipping  Removing
+ Container shipping  Removed
+ Container currency  Stopped
+ Container currency  Removing
+ Container currency  Removed
+ Container email  Stopped
+ Container email  Removing
+ Container email  Removed
+ Container cart  Stopped
+ Container cart  Removing
+ Container cart  Removed
+ Container valkey-cart  Stopping
+ Container valkey-cart  Stopped
+ Container valkey-cart  Removing
+ Container valkey-cart  Removed
+ Container kafka  Stopped
+ Container kafka  Removing
+ Container kafka  Removed
+ Container recommendation  Stopped
+ Container recommendation  Removing
+ Container recommendation  Removed
+ Container product-catalog  Stopping
+ Container product-catalog  Stopped
+ Container product-catalog  Removing
+ Container product-catalog  Removed
+ Container astronomy-db  Stopping
+ Container astronomy-db  Stopped
+ Container astronomy-db  Removing
+ Container astronomy-db  Removed
+ Container payment  Stopped
+ Container payment  Removing
+ Container payment  Removed
+ Container otel-collector  Stopping
+ Container flagd  Stopping
+ Container flagd  Stopped
+ Container flagd  Removing
+ Container flagd  Removed
+ Container otel-collector  Stopped
+ Container otel-collector  Removing
+ Container otel-collector  Removed
+ Network opentelemetry-demo  Removing
+ Network opentelemetry-demo  Removed
