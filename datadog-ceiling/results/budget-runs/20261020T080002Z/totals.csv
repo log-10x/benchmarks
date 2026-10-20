@@ -1,0 +1,23 @@
+container,total
+accounting,1::budget run
+ad,50::budget run
+astronomy-db,57::budget run
+cart,178::budget run
+email,43::budget run
+flagd,1::budget run
+flagd-ui,1::budget run
+fraud-detection,29::budget run
+frontend,119::budget run
+frontend-proxy,3::budget run
+image-provider,2::budget run
+inventory,74::budget run
+kafka,313::budget run
+otel-collector,233::budget run
+payment,139::budget run
+product-catalog,1::budget run
+quote,33::budget run
+recommendation,49::budget run
+shipping,99::budget run
+telemetry-docs,55::budget run
+valkey-cart,5::budget run
+*,46::budget run

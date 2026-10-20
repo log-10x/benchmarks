@@ -1,0 +1,10 @@
+# Full captures, the replay feed, the policy checkout and process files stay local; the
+# committed captures are results/captures/ (rig/slim.py).
+results/data/
+results/replay/
+results/policy-clone/
+results/*.pid
+results/caffeinate.out
+results/deadline
+results/.down.done
+rig/__pycache__/

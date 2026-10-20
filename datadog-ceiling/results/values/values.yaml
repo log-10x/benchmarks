@@ -1,0 +1,151 @@
+# Receiver overlay for Fluent Bit (upstream fluent/fluent-bit chart).
+# Layer on top of your existing values:
+#   helm upgrade --install <release> fluent/fluent-bit \
+#     -f your-existing-fluent-bit-values.yaml \
+#     -f my-receiver.yaml --namespace <namespace>
+
+extraContainers:
+  - name: log10x
+    image: log10x/edge-10x:1.1.146@sha256:4d7be22e5e91ffe344ec9878b45063d21a9c2eb4909799a6d5a7f456db5f0c3a
+    imagePullPolicy: IfNotPresent
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      readOnlyRootFilesystem: true
+      allowPrivilegeEscalation: false
+    args:
+      - "@run/input/forwarder/fluentbit"
+      - "@apps/receiver"
+      - "@run/output/metric/datadog"
+      - "symbolMessageHashField"
+      - "tenx_hash"
+      - "rateReceiverUnit"
+      - "events"
+      - "rateReceiverMinSharePercent"
+      - "0"
+      - "rateReceiverWarmupMs"
+      - "0"
+      - "rateReceiverBaselineCount"
+      - "5"
+      - "rateReceiverMinRetentionThreshold"
+      - "0"
+      - "rateReceiverSeverityFloors"
+      - "TRACE=0"
+      - "rateReceiverSeverityFloors"
+      - "DEBUG=0"
+      - "rateReceiverSeverityFloors"
+      - "INFO=0"
+      - "rateReceiverSeverityFloors"
+      - "WARN=0"
+      - "rateReceiverSeverityFloors"
+      - "ERROR=0"
+      - "rateReceiverSeverityFloors"
+      - "CRITICAL=0"
+      - "rateReceiverSeverityFloors"
+      - "FATAL=0"
+      - "rateReceiverKeepCounts"
+      - "ERROR=50"
+      - "rateReceiverKeepCounts"
+      - "CRITICAL=50"
+      - "rateReceiverKeepCounts"
+      - "FATAL=50"
+    env:
+      - name: TENX_AIRGAPPED
+        value: "true"
+      - name: DD_API_KEY
+        valueFrom:
+          secretKeyRef:
+            name: datadog-credentials
+            key: api-key
+      - name: DD_APP_KEY
+        valueFrom:
+          secretKeyRef:
+            name: datadog-credentials
+            key: app-key
+      - name: DD_SITE
+        value: "us5.datadoghq.com"
+      - name: GH_ENABLED
+        value: "true"
+      - name: GH_REPO
+        value: "log-10x/config"
+      - name: GH_BRANCH
+        value: "test/datadog-ceiling-policy"
+      - name: GH_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: log10x-policy-git
+            key: GH_TOKEN
+    volumeMounts:
+      - name: tenx-tmp
+        mountPath: /tmp
+    resources:
+      requests: { cpu: 100m, memory: 256Mi }
+      limits:   { cpu: 500m, memory: 512Mi }
+
+extraVolumes:
+  - name: tenx-tmp
+    emptyDir: {}
+
+# Replace the chart's default config with the sidecar bypass pattern.
+# Inputs: tail your sources + receive processed events back from the
+# sidecar on :24225 with Tag_Prefix tenx. (so filters and the ingest
+# handoff Match kube.* and skip the returning tenx.*).
+# Filters: enrichment (kubernetes metadata) on kube.* only.
+# Outputs: handoff to the sidecar on 127.0.0.1:24224 + destination
+# for the returning tenx.* events.
+config:
+  service: |
+    [SERVICE]
+        Daemon Off
+        Flush {{ .Values.flush }}
+        Log_Level {{ .Values.logLevel }}
+        Parsers_File /fluent-bit/etc/parsers.conf
+        Parsers_File /fluent-bit/etc/conf/custom_parsers.conf
+        HTTP_Server On
+        HTTP_Listen 0.0.0.0
+        HTTP_Port {{ .Values.metricsPort }}
+        Health_Check On
+
+  inputs: |
+    [INPUT]
+        Name tail
+        Path /var/log/containers/*.log
+        Exclude_Path /var/log/containers/*fluent-bit*.log,/var/log/containers/*fluentd*.log,/var/log/containers/*filebeat*.log,/var/log/containers/*logstash*.log,/var/log/containers/*otel-collector*.log,/var/log/containers/*opentelemetry-collector*.log
+        multiline.parser docker, cri
+        Tag kube.*
+        Mem_Buf_Limit 5MB
+        Skip_Long_Lines On
+
+    # Egress: returning events from the 10x sidecar. Tag_Prefix tenx.
+    # prevents enrichment filters and the sidecar-handoff output from
+    # re-firing (they Match kube.* only).
+    [INPUT]
+        Name forward
+        Listen 0.0.0.0
+        Port 24225
+        Tag_Prefix tenx.
+
+  filters: |
+    [FILTER]
+        Name kubernetes
+        Match kube.*
+        Merge_Log On
+        Keep_Log Off
+        K8S-Logging.Parser On
+        K8S-Logging.Exclude On
+
+  outputs: |
+    # Hand off to the Log10x sidecar.
+    [OUTPUT]
+        Name forward
+        Match kube.*
+        Host 127.0.0.1
+        Port 24224
+        Retry_Limit False
+
+    [OUTPUT]
+        Name datadog
+        Match tenx.*
+        Host http-intake.logs.datadoghq.com
+        TLS On
+        apikey ${DD_API_KEY}

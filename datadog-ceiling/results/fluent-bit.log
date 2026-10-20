@@ -1,0 +1,37 @@
+2026-10-20T01:23:00.221093401Z Fluent Bit v4.2.8
+2026-10-20T01:23:00.221151035Z * Copyright (C) 2015-2026 The Fluent Bit Authors
+2026-10-20T01:23:00.221341246Z * Fluent Bit is a CNCF graduated project under the Fluent organization
+2026-10-20T01:23:00.221354491Z * https://fluentbit.io
+2026-10-20T01:23:00.221358558Z 
+2026-10-20T01:23:00.221362228Z ______ _                  _    ______ _ _             ___   _____ 
+2026-10-20T01:23:00.221365271Z |  ___| |                | |   | ___ (_) |           /   | / __  \
+2026-10-20T01:23:00.221368236Z | |_  | |_   _  ___ _ __ | |_  | |_/ /_| |_  __   __/ /| | `' / /'
+2026-10-20T01:23:00.221371326Z |  _| | | | | |/ _ \ '_ \| __| | ___ \ | __| \ \ / / /_| |   / /  
+2026-10-20T01:23:00.221374816Z | |   | | |_| |  __/ | | | |_  | |_/ / | |_   \ V /\___  |_./ /___
+2026-10-20T01:23:00.221385279Z \_|   |_|\__,_|\___|_| |_|\__| \____/|_|\__|   \_/     |_(_)_____/
+2026-10-20T01:23:00.221388946Z                                                                   
+2026-10-20T01:23:00.221984942Z              Fluent Bit v4.2 – Direct Routes Ahead
+2026-10-20T01:23:00.221987869Z          Celebrating 10 Years of Open, Fluent Innovation!
+2026-10-20T01:23:00.221989860Z 
+2026-10-20T01:23:00.236268403Z [2026/10/20 01:23:00.233013087] [ info] [fluent bit] version=4.2.8, commit=419540c428, pid=1
+2026-10-20T01:23:00.237453708Z [2026/10/20 01:23:00.236194756] [ info] [storage] ver=1.5.4, type=memory, sync=normal, checksum=off, max_chunks_up=128
+2026-10-20T01:23:00.237480633Z [2026/10/20 01:23:00.236405394] [ info] [simd    ] SSE2
+2026-10-20T01:23:00.237487364Z [2026/10/20 01:23:00.236525683] [ info] [cmetrics] version=1.0.6
+2026-10-20T01:23:00.237491679Z [2026/10/20 01:23:00.236533943] [ info] [ctraces ] version=0.6.6
+2026-10-20T01:23:00.237685315Z [2026/10/20 01:23:00.236699625] [ info] [input:forward:forward.0] initializing
+2026-10-20T01:23:00.237692178Z [2026/10/20 01:23:00.236710194] [ info] [input:forward:forward.0] storage_strategy='memory' (memory only)
+2026-10-20T01:23:00.243897727Z [2026/10/20 01:23:00.241840880] [ info] [input:forward:forward.0] listening on 0.0.0.0:24224
+2026-10-20T01:23:00.243919154Z [2026/10/20 01:23:00.241986094] [ info] [input:forward:forward.1] initializing
+2026-10-20T01:23:00.243924401Z [2026/10/20 01:23:00.241994474] [ info] [input:forward:forward.1] storage_strategy='memory' (memory only)
+2026-10-20T01:23:00.243927860Z [2026/10/20 01:23:00.242036327] [ info] [input:forward:forward.1] listening on 0.0.0.0:24225
+2026-10-20T01:23:00.279693840Z [2026/10/20 01:23:00.278711092] [ info] [input:emitter:emitter_for_rewrite_tag.2] initializing
+2026-10-20T01:23:00.279731051Z [2026/10/20 01:23:00.278756448] [ info] [input:emitter:emitter_for_rewrite_tag.2] storage_strategy='memory' (memory only)
+2026-10-20T01:23:00.290481128Z [2026/10/20 01:23:00.290013052] [ info] [output:file:file.2] worker #0 started
+2026-10-20T01:23:00.291941454Z [2026/10/20 01:23:00.290356641] [ info] [output:file:file.0] worker #0 started
+2026-10-20T01:23:00.292001081Z [2026/10/20 01:23:00.291792860] [ info] [output:forward:forward.1] worker #0 started
+2026-10-20T01:23:00.295594352Z [2026/10/20 01:23:00.294960338] [ info] [output:file:file.3] worker #0 started
+2026-10-20T01:23:00.296769709Z [2026/10/20 01:23:00.296488721] [ info] [output:file:file.4] worker #0 started
+2026-10-20T01:23:00.313527410Z [2026/10/20 01:23:00.313205606] [ info] [output:file:file.5] worker #0 started
+2026-10-20T01:23:00.364326928Z [2026/10/20 01:23:00.363727486] [ info] [http_server] listen iface=0.0.0.0 tcp_port=2020
+2026-10-20T01:23:00.364359312Z [2026/10/20 01:23:00.363761781] [ info] [sp] stream processor started
+2026-10-20T01:23:00.366112710Z [2026/10/20 01:23:00.365866920] [ info] [engine] Shutdown Grace Period=10, Shutdown Input Grace Period=5

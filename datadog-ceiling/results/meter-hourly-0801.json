@@ -1,0 +1,46 @@
+{
+ "read_at": "2026-10-20T08:01Z",
+ "query": "sum:datadog.estimated_usage.logs.ingested_events{datadog_is_excluded:false} by {datadog_index,service}.as_count().rollup(sum, 3600)",
+ "hours": {
+  "2026-10-20T01:00Z": {
+   "main/frontend": 1582.0,
+   "main/(all other services)": 12063.0,
+   "tenx-offload/(all services)": 10.0
+  },
+  "2026-10-20T02:00Z": {
+   "main/frontend": 3519.0,
+   "main/(all other services)": 18624.0
+  },
+  "2026-10-20T03:00Z": {
+   "main/frontend": 3666.0,
+   "main/(all other services)": 18910.0
+  },
+  "2026-10-20T04:00Z": {
+   "main/frontend": 1957.0,
+   "main/(all other services)": 18166.0,
+   "tenx-offload/(all services)": 16434.0
+  },
+  "2026-10-20T05:00Z": {
+   "main/frontend": 1774.0,
+   "main/(all other services)": 19246.0,
+   "tenx-offload/(all services)": 22090.0
+  },
+  "2026-10-20T06:00Z": {
+   "main/frontend": 1763.0,
+   "main/inventory": 372.0,
+   "main/(all other services)": 20609.0,
+   "tenx-offload/(all services)": 42268.0
+  },
+  "2026-10-20T07:00Z": {
+   "main/frontend": 1760.0,
+   "main/inventory": 315.0,
+   "main/(all other services)": 19063.0,
+   "tenx-offload/(all services)": 38957.0
+  },
+  "2026-10-20T08:00Z": {
+   "main/frontend": 16.0,
+   "main/(all other services)": 468.0,
+   "tenx-offload/(all services)": 498.0
+  }
+ }
+}

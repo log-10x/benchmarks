@@ -1,0 +1,1038 @@
+{
+ "x": {
+  "T": "2026-10-20T04:02:21Z",
+  "hours_left": 283.961,
+  "baseline_main_events_per_hour": 22359.5,
+  "baseline_hours": {
+   "02:00": 22143,
+   "03:00": 22576
+  },
+  "spent_events_through_T": 59139,
+  "X_usd_monthly": 10.89,
+  "allowed_events_per_hour": 22350.8,
+  "frontend": {
+   "baseline_events_per_hour": 3592.5,
+   "spent_events": 8898,
+   "usd_monthly": 0.88,
+   "allowed_events_per_hour": 1791.6
+  },
+  "rest_of_account_usd": 10.01,
+  "rate_usd_per_million": 1.7
+ },
+ "window_phase_s": {
+  "phase": 201,
+  "transitions": 2161,
+  "within_4s": 724
+ },
+ "meter_source": {
+  "read_at": "2026-10-20T08:01Z",
+  "live": false,
+  "file": "meter-hourly-0801.json"
+ },
+ "hourly": [
+  {
+   "hour": "2026-10-20T01:00Z",
+   "phase": "startup",
+   "meter_main": 13645.0,
+   "meter_tenx_offload": 10.0,
+   "meter_ingested": 13655.0,
+   "meter_routing_check": 0,
+   "meter_main_frontend": 1582.0,
+   "meter_main_inventory": 0,
+   "local_raw_lines": 16799,
+   "local_pass": 13639,
+   "local_tier_down": 0,
+   "local_offload": 0,
+   "local_frontend_pass": 1585,
+   "local_frontend_tier_down": 0,
+   "allowed": 22350.8,
+   "allowances": 0,
+   "allowed_plus_allowances": 22351,
+   "frontend_allowed": 1791.6,
+   "frontend_allowances": 0,
+   "growth_vs_baseline": 0.61
+  },
+  {
+   "hour": "2026-10-20T02:00Z",
+   "phase": "baseline",
+   "meter_main": 22143.0,
+   "meter_tenx_offload": 0,
+   "meter_ingested": 22143.0,
+   "meter_routing_check": 0,
+   "meter_main_frontend": 3519.0,
+   "meter_main_inventory": 0,
+   "local_raw_lines": 25126,
+   "local_pass": 22144,
+   "local_tier_down": 0,
+   "local_offload": 0,
+   "local_frontend_pass": 3516,
+   "local_frontend_tier_down": 0,
+   "allowed": 22350.8,
+   "allowances": 0,
+   "allowed_plus_allowances": 22351,
+   "frontend_allowed": 1791.6,
+   "frontend_allowances": 0,
+   "growth_vs_baseline": 0.99
+  },
+  {
+   "hour": "2026-10-20T03:00Z",
+   "phase": "baseline",
+   "meter_main": 22576.0,
+   "meter_tenx_offload": 0,
+   "meter_ingested": 22576.0,
+   "meter_routing_check": 0,
+   "meter_main_frontend": 3666.0,
+   "meter_main_inventory": 0,
+   "local_raw_lines": 25598,
+   "local_pass": 22570,
+   "local_tier_down": 0,
+   "local_offload": 0,
+   "local_frontend_pass": 3666,
+   "local_frontend_tier_down": 0,
+   "allowed": 22350.8,
+   "allowances": 0,
+   "allowed_plus_allowances": 22351,
+   "frontend_allowed": 1791.6,
+   "frontend_allowances": 0,
+   "growth_vs_baseline": 1.01
+  },
+  {
+   "hour": "2026-10-20T04:00Z",
+   "phase": "budget",
+   "meter_main": 20123.0,
+   "meter_tenx_offload": 16434.0,
+   "meter_ingested": 36557.0,
+   "meter_routing_check": 0,
+   "meter_main_frontend": 1957.0,
+   "meter_main_inventory": 0,
+   "local_raw_lines": 43382,
+   "local_pass": 20123,
+   "local_tier_down": 16440,
+   "local_offload": 0,
+   "local_frontend_pass": 1957,
+   "local_frontend_tier_down": 8162,
+   "allowed": 22350.8,
+   "allowances": 1475,
+   "allowed_plus_allowances": 23826,
+   "frontend_allowed": 1791.6,
+   "frontend_allowances": 145,
+   "growth_vs_baseline": 1.63
+  },
+  {
+   "hour": "2026-10-20T05:00Z",
+   "phase": "budget",
+   "meter_main": 21020.0,
+   "meter_tenx_offload": 22090.0,
+   "meter_ingested": 43110.0,
+   "meter_routing_check": 0,
+   "meter_main_frontend": 1774.0,
+   "meter_main_inventory": 0,
+   "local_raw_lines": 50953,
+   "local_pass": 21028,
+   "local_tier_down": 22093,
+   "local_offload": 0,
+   "local_frontend_pass": 1774,
+   "local_frontend_tier_down": 10989,
+   "allowed": 22350.8,
+   "allowances": 1815,
+   "allowed_plus_allowances": 24166,
+   "frontend_allowed": 1791.6,
+   "frontend_allowances": 165,
+   "growth_vs_baseline": 1.93
+  },
+  {
+   "hour": "2026-10-20T06:00Z",
+   "phase": "budget",
+   "meter_main": 22744.0,
+   "meter_tenx_offload": 42268.0,
+   "meter_ingested": 65012.0,
+   "meter_routing_check": 0,
+   "meter_main_frontend": 1763.0,
+   "meter_main_inventory": 372.0,
+   "local_raw_lines": 75617,
+   "local_pass": 22735,
+   "local_tier_down": 42259,
+   "local_offload": 0,
+   "local_frontend_pass": 1763,
+   "local_frontend_tier_down": 13059,
+   "allowed": 22350.8,
+   "allowances": 2785,
+   "allowed_plus_allowances": 25136,
+   "frontend_allowed": 1791.6,
+   "frontend_allowances": 145,
+   "growth_vs_baseline": 2.91
+  },
+  {
+   "hour": "2026-10-20T07:00Z",
+   "phase": "budget",
+   "meter_main": 21138.0,
+   "meter_tenx_offload": 38957.0,
+   "meter_ingested": 60095.0,
+   "meter_routing_check": 0,
+   "meter_main_frontend": 1760.0,
+   "meter_main_inventory": 315.0,
+   "local_raw_lines": 70495,
+   "local_pass": 21138,
+   "local_tier_down": 38957,
+   "local_offload": 0,
+   "local_frontend_pass": 1760,
+   "local_frontend_tier_down": 13108,
+   "allowed": 22350.8,
+   "allowances": 2255,
+   "allowed_plus_allowances": 24606,
+   "frontend_allowed": 1791.6,
+   "frontend_allowances": 150,
+   "growth_vs_baseline": 2.69
+  },
+  {
+   "hour": "2026-10-20T08:00Z",
+   "phase": "budget",
+   "meter_main": 484.0,
+   "meter_tenx_offload": 498.0,
+   "meter_ingested": 982.0,
+   "meter_routing_check": 0,
+   "meter_main_frontend": 16.0,
+   "meter_main_inventory": 0,
+   "local_raw_lines": 69307,
+   "local_pass": 21080,
+   "local_tier_down": 37635,
+   "local_offload": 0,
+   "local_frontend_pass": 1770,
+   "local_frontend_tier_down": 13138,
+   "allowed": 22350.8,
+   "allowances": 1845,
+   "allowed_plus_allowances": 24196,
+   "frontend_allowed": 1791.6,
+   "frontend_allowances": 145,
+   "growth_vs_baseline": 0.04
+  },
+  {
+   "hour": "2026-10-20T09:00Z",
+   "phase": "budget",
+   "meter_main": 0,
+   "meter_tenx_offload": 0,
+   "meter_ingested": 0,
+   "meter_routing_check": 0,
+   "meter_main_frontend": 0,
+   "meter_main_inventory": 0,
+   "local_raw_lines": 5936,
+   "local_pass": 1845,
+   "local_tier_down": 3185,
+   "local_offload": 0,
+   "local_frontend_pass": 136,
+   "local_frontend_tier_down": 1194,
+   "allowed": 22350.8,
+   "allowances": 75,
+   "allowed_plus_allowances": 22426,
+   "frontend_allowed": 1791.6,
+   "frontend_allowances": 5,
+   "growth_vs_baseline": 0.0
+  }
+ ],
+ "windows_budget": [
+  {
+   "window": "2026-10-20T04:03:21Z",
+   "standard": 1316,
+   "tier_down": 163
+  },
+  {
+   "window": "2026-10-20T04:07:21Z",
+   "standard": 1328,
+   "tier_down": 775
+  },
+  {
+   "window": "2026-10-20T04:11:21Z",
+   "standard": 1310,
+   "tier_down": 817
+  },
+  {
+   "window": "2026-10-20T04:15:21Z",
+   "standard": 1323,
+   "tier_down": 740
+  },
+  {
+   "window": "2026-10-20T04:19:21Z",
+   "standard": 1319,
+   "tier_down": 852
+  },
+  {
+   "window": "2026-10-20T04:23:21Z",
+   "standard": 1318,
+   "tier_down": 686
+  },
+  {
+   "window": "2026-10-20T04:27:21Z",
+   "standard": 1327,
+   "tier_down": 1485
+  },
+  {
+   "window": "2026-10-20T04:31:21Z",
+   "standard": 1323,
+   "tier_down": 1824
+  },
+  {
+   "window": "2026-10-20T04:35:21Z",
+   "standard": 1331,
+   "tier_down": 1578
+  },
+  {
+   "window": "2026-10-20T04:39:21Z",
+   "standard": 1323,
+   "tier_down": 1534
+  },
+  {
+   "window": "2026-10-20T04:43:21Z",
+   "standard": 1302,
+   "tier_down": 1521
+  },
+  {
+   "window": "2026-10-20T04:47:21Z",
+   "standard": 1317,
+   "tier_down": 1594
+  },
+  {
+   "window": "2026-10-20T04:51:21Z",
+   "standard": 1326,
+   "tier_down": 1473
+  },
+  {
+   "window": "2026-10-20T04:55:21Z",
+   "standard": 1325,
+   "tier_down": 1353
+  },
+  {
+   "window": "2026-10-20T04:59:21Z",
+   "standard": 1362,
+   "tier_down": 1259
+  },
+  {
+   "window": "2026-10-20T05:03:21Z",
+   "standard": 1400,
+   "tier_down": 1299
+  },
+  {
+   "window": "2026-10-20T05:07:21Z",
+   "standard": 1392,
+   "tier_down": 1316
+  },
+  {
+   "window": "2026-10-20T05:11:21Z",
+   "standard": 1377,
+   "tier_down": 1324
+  },
+  {
+   "window": "2026-10-20T05:15:21Z",
+   "standard": 1389,
+   "tier_down": 1126
+  },
+  {
+   "window": "2026-10-20T05:19:21Z",
+   "standard": 1402,
+   "tier_down": 1304
+  },
+  {
+   "window": "2026-10-20T05:23:21Z",
+   "standard": 1385,
+   "tier_down": 1243
+  },
+  {
+   "window": "2026-10-20T05:27:21Z",
+   "standard": 1400,
+   "tier_down": 1225
+  },
+  {
+   "window": "2026-10-20T05:31:21Z",
+   "standard": 1411,
+   "tier_down": 1479
+  },
+  {
+   "window": "2026-10-20T05:35:21Z",
+   "standard": 1327,
+   "tier_down": 1202
+  },
+  {
+   "window": "2026-10-20T05:39:21Z",
+   "standard": 1334,
+   "tier_down": 1266
+  },
+  {
+   "window": "2026-10-20T05:43:21Z",
+   "standard": 1353,
+   "tier_down": 1285
+  },
+  {
+   "window": "2026-10-20T05:47:21Z",
+   "standard": 1377,
+   "tier_down": 1267
+  },
+  {
+   "window": "2026-10-20T05:51:21Z",
+   "standard": 1461,
+   "tier_down": 2668
+  },
+  {
+   "window": "2026-10-20T05:55:21Z",
+   "standard": 1468,
+   "tier_down": 2744
+  },
+  {
+   "window": "2026-10-20T05:59:21Z",
+   "standard": 1356,
+   "tier_down": 2887
+  },
+  {
+   "window": "2026-10-20T06:03:21Z",
+   "standard": 1580,
+   "tier_down": 2760
+  },
+  {
+   "window": "2026-10-20T06:07:21Z",
+   "standard": 1533,
+   "tier_down": 2734
+  },
+  {
+   "window": "2026-10-20T06:11:21Z",
+   "standard": 1540,
+   "tier_down": 2879
+  },
+  {
+   "window": "2026-10-20T06:15:21Z",
+   "standard": 1553,
+   "tier_down": 2855
+  },
+  {
+   "window": "2026-10-20T06:19:21Z",
+   "standard": 1553,
+   "tier_down": 2892
+  },
+  {
+   "window": "2026-10-20T06:23:21Z",
+   "standard": 1535,
+   "tier_down": 2847
+  },
+  {
+   "window": "2026-10-20T06:27:21Z",
+   "standard": 1547,
+   "tier_down": 3087
+  },
+  {
+   "window": "2026-10-20T06:31:21Z",
+   "standard": 1551,
+   "tier_down": 2838
+  },
+  {
+   "window": "2026-10-20T06:35:21Z",
+   "standard": 1515,
+   "tier_down": 2930
+  },
+  {
+   "window": "2026-10-20T06:39:21Z",
+   "standard": 1523,
+   "tier_down": 2411
+  },
+  {
+   "window": "2026-10-20T06:43:21Z",
+   "standard": 1453,
+   "tier_down": 2627
+  },
+  {
+   "window": "2026-10-20T06:47:21Z",
+   "standard": 1513,
+   "tier_down": 2817
+  },
+  {
+   "window": "2026-10-20T06:51:21Z",
+   "standard": 1532,
+   "tier_down": 2778
+  },
+  {
+   "window": "2026-10-20T06:55:21Z",
+   "standard": 1535,
+   "tier_down": 2888
+  },
+  {
+   "window": "2026-10-20T06:59:21Z",
+   "standard": 1426,
+   "tier_down": 2806
+  },
+  {
+   "window": "2026-10-20T07:03:21Z",
+   "standard": 1409,
+   "tier_down": 2851
+  },
+  {
+   "window": "2026-10-20T07:07:21Z",
+   "standard": 1495,
+   "tier_down": 3067
+  },
+  {
+   "window": "2026-10-20T07:11:21Z",
+   "standard": 1493,
+   "tier_down": 2975
+  },
+  {
+   "window": "2026-10-20T07:15:21Z",
+   "standard": 1483,
+   "tier_down": 2808
+  },
+  {
+   "window": "2026-10-20T07:19:21Z",
+   "standard": 1362,
+   "tier_down": 2106
+  },
+  {
+   "window": "2026-10-20T07:23:21Z",
+   "standard": 1402,
+   "tier_down": 2423
+  },
+  {
+   "window": "2026-10-20T07:27:21Z",
+   "standard": 1372,
+   "tier_down": 2472
+  },
+  {
+   "window": "2026-10-20T07:31:21Z",
+   "standard": 1401,
+   "tier_down": 2455
+  },
+  {
+   "window": "2026-10-20T07:35:21Z",
+   "standard": 1401,
+   "tier_down": 2533
+  },
+  {
+   "window": "2026-10-20T07:39:21Z",
+   "standard": 1401,
+   "tier_down": 2544
+  },
+  {
+   "window": "2026-10-20T07:43:21Z",
+   "standard": 1337,
+   "tier_down": 2238
+  },
+  {
+   "window": "2026-10-20T07:47:21Z",
+   "standard": 1387,
+   "tier_down": 2592
+  },
+  {
+   "window": "2026-10-20T07:51:21Z",
+   "standard": 1384,
+   "tier_down": 2276
+  },
+  {
+   "window": "2026-10-20T07:55:21Z",
+   "standard": 1426,
+   "tier_down": 2849
+  },
+  {
+   "window": "2026-10-20T07:59:21Z",
+   "standard": 1411,
+   "tier_down": 2481
+  },
+  {
+   "window": "2026-10-20T08:03:21Z",
+   "standard": 1356,
+   "tier_down": 2483
+  },
+  {
+   "window": "2026-10-20T08:07:21Z",
+   "standard": 1419,
+   "tier_down": 2532
+  },
+  {
+   "window": "2026-10-20T08:11:21Z",
+   "standard": 1415,
+   "tier_down": 2684
+  },
+  {
+   "window": "2026-10-20T08:15:21Z",
+   "standard": 1415,
+   "tier_down": 2444
+  },
+  {
+   "window": "2026-10-20T08:19:21Z",
+   "standard": 1416,
+   "tier_down": 2503
+  },
+  {
+   "window": "2026-10-20T08:23:21Z",
+   "standard": 1425,
+   "tier_down": 2627
+  },
+  {
+   "window": "2026-10-20T08:27:21Z",
+   "standard": 1366,
+   "tier_down": 2311
+  },
+  {
+   "window": "2026-10-20T08:31:21Z",
+   "standard": 1402,
+   "tier_down": 2541
+  },
+  {
+   "window": "2026-10-20T08:35:21Z",
+   "standard": 1390,
+   "tier_down": 2463
+  },
+  {
+   "window": "2026-10-20T08:39:21Z",
+   "standard": 1404,
+   "tier_down": 2354
+  },
+  {
+   "window": "2026-10-20T08:43:21Z",
+   "standard": 1424,
+   "tier_down": 2580
+  },
+  {
+   "window": "2026-10-20T08:47:21Z",
+   "standard": 1382,
+   "tier_down": 2415
+  },
+  {
+   "window": "2026-10-20T08:51:21Z",
+   "standard": 1414,
+   "tier_down": 2498
+  },
+  {
+   "window": "2026-10-20T08:55:21Z",
+   "standard": 1419,
+   "tier_down": 2686
+  },
+  {
+   "window": "2026-10-20T08:59:21Z",
+   "standard": 1402,
+   "tier_down": 2469
+  }
+ ],
+ "new_statement": {
+  "service": "inventory",
+  "start": "2026-10-20T06:17:55Z",
+  "stop": "2026-10-20T07:17:54Z",
+  "windows": [
+   {
+    "window": "2026-10-20T06:15:21Z",
+    "raw": 170,
+    "standard": 31,
+    "tier_down": 139
+   },
+   {
+    "window": "2026-10-20T06:19:21Z",
+    "raw": 477,
+    "standard": 31,
+    "tier_down": 446
+   },
+   {
+    "window": "2026-10-20T06:23:21Z",
+    "raw": 476,
+    "standard": 31,
+    "tier_down": 445
+   },
+   {
+    "window": "2026-10-20T06:27:21Z",
+    "raw": 476,
+    "standard": 31,
+    "tier_down": 445
+   },
+   {
+    "window": "2026-10-20T06:31:21Z",
+    "raw": 477,
+    "standard": 35,
+    "tier_down": 442
+   },
+   {
+    "window": "2026-10-20T06:35:21Z",
+    "raw": 475,
+    "standard": 27,
+    "tier_down": 448
+   },
+   {
+    "window": "2026-10-20T06:39:21Z",
+    "raw": 465,
+    "standard": 31,
+    "tier_down": 434
+   },
+   {
+    "window": "2026-10-20T06:43:21Z",
+    "raw": 474,
+    "standard": 31,
+    "tier_down": 443
+   },
+   {
+    "window": "2026-10-20T06:47:21Z",
+    "raw": 476,
+    "standard": 31,
+    "tier_down": 445
+   },
+   {
+    "window": "2026-10-20T06:51:21Z",
+    "raw": 475,
+    "standard": 31,
+    "tier_down": 444
+   },
+   {
+    "window": "2026-10-20T06:55:21Z",
+    "raw": 477,
+    "standard": 31,
+    "tier_down": 446
+   },
+   {
+    "window": "2026-10-20T06:59:21Z",
+    "raw": 476,
+    "standard": 31,
+    "tier_down": 445
+   },
+   {
+    "window": "2026-10-20T07:03:21Z",
+    "raw": 476,
+    "standard": 60,
+    "tier_down": 416
+   },
+   {
+    "window": "2026-10-20T07:07:21Z",
+    "raw": 477,
+    "standard": 85,
+    "tier_down": 392
+   },
+   {
+    "window": "2026-10-20T07:11:21Z",
+    "raw": 476,
+    "standard": 85,
+    "tier_down": 391
+   },
+   {
+    "window": "2026-10-20T07:15:21Z",
+    "raw": 302,
+    "standard": 85,
+    "tier_down": 217
+   }
+  ],
+  "statements": [
+   "inventory_reconcile_sku_warehouse_eu_delta_took_ms"
+  ]
+ },
+ "errors": [
+  {
+   "container": "payment",
+   "statement": "Payment_request_failed_Invalid_token_demo_user_context_loyalty_level_gold",
+   "level": "ERROR",
+   "windows": 12,
+   "windows_with_lines_moved": 7,
+   "max_standard_in_a_window": 151,
+   "max_standard_in_a_window_with_lines_moved": 151,
+   "total_standard": 900,
+   "total_tier_down": 2331,
+   "storm_windows": [
+    {
+     "window": "2026-10-20T05:51:21Z",
+     "standard": 68,
+     "tier_down": 367
+    },
+    {
+     "window": "2026-10-20T05:55:21Z",
+     "standard": 66,
+     "tier_down": 460
+    },
+    {
+     "window": "2026-10-20T05:59:21Z",
+     "standard": 69,
+     "tier_down": 454
+    },
+    {
+     "window": "2026-10-20T06:03:21Z",
+     "standard": 151,
+     "tier_down": 328
+    },
+    {
+     "window": "2026-10-20T06:07:21Z",
+     "standard": 118,
+     "tier_down": 361
+    },
+    {
+     "window": "2026-10-20T06:11:21Z",
+     "standard": 119,
+     "tier_down": 360
+    },
+    {
+     "window": "2026-10-20T06:15:21Z",
+     "standard": 76,
+     "tier_down": 1
+    }
+   ]
+  },
+  {
+   "container": "astronomy-db",
+   "statement": "role_root_does_not_exist",
+   "level": "CRITICAL",
+   "windows": 77,
+   "windows_with_lines_moved": 0,
+   "max_standard_in_a_window": 85,
+   "max_standard_in_a_window_with_lines_moved": null,
+   "total_standard": 5332,
+   "total_tier_down": 0,
+   "storm_windows": []
+  },
+  {
+   "container": "otel-collector",
+   "statement": "error_Error_scraping_metrics",
+   "level": "ERROR",
+   "windows": 76,
+   "windows_with_lines_moved": 0,
+   "max_standard_in_a_window": 21,
+   "max_standard_in_a_window_with_lines_moved": null,
+   "total_standard": 584,
+   "total_tier_down": 0,
+   "storm_windows": []
+  },
+  {
+   "container": "product-catalog",
+   "statement": "export_timeout_rpc_error_code_DeadlineExceeded_desc_context_deadline_exceeded",
+   "level": "ERROR",
+   "windows": 2,
+   "windows_with_lines_moved": 0,
+   "max_standard_in_a_window": 2,
+   "max_standard_in_a_window_with_lines_moved": null,
+   "total_standard": 3,
+   "total_tier_down": 0,
+   "storm_windows": []
+  },
+  {
+   "container": "product-catalog",
+   "statement": "failed_upload_metrics_context_deadline_exceeded",
+   "level": "ERROR",
+   "windows": 1,
+   "windows_with_lines_moved": 0,
+   "max_standard_in_a_window": 1,
+   "max_standard_in_a_window_with_lines_moved": null,
+   "total_standard": 1,
+   "total_tier_down": 0,
+   "storm_windows": []
+  },
+  {
+   "container": "frontend",
+   "statement": "INTERNAL_shipping_quote_failure_failed_POST_to_service_Post_http_get_readfrom_tcp_write_use_of_closed_network_connection",
+   "level": "ERROR",
+   "windows": 1,
+   "windows_with_lines_moved": 0,
+   "max_standard_in_a_window": 1,
+   "max_standard_in_a_window_with_lines_moved": null,
+   "total_standard": 1,
+   "total_tier_down": 0,
+   "storm_windows": []
+  }
+ ],
+ "budget_runs": [
+  {
+   "at": "2026-10-20T02:06:15Z",
+   "dry_run": true,
+   "exit": 0,
+   "commit": "3e63b71c56ae070a2075d03ae960312bb4dad84d",
+   "dir": "budget-runs/20261020T020613Z",
+   "lines": [
+    "Standard indexing this month: $0.03 of $1,000 (15,799 events through 2026-10-20 02:00 UTC), 286 hours left.",
+    "Lines that do not pass the Receiver, outside the services with their own number: 279 events in Standard this month, about $0 by the month's end at this rate. The Receiver's other services get the rest of $900.",
+    "The Receiver's other services send 7,730 events an hour, under the 1.9 million the budget leaves, and each keeps room to grow 2x. A service the run has not seen gets the larger of the 1.8 million an hour left over and the median service's limits, 1.8 million an hour in all, until the next run, which takes any overshoot back from the rest of the month.",
+    "Node counts from nodes_by_container in policy.yaml; 1 Receiver. The `*` row is divided by 1 node, the median known service's count. The division assumes a DaemonSet Receiver, one per node, each holding its node's share.",
+    "frontend is held to its own $100 a month: $0 spent so far by Datadog's usage count for service:frontend, 1,914 events an hour for the rest of the month, a limit of 120 per statement and a total of 127 per window per node."
+   ]
+  },
+  {
+   "at": "2026-10-20T04:02:23Z",
+   "dry_run": true,
+   "exit": 0,
+   "commit": "3e63b71c56ae070a2075d03ae960312bb4dad84d",
+   "dir": "budget-runs/20261020T040221Z",
+   "lines": [
+    "Standard indexing this month: $0.1 of $1,000 (59,139 events through 2026-10-20 04:00 UTC), 284 hours left.",
+    "Lines that do not pass the Receiver, outside the services with their own number: 334 events in Standard this month, about $0 by the month's end at this rate. The Receiver's other services get the rest of $900.",
+    "The Receiver's other services send 13,861 events an hour, under the 1.9 million the budget leaves, and each keeps room to grow 2x. A service the run has not seen gets the larger of the 1.8 million an hour left over and the median service's limits, 1.8 million an hour in all, until the next run, which takes any overshoot back from the rest of the month.",
+    "Node counts from nodes_by_container in policy.yaml; 1 Receiver. The `*` row is divided by 1 node, the median known service's count. The division assumes a DaemonSet Receiver, one per node, each holding its node's share.",
+    "frontend is held to its own $100 a month: $0.02 spent so far by Datadog's usage count for service:frontend, 4,438 events an hour for the rest of the month, a limit of 278 per statement and a total of 295 per window per node."
+   ]
+  },
+  {
+   "at": "2026-10-20T04:02:53Z",
+   "dry_run": false,
+   "exit": 0,
+   "commit": "c1d86692ba1b9347a8e602248d648a13abf28f47",
+   "dir": "budget-runs/20261020T040249Z",
+   "lines": [
+    "Standard indexing this month: $0.1 of $11 (59,296 events through 2026-10-20 04:00 UTC), 284 hours left.",
+    "Lines that do not pass the Receiver, outside the services with their own number: 305 events in Standard this month, about $0 by the month's end at this rate. The Receiver's other services get the rest of $10.",
+    "The Receiver's other services send 13,893 events an hour, under the 20,559 the budget leaves, and each keeps room to grow 1.48x. A service the run has not seen gets the larger of the 0 an hour left over and the median service's limits, 286 an hour in all, until the next run, which takes any overshoot back from the rest of the month.",
+    "Node counts from nodes_by_container in policy.yaml; 1 Receiver. The `*` row is divided by 1 node, the median known service's count. The division assumes a DaemonSet Receiver, one per node, each holding its node's share.",
+    "frontend is held to its own $0.88 a month: $0.02 spent so far by Datadog's usage count for service:frontend, 1,792 events an hour for the rest of the month, a limit of 110 per statement and a total of 119 per window per node."
+   ]
+  },
+  {
+   "at": "2026-10-20T05:00:06Z",
+   "dry_run": false,
+   "exit": 0,
+   "commit": "409766a572d2fde5084cabf5a38c08263a9d45b7",
+   "dir": "budget-runs/20261020T050001Z",
+   "lines": [
+    "Standard indexing this month: $0.13 of $11 (78,369 events through 2026-10-20 05:00 UTC), 283 hours left.",
+    "Lines that do not pass the Receiver, outside the services with their own number: 323 events in Standard this month, about $0 by the month's end at this rate. The Receiver's other services get the rest of $10.",
+    "The Receiver's other services send 20,269 events an hour, under the 20,567 the budget leaves, and each keeps room to grow 1.01x. A service the run has not seen gets the larger of the 0 an hour left over and the median service's limits, 407 an hour in all, until the next run, which takes any overshoot back from the rest of the month.",
+    "Node counts from nodes_by_container in policy.yaml; 1 Receiver. The `*` row is divided by 1 node, the median known service's count. The division assumes a DaemonSet Receiver, one per node, each holding its node's share.",
+    "frontend is held to its own $0.88 a month: $0.02 spent so far by Datadog's usage count for service:frontend, 1,791 events an hour for the rest of the month, a limit of 101 per statement and a total of 119 per window per node."
+   ]
+  },
+  {
+   "at": "2026-10-20T06:00:09Z",
+   "dry_run": false,
+   "exit": 0,
+   "commit": "538c500825e956aa32a31b216f4e0e240dc012c3",
+   "dir": "budget-runs/20261020T060004Z",
+   "lines": [
+    "Standard indexing this month: $0.17 of $11 (99,500 events through 2026-10-20 06:00 UTC), 282 hours left.",
+    "Lines that do not pass the Receiver, outside the services with their own number: 371 events in Standard this month, about $0 by the month's end at this rate. The Receiver's other services get the rest of $10.",
+    "The Receiver's other services may send 20,571 events an hour to Standard against 23,661 now: each statement keeps up to 2,072 an hour, and the noisiest move to Flex first. A service the run has not seen gets the same level and the median service's 473 an hour until the next run, which takes any overshoot back from the rest of the month.",
+    "Node counts from nodes_by_container in policy.yaml; 1 Receiver. The `*` row is divided by 1 node, the median known service's count. The division assumes a DaemonSet Receiver, one per node, each holding its node's share.",
+    "frontend is held to its own $0.88 a month: $0.02 spent so far by Datadog's usage count for service:frontend, 1,791 events an hour for the rest of the month, a limit of 77 per statement and a total of 119 per window per node."
+   ]
+  },
+  {
+   "at": "2026-10-20T07:00:05Z",
+   "dry_run": false,
+   "exit": 0,
+   "commit": "74739d5ff79d1329ce877564fd81cc98846d9f0d",
+   "dir": "budget-runs/20261020T070000Z",
+   "lines": [
+    "Standard indexing this month: $0.21 of $11 (122,131 events through 2026-10-20 07:00 UTC), 281 hours left.",
+    "Lines that do not pass the Receiver, outside the services with their own number: 457 events in Standard this month, about $0 by the month's end at this rate. The Receiver's other services get the rest of $10.",
+    "The Receiver's other services may send 20,570 events an hour to Standard against 32,447 now: each statement keeps up to 1,285 an hour, and the noisiest move to Flex first. A service the run has not seen gets the same level and the median service's 617 an hour until the next run, which takes any overshoot back from the rest of the month.",
+    "Node counts from nodes_by_container in policy.yaml; 1 Receiver. The `*` row is divided by 1 node, the median known service's count. The division assumes a DaemonSet Receiver, one per node, each holding its node's share.",
+    "frontend is held to its own $0.88 a month: $0.02 spent so far by Datadog's usage count for service:frontend, 1,791 events an hour for the rest of the month, a limit of 81 per statement and a total of 119 per window per node."
+   ]
+  },
+  {
+   "at": "2026-10-20T08:00:06Z",
+   "dry_run": false,
+   "exit": 0,
+   "commit": "028813eb98561e34d350d2b843786a526c038775",
+   "dir": "budget-runs/20261020T080002Z",
+   "lines": [
+    "Standard indexing this month: $0.24 of $11 (143,238 events through 2026-10-20 08:00 UTC), 280 hours left.",
+    "Lines that do not pass the Receiver, outside the services with their own number: 415 events in Standard this month, about $0 by the month's end at this rate. The Receiver's other services get the rest of $10.",
+    "The Receiver's other services may send 20,574 events an hour to Standard against 33,836 now: each statement keeps up to 1,117 an hour, and the noisiest move to Flex first. A service the run has not seen gets the same level and the median service's 699 an hour until the next run, which takes any overshoot back from the rest of the month.",
+    "Node counts from nodes_by_container in policy.yaml; 1 Receiver. The `*` row is divided by 1 node, the median known service's count. The division assumes a DaemonSet Receiver, one per node, each holding its node's share.",
+    "frontend is held to its own $0.88 a month: $0.03 spent so far by Datadog's usage count for service:frontend, 1,791 events an hour for the rest of the month, a limit of 77 per statement and a total of 119 per window per node."
+   ]
+  },
+  {
+   "at": "2026-10-20T09:00:07Z",
+   "dry_run": false,
+   "exit": 0,
+   "commit": "46dda27aa1b91444ba4a55b087d8f305c3da0221",
+   "dir": "budget-runs/20261020T090002Z",
+   "lines": [
+    "Standard indexing this month: $0.28 of $11 (164,330 events through 2026-10-20 09:00 UTC), 279 hours left.",
+    "Lines that do not pass the Receiver, outside the services with their own number: 380 events in Standard this month, about $0 by the month's end at this rate. The Receiver's other services get the rest of $10.",
+    "The Receiver's other services may send 20,579 events an hour to Standard against 35,945 now: each statement keeps up to 983 an hour, and the noisiest move to Flex first. A service the run has not seen gets the same level and the median service's 766 an hour until the next run, which takes any overshoot back from the rest of the month.",
+    "Node counts from nodes_by_container in policy.yaml; 1 Receiver. The `*` row is divided by 1 node, the median known service's count. The division assumes a DaemonSet Receiver, one per node, each holding its node's share.",
+    "frontend is held to its own $0.88 a month: $0.03 spent so far by Datadog's usage count for service:frontend, 1,792 events an hour for the rest of the month, a limit of 73 per statement and a total of 119 per window per node."
+   ]
+  }
+ ],
+ "delivery": {
+  "span": [
+   "2026-10-20T01:23:13Z",
+   "2026-10-20T09:04:04Z"
+  ],
+  "raw_lines": 381856,
+  "lines_covered_by_returned_records": 381856,
+  "returned_records": {
+   "pass": 166302,
+   "tier_down": 160569
+  },
+  "by_container": {
+   "accounting": {
+    "raw": 34,
+    "covered": 34
+   },
+   "ad": {
+    "raw": 7177,
+    "covered": 7177
+   },
+   "astronomy-db": {
+    "raw": 7211,
+    "covered": 7211
+   },
+   "cart": {
+    "raw": 84100,
+    "covered": 84318
+   },
+   "email": {
+    "raw": 8087,
+    "covered": 7561
+   },
+   "flagd": {
+    "raw": 18,
+    "covered": 18
+   },
+   "flagd-ui": {
+    "raw": 5,
+    "covered": 5
+   },
+   "fraud-detection": {
+    "raw": 4039,
+    "covered": 4039
+   },
+   "frontend": {
+    "raw": 77274,
+    "covered": 77277
+   },
+   "frontend-proxy": {
+    "raw": 135,
+    "covered": 135
+   },
+   "image-provider": {
+    "raw": 32,
+    "covered": 32
+   },
+   "inventory": {
+    "raw": 7125,
+    "covered": 7125
+   },
+   "kafka": {
+    "raw": 30552,
+    "covered": 30552
+   },
+   "otel-collector": {
+    "raw": 112206,
+    "covered": 112225
+   },
+   "payment": {
+    "raw": 11672,
+    "covered": 11949
+   },
+   "product-catalog": {
+    "raw": 13,
+    "covered": 13
+   },
+   "quote": {
+    "raw": 4405,
+    "covered": 4406
+   },
+   "recommendation": {
+    "raw": 6617,
+    "covered": 6621
+   },
+   "shipping": {
+    "raw": 13298,
+    "covered": 13298
+   },
+   "telemetry-docs": {
+    "raw": 7244,
+    "covered": 7248
+   },
+   "valkey-cart": {
+    "raw": 612,
+    "covered": 612
+   }
+  }
+ },
+ "sent_to_datadog_local": 326871
+}

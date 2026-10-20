@@ -1,0 +1,33 @@
+{"event":"receiver_ready","at":"2026-10-20T01:23:13Z","epoch":1792459393}
+{"event":"demo_up","at":"2026-10-20T01:25:41Z","epoch":1792459541}
+{"event":"demo_healthy","at":"2026-10-20T01:26:48Z","epoch":1792459608}
+{"event":"baseline_start","at":"2026-10-20T02:00:08Z","epoch":1792461608,"load_users":5}
+{"event":"budget_run","at":"2026-10-20T02:06:15Z","epoch":1792461975,"dir":"budget-runs/20261020T020613Z","exit":0,"commit":"3e63b71c56ae070a2075d03ae960312bb4dad84d","dry_run":true}
+{"event":"budget_run","at":"2026-10-20T04:02:23Z","epoch":1792468943,"dir":"budget-runs/20261020T040221Z","exit":0,"commit":"3e63b71c56ae070a2075d03ae960312bb4dad84d","dry_run":true}
+{"event":"budget_run","at":"2026-10-20T04:02:53Z","epoch":1792468973,"dir":"budget-runs/20261020T040249Z","exit":0,"commit":"c1d86692ba1b9347a8e602248d648a13abf28f47","dry_run":false}
+{"event":"budget_phase_plan","at":"2026-10-20T04:03:27Z","epoch":1792469007,"b0":1792468973,"end":1792486800}
+{"event":"load","at":"2026-10-20T04:08:11Z","epoch":1792469291,"users":12,"spawn_rate":2}
+{"event":"budget_phase_plan","at":"2026-10-20T04:26:50Z","epoch":1792470410,"b0":1792468973,"end":1792486800}
+{"event":"load","at":"2026-10-20T04:27:05Z","epoch":1792470425,"users":24,"spawn_rate":2}
+{"event":"budget_run","at":"2026-10-20T05:00:06Z","epoch":1792472406,"dir":"budget-runs/20261020T050001Z","exit":0,"commit":"409766a572d2fde5084cabf5a38c08263a9d45b7","dry_run":false}
+{"event":"load","at":"2026-10-20T05:08:13Z","epoch":1792472893,"users":40,"spawn_rate":2}
+{"event":"load","at":"2026-10-20T05:21:51Z","epoch":1792473711,"users":24,"spawn_rate":2}
+{"event":"replay_start","at":"2026-10-20T05:22:13Z","epoch":1792473733,"speed":0.8,"source":"baseline capture 02:00-04:00"}
+{"event":"flag","at":"2026-10-20T05:32:59Z","epoch":1792474379,"flag":"paymentFailure","variant":"100%"}
+{"event":"storm_boost_start","at":"2026-10-20T05:38:13Z","epoch":1792474693,"service":"payment","statement":"Payment_request_failed_Invalid_token_demo_user_context_loyalty_level_gold","lines_per_s":2,"until":1792476120}
+{"event":"replay_restart","at":"2026-10-20T05:48:20Z","epoch":1792475300,"reason":"inotify does not see host appends on the bind mount; stat watcher"}
+{"event":"replay_restart","at":"2026-10-20T05:50:33Z","epoch":1792475433,"reason":"tail stopped on a line over its 32 KB default buffer; buffer_max_size 2M"}
+{"event":"replay_stop","at":"2026-10-20T05:52:06Z","epoch":1792475526,"reason":"file feed through the bind mount arrived stale; replaced by a forward-protocol sender"}
+{"event":"replay_start","at":"2026-10-20T05:52:07Z","epoch":1792475527,"speed":0.8,"source":"baseline capture 02:00-04:00","sender":"forward protocol"}
+{"event":"storm_boost_start","at":"2026-10-20T05:52:09Z","epoch":1792475529,"service":"payment","statement":"Payment_request_failed_Invalid_token_demo_user_context_loyalty_level_gold","lines_per_s":2,"until":1792476960,"sender":"forward protocol"}
+{"event":"budget_run","at":"2026-10-20T06:00:09Z","epoch":1792476009,"dir":"budget-runs/20261020T060004Z","exit":0,"commit":"538c500825e956aa32a31b216f4e0e240dc012c3","dry_run":false}
+{"event":"flag","at":"2026-10-20T06:02:56Z","epoch":1792476176,"flag":"paymentFailure","variant":"off"}
+{"event":"monitor_query_fixed","at":"2026-10-20T06:03:05Z","epoch":1792476185,"monitor":23222383,"reason":"service tag overwritten by the JSON message service.name; select by @kubernetes.container_name"}
+{"event":"inject_start","at":"2026-10-20T06:17:55Z","epoch":1792477075,"service":"inventory","lines_per_s":2}
+{"event":"budget_run","at":"2026-10-20T07:00:05Z","epoch":1792479605,"dir":"budget-runs/20261020T070000Z","exit":0,"commit":"74739d5ff79d1329ce877564fd81cc98846d9f0d","dry_run":false}
+{"event":"inject_stop","at":"2026-10-20T07:17:54Z","epoch":1792480674}
+{"event":"budget_run","at":"2026-10-20T08:00:06Z","epoch":1792483206,"dir":"budget-runs/20261020T080002Z","exit":0,"commit":"028813eb98561e34d350d2b843786a526c038775","dry_run":false}
+{"event":"budget_run","at":"2026-10-20T09:00:07Z","epoch":1792486807,"dir":"budget-runs/20261020T090002Z","exit":0,"commit":"46dda27aa1b91444ba4a55b087d8f305c3da0221","dry_run":false}
+{"event":"run_end","at":"2026-10-20T09:05:04Z","epoch":1792487104}
+{"event":"demo_down","at":"2026-10-20T09:05:47Z","epoch":1792487147}
+{"event":"policy_branch_deleted","at":"2026-10-20T09:06:45Z","epoch":1792487205,"repo":"log-10x/config","branch":"test/datadog-ceiling-policy"}

@@ -1,0 +1,22 @@
+container,cap
+accounting,138::budget run
+ad,138::budget run
+astronomy-db,138::budget run
+cart,138::budget run
+email,138::budget run
+flagd,138::budget run
+flagd-ui,138::budget run
+fraud-detection,138::budget run
+frontend,77::budget run
+frontend-proxy,138::budget run
+image-provider,138::budget run
+kafka,138::budget run
+otel-collector,138::budget run
+payment,138::budget run
+product-catalog,138::budget run
+quote,138::budget run
+recommendation,138::budget run
+shipping,138::budget run
+telemetry-docs,138::budget run
+valkey-cart,138::budget run
+*,138::budget run
