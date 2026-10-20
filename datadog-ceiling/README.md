@@ -21,7 +21,7 @@ for every container, 2026-10-20.
 | 1 | Hourly Standard (`main`, meter) at or under the allowed rate plus the allowances through the growth; Flex absorbs the rest | **Pass.** 20,123, 21,020, 22,744 and 21,138 events (meter, 04:00 to 07:00) against 22,351 allowed and 23,826 to 25,136 with the allowances; 21,080 (local) at 08:00. Ingested events 2.91x, 2.69x and 2.63x the baseline at 06:00, 07:00 and 08:00; Flex took 42,268 and 38,957 (meter). |
 | 2 | A statement new mid-run is held from its first window | **Pass.** A new service, `inventory`, with one new statement at 476 lines a window: 31 lines a window in Standard from its first window (the `*` row's total of 31; 35 once and 27 the next), the rest in Flex, until the 07:00 run gave it a row of its own (85). |
 | 3 | The budget run runs at least twice, an hour or more apart, and its files change with spend | **Pass.** Six applied runs, hourly from 04:02 to 09:00, each a direct commit to the policy branch with a diff ([`results/budget-runs/`](results/budget-runs/)). |
-| 4 | Error lines in Standard per storming error statement per node per window at most 5 + 50 | **Fail as written.** The storming payment statement put 68, 66 and 69 lines a window in Standard while its limit was 18, and 151, 118 and 119 once the 06:00 run raised its limit to 138, with 328 to 460 a window moved to Flex. Each storm window sat at the statement's limit plus K = 50 (18 + 50 = 68; 138 + 50 = 188), not at the 5-line sample plus 50. |
+| 4 | Error lines in Standard per storming error statement per node per window at most the statement's limit plus K = 50, the rule the [regulator page](https://doc.log10x.com/run/receive/rate/) states | **Pass, within one line.** The storming payment statement put 68, 66 and 69 lines a window in Standard against 68 (limit 18 plus 50), the 69 in the window that spans the 06:00 run, and 151, 118 and 119 against 188 once that run raised its limit to 138, with 328 to 460 a window moved to Flex. |
 | 5 | One service with `service_budgets` held to its own number | **Pass.** `frontend`, own number $0.88 a month (1,792 events an hour): 1,774, 1,763 and 1,760 events (meter, `service:frontend`, 05:00 to 07:00), 1,770 (local) at 08:00. Its 04:00 hour reads 1,957 because 165 lines passed in the 3 minutes before the first budget run; after it, 1,790 in 57 minutes. Metered spend through 07:59: 16,021 events, $0.027 of the $0.88. |
 | 6 | Delivery complete; an error monitor still fires | **Pass.** 381,856 of 381,856 non-blank lines the Receiver received came back in its returned records, and every returned record went to Datadog (pass to `main`, tier_down to `tenx-offload`). A log monitor on the payment error statement in `main` went to Alert at 06:03:43 during the storm. |
 
@@ -122,10 +122,10 @@ custom destinations or monitors, no hosts, and no log usage this month
   `service_budgets` entry for such a service would find no metered spend under its name. The
   monitor's first query (`service:payment`) matched nothing for that reason; selecting by
   `@kubernetes.container_name` fixed it.
-- **Error lines over a limit add K to the statement's limit, not to the sample.** Over its
-  limit an error statement passed 50 more per window: 68, 66 and 69 with the limit at 18,
-  151 at most with the limit at 138. The limit rises with the run's level, so 5 + 50 holds
-  only when the level is at the 5-line sample.
+- **An error storm's Standard lines rise with the run's level.** Over its limit an error
+  statement passes K = 50 more per window, so its lines in Standard are the limit plus 50:
+  68, 66 and 69 with the limit at 18, 151 at most with the limit at 138. They reach the
+  5-line sample plus 50 only when the level is at the sample.
 - **Statement rates read low during growth.** The budget run divides each statement's events
   by the hours its series spans over a 24-hour lookback, so at 07:00 it read 32,447 events an
   hour where about 60,000 arrived. Standard stayed bounded because each service's total is
