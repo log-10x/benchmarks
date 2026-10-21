@@ -1,0 +1,89 @@
+# Elastic hot-tier rig: two Elasticsearch 9.5.5 nodes (hot, frozen) sharing a filesystem
+# snapshot repository, Fluent Bit, and the Receiver from compose.receiver.yaml (written by
+# gen-receiver-values.mjs from the values log10x-mcp renders).
+#   docker compose -f compose.yaml -f <values dir>/compose.receiver.yaml ...
+# Load is the published OpenTelemetry demo sample, replayed into Fluent Bit over the Forward
+# protocol in the record shape the Docker fluentd driver sends (forward_send.py, run.sh replay).
+# Security is off and Elasticsearch listens on 127.0.0.1 only; a self-managed trial licence
+# (started by es-setup.mjs) enables searchable snapshots.
+
+networks:
+  default:
+    name: elastic-rig
+    ipam:
+      config:
+        - subnet: 172.29.0.0/16
+
+volumes:
+  es-hot-data: {}
+  es-frozen-data: {}
+  es-snapshots: {}
+
+x-es-common: &es-common
+  image: docker.elastic.co/elasticsearch/elasticsearch:9.5.5
+  ulimits:
+    memlock: { soft: -1, hard: -1 }
+    nofile: { soft: 65536, hard: 65536 }
+  restart: unless-stopped
+
+services:
+
+  es-hot:
+    <<: *es-common
+    container_name: rig-es-hot
+    environment:
+      - node.name=es-hot
+      - cluster.name=tenx-rig
+      - node.roles=master,data_hot,data_content,ingest
+      - cluster.initial_master_nodes=es-hot
+      - discovery.seed_hosts=es-hot
+      - path.repo=/snapshots
+      - xpack.security.enabled=false
+      - xpack.ml.enabled=false
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+    volumes:
+      - es-hot-data:/usr/share/elasticsearch/data
+      - es-snapshots:/snapshots
+    ports:
+      - "127.0.0.1:9200:9200"
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
+  es-frozen:
+    <<: *es-common
+    container_name: rig-es-frozen
+    environment:
+      - node.name=es-frozen
+      - cluster.name=tenx-rig
+      - node.roles=data_frozen
+      - discovery.seed_hosts=es-hot
+      - path.repo=/snapshots
+      - xpack.security.enabled=false
+      - xpack.ml.enabled=false
+      - xpack.searchable.snapshot.shared_cache.size=512mb
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    volumes:
+      - es-frozen-data:/usr/share/elasticsearch/data
+      - es-snapshots:/snapshots
+    deploy:
+      resources:
+        limits:
+          memory: 1200M
+
+  fluent-bit:
+    image: fluent/fluent-bit:4.2
+    container_name: rig-fluent-bit
+    command: ["/fluent-bit/bin/fluent-bit", "-c", "/fluent-bit/etc/rig/fluent-bit.conf"]
+    networks:
+      default:
+        ipv4_address: 172.29.0.250
+    volumes:
+      - ${RIG_DIR}/fluent-bit:/fluent-bit/etc/rig:ro
+      - ${RIG_DATA}:/data
+    deploy:
+      resources:
+        limits:
+          memory: 300M
+    restart: unless-stopped

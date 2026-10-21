@@ -1,0 +1,9 @@
+# Full captures, the replay feed and process files stay local; the committed results are
+# meter.jsonl, timeline.jsonl, the rendered values, cap.out, es-setup/ and results/captures/.
+results/data/
+results/replay/
+results/*.pid
+results/*.log
+results/.down.done
+results/replay.state
+rig/__pycache__/
