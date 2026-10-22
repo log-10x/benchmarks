@@ -1,0 +1,80 @@
+# 1) Policy for the tier_down slice: roll over hourly, then mount the rolled
+#    index as a PARTIALLY-MOUNTED searchable snapshot in the frozen tier as soon
+#    as ILM sees it. Every route into frozen lands in hot first; this keeps the
+#    stay to about an hour plus the poll interval.
+PUT _ilm/policy/tenx-tier-down
+{
+  "policy": { "phases": {
+    "hot":    { "min_age": "0ms", "actions": { "rollover": { "max_primary_shard_size": "50gb", "max_age": "1h" } } },
+    "frozen": { "min_age": "1m", "actions": { "searchable_snapshot": { "snapshot_repository": "rig-snapshots" } } }
+  }}
+}
+
+# 2) Policy for everything we keep. Same rollover, never leaves hot. This is the
+#    control: without it you cannot tell "the slice moved" from "everything moved".
+PUT _ilm/policy/tenx-keep
+{
+  "policy": { "phases": {
+    "hot": { "min_age": "0ms", "actions": { "rollover": { "max_primary_shard_size": "50gb", "max_age": "30d" } } }
+  }}
+}
+
+# 3) Templates. The marker decides WHICH INDEX an event lands in; the index
+#    decides which policy governs it. tenx_hash and routeState are mapped as
+#    keyword so both survive as queryable fields in frozen (verified).
+PUT _index_template/tenx-tierdown-tpl
+{
+  "index_patterns": ["tenx-tierdown-*"],
+  "template": {
+    "settings": {
+      "index.lifecycle.name": "tenx-tier-down",
+      "index.lifecycle.rollover_alias": "tenx-tierdown",
+      "number_of_replicas": 0
+    },
+    "mappings": { "properties": {
+      "tenx_hash":  { "type": "keyword" },
+      "routeState": { "type": "keyword" },
+      "@timestamp": { "type": "date" }
+    }}
+  }
+}
+
+PUT _index_template/tenx-app-tpl
+{
+  "index_patterns": ["tenx-app-*"],
+  "template": {
+    "settings": {
+      "index.lifecycle.name": "tenx-keep",
+      "index.lifecycle.rollover_alias": "tenx-app",
+      "number_of_replicas": 0
+    },
+    "mappings": { "properties": {
+      "tenx_hash":  { "type": "keyword" },
+      "routeState": { "type": "keyword" },
+      "@timestamp": { "type": "date" }
+    }}
+  }
+}
+
+# 4) Bootstrap the write indices. Both policies use rollover, so each alias
+#    needs an initial backing index flagged is_write_index. Skipping this is the
+#    usual reason ILM sits in check-rollover-ready forever.
+PUT tenx-tierdown-000001
+{ "aliases": { "tenx-tierdown": { "is_write_index": true } } }
+
+PUT tenx-app-000001
+{ "aliases": { "tenx-app": { "is_write_index": true } } }
+
+# 5) Verify, once data has rolled over and aged past min_age. The frozen index
+#    is RENAMED with a partial- prefix, which is how you know it mounted:
+#
+#   GET _cat/indices/*tenx-tierdown*?h=index,docs.count,store.size
+#     partial-tenx-tierdown-000001   <docs>   0b     <- data now in rig-snapshots
+#
+#   GET tenx-tierdown-000001/_ilm/explain        -> phase: frozen, step: complete
+#   POST partial-tenx-tierdown-000001/_search
+#     { "query": { "term": { "tenx_hash": "<a hash you indexed>" } } }
+#   ...must still return the documents. If it does not, STOP: the slice is
+#   cheap but unretrievable and the down-tier is not worth doing.
+
+NOTE: Elasticsearch tiering is INDEX-level, so the shipper routes the marked slice to its own index and ILM does the rest. Verified live: the frozen index reported store=0b locally while the hot control stayed at 19.2kb, and a term query on `tenx_hash` still returned 400/400 with `routeState` aggregatable, so the down-tiered slice remains retrievable by stamped identity. PREREQUISITE: searchable snapshots need an Enterprise licence (Elastic documents no lower tier for them), plus a registered snapshot repository (Elastic Cloud provides `found-snapshots` by default). RESIDENCY: every route into the frozen tier lands in hot first, this one included. The tier_down index rolls over hourly and mounts right after, so a demoted statement spends about an hour in hot plus the ILM poll interval. Hourly rollover means one frozen index per hour per alias; add a delete phase at the retention the account wants so the shard count on frozen stays bounded. ON ELASTIC CLOUD HOSTED THE SAVING IS NOT AUTOMATIC: Hosted is priced by provisioned resources, so moving data out of hot creates headroom and the deployment must then be RESIZED to bank it. Do not tell a Hosted customer their bill drops on its own; tell them their hot tier can shrink. Self-managed differs: the saving is disk you stop buying. OPERATIONAL NOTE: ILM polls every 10 minutes by default (`indices.lifecycle.poll_interval`), so a transition will not be visible immediately after rollover; that is not a failure.

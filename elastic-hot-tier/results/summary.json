@@ -1,0 +1,300 @@
+{
+ "t0": 1792624455,
+ "cap": {
+  "from": 1792628055.0,
+  "to": 1792631655.0,
+  "records": 20489,
+  "cells": 554,
+  "bytes": 5267904,
+  "target_share_over_cap": 0.5,
+  "cap_bytes_per_window_per_node": 22148,
+  "share_over_cap_at_cap": 0.5,
+  "cells_over_cap": 45
+ },
+ "criterion_1_residency": {
+  "indices": [
+   {
+    "index": "tenx-tierdown-000001",
+    "created": 1792624512.653,
+    "first_doc_seen_by_meter": 1792632326,
+    "frozen_at": 1792632906.55,
+    "minutes_creation_to_frozen": 139.9,
+    "partial_local_store_bytes": 0
+   },
+   {
+    "index": "tenx-tierdown-000002",
+    "created": 1792632307.116,
+    "first_doc_seen_by_meter": 1792632326,
+    "frozen_at": 1792637106.497,
+    "minutes_creation_to_frozen": 80.0,
+    "partial_local_store_bytes": 0
+   },
+   {
+    "index": "tenx-tierdown-000003",
+    "created": 1792636506.657,
+    "first_doc_seen_by_meter": 1792636526,
+    "frozen_at": 1792641306.521,
+    "minutes_creation_to_frozen": 80.0,
+    "partial_local_store_bytes": 0
+   },
+   {
+    "index": "tenx-tierdown-000004",
+    "created": 1792640706.657,
+    "first_doc_seen_by_meter": 1792640726,
+    "frozen_at": 1792645506.528,
+    "minutes_creation_to_frozen": 80.0,
+    "partial_local_store_bytes": 0
+   },
+   {
+    "index": "tenx-tierdown-000005",
+    "created": 1792644906.67,
+    "first_doc_seen_by_meter": 1792644926,
+    "frozen_at": 1792649706.513,
+    "minutes_creation_to_frozen": 80.0,
+    "partial_local_store_bytes": 0
+   },
+   {
+    "index": "tenx-tierdown-000006",
+    "created": 1792649106.672,
+    "first_doc_seen_by_meter": 1792649126,
+    "frozen_at": 1792653906.606,
+    "minutes_creation_to_frozen": 80.0,
+    "partial_local_store_bytes": 0
+   },
+   {
+    "index": "tenx-tierdown-000007",
+    "created": 1792653306.678,
+    "first_doc_seen_by_meter": 1792653326,
+    "frozen_at": 1792658106.489,
+    "minutes_creation_to_frozen": 80.0,
+    "partial_local_store_bytes": 0
+   },
+   {
+    "index": "tenx-tierdown-000008",
+    "created": 1792657506.652,
+    "first_doc_seen_by_meter": null,
+    "frozen_at": null,
+    "minutes_creation_to_frozen": null,
+    "partial_local_store_bytes": null
+   }
+  ],
+  "failures": [
+   {
+    "index": "tenx-tierdown-000008",
+    "created": 1792657506.652,
+    "first_doc_seen_by_meter": null,
+    "frozen_at": null,
+    "minutes_creation_to_frozen": null,
+    "partial_local_store_bytes": null
+   }
+  ]
+ },
+ "criterion_2_hourly": [
+  {
+   "hour": 1,
+   "phase": "baseline",
+   "hot_app_growth_bytes": 4791108,
+   "hot_tierdown_bytes_end": 249,
+   "frozen_local_bytes_end": 0,
+   "docs_frozen_end": 0,
+   "tierdown_indices_frozen_end": 0
+  },
+  {
+   "hour": 2,
+   "phase": "capped",
+   "hot_app_growth_bytes": 3053345,
+   "hot_tierdown_bytes_end": 1806542,
+   "frozen_local_bytes_end": 0,
+   "docs_frozen_end": 1731,
+   "tierdown_indices_frozen_end": 1
+  },
+  {
+   "hour": 3,
+   "phase": "capped",
+   "hot_app_growth_bytes": 2916215,
+   "hot_tierdown_bytes_end": 2971517,
+   "frozen_local_bytes_end": 0,
+   "docs_frozen_end": 1731,
+   "tierdown_indices_frozen_end": 1
+  },
+  {
+   "hour": 4,
+   "phase": "capped",
+   "hot_app_growth_bytes": 3099663,
+   "hot_tierdown_bytes_end": 4072216,
+   "frozen_local_bytes_end": 0,
+   "docs_frozen_end": 13584,
+   "tierdown_indices_frozen_end": 2
+  },
+  {
+   "hour": 5,
+   "phase": "capped",
+   "hot_app_growth_bytes": 4282683,
+   "hot_tierdown_bytes_end": 2934268,
+   "frozen_local_bytes_end": 0,
+   "docs_frozen_end": 25238,
+   "tierdown_indices_frozen_end": 3
+  },
+  {
+   "hour": 6,
+   "phase": "growth",
+   "hot_app_growth_bytes": 6695066,
+   "hot_tierdown_bytes_end": 6379264,
+   "frozen_local_bytes_end": 0,
+   "docs_frozen_end": 37082,
+   "tierdown_indices_frozen_end": 4
+  },
+  {
+   "hour": 7,
+   "phase": "growth",
+   "hot_app_growth_bytes": 6574067,
+   "hot_tierdown_bytes_end": 8612903,
+   "frozen_local_bytes_end": 0,
+   "docs_frozen_end": 68850,
+   "tierdown_indices_frozen_end": 5
+  },
+  {
+   "hour": 8,
+   "phase": "growth",
+   "hot_app_growth_bytes": 6279659,
+   "hot_tierdown_bytes_end": 6850134,
+   "frozen_local_bytes_end": 0,
+   "docs_frozen_end": 122388,
+   "tierdown_indices_frozen_end": 6
+  },
+  {
+   "hour": 9,
+   "phase": "drain",
+   "hot_app_growth_bytes": 1349761,
+   "hot_tierdown_bytes_end": 249,
+   "frozen_local_bytes_end": 0,
+   "docs_frozen_end": 159536,
+   "tierdown_indices_frozen_end": 7
+  },
+  {
+   "hour": 10,
+   "phase": "drain",
+   "hot_app_growth_bytes": 0,
+   "hot_tierdown_bytes_end": 249,
+   "frozen_local_bytes_end": 0,
+   "docs_frozen_end": 159536,
+   "tierdown_indices_frozen_end": 7
+  }
+ ],
+ "criterion_2_cells_over_cap_unexplained": 0,
+ "criterion_2_examples": [],
+ "criterion_3_retrievability": [
+  {
+   "tenx_hash": "Gl3Gtr_SH5w",
+   "local": 49785,
+   "frozen": 49785,
+   "all_tierdown": 49785
+  },
+  {
+   "tenx_hash": "KG8Fq0QFuoY",
+   "local": 47996,
+   "frozen": 47996,
+   "all_tierdown": 47996
+  },
+  {
+   "tenx_hash": "XpnhZcYhfZI",
+   "local": 17700,
+   "frozen": 17700,
+   "all_tierdown": 17700
+  },
+  {
+   "tenx_hash": "PuWB8kkVbfw",
+   "local": 16915,
+   "frozen": 16915,
+   "all_tierdown": 16915
+  },
+  {
+   "tenx_hash": "p1GC1pHzuvI",
+   "local": 11172,
+   "frozen": 11172,
+   "all_tierdown": 11172
+  },
+  {
+   "tenx_hash": "YZplfQ4a1Xw",
+   "local": 9932,
+   "frozen": 9932,
+   "all_tierdown": 9932
+  },
+  {
+   "tenx_hash": "eDSYlCMPqVY",
+   "local": 3285,
+   "frozen": 3285,
+   "all_tierdown": 3285
+  },
+  {
+   "tenx_hash": "bzLB1zZCTIw",
+   "local": 1304,
+   "frozen": 1304,
+   "all_tierdown": 1304
+  },
+  {
+   "tenx_hash": "3OJpdNbvm-E",
+   "local": 631,
+   "frozen": 631,
+   "all_tierdown": 631
+  },
+  {
+   "tenx_hash": "bz3kQNPdXvc",
+   "local": 516,
+   "frozen": 516,
+   "all_tierdown": 516
+  }
+ ],
+ "criterion_4_delivery": {
+  "raw_nonblank_lines": 372783,
+  "returned_nonblank_lines": {
+   "pass": 197273,
+   "tier_down": 175510,
+   "offload": 0,
+   "other": 0
+  },
+  "returned_records": {
+   "pass": 142444,
+   "tier_down": 159536,
+   "offload": 0,
+   "other": 0
+  }
+ },
+ "criterion_5_storm": {
+  "line_bytes": 162,
+  "cap_lines_equiv": 136,
+  "allowed_per_window": 186,
+  "windows": [
+   {
+    "w": 74,
+    "pass": 112,
+    "td": 489
+   },
+   {
+    "w": 75,
+    "pass": 112,
+    "td": 2259
+   },
+   {
+    "w": 76,
+    "pass": 112,
+    "td": 2258
+   },
+   {
+    "w": 77,
+    "pass": 111,
+    "td": 2260
+   },
+   {
+    "w": 78,
+    "pass": 113,
+    "td": 2257
+   },
+   {
+    "w": 79,
+    "pass": 109,
+    "td": 1649
+   }
+  ]
+ }
+}
