@@ -93,11 +93,11 @@ measures and `reference_decode.py` diagnoses.
 
 The compact arm is read through the **corrected** inflate functions in
 [`../clickhouse-inflate/install-fixed.sql`](../clickhouse-inflate/install-fixed.sql),
-not the ones `log-10x/clickhouse-app` ships. The shipped `tenx_inflate_core`
-builds its result with an index lambda that captures the `literals` and `slots`
-arrays; that is quadratic and aborts a full-table decode at 7.2 GiB.
-[`../clickhouse-inflate/`](../clickhouse-inflate/) has that measurement. The fix
-has not been applied back to the product repo.
+not the earlier ones. The earlier `tenx_inflate_core` built its result with an
+index lambda that captures the `literals` and `slots` arrays; that is quadratic
+and aborts a full-table decode at 7.2 GiB.
+[`../clickhouse-inflate/`](../clickhouse-inflate/) has that measurement. The SQL
+decoder is not offered for ClickHouse; the product's lever there is offload.
 
 ## The second rung: `run_typed.sh`
 
@@ -150,7 +150,10 @@ kept.
 
 Result: half the rows cost 39% of the CPU and a quarter cost 17%, both below the
 row share, because fewer parts merge fewer times. Full detail in
-`results/compute-vs-rows-<date>.md`.
+`results/compute-vs-rows-<date>.md`. The arms hold the row shape fixed. Rows of a
+different shape cost differently: gap 6 in
+[`../clickstack-e2e-gaps/`](../clickstack-e2e-gaps/) compares a collector rule that
+stores more, smaller rows with the per-type cap, whose rows are fewer and larger.
 
 ## Per-message-type policy: `run_policy.sh`
 
