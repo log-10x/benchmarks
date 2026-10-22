@@ -50,6 +50,22 @@ on hot went from 5.25 MB in the last baseline hour to about 2.17 MB an hour capp
 4.3 MB an hour at 2.5 times the load. Holding the hot tier at a size as load grows needs the budget
 kept current against the tier; this run held it fixed.
 
+## Whose statements moved
+
+The budget moved 159,536 lines, 42 MB of message text, from 15 statements. 86% of those bytes came from three statements of the OpenTelemetry Collector, the debug exporter's `Traces`, `Logs` and `Metrics` lines, and 5% from one Grafana statement (the storm line): code the account runs but does not write. No regular expression, fingerprint rule or per-service list was written for any of them; each line carried the engine's pattern hash from the Receiver, the same on every node running the same engine, library and configuration, and the hash queries in criterion 3 find them on frozen by that hash. The injected service's one new statement (`inventory`, 4%) was held from its first window with no entry of its own.
+
+| Container | Lines moved | Message MB | Share of bytes | Statements |
+|---|---:|---:|---:|---:|
+| opentelemetry-collector | 114,736 | 36.23 | 86.3% | 5 |
+| grafana | 11,172 | 1.96 | 4.7% | 1 |
+| inventory (injected) | 17,700 | 1.69 | 4.0% | 1 |
+| cart | 13,848 | 1.55 | 3.7% | 3 |
+| recommendation | 1,304 | 0.40 | 1.0% | 1 |
+| ad | 768 | 0.12 | 0.3% | 2 |
+| kafka | 8 | 0.00 | 0.0% | 2 |
+
+From [`results/captures/tier_down.tsv.gz`](results/captures/tier_down.tsv.gz), by container, `tenx_hash` and `message_pattern`.
+
 ## The hourly table
 
 Hours from the capped start. Message bytes are the UTF-8 size of each line's text in the
