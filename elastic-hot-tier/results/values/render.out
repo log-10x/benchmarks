@@ -1,0 +1,47 @@
+{
+ "image": "log10x/edge-10x:1.1.147@sha256:a043ccd828742c4eccee09abb654ce6a7357b6123f73300ed04f8605e874b8c4",
+ "args": [
+  "@run/input/forwarder/fluentbit",
+  "@apps/receiver",
+  "rateReceiverAbsoluteCap",
+  "22148",
+  "rateReceiverDefaultAction",
+  "tier_down",
+  "rateReceiverMinSharePercent",
+  "0",
+  "rateReceiverWarmupMs",
+  "0",
+  "rateReceiverBaselineCount",
+  "5",
+  "rateReceiverMinRetentionThreshold",
+  "0",
+  "rateReceiverSeverityFloors",
+  "TRACE=0",
+  "rateReceiverSeverityFloors",
+  "DEBUG=0",
+  "rateReceiverSeverityFloors",
+  "INFO=0",
+  "rateReceiverSeverityFloors",
+  "WARN=0",
+  "rateReceiverSeverityFloors",
+  "ERROR=0",
+  "rateReceiverSeverityFloors",
+  "CRITICAL=0",
+  "rateReceiverSeverityFloors",
+  "FATAL=0"
+ ],
+ "env_applied": [
+  "TENX_AIRGAPPED",
+  "K8S_ENABLED",
+  "CAP_LOOKUP_FILE",
+  "ACTION_LOOKUP_FILE",
+  "TOTAL_LOOKUP_FILE",
+  "outputOffload"
+ ],
+ "env_left_out": [
+  "K8S_NAMESPACE",
+  "K8S_CONFIGMAP",
+  "CONFIG_GENERATION_FILE"
+ ],
+ "notes": []
+}

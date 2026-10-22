@@ -1,0 +1,70 @@
+{
+ "options": [
+  [
+   "rateReceiverAbsoluteCap",
+   "22148"
+  ],
+  [
+   "rateReceiverDefaultAction",
+   "tier_down"
+  ],
+  [
+   "rateReceiverMinSharePercent",
+   "0"
+  ],
+  [
+   "rateReceiverWarmupMs",
+   "0"
+  ],
+  [
+   "rateReceiverBaselineCount",
+   "5"
+  ],
+  [
+   "rateReceiverMinRetentionThreshold",
+   "0"
+  ],
+  [
+   "rateReceiverSeverityFloors",
+   "TRACE=0"
+  ],
+  [
+   "rateReceiverSeverityFloors",
+   "DEBUG=0"
+  ],
+  [
+   "rateReceiverSeverityFloors",
+   "INFO=0"
+  ],
+  [
+   "rateReceiverSeverityFloors",
+   "WARN=0"
+  ],
+  [
+   "rateReceiverSeverityFloors",
+   "ERROR=0"
+  ],
+  [
+   "rateReceiverSeverityFloors",
+   "CRITICAL=0"
+  ],
+  [
+   "rateReceiverSeverityFloors",
+   "FATAL=0"
+  ]
+ ],
+ "env": [
+  [
+   "outputOffload",
+   "true"
+  ]
+ ],
+ "fleetDefaultWritten": true,
+ "teamLabelWritten": false,
+ "regulatorValuesWritten": true,
+ "keepCountsWritten": false,
+ "eventsUnitWritten": false,
+ "errorFloor": 0,
+ "engineVersion": "1.1.147",
+ "notes": []
+}

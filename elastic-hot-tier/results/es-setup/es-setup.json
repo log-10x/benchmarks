@@ -1,0 +1,60 @@
+{
+ "es": "http://127.0.0.1:9200",
+ "requests": 6,
+ "log": [
+  {
+   "method": "POST",
+   "path": "/_license/start_trial?acknowledge=true",
+   "status": 200,
+   "body": "{\"acknowledged\":true,\"trial_was_started\":true,\"type\":\"trial\"}"
+  },
+  {
+   "method": "GET",
+   "path": "/_license",
+   "status": 200,
+   "body": "{\n  \"license\" : {\n    \"status\" : \"active\",\n    \"uid\" : \"f7ae3bd7-578a-4990-872d-66d2443c0479\",\n    \"type\" : \"trial\",\n    \"issue_date\" : \"2026-10-21T23:15:11.547Z\",\n    \"issue_date_in_millis\" : 1792624511547,\n    \"expiry_date\" : \"2026-11-20T23:15:11.547Z\",\n    \"expiry_date_in_millis\" : 1795216511547,\n    \"max_nodes\" : 1000,\n    \"max_resource_units\" : null,\n    \"issued_to\" : \"tenx-rig\",\n    \"issuer\" : \"elasticsearch\",\n    \"start_date_in_millis\" : -1\n  }\n}\n"
+  },
+  {
+   "method": "PUT",
+   "path": "/_snapshot/rig-snapshots",
+   "status": 200,
+   "body": "{\"acknowledged\":true}"
+  },
+  {
+   "method": "PUT",
+   "path": "_ilm/policy/tenx-tier-down",
+   "status": 200,
+   "body": "{\"acknowledged\":true}"
+  },
+  {
+   "method": "PUT",
+   "path": "_ilm/policy/tenx-keep",
+   "status": 200,
+   "body": "{\"acknowledged\":true}"
+  },
+  {
+   "method": "PUT",
+   "path": "_index_template/tenx-tierdown-tpl",
+   "status": 200,
+   "body": "{\"acknowledged\":true}"
+  },
+  {
+   "method": "PUT",
+   "path": "_index_template/tenx-app-tpl",
+   "status": 200,
+   "body": "{\"acknowledged\":true}"
+  },
+  {
+   "method": "PUT",
+   "path": "tenx-tierdown-000001",
+   "status": 200,
+   "body": "{\"acknowledged\":true,\"shards_acknowledged\":true,\"index\":\"tenx-tierdown-000001\"}"
+  },
+  {
+   "method": "PUT",
+   "path": "tenx-app-000001",
+   "status": 200,
+   "body": "{\"acknowledged\":true,\"shards_acknowledged\":true,\"index\":\"tenx-app-000001\"}"
+  }
+ ]
+}
