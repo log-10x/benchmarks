@@ -1,0 +1,92 @@
+{
+ "hot": 22367,
+ "cold": 134720,
+ "wire": {
+  "pass": 22367,
+  "offload": 134720
+ },
+ "wire_total": 157087,
+ "parts_active": 22367,
+ "query_log_insert": 24315,
+ "query_log_async": 14848,
+ "query_log_text": 39163,
+ "part_log_hot": 22367,
+ "part_log_counts": 3000,
+ "counts_hot_rows": 2494,
+ "per_service": {
+  "opentelemetry-collector": {
+   "hot": 2050,
+   "hot_before_reload": 2050,
+   "hot_after_reload": 0,
+   "cold": 87689,
+   "patterns": 34,
+   "error_patterns": 5,
+   "total": 2000,
+   "cap": 1500
+  },
+  "kafka": {
+   "hot": 1000,
+   "hot_before_reload": 1000,
+   "hot_after_reload": 0,
+   "cold": 27785,
+   "patterns": 168,
+   "error_patterns": 0,
+   "total": 1000,
+   "cap": 800
+  },
+  "cart": {
+   "hot": 400,
+   "hot_before_reload": 400,
+   "hot_after_reload": 0,
+   "cold": 19246,
+   "patterns": 11,
+   "error_patterns": 0,
+   "total": 400,
+   "cap": 300
+  }
+ },
+ "windows": [
+  [
+   "2026-10-23 11:20:00",
+   "cart",
+   "400"
+  ],
+  [
+   "2026-10-23 11:20:00",
+   "kafka",
+   "1000"
+  ],
+  [
+   "2026-10-23 11:20:00",
+   "opentelemetry-collector",
+   "2050"
+  ]
+ ],
+ "container_label_keys": {
+  "k8s_container": 80,
+  "tenx_user_service": 80
+ },
+ "by_route": {
+  "all_events_summaryBytes_total": {
+   "pass": 35140421.0,
+   "offload": 205120629.0
+  },
+  "all_events_summaryVolume_total": {
+   "pass": 16255.0,
+   "offload": 134720.0
+  },
+  "emitted_events_summaryBytes_total": {
+   "pass": 35141746.0,
+   "offload": 205120629.0
+  },
+  "emitted_events_summaryVolume_total": {
+   "pass": 16256.0,
+   "offload": 134720.0
+  }
+ },
+ "reload_at": "2026-10-23T11:20:32",
+ "hot_at_reload": "9171",
+ "feed_seconds": "216",
+ "engine_image": "ghcr.io/log-10x/edge-10x:1.1.147",
+ "ch_version": "26.5.7.64"
+}
