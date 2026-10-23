@@ -16,22 +16,23 @@ engine constants and were not scaled.
 The engine was `ghcr.io/log-10x/edge-10x:1.1.147`, on ClickStack 2.38.0 (ClickHouse
 26.5.7.64). The released OpenTelemetry demo capture was replayed from 14 to 35 lines a
 second. The dry run measured 42,000 rows an hour with nothing held, so R = 29,399 rows an
-hour (0.7 of that). There were 13 applied runs.
+hour (0.7 of that). There were 15 applied runs, the last after the feed stopped.
 
 | | Criterion | Result |
 |---|---|---|
-| 1 | Every applied run exits 0 and commits, projecting at or under R | **Pass.** 14 runs, all exit 0, each projecting about 29k rows an hour once the rate bound. |
+| 1 | Every applied run exits 0 and commits, projecting at or under R | **Pass.** 15 runs, all exit 0, each projecting about 29k rows an hour once the rate bound. |
 | 2 | Each 4-minute window at or under R/15 plus the floor's share; each 10-minute meter window at or under R/6 | **Fail.** 23 of 25 four-minute windows were under their bound. 19:04 read 1.52 and 19:08 read 1.06. Every complete 10-minute window read 0.99 to 1.04 of R/6, except 19:00 at 1.36. |
 | 3 | Hot plus cold equals the returned records, for the ten largest moved statements | **Fail.** 3 of 10 were exact. 7 were 1 to 11 rows over: 33 rows inserted twice into the hot table across the run (0.04%). The bucket was exact. |
 | 4 | A count through the Merge table equals the local count | **Fail against the wire, exact against storage.** For all ten statements the Merge table equalled hot plus cold. The differences are the duplicates in criterion 3. |
 | 5 | Every line written comes back; every returned record is in the table or the bucket | **Every returned record is stored:** 194,864 rows held 194,831 returned records, none missing, 33 duplicated. Lines in against records back is not settled here: the Receiver folds multi-line events, 242,741 lines into 194,831 records. |
 | 6 | Storm: error lines of the storming statement per window at most its limit plus 50 | **Pass, read by hand.** The largest increase in a 4-minute window was about 117, against a limit of about 73 plus 50. |
-| 7 | The injected service is held from its first window by the `*` row | **Fail in its first window:** 96 rows against a `*` total of 49. From its second window it held to its own row. |
+| 7 | The injected service is held from its first window by the `*` row | **Pass on the regulator's windows.** Read by clock window, the first reads 96 rows against a `*` total of 49. The regulator's windows start at its first regulated line, and that clock window spans two of them, 47 and 49, each at or under the total. From its second window it held to its own row. |
 
 **What held.** Load grew 2.5 times, with a 20-minute error storm and a new service.
 Through all of it, the rows written into the table stayed at 0.99 to 1.04 of R in every
-complete 10-minute window from the first growth step to the end of the 5x hold. Before the
-first applied run they read 1.40 to 1.43 of R. Every line over a total went to the bucket
+complete 10-minute window but one, from the first growth step to the end of the hold at
+35 lines a second (2.5 times the starting 14). The one, 19:00, read 1.36, and cause 2 below
+is why. Before the first applied run they read 1.40 to 1.43 of R. Every line over a total went to the bucket
 before ClickHouse received it: 110,392 rows there against 84,472 in the table.
 
 **Why criterion 2 failed: two causes.**
@@ -52,7 +53,7 @@ before ClickHouse received it: 110,392 rows there against 84,472 in the table.
 
 **Two more findings.**
 - **The Receiver's Prometheus counters undercount under load.** They agreed with the meter
-  at the starting load (scale 1.00). At 4.25x and 5x they read 2.1 to 6.3 times fewer pass
+  at the starting load (scale 1.00). At 30 and 35 lines a second they read 2.1 to 6.3 times fewer pass
   lines than the meter counted, with a healthy scrape. The rows run takes totals from the
   meter and only the share each statement contributes from the counters, so the hold did
   not depend on them. The report prints the scale factor every run.
