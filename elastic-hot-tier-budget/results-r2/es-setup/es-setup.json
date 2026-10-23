@@ -1,0 +1,78 @@
+{
+ "es": "http://127.0.0.1:9200",
+ "requests": 6,
+ "log": [
+  {
+   "method": "POST",
+   "path": "/_license/start_trial?acknowledge=true",
+   "status": 200,
+   "body": "{\"acknowledged\":true,\"trial_was_started\":true,\"type\":\"trial\"}"
+  },
+  {
+   "method": "GET",
+   "path": "/_license",
+   "status": 200,
+   "body": "{\n  \"license\" : {\n    \"status\" : \"active\",\n    \"uid\" : \"c0a8a20a-234a-4863-b592-9140a4ab47b4\",\n    \"type\" : \"trial\",\n    \"issue_date\" : \"2026-10-23T11:26:05.939Z\",\n    \"issue_date_in_millis\" : 1792754765939,\n    \"expiry_date\" : \"2026-11-22T11:26:05.939Z\",\n    \"expiry_date_in_millis\" : 1795346765939,\n    \"max_nodes\" : 1000,\n    \"max_resource_units\" : null,\n    \"issued_to\" : \"tenx-rig\",\n    \"issuer\" : \"elasticsearch\",\n    \"start_date_in_millis\" : -1\n  }\n}\n"
+  },
+  {
+   "method": "PUT",
+   "path": "/_snapshot/rig-snapshots",
+   "status": 200,
+   "body": "{\"acknowledged\":true}"
+  },
+  {
+   "method": "PUT",
+   "path": "_ilm/policy/tenx-tier-down",
+   "status": 200,
+   "body": "{\"acknowledged\":true}"
+  },
+  {
+   "method": "PUT",
+   "path": "_ilm/policy/tenx-keep",
+   "status": 200,
+   "body": "{\"acknowledged\":true}"
+  },
+  {
+   "method": "PUT",
+   "path": "_index_template/tenx-tierdown-tpl",
+   "status": 200,
+   "body": "{\"acknowledged\":true}"
+  },
+  {
+   "method": "PUT",
+   "path": "_index_template/tenx-app-tpl",
+   "status": 200,
+   "body": "{\"acknowledged\":true}"
+  },
+  {
+   "method": "PUT",
+   "path": "tenx-tierdown-000001",
+   "status": 200,
+   "body": "{\"acknowledged\":true,\"shards_acknowledged\":true,\"index\":\"tenx-tierdown-000001\"}"
+  },
+  {
+   "method": "PUT",
+   "path": "tenx-app-000001",
+   "status": 200,
+   "body": "{\"acknowledged\":true,\"shards_acknowledged\":true,\"index\":\"tenx-app-000001\"}"
+  },
+  {
+   "method": "PUT",
+   "path": "/_ilm/policy/tenx-keep",
+   "status": 200,
+   "body": "{\"acknowledged\":true}"
+  },
+  {
+   "method": "PUT",
+   "path": "/_ilm/policy/tenx-tier-down",
+   "status": 200,
+   "body": "{\"acknowledged\":true}"
+  },
+  {
+   "method": "PUT",
+   "path": "/_cluster/settings",
+   "status": 200,
+   "body": "{\"acknowledged\":true,\"persistent\":{\"indices\":{\"lifecycle\":{\"poll_interval\":\"100s\"}}},\"transient\":{}}"
+  }
+ ]
+}

@@ -2,7 +2,7 @@
 
 One benchmark in the [log10x benchmarks](../) repository. It asks whether log10x-mcp's hourly hot-tier run, driving the Receiver, holds an Elasticsearch hot tier under a size S while load grows 2.5 times, as the hot node's own stats count it.
 
-**Result: not yet.** The run held the kept stream and the mean, but not the bound. Two defects in the run's arithmetic were found and are fixed on the log10x-mcp branch; this folder records the run that found them.
+**Result: holds at steady state, not under fast growth.** Two runs. The first held the mean but not the bound and found two defects in the run's arithmetic; the second, with both fixed and every time constant divided by 6, held hot at 0.97 to 0.98 of S under steady load and overshot to 1.23 S during a 2.5x step-up compressed into an hour. Both fail the pre-registered bound. Results of the first run in `results/`, of the second in `results-r2/` (section at the end).
 
 Self-managed Elasticsearch 9.5.5 (one hot node, one frozen node, filesystem snapshot repository, trial licence), engine `log10x/edge-10x:1.1.147`, log10x-mcp branch `feat/elastic-hot-tier-budget` (1.30.79, unreleased) at the build of 2026-10-22 20:01 UTC, the published OpenTelemetry demo sample replayed, 2026-10-22 19:59 to 2026-10-23 09:59 UTC. Method, written before the run: `results/` holds the timeline, every hourly run's report and files, the cluster readings and slim captures (no log text).
 
@@ -50,3 +50,20 @@ S = 44.8 MB, set at run hour 1 as 0.7 of where the run's own dry run said hot wo
 ## Not shown
 
 A bill; Cloud Hosted; production retention lengths; a hot tier held under growth.
+
+## The rerun (`results-r2/`), 2026-10-23 11:25 to 15:55 UTC
+
+log10x-mcp `feat/elastic-hot-tier-budget` at 0b45d4a (the floor in the plan and the report, the tier_down lifetime from `step_time_millis`). Every time constant divided by 6: a run every 10 minutes, kept lines 2 hours on hot (10-minute rollover, frozen 110 minutes later), tier_down rollover 3 minutes, ILM poll 100 seconds (changed only because everything else was scaled), meter every 100 seconds, growth in four 20-minute steps from 56 to 140 lines a second. No raw capture: lines in are Fluent Bit's input counter, and the local copies of returned records keep only container, times, hash, route, `utf8Size`, level, name and line count (`results-r2/captures/`). S = 56.7 MB, 0.7 of where the dry run said hot would settle with nothing held (81 MB).
+
+| | Criterion | Result |
+|---|---|---|
+| 1 | Runs exit 0 and commit; projection at or under S, or the floor reported | **Pass.** 26 of 26 applied runs; projections 51 to 57 MB; the always-pass floor 79 to 268 MB a day, inside what fit at every run. |
+| 2 | Run minutes 130 to 250: hot at or under 1.10 S every reading, mean at or under S | **Fail.** Mean 1.095 S, peak 1.23 S, 30 of 72 readings over 1.10 S. Before growth (minutes 111 to 131) 0.97 to 0.98 S. |
+| 3 | Rolled tier_down indices mounted at 0 bytes | **Pass.** 73 of 73. |
+| 4 | Hash queries on frozen equal local, ten largest moved statements | **Pass.** 10 of 10. |
+| 5 | Delivery | **Pass.** 1,301,174 lines in, 1,300,992 non-blank lines back (the difference is the sample's blank lines, 171 expected); every returned record in Elasticsearch. |
+| 6 | Storm kept per window at most limit + 50 | **Fail.** 286 in the window spanning the 14:15 policy reload, against a limit of about 117 lines + 50. From 14:17 to 14:20 the Receiver kept none of the storm's error lines. |
+
+**Why growth overshoots.** The run steers what new lines do; it cannot move lines already on hot. When load rose 2.5 times within an hour, the moved lines waiting to mount grew from 3 MB to 10 to 19 MB at once (the run's own estimate of that slice was right), while the kept lines already on hot leave only as their indices age out, over 2 hours here. The run tightened its allowance to 86 to 90% and projected 51 to 55 MB, but hot stayed above 1.1 S until the window closed. Relative to the time a line stays on hot, this step-up was about 50 times faster than a year of 2.5x growth against days of retention, but the run does not show what a slower ramp does.
+
+**For the engine.** Two observations the regulator page does not predict: the window that spans a policy reload kept about twice its allowance of the storming line in both runs, and in this run the error keep count passed nothing for three minutes once grafana's limits were in force (a 42,102-byte limit and a 117,054-byte total), where the first run's 1-byte limit passed 55 a window.
