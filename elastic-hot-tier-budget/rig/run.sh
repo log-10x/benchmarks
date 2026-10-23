@@ -48,7 +48,7 @@ case "${1:-}" in
     compose up -d fluent-bit tenx
     receiver_ready || { mark receiver_not_ready; exit 1; }
     mark receiver_ready
-    python3 "$HERE/detach.py" "$RESULTS/meter.log" python3 "$HERE/meter.py" 600
+    python3 "$HERE/detach.py" "$RESULTS/meter.log" python3 "$HERE/meter.py" "${METER_S:-600}"
     mark meter_started
     ;;
   replay)
@@ -81,7 +81,11 @@ case "${1:-}" in
     mark storm_start "\"rate\":$rate,\"until\":$until"
     ;;
   mark) mark "${2:?event}" ${3:+"$3"} ;;
-  logs) for c in hb-tenx hb-fluent-bit hb-es-hot hb-es-frozen; do docker logs "$c" > "$RESULTS/$c.log" 2>&1 || true; done ;;
+  logs)
+    for c in hb-tenx hb-fluent-bit hb-es-hot hb-es-frozen; do docker logs "$c" > "$RESULTS/$c.log" 2>&1 || true; done
+    # Fluent Bit's own counters: lines in (forward.0) and records back (forward.1), for delivery without a raw copy
+    docker run --rm --network elastic-budget python:3.12-slim python3 -c "import urllib.request; print(urllib.request.urlopen('http://172.30.0.250:2020/api/v1/metrics').read().decode())" > "$RESULTS/fluentbit-metrics.json" 2>/dev/null || true
+    ;;
   down)
     docker rm -f hb-replay hb-storm hb-inventory >/dev/null 2>&1 || true
     "$0" logs

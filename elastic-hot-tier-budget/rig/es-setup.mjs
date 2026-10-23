@@ -54,20 +54,20 @@ for (let i = 0; i < lines.length; i++) {
 }
 for (const q of requests) log.push(await call(q.method, q.path, q.body));
 // The recipe's tenx-keep never leaves hot (its control). A customer's kept stream has its own policy;
-// this run's keeps a line on hot KEEP_HOT_HOURS (rollover 1h, then frozen), scaled so the steady state
-// arrives inside the run.
-const keepHot = Number(process.env.KEEP_HOT_HOURS ?? 6);
-// The tier_down index rolls TD_ROLLOVER (default 15m) instead of the recipe's 1h, so the lines it holds in
-// flight stay a small share of a 6-hour hot tier, as one hour does of a hot tier kept for days.
+// this run's is time-scaled: KEEP_ROLLOVER then frozen KEEP_FROZEN_AFTER after rollover. The tier_down
+// index rolls TD_ROLLOVER instead of the recipe's 1h. ILM_POLL, when set, scales ILM's poll with them.
+const keepRollover = process.env.KEEP_ROLLOVER ?? '1h';
+const keepFrozenAfter = process.env.KEEP_FROZEN_AFTER ?? `${Number(process.env.KEEP_HOT_HOURS ?? 6) - 1}h`;
 const tdRollover = process.env.TD_ROLLOVER ?? '15m';
 log.push(await call('PUT', '/_ilm/policy/tenx-keep', { policy: { phases: {
-  hot: { min_age: '0ms', actions: { rollover: { max_age: '1h', max_primary_shard_size: '50gb' } } },
-  frozen: { min_age: `${keepHot - 1}h`, actions: { searchable_snapshot: { snapshot_repository: 'rig-snapshots' } } },
+  hot: { min_age: '0ms', actions: { rollover: { max_age: keepRollover, max_primary_shard_size: '50gb' } } },
+  frozen: { min_age: keepFrozenAfter, actions: { searchable_snapshot: { snapshot_repository: 'rig-snapshots' } } },
 } } }));
 log.push(await call('PUT', '/_ilm/policy/tenx-tier-down', { policy: { phases: {
   hot: { min_age: '0ms', actions: { rollover: { max_age: tdRollover, max_primary_shard_size: '50gb' } } },
   frozen: { min_age: '1m', actions: { searchable_snapshot: { snapshot_repository: 'rig-snapshots' } } },
 } } }));
+if (process.env.ILM_POLL) log.push(await call('PUT', '/_cluster/settings', { persistent: { 'indices.lifecycle.poll_interval': process.env.ILM_POLL } }));
 writeFileSync(join(out, 'es-setup.json'), JSON.stringify({ es: ES, requests: requests.length, log }, null, 1) + '\n');
 const bad = log.filter((x) => x.status >= 300 && !(x.path.includes('start_trial') && x.status === 403));
 for (const x of log) console.log(x.status, x.method, x.path);

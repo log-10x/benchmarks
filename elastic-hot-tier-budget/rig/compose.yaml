@@ -80,7 +80,7 @@ services:
       default:
         ipv4_address: 172.30.0.250
     volumes:
-      - ${RIG_DIR}/fluent-bit:/fluent-bit/etc/rig:ro
+      - ${FB_DIR:-${RIG_DIR}/fluent-bit}:/fluent-bit/etc/rig:ro
       - ${RIG_DATA}:/data
     deploy:
       resources:

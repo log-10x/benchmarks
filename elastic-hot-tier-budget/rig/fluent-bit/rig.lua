@@ -37,5 +37,10 @@ function route(tag, ts, rec)
   local k = rec["kubernetes"]
   if type(k) == "table" and k["container_name"] then rec["service"] = k["container_name"] end
   if rec["severity_level"] then rec["status"] = string.lower(rec["severity_level"]) end
+  local n = 0
+  for l in string.gmatch(rec["log"] or "", "[^\n]+") do
+    if string.find(l, "%S") then n = n + 1 end
+  end
+  rec["_lines"] = n
   return 2, ts, rec
 end
