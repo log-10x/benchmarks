@@ -1,0 +1,56 @@
+[tenx-recur] policy loaded: target=30% services=all lookback=24h min_delta=2pp 
+[tenx-recur] Hot tier: 11 MB of 45 MB (0.0448 GB set in the policy) on 1 hot node; at these limits it settles at about 45 MB within 6 hours, with 327 MB a day of counted lines moved to the frozen tier.
+[tenx-recur] Outside the Receiver: 0 MB on hot. The Receiver's kept lines: 10 MB in 1 indices; its tier_down lines not yet moved: 0 MB in 2.
+[tenx-recur] A kept line stays on hot 6 hours (ILM policy tenx-keep (rollover max_age 1h + frozen min_age 5h)); a tier_down index 2 hours (default (no tier_down index has been moved yet)).
+[tenx-recur] Each counted byte takes 0.64 bytes of store kept, 1.24 as tier_down (measured on the indices on hot).
+[tenx-recur] The Receiver's statements send 399 MB a day; 68 MB a day fits the size, so each statement keeps up to 1 MB a day and the noisiest give way first.
+# Hot-tier run: 2026-10-22T20:59:07.000Z
+
+Hot tier: 11 MB of 45 MB (0.0448 GB set in the policy) on 1 hot node; at these limits it settles at about 45 MB within 6 hours, with 327 MB a day of counted lines moved to the frozen tier.
+
+- Outside the Receiver: 0 MB on hot. The Receiver's kept lines: 10 MB in 1 indices; its tier_down lines not yet moved: 0 MB in 2.
+- A kept line stays on hot 6 hours (ILM policy tenx-keep (rollover max_age 1h + frozen min_age 5h)); a tier_down index 2 hours (default (no tier_down index has been moved yet)).
+- Each counted byte takes 0.64 bytes of store kept, 1.24 as tier_down (measured on the indices on hot).
+- The Receiver's statements send 399 MB a day; 68 MB a day fits the size, so each statement keeps up to 1 MB a day and the noisiest give way first.
+- Warning: 1 documents on hot carry no utf8Size, so their statements count as 0 bytes. The Receiver writes it when installed for the hot-tier run.
+
+| Service | Destination | Nodes | Sent a day | Kept a day | Limit per statement | Total |
+|---|---|---|---|---|---|---|
+| accounting | the frozen tier | 1 | 0 MB | 0 MB | 4010 | 1137 |
+| ad | the frozen tier | 1 | 12 MB | 4 MB | 4010 | 10793 |
+| aws-eks-nodeagent | the frozen tier | 1 | 0 MB | 0 MB | 4010 | 25 |
+| aws-node | the frozen tier | 1 | 0 MB | 0 MB | 4010 | 68 |
+| aws-vpc-cni-init | the frozen tier | 1 | 0 MB | 0 MB | 4010 | 123 |
+| cart | the frozen tier | 1 | 29 MB | 3 MB | 4010 | 8167 |
+| coredns | the frozen tier | 1 | 0 MB | 0 MB | 4010 | 781 |
+| currency | the frozen tier | 1 | 0 MB | 0 MB | 4010 | 29 |
+| email | the frozen tier | 1 | 0 MB | 0 MB | 4010 | 112 |
+| flagd | the frozen tier | 1 | 0 MB | 0 MB | 4010 | 144 |
+| flagd-ui | the frozen tier | 1 | 0 MB | 0 MB | 4010 | 48 |
+| fluentd-10x | the frozen tier | 1 | 3 MB | 3 MB | 4010 | 9012 |
+| fraud-detection | the frozen tier | 1 | 0 MB | 0 MB | 4010 | 128 |
+| frontend | the frozen tier | 1 | 7 MB | 1 MB | 4010 | 4108 |
+| frontend-proxy | the frozen tier | 1 | 1 MB | 1 MB | 4010 | 3248 |
+| grafana | the frozen tier | 1 | 14 MB | 14 MB | 4010 | 39422 |
+| grafana-sc-alerts | the frozen tier | 1 | 0 MB | 0 MB | 4010 | 213 |
+| grafana-sc-dashboard | the frozen tier | 1 | 0 MB | 0 MB | 4010 | 302 |
+| grafana-sc-datasources | the frozen tier | 1 | 0 MB | 0 MB | 4010 | 260 |
+| init-config | the frozen tier | 1 | 0 MB | 0 MB | 4010 | 190 |
+| jaeger | the frozen tier | 1 | 1 MB | 1 MB | 4010 | 2215 |
+| kafka | the frozen tier | 1 | 61 MB | 24 MB | 4010 | 66156 |
+| kube-proxy | the frozen tier | 1 | 2 MB | 2 MB | 4010 | 4710 |
+| load-generator | the frozen tier | 1 | 0 MB | 0 MB | 4010 | 230 |
+| metrics-server | the frozen tier | 1 | 0 MB | 0 MB | 4010 | 787 |
+| opensearch | the frozen tier | 1 | 2 MB | 2 MB | 4010 | 6878 |
+| opentelemetry-collector | the frozen tier | 1 | 254 MB | 11 MB | 4010 | 31853 |
+| payment | the frozen tier | 1 | 0 MB | 0 MB | 4010 | 138 |
+| postgresql | the frozen tier | 1 | 0 MB | 0 MB | 4010 | 425 |
+| prometheus-server | the frozen tier | 1 | 0 MB | 0 MB | 4010 | 1057 |
+| quote | the frozen tier | 1 | 0 MB | 0 MB | 4010 | 13 |
+| recommendation | the frozen tier | 1 | 9 MB | 1 MB | 4010 | 4062 |
+| valkey-cart | the frozen tier | 1 | 1 MB | 1 MB | 4010 | 2283 |
+| `*` (any other service) | the frozen tier | 1 | | 0 MB | 4010 | 781 |
+
+Limits and totals are bytes per 4-minute window per node, counted the way the Receiver counts them (utf8Size). Error lines pass 50 over a limit per statement per node per window.
+
+[tenx-recur] actions: 
