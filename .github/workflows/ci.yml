@@ -131,6 +131,23 @@ jobs:
           for f in clickstack-e2e-gaps/gap*.sh; do bash -n "$f"; done
           python -m py_compile clickstack-e2e-gaps/*.py
 
+  clickstack-rows-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      # One Docker run on the clickstack-e2e rig; CI checks that the run script,
+      # the config patcher and the report still parse, and that the report's
+      # parser reads a scrape. The numbers live only in results/.
+      - name: Syntax-check the gate
+        run: |
+          bash -n clickstack-rows-gate/run.sh
+          python -m py_compile clickstack-rows-gate/*.py
+
   splunk-license:
     runs-on: ubuntu-latest
     steps:
