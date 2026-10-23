@@ -8,6 +8,7 @@
       <grants>
         <query>GRANT SELECT ON system.part_log</query>
         <query>GRANT SELECT ON system.parts</query>
+        <query>GRANT SHOW TABLES ON default.otel_logs</query>
       </grants>
     </rows_meter>
   </users>
