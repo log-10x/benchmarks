@@ -1,0 +1,14 @@
+container,cap
+ad,77::budget run
+cart,77::budget run
+fluentd-10x,77::budget run
+frontend,77::budget run
+grafana,77::budget run
+inventory,77::budget run
+kafka,77::budget run
+opensearch,77::budget run
+opentelemetry-collector,77::budget run
+prometheus-server,77::budget run
+recommendation,77::budget run
+valkey-cart,77::budget run
+*,77::budget run

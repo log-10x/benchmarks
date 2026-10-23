@@ -1,0 +1,138 @@
+diff --git a/log10x/policy/actions.csv b/log10x/policy/actions.csv
+index 94f8cdf..d37f249 100644
+--- a/log10x/policy/actions.csv
++++ b/log10x/policy/actions.csv
+@@ -6,6 +6,7 @@ frontend,offload::budget run
+ grafana,offload::budget run
+ inventory,offload::budget run
+ kafka,offload::budget run
++kube-proxy,offload::budget run
+ opensearch,offload::budget run
+ opentelemetry-collector,offload::budget run
+ prometheus-server,offload::budget run
+diff --git a/log10x/policy/caps.csv b/log10x/policy/caps.csv
+index 4a757aa..046f1a1 100644
+--- a/log10x/policy/caps.csv
++++ b/log10x/policy/caps.csv
+@@ -1,14 +1,15 @@
+ container,cap
+-ad,74::budget run
+-cart,74::budget run
+-fluentd-10x,74::budget run
+-frontend,74::budget run
+-grafana,74::budget run
+-inventory,74::budget run
+-kafka,74::budget run
+-opensearch,74::budget run
+-opentelemetry-collector,74::budget run
+-prometheus-server,74::budget run
+-recommendation,74::budget run
+-valkey-cart,74::budget run
+-*,74::budget run
++ad,76::budget run
++cart,76::budget run
++fluentd-10x,76::budget run
++frontend,76::budget run
++grafana,76::budget run
++inventory,76::budget run
++kafka,76::budget run
++kube-proxy,76::budget run
++opensearch,76::budget run
++opentelemetry-collector,76::budget run
++prometheus-server,76::budget run
++recommendation,76::budget run
++valkey-cart,76::budget run
++*,76::budget run
+diff --git a/log10x/policy/config-generation.csv b/log10x/policy/config-generation.csv
+index 7e88b59..6074f5a 100644
+--- a/log10x/policy/config-generation.csv
++++ b/log10x/policy/config-generation.csv
+@@ -1,2 +1,2 @@
+ key,value
+-generation,a2993dddb340
++generation,198f0fa5a205
+diff --git a/log10x/policy/totals.csv b/log10x/policy/totals.csv
+index 2f1de33..dfab435 100644
+--- a/log10x/policy/totals.csv
++++ b/log10x/policy/totals.csv
+@@ -1,14 +1,15 @@
+ container,total
+-ad,167::budget run
+-cart,149::budget run
+-fluentd-10x,54::budget run
+-frontend,74::budget run
+-grafana,38::budget run
+-inventory,74::budget run
+-kafka,971::budget run
+-opensearch,9::budget run
+-opentelemetry-collector,298::budget run
+-prometheus-server,18::budget run
+-recommendation,74::budget run
+-valkey-cart,28::budget run
+-*,74::budget run
++ad,170::budget run
++cart,153::budget run
++fluentd-10x,47::budget run
++frontend,76::budget run
++grafana,32::budget run
++inventory,76::budget run
++kafka,982::budget run
++kube-proxy,2::budget run
++opensearch,8::budget run
++opentelemetry-collector,306::budget run
++prometheus-server,1::budget run
++recommendation,76::budget run
++valkey-cart,24::budget run
++*,76::budget run
+diff --git a/reports/latest.md b/reports/latest.md
+index 3255bfa..a1d28d1 100644
+--- a/reports/latest.md
++++ b/reports/latest.md
+@@ -1,27 +1,28 @@
+-# Rows run: 2026-10-23T18:54:47.000Z
++# Rows run: 2026-10-23T19:04:47.000Z
+ 
+-Rows written: 30k of 29k an hour last hour (29k rows an hour set in the policy; part_log on default.otel_logs); at these limits the table takes about 29k an hour, with 81k an hour of lines to the account's bucket.
++Rows written: 30k of 29k an hour last hour (29k rows an hour set in the policy; part_log on default.otel_logs); at these limits the table takes about 29k an hour, with 68k an hour of lines to the account's bucket.
+ 
+-- Outside the Receiver: 0 rows an hour (outside_rows_per_hour). The Receiver's counters read 13k pass lines an hour against 30k rows the meter puts on it, so each statement's rate is scaled by 2.37. The table holds 73k active rows.
+-- The Receiver's statements send 110k lines an hour; 29k an hour fits the rate, so each statement keeps up to 1121 an hour and the noisiest give way first.
+-- The always-pass sample (5 lines a statement a window on every node, 50 more for an error statement over its limit) keeps about 4473 lines an hour whatever the limits; the rate holds down to that floor.
++- Outside the Receiver: 0 rows an hour (outside_rows_per_hour). The Receiver's counters read 14k pass lines an hour against 30k rows the meter puts on it, so each statement's rate is scaled by 2.10. The table holds 79k active rows.
++- The Receiver's statements send 97k lines an hour; 29k an hour fits the rate, so each statement keeps up to 1150 an hour and the noisiest give way first.
++- The always-pass sample (5 lines a statement a window on every node, 50 more for an error statement over its limit) keeps about 4215 lines an hour whatever the limits; the rate holds down to that floor.
+ - The meter read above the rate last hour; the limits below hold the next hour at the rate, and each node's totals bind inside every window.
+-- Warning: The Receiver's counters read 13k pass lines an hour against 30k rows on the meter; rates are scaled by 2.37, which assumes the counters miss lines evenly across statements.
++- Warning: The Receiver's counters read 14k pass lines an hour against 30k rows on the meter; rates are scaled by 2.10, which assumes the counters miss lines evenly across statements.
+ 
+ | Service | Destination | Nodes | Sent an hour | Kept an hour | Limit per statement | Total |
+ |---|---|---|---|---|---|---|
+-| ad | the account's bucket | 1 | 5138 | 2512 | 74 | 167 |
+-| cart | the account's bucket | 1 | 13k | 2241 | 74 | 149 |
+-| fluentd-10x | the account's bucket | 1 | 811 | 811 | 74 | 54 |
+-| frontend | the account's bucket | 1 | 1537 | 1121 | 74 | 74 |
+-| grafana | the account's bucket | 1 | 584 | 584 | 74 | 38 |
+-| inventory | the account's bucket | 1 | 7202 | 1121 | 74 | 74 |
+-| kafka | the account's bucket | 1 | 19k | 15k | 74 | 971 |
+-| opensearch | the account's bucket | 1 | 142 | 142 | 74 | 9 |
+-| opentelemetry-collector | the account's bucket | 1 | 59k | 4482 | 74 | 298 |
+-| prometheus-server | the account's bucket | 1 | 270 | 270 | 74 | 18 |
+-| recommendation | the account's bucket | 1 | 2434 | 1121 | 74 | 74 |
+-| valkey-cart | the account's bucket | 1 | 427 | 427 | 74 | 28 |
+-| `*` (any other service) | the account's bucket | 1 | | 1121 | 74 | 74 |
++| ad | the account's bucket | 1 | 4477 | 2565 | 76 | 170 |
++| cart | the account's bucket | 1 | 12k | 2300 | 76 | 153 |
++| fluentd-10x | the account's bucket | 1 | 706 | 706 | 76 | 47 |
++| frontend | the account's bucket | 1 | 1425 | 1150 | 76 | 76 |
++| grafana | the account's bucket | 1 | 492 | 492 | 76 | 32 |
++| inventory | the account's bucket | 1 | 6407 | 1150 | 76 | 76 |
++| kafka | the account's bucket | 1 | 17k | 15k | 76 | 982 |
++| kube-proxy | the account's bucket | 1 | 38 | 38 | 76 | 2 |
++| opensearch | the account's bucket | 1 | 126 | 126 | 76 | 8 |
++| opentelemetry-collector | the account's bucket | 1 | 52k | 4600 | 76 | 306 |
++| prometheus-server | the account's bucket | 1 | 25 | 25 | 76 | 1 |
++| recommendation | the account's bucket | 1 | 2081 | 1150 | 76 | 76 |
++| valkey-cart | the account's bucket | 1 | 366 | 366 | 76 | 24 |
++| `*` (any other service) | the account's bucket | 1 | | 1150 | 76 | 76 |
+ 
+ Limits and totals are lines per 4-minute window per node. Error lines pass 50 over a limit per statement per node per window. The meter is `system.part_log` NewPart rows on default.otel_logs, read by the event's own time.

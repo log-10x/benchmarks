@@ -1,0 +1,15 @@
+container,action
+ad,offload::budget run
+cart,offload::budget run
+fluentd-10x,offload::budget run
+frontend,offload::budget run
+grafana,offload::budget run
+inventory,offload::budget run
+jaeger,offload::budget run
+kafka,offload::budget run
+opensearch,offload::budget run
+opentelemetry-collector,offload::budget run
+prometheus-server,offload::budget run
+recommendation,offload::budget run
+valkey-cart,offload::budget run
+*,offload::budget run

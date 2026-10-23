@@ -1,0 +1,27 @@
+# Rows run: 2026-10-23T18:44:47.000Z
+
+Rows written: 30k of 29k an hour last hour (29k rows an hour set in the policy; part_log on default.otel_logs); at these limits the table takes about 29k an hour, with 75k an hour of lines to the account's bucket.
+
+- Outside the Receiver: 0 rows an hour (outside_rows_per_hour). The Receiver's counters read 13k pass lines an hour against 30k rows the meter puts on it, so each statement's rate is scaled by 2.27. The table holds 68k active rows.
+- The Receiver's statements send 104k lines an hour; 29k an hour fits the rate, so each statement keeps up to 1135 an hour and the noisiest give way first.
+- The always-pass sample (5 lines a statement a window on every node, 50 more for an error statement over its limit) keeps about 4261 lines an hour whatever the limits; the rate holds down to that floor.
+- The meter read above the rate last hour; the limits below hold the next hour at the rate, and each node's totals bind inside every window.
+- Warning: The Receiver's counters read 13k pass lines an hour against 30k rows on the meter; rates are scaled by 2.27, which assumes the counters miss lines evenly across statements.
+
+| Service | Destination | Nodes | Sent an hour | Kept an hour | Limit per statement | Total |
+|---|---|---|---|---|---|---|
+| ad | the account's bucket | 1 | 4230 | 2502 | 75 | 166 |
+| cart | the account's bucket | 1 | 13k | 2271 | 75 | 151 |
+| fluentd-10x | the account's bucket | 1 | 762 | 762 | 75 | 50 |
+| frontend | the account's bucket | 1 | 1714 | 1135 | 75 | 75 |
+| grafana | the account's bucket | 1 | 544 | 544 | 75 | 36 |
+| inventory | the account's bucket | 1 | 6951 | 1135 | 75 | 75 |
+| kafka | the account's bucket | 1 | 18k | 15k | 75 | 984 |
+| opensearch | the account's bucket | 1 | 136 | 136 | 75 | 9 |
+| opentelemetry-collector | the account's bucket | 1 | 56k | 4542 | 75 | 302 |
+| prometheus-server | the account's bucket | 1 | 68 | 68 | 75 | 4 |
+| recommendation | the account's bucket | 1 | 2394 | 1135 | 75 | 75 |
+| valkey-cart | the account's bucket | 1 | 408 | 408 | 75 | 27 |
+| `*` (any other service) | the account's bucket | 1 | | 1135 | 75 | 75 |
+
+Limits and totals are lines per 4-minute window per node. Error lines pass 50 over a limit per statement per node per window. The meter is `system.part_log` NewPart rows on default.otel_logs, read by the event's own time.
