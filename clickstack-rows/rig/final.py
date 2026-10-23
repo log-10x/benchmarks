@@ -12,6 +12,7 @@
 import collections
 import json
 import os
+import pathlib
 import subprocess
 import sys
 
@@ -24,11 +25,20 @@ def ch(container: str, sql: str) -> str:
     return r.stdout.strip() if r.returncode == 0 else f"ERR {r.stderr.strip()[:160]}"
 
 
+def num(container: str, sql: str) -> int:
+    """A count, or -1 when the query fails (so one failure is visible and does not stop the scoring)."""
+    v = ch(container, sql)
+    try:
+        return int(v or 0)
+    except ValueError:
+        return -1
+
+
 def main() -> int:
     res, cs = sys.argv[1], sys.argv[2]
-    wire = read_wire(os.path.join(res, "wire", "returned.json"))
-    hot = int(ch(cs, "SELECT count() FROM default.otel_logs") or 0)
-    cold = int(ch(cs, "SELECT count() FROM default.otel_logs_coldv") or 0)
+    wire = read_wire(pathlib.Path(res, "wire", "returned.json"))
+    hot = num(cs, "SELECT count() FROM default.otel_logs")
+    cold = num(cs, "SELECT count() FROM default.otel_logs_coldv")
     out = ["# Rows run, final criteria", ""]
     out.append(f"Wire: {wire['total']} returned, by route {json.dumps(wire['routes'], sort_keys=True)}. Hot {hot}, cold {cold}, hot plus cold {hot + cold}.")
     ok5b = hot + cold == wire["total"]
@@ -62,9 +72,9 @@ def main() -> int:
     ok3 = ok4 = True
     for h in top:
         w = wire["per_hash"].get(h, 0)
-        ht = int(ch(cs, f"SELECT count() FROM default.otel_logs WHERE LogAttributes['tenx_hash'] = '{h}'") or 0)
-        cd = int(ch(cs, f"SELECT count() FROM default.otel_logs_coldv WHERE LogAttributes['tenx_hash'] = '{h}'") or 0)
-        mg = int(ch(cs, f"SELECT count() FROM default.otel_logs_all WHERE LogAttributes['tenx_hash'] = '{h}'") or 0)
+        ht = num(cs, f"SELECT count() FROM default.otel_logs WHERE LogAttributes['tenx_hash'] = '{h}'")
+        cd = num(cs, f"SELECT count() FROM default.otel_logs_coldv WHERE LogAttributes['tenx_hash'] = '{h}'")
+        mg = num(cs, f"SELECT count() FROM default.otel_logs_all WHERE LogAttributes['tenx_hash'] = '{h}'")
         c3 = ht + cd == w
         c4 = mg == w
         ok3 &= c3
@@ -75,7 +85,7 @@ def main() -> int:
     # 7. inventory held from its first window by the * row: hot rows per 4-minute window against the star total
     out.append("\n## 7. The injected service\n")
     rows = ch(cs, "SELECT intDiv(toUnixTimestamp(ins), 240) * 240 AS w, count() FROM default.otel_logs WHERE ServiceName = 'inventory' GROUP BY w ORDER BY w FORMAT TSV")
-    inv_cold = int(ch(cs, "SELECT count() FROM default.otel_logs_coldv WHERE ServiceName = 'inventory'") or 0)
+    inv_cold = num(cs, "SELECT count() FROM default.otel_logs_coldv WHERE ServiceName = 'inventory'")
     out.append(f"inventory rows in the bucket: {inv_cold}. Hot rows per 4-minute window (the `*` total of the applied run in force bounds each; read it from that run's totals.csv):\n")
     out.append("| window | hot rows |\n|---|---:|")
     for l in rows.splitlines():

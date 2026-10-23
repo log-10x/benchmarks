@@ -22,8 +22,12 @@ def load_jsonl(path):
         with open(path) as fh:
             for line in fh:
                 line = line.strip()
-                if line:
+                if not line:
+                    continue
+                try:
                     out.append(json.loads(line))
+                except json.JSONDecodeError:
+                    continue
     except OSError:
         pass
     return out

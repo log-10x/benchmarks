@@ -75,6 +75,10 @@ at 150; tick
 at 160; "$RUN" pace 0; "$RUN" inject stop; tick; "$RUN" mark phase_drain
 at 170; tick
 at 180; tick; "$RUN" collect
-python3 "$HERE/final.py" "$RESULTS" cse-clickstack > "$RESULTS/final.md" 2> "$RESULTS/final.err" || true
 python3 "$HERE/score.py" "$RESULTS" > "$RESULTS/score.md" 2> "$RESULTS/score.err" || true
-"$RUN" down
+if python3 "$HERE/final.py" "$RESULTS" cse-clickstack > "$RESULTS/final.md" 2> "$RESULTS/final.err"; then
+  "$RUN" down
+else
+  "$RUN" mark final_failed_containers_kept
+  echo "final.py failed; containers left up for a rerun (rig/final.py \$RESULTS cse-clickstack), then rig/run.sh down" >&2
+fi
