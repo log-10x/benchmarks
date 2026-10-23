@@ -57,9 +57,23 @@ up() {
   for _ in $(seq 1 30); do s3 ls >/dev/null 2>&1 && break; sleep 2; done
   s3 mb "s3://$BUCKET" >/dev/null && mark s3_ready
 
-  docker run -d --name "$CS" --network "$NET" --memory 3g --cpus 3 -p 127.0.0.1:8123:8123 "$CS_IMAGE" >/dev/null
-  for _ in $(seq 1 100); do chq "SELECT 1" >/dev/null 2>&1 && break; sleep 3; done
-  until chq "EXISTS TABLE default.otel_logs" 2>/dev/null | grep -q 1; do sleep 3; done
+  # ClickStack's all-in-one start is not reliable on this host: one boot lost its collector
+  # (OpAMP supervisor timeout, nothing on 4317), another exited 129 forty seconds in. Start it
+  # up to four times; each attempt must stay running, answer SQL, have otel_logs and listen on 4317.
+  otlp_up() { docker exec "$CS" sh -c 'netstat -ltn 2>/dev/null | grep -q ":4317 "'; }
+  running() { [ "$(docker inspect -f '{{.State.Running}}' "$CS" 2>/dev/null)" = true ]; }
+  cs_ok=false
+  for attempt in 1 2 3 4; do
+    docker rm -f -v "$CS" >/dev/null 2>&1 || true
+    docker run -d --name "$CS" --network "$NET" --memory 3g --cpus 3 -p 127.0.0.1:8123:8123 "$CS_IMAGE" >/dev/null
+    ok=false
+    for _ in $(seq 1 100); do running || break; chq "EXISTS TABLE default.otel_logs" 2>/dev/null | grep -q 1 && { ok=true; break; }; sleep 3; done
+    if $ok; then ok=false; for _ in $(seq 1 40); do running || break; otlp_up && { ok=true; break; }; sleep 3; done; fi
+    if $ok; then sleep 15; running && otlp_up && { cs_ok=true; break; }; fi
+    mark clickstack_start_retry "\"attempt\":$attempt,\"running\":$(running && echo true || echo false),\"exit\":\"$(docker inspect -f '{{.State.ExitCode}}' "$CS" 2>/dev/null)\""
+    docker logs --tail 5 "$CS" > "$RESULTS/build/clickstack-attempt-$attempt.log" 2>&1 || true
+  done
+  $cs_ok || { echo "ClickStack did not start in four attempts" >&2; exit 1; }
   for _ in $(seq 1 100); do docker exec "$CS" curl -s -o /dev/null http://localhost:8000/ && break; sleep 3; done
   printf '{"email":"%s","password":"%s","confirmPassword":"%s"}' "$HDX_EMAIL" "$HDX_PASSWORD" "$HDX_PASSWORD" > "$RESULTS/build/register.json"
   printf '{"email":"%s","password":"%s"}' "$HDX_EMAIL" "$HDX_PASSWORD" > "$RESULTS/build/login.json"
@@ -69,17 +83,6 @@ up() {
   docker exec "$CS" sh -c 'curl -s -c /tmp/ck.txt -X POST http://localhost:8000/login/password -H "Content-Type: application/json" --data-binary @/tmp/login.json > /dev/null'
   HDX_API_KEY="$(docker exec "$CS" sh -c 'curl -s -b /tmp/ck.txt http://localhost:8000/team' | sed -n 's/.*"apiKey":"\([^"]*\)".*/\1/p')"
   [ -n "$HDX_API_KEY" ] || { echo "no HyperDX ingestion key" >&2; exit 1; }
-  # ClickStack's own collector starts under an OpAMP supervisor that can time out at boot
-  # ("collector's OpAMP client never connected"); without it nothing listens on 4317.
-  otlp_up() { docker exec "$CS" sh -c 'netstat -ltn 2>/dev/null | grep -q ":4317 "'; }
-  for _ in $(seq 1 30); do otlp_up && break; sleep 3; done
-  if ! otlp_up; then
-    mark clickstack_collector_restart
-    docker restart "$CS" >/dev/null
-    for _ in $(seq 1 100); do chq "SELECT 1" >/dev/null 2>&1 && break; sleep 3; done
-    for _ in $(seq 1 60); do otlp_up && break; sleep 3; done
-    otlp_up || { echo "ClickStack's collector never listened on 4317" >&2; docker exec "$CS" tail -5 /var/log/otel-collector.log >&2; exit 1; }
-  fi
   # a read-only user for the rows run over HTTP: SELECT on the two system tables it reads
   docker exec -i "$CS" sh -c 'cat > /etc/clickhouse-server/users.d/rows_meter.xml' < "$HERE/rows_meter.xml"
   chq "SYSTEM RELOAD CONFIG" >/dev/null
