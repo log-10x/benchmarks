@@ -1,0 +1,7 @@
+# Scrapes the Receiver's own counters; the rows run reads them from here.
+global:
+  scrape_interval: 15s
+scrape_configs:
+  - job_name: receiver
+    static_configs:
+      - targets: ['cse-engine:9100']

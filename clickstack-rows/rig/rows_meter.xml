@@ -1,0 +1,15 @@
+<clickhouse>
+  <users>
+    <rows_meter>
+      <password>rows-meter-rig</password>
+      <networks><ip>::/0</ip></networks>
+      <profile>default</profile>
+      <quota>default</quota>
+      <grants>
+        <query>GRANT SELECT ON system.part_log</query>
+        <query>GRANT SELECT ON system.parts</query>
+        <query>GRANT SHOW TABLES ON default.otel_logs</query>
+      </grants>
+    </rows_meter>
+  </users>
+</clickhouse>
