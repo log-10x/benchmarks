@@ -62,27 +62,33 @@ up() {
   # up to four times; each attempt must stay running, answer SQL, have otel_logs and listen on 4317.
   otlp_up() { docker exec "$CS" sh -c 'netstat -ltn 2>/dev/null | grep -q ":4317 "'; }
   running() { [ "$(docker inspect -f '{{.State.Running}}' "$CS" 2>/dev/null)" = true ]; }
+  printf '{"email":"%s","password":"%s","confirmPassword":"%s"}' "$HDX_EMAIL" "$HDX_PASSWORD" "$HDX_PASSWORD" > "$RESULTS/build/register.json"
+  printf '{"email":"%s","password":"%s"}' "$HDX_EMAIL" "$HDX_PASSWORD" > "$RESULTS/build/login.json"
+  # The collector opens 4317 only once HyperDX's OpAMP server hands it a config, which needs a
+  # registered team: so each attempt registers first, then waits for 4317.
   cs_ok=false
   for attempt in 1 2 3 4; do
     docker rm -f -v "$CS" >/dev/null 2>&1 || true
     docker run -d --name "$CS" --network "$NET" --memory 3g --cpus 3 -p 127.0.0.1:8123:8123 "$CS_IMAGE" >/dev/null
     ok=false
     for _ in $(seq 1 100); do running || break; chq "EXISTS TABLE default.otel_logs" 2>/dev/null | grep -q 1 && { ok=true; break; }; sleep 3; done
-    if $ok; then ok=false; for _ in $(seq 1 40); do running || break; otlp_up && { ok=true; break; }; sleep 3; done; fi
-    if $ok; then sleep 15; running && otlp_up && { cs_ok=true; break; }; fi
-    mark clickstack_start_retry "\"attempt\":$attempt,\"running\":$(running && echo true || echo false),\"exit\":\"$(docker inspect -f '{{.State.ExitCode}}' "$CS" 2>/dev/null)\""
+    if $ok; then ok=false; for _ in $(seq 1 100); do running || break; docker exec "$CS" curl -s -o /dev/null http://localhost:8000/ && { ok=true; break; }; sleep 3; done; fi
+    HDX_API_KEY=""
+    if $ok; then
+      docker cp "$RESULTS/build/register.json" "$CS":/tmp/register.json >/dev/null
+      docker cp "$RESULTS/build/login.json" "$CS":/tmp/login.json >/dev/null
+      docker exec "$CS" curl -s -X POST http://localhost:8000/register/password -H "Content-Type: application/json" --data-binary @/tmp/register.json >/dev/null
+      docker exec "$CS" sh -c 'curl -s -c /tmp/ck.txt -X POST http://localhost:8000/login/password -H "Content-Type: application/json" --data-binary @/tmp/login.json > /dev/null'
+      HDX_API_KEY="$(docker exec "$CS" sh -c 'curl -s -b /tmp/ck.txt http://localhost:8000/team' | sed -n 's/.*"apiKey":"\([^"]*\)".*/\1/p')"
+      [ -n "$HDX_API_KEY" ] || ok=false
+    fi
+    if $ok; then ok=false; for _ in $(seq 1 60); do running || break; otlp_up && { ok=true; break; }; sleep 3; done; fi
+    if $ok; then sleep 10; running && otlp_up && { cs_ok=true; break; }; fi
+    mark clickstack_start_retry "\"attempt\":$attempt,\"running\":$(running && echo true || echo false),\"key\":$([ -n "$HDX_API_KEY" ] && echo true || echo false),\"exit\":\"$(docker inspect -f '{{.State.ExitCode}}' "$CS" 2>/dev/null)\""
     docker logs --tail 5 "$CS" > "$RESULTS/build/clickstack-attempt-$attempt.log" 2>&1 || true
+    docker exec "$CS" tail -5 /var/log/otel-collector.log >> "$RESULTS/build/clickstack-attempt-$attempt.log" 2>&1 || true
   done
   $cs_ok || { echo "ClickStack did not start in four attempts" >&2; exit 1; }
-  for _ in $(seq 1 100); do docker exec "$CS" curl -s -o /dev/null http://localhost:8000/ && break; sleep 3; done
-  printf '{"email":"%s","password":"%s","confirmPassword":"%s"}' "$HDX_EMAIL" "$HDX_PASSWORD" "$HDX_PASSWORD" > "$RESULTS/build/register.json"
-  printf '{"email":"%s","password":"%s"}' "$HDX_EMAIL" "$HDX_PASSWORD" > "$RESULTS/build/login.json"
-  docker cp "$RESULTS/build/register.json" "$CS":/tmp/register.json >/dev/null
-  docker cp "$RESULTS/build/login.json" "$CS":/tmp/login.json >/dev/null
-  docker exec "$CS" curl -s -X POST http://localhost:8000/register/password -H "Content-Type: application/json" --data-binary @/tmp/register.json >/dev/null
-  docker exec "$CS" sh -c 'curl -s -c /tmp/ck.txt -X POST http://localhost:8000/login/password -H "Content-Type: application/json" --data-binary @/tmp/login.json > /dev/null'
-  HDX_API_KEY="$(docker exec "$CS" sh -c 'curl -s -b /tmp/ck.txt http://localhost:8000/team' | sed -n 's/.*"apiKey":"\([^"]*\)".*/\1/p')"
-  [ -n "$HDX_API_KEY" ] || { echo "no HyperDX ingestion key" >&2; exit 1; }
   # a read-only user for the rows run over HTTP: SELECT on the two system tables it reads
   docker exec -i "$CS" sh -c 'cat > /etc/clickhouse-server/users.d/rows_meter.xml' < "$HERE/rows_meter.xml"
   chq "SYSTEM RELOAD CONFIG" >/dev/null
