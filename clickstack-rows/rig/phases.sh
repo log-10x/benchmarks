@@ -36,6 +36,12 @@ EOF
 }
 
 "$RUN" up
+# disk guard: below 1.2 GB free on the host, stop the feed and say so (the run's numbers up to then stand)
+( while sleep 60; do
+    free_kb=$(df -k / | awk 'NR==2{print $4}')
+    if [ "$free_kb" -lt 1200000 ]; then "$RUN" pace 0; "$RUN" inject stop; "$RUN" mark disk_guard_stopped_feed "\"free_kb\":$free_kb"; break; fi
+  done ) &
+echo $! > "$RESULTS/disk-guard.pid"
 "$RUN" mark phase_baseline
 "$RUN" pace 14
 CONTAINERS=$(containers)
@@ -74,7 +80,7 @@ at 140; tick
 at 150; tick
 at 160; "$RUN" pace 0; "$RUN" inject stop; tick; "$RUN" mark phase_drain
 at 170; tick
-at 180; tick; "$RUN" collect
+at 180; tick; kill "$(cat "$RESULTS/disk-guard.pid")" 2>/dev/null || true; "$RUN" collect
 python3 "$HERE/score.py" "$RESULTS" > "$RESULTS/score.md" 2> "$RESULTS/score.err" || true
 if python3 "$HERE/final.py" "$RESULTS" cse-clickstack > "$RESULTS/final.md" 2> "$RESULTS/final.err"; then
   "$RUN" down
