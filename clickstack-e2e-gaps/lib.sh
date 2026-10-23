@@ -28,6 +28,9 @@
 #                      TENX_MODULES_TREE are then required beside it.
 #   TENX_CONFIG_TREE   a checkout of log-10x/config, public
 #   TENX_MODULES_TREE  a checkout of log-10x/modules, public
+#   ROUTER_COMMAND     the collector's command line, replacing the image's
+#                      default; it must name the config, for example
+#                      `--config=/etc/otelcol-contrib/config.yaml`
 #
 # Sourced, never run.
 #
@@ -288,6 +291,7 @@ g_engine_wait() {
 
 # ------------------------------------------------------------------- router
 # `extra` is passed through to docker run, so a gap can add a mount.
+# ROUTER_COMMAND, when set, replaces the image's command line.
 g_router_up() {
   local conf="$1"; shift
   mkdir -p "$BUILD/wire"
@@ -302,7 +306,7 @@ g_router_up() {
     -v "$FEED_DIR":/data:ro \
     -v "$BUILD/wire":/wire \
     "$@" \
-    "$OTEL_IMAGE" >/dev/null
+    "$OTEL_IMAGE" ${ROUTER_COMMAND:-} >/dev/null
 }
 
 # The run is over when the hot row count stops moving. `same` counts settled
