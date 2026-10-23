@@ -17,11 +17,13 @@ export RESULTS
 : "${GH_TOKEN:?export GH_TOKEN=\$(gh auth token)}"
 export POLICY_BRANCH=${POLICY_BRANCH:-test/clickhouse-rows-policy}
 M=${M:-60}                       # seconds per "minute"; 60 is the run, 6 a smoke
+METER_MIN=${METER_MIN:-10}       # the meter window in real minutes: 10 for the run, 1 for a smoke
+export CAPTURE=${CAPTURE:-$HERE/../../../benchmarks/clickstack-e2e/data/otel-sample-200mb.log}
 T0=$(date +%s); echo "$T0" > "$RESULTS/t0"
 at() { local due=$(( T0 + $1 * M )); while [ "$(date +%s)" -lt "$due" ]; do sleep 5; done; }
 tick() { "$HERE/budget-run.sh" "$@" || true; }
 containers() {
-  python3 - "$HERE/../../benchmarks/clickstack-e2e/data/otel-sample-200mb.log" <<'EOF'
+  python3 - "$CAPTURE" <<'EOF'
 import json,sys,collections
 c=collections.Counter()
 with open(sys.argv[1], errors='replace') as fh:
@@ -37,7 +39,7 @@ EOF
 "$RUN" mark phase_baseline
 "$RUN" pace 14
 CONTAINERS=$(containers)
-node "$HERE/gen-policy.mjs" "$RESULTS/policy.yaml" auto "$RESULTS/policy-clone" "$POLICY_BRANCH" "$CONTAINERS" 10 > /dev/null
+node "$HERE/gen-policy.mjs" "$RESULTS/policy.yaml" auto "$RESULTS/policy-clone" "$POLICY_BRANCH" "$CONTAINERS" "$METER_MIN" > /dev/null
 
 at 30;  tick --dry-run; "$RUN" mark dry_run_done
 # R = 0.7 x P, P the dry run's meter hour (rowsLastHour in the report line "Rows written: W of R")
@@ -50,9 +52,13 @@ v=float(m.group(1))*{'':1,'k':1e3,'M':1e6}[m.group(2)] if m else 0
 print(int(v))
 EOF
 )
+if [ "${P:-0}" -le 0 ]; then
+  "$RUN" mark dry_run_read_nothing; "$RUN" collect; "$RUN" down
+  echo "the dry run measured no rows (see budget-runs/*/report.txt); stopping" >&2; exit 1
+fi
 R=$(python3 -c "print(int(0.7*$P))")
 "$RUN" mark rate_set "\"P\":$P,\"R\":$R"
-node "$HERE/gen-policy.mjs" "$RESULTS/policy.yaml" "$R" "$RESULTS/policy-clone" "$POLICY_BRANCH" "$CONTAINERS" 10 > /dev/null
+node "$HERE/gen-policy.mjs" "$RESULTS/policy.yaml" "$R" "$RESULTS/policy-clone" "$POLICY_BRANCH" "$CONTAINERS" "$METER_MIN" > /dev/null
 
 at 40;  tick; "$RUN" mark phase_held
 at 50;  tick
@@ -69,5 +75,6 @@ at 150; tick
 at 160; "$RUN" pace 0; "$RUN" inject stop; tick; "$RUN" mark phase_drain
 at 170; tick
 at 180; tick; "$RUN" collect
+python3 "$HERE/final.py" "$RESULTS" cse-clickstack > "$RESULTS/final.md" 2> "$RESULTS/final.err" || true
 python3 "$HERE/score.py" "$RESULTS" > "$RESULTS/score.md" 2> "$RESULTS/score.err" || true
 "$RUN" down

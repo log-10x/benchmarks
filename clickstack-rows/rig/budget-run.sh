@@ -10,8 +10,8 @@ MCP=${MCP:?log10x-mcp checkout with build/}
 CLONE=${CLONE:-$RESULTS/policy-clone}
 BRANCH=$(awk '/policy_branch:/{print $2}' "$RESULTS/policy.yaml")
 export CLICKHOUSE_URL=${CLICKHOUSE_URL:-http://127.0.0.1:8123}
-export CLICKHOUSE_USER=${CLICKHOUSE_USER:-default}
-export CLICKHOUSE_PASSWORD=${CLICKHOUSE_PASSWORD:-}
+export CLICKHOUSE_USER=${CLICKHOUSE_USER:-rows_meter}
+export CLICKHOUSE_PASSWORD=${CLICKHOUSE_PASSWORD:-rows-meter-rig}
 export LOG10X_CUSTOMER_METRICS_URL=${LOG10X_CUSTOMER_METRICS_URL:-http://127.0.0.1:9090}
 export GIT_CONFIG_COUNT=3
 export GIT_CONFIG_KEY_0=credential.helper GIT_CONFIG_VALUE_0='!gh auth git-credential'

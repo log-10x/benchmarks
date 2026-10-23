@@ -69,6 +69,21 @@ up() {
   docker exec "$CS" sh -c 'curl -s -c /tmp/ck.txt -X POST http://localhost:8000/login/password -H "Content-Type: application/json" --data-binary @/tmp/login.json > /dev/null'
   HDX_API_KEY="$(docker exec "$CS" sh -c 'curl -s -b /tmp/ck.txt http://localhost:8000/team' | sed -n 's/.*"apiKey":"\([^"]*\)".*/\1/p')"
   [ -n "$HDX_API_KEY" ] || { echo "no HyperDX ingestion key" >&2; exit 1; }
+  # ClickStack's own collector starts under an OpAMP supervisor that can time out at boot
+  # ("collector's OpAMP client never connected"); without it nothing listens on 4317.
+  otlp_up() { docker exec "$CS" sh -c 'netstat -ltn 2>/dev/null | grep -q ":4317 "'; }
+  for _ in $(seq 1 30); do otlp_up && break; sleep 3; done
+  if ! otlp_up; then
+    mark clickstack_collector_restart
+    docker restart "$CS" >/dev/null
+    for _ in $(seq 1 100); do chq "SELECT 1" >/dev/null 2>&1 && break; sleep 3; done
+    for _ in $(seq 1 60); do otlp_up && break; sleep 3; done
+    otlp_up || { echo "ClickStack's collector never listened on 4317" >&2; docker exec "$CS" tail -5 /var/log/otel-collector.log >&2; exit 1; }
+  fi
+  # a read-only user for the rows run over HTTP: SELECT on the two system tables it reads
+  docker exec -i "$CS" sh -c 'cat > /etc/clickhouse-server/users.d/rows_meter.xml' < "$HERE/rows_meter.xml"
+  chq "SYSTEM RELOAD CONFIG" >/dev/null
+  for _ in $(seq 1 15); do curl -s -u rows_meter:rows-meter-rig 'http://127.0.0.1:8123/' --data-binary 'SELECT 1' | grep -qx 1 && break; sleep 2; done
   docker exec -i "$CS" clickhouse-client --multiquery < "$E2E/conf/schema_hot.sql"
   chq "ALTER TABLE default.otel_logs ADD COLUMN IF NOT EXISTS day Date MATERIALIZED toDate(Timestamp)"
   chq "ALTER TABLE default.otel_logs ADD COLUMN IF NOT EXISTS ins DateTime64(3) MATERIALIZED now64(3)"
