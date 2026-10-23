@@ -1,0 +1,124 @@
+#!/usr/bin/env python3
+"""Score the run against ROWS_RUN_METHOD.md, from the files the rig wrote.
+
+  score.py <results-dir>   -> markdown on stdout
+
+Criteria 1, 2, 6 and the pre-registered reports come from meter.log, timeline.jsonl
+and budget-runs/*; criteria 3 to 5 and 7 need ClickHouse and the wire and are
+scored by final.py while the containers are still up. Nothing here is a cost.
+"""
+import glob
+import json
+import os
+import re
+import sys
+
+WINDOW = 240
+
+
+def load_jsonl(path):
+    out = []
+    try:
+        with open(path) as fh:
+            for line in fh:
+                line = line.strip()
+                if line:
+                    out.append(json.loads(line))
+    except OSError:
+        pass
+    return out
+
+
+def main() -> int:
+    res = sys.argv[1]
+    tl = load_jsonl(os.path.join(res, "timeline.jsonl"))
+    meter = load_jsonl(os.path.join(res, "meter.log"))
+    ev = {e["event"]: e for e in tl}
+    runs = sorted(glob.glob(os.path.join(res, "budget-runs", "*")))
+    rate = next((e for e in tl if e["event"] == "rate_set"), None)
+    R = float(rate["R"]) if rate else 0.0
+    per_window_bound = R / (3600 / WINDOW)
+    t_held = ev.get("phase_held", {}).get("epoch")
+    t_drain = ev.get("phase_drain", {}).get("epoch")
+    reloads = [e["epoch"] for e in tl if e["event"] == "budget_run" and not e.get("dry_run") and e.get("exit") == 0]
+
+    out = [f"# Rows run score, from {os.path.basename(res.rstrip('/'))}", ""]
+    out.append(f"R = {int(R)} rows an hour ({per_window_bound:.0f} a 4-minute window); P = {rate['P'] if rate else 'n/a'}.")
+    out.append("")
+
+    # criterion 1: every applied run exits 0 and commits; projection at or under R or floor stated
+    c1 = []
+    for d in runs:
+        try:
+            rc = int(open(os.path.join(d, "exit")).read().strip())
+        except (OSError, ValueError):
+            rc = -1
+        txt = open(os.path.join(d, "report.txt")).read() if os.path.exists(os.path.join(d, "report.txt")) else ""
+        m = re.search(r"table takes about ([0-9.]+)([kM]?) an hour", txt)
+        proj = float(m.group(1)) * {"": 1, "k": 1e3, "M": 1e6}[m.group(2)] if m else None
+        floor_said = "floor" in txt
+        commit = json.load(open(os.path.join(d, "commit.json"))) if os.path.exists(os.path.join(d, "commit.json")) else {}
+        c1.append((os.path.basename(d), rc, proj, commit.get("before") != commit.get("after"), floor_said))
+    applied = [x for x in c1 if x[3]]
+    ok1 = all(x[1] == 0 for x in c1) and all((x[2] is None) or (x[2] <= R * 1.001) or x[4] for x in applied if R)
+    out.append(f"## 1. Runs: {'PASS' if ok1 else 'FAIL'}")
+    out.append("| run | exit | projected an hour | committed |\n|---|---:|---:|---|")
+    for name, rc, proj, committed, _ in c1:
+        out.append(f"| {name} | {rc} | {'' if proj is None else int(proj)} | {committed} |")
+    out.append("")
+
+    # criterion 2: per 4-minute window, rows at or under R/15 (+ floor share, reported), from t_held + 2 runs to drain
+    windows = {}
+    for rec in meter:
+        for w, n in rec.get("windows", {}).items():
+            windows[int(w)] = int(n)
+    start = (t_held or 0) + 20 * 60
+    scored = sorted((w, n) for w, n in windows.items() if t_held and t_drain and start <= w < t_drain)
+    over = [(w, n) for w, n in scored if n > per_window_bound]
+    sums = {}
+    for w, n in scored:
+        k = (w // 600) * 600
+        sums[k] = sums.get(k, 0) + n
+    over10 = [(k, v) for k, v in sorted(sums.items()) if v > R / 6]
+    out.append(f"## 2. Rows per window on the meter: {'PASS' if scored and not over and not over10 else 'FAIL'}")
+    out.append(f"{len(scored)} windows scored from {start} to {t_drain}; {len(over)} over {per_window_bound:.0f}; {len(over10)} ten-minute sums over {R / 6:.0f}.")
+    out.append("| window (epoch) | rows | of bound |\n|---|---:|---:|")
+    for w, n in scored:
+        out.append(f"| {w} | {n} | {n / per_window_bound if per_window_bound else 0:.2f} |")
+    out.append("")
+
+    # criterion 6: storm statement kept per window at most limit + 50; reload windows reported separately
+    storm = ev.get("storm_start")
+    out.append("## 6. Storm")
+    if storm:
+        series = [(r["epoch"], r.get("storm_hot_rows", 0)) for r in meter]
+        out.append(f"Storm from {storm['epoch']} at {storm.get('rate')} lines a second until {storm.get('until')}. Hot rows of the storming statement by reading:")
+        out.append("| epoch | storm rows in hot | reload within the window |\n|---|---:|---|")
+        for ep, n in series:
+            if storm["epoch"] - WINDOW <= ep <= int(storm.get("until", ep)) + 2 * WINDOW:
+                w0 = (ep // WINDOW) * WINDOW
+                rl = any(w0 <= r < w0 + WINDOW for r in reloads)
+                out.append(f"| {ep} | {n} | {'yes' if rl else ''} |")
+        out.append("The per-window increment against the statement's limit plus 50 is read from this table by hand; the limit is in the applied run's caps.csv for grafana.")
+    else:
+        out.append("No storm recorded.")
+    out.append("")
+
+    # reports
+    out.append("## Reports, pre-registered")
+    out.append("| run | floor F an hour | outside O an hour | kept an hour | moved an hour |\n|---|---:|---:|---:|---:|")
+    for d in runs:
+        txt = open(os.path.join(d, "report.txt")).read() if os.path.exists(os.path.join(d, "report.txt")) else ""
+        f = re.search(r"keeps about ([0-9.]+[kM]?) lines an hour whatever", txt)
+        o = re.search(r"Outside the Receiver: ([0-9.]+[kM]?) rows", txt)
+        mv = re.search(r"with ([0-9.]+[kM]?) an hour of lines to the", txt)
+        pj = re.search(r"table takes about ([0-9.]+[kM]?) an hour", txt)
+        out.append(f"| {os.path.basename(d)} | {f.group(1) if f else ''} | {o.group(1) if o else ''} | {pj.group(1) if pj else ''} | {mv.group(1) if mv else ''} |")
+    out.append("")
+    out.append("Reload windows (an applied run committed inside them): " + ", ".join(str((r // WINDOW) * WINDOW) for r in reloads))
+    print("\n".join(out))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
