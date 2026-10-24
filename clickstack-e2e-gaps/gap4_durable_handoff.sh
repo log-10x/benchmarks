@@ -153,14 +153,16 @@ PQ
 
 # The recipe's settings, applied on top of the checkpoint config. The same
 # file_storage extension holds the file position and every exporter queue.
-# Batching moves into the persisted queues: into the receiver, by bytes, under
-# the 4 MiB gRPC message the receiver accepts; on the cold route, by records,
-# as batch/cold did. The recipe's recombine operator is left out: every plain
-# numbered line starts with `tenxseq=`, so no continuation rule can match, and
-# the operator would still hold the newest line in memory across a kill. The
-# `batch` key under awss3/cold's sending_queue is not checked against that
-# exporter's source; the other keys are checked against the v0.143.0 sources of
-# the core exporter helper and the contrib file receiver.
+# Batching moves into the persisted queue into the receiver, by bytes, under
+# the 4 MiB gRPC message the receiver accepts; a record above the batch's
+# max_size is dropped with its request, so the file receiver's max_log_size sits
+# below it. The cold route keeps its persisted queue unbatched: a queue batch
+# merges the resources awss3's resource_attrs_to_s3 split, and the upload takes
+# the first resource's prefix for the whole object. The recipe's recombine
+# operator is left out: every plain numbered line starts with `tenxseq=`, so no
+# continuation rule can match, and the operator would still hold the newest line
+# in memory across a kill. Every key is checked against contrib v0.160.0 and
+# core v0.160.0 (v1.66.0), the versions the rig runs.
 python3 - "$BUILD/conf/router_ckpt.yaml" "$BUILD/conf/router_custody.yaml" <<'PC'
 import sys
 src, dst = sys.argv[1], sys.argv[2]
@@ -177,13 +179,13 @@ t = t.replace("  otlp/clickstack:\n",
               "    sending_queue:\n      enabled: true\n      storage: file_storage/ckpt\n", 1)
 t = t.replace("  awss3/cold:\n",
               "  awss3/cold:\n" + retry +
-              "    sending_queue:\n      enabled: true\n      storage: file_storage/ckpt\n"
-              "      batch:\n        flush_timeout: 5s\n        sizer: items\n        min_size: 5000\n", 1)
+              "    sending_queue:\n      enabled: true\n      storage: file_storage/ckpt\n", 1)
+t = t.replace("    max_log_size: 4MiB\n", "    max_log_size: 1MiB\n", 1)
 t = t.replace("      processors: [ transform/cold, batch/cold ]",
               "      processors: [ transform/cold ]", 1)
 assert t.count("\n      storage: file_storage/ckpt\n") == 3, t
 assert t.count("      max_elapsed_time: 0\n") == 3, t
-for needle in ("    timeout: 30s\n", "      num_consumers: 1\n", "[ transform/cold ]",
+for needle in ("    max_log_size: 1MiB\n", "    timeout: 30s\n", "      num_consumers: 1\n", "[ transform/cold ]",
                "  filelog:\n    storage: file_storage/ckpt"):
     assert needle in t, needle
 assert "batch/cold ]" not in t, t
@@ -195,7 +197,8 @@ PC
 # the background, and its checkpoint can pass lines still in that buffer.
 CUSTODY_COMMAND="--config=/etc/otelcol-contrib/config.yaml --feature-gates=stanza.synchronousLogEmitter"
 
-g_images "$CS_IMAGE" "$OTEL_IMAGE" "$MINIO_IMAGE" "$MC_IMAGE" "$EDGE_IMAGE"
+if [ -n "${PATCHED_JAR:-}" ]; then RECEIVER_IMAGE="$JRE_IMAGE"; else RECEIVER_IMAGE="$EDGE_IMAGE"; fi
+g_images "$CS_IMAGE" "$OTEL_IMAGE" "$S3_IMAGE" "$AWS_IMAGE" "$PROBE_IMAGE" "$RECEIVER_IMAGE"
 
 ARMS=("$@")
 [ ${#ARMS[@]} -gt 0 ] || ARMS=(router engine both)
@@ -309,6 +312,12 @@ json.dump({
 }, open(out, "w"), indent=1)
 print(json.dumps(json.load(open(out)), indent=1)[:900])
 PY
+  # The lines the receiver completed with no output, from its own scrape; zero is the bar.
+  docker run --rm --network "$NET" "$PROBE_IMAGE" wget -qO- -T 5 "http://$ENGINE:9100/metrics" 2>/dev/null \
+    | grep "^input_lines_abandoned" > "$BUILD/gap4_${arm}_abandoned.txt" || true
+  # Both runs of the receiver, for the lines its pipeline completed without an output.
+  docker logs "$ENGINE" > "$BUILD/gap4_${arm}_engine.log" 2>&1 || true
+  docker logs "$ROUTER" > "$BUILD/gap4_${arm}_router.log" 2>&1 || true
   docker rm -f -v "$ROUTER" "$ENGINE" "$CS" "$MINIO" >/dev/null 2>&1 || true
 }
 
