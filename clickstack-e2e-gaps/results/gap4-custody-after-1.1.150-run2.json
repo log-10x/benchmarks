@@ -1,0 +1,125 @@
+{
+ "gap": 4,
+ "arms": [
+  {
+   "arm": "router",
+   "input_lines": 197430,
+   "killed_at_hot_rows": 20138,
+   "killed_after_seconds": 176,
+   "run_seconds": 222,
+   "down_seconds": 20,
+   "wire_records": 29321,
+   "hot_rows": 24100,
+   "cold_rows": 136548,
+   "objects": "2040",
+   "seq_occurrences": 198427,
+   "seq_distinct": 197430,
+   "seq_duplicated": 726,
+   "seq_duplicate_lines": 997,
+   "seq_missing": 0,
+   "hashes_on_wire": 61,
+   "hashes_stored": 2537,
+   "hashes_short": 0,
+   "hashes_over": 2535,
+   "records_short_by_hash": 0,
+   "records_over_by_hash": 131327,
+   "worst_short": [],
+   "worst_over": [
+    [
+     "Gl3Gtr_SH5w",
+     29904
+    ],
+    [
+     "KG8Fq0QFuoY",
+     28935
+    ],
+    [
+     "PuWB8kkVbfw",
+     11592
+    ],
+    [
+     "YZplfQ4a1Xw",
+     10329
+    ],
+    [
+     "eDSYlCMPqVY",
+     5616
+    ]
+   ],
+   "input_lines_abandoned": 0
+  },
+  {
+   "arm": "engine",
+   "input_lines": 197430,
+   "killed_at_hot_rows": 20362,
+   "killed_after_seconds": 174,
+   "run_seconds": 262,
+   "down_seconds": 20,
+   "wire_records": 159780,
+   "hot_rows": 25855,
+   "cold_rows": 133925,
+   "objects": "2079",
+   "seq_occurrences": 197430,
+   "seq_distinct": 197430,
+   "seq_duplicated": 0,
+   "seq_duplicate_lines": 0,
+   "seq_missing": 0,
+   "hashes_on_wire": 2539,
+   "hashes_stored": 2539,
+   "hashes_short": 0,
+   "hashes_over": 0,
+   "records_short_by_hash": 0,
+   "records_over_by_hash": 0,
+   "worst_short": [],
+   "worst_over": [],
+   "input_lines_abandoned": 0
+  },
+  {
+   "arm": "both",
+   "input_lines": 197430,
+   "killed_at_hot_rows": 20458,
+   "killed_after_seconds": 179,
+   "run_seconds": 269,
+   "down_seconds": 20,
+   "wire_records": 25982,
+   "hot_rows": 25777,
+   "cold_rows": 133928,
+   "objects": "2161",
+   "seq_occurrences": 197430,
+   "seq_distinct": 197430,
+   "seq_duplicated": 0,
+   "seq_duplicate_lines": 0,
+   "seq_missing": 0,
+   "hashes_on_wire": 61,
+   "hashes_stored": 2537,
+   "hashes_short": 0,
+   "hashes_over": 2535,
+   "records_short_by_hash": 0,
+   "records_over_by_hash": 133723,
+   "worst_short": [],
+   "worst_over": [
+    [
+     "Gl3Gtr_SH5w",
+     30354
+    ],
+    [
+     "KG8Fq0QFuoY",
+     29372
+    ],
+    [
+     "PuWB8kkVbfw",
+     11775
+    ],
+    [
+     "YZplfQ4a1Xw",
+     10590
+    ],
+    [
+     "eDSYlCMPqVY",
+     5761
+    ]
+   ],
+   "input_lines_abandoned": 0
+  }
+ ]
+}
