@@ -10,6 +10,12 @@
 #   rig/run.sh mark <event> [json]
 #   rig/run.sh collect            logs, the Receiver's scrape, the wire tap
 #   rig/run.sh down               remove the containers, the network and the volumes
+#   rig/run.sh check-rule         ARMS=two: wait up to 180 s for arm B's first rows
+#   rig/run.sh size               ARMS=two: the run's disk in MB (results, ClickHouse, both buckets)
+#
+# ARMS=two adds arm B beside the rows run: a second routing collector on the same feed
+# with the gap6 collector rule (RULE_TOP1 and RULE_TOP2's INFO and DEBUG to the coldrule
+# bucket, the rest into default.otel_logs_rule), no Receiver, on the 1.1.150 image.
 #
 # Names stay the e2e ones (cse-*): rig/router.yaml and clickstack-e2e/conf/schema_cold.sql
 # address them. Memory: ClickStack 3g, Receiver 2g, collector 1g, RustFS 512m, Prometheus 512m.
@@ -25,14 +31,17 @@ POLICY_REPO="${POLICY_REPO:-log-10x/config}"
 export POLICY_BRANCH="${POLICY_BRANCH:-test/clickhouse-rows-policy}"
 CAPTURE="${CAPTURE:-$ROOT/../../benchmarks/clickstack-e2e/data/otel-sample-200mb.log}"
 CS_IMAGE="${CSE_CS_IMAGE:-clickhouse/clickstack-all-in-one:2.38.0}"
-ENGINE_IMAGE="${CSE_ENGINE_IMAGE:-ghcr.io/log-10x/edge-10x:1.1.147}"
+ARMS="${ARMS:-one}"
+if [ "$ARMS" = two ]; then ENGINE_DEFAULT=ghcr.io/log-10x/edge-10x:1.1.150; else ENGINE_DEFAULT=ghcr.io/log-10x/edge-10x:1.1.147; fi
+ENGINE_IMAGE="${CSE_ENGINE_IMAGE:-$ENGINE_DEFAULT}"
 OTEL_IMAGE="${CSE_OTEL_IMAGE:-otel/opentelemetry-collector-contrib:0.160.0}"
 S3_IMAGE="${CSE_MINIO_IMAGE:-rustfs/rustfs:latest}"
 AWS_IMAGE="${CSE_AWS_IMAGE:-amazon/aws-cli:latest}"
 PROM_IMAGE="${CSE_PROM_IMAGE:-prom/prometheus:v3.9.1}"
 PY_IMAGE="${CSE_PY_IMAGE:-python:3.12-slim}"
 NET=cse-net; CS=cse-clickstack; ENGINE=cse-engine; ROUTER=cse-router; S3=cse-minio; PROM=cse-prom; PACER=cse-pacer; INJECT=cse-inject; STORM=cse-storm
-BUCKET=coldlogs
+ROUTER_RULE=cse-router-rule
+BUCKET=coldlogs; RULE_BUCKET=coldrule
 HDX_EMAIL="rows@log10x.test"; HDX_PASSWORD="Passw0rd!2026"
 
 mark() { mkdir -p "$RESULTS"; echo "{\"event\":\"$1\",\"at\":\"$(date -u +%FT%TZ)\",\"epoch\":$(date +%s)${2:+,$2}}" >> "$T"; }
@@ -41,6 +50,10 @@ s3() { docker run --rm --network "$NET" -e AWS_ACCESS_KEY_ID=minioadmin -e AWS_S
 
 up() {
   : "${GH_TOKEN:?export GH_TOKEN=\$(gh auth token)}"
+  if [ "$ARMS" = two ]; then
+    : "${RULE_TOP1:?the rule's first service}" "${RULE_TOP2:?the rule's second service}"
+    [ -z "${CSE_CONFIG_DIR:-}${CSE_MODULES_DIR:-}" ] || { echo "ARMS=two runs the image's own configuration: unset CSE_CONFIG_DIR and CSE_MODULES_DIR" >&2; exit 1; }
+  fi
   mkdir -p "$RESULTS" "$DATA" "$RESULTS/wire" "$RESULTS/build"
   : > "$DATA/feed.log"; chmod 666 "$DATA/feed.log"; echo 0 > "$DATA/pace.txt"
   : > "$RESULTS/wire/returned.json"; chmod 666 "$RESULTS/wire/returned.json"; chmod 777 "$RESULTS/wire"
@@ -56,6 +69,7 @@ up() {
   docker run -d --name "$S3" --network "$NET" --memory 512m -e RUSTFS_ACCESS_KEY=minioadmin -e RUSTFS_SECRET_KEY=minioadmin "$S3_IMAGE" >/dev/null
   for _ in $(seq 1 30); do s3 ls >/dev/null 2>&1 && break; sleep 2; done
   s3 mb "s3://$BUCKET" >/dev/null && mark s3_ready
+  [ "$ARMS" != two ] || s3 mb "s3://$RULE_BUCKET" >/dev/null
 
   # ClickStack's all-in-one start is not reliable on this host: one boot lost its collector
   # (OpAMP supervisor timeout, nothing on 4317), another exited 129 forty seconds in. Start it
@@ -96,6 +110,14 @@ up() {
   docker exec -i "$CS" clickhouse-client --multiquery < "$E2E/conf/schema_hot.sql"
   chq "ALTER TABLE default.otel_logs ADD COLUMN IF NOT EXISTS day Date MATERIALIZED toDate(Timestamp)"
   chq "ALTER TABLE default.otel_logs ADD COLUMN IF NOT EXISTS ins DateTime64(3) MATERIALIZED now64(3)"
+  if [ "$ARMS" = two ]; then
+    docker exec -i "$CS" clickhouse-client --multiquery < "$HERE/schema_rule.sql"
+    docker exec -i "$CS" sh -c 'cat > /etc/clickhouse-server/users.d/rule_writer.xml' < "$HERE/rule_writer.xml"
+    chq "SYSTEM RELOAD CONFIG" >/dev/null
+    chq "SHOW CREATE TABLE default.otel_logs" > "$RESULTS/build/otel_logs.sql"
+    chq "SHOW CREATE TABLE default.otel_logs_rule" > "$RESULTS/build/otel_logs_rule.sql"
+    mark rule_table_ready "\"columns\":$(chq "SELECT count() FROM system.columns WHERE database = 'default' AND table = 'otel_logs_rule'"),\"source_columns\":$(chq "SELECT count() FROM system.columns WHERE database = 'default' AND table = 'otel_logs'")"
+  fi
   mark clickstack_ready "\"version\":\"$(chq 'SELECT version()')\""
 
   # the Receiver: the gate's config patches (collector input, Prometheus scrape, unit events, pattern text
@@ -141,10 +163,23 @@ up() {
     -v "$HERE/router.yaml":/etc/otelcol-contrib/config.yaml:ro -v "$DATA":/data:ro -v "$RESULTS/wire":/wire \
     "$OTEL_IMAGE" >/dev/null
   mark collector_ready
-  nohup python3 "$HERE/meter.py" "${METER_S:-100}" "$CS" "$RESULTS/wire/returned.json" "$RESULTS/meter.log" > "$RESULTS/meter.err" 2>&1 &
+  TWO=()
+  if [ "$ARMS" = two ]; then
+    docker run -d --name "$ROUTER_RULE" --network "$NET" --memory 1g --cpus 2 \
+      -e RULE_TOP1="$RULE_TOP1" -e RULE_TOP2="$RULE_TOP2" -e AWS_ACCESS_KEY_ID=minioadmin -e AWS_SECRET_ACCESS_KEY=minioadmin \
+      -v "$HERE/router-rule.yaml":/etc/otelcol-contrib/config.yaml:ro -v "$DATA":/data:ro \
+      "$OTEL_IMAGE" >/dev/null
+    mark rule_collector_ready "\"top\":[\"$RULE_TOP1\",\"$RULE_TOP2\"]"
+    TWO=(--tables-out "$RESULTS/meter-tables.log" --origin "$(origin)" --window "$(window_s)")
+  fi
+  nohup python3 "$HERE/meter.py" "${METER_S:-100}" "$CS" "$RESULTS/wire/returned.json" "$RESULTS/meter.log" ${TWO[@]+"${TWO[@]}"} > "$RESULTS/meter.err" 2>&1 &
   echo $! > "$RESULTS/meter.pid"
   mark meter_started "\"every_s\":${METER_S:-100}"
 }
+
+# the two-arm run's windows: counted from T0 (phases.sh writes it), ten rig minutes long
+origin() { cat "$RESULTS/t0" 2>/dev/null || date +%s; }
+window_s() { cat "$RESULTS/window_s" 2>/dev/null || echo 600; }
 
 pace() {
   echo "${1:?lines per second}" > "$DATA/pace.txt"
@@ -178,11 +213,36 @@ case "${1:-}" in
     docker run --rm --network "$NET" alpine:latest wget -qO- "http://$ENGINE:9100/metrics" > "$RESULTS/engine-metrics.txt" 2>/dev/null || true
     echo "cold objects: $(s3 ls --recursive "s3://$BUCKET" | wc -l | tr -d ' ')" > "$RESULTS/objects.txt"
     docker exec -i "$CS" clickhouse-client --multiquery < "$E2E/conf/schema_cold.sql" > /dev/null 2>&1 || true
+    if [ "$ARMS" = two ]; then
+      docker logs "$ROUTER_RULE" > "$RESULTS/$ROUTER_RULE.log" 2>&1 || true
+      echo "cold objects, arm B: $(s3 ls --recursive "s3://$RULE_BUCKET" | wc -l | tr -d ' ')" >> "$RESULTS/objects.txt"
+      docker exec -i "$CS" clickhouse-client --multiquery < "$HERE/schema_rule_cold.sql" > /dev/null 2>&1 || true
+      python3 "$HERE/meter.py" dump "$CS" "$(origin)" "$(window_s)" "$RESULTS/two-arm-windows.json" "$DATA/feed.log" || true
+    fi
     mark collected ;;
+  check-rule)
+    for _ in $(seq 1 36); do
+      n="$(chq "SELECT count() FROM default.otel_logs_rule" 2>/dev/null || echo 0)"
+      [ "${n:-0}" -gt 0 ] && { mark rule_rows_flowing "\"rows\":$n"; exit 0; }
+      sleep 5
+    done
+    docker logs "$ROUTER_RULE" > "$RESULTS/$ROUTER_RULE.log" 2>&1 || true
+    mark rule_rows_missing; exit 1 ;;
+  size)
+    results_kb=$(du -sk "$RESULTS" 2>/dev/null | cut -f1 || true)
+    ch_kb=$(( $(chq "SELECT sum(bytes_on_disk) FROM system.parts" 2>/dev/null || echo 0) / 1024 ))
+    bucket_b=0
+    for b in "$BUCKET" "$RULE_BUCKET"; do
+      v=$(s3 ls --recursive --summarize "s3://$b" 2>/dev/null | awk '/Total Size/{print $3}' || true)
+      bucket_b=$(( bucket_b + ${v:-0} ))
+    done
+    mb=$(( (${results_kb:-0} + ${ch_kb:-0}) / 1024 + bucket_b / 1048576 ))
+    mark disk "\"results_kb\":${results_kb:-0},\"clickhouse_kb\":${ch_kb:-0},\"buckets_bytes\":$bucket_b,\"total_mb\":$mb"
+    echo "$mb" ;;
   down)
     [ -f "$RESULTS/meter.pid" ] && kill "$(cat "$RESULTS/meter.pid")" 2>/dev/null || true
-    docker rm -f -v "$PACER" "$INJECT" "$STORM" "$ROUTER" "$PROM" "$ENGINE" "$CS" "$S3" >/dev/null 2>&1 || true
+    docker rm -f -v "$PACER" "$INJECT" "$STORM" "$ROUTER" "$ROUTER_RULE" "$PROM" "$ENGINE" "$CS" "$S3" >/dev/null 2>&1 || true
     docker network rm "$NET" >/dev/null 2>&1 || true
     mark run_end ;;
-  *) sed -n 2,14p "$0"; exit 1 ;;
+  *) sed -n 2,21p "$0"; exit 1 ;;
 esac

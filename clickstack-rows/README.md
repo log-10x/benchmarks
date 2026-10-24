@@ -94,6 +94,24 @@ b2-sample-bound-off b3-sample-bound-mute` in log-10x/config: on the image's own 
 a 200-statement burst under a 50-line total passes 400 of 400 lines; with the bound it passes
 100 (the total plus 50), and `baselineMaxOverTotal: 0` restores 400.
 
+## Two-arm run: the rows run against a collector rule, under the same growth
+
+The method was written before the run: [`METHOD_TWO_ARM.md`](METHOD_TWO_ARM.md).
+`ARMS=two rig/phases.sh` runs the rows run as above (arm A, `default.otel_logs`, on the
+1.1.150 image with its own configuration) and, on the same node and the same feed, a second
+routing collector with the collector-only rule from `clickstack-e2e-gaps` gap 6 (arm B,
+[`rig/router-rule.yaml`](rig/router-rule.yaml)): the two chattiest services' INFO and DEBUG
+lines go to a second bucket and the rest into `default.otel_logs_rule`, a copy of the logs
+table with the same counts view. Arm B has no Receiver. The meter reads, per table and per
+window of ten rig minutes counted from the start, NewPart rows from `system.part_log`, merge
+CPU from its MergeParts ProfileEvents and insert CPU from `system.query_log`.
+`rig/score.py <results> --arms two` scores the three criteria and writes the comparison
+table. Results go to `results-two-arm/`.
+
+```bash
+ARMS=two MCP=<log10x-mcp checkout with build/> GH_TOKEN=$(gh auth token) rig/phases.sh
+```
+
 ## Files
 
 | Path | What |
