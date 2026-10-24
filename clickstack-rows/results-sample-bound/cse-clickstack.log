@@ -1,0 +1,15 @@
+
+Send OpenTelemetry data via:
+  http/protobuf: OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+  gRPC: OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
+
+Exporting data to ClickHouse:
+  Endpoint: tcp://ch-server:9000?dial_timeout=10s
+  Database: default
+
+Waiting for ClickHouse to be ready...
+Waiting for ClickHouse to be ready...
+ClickHouse is ready!
+
+Visit the HyperDX UI at http://localhost:8080
+

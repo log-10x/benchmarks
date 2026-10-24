@@ -61,6 +61,39 @@ before ClickHouse received it: 110,392 rows there against 84,472 in the table.
   An earlier run found the same on a retry of an insert that had already committed
   (`clickstack-e2e-gaps`, gap 5).
 
+## Rerun, 2026-10-24, with the regulator's sample bound: every 4-minute window under its bound; FAIL as registered on the 10-minute sum alone
+
+Same rig, image, capture, pace steps, storm and injected service as the run above, with one
+change in the Receiver's configuration: the always-pass sample counts toward its service's
+total, and a service passes at most 50 more sample lines per window once its total is spent
+(`baselineMaxOverTotal`, log-10x/config `4253528`, declared in log-10x/modules `cbbc8c32`, both
+mounted over the 1.1.147 image's own files; `results-sample-bound/build/` records the
+commits and the patches). The dry run measured the same 42,000 rows an hour, so R = 29,399
+again. There were 15 applied runs. Results in `results-sample-bound/`.
+
+| | Criterion | Result |
+|---|---|---|
+| 1 | Every applied run exits 0 and commits, projecting at or under R | **Pass.** 15 runs, all exit 0, each projecting about 29k rows an hour once the rate bound. |
+| 2 | Each 4-minute window at or under R/15 plus the floor's share; each 10-minute meter window at or under R/6 | **Fail on the 10-minute sum alone.** All 25 four-minute windows were under their bound. The complete 10-minute windows read 0.97 to 1.07 of R/6; 5 of 9 were over by 3 to 7%, the floor's share the bound makes no allowance for. |
+| 3 | Hot plus cold equals the returned records, for the ten largest moved statements | **Pass.** All ten exact. No row was inserted twice: 194,524 returned, 83,018 in the table and 111,506 in the bucket. |
+| 4 | A count through the Merge table equals the local count | **Pass.** All ten exact. |
+| 5 | Every line written comes back; every returned record is in the table or the bucket | **Every returned record is stored, none twice.** 242,357 lines became 194,524 records (the Receiver folds multi-line events). |
+| 6 | Storm: error lines of the storming statement per window at most its limit plus 50 | **Pass, read by hand.** The largest increase in a 4-minute window was about 124, against the service's total of 76 to 88 plus 50. |
+| 7 | The injected service is held from its first window by the `*` row | **Pass.** 86 rows in its first clock window against a `*` total of 186 in force; from the next applied run it held to its own row of 92, with 43 to 92 a window. |
+
+**What changed.** The capture loop inside the hold at 35 lines a second, where the first run
+passed 1,481 Grafana lines in one window (1,422 new statements, each passing its sample), passed
+under 200 in every window here: the rows written in that 10-minute window read 1.03 of R/6,
+against 1.36 before. The only window with more than 200 Grafana passes in the whole run is the
+startup window, before any total was set (1,588 lines, 1,433 statements). The 10-minute sums
+sit 3 to 7% over R/6 for the reason the first run found: the floor is inside R and the
+10-minute test has no allowance for it, while the 4-minute test does and holds everywhere.
+
+**The regulator bound, measured by the gate first.** `tests/regulator/run.sh b1-sample-bound
+b2-sample-bound-off b3-sample-bound-mute` in log-10x/config: on the image's own configuration
+a 200-statement burst under a 50-line total passes 400 of 400 lines; with the bound it passes
+100 (the total plus 50), and `baselineMaxOverTotal: 0` restores 400.
+
 ## Files
 
 | Path | What |
