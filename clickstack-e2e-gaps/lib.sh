@@ -3,7 +3,8 @@
 # The compose pattern the gap scripts share, lifted from ../run.sh and
 # ../repro-otel-return/verify-patched.sh.
 #
-# One network, four containers: MinIO as the object store, ClickStack as the
+# One network, four containers: RustFS as the object store (S3 API, in place of
+# MinIO, whose public images refuse anonymous pulls), ClickStack as the
 # ClickHouse and the HyperDX, the 10x receiver as the regulator, and a stock
 # contrib collector as the routing hop.
 #
@@ -28,6 +29,9 @@
 #                      TENX_MODULES_TREE are then required beside it.
 #   TENX_CONFIG_TREE   a checkout of log-10x/config, public
 #   TENX_MODULES_TREE  a checkout of log-10x/modules, public
+#   ROUTER_COMMAND     the collector's command line, replacing the image's
+#                      default; it must name the config, for example
+#                      `--config=/etc/otelcol-contrib/config.yaml`
 #
 # Sourced, never run.
 #
@@ -56,6 +60,9 @@ EDGE_IMAGE="${CSE_ENGINE_IMAGE:-ghcr.io/log-10x/edge-10x:1.1.79@sha256:14357d8d5
 OTEL_IMAGE="${CSE_OTEL_IMAGE:-otel/opentelemetry-collector-contrib:0.160.0@sha256:799dc6cf12c96192af37b5bdba804da8c10b3bc563b43cb90c3f3c58d9572ad6}"
 MINIO_IMAGE="${CSE_MINIO_IMAGE:-quay.io/minio/minio:latest@sha256:14cea493d9a34af32f524e538b8346cf79f3321eff8e708c1e2960462bd8936e}"
 MC_IMAGE="${CSE_MC_IMAGE:-quay.io/minio/mc:latest@sha256:a7fe349ef4bd8521fb8497f55c6042871b2ae640607cf99d9bede5e9bdf11727}"
+S3_IMAGE="${CSE_S3_IMAGE:-rustfs/rustfs:latest@sha256:9ca9559533b537d10482fe923288b676ad08f92a7069d9a17327fbae3cab688b}"
+AWS_IMAGE="${CSE_AWS_IMAGE:-amazon/aws-cli:latest@sha256:c8156a0e74e13929a42d7e60f0d4e14e7d28d980cd21822505d4bff80e5460c1}"
+PROBE_IMAGE="${CSE_PROBE_IMAGE:-alpine:latest@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6}"
 JRE_IMAGE="${CSE_JRE_IMAGE:-eclipse-temurin:23-jre@sha256:4972459272d4050ab14700677ac7a7511194f1d9ed333b95e886c3c8c80dedae}"
 VECTOR_IMAGE="${CSE_VECTOR_IMAGE:-timberio/vector:0.58.0-debian@sha256:1c1ea358c617ea0b23003d5af87f7a678b30f8f7096437e680380c47fc13d2d9}"
 
@@ -79,6 +86,10 @@ ch() { docker exec "$CS" clickhouse-client "$@"; }
 chq() { docker exec "$CS" clickhouse-client --query "$1"; }
 mc() { docker run --rm --network "$NET" --entrypoint sh "$MC_IMAGE" -c \
        "mc alias set m http://$MINIO:9000 minioadmin minioadmin >/dev/null && $1"; }
+# The object store is RustFS under the MinIO container name and credentials, read
+# with the AWS CLI. The `mc` helper needs the MinIO images.
+s3() { docker run --rm --network "$NET" -e AWS_ACCESS_KEY_ID=minioadmin -e AWS_SECRET_ACCESS_KEY=minioadmin \
+       -e AWS_DEFAULT_REGION=us-east-1 "$AWS_IMAGE" --endpoint-url "http://$MINIO:9000" s3 "$@"; }
 
 g_require() {
   command -v docker >/dev/null 2>&1 || { echo "docker is required" >&2; exit 1; }
@@ -126,6 +137,7 @@ g_input() {
 
 g_images() {
   for img in "$@"; do
+    [ -n "$img" ] || continue
     docker image inspect "$img" >/dev/null 2>&1 || docker pull "$img"
   done
 }
@@ -135,17 +147,18 @@ g_net() {
   docker network create "$NET" >/dev/null 2>&1 || true
 }
 
-# -------------------------------------------------------------------- MinIO
+# ----------------------------------------------------------- the object store
 g_minio_up() {
   docker run -d --name "$MINIO" --network "$NET" --memory 512m \
-    -e MINIO_ROOT_USER=minioadmin -e MINIO_ROOT_PASSWORD=minioadmin \
-    "$MINIO_IMAGE" server /data >/dev/null
-  until docker exec "$MINIO" sh -c 'curl -sf http://localhost:9000/minio/health/live' >/dev/null 2>&1; do sleep 2; done
-  mc "mc mb -p m/$BUCKET >/dev/null && echo '  bucket $BUCKET created'"
+    -e RUSTFS_ACCESS_KEY=minioadmin -e RUSTFS_SECRET_KEY=minioadmin \
+    "$S3_IMAGE" >/dev/null
+  local i
+  for i in $(seq 1 60); do s3 ls >/dev/null 2>&1 && break; sleep 2; done
+  s3 mb "s3://$BUCKET" >/dev/null && echo "  bucket $BUCKET created"
 }
 
-g_objects() { mc "mc ls -r m/$BUCKET | wc -l" | tr -d ' \r'; }
-g_object_bytes() { mc "mc du m/$BUCKET" | awk '{print $1}'; }
+g_objects() { { s3 ls --recursive "s3://$BUCKET" 2>/dev/null || true; } | wc -l | tr -d ' \r'; }
+g_object_bytes() { { s3 ls --recursive --summarize "s3://$BUCKET" 2>/dev/null || true; } | awk '/Total Size:/ {print $3}'; }
 
 # The guard for ClickHouse issue 116888, open, filed 2026-08-28 by a ClickHouse
 # member. An S3 table created with an explicit schema and
@@ -160,7 +173,7 @@ g_object_bytes() { mc "mc du m/$BUCKET" | awk '{print $1}'; }
 g_wait_for_object() {
   local bucket="${1:-$BUCKET}" tries="${2:-60}" n=0 i
   for i in $(seq 1 "$tries"); do
-    n="$(mc "mc ls -r m/$bucket | wc -l" | tr -d ' \r')"
+    n="$({ s3 ls --recursive "s3://$bucket" 2>/dev/null || true; } | wc -l | tr -d ' \r')"
     [ "${n:-0}" -gt 0 ] && { echo "  $n objects under $bucket before CREATE TABLE"; return 0; }
     sleep 2
   done
@@ -288,6 +301,7 @@ g_engine_wait() {
 
 # ------------------------------------------------------------------- router
 # `extra` is passed through to docker run, so a gap can add a mount.
+# ROUTER_COMMAND, when set, replaces the image's command line.
 g_router_up() {
   local conf="$1"; shift
   mkdir -p "$BUILD/wire"
@@ -302,7 +316,7 @@ g_router_up() {
     -v "$FEED_DIR":/data:ro \
     -v "$BUILD/wire":/wire \
     "$@" \
-    "$OTEL_IMAGE" >/dev/null
+    "$OTEL_IMAGE" ${ROUTER_COMMAND:-} >/dev/null
 }
 
 # The run is over when the hot row count stops moving. `same` counts settled
@@ -314,7 +328,7 @@ g_router_accepted() {
   # and a container that has gone all report zero. Under `set -e` a failing
   # command substitution here would end the run with no message at all, which is
   # how one arm of gap 6 disappeared mid-feed.
-  { docker exec "$MINIO" sh -c "curl -s --max-time 5 http://$ROUTER:8888/metrics" 2>/dev/null \
+  { docker run --rm --network "$NET" "$PROBE_IMAGE" wget -qO- -T 5 "http://$ROUTER:8888/metrics" 2>/dev/null \
     | awk '/^otelcol_receiver_accepted_log_records/ && /filelog/ {s+=$NF} END {printf "%d", s+0}'; } || true
 }
 
@@ -410,9 +424,9 @@ PY
 g_export_cold() {
   local label="$1" dest="$BUILD/cold-export"
   rm -rf "$dest"; mkdir -p "$dest"; chmod 777 "$dest"
-  docker run --rm --network "$NET" -v "$dest":/export --entrypoint sh "$MC_IMAGE" -c \
-    "mc alias set m http://$MINIO:9000 minioadmin minioadmin >/dev/null && \
-     mc mirror --quiet m/$BUCKET /export >/dev/null 2>&1; true"
+  docker run --rm --network "$NET" -v "$dest":/export \
+    -e AWS_ACCESS_KEY_ID=minioadmin -e AWS_SECRET_ACCESS_KEY=minioadmin -e AWS_DEFAULT_REGION=us-east-1 \
+    "$AWS_IMAGE" --endpoint-url "http://$MINIO:9000" s3 sync --only-show-errors "s3://$BUCKET" /export >/dev/null 2>&1 || true
   local n
   n="$(find "$dest" -type f | wc -l | tr -d ' ')"
   printf '{"written_by": "%s", "objects": %s, "feed_lines": %s}\n' "$label" "$n" "${FEED_LINES:-0}" \

@@ -6,15 +6,31 @@
 # in total: a line that arrived twice is a duplicate, a line that arrived never
 # is a gap. The per-type count is reconciled beside it, wire against stored.
 #
-# Two arms, each a full run over the whole capture:
+# Each arm is a full run over the whole capture. The first three run the
+# collector the way the shipped OpenTelemetry Collector recipe
+# (modules: input/forwarder/otel-collector/conf/tenx-sidecar.yaml) runs it: the
+# file position and the exporter queues in a file_storage extension, the queue
+# into the receiver with one sender, a 30 s timeout and retries without a
+# deadline, no batch processor between a receiver and a persisted queue, and
+# the file receiver emitting synchronously. The receiver answers an export only
+# once every line of it is written back and acknowledged, filtered out or
+# rejected, so these arms need a receiver that answers that way (PATCHED_JAR or
+# CSE_ENGINE_IMAGE).
 #
-#   router  the routing collector is killed mid-stream and restarted. The
-#           collector checkpoints its file position in a file_storage extension,
-#           which is what a deployment would do; without it the filelog receiver
-#           restarts at the top of the file and every line before the kill is
-#           delivered twice.
-#   engine  the receiver is killed mid-stream and restarted. The collector's
-#           OTLP exporter keeps its default queue and retry.
+#   router  the routing collector is killed mid-stream and restarted.
+#   engine  the receiver is killed mid-stream and restarted.
+#   both    the collector and the receiver are killed together and both
+#           restarted.
+#
+# The pass bar: no input line stored nowhere, on every arm, and none the
+# receiver completed without an output (its input_lines_abandoned counter). The
+# script exits non-zero when either is above zero, after writing the results.
+# Duplicates are reported, not asserted: a request answered whole is resent
+# whole, so the lines of a request in flight at the kill can arrive twice.
+#
+# Two more arms run the collector with only its file position checkpointed
+# (default queues, the batch processor on the cold route), against whichever
+# receiver the run starts:
 #   owners  the `router` arm again, with the collector configured the way the
 #           component's own code owners prescribe. Andrzej Stencel, who owns the
 #           component, on contrib issue 40741, 2025-06-24: "I recommend to remove
@@ -35,8 +51,8 @@
 #           and writes each queue to disk, which is the only shape that can
 #           carry an accepted but undelivered batch across the restart.
 #
-#   ./gap4_durable_handoff.sh                both default arms
-#   ./gap4_durable_handoff.sh router owners  the pair this comparison needs
+#   ./gap4_durable_handoff.sh                the three custody arms
+#   ./gap4_durable_handoff.sh router owners  the checkpoint-only and code-owner arms
 #
 # The arm list also names the output: any run whose arms are not exactly
 # `router engine` writes results/gap4-<arms joined>.json, so the committed first
@@ -136,10 +152,56 @@ open(dst, "w").write(t)
 print("  router config with a persistent sending queue written")
 PQ
 
-g_images "$CS_IMAGE" "$OTEL_IMAGE" "$MINIO_IMAGE" "$MC_IMAGE" "$EDGE_IMAGE"
+# The recipe's settings, applied on top of the checkpoint config. The same
+# file_storage extension holds the file position and every exporter queue.
+# Batching moves into the persisted queue into the receiver, by bytes, under
+# the 4 MiB gRPC message the receiver accepts; a record above the batch's
+# max_size is dropped with its request, so the file receiver's max_log_size sits
+# below it. The cold route keeps its persisted queue unbatched: a queue batch
+# merges the resources awss3's resource_attrs_to_s3 split, and the upload takes
+# the first resource's prefix for the whole object. The recipe's recombine
+# operator is left out: every plain numbered line starts with `tenxseq=`, so no
+# continuation rule can match, and the operator would still hold the newest line
+# in memory across a kill.
+python3 - "$BUILD/conf/router_ckpt.yaml" "$BUILD/conf/router_custody.yaml" <<'PC'
+import sys
+src, dst = sys.argv[1], sys.argv[2]
+t = open(src).read()
+retry = "    retry_on_failure:\n      enabled: true\n      max_elapsed_time: 0\n"
+t = t.replace("  otlp/engine:\n    sending_queue:\n      block_on_overflow: true\n",
+              "  otlp/engine:\n    timeout: 30s\n" + retry +
+              "    sending_queue:\n      enabled: true\n      num_consumers: 1\n"
+              "      block_on_overflow: true\n      storage: file_storage/ckpt\n"
+              "      batch:\n        flush_timeout: 1s\n        sizer: bytes\n"
+              "        min_size: 1048576\n        max_size: 2097152\n", 1)
+t = t.replace("  otlp/clickstack:\n",
+              "  otlp/clickstack:\n" + retry +
+              "    sending_queue:\n      enabled: true\n      storage: file_storage/ckpt\n", 1)
+t = t.replace("  awss3/cold:\n",
+              "  awss3/cold:\n" + retry +
+              "    sending_queue:\n      enabled: true\n      storage: file_storage/ckpt\n", 1)
+t = t.replace("    max_log_size: 4MiB\n", "    max_log_size: 1MiB\n", 1)
+t = t.replace("      processors: [ transform/cold, batch/cold ]",
+              "      processors: [ transform/cold ]", 1)
+assert t.count("\n      storage: file_storage/ckpt\n") == 3, t
+assert t.count("      max_elapsed_time: 0\n") == 3, t
+for needle in ("    max_log_size: 1MiB\n", "    timeout: 30s\n", "      num_consumers: 1\n", "[ transform/cold ]",
+               "  filelog:\n    storage: file_storage/ckpt"):
+    assert needle in t, needle
+assert "batch/cold ]" not in t, t
+open(dst, "w").write(t)
+print("  router config with the recipe's custody settings written")
+PC
+
+# Without the gate the file receiver hands lines on from a buffer it fills in
+# the background, and its checkpoint can pass lines still in that buffer.
+CUSTODY_COMMAND="--config=/etc/otelcol-contrib/config.yaml --feature-gates=stanza.synchronousLogEmitter"
+
+if [ -n "${PATCHED_JAR:-}" ]; then RECEIVER_IMAGE="$JRE_IMAGE"; else RECEIVER_IMAGE="$EDGE_IMAGE"; fi
+g_images "$CS_IMAGE" "$OTEL_IMAGE" "$S3_IMAGE" "$AWS_IMAGE" "$PROBE_IMAGE" "$RECEIVER_IMAGE"
 
 ARMS=("$@")
-[ ${#ARMS[@]} -gt 0 ] || ARMS=(router engine)
+[ ${#ARMS[@]} -gt 0 ] || ARMS=(router engine both)
 ARMS_KEY="$(printf '%s-' "${ARMS[@]}")"; ARMS_KEY="${ARMS_KEY%-}"
 [ "$ARMS_KEY" = "router-engine" ] || OUT="$RESULTS/gap4-$ARMS_KEY.json"
 
@@ -157,11 +219,11 @@ run_arm() {
   cp "$BUILD/conf/caps.csv" "$BUILD/conf/actions.csv" "$BUILD/policy/"
   touch "$BUILD/policy/caps.csv" "$BUILD/policy/actions.csv"
   g_engine_up "$BUILD/policy"
-  local conf="$BUILD/conf/router_ckpt.yaml"
-  [ "$arm" = "owners" ] && conf="$BUILD/conf/router_owners.yaml"
-  [ "$arm" = "persist" ] && conf="$BUILD/conf/router_persist.yaml"
+  local conf="$BUILD/conf/router_custody.yaml" command="$CUSTODY_COMMAND"
+  [ "$arm" = "owners" ] && { conf="$BUILD/conf/router_owners.yaml"; command=""; }
+  [ "$arm" = "persist" ] && { conf="$BUILD/conf/router_persist.yaml"; command=""; }
   local started_at; started_at="$(date +%s)"
-  g_router_up "$conf" -v "$BUILD/ckpt":/ckpt
+  ROUTER_COMMAND="$command" g_router_up "$conf" -v "$BUILD/ckpt":/ckpt
 
   # Kill when the hot table passes the mark, and never before data is moving.
   local cur=0 waited=0
@@ -170,17 +232,19 @@ run_arm() {
     cur="$(chq "SELECT count() FROM default.otel_logs" 2>/dev/null || echo 0)"
   done
   local killed_at="$cur"
-  local victim="$ROUTER"
-  if [ "$arm" = "engine" ]; then victim="$ENGINE"; fi
+  local victims=("$ROUTER")
+  [ "$arm" = "engine" ] && victims=("$ENGINE")
+  [ "$arm" = "both" ] && victims=("$ENGINE" "$ROUTER")
   local killed_after=$(( $(date +%s) - started_at ))
-  echo "  killing $victim at $killed_at hot rows"
-  docker kill "$victim" >/dev/null
+  echo "  killing ${victims[*]} at $killed_at hot rows"
+  docker kill "${victims[@]}" >/dev/null
   sleep "$DOWN_SECONDS"
-  docker start "$victim" >/dev/null
-  echo "  $victim back up"
+  # In the `both` arm the receiver is started before the collector.
+  docker start "${victims[@]}" >/dev/null
+  echo "  ${victims[*]} back up"
   # A restarted receiver writes its listening line again, after the old one in
   # the same log, so the wait is on a fresh log read and not on the old line.
-  if [ "$arm" = "engine" ]; then sleep 10; g_engine_wait; fi
+  case "$arm" in engine|both) sleep 10; g_engine_wait ;; esac
 
   # The collector restarts on purpose in this gap, which resets the counter
   # the strict check reads, so this one settles on stillness alone and the
@@ -248,18 +312,50 @@ json.dump({
 }, open(out, "w"), indent=1)
 print(json.dumps(json.load(open(out)), indent=1)[:900])
 PY
+  # The lines the receiver completed with no output, from its own scrape; zero is the bar.
+  docker run --rm --network "$NET" "$PROBE_IMAGE" wget -qO- -T 5 "http://$ENGINE:9100/metrics" 2>/dev/null \
+    | grep "^input_lines_abandoned" > "$BUILD/gap4_${arm}_abandoned.txt" || true
+  # Both runs of the receiver, for the lines its pipeline completed without an output.
+  docker logs "$ENGINE" > "$BUILD/gap4_${arm}_engine.log" 2>&1 || true
+  docker logs "$ROUTER" > "$BUILD/gap4_${arm}_router.log" 2>&1 || true
   docker rm -f -v "$ROUTER" "$ENGINE" "$CS" "$MINIO" >/dev/null 2>&1 || true
 }
 
 for arm in "${ARMS[@]}"; do run_arm "$arm"; done
 
 python3 - "$OUT" "$BUILD" "${ARMS[@]}" <<'PY'
-import json, pathlib, sys
+import json, pathlib, re, sys
 out, build = sys.argv[1], pathlib.Path(sys.argv[2])
 arms = sys.argv[3:]
-json.dump({"gap": 4, "arms": [json.loads((build / f"gap4_{a}.json").read_text()) for a in arms]},
-          open(out, "w"), indent=1)
+def abandoned(arm):
+    # The receiver's input_lines_abandoned counter at the end of the arm; None
+    # for a receiver that does not publish it.
+    # The counter restarts with the receiver, so the warnings it logs before a
+    # kill count too: the highest count any warning reports.
+    f = build / f"gap4_{arm}_abandoned.txt"
+    values = [float(l.rsplit(" ", 1)[1]) for l in f.read_text().splitlines() if l.strip()] if f.exists() else []
+    log = build / f"gap4_{arm}_engine.log"
+    logged = [int(m) for m in re.findall(r"(\d+) input lines were discarded inside the pipeline",
+                                         log.read_text(errors="replace"))] if log.exists() else []
+    if not values and not logged:
+        return None
+    return max([int(sum(values))] + logged)
+
+results = [json.loads((build / f"gap4_{a}.json").read_text()) for a in arms]
+for r in results:
+    r["input_lines_abandoned"] = abandoned(r["arm"])
+json.dump({"gap": 4, "arms": results}, open(out, "w"), indent=1)
 print("wrote", out)
+failed = False
+for r in results:
+    # The bar: no line stored nowhere, and none completed by the receiver
+    # without reaching an output.
+    ok = r["seq_missing"] == 0 and not r["input_lines_abandoned"]
+    failed |= not ok
+    shown = "n/a" if r["input_lines_abandoned"] is None else r["input_lines_abandoned"]
+    print(f"  {r['arm']:8} {'PASS' if ok else 'FAIL'}  missing {r['seq_missing']}, "
+          f"duplicate lines {r['seq_duplicate_lines']}, abandoned {shown}")
+sys.exit(1 if failed else 0)
 PY
 
 say "done"

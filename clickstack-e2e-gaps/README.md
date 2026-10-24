@@ -53,7 +53,7 @@ with no error in the run's own log.
 | `gap1_multiday_pruning.sh` | what a day predicate costs against what a time-only predicate costs, over thirty days of objects, counted in S3 GET and LIST | nothing about a real day's mix: every day is a replica of the run's own cold rows with the timestamps shifted, and the replicated objects are gzipped and written by ClickHouse, not by the collector |
 | `gap2_vector_parquet.sh` | that Vector carries the whole cold branch, and what the same queries cost over Vector's objects and over a Parquet copy of the same rows | anything about Parquet in Vector as it was first run: the pinned build was `0.50.0-debian` and the probe set `encoding.codec`, which is the per event serializer. Vector's Parquet option is `batch_encoding.codec` on the `aws_s3` sink, added in v0.55.0 and in official builds from v0.56.0. The Parquet objects in that query table were written by ClickHouse |
 | `gap3_retriever_fetch.sh` | whether the cold layout as written is indexable by the shipped Retriever index pipeline, against the same pipeline over the same records one per line | nothing about the Retriever's deployed shape: no SQS, no S3 trigger, no Quarkus service, no fan out. The local accessor the engine ships is what runs |
-| `gap4_durable_handoff.sh` | whether a line can be lost or doubled when the routing collector or the receiver is killed mid-stream and restarted, counted line by line through a sequence number inside the body | nothing about a crash that loses the collector's checkpoint file or the host, and nothing about a partial object in the store |
+| `gap4_durable_handoff.sh` | whether a line can be lost or doubled when the routing collector, the receiver, or both are killed mid-stream and restarted, with the collector set up the way the shipped OpenTelemetry Collector recipe sets it up, counted line by line through a sequence number inside the body. The run fails when any arm stores a line nowhere; duplicates are reported beside it | nothing about a crash that loses the collector's checkpoint file or the host, nothing about a partial object in the store, and nothing about the recipe's multi-line joining, which the numbered capture cannot exercise |
 | `gap5_query_alert_correctness.sh` | which of three dashboard-shaped answers change when rows leave the hot table, across the hot table before, the hot table after, the Merge table and the counts table, and whether HyperDX's API accepts an alert on each | that HyperDX's own evaluation loop fired: an alert evaluates the window its interval names, and a replayed capture is older than that by the time the loop runs. The firing condition is evaluated against the counts each surface returns and is labelled as such |
 | `gap6_incremental_economics.sh` | rows, bytes, insert plus merge CPU and answers for three policies on one ClickHouse: no offload, a collector-only policy by service and severity, and the per-type policy | nothing about money. There is no Cloud autoscaler here, no bill, and no compute term; the arms are comparable to each other and to nothing else |
 | `gap2b_vector058_parquet.sh` | what Vector 0.58.0 takes for Parquet, and what the same rows cost as newline delimited JSON and as Parquet, both written by Vector in one run and read through two Merge tables, with the Parquet reader's row group and page counters | that the two containers hold the same shape: the JSON arm writes a free attribute map and the Parquet arm writes named columns, because a schema inferred from a free map carries one field per key seen |
@@ -96,5 +96,23 @@ The same file's last section, `Wave 3, 2026-09-15 evening`, is a third pass on t
 same harness: the persistent sending queue arm of gap 4 (`gap4-router-persist.json`),
 the bounded cold window (`gap9.json`), and what the public Retriever image carries,
 which is why gap 3 is still not measured.
+
+Durable handoff with custody, 2026-10-23. The collector runs the shipped recipe's settings
+(file positions and the queue into the receiver in `file_storage`, one sender, retries
+without a deadline, batching inside the persisted queue, the synchronous file
+emitter), on contrib 0.160.0 and RustFS. Lines stored nowhere, lines stored twice,
+and lines the receiver completed without an output (`input_lines_abandoned`), out of
+197,430:
+
+| Arm | receiver answers on receipt | receiver answers once lines are done, run 1 | receiver answers once lines are done, run 2 |
+|---|---|---|---|
+| collector killed | 32,203 missing, 0 twice | 0 missing, 900 twice, 0 abandoned | 0 missing, 997 twice, 0 abandoned |
+| receiver killed | 31,976 missing, 0 twice | 0 missing, 0 twice, 0 abandoned | 0 missing, 0 twice, 0 abandoned |
+| both killed | 24,900 missing, 0 twice | 0 missing, 232 twice, 0 abandoned | 0 missing, 0 twice, 0 abandoned |
+
+The custody columns run a receiver that answers an export only once its lines are written
+back and acknowledged (the run-cloud jar on the JRE image, with
+`PATCHED_JAR`). JSON: `gap4-custody-before-edge-1.1.147.json`,
+`gap4-custody-after-1.1.150-run1.json`, `gap4-custody-after-1.1.150-run2.json`.
 
 Where the two disagree, the second is the later measurement and says so.

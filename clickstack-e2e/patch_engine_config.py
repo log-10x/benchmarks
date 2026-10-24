@@ -22,8 +22,11 @@ import pathlib
 import sys
 
 
-def sub(path: pathlib.Path, old: str, new: str, what: str) -> None:
+def sub(path: pathlib.Path, old: str, new: str, what: str, already: tuple = ()) -> None:
     text = path.read_text()
+    if old not in text and any(t in text for t in (new,) + already):
+        print(f"  {what}: already so in the shipped file")
+        return
     if old not in text:
         sys.exit(f"patch failed, {what}: the shipped text is not in {path}")
     path.write_text(text.replace(old, new, 1))
@@ -61,16 +64,18 @@ def main() -> int:
     # ------------------------------------------------------------ the rate knobs
     rate = root / "pipelines" / "run" / "receive" / "rate" / "config.yaml"
     sub(rate, '  warmupMs: $=parseDuration("5m")',
-        '  warmupMs: $=parseDuration("0s")', "regulator warmup set to zero")
+        '  warmupMs: $=parseDuration("0s")', "regulator warmup set to zero",
+        already=("  warmupMs: 0\n",))
     sub(rate, "  baselineCount: 5", "  baselineCount: 0",
         "regulator baseline count set to zero")
 
     # --------------------------------------------------------- the splice list
     fwd = root / "pipelines" / "run" / "input" / "forwarder" / "config.yaml"
-    old = ('          ? (TenXEnv.get("symbolMessageHashField") ? ("fullText(\\"" '
+    # No indent, so the match holds at any indentation.
+    old = ('? (TenXEnv.get("symbolMessageHashField") ? ("fullText(\\"" '
            '+ TenXEnv.get("symbolMessageHashField") + "\\",\\"routeState\\")") '
            ': "fullText(\\"routeState\\")")')
-    new = ('          ? (TenXEnv.get("symbolMessageHashField") ? ("fullText(\\"" '
+    new = ('? (TenXEnv.get("symbolMessageHashField") ? ("fullText(\\"" '
            '+ TenXEnv.get("symbolMessageHashField") + "\\",\\"" '
            '+ TenXEnv.get("symbolMessageField") + "\\",\\"routeState\\")") '
            ': ("fullText(\\"" + TenXEnv.get("symbolMessageField") '
