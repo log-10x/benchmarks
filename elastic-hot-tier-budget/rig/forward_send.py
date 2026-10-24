@@ -7,7 +7,10 @@ network (python:3.12-slim, standard library only; msgpack encoded here).
       the capture at its own pace times <speed>, looping, from <start offset> seconds of
       source time (so a speed change resumes where the last replay stopped)
   forward_send.py storm <line.json> <lines per second> <until epoch> <host> <port>
-      one real error line, its "time" field set to now"""
+      one real error line, its "time" field set to now
+  forward_send.py paced <source.jsonl> <speed file> <host> <port>
+      the capture from offset 0, looping, at its own pace times the speed in <speed file> (read every
+      second; 0 ends the feed); each record carries seq, its position in the feed from 1"""
 import json, re, socket, struct, sys, time
 
 
@@ -96,5 +99,54 @@ if __name__ == '__main__':
             r['log'] = re.sub(r'"time":\d+', '"time":%d' % (time.time() * 1000), r['log'], count=1)
             out.send(shape(r))
             time.sleep(1 / rate)
+    elif mode == 'paced':
+        src, sfile, host, port = sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5]
+
+        def read_speed():
+            try:
+                return float(open(sfile).read().strip())
+            except (OSError, ValueError):
+                return None
+
+        rows = [json.loads(l) for l in open(src)]
+        t0 = rows[0]['t']
+        span = rows[-1]['t'] - t0 + 1
+        out = Sender(host, port)
+        speed = read_speed()
+        wall0, v0 = time.time(), 0.0
+        next_check, next_log = wall0 + 1, wall0 + 60
+        seq, loop = 0, 0
+        print(json.dumps({'at': wall0, 'speed': speed, 'seq': seq}), flush=True)
+        while speed:
+            for r in rows:
+                vt = loop * span + (r['t'] - t0)
+                while True:
+                    now = time.time()
+                    if now >= next_check:
+                        s = read_speed()
+                        if s is not None and s != speed:
+                            v0 += (now - wall0) * speed
+                            wall0, speed = now, s
+                            print(json.dumps({'at': now, 'speed': speed, 'seq': seq}), flush=True)
+                            if not speed:
+                                break
+                        next_check = now + 1
+                    if now >= next_log:
+                        print(json.dumps({'at': now, 'seq': seq}), flush=True)
+                        next_log = now + 60
+                    d = wall0 + (vt - v0) / speed - now
+                    if d <= 0:
+                        break
+                    time.sleep(min(d, max(0.01, next_check - now)))
+                if not speed:
+                    break
+                seq += 1
+                rec = shape(r)
+                rec['seq'] = seq
+                out.send(rec)
+            loop += 1
+        if out.s is not None:
+            out.s.close()
+        print(json.dumps({'at': time.time(), 'final_seq': seq}), flush=True)
     else:
         raise SystemExit(__doc__)

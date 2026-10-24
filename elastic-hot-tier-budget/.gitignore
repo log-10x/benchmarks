@@ -17,3 +17,12 @@ results-r2/.down.done
 results-r2/replay.state
 results-r2/meter.jsonl
 results-r2/caffeinate.out
+results-two-arm*/data/
+results-two-arm*/replay/
+results-two-arm*/policy-clone/
+results-two-arm*/delivery/*.tsv.gz
+results-two-arm*/*.pid
+results-two-arm*/*.log
+results-two-arm*/.down.done
+results-two-arm*/meter.jsonl
+results-two-arm*/caffeinate.out
