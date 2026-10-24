@@ -67,7 +67,7 @@ Same rig, image, capture, pace steps, storm and injected service as the run abov
 change in the Receiver's configuration: the always-pass sample counts toward its service's
 total, and a service passes at most 50 more sample lines per window once its total is spent
 (`baselineMaxOverTotal`, log-10x/config `4253528`, declared in log-10x/modules `cbbc8c32`, both
-mounted over the 1.1.147 image's own files; `results-sample-bound/build/` records the
+mounted over the 1.1.147 image's own files for this run; the 1.1.150 image ships them in its configuration; `results-sample-bound/build/` records the
 commits and the patches). The dry run measured the same 42,000 rows an hour, so R = 29,399
 again. There were 15 applied runs. Results in `results-sample-bound/`.
 
