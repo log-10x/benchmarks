@@ -3,8 +3,8 @@
 # The compose pattern the gap scripts share, lifted from ../run.sh and
 # ../repro-otel-return/verify-patched.sh.
 #
-# One network, four containers: RustFS as the object store (S3 API; MinIO's public
-# images answer 401 since 2026-10), ClickStack as the
+# One network, four containers: RustFS as the object store (S3 API, in place of
+# MinIO, whose public images refuse anonymous pulls), ClickStack as the
 # ClickHouse and the HyperDX, the 10x receiver as the regulator, and a stock
 # contrib collector as the routing hop.
 #
@@ -87,7 +87,7 @@ chq() { docker exec "$CS" clickhouse-client --query "$1"; }
 mc() { docker run --rm --network "$NET" --entrypoint sh "$MC_IMAGE" -c \
        "mc alias set m http://$MINIO:9000 minioadmin minioadmin >/dev/null && $1"; }
 # The object store is RustFS under the MinIO container name and credentials, read
-# with the AWS CLI. Scripts that still call `mc` need the withdrawn MinIO image.
+# with the AWS CLI. The `mc` helper needs the MinIO images.
 s3() { docker run --rm --network "$NET" -e AWS_ACCESS_KEY_ID=minioadmin -e AWS_SECRET_ACCESS_KEY=minioadmin \
        -e AWS_DEFAULT_REGION=us-east-1 "$AWS_IMAGE" --endpoint-url "http://$MINIO:9000" s3 "$@"; }
 

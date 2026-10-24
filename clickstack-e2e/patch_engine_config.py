@@ -71,7 +71,7 @@ def main() -> int:
 
     # --------------------------------------------------------- the splice list
     fwd = root / "pipelines" / "run" / "input" / "forwarder" / "config.yaml"
-    # No indent: the shipped file has moved the expression between releases.
+    # No indent, so the match holds at any indentation.
     old = ('? (TenXEnv.get("symbolMessageHashField") ? ("fullText(\\"" '
            '+ TenXEnv.get("symbolMessageHashField") + "\\",\\"routeState\\")") '
            ': "fullText(\\"routeState\\")")')

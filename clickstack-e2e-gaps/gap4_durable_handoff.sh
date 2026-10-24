@@ -14,7 +14,7 @@
 # deadline, no batch processor between a receiver and a persisted queue, and
 # the file receiver emitting synchronously. The receiver answers an export only
 # once every line of it is written back and acknowledged, filtered out or
-# rejected, so they need a receiver built with that change (PATCHED_JAR or
+# rejected, so these arms need a receiver that answers that way (PATCHED_JAR or
 # CSE_ENGINE_IMAGE).
 #
 #   router  the routing collector is killed mid-stream and restarted.
@@ -28,9 +28,9 @@
 # Duplicates are reported, not asserted: a request answered whole is resent
 # whole, so the lines of a request in flight at the kill can arrive twice.
 #
-# Two more arms keep the comparison the first pass ran, on the collector config
-# it ran with (file position checkpointed, default queues, the batch processor
-# on the cold route), against whichever receiver the run starts:
+# Two more arms run the collector with only its file position checkpointed
+# (default queues, the batch processor on the cold route), against whichever
+# receiver the run starts:
 #   owners  the `router` arm again, with the collector configured the way the
 #           component's own code owners prescribe. Andrzej Stencel, who owns the
 #           component, on contrib issue 40741, 2025-06-24: "I recommend to remove
@@ -52,7 +52,7 @@
 #           carry an accepted but undelivered batch across the restart.
 #
 #   ./gap4_durable_handoff.sh                the three custody arms
-#   ./gap4_durable_handoff.sh router owners  the pair the first comparison ran
+#   ./gap4_durable_handoff.sh router owners  the checkpoint-only and code-owner arms
 #
 # The arm list also names the output: any run whose arms are not exactly
 # `router engine` writes results/gap4-<arms joined>.json, so the committed first
@@ -162,8 +162,7 @@ PQ
 # the first resource's prefix for the whole object. The recipe's recombine
 # operator is left out: every plain numbered line starts with `tenxseq=`, so no
 # continuation rule can match, and the operator would still hold the newest line
-# in memory across a kill. Every key is checked against contrib v0.160.0 and
-# core v0.160.0 (v1.66.0), the versions the rig runs.
+# in memory across a kill.
 python3 - "$BUILD/conf/router_ckpt.yaml" "$BUILD/conf/router_custody.yaml" <<'PC'
 import sys
 src, dst = sys.argv[1], sys.argv[2]
@@ -240,7 +239,7 @@ run_arm() {
   echo "  killing ${victims[*]} at $killed_at hot rows"
   docker kill "${victims[@]}" >/dev/null
   sleep "$DOWN_SECONDS"
-  # The receiver starts first, so the collector's resends find it listening.
+  # In the `both` arm the receiver is started before the collector.
   docker start "${victims[@]}" >/dev/null
   echo "  ${victims[*]} back up"
   # A restarted receiver writes its listening line again, after the old one in

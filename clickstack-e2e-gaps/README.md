@@ -97,21 +97,21 @@ same harness: the persistent sending queue arm of gap 4 (`gap4-router-persist.js
 the bounded cold window (`gap9.json`), and what the public Retriever image carries,
 which is why gap 3 is still not measured.
 
-Gap 4 with custody, 2026-10-23. The collector runs the shipped recipe's settings
+Durable handoff with custody, 2026-10-23. The collector runs the shipped recipe's settings
 (file positions and the queue into the receiver in `file_storage`, one sender, retries
 without a deadline, batching inside the persisted queue, the synchronous file
 emitter), on contrib 0.160.0 and RustFS. Lines stored nowhere, lines stored twice,
 and lines the receiver completed without an output (`input_lines_abandoned`), out of
 197,430:
 
-| Arm | edge 1.1.147 | 1.1.150, run 1 | 1.1.150, run 2 |
+| Arm | receiver answers on receipt | receiver answers once lines are done, run 1 | receiver answers once lines are done, run 2 |
 |---|---|---|---|
 | collector killed | 32,203 missing, 0 twice | 0 missing, 900 twice, 0 abandoned | 0 missing, 997 twice, 0 abandoned |
 | receiver killed | 31,976 missing, 0 twice | 0 missing, 0 twice, 0 abandoned | 0 missing, 0 twice, 0 abandoned |
 | both killed | 24,900 missing, 0 twice | 0 missing, 232 twice, 0 abandoned | 0 missing, 0 twice, 0 abandoned |
 
-1.1.150 is the engine build that answers an export only once its lines are written
-back and acknowledged (engine 1.1.150 run as the run-cloud jar on the JRE image, with
+The custody columns run a receiver that answers an export only once its lines are written
+back and acknowledged (the run-cloud jar on the JRE image, with
 `PATCHED_JAR`). JSON: `gap4-custody-before-edge-1.1.147.json`,
 `gap4-custody-after-1.1.150-run1.json`, `gap4-custody-after-1.1.150-run2.json`.
 
