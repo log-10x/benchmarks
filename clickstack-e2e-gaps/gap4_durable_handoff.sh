@@ -22,8 +22,9 @@
 #   both    the collector and the receiver are killed together and both
 #           restarted.
 #
-# The pass bar: no input line stored nowhere, on every arm. The script exits
-# non-zero when any arm's seq_missing is above zero, after writing the results.
+# The pass bar: no input line stored nowhere, on every arm, and none the
+# receiver completed without an output (its input_lines_abandoned counter). The
+# script exits non-zero when either is above zero, after writing the results.
 # Duplicates are reported, not asserted: a request answered whole is resent
 # whole, so the lines of a request in flight at the kill can arrive twice.
 #
@@ -327,14 +328,27 @@ python3 - "$OUT" "$BUILD" "${ARMS[@]}" <<'PY'
 import json, pathlib, sys
 out, build = sys.argv[1], pathlib.Path(sys.argv[2])
 arms = sys.argv[3:]
+def abandoned(arm):
+    # The receiver's input_lines_abandoned counter at the end of the arm; None
+    # for a receiver that does not publish it.
+    f = build / f"gap4_{arm}_abandoned.txt"
+    values = [float(l.rsplit(" ", 1)[1]) for l in f.read_text().splitlines() if l.strip()] if f.exists() else []
+    return int(sum(values)) if values else None
+
 results = [json.loads((build / f"gap4_{a}.json").read_text()) for a in arms]
+for r in results:
+    r["input_lines_abandoned"] = abandoned(r["arm"])
 json.dump({"gap": 4, "arms": results}, open(out, "w"), indent=1)
 print("wrote", out)
 failed = False
 for r in results:
-    verdict = "PASS" if r["seq_missing"] == 0 else "FAIL"
-    failed |= verdict == "FAIL"
-    print(f"  {r['arm']:8} {verdict}  missing {r['seq_missing']}, duplicate lines {r['seq_duplicate_lines']}")
+    # The bar: no line stored nowhere, and none completed by the receiver
+    # without reaching an output.
+    ok = r["seq_missing"] == 0 and not r["input_lines_abandoned"]
+    failed |= not ok
+    shown = "n/a" if r["input_lines_abandoned"] is None else r["input_lines_abandoned"]
+    print(f"  {r['arm']:8} {'PASS' if ok else 'FAIL'}  missing {r['seq_missing']}, "
+          f"duplicate lines {r['seq_duplicate_lines']}, abandoned {shown}")
 sys.exit(1 if failed else 0)
 PY
 
