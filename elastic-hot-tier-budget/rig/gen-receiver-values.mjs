@@ -9,10 +9,6 @@
 //
 // Applied as written: the image, every arg in order, every env var with a plain value.
 // Rig plumbing: TENX_FLUENTBIT_OUTPUT_HOST=fluent-bit (Fluent Bit is a separate container).
-// Measurement only, after every MCP arg: symbolMessageHashField tenx_hash (the MCP writes it for
-// Datadog only, while its Elastic recipe maps tenx_hash and the frozen-tier proof searched it),
-// and outputEncodeField so the returned record carries tenx_hash, routeState, message_pattern
-// and severity_level.
 import { readFileSync, writeFileSync, mkdirSync } from 'fs';
 import { resolve, join } from 'path';
 

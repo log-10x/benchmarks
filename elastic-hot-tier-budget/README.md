@@ -2,9 +2,9 @@
 
 One benchmark in the [log10x benchmarks](../) repository. It asks whether log10x-mcp's hourly hot-tier run, driving the Receiver, holds an Elasticsearch hot tier under a size S while load grows 2.5 times, as the hot node's own stats count it.
 
-**Result: holds at steady state, not under fast growth.** Two runs. The first held the mean but not the bound and found two defects in the run's arithmetic; the second, with both fixed and every time constant divided by 6, held hot at 0.97 to 0.98 of S under steady load and overshot to 1.23 S during a 2.5x step-up compressed into an hour. Both fail the pre-registered bound on the hot store. Results of the first run in `results/`, of the second in `results-r2/` (section at the end).
+**Result: holds at steady state, not under fast growth.** Two runs. The first held the mean but not the bound; the second, with every time constant divided by 6, held hot at 0.97 to 0.98 of S under steady load and overshot to 1.23 S during a 2.5x step-up compressed into an hour. Both fail the pre-registered bound on the hot store. Results of the first run in `results/`, of the second in `results-r2/` (section at the end).
 
-Self-managed Elasticsearch 9.5.5 (one hot node, one frozen node, filesystem snapshot repository, trial licence), engine `log10x/edge-10x:1.1.147`, log10x-mcp branch `feat/elastic-hot-tier-budget` (1.30.79, unreleased) at the build of 2026-10-22 20:01 UTC, the published OpenTelemetry demo sample replayed, 2026-10-22 19:59 to 2026-10-23 09:59 UTC. Method, written before the run: `results/` holds the timeline, every hourly run's report and files, the cluster readings and slim captures (no log text).
+Self-managed Elasticsearch 9.5.5 (one hot node, one frozen node, filesystem snapshot repository, trial licence), engine `log10x/edge-10x:1.1.147`, log10x-mcp branch `feat/elastic-hot-tier-budget` at 6af0226, the published OpenTelemetry demo sample replayed, 2026-10-22 19:59 to 2026-10-23 09:59 UTC. `results/` holds the timeline, every hourly run's report and files, the cluster readings and slim captures (no log text).
 
 | | Criterion | Result |
 |---|---|---|
@@ -36,11 +36,10 @@ S = 44.8 MB, set at run hour 1 as 0.7 of where the run's own dry run said hot wo
 | 07:59 | 12 | 5x | 47.2 MB | 1.05 | 25.1 MB | 20.7 MB |
 | 08:59 | 13 | stopped | 44.8 MB | 1.00 | 22.4 MB | 20.8 MB |
 
-## What went wrong
+## Why the bound failed
 
-- **The always-pass floor was not in the arithmetic.** The Receiver passes the first 5 lines of every statement in every window on every node, and 50 error lines over a limit. From run hour 9 the run allowed nothing more on hot, yet 1.8 to 3.2 MB an hour stayed there; 59 to 74% of those lines were the sample, across about 2,300 statements. The plan now counts each statement's floor in the kept total, and when the floor alone exceeds what fits it says so and projects above S.
+- **The always-pass floor.** The Receiver passes the first 5 lines of every statement in every window on every node, and 50 error lines over a limit. From run hour 9 the run allowed nothing more on hot, yet 1.8 to 3.2 MB an hour stayed there; 59 to 74% of those lines were the sample, across about 2,300 statements.
 - **Moved lines waiting to mount.** A tier_down index rolls every 15 minutes here and mounts about 40 minutes later, so up to 22 MB of moved lines sat on hot during the growth, about half of S. Hot here keeps a kept line 6 hours; with retention of days the same hour of moved lines is about 1% of hot.
-- **The tier_down lifetime was never measured.** Every report used the 2-hour default: on a mounted index `index_creation_date_millis` is the original index's creation, so every delay came out negative. The mount completes at `step_time_millis` once the frozen phase's step reads complete. Fixed; it would have made the run hold less, not more.
 
 ## The rig
 
@@ -52,7 +51,7 @@ A bill; Cloud Hosted; production retention lengths; a hot tier held under growth
 
 ## The rerun (`results-r2/`), 2026-10-23 11:25 to 15:55 UTC
 
-log10x-mcp `feat/elastic-hot-tier-budget` at 0b45d4a (the floor in the plan and the report, the tier_down lifetime from `step_time_millis`). Every time constant divided by 6: a run every 10 minutes, kept lines 2 hours on hot (10-minute rollover, frozen 110 minutes later), tier_down rollover 3 minutes, ILM poll 100 seconds (changed only because everything else was scaled), meter every 100 seconds, growth in four 20-minute steps from 56 to 140 lines a second. No raw capture: lines in are Fluent Bit's input counter, and the local copies of returned records keep only container, times, hash, route, `utf8Size`, level, name and line count (`results-r2/captures/`). S = 56.7 MB, 0.7 of where the dry run said hot would settle with nothing held (81 MB).
+log10x-mcp `feat/elastic-hot-tier-budget` at 0b45d4a. Every time constant divided by 6: a run every 10 minutes, kept lines 2 hours on hot (10-minute rollover, frozen 110 minutes later), tier_down rollover 3 minutes, ILM poll 100 seconds (changed only because everything else was scaled), meter every 100 seconds, growth in four 20-minute steps from 56 to 140 lines a second. No raw capture: lines in are Fluent Bit's input counter, and the local copies of returned records keep only container, times, hash, route, `utf8Size`, level, name and line count (`results-r2/captures/`). S = 56.7 MB, 0.7 of where the dry run said hot would settle with nothing held (81 MB).
 
 | | Criterion | Result |
 |---|---|---|

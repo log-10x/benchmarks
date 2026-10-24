@@ -1,5 +1,5 @@
 #!/bin/bash
-# The compressed rerun, every time constant divided by 6 (method: research/36/HOT_TIER_BUDGET_RERUN_METHOD.md).
+# The compressed rerun, every time constant divided by 6.
 #   0:00  up; replay at 8x (56 lines a second); the seed policy passes every line
 #   0:10  dry run with no binding size reads P; S = 0.7 x P; the first hot-tier run applied; then one every 10 minutes
 #   2:10  load steps every 20 minutes: 11x, 14x, 17x, 20x at 3:10 (2.5 times the start); new service at 2:30;
