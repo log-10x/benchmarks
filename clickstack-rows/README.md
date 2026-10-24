@@ -102,7 +102,12 @@ The method was written before the run: [`METHOD_TWO_ARM.md`](METHOD_TWO_ARM.md).
 routing collector with the collector-only rule from `clickstack-e2e-gaps` gap 6 (arm B,
 [`rig/router-rule.yaml`](rig/router-rule.yaml)): the two chattiest services' INFO and DEBUG
 lines go to a second bucket and the rest into `default.otel_logs_rule`, a copy of the logs
-table with the same counts view. Arm B has no Receiver. The meter reads, per table and per
+table with the same counts view. Arm B has no Receiver. The two services are the capture's
+chattiest by lines, counted before the run: `opentelemetry-collector` (93,875 lines) and
+`cart` (39,292) of 197,430, with `kafka` third at 31,029. Arm B inserts through the
+OpenTelemetry Collector's ClickHouse exporter straight into its table, without ClickStack's
+own collector and its processing, so each arm's figures against its own pre-step window
+compare like for like and the CPU figures of one arm against the other's do not. The meter reads, per table and per
 window of ten rig minutes counted from the start, NewPart rows from `system.part_log`, merge
 CPU from its MergeParts ProfileEvents and insert CPU from `system.query_log`.
 `rig/score.py <results> --arms two` scores the three criteria and writes the comparison

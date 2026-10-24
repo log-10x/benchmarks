@@ -206,14 +206,18 @@ def score_two(res) -> int:
     out.append(f"Inserts and async flushes into neither logs table over the run: {oth} ({sum(v.get('insert_us', 0) for v in other.values()) / 1e6:.1f} s CPU), not attributed to either arm.")
     out.append("")
 
-    hold_a = [cpu(A, i) for i in HOLD if cpu(A, i) is not None]
-    hold_b = [cpu(B, i) for i in HOLD if cpu(B, i) is not None]
-    ga = (sum(hold_a) / len(hold_a)) / lvl_cpu_a if hold_a and lvl_cpu_a else None
-    gb = (sum(hold_b) / len(hold_b)) / lvl_cpu_b if hold_b and lvl_cpu_b else None
-    ab = sum(hold_a) / sum(hold_b) if hold_a and hold_b and sum(hold_b) else None
-    out.append("## Projection, reported, not scored")
-    out.append(f"Write CPU in the hold against the pre-step window: arm A {f(ga)}x, arm B {f(gb)}x. Arm A's write CPU over the hold as a share of arm B's: {f(ab)}.")
-    out.append("The method's projection is Saving = W x R, W the buyer's write share of CPU from its own query_log, at $0.2985 per 8 GiB unit-hour (Scale), units set by the autoscaler (scale-down under 37.5% CPU). It is an inequality, not a bill; no bill is computed here.")
+    def cut(t, ws):
+        kept = sum(tables.get(t, {}).get(i, {}).get("rows", 0) for i in ws)
+        moved = sum(bucket.get(t, {}).get(i, 0) for i in ws)
+        return moved / (kept + moved) if kept + moved else None
+    out.append("## Projection inputs, reported, not scored")
+    out.append("Saving = W x R, W the buyer's write share of CPU from its own query_log and R the rows cut share: the rows sent to the bucket as a share of the table's rows plus the bucket's, the bucket's by record time. No dollar figure is computed.\n")
+    out.append("| w | minutes | A rows cut share | B rows cut share | A insert plus merge CPU s | B insert plus merge CPU s |\n|---:|---|---:|---:|---:|---:|")
+    for i in range(0, 18):
+        out.append(f"| {i} | {10 * i}-{10 * i + 10} | {f(cut('otel_logs', [i]))} | {f(cut('otel_logs_rule', [i]))} | {f(cpu(A, i))} | {f(cpu(B, i))} |")
+    allw = range(0, 18)
+    out.append(f"| run | 0-180 | {f(cut('otel_logs', allw))} | {f(cut('otel_logs_rule', allw))} | {f(sum(cpu(A, i) or 0 for i in allw))} | {f(sum(cpu(B, i) or 0 for i in allw))} |")
+    out.append(f"| hold | 120-160 | {f(cut('otel_logs', HOLD))} | {f(cut('otel_logs_rule', HOLD))} | {f(sum(cpu(A, i) or 0 for i in HOLD))} | {f(sum(cpu(B, i) or 0 for i in HOLD))} |")
     print("\n".join(out))
     return 0
 

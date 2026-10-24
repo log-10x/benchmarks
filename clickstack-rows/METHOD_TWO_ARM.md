@@ -24,3 +24,14 @@ ClickHouse Cloud compute: $0.2985 per 8 GiB unit-hour (Scale), units set by the 
 
 ## Not claimed
 A measured ClickHouse Cloud bill; the autoscaler's step; 300 nodes.
+
+## Fixed before the run (2026-10-24 20:48 UTC)
+- **Windows:** ten rig minutes (600 s in the run), counted from T0, the start of the schedule, so every phase starts on a window. Window n covers minutes 10n to 10n + 10.
+- **Pre-step level:** the window of minutes 50 to 60, for both arms. The window of minutes 40 to 50 holds the first applied run's pickup and is shown, not used.
+- **Criterion 1:** every window from minute 60 to minute 160 (the first growth step to the end of the hold). The 4-minute test is the rows run's: 240-second windows in that span against R/15 plus F/15.
+- **Criterion 2:** every window of the hold (minutes 120 to 160) above 1.5x arm B's pre-step level.
+- **Criterion 3:** arm A, every window from minute 60 to 160 at or under 1.10 of its pre-step CPU; arm B, every window of the hold above 1.5x its own. "No differentiator" is reported on rows when criterion 2 fails, and on CPU when arm B's half of criterion 3 fails.
+- **CPU per table:** insert CPU is the user plus system time of the Insert and AsyncInsertFlush entries in `system.query_log` whose `tables` names the table, or whose text inserts into it when `tables` is empty; merge CPU is the MergeParts entries of `system.part_log` for the table. The logs tables are scored; the counts tables are reported beside them.
+- **Arm B's rule:** the capture's two chattiest services by lines, `opentelemetry-collector` (93,875) and `cart` (39,292) of 197,430, their INFO and DEBUG lines by gap6's severity patterns.
+- **Arm B's insert path:** the OpenTelemetry Collector's ClickHouse exporter (contrib 0.160.0, batch processor defaults) into `otel_logs_rule`, without ClickStack's own collector. Each arm against its own pre-step window is like for like; one arm's CPU against the other's is not.
+- **Projection:** R is the rows cut share, the rows sent to the bucket as a share of the table's rows plus the bucket's. The run prints the inputs, the rows cut share and the CPU seconds per arm per window, and no dollar figure.

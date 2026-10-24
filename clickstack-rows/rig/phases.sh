@@ -15,8 +15,8 @@ RUN="$HERE/run.sh"
 export ARMS=${ARMS:-one}
 if [ "$ARMS" = two ]; then
   RESULTS=${RESULTS:-$HERE/../results-two-arm}
-  # the gap6 rule's two services, fixed before the feed starts
-  export RULE_TOP1=${RULE_TOP1:-opentelemetry-collector} RULE_TOP2=${RULE_TOP2:-kafka}
+  # the capture's two chattiest services by lines (93,875 and 39,292 of 197,430), fixed before the feed starts
+  export RULE_TOP1=${RULE_TOP1:-opentelemetry-collector} RULE_TOP2=${RULE_TOP2:-cart}
 fi
 RESULTS=${RESULTS:-$HERE/../results}
 export RESULTS
