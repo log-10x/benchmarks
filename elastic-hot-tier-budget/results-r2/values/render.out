@@ -1,0 +1,27 @@
+{
+ "image": "log10x/edge-10x:1.1.147@sha256:a043ccd828742c4eccee09abb654ce6a7357b6123f73300ed04f8605e874b8c4",
+ "args": [
+  "@run/input/forwarder/fluentbit",
+  "@apps/receiver",
+  "symbolMessageHashField",
+  "tenx_hash",
+  "outputEncodeField",
+  "fullText(\"tenx_hash\",\"routeState\",\"message_pattern\",\"severity_level\",\"utf8Size\")"
+ ],
+ "env_applied": [
+  "TENX_AIRGAPPED",
+  "GH_ENABLED",
+  "GH_REPO",
+  "GH_BRANCH"
+ ],
+ "env_left_out": [],
+ "env_from_shell_by_name": [
+  "GH_TOKEN"
+ ],
+ "policy_git": {
+  "repo": "log-10x/config",
+  "branch": "test/elastic-hot-tier-policy",
+  "tokenSecretName": "log10x-policy-git"
+ },
+ "notes": []
+}
