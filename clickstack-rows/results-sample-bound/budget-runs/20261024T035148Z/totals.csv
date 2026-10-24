@@ -1,0 +1,12 @@
+container,total
+ad,137::budget run
+cart,368::budget run
+fluentd-10x,24::budget run
+frontend,48::budget run
+grafana,16::budget run
+kafka,553::budget run
+opensearch,2::budget run
+opentelemetry-collector,725::budget run
+recommendation,71::budget run
+valkey-cart,12::budget run
+*,59::budget run

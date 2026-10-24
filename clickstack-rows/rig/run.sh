@@ -105,9 +105,19 @@ up() {
   docker create --name cse-config-tmp "$ENGINE_IMAGE" >/dev/null
   docker cp cse-config-tmp:/etc/tenx/config/. "$RESULTS/build/tenx-config/" >/dev/null
   docker rm cse-config-tmp >/dev/null
+  # a config checkout's rate regulator and a modules checkout, in place of the image's, when set
+  if [ -n "${CSE_CONFIG_DIR:-}" ]; then
+    cp -R "$CSE_CONFIG_DIR/pipelines/run/receive/rate/." "$RESULTS/build/tenx-config/pipelines/run/receive/rate/"
+    git -C "$CSE_CONFIG_DIR" rev-parse HEAD > "$RESULTS/build/config-commit"
+  fi
+  MODULES_VOL=()
+  if [ -n "${CSE_MODULES_DIR:-}" ]; then
+    MODULES_VOL=(-v "$CSE_MODULES_DIR":/opt/tenx-edge/lib/app/modules:ro)
+    git -C "$CSE_MODULES_DIR" rev-parse HEAD > "$RESULTS/build/modules-commit"
+  fi
   python3 "$GATE/patch_engine_config.py" --config-dir "$RESULTS/build/tenx-config" > "$RESULTS/build/patches.txt"
   docker run -d --name "$ENGINE" --network "$NET" --memory 2g --cpus 2 \
-    -v "$RESULTS/build/tenx-config":/etc/tenx/config:ro \
+    -v "$RESULTS/build/tenx-config":/etc/tenx/config:ro ${MODULES_VOL[@]+"${MODULES_VOL[@]}"} \
     -e GH_ENABLED=true -e GH_REPO="$POLICY_REPO" -e GH_BRANCH="$POLICY_BRANCH" -e GH_TOKEN="$GH_TOKEN" -e GH_SYNC_INTERVAL=30s \
     -e outputOffload=true \
     -e TENX_OTEL_COLLECTOR_OUTPUT_HOST="$ROUTER" -e TENX_OTEL_COLLECTOR_OUTPUT_PORT=24225 \
@@ -118,6 +128,10 @@ up() {
     sleep 3
   done
   grep -q "OTLP/gRPC logs server listening" "$RESULTS/build/engine-start.log" || { echo "the receiver did not start" >&2; tail -30 "$RESULTS/build/engine-start.log" >&2; exit 1; }
+  sleep 5; docker logs "$ENGINE" > "$RESULTS/build/engine-start.log" 2>&1 || true
+  if grep -q "could not launch pipeline" "$RESULTS/build/engine-start.log" || [ "$(docker inspect -f '{{.State.Running}}' "$ENGINE" 2>/dev/null)" != true ]; then
+    echo "the receiver exited after start" >&2; grep -n -i 'error' "$RESULTS/build/engine-start.log" | head -20 >&2; exit 1
+  fi
   mark receiver_ready
 
   docker run -d --name "$PROM" --network "$NET" --memory 512m -p 127.0.0.1:9090:9090 \

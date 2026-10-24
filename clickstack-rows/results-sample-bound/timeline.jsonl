@@ -1,0 +1,45 @@
+{"event":"policy_branch_seeded","at":"2026-10-24T03:01:45Z","epoch":1792810905,"branch":"test/clickhouse-rows-policy","commit":"On branch test/clickhouse-rows-policy
+Your branch is up to date with 'origin/test/clickhouse-rows-policy'.
+
+nothing to commit, working tree clean
+2f9b489ad702198f1db2ec34ce175266e7c7b5bb"}
+{"event":"s3_ready","at":"2026-10-24T03:01:52Z","epoch":1792810912}
+{"event":"clickstack_ready","at":"2026-10-24T03:02:48Z","epoch":1792810968,"version":"26.5.7.64"}
+{"event":"receiver_ready","at":"2026-10-24T03:02:58Z","epoch":1792810978}
+{"event":"collector_ready","at":"2026-10-24T03:02:59Z","epoch":1792810979}
+{"event":"meter_started","at":"2026-10-24T03:02:59Z","epoch":1792810979,"every_s":100}
+{"event":"phase_baseline","at":"2026-10-24T03:02:59Z","epoch":1792810979}
+{"event":"pace","at":"2026-10-24T03:03:00Z","epoch":1792810980,"lines_per_s":14}
+{"event":"budget_run","at":"2026-10-24T03:31:49Z","epoch":1792812709,"dir":"budget-runs/20261024T033147Z","exit":0,"commit":"2f9b489ad702198f1db2ec34ce175266e7c7b5bb","dry_run":true}
+{"event":"dry_run_done","at":"2026-10-24T03:31:49Z","epoch":1792812709}
+{"event":"rate_set","at":"2026-10-24T03:31:49Z","epoch":1792812709,"P":42000,"R":29399}
+{"event":"budget_run","at":"2026-10-24T03:41:51Z","epoch":1792813311,"dir":"budget-runs/20261024T034148Z","exit":0,"commit":"39a7afe0911ef0493fa8b027683e46193e86b443","dry_run":false}
+{"event":"phase_held","at":"2026-10-24T03:41:51Z","epoch":1792813311}
+{"event":"budget_run","at":"2026-10-24T03:51:51Z","epoch":1792813911,"dir":"budget-runs/20261024T035148Z","exit":0,"commit":"17b187d75c902a71dd6eedba8d2a0ae625380739","dry_run":false}
+{"event":"pace","at":"2026-10-24T04:01:48Z","epoch":1792814508,"lines_per_s":19}
+{"event":"budget_run","at":"2026-10-24T04:01:52Z","epoch":1792814512,"dir":"budget-runs/20261024T040148Z","exit":0,"commit":"c80fee89af4747840d24334dbd7a79c5ebce2a95","dry_run":false}
+{"event":"phase_growth","at":"2026-10-24T04:01:52Z","epoch":1792814512}
+{"event":"budget_run","at":"2026-10-24T04:11:47Z","epoch":1792815107,"dir":"budget-runs/20261024T041144Z","exit":0,"commit":"e92d18d7e7c042f126f16a78bb1f0628d43b0804","dry_run":false}
+{"event":"pace","at":"2026-10-24T04:21:44Z","epoch":1792815704,"lines_per_s":24}
+{"event":"inject_start","at":"2026-10-24T04:21:46Z","epoch":1792815706}
+{"event":"budget_run","at":"2026-10-24T04:21:50Z","epoch":1792815710,"dir":"budget-runs/20261024T042146Z","exit":0,"commit":"cb903a0c7031508bbb8c668e72f36ed9fabccf4a","dry_run":false}
+{"event":"budget_run","at":"2026-10-24T04:31:50Z","epoch":1792816310,"dir":"budget-runs/20261024T043146Z","exit":0,"commit":"1e00331b89762f872d3cd3e3a50c91dce5188788","dry_run":false}
+{"event":"pace","at":"2026-10-24T04:41:47Z","epoch":1792816907,"lines_per_s":30}
+{"event":"storm_start","at":"2026-10-24T04:41:48Z","epoch":1792816908,"rate":10,"until":1792818107}
+{"event":"budget_run","at":"2026-10-24T04:41:51Z","epoch":1792816911,"dir":"budget-runs/20261024T044148Z","exit":0,"commit":"bc03c0ec31f1bb660b5e2b82ff696a6a6bde0259","dry_run":false}
+{"event":"phase_storm","at":"2026-10-24T04:41:51Z","epoch":1792816911}
+{"event":"budget_run","at":"2026-10-24T04:51:51Z","epoch":1792817511,"dir":"budget-runs/20261024T045148Z","exit":0,"commit":"abd4f02629dba5647dcde079895732a1d124dd74","dry_run":false}
+{"event":"pace","at":"2026-10-24T05:01:48Z","epoch":1792818108,"lines_per_s":35}
+{"event":"budget_run","at":"2026-10-24T05:01:52Z","epoch":1792818112,"dir":"budget-runs/20261024T050148Z","exit":0,"commit":"ae849b593259dcf7f3974c3eab713dcb098b5b0b","dry_run":false}
+{"event":"phase_hold_5x","at":"2026-10-24T05:01:52Z","epoch":1792818112}
+{"event":"budget_run","at":"2026-10-24T05:11:47Z","epoch":1792818707,"dir":"budget-runs/20261024T051144Z","exit":0,"commit":"fbca68085283f8a499c49986f60df3e17a472509","dry_run":false}
+{"event":"budget_run","at":"2026-10-24T05:21:48Z","epoch":1792819308,"dir":"budget-runs/20261024T052144Z","exit":0,"commit":"6233998d80e2cc3ce4a4cb43e17514d073987467","dry_run":false}
+{"event":"budget_run","at":"2026-10-24T05:31:49Z","epoch":1792819909,"dir":"budget-runs/20261024T053145Z","exit":0,"commit":"52c5d03dfa46f61813f628b481fb5a44d23c0718","dry_run":false}
+{"event":"pace","at":"2026-10-24T05:41:46Z","epoch":1792820506,"lines_per_s":0}
+{"event":"inject_stop","at":"2026-10-24T05:41:47Z","epoch":1792820507}
+{"event":"budget_run","at":"2026-10-24T05:41:50Z","epoch":1792820510,"dir":"budget-runs/20261024T054147Z","exit":0,"commit":"cec76d15c42d84a8b1f087b385158481ed251aab","dry_run":false}
+{"event":"phase_drain","at":"2026-10-24T05:41:50Z","epoch":1792820510}
+{"event":"budget_run","at":"2026-10-24T05:51:51Z","epoch":1792821111,"dir":"budget-runs/20261024T055147Z","exit":0,"commit":"2546487ef02d0d903eafd004f5975b6ffb750d06","dry_run":false}
+{"event":"budget_run","at":"2026-10-24T06:01:51Z","epoch":1792821711,"dir":"budget-runs/20261024T060147Z","exit":0,"commit":"b7fb5d179ddf48c349838370988ab4bd118b0888","dry_run":false}
+{"event":"collected","at":"2026-10-24T06:02:19Z","epoch":1792821739}
+{"event":"run_end","at":"2026-10-24T06:06:48Z","epoch":1792822008}

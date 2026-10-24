@@ -6,3 +6,9 @@ results/policy-clone/
 results/*.pid
 results/meter.err
 results-smoke*/
+results-sample-bound/data/
+results-sample-bound/wire/
+results-sample-bound/build/tenx-config/
+results-sample-bound/policy-clone/
+results-sample-bound/*.pid
+results-sample-bound/meter.err
