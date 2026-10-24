@@ -325,15 +325,22 @@ PY
 for arm in "${ARMS[@]}"; do run_arm "$arm"; done
 
 python3 - "$OUT" "$BUILD" "${ARMS[@]}" <<'PY'
-import json, pathlib, sys
+import json, pathlib, re, sys
 out, build = sys.argv[1], pathlib.Path(sys.argv[2])
 arms = sys.argv[3:]
 def abandoned(arm):
     # The receiver's input_lines_abandoned counter at the end of the arm; None
     # for a receiver that does not publish it.
+    # The counter restarts with the receiver, so the warnings it logs before a
+    # kill count too: the highest count any warning reports.
     f = build / f"gap4_{arm}_abandoned.txt"
     values = [float(l.rsplit(" ", 1)[1]) for l in f.read_text().splitlines() if l.strip()] if f.exists() else []
-    return int(sum(values)) if values else None
+    log = build / f"gap4_{arm}_engine.log"
+    logged = [int(m) for m in re.findall(r"(\d+) input lines were discarded inside the pipeline",
+                                         log.read_text(errors="replace"))] if log.exists() else []
+    if not values and not logged:
+        return None
+    return max([int(sum(values))] + logged)
 
 results = [json.loads((build / f"gap4_{a}.json").read_text()) for a in arms]
 for r in results:
