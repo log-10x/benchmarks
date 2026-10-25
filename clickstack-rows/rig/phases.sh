@@ -60,6 +60,10 @@ EOF
 # disk guard: below 1.2 GB free on the host, stop the feed and say so (the run's numbers up to then stand)
 ( i=0; while sleep 60; do
     free_kb=$(df -k / | awk 'NR==2{print $4}')
+    # ARMS=two: free space swings on this host, so a low reading is confirmed 60 s later
+    if [ "$ARMS" = two ] && [ "$free_kb" -lt 1200000 ]; then
+      "$RUN" mark disk_low_reading "\"free_kb\":$free_kb"; sleep 60; free_kb=$(df -k / | awk 'NR==2{print $4}')
+    fi
     if [ "$free_kb" -lt 1200000 ]; then "$RUN" pace 0; "$RUN" inject stop; "$RUN" mark disk_guard_stopped_feed "\"free_kb\":$free_kb"; break; fi
     i=$(( i + 1 ))
     if [ "$ARMS" = two ] && [ $(( i % 10 )) -eq 0 ]; then
