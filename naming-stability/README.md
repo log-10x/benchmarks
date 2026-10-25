@@ -25,6 +25,11 @@ Each pair cut each capture into the same events, so events are compared one for 
 changed its pattern name, its pattern hash (`tenx_hash`, the hash of the name) or its template
 hash, so no pattern is listed as changed ([`results/results.md`](results/results.md)).
 
+These pattern counts take every event: 2,687 on otel215 and 582 on rec1155 for 1.1.142.
+[`../intent`](../intent) counts the patterns of labelled events only and reports 2,277 on otel215
+and 406 on rec1155 for the same 1.1.142 image. The counts differ by 410 on otel215 and 176 on
+rec1155; the difference is not reconciled here.
+
 ## What changed in each release, and what these captures exercise
 
 The three images carry the same symbol library files, the 1.1.89 library

@@ -2,9 +2,10 @@
 
 One benchmark in the [log10x benchmarks](../) repository. It answers one question: with the
 Receiver's per-statement byte budget in place and log10x-mcp's Elasticsearch frozen-tier recipe
-(hourly rollover, frozen phase one minute after it), how long do the lines it moves stay on the
-hot tier, can they still be found by pattern hash once they are on frozen, and how much of the
-volume does a fixed budget keep off hot as load grows, as the cluster's own APIs count it?
+(hourly rollover, and a frozen phase set to start one minute after it, which ILM acts on at its
+next poll, every 10 minutes by default), how long do the lines it moves stay on the hot tier,
+can they still be found by pattern hash once they are on frozen, and how much of the volume does
+a fixed budget keep off hot as load grows, as the cluster's own APIs count it?
 
 Every count of what Elasticsearch holds comes from the cluster, read every 10 minutes
 (`_cat/indices`, `_cat/allocation`, `_ilm/explain`, and `_stats/store` hourly) into
@@ -22,16 +23,17 @@ OpenTelemetry demo sample replayed at 7 lines a second, 2026-10-21 23:14 to 2026
 | 1 | Each tier-down index enters the frozen phase within rollover (1 hour) plus two poll intervals of its creation, at 0 bytes of local store | **Pass.** Indices 2 to 7: frozen phase 80.0 minutes after creation every time (rollover at 70.0, frozen phase 10.0 later), each mounted at 0 bytes. Index 1 sat empty from setup until the budget took hold and rolled over at the first poll after its first line. Index 8 received no line before the load stopped and was never rolled over, as ILM leaves an empty index. |
 | 2 | From the capped phase on, the tier-down lines on hot never exceed the index being written plus the one mounting; the lines kept on hot follow the budget | **Pass.** At most 8.6 MB of tier-down data on hot at any reading, in at most two indices. In 4-minute windows counted from the capped start, no statement with lines moved kept more message bytes on hot than the budget, beyond the 5-line sample and the error keep count. |
 | 3 | A term query on `tenx_hash` against the frozen indices returns what the local copy holds | **Pass.** The ten largest moved patterns: 49,785, 47,996, 17,700, 16,915, 11,172, 9,932, 3,285, 1,304, 631 and 516 documents on frozen, each equal to the local count. |
-| 4 | Every line received is in a returned record, and every returned record is in Elasticsearch | **Pass.** 372,783 non-blank lines in, 372,783 back (197,273 kept, 175,510 moved). 142,444 records kept and 142,444 documents in `tenx-app`; 159,536 moved and 159,536 documents across the tier-down indices. |
+| 4 | Every line received is in a returned record, and every returned record is in Elasticsearch | **Pass.** 372,783 non-blank lines in and 372,783 back, in 301,980 records (the Receiver folds a multi-line event into one record): 142,444 kept and 142,444 documents in `tenx-app`; 159,536 moved and 159,536 documents across the tier-down indices. |
 | 5 | Storm: error lines of the storming statement kept on hot per window at most its budget plus 50 | **Pass.** 109 to 113 a window against an allowance of 186, with 1,649 to 2,260 a window moved. |
 
-**How long a moved line stays on hot.** ILM entered the frozen phase 10 minutes after each
-rollover, but the `searchable_snapshot` action then waited one poll each for shard history
-leases, the time-series end check and the force merge, so the original index left hot and the
-mounted copy appeared 30 to 40 minutes after rollover (the meter reads every 10 minutes). Each
-index lived 100 to 110 minutes on hot. A line written early in an index's hour stayed up to about
-110 minutes; one written just before rollover, 30 to 40. All of it at ILM's default 10-minute poll (`indices.lifecycle.poll_interval`),
-which this run did not change.
+**How long a moved line stays on hot.** ILM acts at its 10-minute poll, so it entered the frozen
+phase 10 minutes after each rollover, but the `searchable_snapshot` action then waited one poll
+each for shard history leases, the time-series end check and the force merge, so the original
+index left hot and the mounted copy appeared 30 to 40 minutes after rollover (the meter reads
+every 10 minutes). Each index lived 100 to 110 minutes on hot. A line written early in an
+index's hour stayed up to about 110 minutes; one written just before rollover, 30 to 40. All of
+it at ILM's default 10-minute poll (`indices.lifecycle.poll_interval`), which this run did not
+change.
 
 | Index | Created | Rolled over | Frozen phase | Last seen on hot | First seen mounted |
 |---|---|---|---|---|---|
@@ -52,9 +54,9 @@ kept current against the tier; this run held it fixed.
 
 ## Whose statements moved
 
-The budget moved 159,536 lines, 42 MB of message text, from 15 statements. 86% of those bytes came from three statements of the OpenTelemetry Collector, the debug exporter's `Traces`, `Logs` and `Metrics` lines, and 5% from one Grafana statement (the storm line): code the account runs but does not write. No regular expression, fingerprint rule or per-service list was written for any of them; each line carried the engine's pattern hash from the Receiver, the same on every node running the same engine, library and configuration, and the hash queries in criterion 3 find them on frozen by that hash. The injected service's one new statement (`inventory`, 4%) was held from its first window with no entry of its own.
+The budget moved 159,536 records, 42 MB of message text, from 15 statements. 86% of those bytes came from three statements of the OpenTelemetry Collector, the debug exporter's `Traces`, `Logs` and `Metrics` lines, and 5% from one Grafana statement (the storm line): code the account runs but does not write. No regular expression, fingerprint rule or per-service list was written for any of them; each line carried the engine's pattern hash from the Receiver, the same on every node running the same engine, library and configuration, and the hash queries in criterion 3 find them on frozen by that hash. The injected service's one new statement (`inventory`, 4%) was held from its first window with no entry of its own.
 
-| Container | Lines moved | Message MB | Share of bytes | Statements |
+| Container | Records moved | Message MB | Share of bytes | Statements |
 |---|---:|---:|---:|---:|
 | opentelemetry-collector | 114,736 | 36.23 | 86.3% | 5 |
 | grafana | 11,172 | 1.96 | 4.7% | 1 |

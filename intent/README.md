@@ -47,6 +47,8 @@ Two tools are scored on the same events:
 | Drain3, factory defaults | 3.34% (1,381) | 10.34% | 26.19% | 57.75% of 213 | 393 |
 | Drain3, strong arm, per record | 1.78% (734) | 10.35% | 79.79% | 65.26% of 213 | 377 |
 
+The patterns column counts the patterns of labelled events only (`distinct_patterns` in `bench/score.py`): 2,277 on otel215 and 406 on rec1155 for 1.1.142. [`../naming-stability`](../naming-stability) counts the patterns of every event, with the same 1.1.142 image on the same captures: 2,687 on otel215 and 582 on rec1155. The counts differ by 410 on otel215 and 176 on rec1155; the difference is not reconciled here.
+
 Without the opentelemetry-collector container (57% of otel215's events, 46% of rec1155's):
 
 | tool | otel215 merged | otel215 exact grouping | rec1155 merged | rec1155 exact grouping |
