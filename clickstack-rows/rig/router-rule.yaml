@@ -1,0 +1,125 @@
+# Arm B of the two-arm run: the gap6 collector rule on the same feed, no Receiver, the two chattiest services' INFO and DEBUG to its own bucket and the rest into default.otel_logs_rule.
+
+extensions:
+  json_log_encoding/cold:
+    mode: body_with_inline_attributes
+
+receivers:
+  filelog:
+    include: [ /data/feed.log ]
+    start_at: beginning
+    poll_interval: 500ms
+    max_log_size: 4MiB
+    operators:
+      - type: json_parser
+        parse_from: body
+      - type: move
+        from: attributes.log
+        to: body
+      - type: copy
+        from: attributes.kubernetes.container_name
+        to: attributes.k8s_container
+      - type: copy
+        from: attributes.kubernetes.namespace_name
+        to: attributes.k8s_namespace
+      - type: copy
+        from: attributes.kubernetes.container_name
+        to: resource["service.name"]
+
+processors:
+  transform/stamp:
+    error_mode: ignore
+    log_statements:
+      - context: log
+        statements:
+          - set(log.time_unix_nano, log.observed_time_unix_nano) where log.time_unix_nano == 0
+  # The capture's lines carry the level in the text, so the severity is read out of the text.
+  transform/severity:
+    error_mode: ignore
+    log_statements:
+      - context: log
+        statements:
+          - set(log.severity_text, "ERROR") where IsMatch(log.body, "(?i)(\\bERROR\\b|\\bERR\\b|\\bFATAL\\b)")
+          - set(log.severity_text, "WARN")  where log.severity_text == "" and IsMatch(log.body, "(?i)\\bWARN(ING)?\\b")
+          - set(log.severity_text, "INFO")  where log.severity_text == "" and IsMatch(log.body, "(?i)\\bINFO\\b")
+          - set(log.severity_text, "DEBUG") where log.severity_text == "" and IsMatch(log.body, "(?i)(\\bDEBUG\\b|\\bTRACE\\b)")
+          - set(log.severity_text, "INFO")  where log.severity_text == ""
+  transform/cold:
+    error_mode: ignore
+    log_statements:
+      - context: log
+        statements:
+          - set(log.attributes["ServiceName"], resource.attributes["service.name"])
+          - set(log.attributes["SeverityText"], log.severity_text)
+          - set(log.attributes["TimestampNano"], UnixNano(log.time))
+          - set(log.attributes["TimestampSec"], UnixSeconds(log.time))
+      - context: resource
+        statements:
+          - set(resource.attributes["s3.prefix"], Concat(["service=", resource.attributes["service.name"]], ""))
+  # The hot path keeps the batch processor's defaults.
+  batch/hot:
+    send_batch_size: 8192
+    timeout: 200ms
+  batch/cold:
+    send_batch_size: 5000
+    timeout: 5s
+
+exporters:
+  clickhouse/rule:
+    endpoint: tcp://cse-clickstack:9000?dial_timeout=10s
+    database: default
+    username: rule_writer
+    password: rule-writer-rig
+    logs_table_name: otel_logs_rule
+    create_schema: false
+    timeout: 5s
+    retry_on_failure:
+      enabled: true
+      initial_interval: 5s
+      max_interval: 30s
+      max_elapsed_time: 300s
+  awss3/cold:
+    s3uploader:
+      region: us-east-1
+      s3_bucket: coldrule
+      s3_prefix: cold
+      s3_partition_format: 'day=%Y-%m-%d'
+      endpoint: http://cse-minio:9000
+      s3_force_path_style: true
+      disable_ssl: true
+      compression: none
+    encoding: json_log_encoding/cold
+    encoding_file_extension: json
+    resource_attrs_to_s3:
+      s3_prefix: s3.prefix
+
+connectors:
+  routing/policy:
+    default_pipelines: [ logs/hot ]
+    error_mode: ignore
+    table:
+      - context: log
+        condition: resource.attributes["service.name"] == "${env:RULE_TOP1}" and (log.severity_text == "INFO" or log.severity_text == "DEBUG")
+        pipelines: [ logs/cold ]
+      - context: log
+        condition: resource.attributes["service.name"] == "${env:RULE_TOP2}" and (log.severity_text == "INFO" or log.severity_text == "DEBUG")
+        pipelines: [ logs/cold ]
+
+service:
+  extensions: [ json_log_encoding/cold ]
+  telemetry:
+    logs:
+      level: warn
+  pipelines:
+    logs/in:
+      receivers: [ filelog ]
+      processors: [ transform/stamp, transform/severity ]
+      exporters: [ routing/policy ]
+    logs/hot:
+      receivers: [ routing/policy ]
+      processors: [ batch/hot ]
+      exporters: [ clickhouse/rule ]
+    logs/cold:
+      receivers: [ routing/policy ]
+      processors: [ transform/cold, batch/cold ]
+      exporters: [ awss3/cold ]

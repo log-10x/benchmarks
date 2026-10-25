@@ -1,0 +1,1 @@
+2026-10-25T01:54:00.597Z	warn	builders/builders.go:40	"filelog" alias is deprecated; use "file_log" instead	{"resource": {"service.instance.id": "bb1550f4-cb22-4595-b1dd-1167b1e7ea7c", "service.name": "otelcol-contrib", "service.version": "0.160.0"}, "otelcol.component.id": "filelog", "otelcol.component.kind": "receiver", "otelcol.signal": "logs"}

@@ -1,0 +1,25 @@
+# Rows run: 2026-10-25T04:42:36.000Z
+
+Rows written: 5106 of 30k an hour last hour (30k rows an hour set in the policy; part_log on default.otel_logs); at these limits the table takes about 30k an hour, with 12k an hour of lines to the account's bucket.
+
+- Outside the Receiver: 0 rows an hour (outside_rows_per_hour). The Receiver's counters read 6372 pass lines an hour against 5106 rows the meter puts on it, so each statement's rate is scaled by 1.00. The table holds 89k active rows.
+- The Receiver's statements send 42k lines an hour; 30k an hour fits the rate, so each statement keeps up to 1703 an hour and the noisiest give way first.
+- The always-pass sample (5 lines a statement a window on every node, 50 more for an error statement over its limit) keeps about 3990 lines an hour whatever the limits; the rate holds down to that floor.
+
+| Service | Destination | Nodes | Sent an hour | Kept an hour | Limit per statement | Total |
+|---|---|---|---|---|---|---|
+| ad | the account's bucket | 1 | 1272 | 1272 | 113 | 84 |
+| cart | the account's bucket | 1 | 4026 | 3353 | 113 | 223 |
+| fluentd-10x | the account's bucket | 1 | 234 | 234 | 113 | 15 |
+| frontend | the account's bucket | 1 | 1812 | 1812 | 113 | 120 |
+| grafana | the account's bucket | 1 | 300 | 300 | 113 | 20 |
+| inventory | the account's bucket | 1 | 2052 | 1703 | 113 | 113 |
+| kafka | the account's bucket | 1 | 15k | 15k | 113 | 987 |
+| opensearch | the account's bucket | 1 | 48 | 48 | 113 | 3 |
+| opentelemetry-collector | the account's bucket | 1 | 17k | 5816 | 113 | 387 |
+| prometheus-server | the account's bucket | 1 | 18 | 18 | 113 | 1 |
+| recommendation | the account's bucket | 1 | 606 | 606 | 113 | 40 |
+| valkey-cart | the account's bucket | 1 | 120 | 120 | 113 | 8 |
+| `*` (any other service) | the account's bucket | 1 | | 939 | 113 | 62 |
+
+Limits and totals are lines per 4-minute window per node. Error lines pass 50 over a limit per statement per node per window. The meter is `system.part_log` NewPart rows on default.otel_logs, read by the event's own time.

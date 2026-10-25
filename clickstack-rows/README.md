@@ -94,6 +94,71 @@ b2-sample-bound-off b3-sample-bound-mute` in log-10x/config: on the image's own 
 a 200-statement burst under a 50-line total passes 400 of 400 lines; with the bound it passes
 100 (the total plus 50), and `baselineMaxOverTotal: 0` restores 400.
 
+## Two-arm run: the rows run against a collector rule, under the same growth
+
+The method, written before the run, is [`METHOD_TWO_ARM.md`](METHOD_TWO_ARM.md).
+`ARMS=two rig/phases.sh` runs the rows run as above (arm A, `default.otel_logs`, on the
+engine image's own configuration) and, on the same node and the same feed, a second
+routing collector with the collector-only rule from `clickstack-e2e-gaps` gap 6 (arm B,
+[`rig/router-rule.yaml`](rig/router-rule.yaml)): the two chattiest services' INFO and DEBUG
+lines go to a second bucket and the rest into `default.otel_logs_rule`, a copy of the logs
+table with the same counts view and without ClickStack's `otel_logs_kv_rollup_15m` view. Arm B
+has no Receiver. The two services are the capture's chattiest by lines, counted before the run:
+`opentelemetry-collector` (93,875 lines) and `cart` (39,292) of 197,430, with `kafka` third at
+31,029. Arm B inserts through the OpenTelemetry Collector's ClickHouse exporter straight into
+its table, without ClickStack's own collector and its processing, so each arm's figures against
+its own pre-step window compare like for like and the CPU figures of one arm against the
+other's do not. The meter reads, per table and per window of ten rig minutes counted from the
+start, NewPart rows from `system.part_log`, merge CPU from its MergeParts ProfileEvents and
+insert CPU from `system.query_log`.
+`rig/score.py <results> --arms two` scores the three criteria and writes the comparison
+table. Results go to `results-two-arm/`.
+
+```bash
+ARMS=two MCP=<log10x-mcp checkout with build/> GH_TOKEN=$(gh auth token) rig/phases.sh
+```
+
+### Result, 2026-10-25: rows separate the arms, CPU does not; FAIL as registered on criteria 1 and 3
+
+The engine image is `ghcr.io/log-10x/edge-10x:1.1.150`, on ClickStack 2.38.0 (ClickHouse
+26.5.7.64), with the capture, pace steps, storm and injected service of the rows run. From
+minute 40, before the pre-step window, `old_parts_lifetime` is 60 s (ClickHouse's default is
+480 s) on the 15 tables holding the most merged-away parts, both arms' logs tables among them;
+the setting governs only when merged-away parts leave the disk (`timeline.jsonl`,
+`old_parts_lifetime_60`). The dry run measured 43,000 rows an hour, so R = 30,099 (5,016 rows
+a window). Results in `results-two-arm/`.
+
+| | Criterion | Result |
+|---|---|---|
+| 1 | Arm A's rows per window at or under 1.10 R/6, from the first growth step to the end of the hold | **Fail on one window.** Nine of ten read 0.91 to 1.09; minutes 100 to 110, the storm's first window, read 1.13. The 4-minute test: 2 of 24 windows over R/15 plus F/15, the largest at 1.15. |
+| 2 | Arm B's rows per window above 1.5x its pre-step level in every window of the hold | **Pass.** 2,686 rows before the step; 7,932 to 9,179 in the hold, 2.95 to 3.42 times. |
+| 3 | Insert plus merge CPU: arm A at or under 1.10 of its pre-step level after the step; arm B above 1.5x in the hold | **Fail on both halves.** Arm A read 0.87 to 1.24 of its 17.1 s, three of ten windows over. Arm B read 0.40 to 1.61 of its 122.5 s. No differentiator on CPU. |
+
+| Window (minutes) | Arm A rows | Arm A CPU s (insert + merge) | Arm B rows | Arm B CPU s (insert + merge) |
+|---|---:|---:|---:|---:|
+| 50 to 60, before the step | 4,697 | 17.1 (11.8 + 5.3) | 2,686 | 122.5 (18.6 + 103.9) |
+| 120 to 130, hold | 5,377 | 20.9 (13.4 + 7.4) | 7,963 | 197.7 (38.4 + 159.3) |
+| 130 to 140, hold | 4,581 | 14.9 (11.1 + 3.8) | 7,932 | 64.7 (32.9 + 31.7) |
+| 140 to 150, hold | 5,443 | 18.9 (12.2 + 6.7) | 9,179 | 179.9 (38.0 + 141.9) |
+| 150 to 160, hold | 5,052 | 15.2 (10.9 + 4.3) | 8,142 | 48.5 (30.7 + 17.9) |
+
+**What the CPU shows.** Insert CPU follows the rows: arm A's read 0.92 to 1.14 of its pre-step
+level in every window after the step but one (1.40, minutes 90 to 100), and arm B's read 1.65
+to 2.06 in the hold. Merge CPU decides the windows. Arm B's inserts came four to nine times as
+often as ClickStack's own collector sends arm A's (1,018 to 2,098 insert entries a window
+against 240), it ran 5,125 merges against arm A's 376, and its merge CPU swung between 17.9 and
+159.3 s from one hold window to the next. Read per window, criterion 3 measures which merges
+the scheduler ran inside each window.
+
+**Run notes.**
+- Delivery: arm B, 242,324 lines written and 242,365 rows in its table and bucket (41 over).
+  Arm A, 204,399 records returned (the Receiver folds multi-line events) and 205,346 in its table
+  and bucket (933 over in the table, 14 in the bucket). The tables logged 20 and 18 failed inserts,
+  all but one in the first 20 minutes, before any scored window.
+- Rows cut share in the hold (rows to the bucket over the table's rows plus the bucket's): arm A
+  0.72, arm B 0.63.
+- The run's disk peaked at 1.21 GB.
+
 ## Files
 
 | Path | What |
@@ -104,6 +169,7 @@ a 200-statement burst under a 50-line total passes 400 of 400 lines; with the bo
 | `results/timeline.jsonl`, `results/meter.log` | every phase and every meter reading |
 | `results/budget-runs/*/` | each run's report, files and commit |
 | `results/policy.yaml`, `results/images.txt`, `results/cse-engine.log`, `results/engine-metrics.txt` | the policy, image digests, the Receiver's log and its last scrape |
+| `results-two-arm/score.md`, `results-two-arm/two-arm-windows.json` | the two-arm run's three criteria and comparison table, and every window per table as ClickHouse read it at collect |
 
 The wire tap (428 MB) and the replay feed (251 MB) are not committed. The run writes them
 again.

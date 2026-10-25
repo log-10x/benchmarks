@@ -1,0 +1,44 @@
+[INFO ] 2026-10-25 01:53:48.083 [main] PipelineLauncher - launching 10x engine v1.1.150, flavor: 'runtime', pipeline: 'run'
+[INFO ] 2026-10-25 01:53:48.083 [main] PipelineLauncher - log4j2 config file loaded from: /etc/tenx/config/log4j2.yaml
+[WARN ] 2026-10-25 01:53:48.126 [main] PipelineLauncher - No license configured; running on the built-in free tier: up to 10 nodes, airgapped.
+[WARN ] 2026-10-25 01:53:48.126 [main] PipelineLauncher - Above 10 nodes, a paid license token is required: set licenseFile / licenseKey, the TENX_LICENSE_FILE / TENX_LICENSE_KEY env var, or a licenseKey/licenseFile entry in your bootstrap .yaml. See https://doc.log10x.com/manage/license/
+[INFO ] 2026-10-25 01:53:48.279 [main] PipelineLauncher - pipelineConfigLoader took: 137ms
+[INFO ] 2026-10-25 01:53:48.279 [main] ExecutionPipeline - executing /opt/tenx-edge/lib/app/modules/pipelines/run/pipeline.yaml (gateReceiver)
+[INFO ] 2026-10-25 01:53:48.283 [main] ExecutionPipeline - pipeline units: configLoader => symbolLoader(shared/symbols, tenx/symbols) => templateLoader => readStream(stream:otelCollector) => parallelize(0.5 / 2) => transform => group => aggregateSingle(emitted_events: 10000/2s) => aggregateSingle(all_events: 10000/2s) => aggregateSingle(config_generation: 10000/2s) => metricOutput(PrometheusMetricRegistryFactory) => logOutput(run/modules/output/event/otlp) => printProgress => monitor => tokenizeStats => publishEnvMetrics
+🪵 Initializing 10x engine. Logging to SYS_OUT
+🚀 Launching 10x Engine: Receiver app
+📚 Loading symbol libraries from: /etc/tenx/config/data/shared/symbols,/etc/tenx/symbols
+📂 Loaded symbol files: /etc/tenx/symbols/tenx-symbols-1.1.150.10x.tar
+📂 Loading TenXTemplates from: data/templates/*.json,data/sample/output/*.json
+📥 Reading events from OpenTelemetry Collector via OTLP/gRPC on tcp://0.0.0.0:4317
+💰 Loading rate cap file: /tmp/tenx/github/log10x/policy/caps.csv
+🚦 Applying rate regulator to: otelCollector
+[INFO ] 2026-10-25 01:53:49.649 [main] OtlpLogsInputStream - initializing OTLP/gRPC logs input on TCP port: 4317 (maxQueuedLines=20000)
+[INFO ] 2026-10-25 01:53:49.684 [main] OtlpLogsInputStream - OTLP/gRPC logs server listening on TCP port: 4317
+⚙️ Transforming events into TenXObjects using 50% of available cores
+ℹ️ Enriching TenXObjects with severity field: 'severity_level'
+🔲 Consolidating multi-line events into logical TenXObject groups
+💬 Enriching TenXObjects with message field: 'message_pattern'
+🌐 Enriching TenXObjects with HTTP code field: 'http_code'
+📋 Enriching TenXObjects with lookup field: 'http_message' from file: /etc/tenx/config/pipelines/run/initialize/lookup/http.csv
+☸️ Enriching TenXObjects with k8s container context using fluentK8s
+📝 Writing  → OTLP/gRPC
+📈 Publishing TenXSummary metrics to Prometheus scrape on port: 9100
+[INFO ] 2026-10-25 01:53:49.782 [main] EventLogPublisherConfigBuilder - Added new loggers to log4j: [tenxOtlp_cse-router_24225]
+📝 Writing TenXObject field: 'fullText("tenx_hash","message_pattern","routeState")' → OTLP/gRPC: cse-router:24225
+[INFO ] 2026-10-25 01:53:49.802 [main] ResourceReloadUnit - resource reload: starting with 4 watched path(s); pollInterval=10s
+[WARN ] 2026-10-25 01:54:50.217 [AsyncWorkerTaskInput: aggregateSingle 01:53:49] MetricCounterCache - metric output reached maxCardinality 500 counters; the least recently used leave the output and are missing from scrapes until they return. Raise maxCardinality to keep every series.
+[INFO ] 2026-10-25 02:32:50.077 [AsyncWorkerTaskInput: configLoader 01:53:49] ResourceReloadUnit - resource reload: reloaded pipeline unit lookup, changed resources: [/tmp/tenx/github/log10x/policy/config-generation.csv, /tmp/tenx/github/log10x/policy/caps.csv, /tmp/tenx/github/log10x/policy/actions.csv, /tmp/tenx/github/log10x/policy/totals.csv]
+[INFO ] 2026-10-25 02:43:03.397 [AsyncWorkerTaskInput: configLoader 01:53:49] ResourceReloadUnit - resource reload: reloaded pipeline unit lookup, changed resources: [/tmp/tenx/github/log10x/policy/config-generation.csv, /tmp/tenx/github/log10x/policy/caps.csv, /tmp/tenx/github/log10x/policy/actions.csv, /tmp/tenx/github/log10x/policy/totals.csv]
+[INFO ] 2026-10-25 02:53:03.446 [AsyncWorkerTaskInput: configLoader 01:53:49] ResourceReloadUnit - resource reload: reloaded pipeline unit lookup, changed resources: [/tmp/tenx/github/log10x/policy/config-generation.csv, /tmp/tenx/github/log10x/policy/caps.csv, /tmp/tenx/github/log10x/policy/actions.csv, /tmp/tenx/github/log10x/policy/totals.csv]
+[INFO ] 2026-10-25 03:03:03.501 [AsyncWorkerTaskInput: configLoader 01:53:49] ResourceReloadUnit - resource reload: reloaded pipeline unit lookup, changed resources: [/tmp/tenx/github/log10x/policy/config-generation.csv, /tmp/tenx/github/log10x/policy/caps.csv, /tmp/tenx/github/log10x/policy/actions.csv, /tmp/tenx/github/log10x/policy/totals.csv]
+[INFO ] 2026-10-25 03:13:03.549 [AsyncWorkerTaskInput: configLoader 01:53:49] ResourceReloadUnit - resource reload: reloaded pipeline unit lookup, changed resources: [/tmp/tenx/github/log10x/policy/config-generation.csv, /tmp/tenx/github/log10x/policy/caps.csv, /tmp/tenx/github/log10x/policy/actions.csv, /tmp/tenx/github/log10x/policy/totals.csv]
+[INFO ] 2026-10-25 03:23:03.607 [AsyncWorkerTaskInput: configLoader 01:53:49] ResourceReloadUnit - resource reload: reloaded pipeline unit lookup, changed resources: [/tmp/tenx/github/log10x/policy/config-generation.csv, /tmp/tenx/github/log10x/policy/caps.csv, /tmp/tenx/github/log10x/policy/actions.csv, /tmp/tenx/github/log10x/policy/totals.csv]
+[INFO ] 2026-10-25 03:33:03.662 [AsyncWorkerTaskInput: configLoader 01:53:49] ResourceReloadUnit - resource reload: reloaded pipeline unit lookup, changed resources: [/tmp/tenx/github/log10x/policy/config-generation.csv, /tmp/tenx/github/log10x/policy/caps.csv, /tmp/tenx/github/log10x/policy/totals.csv]
+[INFO ] 2026-10-25 03:43:03.710 [AsyncWorkerTaskInput: configLoader 01:53:49] ResourceReloadUnit - resource reload: reloaded pipeline unit lookup, changed resources: [/tmp/tenx/github/log10x/policy/config-generation.csv, /tmp/tenx/github/log10x/policy/caps.csv, /tmp/tenx/github/log10x/policy/totals.csv]
+[INFO ] 2026-10-25 03:53:03.760 [AsyncWorkerTaskInput: configLoader 01:53:49] ResourceReloadUnit - resource reload: reloaded pipeline unit lookup, changed resources: [/tmp/tenx/github/log10x/policy/config-generation.csv, /tmp/tenx/github/log10x/policy/caps.csv, /tmp/tenx/github/log10x/policy/totals.csv]
+[INFO ] 2026-10-25 04:03:03.811 [AsyncWorkerTaskInput: configLoader 01:53:49] ResourceReloadUnit - resource reload: reloaded pipeline unit lookup, changed resources: [/tmp/tenx/github/log10x/policy/config-generation.csv, /tmp/tenx/github/log10x/policy/caps.csv, /tmp/tenx/github/log10x/policy/totals.csv]
+[INFO ] 2026-10-25 04:13:03.860 [AsyncWorkerTaskInput: configLoader 01:53:49] ResourceReloadUnit - resource reload: reloaded pipeline unit lookup, changed resources: [/tmp/tenx/github/log10x/policy/config-generation.csv, /tmp/tenx/github/log10x/policy/caps.csv, /tmp/tenx/github/log10x/policy/totals.csv]
+[INFO ] 2026-10-25 04:23:03.912 [AsyncWorkerTaskInput: configLoader 01:53:49] ResourceReloadUnit - resource reload: reloaded pipeline unit lookup, changed resources: [/tmp/tenx/github/log10x/policy/config-generation.csv, /tmp/tenx/github/log10x/policy/caps.csv, /tmp/tenx/github/log10x/policy/totals.csv]
+[INFO ] 2026-10-25 04:33:03.947 [AsyncWorkerTaskInput: configLoader 01:53:49] ResourceReloadUnit - resource reload: reloaded pipeline unit lookup, changed resources: [/tmp/tenx/github/log10x/policy/config-generation.csv, /tmp/tenx/github/log10x/policy/caps.csv, /tmp/tenx/github/log10x/policy/actions.csv, /tmp/tenx/github/log10x/policy/totals.csv]
+[INFO ] 2026-10-25 04:43:03.992 [AsyncWorkerTaskInput: configLoader 01:53:49] ResourceReloadUnit - resource reload: reloaded pipeline unit lookup, changed resources: [/tmp/tenx/github/log10x/policy/config-generation.csv, /tmp/tenx/github/log10x/policy/caps.csv, /tmp/tenx/github/log10x/policy/actions.csv, /tmp/tenx/github/log10x/policy/totals.csv]

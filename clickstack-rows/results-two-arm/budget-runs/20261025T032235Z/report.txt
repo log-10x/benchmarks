@@ -1,0 +1,35 @@
+[tenx-recur] policy loaded: target=30% services=all lookback=24h min_delta=2pp 
+[tenx-recur] Rows written: 30k of 30k an hour last hour (30k rows an hour set in the policy; part_log on default.otel_logs); at these limits the table takes about 30k an hour, with 43k an hour of lines to the account's bucket.
+[tenx-recur] Outside the Receiver: 0 rows an hour (outside_rows_per_hour). The Receiver's counters read 31k pass lines an hour against 30k rows the meter puts on it, so each statement's rate is scaled by 1.00. The table holds 54k active rows.
+[tenx-recur] The Receiver's statements send 73k lines an hour; 30k an hour fits the rate, so each statement keeps up to 1334 an hour and the noisiest give way first.
+[tenx-recur] The always-pass sample (5 lines a statement a window on every node, 50 more for an error statement over its limit) keeps about 5058 lines an hour whatever the limits; the rate holds down to that floor.
+[tenx-recur] The meter read above the rate last hour; the limits below hold the next hour at the rate, and each node's totals bind inside every window.
+# Rows run: 2026-10-25T03:22:36.000Z
+
+Rows written: 30k of 30k an hour last hour (30k rows an hour set in the policy; part_log on default.otel_logs); at these limits the table takes about 30k an hour, with 43k an hour of lines to the account's bucket.
+
+- Outside the Receiver: 0 rows an hour (outside_rows_per_hour). The Receiver's counters read 31k pass lines an hour against 30k rows the meter puts on it, so each statement's rate is scaled by 1.00. The table holds 54k active rows.
+- The Receiver's statements send 73k lines an hour; 30k an hour fits the rate, so each statement keeps up to 1334 an hour and the noisiest give way first.
+- The always-pass sample (5 lines a statement a window on every node, 50 more for an error statement over its limit) keeps about 5058 lines an hour whatever the limits; the rate holds down to that floor.
+- The meter read above the rate last hour; the limits below hold the next hour at the rate, and each node's totals bind inside every window.
+
+| Service | Destination | Nodes | Sent an hour | Kept an hour | Limit per statement | Total |
+|---|---|---|---|---|---|---|
+| ad | the account's bucket | 1 | 3444 | 2909 | 88 | 193 |
+| cart | the account's bucket | 1 | 8442 | 3401 | 88 | 226 |
+| fluentd-10x | the account's bucket | 1 | 540 | 540 | 88 | 36 |
+| frontend | the account's bucket | 1 | 1710 | 1710 | 88 | 114 |
+| grafana | the account's bucket | 1 | 396 | 396 | 88 | 26 |
+| inventory | the account's bucket | 1 | 5130 | 1334 | 88 | 88 |
+| kafka | the account's bucket | 1 | 12k | 12k | 88 | 832 |
+| kube-proxy | the account's bucket | 1 | 18 | 18 | 88 | 1 |
+| opensearch | the account's bucket | 1 | 384 | 384 | 88 | 25 |
+| opentelemetry-collector | the account's bucket | 1 | 39k | 5337 | 88 | 355 |
+| prometheus-server | the account's bucket | 1 | 30 | 30 | 88 | 2 |
+| recommendation | the account's bucket | 1 | 1290 | 1290 | 88 | 86 |
+| valkey-cart | the account's bucket | 1 | 270 | 270 | 88 | 18 |
+| `*` (any other service) | the account's bucket | 1 | | 1290 | 88 | 86 |
+
+Limits and totals are lines per 4-minute window per node. Error lines pass 50 over a limit per statement per node per window. The meter is `system.part_log` NewPart rows on default.otel_logs, read by the event's own time.
+
+[tenx-recur] actions: 

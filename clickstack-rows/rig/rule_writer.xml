@@ -1,0 +1,14 @@
+<clickhouse>
+  <users>
+    <rule_writer>
+      <password>rule-writer-rig</password>
+      <networks><ip>::/0</ip></networks>
+      <profile>default</profile>
+      <quota>default</quota>
+      <grants>
+        <query>GRANT INSERT, SELECT ON default.otel_logs_rule</query>
+        <query>GRANT INSERT, SELECT ON default.counts_by_type_rule</query>
+      </grants>
+    </rule_writer>
+  </users>
+</clickhouse>

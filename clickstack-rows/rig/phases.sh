@@ -8,9 +8,16 @@
 #  120  5x (35 l/s), held to 160
 #  160  replay and inject stop; drain
 #  180  last run, collect, down
+# ARMS=two runs arm B beside it on the same schedule (METHOD_TWO_ARM.md); results in results-two-arm/.
 set -euo pipefail
 HERE=$(cd "$(dirname "$0")" && pwd)
 RUN="$HERE/run.sh"
+export ARMS=${ARMS:-one}
+if [ "$ARMS" = two ]; then
+  RESULTS=${RESULTS:-$HERE/../results-two-arm}
+  # the capture's two chattiest services by lines (93,875 and 39,292 of 197,430), fixed before the feed starts
+  export RULE_TOP1=${RULE_TOP1:-opentelemetry-collector} RULE_TOP2=${RULE_TOP2:-cart}
+fi
 RESULTS=${RESULTS:-$HERE/../results}
 export RESULTS
 : "${MCP:?log10x-mcp checkout with build/}"
@@ -19,6 +26,7 @@ export POLICY_BRANCH=${POLICY_BRANCH:-test/clickhouse-rows-policy}
 M=${M:-60}                       # seconds per "minute"; 60 is the run, 6 a smoke
 METER_MIN=${METER_MIN:-10}       # the meter window in real minutes: 10 for the run, 1 for a smoke
 export CAPTURE=${CAPTURE:-$HERE/../../../benchmarks/clickstack-e2e/data/otel-sample-200mb.log}
+[ "$ARMS" != two ] || { mkdir -p "$RESULTS"; echo $(( 10 * M )) > "$RESULTS/window_s"; }
 T0=$(date +%s); echo "$T0" > "$RESULTS/t0"
 at() { local due=$(( T0 + $1 * M )); while [ "$(date +%s)" -lt "$due" ]; do sleep 5; done; }
 tick() { "$HERE/budget-run.sh" "$@" || true; }
@@ -35,15 +43,42 @@ print(','.join(sorted(c)) + ',inventory')
 EOF
 }
 
+census() {
+  python3 - "$CAPTURE" <<'EOF'
+import json,sys,collections
+c=collections.Counter()
+with open(sys.argv[1], errors='replace') as fh:
+    for l in fh:
+        try: c[json.loads(l)['kubernetes']['container_name']]+=1
+        except Exception: pass
+print(json.dumps(dict(c.most_common(4))))
+EOF
+}
+[ "$ARMS" != two ] || "$RUN" mark arms "\"arms\":\"two\",\"m\":$M,\"window_s\":$(( 10 * M )),\"top\":[\"$RULE_TOP1\",\"$RULE_TOP2\"],\"capture_lines_by_service\":$(census)"
+
 "$RUN" up
 # disk guard: below 1.2 GB free on the host, stop the feed and say so (the run's numbers up to then stand)
-( while sleep 60; do
+( i=0; while sleep 60; do
     free_kb=$(df -k / | awk 'NR==2{print $4}')
+    # ARMS=two: free space swings on this host, so a low reading is confirmed 60 s later
+    if [ "$ARMS" = two ] && [ "$free_kb" -lt 1200000 ]; then
+      "$RUN" mark disk_low_reading "\"free_kb\":$free_kb"; sleep 60; free_kb=$(df -k / | awk 'NR==2{print $4}')
+    fi
     if [ "$free_kb" -lt 1200000 ]; then "$RUN" pace 0; "$RUN" inject stop; "$RUN" mark disk_guard_stopped_feed "\"free_kb\":$free_kb"; break; fi
+    i=$(( i + 1 ))
+    if [ "$ARMS" = two ] && [ $(( i % 10 )) -eq 0 ]; then
+      mb=$("$RUN" size 2>/dev/null || echo 0)
+      if [ "${mb:-0}" -gt 1900 ]; then "$RUN" pace 0; "$RUN" inject stop; "$RUN" mark run_size_stopped_feed "\"mb\":$mb"; break; fi
+    fi
   done ) &
 echo $! > "$RESULTS/disk-guard.pid"
 "$RUN" mark phase_baseline
 "$RUN" pace 14
+if [ "$ARMS" = two ] && ! "$RUN" check-rule; then
+  kill "$(cat "$RESULTS/disk-guard.pid")" 2>/dev/null || true
+  "$RUN" collect; "$RUN" down
+  echo "arm B wrote no rows in 180 s (see cse-router-rule.log); stopping" >&2; exit 1
+fi
 CONTAINERS=$(containers)
 node "$HERE/gen-policy.mjs" "$RESULTS/policy.yaml" auto "$RESULTS/policy-clone" "$POLICY_BRANCH" "$CONTAINERS" "$METER_MIN" > /dev/null
 
@@ -81,7 +116,11 @@ at 150; tick
 at 160; "$RUN" pace 0; "$RUN" inject stop; tick; "$RUN" mark phase_drain
 at 170; tick
 at 180; tick; kill "$(cat "$RESULTS/disk-guard.pid")" 2>/dev/null || true; "$RUN" collect
-python3 "$HERE/score.py" "$RESULTS" > "$RESULTS/score.md" 2> "$RESULTS/score.err" || true
+if [ "$ARMS" = two ]; then
+  python3 "$HERE/score.py" "$RESULTS" --arms two > "$RESULTS/score.md" 2> "$RESULTS/score.err" || true
+else
+  python3 "$HERE/score.py" "$RESULTS" > "$RESULTS/score.md" 2> "$RESULTS/score.err" || true
+fi
 if python3 "$HERE/final.py" "$RESULTS" cse-clickstack > "$RESULTS/final.md" 2> "$RESULTS/final.err"; then
   "$RUN" down
 else
