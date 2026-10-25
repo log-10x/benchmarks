@@ -1,0 +1,192 @@
+{
+ "a": "http://127.0.0.1:9200",
+ "b": "http://127.0.0.1:9201",
+ "ilm_poll": "100s",
+ "ilm_policies_identical": true,
+ "policies": {
+  "A": {
+   "tenx-keep": {
+    "frozen": {
+     "min_age": "110m",
+     "actions": {
+      "searchable_snapshot": {
+       "snapshot_repository": "rig-snapshots",
+       "force_merge_index": true
+      }
+     }
+    },
+    "hot": {
+     "min_age": "0ms",
+     "actions": {
+      "rollover": {
+       "max_age": "10m",
+       "max_primary_shard_size": "50gb"
+      }
+     }
+    }
+   },
+   "tenx-tier-down": {
+    "frozen": {
+     "min_age": "1m",
+     "actions": {
+      "searchable_snapshot": {
+       "snapshot_repository": "rig-snapshots",
+       "force_merge_index": true
+      }
+     }
+    },
+    "hot": {
+     "min_age": "0ms",
+     "actions": {
+      "rollover": {
+       "max_age": "10m",
+       "max_primary_shard_size": "50gb"
+      }
+     }
+    }
+   }
+  },
+  "B": {
+   "tenx-keep": {
+    "frozen": {
+     "min_age": "110m",
+     "actions": {
+      "searchable_snapshot": {
+       "snapshot_repository": "rig-snapshots",
+       "force_merge_index": true
+      }
+     }
+    },
+    "hot": {
+     "min_age": "0ms",
+     "actions": {
+      "rollover": {
+       "max_age": "10m",
+       "max_primary_shard_size": "50gb"
+      }
+     }
+    }
+   },
+   "tenx-tier-down": {
+    "frozen": {
+     "min_age": "1m",
+     "actions": {
+      "searchable_snapshot": {
+       "snapshot_repository": "rig-snapshots",
+       "force_merge_index": true
+      }
+     }
+    },
+    "hot": {
+     "min_age": "0ms",
+     "actions": {
+      "rollover": {
+       "max_age": "10m",
+       "max_primary_shard_size": "50gb"
+      }
+     }
+    }
+   }
+  }
+ },
+ "log": [
+  {
+   "cluster": "B",
+   "method": "POST",
+   "path": "/_license/start_trial?acknowledge=true",
+   "status": 200,
+   "body": "{\"acknowledged\":true,\"trial_was_started\":true,\"type\":\"trial\"}"
+  },
+  {
+   "cluster": "B",
+   "method": "PUT",
+   "path": "/_snapshot/rig-snapshots",
+   "status": 200,
+   "body": "{\"acknowledged\":true}"
+  },
+  {
+   "cluster": "A",
+   "method": "GET",
+   "path": "/_ilm/policy/tenx-keep",
+   "status": 200,
+   "body": "{\"tenx-keep\":{\"version\":2,\"modified_date\":\"2026-10-24T20:45:30.945Z\",\"policy\":{\"phases\":{\"frozen\":{\"min_age\":\"110m\",\"actions\":{\"searchable_snapshot\":{\"snapshot_repository\":\"rig-snapshots\",\"force_merge_index\":true}}},\"hot\":{\"min_age\":\"0ms\",\"actions\":{\"rollover\":{\"max_age\":\"10m\",\"max_primary_shard_size\":\"50gb\"}}}}},\"in_use_by\":{\"indices\":[\"tenx-app-000001\"],\"data_streams\":[],\"composable_templates\":[\"tenx-app-tpl\"]}}}"
+  },
+  {
+   "cluster": "B",
+   "method": "PUT",
+   "path": "/_ilm/policy/tenx-keep",
+   "status": 200,
+   "body": "{\"acknowledged\":true}"
+  },
+  {
+   "cluster": "A",
+   "method": "GET",
+   "path": "/_ilm/policy/tenx-tier-down",
+   "status": 200,
+   "body": "{\"tenx-tier-down\":{\"version\":2,\"modified_date\":\"2026-10-24T20:45:31.066Z\",\"policy\":{\"phases\":{\"frozen\":{\"min_age\":\"1m\",\"actions\":{\"searchable_snapshot\":{\"snapshot_repository\":\"rig-snapshots\",\"force_merge_index\":true}}},\"hot\":{\"min_age\":\"0ms\",\"actions\":{\"rollover\":{\"max_age\":\"10m\",\"max_primary_shard_size\":\"50gb\"}}}}},\"in_use_by\":{\"indices\":[\"tenx-tierdown-000001\"],\"data_streams\":[],\"composable_templates\":[\"tenx-tierdown-tpl\"]}}}"
+  },
+  {
+   "cluster": "B",
+   "method": "PUT",
+   "path": "/_ilm/policy/tenx-tier-down",
+   "status": 200,
+   "body": "{\"acknowledged\":true}"
+  },
+  {
+   "cluster": "A",
+   "method": "GET",
+   "path": "/_cluster/settings?flat_settings=true",
+   "status": 200,
+   "body": "{\"persistent\":{\"indices.lifecycle.poll_interval\":\"100s\"},\"transient\":{}}"
+  },
+  {
+   "cluster": "B",
+   "method": "PUT",
+   "path": "/_cluster/settings",
+   "status": 200,
+   "body": "{\"acknowledged\":true,\"persistent\":{\"indices\":{\"lifecycle\":{\"poll_interval\":\"100s\"}}},\"transient\":{}}"
+  },
+  {
+   "cluster": "A",
+   "method": "GET",
+   "path": "/_index_template/tenx-tierdown-tpl",
+   "status": 200,
+   "body": "{\"index_templates\":[{\"name\":\"tenx-tierdown-tpl\",\"index_template\":{\"index_patterns\":[\"tenx-tierdown-*\"],\"template\":{\"settings\":{\"index\":{\"lifecycle\":{\"name\":\"tenx-tier-down\",\"rollover_alias\":\"tenx-tierdown\"},\"number_of_replicas\":\"0\"}},\"mappings\":{\"properties\":{\"@timestamp\":{\"type\":\"date\"},\"tenx_hash\":{\"type\":\"keyword\"},\"routeState\":{\"type\":\"keyword\"}}}},\"composed_of\":[],\"created_date_millis\":1792874730215,\"modified_date_millis\":1792874730215}}]}"
+  },
+  {
+   "cluster": "B",
+   "method": "PUT",
+   "path": "/_index_template/native-overflow-tpl",
+   "status": 200,
+   "body": "{\"acknowledged\":true}"
+  },
+  {
+   "cluster": "B",
+   "method": "PUT",
+   "path": "/native-overflow-000001",
+   "status": 200,
+   "body": "{\"acknowledged\":true,\"shards_acknowledged\":true,\"index\":\"native-overflow-000001\"}"
+  },
+  {
+   "cluster": "A",
+   "method": "GET",
+   "path": "/_index_template/tenx-app-tpl",
+   "status": 200,
+   "body": "{\"index_templates\":[{\"name\":\"tenx-app-tpl\",\"index_template\":{\"index_patterns\":[\"tenx-app-*\"],\"template\":{\"settings\":{\"index\":{\"lifecycle\":{\"name\":\"tenx-keep\",\"rollover_alias\":\"tenx-app\"},\"number_of_replicas\":\"0\"}},\"mappings\":{\"properties\":{\"@timestamp\":{\"type\":\"date\"},\"tenx_hash\":{\"type\":\"keyword\"},\"routeState\":{\"type\":\"keyword\"}}}},\"composed_of\":[],\"created_date_millis\":1792874730286,\"modified_date_millis\":1792874730286}}]}"
+  },
+  {
+   "cluster": "B",
+   "method": "PUT",
+   "path": "/_index_template/native-app-tpl",
+   "status": 200,
+   "body": "{\"acknowledged\":true}"
+  },
+  {
+   "cluster": "B",
+   "method": "PUT",
+   "path": "/native-app-000001",
+   "status": 200,
+   "body": "{\"acknowledged\":true,\"shards_acknowledged\":true,\"index\":\"native-app-000001\"}"
+  }
+ ]
+}

@@ -1,0 +1,146 @@
+{
+ "S": 63000000.0,
+ "M": 60,
+ "step_epoch": 1792886542,
+ "hold_end_epoch": 1792890148,
+ "bind": {
+  "event": "s_binds",
+  "at": "2026-10-24T23:22:19Z",
+  "epoch": 1792884139,
+  "rule": "R after the first applied run",
+  "hot_store": 58682510,
+  "S": 63000000
+ },
+ "criterion_1": {
+  "readings": 24,
+  "max_of_S": 1.429,
+  "mean_of_S": 1.15,
+  "over_1_10": 13,
+  "pass": false,
+  "streams_max_of_S": 1.406
+ },
+ "criterion_2": {
+  "pre_step_readings": 12,
+  "pre_step_level": 50046689.25,
+  "pre_step_max": 52392966,
+  "hold_readings": 36,
+  "hold_max": 85855786,
+  "hold_max_of_pre": 1.716,
+  "pass": true,
+  "pass_against_pre_step_max": true,
+  "late_hold_max_of_pre": 1.716,
+  "no_differentiator": false
+ },
+ "a_pre_step_level_of_S": 0.951,
+ "table": [
+  {
+   "at": "2026-10-25T00:02:15Z",
+   "min_from_step": -0.1,
+   "a_node": 59965067,
+   "a_kept": 57051974,
+   "a_tier_down": 2005989,
+   "b_node": 50959220,
+   "b_normal": 46715404,
+   "b_overflow": 3419933
+  },
+  {
+   "at": "2026-10-25T00:23:55Z",
+   "min_from_step": 21.6,
+   "a_node": 78878396,
+   "a_kept": 55272101,
+   "a_tier_down": 22498654,
+   "b_node": 69287788,
+   "b_normal": 60322874,
+   "b_overflow": 7876785
+  },
+  {
+   "at": "2026-10-25T00:43:55Z",
+   "min_from_step": 41.5,
+   "a_node": 75036038,
+   "a_kept": 50450452,
+   "a_tier_down": 23360278,
+   "b_node": 73468772,
+   "b_normal": 66047709,
+   "b_overflow": 6312493
+  },
+  {
+   "at": "2026-10-25T01:02:15Z",
+   "min_from_step": 59.9,
+   "a_node": 64238347,
+   "a_kept": 48682588,
+   "a_tier_down": 14235547,
+   "b_node": 81818453,
+   "b_normal": 77281792,
+   "b_overflow": 3310109
+  }
+ ],
+ "peak_hold": {
+  "a_node": 90000805,
+  "b_node": 85855786
+ },
+ "peak_run": {
+  "a_node": 90000805,
+  "b_node": 85855786
+ },
+ "frozen_last_reading": {
+  "a": {
+   "tenx-app": {
+    "frozen_indices": 11,
+    "frozen_docs": 158932,
+    "hot_indices": 10
+   },
+   "tenx-tierdown": {
+    "frozen_indices": 20,
+    "frozen_docs": 590599,
+    "hot_indices": 1
+   }
+  },
+  "b": {
+   "native-app": {
+    "frozen_indices": 11,
+    "frozen_docs": 225131,
+    "hot_indices": 10
+   },
+   "native-overflow": {
+    "frozen_indices": 20,
+    "frozen_docs": 509442,
+    "hot_indices": 1
+   }
+  }
+ },
+ "frozen_last_reading_at": "2026-10-25T01:25:35Z",
+ "criterion_3": {
+  "feed_final_seq": 1070359,
+  "fluent_bit_lines_in": 1070359,
+  "b": {
+   "documents": 1070359,
+   "unnumbered": 0,
+   "missing": 0,
+   "duplicated": 0,
+   "outside_feed": 0,
+   "wrong_container": 0,
+   "wrong_stream": 0,
+   "on_frozen": 734573,
+   "on_hot": 335786,
+   "pass": true
+  },
+  "a": {
+   "records": 848190,
+   "unnumbered": 0,
+   "receiver_own_messages": 1,
+   "duplicated_seq": 0,
+   "records_outside_feed_or_container": 0,
+   "runs_mismatched": 0,
+   "nonblank_lines_before_first_record": 0,
+   "nonblank_lines_sent": 1070203,
+   "nonblank_lines_returned": 1070203,
+   "blank_lines_sent": 156,
+   "records_spanning_containers": 71,
+   "on_frozen": 749531,
+   "on_hot": 98659,
+   "tier_down_records": 590599,
+   "mismatch_sample": [],
+   "pass": true
+  }
+ }
+}
