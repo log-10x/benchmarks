@@ -5,8 +5,9 @@
   cross-check (the cat APIs are documented for human use).
 With ES_URL_B set (the two-arm run) each reading first refreshes both arms' indices on hot (a shard
 no one searches goes search-idle and writes nothing to its store until a refresh), the same reads of
-arm B's cluster for native-* and partial-native-* go under "b", and "summary" gives per arm the hot node's index store and disk, and per stream the
-store of its indices on hot and the indices and documents mounted on frozen.
+arm B's cluster for native-* and partial-native-* go under "b", and "summary" gives per arm the hot node's index store and disk, the
+warm node's index store, and per stream the store of its indices on hot and on warm (by the node each shard sits on, _cat/shards)
+and the indices and documents mounted on frozen.
 Exits when results/.down.done appears.
   meter.py [interval_s]"""
 import json, os, re, sys, time, urllib.request
@@ -42,29 +43,53 @@ def reads(base, idx):
     return {
         'indices': get(f'/_cat/indices/{idx}?format=json&bytes=b&expand_wildcards=all&h=index,health,status,docs.count,store.size,pri.store.size,creation.date', base),
         'allocation': get('/_cat/allocation?format=json&bytes=b', base),
+        'shards': get(f'/_cat/shards/{idx}?format=json&bytes=b&h=index,shard,prirep,state,store,node', base),
         'nodes': get('/_nodes/stats/fs,indices?filter_path=nodes.*.name,nodes.*.roles,nodes.*.fs.total.total_in_bytes,nodes.*.fs.total.available_in_bytes,nodes.*.indices.store.size_in_bytes', base),
         'ilm': get(f'/{idx}/_ilm/explain?filter_path=indices.*.phase,indices.*.action,indices.*.step,indices.*.phase_time_millis,indices.*.lifecycle_date_millis,indices.*.index_creation_date_millis,indices.*.age,indices.*.step_info', base),
     }
 
 
+def tier(roles):
+    return 'hot' if 'data_hot' in roles else 'warm' if 'data_warm' in roles else 'other'
+
+
 def summary(r):
     nodes = (r.get('nodes') or {}).get('nodes') or {}
     hot = [n for n in nodes.values() if 'data_hot' in n.get('roles', [])]
-    out = {'hot_node_store': sum(int(n['indices']['store']['size_in_bytes']) for n in hot) if hot else None,
-           'hot_node_disk': sum(int(n['fs']['total']['total_in_bytes']) for n in hot) if hot else None, 'streams': {}}
+    warm = [n for n in nodes.values() if 'data_warm' in n.get('roles', []) and 'data_hot' not in n.get('roles', [])]
+    store = lambda ns: sum(int(n['indices']['store']['size_in_bytes']) for n in ns) if ns else None
+    out = {'hot_node_store': store(hot), 'hot_node_disk': sum(int(n['fs']['total']['total_in_bytes']) for n in hot) if hot else None,
+           'warm_node_store': store(warm), 'streams': {}}
+    roles = {n.get('name'): n.get('roles', []) for n in nodes.values()}
+    # a relocating shard reads "<from> -> <ip> <id> <to>"; its store is counted where it is read from
+    where, by_tier = {}, {}
+    for sh in r.get('shards') if isinstance(r.get('shards'), list) else []:
+        t = tier(roles.get((sh.get('node') or '').split(' -> ')[0], [])) if sh.get('node') else 'unassigned'
+        where.setdefault(sh['index'], set()).add(t)
+        k = (sh['index'], t)
+        by_tier[k] = by_tier.get(k, 0) + int(sh.get('store') or 0)
     for i in r.get('indices') if isinstance(r.get('indices'), list) else []:
         name = i['index']
         mounted = name.startswith('partial-') or name.startswith('restored-')
         stream = re.sub(r'-\d{6}$', '', re.sub(r'^(partial-|restored-)', '', name))
-        st = out['streams'].setdefault(stream, {'hot_store': 0, 'hot_indices': 0, 'hot_docs': 0, 'frozen_indices': 0, 'frozen_docs': 0})
+        st = out['streams'].setdefault(stream, {'hot_store': 0, 'hot_indices': 0, 'hot_docs': 0, 'warm_store': 0, 'warm_indices': 0, 'warm_docs': 0,
+                                                'other_store': 0, 'frozen_indices': 0, 'frozen_docs': 0})
         docs = int(i.get('docs.count') or 0)
         if mounted:
             st['frozen_indices'] += 1
             st['frozen_docs'] += docs
+            continue
+        tiers = where.get(name) or {'hot'}
+        if tiers <= {'hot'} or tiers <= {'warm'}:
+            t = next(iter(tiers))
+            st[f'{t}_store'] += int(i.get('store.size') or 0)
+            st[f'{t}_indices'] += 1
+            st[f'{t}_docs'] += docs
         else:
-            st['hot_store'] += int(i.get('store.size') or 0)
-            st['hot_indices'] += 1
-            st['hot_docs'] += docs
+            for t in tiers:
+                st[f'{t}_store' if t in ('hot', 'warm') else 'other_store'] += by_tier.get((name, t), 0)
+            st['hot_indices' if 'hot' in tiers else 'warm_indices'] += 1
+            st['hot_docs' if 'hot' in tiers else 'warm_docs'] += docs
     return out
 
 

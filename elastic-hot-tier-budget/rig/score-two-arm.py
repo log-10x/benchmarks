@@ -11,6 +11,8 @@ the delivery dumps; writes score.json and prints the tables.
      the records in seq order must split the container's lines, in feed order, into consecutive runs,
      each with exactly its record's count of non-blank lines and containing its record's seq, with no
      non-blank line left over. Records with neither seq nor container are the Receiver's own messages.
+Reported, not scored: each arm's warm node store and hot node store before the step, at the hot peak and the warm
+peak in the hold, and at the end of the hold; and the readings that found moved or overflow lines on a hot node.
   score-two-arm.py <results dir>"""
 import collections, gzip, json, os, re, sys
 
@@ -64,9 +66,15 @@ out['a_pre_step_level_of_S'] = round(sum(apre) / len(apre) / S, 3)
 def row(m):
     ha, sa = arm(m, 'a')
     hb, sb = arm(m, 'b')
-    g = lambda s, k: s.get(k, {}).get('hot_store', 0)
+    g = lambda s, k, f='hot_store': s.get(k, {}).get(f, 0)
     return {'at': m['at'], 'min_from_step': round((m['epoch'] - step) / M, 1), 'a_node': ha, 'a_kept': g(sa, 'tenx-app'), 'a_tier_down': g(sa, 'tenx-tierdown'),
-            'b_node': hb, 'b_normal': g(sb, 'native-app'), 'b_overflow': g(sb, 'native-overflow')}
+            'b_node': hb, 'b_normal': g(sb, 'native-app'), 'b_overflow': g(sb, 'native-overflow'),
+            'a_warm_node': warm(m, 'a'), 'a_tier_down_warm': g(sa, 'tenx-tierdown', 'warm_store'),
+            'b_warm_node': warm(m, 'b'), 'b_overflow_warm': g(sb, 'native-overflow', 'warm_store')}
+
+
+def warm(m, a):
+    return m['summary'][a].get('warm_node_store') or 0
 
 
 before = [m for m in meter if m['epoch'] < step][-1]
@@ -77,6 +85,21 @@ out['peak_run'] = {'a_node': max(arm(m, 'a')[0] for m in meter), 'b_node': max(a
 last = meter[-1]
 out['frozen_last_reading'] = {a: {k: {'frozen_indices': v['frozen_indices'], 'frozen_docs': v['frozen_docs'], 'hot_indices': v['hot_indices']} for k, v in arm(last, a)[1].items()} for a in ('a', 'b')}
 out['frozen_last_reading_at'] = last['at']
+
+# warm, reported
+moved = {'a': 'tenx-tierdown', 'b': 'native-overflow'}
+out['warm'] = {}
+for a in ('a', 'b'):
+    pre_m = [m for m in meter if step - 20 * M <= m['epoch'] < step]
+    hot_peak = max(hold, key=lambda m: arm(m, a)[0])
+    warm_peak = max(hold, key=lambda m: warm(m, a))
+    end = [m for m in meter if m['epoch'] <= hold_end][-1]
+    pick = lambda m: {'at': m['at'], 'hot_node': arm(m, a)[0], 'hot_of_S': round(arm(m, a)[0] / S, 3), 'warm_node': warm(m, a),
+                      'moved_on_warm': arm(m, a)[1].get(moved[a], {}).get('warm_store', 0)}
+    out['warm'][a] = {'pre_step_mean': {'hot_node': sum(arm(m, a)[0] for m in pre_m) / len(pre_m), 'warm_node': sum(warm(m, a) for m in pre_m) / len(pre_m)},
+                      'hot_peak_in_hold': pick(hot_peak), 'warm_peak_in_hold': pick(warm_peak), 'end_of_hold': pick(end),
+                      'readings_with_moved_on_hot': sum(1 for m in meter if arm(m, a)[1].get(moved[a], {}).get('hot_store', 0) > 0),
+                      'readings': len(meter)}
 
 # 3
 src = [json.loads(l) for l in open(os.path.join(R, 'replay', 'source.jsonl'))]
@@ -154,7 +177,8 @@ d['a'] = {'records': len(a), 'unnumbered': unnumbered, 'receiver_own_messages': 
 d['a']['pass'] = (not mismatch and before_first == 0 and dup == 0 and unnumbered == 0 and outside == 0 and expected_total == returned_total)
 out['criterion_3'] = d
 json.dump(out, open(os.path.join(R, 'score.json'), 'w'), indent=1)
-print(json.dumps({k: out[k] for k in ('criterion_1', 'criterion_2', 'criterion_3')}, indent=1))
-print('| UTC | min from step | A hot node | A kept | A tier_down | B hot node | B normal | B overflow |')
+print(json.dumps({k: out[k] for k in ('criterion_1', 'criterion_2', 'criterion_3', 'warm')}, indent=1))
+print('| UTC | min from step | A hot node | A kept | A tier_down on hot | A warm node | A tier_down on warm | B hot node | B normal | B overflow on hot | B warm node | B overflow on warm |')
 for r in out['table']:
-    print(f"| {r['at'][11:16]} | {r['min_from_step']} | {r['a_node']/1e6:.1f} MB | {r['a_kept']/1e6:.1f} | {r['a_tier_down']/1e6:.1f} | {r['b_node']/1e6:.1f} MB | {r['b_normal']/1e6:.1f} | {r['b_overflow']/1e6:.1f} |")
+    print(f"| {r['at'][11:16]} | {r['min_from_step']} | {r['a_node']/1e6:.1f} MB | {r['a_kept']/1e6:.1f} | {r['a_tier_down']/1e6:.1f} | {r['a_warm_node']/1e6:.1f} MB | {r['a_tier_down_warm']/1e6:.1f} | "
+          f"{r['b_node']/1e6:.1f} MB | {r['b_normal']/1e6:.1f} | {r['b_overflow']/1e6:.1f} | {r['b_warm_node']/1e6:.1f} MB | {r['b_overflow_warm']/1e6:.1f} |")

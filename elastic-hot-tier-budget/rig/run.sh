@@ -10,7 +10,9 @@
 #   storm <rate> <until>  one real Grafana error line at <rate> lines a second until <until epoch>
 #   mark <event> [json]   add a line to the timeline
 #   down                  stop the load, snapshot logs, docker compose down (volumes kept)
+#   clean                 remove the rig's containers (docker rm -f -v), its elastic-budget_* volumes and network
 # ARM_B=1 adds arm B's cluster (compose.arm-b.yaml, 127.0.0.1:9201), set up by es-setup-b.mjs after arm A's.
+# WARM=1 adds compose.warm.yaml (each frozen node also data_warm); TD_TIER_PREFERENCE reaches es-setup.mjs.
 # GH_TOKEN (gh auth token) reaches the Receiver from the shell by name; nothing writes it to a file.
 set -euo pipefail
 HERE=$(cd "$(dirname "$0")" && pwd)
@@ -23,7 +25,8 @@ VALUES=$RESULTS/values
 mkdir -p "$RIG_DATA" "$RESULTS"
 T=$RESULTS/timeline.jsonl
 mark() { echo "{\"event\":\"$1\",\"at\":\"$(date -u +%FT%TZ)\",\"epoch\":$(date +%s)${2:+,$2}}" >> "$T"; }
-compose() { docker compose -p elastic-budget -f "$HERE/compose.yaml" -f "$VALUES/compose.receiver.yaml" ${ARM_B:+-f "$HERE/compose.arm-b.yaml"} "$@"; }
+compose() { docker compose -p elastic-budget -f "$HERE/compose.yaml" -f "$VALUES/compose.receiver.yaml" ${ARM_B:+-f "$HERE/compose.arm-b.yaml"} ${WARM:+-f "$HERE/compose.warm.yaml"} "$@"; }
+oneshot() { local n=$1; shift; docker rm -f -v "$n" >/dev/null 2>&1 || true; docker run -d --name "$n" "$@" >/dev/null; docker wait "$n" >/dev/null; docker logs "$n" 2>/dev/null; docker rm -f -v "$n" >/dev/null 2>&1 || true; }
 es() { curl -s -m 30 "http://127.0.0.1:${2:-9200}$1"; }
 nodes_up() {
   for i in $(seq 1 90); do
@@ -45,10 +48,10 @@ case "${1:-}" in
     mkdir -p "$VALUES" && node "$HERE/gen-receiver-values.mjs" "$VALUES" > "$VALUES/render.out"
     bash "$VALUES/seed.sh" && mark policy_branch_seeded "\"branch\":\"$POLICY_BRANCH\""
     docker volume create elastic-budget_es-snapshots >/dev/null
-    docker run --rm -v elastic-budget_es-snapshots:/s alpine:latest chown 1000:0 /s
+    oneshot hb-chown -v elastic-budget_es-snapshots:/s alpine:latest chown 1000:0 /s
     if [ -n "${ARM_B:-}" ]; then
       docker volume create elastic-budget_es-snapshots-b >/dev/null
-      docker run --rm -v elastic-budget_es-snapshots-b:/s alpine:latest chown 1000:0 /s
+      oneshot hb-chown -v elastic-budget_es-snapshots-b:/s alpine:latest chown 1000:0 /s
     fi
     compose up -d es-hot es-frozen ${ARM_B:+es-hot-b es-frozen-b}
     nodes_up 9200 || { mark es_not_ready; exit 1; }
@@ -123,7 +126,7 @@ f=[json.loads(l)['final_seq'] for l in sys.stdin if l.startswith('{') and 'final
   logs)
     for c in hb-tenx hb-fluent-bit hb-es-hot hb-es-frozen ${ARM_B:+hb-es-hot-b hb-es-frozen-b}; do docker logs "$c" > "$RESULTS/$c.log" 2>&1 || true; done
     # Fluent Bit's own counters: lines in (forward.0) and records back (forward.1), for delivery without a raw copy
-    docker run --rm --network elastic-budget python:3.12-slim python3 -c "import urllib.request; print(urllib.request.urlopen('http://172.30.0.250:2020/api/v1/metrics').read().decode())" > "$RESULTS/fluentbit-metrics.json" 2>/dev/null || true
+    oneshot hb-fbmetrics --network elastic-budget python:3.12-slim python3 -c "import urllib.request; print(urllib.request.urlopen('http://172.30.0.250:2020/api/v1/metrics').read().decode())" > "$RESULTS/fluentbit-metrics.json" || true
     ;;
   down)
     docker rm -f hb-replay hb-storm hb-inventory >/dev/null 2>&1 || true
@@ -132,6 +135,14 @@ f=[json.loads(l)['final_seq'] for l in sys.stdin if l.startswith('{') and 'final
     GH_TOKEN=x compose down
     mark run_end
     touch "$RESULTS/.down.done"
+    ;;
+  clean)
+    docker rm -f -v hb-replay hb-storm hb-inventory hb-feed hb-chown hb-fbmetrics hb-tenx hb-fluent-bit \
+      hb-es-hot hb-es-frozen hb-es-hot-b hb-es-frozen-b >/dev/null 2>&1 || true
+    vols=$(docker volume ls -q | grep '^elastic-budget_' || true)
+    [ -z "$vols" ] || docker volume rm -f $vols >/dev/null
+    docker network rm elastic-budget >/dev/null 2>&1 || true
+    mark clean "\"volumes_removed\":\"$(echo $vols)\""
     ;;
   *) sed -n '2,12p' "$0"; exit 2;;
 esac
