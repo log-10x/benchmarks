@@ -1,0 +1,167 @@
+{
+ "_shards": {
+  "total": 1,
+  "successful": 1,
+  "failed": 0
+ },
+ "es4-compact-dict": {
+  "store_size": "524.6kb",
+  "store_size_in_bytes": 537262,
+  "all_fields": {
+   "total": "517.3kb",
+   "total_in_bytes": 529813,
+   "inverted_index": {
+    "total": "373.7kb",
+    "total_in_bytes": 382681
+   },
+   "stored_fields": "132.1kb",
+   "stored_fields_in_bytes": 135350,
+   "doc_values": "4.4kb",
+   "doc_values_in_bytes": 4545,
+   "points": "4.1kb",
+   "points_in_bytes": 4207,
+   "norms": "2.9kb",
+   "norms_in_bytes": 3030,
+   "term_vectors": "0b",
+   "term_vectors_in_bytes": 0,
+   "knn_vectors": "0b",
+   "knn_vectors_in_bytes": 0,
+   "bloom_filter": "0b",
+   "bloom_filter_in_bytes": 0
+  },
+  "fields": {
+   "_id": {
+    "total": "41.5kb",
+    "total_in_bytes": 42539,
+    "inverted_index": {
+     "total": "38.3kb",
+     "total_in_bytes": 39277
+    },
+    "stored_fields": "3.1kb",
+    "stored_fields_in_bytes": 3262,
+    "doc_values": "0b",
+    "doc_values_in_bytes": 0,
+    "points": "0b",
+    "points_in_bytes": 0,
+    "norms": "0b",
+    "norms_in_bytes": 0,
+    "term_vectors": "0b",
+    "term_vectors_in_bytes": 0,
+    "knn_vectors": "0b",
+    "knn_vectors_in_bytes": 0,
+    "bloom_filter": "0b",
+    "bloom_filter_in_bytes": 0
+   },
+   "_primary_term": {
+    "total": "0b",
+    "total_in_bytes": 0,
+    "inverted_index": {
+     "total": "0b",
+     "total_in_bytes": 0
+    },
+    "stored_fields": "0b",
+    "stored_fields_in_bytes": 0,
+    "doc_values": "0b",
+    "doc_values_in_bytes": 0,
+    "points": "0b",
+    "points_in_bytes": 0,
+    "norms": "0b",
+    "norms_in_bytes": 0,
+    "term_vectors": "0b",
+    "term_vectors_in_bytes": 0,
+    "knn_vectors": "0b",
+    "knn_vectors_in_bytes": 0,
+    "bloom_filter": "0b",
+    "bloom_filter_in_bytes": 0
+   },
+   "_seq_no": {
+    "total": "8.5kb",
+    "total_in_bytes": 8752,
+    "inverted_index": {
+     "total": "0b",
+     "total_in_bytes": 0
+    },
+    "stored_fields": "0b",
+    "stored_fields_in_bytes": 0,
+    "doc_values": "4.4kb",
+    "doc_values_in_bytes": 4545,
+    "points": "4.1kb",
+    "points_in_bytes": 4207,
+    "norms": "0b",
+    "norms_in_bytes": 0,
+    "term_vectors": "0b",
+    "term_vectors_in_bytes": 0,
+    "knn_vectors": "0b",
+    "knn_vectors_in_bytes": 0,
+    "bloom_filter": "0b",
+    "bloom_filter_in_bytes": 0
+   },
+   "_source": {
+    "total": "128.9kb",
+    "total_in_bytes": 132088,
+    "inverted_index": {
+     "total": "0b",
+     "total_in_bytes": 0
+    },
+    "stored_fields": "128.9kb",
+    "stored_fields_in_bytes": 132088,
+    "doc_values": "0b",
+    "doc_values_in_bytes": 0,
+    "points": "0b",
+    "points_in_bytes": 0,
+    "norms": "0b",
+    "norms_in_bytes": 0,
+    "term_vectors": "0b",
+    "term_vectors_in_bytes": 0,
+    "knn_vectors": "0b",
+    "knn_vectors_in_bytes": 0,
+    "bloom_filter": "0b",
+    "bloom_filter_in_bytes": 0
+   },
+   "_version": {
+    "total": "0b",
+    "total_in_bytes": 0,
+    "inverted_index": {
+     "total": "0b",
+     "total_in_bytes": 0
+    },
+    "stored_fields": "0b",
+    "stored_fields_in_bytes": 0,
+    "doc_values": "0b",
+    "doc_values_in_bytes": 0,
+    "points": "0b",
+    "points_in_bytes": 0,
+    "norms": "0b",
+    "norms_in_bytes": 0,
+    "term_vectors": "0b",
+    "term_vectors_in_bytes": 0,
+    "knn_vectors": "0b",
+    "knn_vectors_in_bytes": 0,
+    "bloom_filter": "0b",
+    "bloom_filter_in_bytes": 0
+   },
+   "pattern": {
+    "total": "338.3kb",
+    "total_in_bytes": 346434,
+    "inverted_index": {
+     "total": "335.3kb",
+     "total_in_bytes": 343404
+    },
+    "stored_fields": "0b",
+    "stored_fields_in_bytes": 0,
+    "doc_values": "0b",
+    "doc_values_in_bytes": 0,
+    "points": "0b",
+    "points_in_bytes": 0,
+    "norms": "2.9kb",
+    "norms_in_bytes": 3030,
+    "term_vectors": "0b",
+    "term_vectors_in_bytes": 0,
+    "knn_vectors": "0b",
+    "knn_vectors_in_bytes": 0,
+    "bloom_filter": "0b",
+    "bloom_filter_in_bytes": 0
+   }
+  }
+ }
+}

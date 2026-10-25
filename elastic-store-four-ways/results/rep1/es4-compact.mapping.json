@@ -1,0 +1,18 @@
+{
+ "es4-compact": {
+  "mappings": {
+   "dynamic": "strict",
+   "properties": {
+    "@timestamp": {
+     "type": "date"
+    },
+    "l1x_tid": {
+     "type": "keyword"
+    },
+    "message": {
+     "type": "text"
+    }
+   }
+  }
+ }
+}

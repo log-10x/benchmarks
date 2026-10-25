@@ -1,0 +1,608 @@
+{
+ "rep": 2,
+ "es_url": "http://127.0.0.1:9205",
+ "variants": [
+  "raw",
+  "logsdb",
+  "pattern",
+  "compact",
+  "compact_logsdb"
+ ],
+ "indexes": {
+  "es4-raw": {
+   "sent": 197430,
+   "expected": 197430,
+   "load_s": 20.8,
+   "definition": {
+    "settings": {
+     "index": {
+      "number_of_shards": 1,
+      "number_of_replicas": 0,
+      "codec": "best_compression",
+      "refresh_interval": "-1"
+     }
+    },
+    "mappings": {
+     "dynamic_templates": [
+      {
+       "strings_as_keyword": {
+        "match_mapping_type": "string",
+        "mapping": {
+         "type": "keyword",
+         "ignore_above": 1024
+        }
+       }
+      }
+     ],
+     "properties": {
+      "@timestamp": {
+       "type": "date"
+      },
+      "message": {
+       "type": "text"
+      }
+     }
+    }
+   },
+   "before_merge": {
+    "leases_past_last_op": true,
+    "seq_no": {
+     "max_seq_no": 197429,
+     "local_checkpoint": 197429,
+     "global_checkpoint": 197429
+    },
+    "leases": [
+     {
+      "id": "peer_recovery/NBiULg0kQ9myebtp3YIAXw",
+      "retaining_seq_no": 197430
+     }
+    ]
+   },
+   "forcemerge_s": 0.0,
+   "stats_reads": [
+    {
+     "store_bytes": 20169814,
+     "docs": 197430,
+     "deleted": 0
+    },
+    {
+     "store_bytes": 20169814,
+     "docs": 197430,
+     "deleted": 0
+    }
+   ],
+   "store_bytes": 20169814,
+   "docs": 197430,
+   "segments": 1,
+   "segment_sort": [
+    []
+   ],
+   "settings": {
+    "index.mode": "standard",
+    "index.codec": "best_compression",
+    "index.mapping.source.mode": "STORED",
+    "index.sort.field": [],
+    "index.sort.order": [],
+    "index.logsdb.default_sort_on_message_template": "false",
+    "index.recovery.use_synthetic_source": "false",
+    "index.number_of_shards": "1",
+    "index.number_of_replicas": "0"
+   },
+   "disk_usage_bytes": 20169814,
+   "field_bytes": {
+    "_source": 7483777,
+    "message": 5517683,
+    "_id": 1557533,
+    "@timestamp": 997110,
+    "_seq_no": 602420,
+    "kubernetes.labels.app.kubernetes.io/name": 339668,
+    "kubernetes.container_image_id": 328572,
+    "kubernetes.container_image": 325147,
+    "tenx_tag": 320899,
+    "docker.container_id": 318604,
+    "kubernetes.pod_id": 315734,
+    "kubernetes.pod_name": 314535
+   },
+   "source_stored_bytes": 7483777,
+   "recovery_source_stored_bytes": 0
+  },
+  "es4-logsdb": {
+   "sent": 197430,
+   "expected": 197430,
+   "load_s": 23.1,
+   "definition": {
+    "settings": {
+     "index": {
+      "number_of_shards": 1,
+      "number_of_replicas": 0,
+      "codec": "best_compression",
+      "refresh_interval": "-1",
+      "mode": "logsdb"
+     }
+    },
+    "mappings": {
+     "dynamic_templates": [
+      {
+       "strings_as_keyword": {
+        "match_mapping_type": "string",
+        "mapping": {
+         "type": "keyword",
+         "ignore_above": 1024
+        }
+       }
+      }
+     ],
+     "properties": {
+      "@timestamp": {
+       "type": "date"
+      },
+      "message": {
+       "type": "text"
+      }
+     }
+    }
+   },
+   "before_merge": {
+    "leases_past_last_op": true,
+    "seq_no": {
+     "max_seq_no": 197429,
+     "local_checkpoint": 197429,
+     "global_checkpoint": 197429
+    },
+    "leases": [
+     {
+      "id": "peer_recovery/NBiULg0kQ9myebtp3YIAXw",
+      "retaining_seq_no": 197430
+     }
+    ]
+   },
+   "forcemerge_s": 1.7,
+   "stats_reads": [
+    {
+     "store_bytes": 11997974,
+     "docs": 197430,
+     "deleted": 0
+    },
+    {
+     "store_bytes": 11997974,
+     "docs": 197430,
+     "deleted": 0
+    }
+   ],
+   "store_bytes": 11997974,
+   "docs": 197430,
+   "segments": 1,
+   "segment_sort": [
+    [
+     {
+      "field": "@timestamp",
+      "mode": "max",
+      "missing": "-9223372036854775808",
+      "reverse": true
+     }
+    ]
+   ],
+   "settings": {
+    "index.mode": "logsdb",
+    "index.codec": "best_compression",
+    "index.mapping.source.mode": "SYNTHETIC",
+    "index.sort.field": [
+     "@timestamp"
+    ],
+    "index.sort.order": [
+     "desc"
+    ],
+    "index.logsdb.default_sort_on_message_template": "false",
+    "index.recovery.use_synthetic_source": "true",
+    "index.number_of_shards": "1",
+    "index.number_of_replicas": "0"
+   },
+   "disk_usage_bytes": 11997974,
+   "field_bytes": {
+    "message": 5477513,
+    "message._original": 2271041,
+    "_id": 737136,
+    "tenx_tag": 286861,
+    "docker.container_id": 284274,
+    "kubernetes.labels.app.kubernetes.io/name": 282297,
+    "kubernetes.container_name": 279951,
+    "kubernetes.labels.pod-template-hash": 272450,
+    "kubernetes.container_image_id": 261594,
+    "kubernetes.container_image": 258169,
+    "kubernetes.pod_id": 257487,
+    "kubernetes.pod_name": 256759
+   },
+   "source_stored_bytes": 0,
+   "recovery_source_stored_bytes": 0
+  },
+  "es4-pattern": {
+   "sent": 197430,
+   "expected": 197430,
+   "load_s": 24.1,
+   "definition": {
+    "settings": {
+     "index": {
+      "number_of_shards": 1,
+      "number_of_replicas": 0,
+      "codec": "best_compression",
+      "refresh_interval": "-1",
+      "mode": "logsdb",
+      "logsdb.default_sort_on_message_template": true
+     }
+    },
+    "mappings": {
+     "dynamic_templates": [
+      {
+       "strings_as_keyword": {
+        "match_mapping_type": "string",
+        "mapping": {
+         "type": "keyword",
+         "ignore_above": 1024
+        }
+       }
+      }
+     ],
+     "properties": {
+      "@timestamp": {
+       "type": "date"
+      },
+      "message": {
+       "type": "pattern_text"
+      }
+     }
+    }
+   },
+   "before_merge": {
+    "leases_past_last_op": true,
+    "seq_no": {
+     "max_seq_no": 197429,
+     "local_checkpoint": 197429,
+     "global_checkpoint": 197429
+    },
+    "leases": [
+     {
+      "id": "peer_recovery/NBiULg0kQ9myebtp3YIAXw",
+      "retaining_seq_no": 197430
+     }
+    ]
+   },
+   "forcemerge_s": 1.2,
+   "stats_reads": [
+    {
+     "store_bytes": 10647728,
+     "docs": 197430,
+     "deleted": 0
+    },
+    {
+     "store_bytes": 10647728,
+     "docs": 197430,
+     "deleted": 0
+    }
+   ],
+   "store_bytes": 10647728,
+   "docs": 197430,
+   "segments": 1,
+   "segment_sort": [
+    [
+     {
+      "field": "@timestamp",
+      "mode": "max",
+      "missing": "-9223372036854775808",
+      "reverse": true
+     }
+    ]
+   ],
+   "settings": {
+    "index.mode": "logsdb",
+    "index.codec": "best_compression",
+    "index.mapping.source.mode": "SYNTHETIC",
+    "index.sort.field": [
+     "@timestamp"
+    ],
+    "index.sort.order": [
+     "desc"
+    ],
+    "index.logsdb.default_sort_on_message_template": "true",
+    "index.recovery.use_synthetic_source": "true",
+    "index.number_of_shards": "1",
+    "index.number_of_replicas": "0"
+   },
+   "disk_usage_bytes": 10647728,
+   "field_bytes": {
+    "message": 3764372,
+    "message.args": 1690568,
+    "_id": 722584,
+    "message.template": 383119,
+    "message.template_id": 333671,
+    "tenx_tag": 286861,
+    "docker.container_id": 284272,
+    "kubernetes.labels.app.kubernetes.io/name": 282297,
+    "kubernetes.container_name": 279951,
+    "kubernetes.labels.pod-template-hash": 272450,
+    "kubernetes.container_image_id": 261594,
+    "kubernetes.container_image": 258169
+   },
+   "source_stored_bytes": 0,
+   "recovery_source_stored_bytes": 0
+  },
+  "es4-compact": {
+   "sent": 157228,
+   "expected": 157228,
+   "load_s": 9.0,
+   "definition": {
+    "settings": {
+     "index": {
+      "number_of_shards": 1,
+      "number_of_replicas": 0,
+      "codec": "best_compression",
+      "refresh_interval": "-1"
+     }
+    },
+    "mappings": {
+     "dynamic": "strict",
+     "properties": {
+      "@timestamp": {
+       "type": "date"
+      },
+      "message": {
+       "type": "text"
+      },
+      "l1x_tid": {
+       "type": "keyword"
+      }
+     }
+    }
+   },
+   "before_merge": {
+    "leases_past_last_op": true,
+    "seq_no": {
+     "max_seq_no": 157227,
+     "local_checkpoint": 157227,
+     "global_checkpoint": 157227
+    },
+    "leases": [
+     {
+      "id": "peer_recovery/NBiULg0kQ9myebtp3YIAXw",
+      "retaining_seq_no": 157228
+     }
+    ]
+   },
+   "forcemerge_s": 0.9,
+   "stats_reads": [
+    {
+     "store_bytes": 14358885,
+     "docs": 157228,
+     "deleted": 0
+    },
+    {
+     "store_bytes": 14358885,
+     "docs": 157228,
+     "deleted": 0
+    }
+   ],
+   "store_bytes": 14358885,
+   "docs": 157228,
+   "segments": 1,
+   "segment_sort": [
+    []
+   ],
+   "settings": {
+    "index.mode": "standard",
+    "index.codec": "best_compression",
+    "index.mapping.source.mode": "STORED",
+    "index.sort.field": [],
+    "index.sort.order": [],
+    "index.logsdb.default_sort_on_message_template": "false",
+    "index.recovery.use_synthetic_source": "false",
+    "index.number_of_shards": "1",
+    "index.number_of_replicas": "0"
+   },
+   "disk_usage_bytes": 14358885,
+   "field_bytes": {
+    "message": 6939213,
+    "_source": 4423769,
+    "_id": 1226340,
+    "@timestamp": 794693,
+    "_seq_no": 480122,
+    "l1x_tid": 452946,
+    "_primary_term": 0,
+    "_version": 0
+   },
+   "source_stored_bytes": 4423769,
+   "recovery_source_stored_bytes": 0
+  },
+  "es4-compact-dict": {
+   "sent": 3030,
+   "expected": 3030,
+   "load_s": 0.4,
+   "definition": {
+    "settings": {
+     "index": {
+      "number_of_shards": 1,
+      "number_of_replicas": 0,
+      "codec": "best_compression",
+      "refresh_interval": "-1"
+     }
+    },
+    "mappings": {
+     "dynamic": false,
+     "properties": {
+      "pattern": {
+       "type": "text"
+      }
+     }
+    }
+   },
+   "before_merge": {
+    "leases_past_last_op": true,
+    "seq_no": {
+     "max_seq_no": 3029,
+     "local_checkpoint": 3029,
+     "global_checkpoint": 3029
+    },
+    "leases": [
+     {
+      "id": "peer_recovery/NBiULg0kQ9myebtp3YIAXw",
+      "retaining_seq_no": 3030
+     }
+    ]
+   },
+   "forcemerge_s": 0.1,
+   "stats_reads": [
+    {
+     "store_bytes": 533285,
+     "docs": 3030,
+     "deleted": 0
+    },
+    {
+     "store_bytes": 533285,
+     "docs": 3030,
+     "deleted": 0
+    }
+   ],
+   "store_bytes": 533285,
+   "docs": 3030,
+   "segments": 1,
+   "segment_sort": [
+    []
+   ],
+   "settings": {
+    "index.mode": "standard",
+    "index.codec": "best_compression",
+    "index.mapping.source.mode": "STORED",
+    "index.sort.field": [],
+    "index.sort.order": [],
+    "index.logsdb.default_sort_on_message_template": "false",
+    "index.recovery.use_synthetic_source": "false",
+    "index.number_of_shards": "1",
+    "index.number_of_replicas": "0"
+   },
+   "disk_usage_bytes": 533285,
+   "field_bytes": {
+    "pattern": 341798,
+    "_source": 132607,
+    "_id": 42628,
+    "_seq_no": 8751,
+    "_primary_term": 0,
+    "_version": 0
+   },
+   "source_stored_bytes": 132607,
+   "recovery_source_stored_bytes": 0
+  },
+  "es4-compact-logsdb": {
+   "sent": 157228,
+   "expected": 157228,
+   "load_s": 12.4,
+   "definition": {
+    "settings": {
+     "index": {
+      "number_of_shards": 1,
+      "number_of_replicas": 0,
+      "codec": "best_compression",
+      "refresh_interval": "-1",
+      "mode": "logsdb"
+     }
+    },
+    "mappings": {
+     "dynamic": "strict",
+     "properties": {
+      "@timestamp": {
+       "type": "date"
+      },
+      "message": {
+       "type": "text"
+      },
+      "l1x_tid": {
+       "type": "keyword"
+      }
+     }
+    }
+   },
+   "before_merge": {
+    "leases_past_last_op": true,
+    "seq_no": {
+     "max_seq_no": 157227,
+     "local_checkpoint": 157227,
+     "global_checkpoint": 157227
+    },
+    "leases": [
+     {
+      "id": "peer_recovery/NBiULg0kQ9myebtp3YIAXw",
+      "retaining_seq_no": 157228
+     }
+    ]
+   },
+   "forcemerge_s": 1.0,
+   "stats_reads": [
+    {
+     "store_bytes": 10188447,
+     "docs": 157228,
+     "deleted": 0
+    },
+    {
+     "store_bytes": 10188447,
+     "docs": 157228,
+     "deleted": 0
+    }
+   ],
+   "store_bytes": 10188447,
+   "docs": 157228,
+   "segments": 1,
+   "segment_sort": [
+    [
+     {
+      "field": "@timestamp",
+      "mode": "max",
+      "missing": "-9223372036854775808",
+      "reverse": true
+     }
+    ]
+   ],
+   "settings": {
+    "index.mode": "logsdb",
+    "index.codec": "best_compression",
+    "index.mapping.source.mode": "SYNTHETIC",
+    "index.sort.field": [
+     "@timestamp"
+    ],
+    "index.sort.order": [
+     "desc"
+    ],
+    "index.logsdb.default_sort_on_message_template": "false",
+    "index.recovery.use_synthetic_source": "true",
+    "index.number_of_shards": "1",
+    "index.number_of_replicas": "0"
+   },
+   "disk_usage_bytes": 10188447,
+   "field_bytes": {
+    "message": 6863492,
+    "message._original": 2202713,
+    "_id": 585681,
+    "l1x_tid": 444192,
+    "@timestamp": 32725,
+    "_seq_no": 8568,
+    "_field_names": 7440,
+    "message._original.counts": 2502,
+    "__root_doc_for_nested": 0,
+    "_primary_term": 0,
+    "_recovery_source_size": 0,
+    "_version": 0
+   },
+   "source_stored_bytes": 0,
+   "recovery_source_stored_bytes": 0
+  }
+ },
+ "inputs": {
+  "lines": 197430,
+  "events": 157228,
+  "template_lines": 3030,
+  "template_hashes": 3030
+ },
+ "variant_store_bytes": {
+  "raw": 20169814,
+  "logsdb": 11997974,
+  "pattern": 10647728,
+  "compact": 14892170,
+  "compact_logsdb": 10721732
+ }
+}

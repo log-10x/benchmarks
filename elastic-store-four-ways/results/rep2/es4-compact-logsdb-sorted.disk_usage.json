@@ -1,0 +1,299 @@
+{
+ "_shards": {
+  "total": 1,
+  "successful": 1,
+  "failed": 0
+ },
+ "es4-compact-logsdb-sorted": {
+  "store_size": "7.9mb",
+  "store_size_in_bytes": 8339506,
+  "all_fields": {
+   "total": "7.9mb",
+   "total_in_bytes": 8298221,
+   "inverted_index": {
+    "total": "5.3mb",
+    "total_in_bytes": 5595965
+   },
+   "stored_fields": "488.5kb",
+   "stored_fields_in_bytes": 500237,
+   "doc_values": "2.1mb",
+   "doc_values_in_bytes": 2202019,
+   "points": "0b",
+   "points_in_bytes": 0,
+   "norms": "0b",
+   "norms_in_bytes": 0,
+   "term_vectors": "0b",
+   "term_vectors_in_bytes": 0,
+   "knn_vectors": "0b",
+   "knn_vectors_in_bytes": 0,
+   "bloom_filter": "0b",
+   "bloom_filter_in_bytes": 0
+  },
+  "fields": {
+   "@timestamp": {
+    "total": "316.4kb",
+    "total_in_bytes": 324016,
+    "inverted_index": {
+     "total": "0b",
+     "total_in_bytes": 0
+    },
+    "stored_fields": "0b",
+    "stored_fields_in_bytes": 0,
+    "doc_values": "316.4kb",
+    "doc_values_in_bytes": 324016,
+    "points": "0b",
+    "points_in_bytes": 0,
+    "norms": "0b",
+    "norms_in_bytes": 0,
+    "term_vectors": "0b",
+    "term_vectors_in_bytes": 0,
+    "knn_vectors": "0b",
+    "knn_vectors_in_bytes": 0,
+    "bloom_filter": "0b",
+    "bloom_filter_in_bytes": 0
+   },
+   "__root_doc_for_nested": {
+    "total": "0b",
+    "total_in_bytes": 0,
+    "inverted_index": {
+     "total": "0b",
+     "total_in_bytes": 0
+    },
+    "stored_fields": "0b",
+    "stored_fields_in_bytes": 0,
+    "doc_values": "0b",
+    "doc_values_in_bytes": 0,
+    "points": "0b",
+    "points_in_bytes": 0,
+    "norms": "0b",
+    "norms_in_bytes": 0,
+    "term_vectors": "0b",
+    "term_vectors_in_bytes": 0,
+    "knn_vectors": "0b",
+    "knn_vectors_in_bytes": 0,
+    "bloom_filter": "0b",
+    "bloom_filter_in_bytes": 0
+   },
+   "_field_names": {
+    "total": "7.2kb",
+    "total_in_bytes": 7440,
+    "inverted_index": {
+     "total": "7.2kb",
+     "total_in_bytes": 7440
+    },
+    "stored_fields": "0b",
+    "stored_fields_in_bytes": 0,
+    "doc_values": "0b",
+    "doc_values_in_bytes": 0,
+    "points": "0b",
+    "points_in_bytes": 0,
+    "norms": "0b",
+    "norms_in_bytes": 0,
+    "term_vectors": "0b",
+    "term_vectors_in_bytes": 0,
+    "knn_vectors": "0b",
+    "knn_vectors_in_bytes": 0,
+    "bloom_filter": "0b",
+    "bloom_filter_in_bytes": 0
+   },
+   "_id": {
+    "total": "1.1mb",
+    "total_in_bytes": 1190504,
+    "inverted_index": {
+     "total": "674kb",
+     "total_in_bytes": 690267
+    },
+    "stored_fields": "488.5kb",
+    "stored_fields_in_bytes": 500237,
+    "doc_values": "0b",
+    "doc_values_in_bytes": 0,
+    "points": "0b",
+    "points_in_bytes": 0,
+    "norms": "0b",
+    "norms_in_bytes": 0,
+    "term_vectors": "0b",
+    "term_vectors_in_bytes": 0,
+    "knn_vectors": "0b",
+    "knn_vectors_in_bytes": 0,
+    "bloom_filter": "0b",
+    "bloom_filter_in_bytes": 0
+   },
+   "_primary_term": {
+    "total": "0b",
+    "total_in_bytes": 0,
+    "inverted_index": {
+     "total": "0b",
+     "total_in_bytes": 0
+    },
+    "stored_fields": "0b",
+    "stored_fields_in_bytes": 0,
+    "doc_values": "0b",
+    "doc_values_in_bytes": 0,
+    "points": "0b",
+    "points_in_bytes": 0,
+    "norms": "0b",
+    "norms_in_bytes": 0,
+    "term_vectors": "0b",
+    "term_vectors_in_bytes": 0,
+    "knn_vectors": "0b",
+    "knn_vectors_in_bytes": 0,
+    "bloom_filter": "0b",
+    "bloom_filter_in_bytes": 0
+   },
+   "_recovery_source_size": {
+    "total": "0b",
+    "total_in_bytes": 0,
+    "inverted_index": {
+     "total": "0b",
+     "total_in_bytes": 0
+    },
+    "stored_fields": "0b",
+    "stored_fields_in_bytes": 0,
+    "doc_values": "0b",
+    "doc_values_in_bytes": 0,
+    "points": "0b",
+    "points_in_bytes": 0,
+    "norms": "0b",
+    "norms_in_bytes": 0,
+    "term_vectors": "0b",
+    "term_vectors_in_bytes": 0,
+    "knn_vectors": "0b",
+    "knn_vectors_in_bytes": 0,
+    "bloom_filter": "0b",
+    "bloom_filter_in_bytes": 0
+   },
+   "_seq_no": {
+    "total": "160.3kb",
+    "total_in_bytes": 164212,
+    "inverted_index": {
+     "total": "0b",
+     "total_in_bytes": 0
+    },
+    "stored_fields": "0b",
+    "stored_fields_in_bytes": 0,
+    "doc_values": "160.3kb",
+    "doc_values_in_bytes": 164212,
+    "points": "0b",
+    "points_in_bytes": 0,
+    "norms": "0b",
+    "norms_in_bytes": 0,
+    "term_vectors": "0b",
+    "term_vectors_in_bytes": 0,
+    "knn_vectors": "0b",
+    "knn_vectors_in_bytes": 0,
+    "bloom_filter": "0b",
+    "bloom_filter_in_bytes": 0
+   },
+   "_version": {
+    "total": "0b",
+    "total_in_bytes": 0,
+    "inverted_index": {
+     "total": "0b",
+     "total_in_bytes": 0
+    },
+    "stored_fields": "0b",
+    "stored_fields_in_bytes": 0,
+    "doc_values": "0b",
+    "doc_values_in_bytes": 0,
+    "points": "0b",
+    "points_in_bytes": 0,
+    "norms": "0b",
+    "norms_in_bytes": 0,
+    "term_vectors": "0b",
+    "term_vectors_in_bytes": 0,
+    "knn_vectors": "0b",
+    "knn_vectors_in_bytes": 0,
+    "bloom_filter": "0b",
+    "bloom_filter_in_bytes": 0
+   },
+   "l1x_tid": {
+    "total": "103.6kb",
+    "total_in_bytes": 106096,
+    "inverted_index": {
+     "total": "54.4kb",
+     "total_in_bytes": 55756
+    },
+    "stored_fields": "0b",
+    "stored_fields_in_bytes": 0,
+    "doc_values": "49.1kb",
+    "doc_values_in_bytes": 50340,
+    "points": "0b",
+    "points_in_bytes": 0,
+    "norms": "0b",
+    "norms_in_bytes": 0,
+    "term_vectors": "0b",
+    "term_vectors_in_bytes": 0,
+    "knn_vectors": "0b",
+    "knn_vectors_in_bytes": 0,
+    "bloom_filter": "0b",
+    "bloom_filter_in_bytes": 0
+   },
+   "message": {
+    "total": "4.6mb",
+    "total_in_bytes": 4842502,
+    "inverted_index": {
+     "total": "4.6mb",
+     "total_in_bytes": 4842502
+    },
+    "stored_fields": "0b",
+    "stored_fields_in_bytes": 0,
+    "doc_values": "0b",
+    "doc_values_in_bytes": 0,
+    "points": "0b",
+    "points_in_bytes": 0,
+    "norms": "0b",
+    "norms_in_bytes": 0,
+    "term_vectors": "0b",
+    "term_vectors_in_bytes": 0,
+    "knn_vectors": "0b",
+    "knn_vectors_in_bytes": 0,
+    "bloom_filter": "0b",
+    "bloom_filter_in_bytes": 0
+   },
+   "message._original": {
+    "total": "1.5mb",
+    "total_in_bytes": 1660949,
+    "inverted_index": {
+     "total": "0b",
+     "total_in_bytes": 0
+    },
+    "stored_fields": "0b",
+    "stored_fields_in_bytes": 0,
+    "doc_values": "1.5mb",
+    "doc_values_in_bytes": 1660949,
+    "points": "0b",
+    "points_in_bytes": 0,
+    "norms": "0b",
+    "norms_in_bytes": 0,
+    "term_vectors": "0b",
+    "term_vectors_in_bytes": 0,
+    "knn_vectors": "0b",
+    "knn_vectors_in_bytes": 0,
+    "bloom_filter": "0b",
+    "bloom_filter_in_bytes": 0
+   },
+   "message._original.counts": {
+    "total": "2.4kb",
+    "total_in_bytes": 2502,
+    "inverted_index": {
+     "total": "0b",
+     "total_in_bytes": 0
+    },
+    "stored_fields": "0b",
+    "stored_fields_in_bytes": 0,
+    "doc_values": "2.4kb",
+    "doc_values_in_bytes": 2502,
+    "points": "0b",
+    "points_in_bytes": 0,
+    "norms": "0b",
+    "norms_in_bytes": 0,
+    "term_vectors": "0b",
+    "term_vectors_in_bytes": 0,
+    "knn_vectors": "0b",
+    "knn_vectors_in_bytes": 0,
+    "bloom_filter": "0b",
+    "bloom_filter_in_bytes": 0
+   }
+  }
+ }
+}
