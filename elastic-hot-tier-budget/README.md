@@ -124,3 +124,39 @@ What moves to frozen sits in the snapshot repository at $0.033 per GB-month. Ela
 **Rig additions.** `compose.arm-b.yaml` (arm B's cluster), `es-setup-b.mjs` (arm A's ILM policies, poll and templates copied to arm B), `top-half.py` and `render-fb-two-arm.py` with `fluent-bit-two-arm/` (the fixed rule), `forward_send.py paced` and `run.sh feed` (one numbered sender, speed changed in place), `meter.py` with `ES_URL_B` (both clusters, per stream, refresh first), `dump-seq.py` and `score-two-arm.py` (delivery and the three criteria), `phases-two-arm.sh` (the schedule), and `record-build.py` (`build.json`: every image digest and the commits).
 
 Not shown: a measured Elastic Cloud bill, 300 nodes, compact, autoscaling, or a hold longer than the hot retention.
+
+## Two-arm run, warm placement, 2026-10-25
+
+The question, from the method addendum written before the run (`TWO_ARM_METHOD_WARM.md`, 2026-10-25): with moved lines written to warm instead of hot, does arm A's hot store stay at S through the 2.5x step while arm B's still tracks load? Run 2026-10-25 05:33 to 09:34 UTC, results in `results-two-arm-warm/`.
+
+**Result: the hold keeps hot at S through the step and the reroute tracks load; delivery is exact in both arms.** Arm A's hot store stayed between 0.94 and 1.04 S from 20 minutes after the step to the end of the hold (mean 1.00 S). Arm B rose to 1.66 times its level before the step and was still rising when the hold ended. No tier_down or overflow index was found on a hot node in any of 144 readings.
+
+**The one change.** Arm A's tier_down index and arm B's overflow stream are written on a warm node and mount on frozen from there. The tier_down template carries `index.routing.allocation.include._tier_preference: data_warm,data_hot`, rendered by log10x-mcp's recipe with `tierDownPlacement: 'warm'`; arm B's overflow template is copied from it. Each arm's frozen node also carries the `data_warm` role (`compose.warm.yaml`, 512 MB heap, 1200 MB limit, unchanged), since a third node per arm would set 9.5 GiB of container limits against the Docker VM's 7.65 GiB. Arm A's kept stream and arm B's normal stream stay on hot. Everything else is the 2026-10-24 run: the same feed (sha256 24e02233a797…), the same rule for arm B (`opentelemetry-collector`, 68.9% of bytes), the same ILM policies, rollover ages and 100-second poll, engine `ghcr.io/log-10x/edge-10x:1.1.150`.
+
+**The hourly run.** `tenx-recur` from log10x-mcp `feat/elastic-tierdown-warm` at c1b456a (1.30.85; `build.json`). It reads which node each tier_down index's shards sit on, counts only those on a `data_hot` or `data` node in the hot split, and counts moved lines in flight against S only while the tier_down write index sits on hot. Every one of the 24 runs reported the tier_down write index off hot, and all exited 0.
+
+**Load.** S = 63 MB, 0.7 of the 90 MB the dry run at 0:10 said hot would settle at with nothing held (the same S as the 2026-10-24 run). S bound at 07:29:53 UTC on the first rule, a reading at or above 0.95 S (60.6 MB). Steady for 40 minutes, then one step to 140 lines a second at 08:09:51, held 60 minutes. The feed stopped at 09:09:58 after 1,025,170 lines, followed by a 20-minute drain.
+
+| | Criterion | Result |
+|---|---|---|
+| 1 | Arm A's hot store at or under 1.10 S at every reading from 20 minutes after the step to the end of the hold | **Pass.** 25 readings (08:29:51 to 09:09:51), none over 1.10 S. Peak 1.04 S (65.7 MB at 08:49:51), mean 1.00 S. |
+| 2 | Arm B's hot store above 1.5 times its pre-step level during the hold; "no differentiator" if every reading from 20 minutes after the step stays within 1.10 times | **Pass.** Pre-step 47.4 MB. Peak 78.7 MB (1.66 times) at the end of the hold, still rising. Above 1.10 times in the scored window, so the run shows a differentiator. |
+| 3 | Every line in each arm on hot, warm or frozen, by sequence number | **Pass.** Arm B: 1,025,170 documents, seq 1 to 1,025,170, none missing or repeated, each in the stream its service names. Arm A: all 1,025,014 non-blank lines are in the 811,618 returned records, checked as in the 2026-10-24 run; the other 156 lines are blank. |
+
+Hot and warm per arm, from the meter (`score.json`, `meter.jsonl.gz`). Warm is reported, not scored.
+
+| UTC | Minutes from step | Arm A hot node | A kept (`tenx-app`) | A tier_down on warm | Arm B hot node | B normal (`native-app`) | B overflow on warm |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| 20 minutes before, mean | | 61.6 MB (0.98 S) | 60.8 MB | 3.8 MB | 47.4 MB | 46.6 MB | 2.7 MB |
+| 08:09 | 0 | 63.0 MB (1.00 S) | 62.2 MB | 6.9 MB | 47.2 MB | 46.5 MB | 3.6 MB |
+| 08:29 | +20 | 62.2 MB (0.99 S) | 60.6 MB | 14.7 MB | 57.0 MB | 55.6 MB | 6.3 MB |
+| 08:49, arm A's peak | +40 | 65.7 MB (1.04 S) | 64.7 MB | 10.4 MB | 69.7 MB | 68.3 MB | 4.6 MB |
+| 09:09, end of hold and arm B's peak | +60 | 65.2 MB (1.03 S) | 64.0 MB | 7.9 MB | 78.7 MB | 77.6 MB | 3.7 MB |
+
+Warm peaked at 20.7 MB in arm A (08:34:51) and 9.1 MB in arm B (08:33:11). Each tier_down and overflow index was found mounted about 7 minutes after its rollover, as in the 2026-10-24 run; those minutes are now spent on warm. Arm A mounted 19 tier_down and 10 kept indices on frozen; arm B 19 overflow and 10 normal. Beside the 2026-10-24 run, arm A's peak in the hold went from 1.43 S to 1.04 S, and arm B's rise from 1.72 to 1.66 times its pre-step level.
+
+**Smoke**, 2026-10-25 05:05 to 05:31 UTC, every phase at a tenth of its length, with the dry run at 300 seconds (`results-two-arm-warm-smoke/`). Both arms received every line: arm B held 102,734 documents; arm A held 102,708 non-blank lines, exact by the same check. No tier_down or overflow index was on hot, and each arm mounted a frozen index from warm. Two meters read the same clusters in the smoke (`timeline.jsonl.note`).
+
+**Rig additions.** `compose.warm.yaml`, `phases-two-arm-warm.sh` (the 2026-10-24 schedule with warm placement; containers and volumes removed before and after), `es-setup.mjs` and `es-setup-b.mjs` (`TD_PLACEMENT=warm` renders the recipe with the option and checks each bootstrap index sits on a warm node), `meter.py` (each shard's node from `_cat/shards`: per stream, store on hot and on warm; per arm, the warm node's store), `score-two-arm.py` (the warm lines beside the unchanged criteria), `run.sh clean`.
+
+Not shown: the cost of a warm tier, a measured Elastic Cloud bill, 300 nodes, compact, autoscaling, or a hold longer than the hot retention.
