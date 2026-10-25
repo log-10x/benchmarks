@@ -11,3 +11,9 @@ function prep(tag, ts, rec)
   rec["fb_ts"] = string.format("%.3f", ts)
   return 2, ts, rec
 end
+
+-- returned records: the Forward tag they came back under (the Receiver's tag with the tenx. prefix)
+function return_tag(tag, ts, rec)
+  rec["_fb_tag"] = tag
+  return 2, ts, rec
+end

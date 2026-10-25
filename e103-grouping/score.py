@@ -5,8 +5,9 @@ message (`log`) is split on "\\n" and each line is matched to the line sent by i
 Reports, per case and in total: records returned, lines returned, cross-container records (a record whose
 lines came from more than one sender container), lines missing, lines duplicated; and, as diagnostics, the
 stack-trace events returned whole (head and every continuation line in one record holding nothing else)
-and the cross-container records by the pause in their episode.
-Exit status: 0 PASS; 1 FAIL (any cross-container record, missing line or duplicated line); 2 bad input.
+and the cross-container records by the pause in their episode. When the returned records carry _fb_tag (the
+Forward tag they came back under), records whose tag is not tenx.<the tag their first line was sent under>.
+Exit status: 0 PASS; 1 FAIL (any cross-container record, missing line, duplicated line or wrong tag); 2 bad input.
   score.py <results dir>        reads sent.jsonl[.gz], returned.jsonl[.gz], in.jsonl[.gz]; writes score.json
   score.py --self-test          checks the verdict on a built clean input and a built broken input"""
 import collections, gzip, json, os, re, sys, tempfile
@@ -67,6 +68,10 @@ def score(R):
             seen[s] += 1
         case = sent[seqs[0]]['case']
         per[case]['records'] += 1
+        if '_fb_tag' in rec:
+            tot['tag_checked'] += 1
+            if rec['_fb_tag'] != 'tenx.' + sent[seqs[0]]['tag']:
+                per[case]['records_wrong_tag'] += 1
         per[case]['lines_returned'] += len(lines)
         conts = [sent[s]['container'] for s in seqs]
         evs = {sent[s]['event'] for s in seqs}
@@ -101,7 +106,7 @@ def score(R):
     total.update({k: v for k, v in tot.items() if k != 'lines_returned'})
     total['records'] += tot['records_without_sent_line'] + tot['records_without_log']
     total['lines_returned'] = tot['lines_returned']
-    verdict = 'PASS' if not (total['cross_container_records'] or total['lines_missing'] or total['lines_duplicated']) else 'FAIL'
+    verdict = 'PASS' if not (total['cross_container_records'] or total['lines_missing'] or total['lines_duplicated'] or total['records_wrong_tag']) else 'FAIL'
     out = {'verdict': verdict, 'records_in_returned_file': len(recs), 'fluent_bit_in_records': fb_in,
            'cases': {c: dict(per[c], cross_container_by_pause_s={str(k): v for k, v in sorted(cross_by_pause[c].items())}) for c in cases},
            'total': dict(total), 'cross_container_examples': cross[:20]}
@@ -109,7 +114,7 @@ def score(R):
 
 
 KEYS = ['lines_sent', 'records', 'lines_returned', 'cross_container_records', 'lines_in_cross_container_records',
-        'lines_missing', 'lines_duplicated', 'trace_events', 'trace_events_whole']
+        'lines_missing', 'lines_duplicated', 'records_wrong_tag', 'trace_events', 'trace_events_whole']
 
 
 def report(out):
@@ -120,31 +125,33 @@ def report(out):
     t = out['total']
     print(f'| total | ' + ' | '.join(str(t.get(k, 0)) for k in KEYS) + ' | |')
     print(json.dumps({k: out[k] for k in ('verdict', 'records_in_returned_file', 'fluent_bit_in_records')} |
-                     {k: t.get(k, 0) for k in ('records_without_sent_line', 'records_without_log', 'nonblank_lines_without_token')}))
+                     {k: t.get(k, 0) for k in ('records_without_sent_line', 'records_without_log', 'nonblank_lines_without_token', 'tag_checked')}))
 
 
 def self_test():
     """A clean input must PASS; the same input with one cross-container record (the README's shape: a
-    jaeger head that took kafka's banner lines) must FAIL."""
-    def build(d, broken):
+    jaeger head that took kafka's banner lines) must FAIL, and so must one record back under the wrong tag."""
+    def build(d, broken, bad_tag=False):
         sent = [(1, 'b', 'b-jaeger', 'b0A', 'single'), (2, 'b', 'b-kafka', 'b0Bbanner', 'banner'), (3, 'b', 'b-kafka', 'b0Bbanner', 'banner'),
                 (4, 'd', 'd-orders', 'd0A', 'trace'), (5, 'd', 'd-orders', 'd0A', 'trace')]
         with open(os.path.join(d, 'sent.jsonl'), 'w') as f:
             for s, c, cont, ev, kind in sent:
-                f.write(json.dumps({'seq': s, 'case': c, 'ep': 0, 'pause': 0, 'container': cont, 'event': ev, 'kind': kind,
+                f.write(json.dumps({'seq': s, 'case': c, 'ep': 0, 'pause': 0, 'tag': 'app.replay', 'container': cont, 'event': ev, 'kind': kind,
                                     'role': 'head', 'line': f'line e103id={s}'}) + '\n')
         recs = ([['line e103id=1', 'banner e103id=2', 'banner e103id=3']] if broken else [['line e103id=1'], ['banner e103id=2', 'banner e103id=3']])
         recs.append(['head e103id=4', '\tat x e103id=5'])
         with open(os.path.join(d, 'returned.jsonl'), 'w') as f:
-            for r in recs:
-                f.write(json.dumps({'log': '\n'.join(r), 'kubernetes': {'container_name': 'x'}}) + '\n')
+            for i, r in enumerate(recs):
+                tag = 'tenx.wrong' if bad_tag and i == 0 else 'tenx.app.replay'
+                f.write(json.dumps({'log': '\n'.join(r), 'kubernetes': {'container_name': 'x'}, '_fb_tag': tag}) + '\n')
     ok = True
-    for broken, want in ((False, 'PASS'), (True, 'FAIL')):
+    for name, broken, bad_tag, want in (('clean', False, False, 'PASS'), ('cross-container', True, False, 'FAIL'), ('wrong tag', False, True, 'FAIL')):
         with tempfile.TemporaryDirectory() as d:
-            build(d, broken)
+            build(d, broken, bad_tag)
             got = score(d)
-            print(json.dumps({'input': 'broken' if broken else 'clean', 'want': want, 'got': got['verdict'],
-                              'cross_container_records': got['total'].get('cross_container_records', 0)}))
+            print(json.dumps({'input': name, 'want': want, 'got': got['verdict'],
+                              'cross_container_records': got['total'].get('cross_container_records', 0),
+                              'records_wrong_tag': got['total'].get('records_wrong_tag', 0)}))
             ok &= got['verdict'] == want
     return ok
 

@@ -14,6 +14,7 @@
 #   E103_CONFIG_DIR     host directory mounted read-only over the image's config (/etc/tenx/config)
 #   E103_MODULES_DIR    host directory mounted read-only over the image's modules (/opt/tenx-edge/lib/app/modules)
 #   E103_LABEL          results subdirectory name (default: shipped-1.1.150, or override when a dir is set)
+#   E103_JAVA_HEAP      sets TENX_JAVA_HEAP on the Receiver, for an image that runs the engine jar on a JVM
 set -euo pipefail
 HERE=$(cd "$(dirname "$0")" && pwd)
 RIG=$(cd "$HERE/../elastic-hot-tier-budget/rig" && pwd)
@@ -28,7 +29,9 @@ DATA=$RES/data
 # (results-two-arm*/values/compose.receiver.yaml); GH_* (the policy branch) is left out: nothing is held
 ARGS=(@run/input/forwarder/fluentbit @apps/receiver symbolMessageHashField tenx_hash outputEncodeField
       'fullText("tenx_hash","routeState","message_pattern","severity_level","utf8Size")')
-ENVS=(-e TENX_AIRGAPPED=true -e TENX_FLUENTBIT_OUTPUT_HOST=fluent-bit)
+ENVLIST=(TENX_AIRGAPPED=true TENX_FLUENTBIT_OUTPUT_HOST=fluent-bit)
+[ -z "${E103_JAVA_HEAP:-}" ] || ENVLIST+=(TENX_JAVA_HEAP="$E103_JAVA_HEAP")
+ENVS=(); for e in "${ENVLIST[@]}"; do ENVS+=(-e "$e"); done
 
 # census-ch (another session's ClickHouse, host port 8124) may run alongside; this rig publishes no host port
 # grep without -q reads all of docker logs, so pipefail does not see a SIGPIPE
@@ -56,13 +59,13 @@ up() {
   listening || { echo "the Receiver did not start"; docker logs --tail 30 e103-tenx; exit 1; }
   sleep 3
   commit() { git -C "$1" rev-parse HEAD 2>/dev/null || echo "not a git checkout"; }
-  python3 - "$RES/run.json" "$IMAGE" "$(docker inspect -f '{{.Image}}' e103-tenx)" "${E103_CONFIG_DIR:-}" "${E103_MODULES_DIR:-}" \
+  E103_ENVLIST=$(printf '%s\n' "${ENVLIST[@]}") python3 - "$RES/run.json" "$IMAGE" "$(docker inspect -f '{{.Image}}' e103-tenx)" "${E103_CONFIG_DIR:-}" "${E103_MODULES_DIR:-}" \
     "$( [ -n "${E103_CONFIG_DIR:-}" ] && commit "$E103_CONFIG_DIR")" "$( [ -n "${E103_MODULES_DIR:-}" ] && commit "$E103_MODULES_DIR")" \
     "$(docker inspect -f '{{.Image}}' e103-fluent-bit)" "${ARGS[@]}" <<'EOF'
-import json, sys, time
+import json, os, sys, time
 out, image, image_id, cdir, mdir, ccommit, mcommit, fb_id, *args = sys.argv[1:]
 json.dump({'started_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'image': image, 'image_id': image_id,
-           'args': args, 'env': ['TENX_AIRGAPPED=true', 'TENX_FLUENTBIT_OUTPUT_HOST=fluent-bit'], 'cpus': 0.5, 'memory': '512m',
+           'args': args, 'env': os.environ['E103_ENVLIST'].split(), 'cpus': 0.5, 'memory': '512m',
            'config_dir': cdir or None, 'config_commit': ccommit or None, 'modules_dir': mdir or None, 'modules_commit': mcommit or None,
            'fluent_bit_image': 'fluent/fluent-bit:4.2', 'fluent_bit_image_id': fb_id}, open(out, 'w'), indent=1)
 EOF

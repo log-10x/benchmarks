@@ -38,10 +38,11 @@ Each case sends 500 episodes back to back. Lines within an episode go out with n
 - lines missing and lines duplicated
 - stack-trace events returned whole: the head and every continuation line in one record that holds nothing else
 - cross-container records by the pause in their episode
+- records returned under the wrong tag: Fluent Bit stores the tag a record came back under as `_fb_tag`, and the scorer checks it equals `tenx.` followed by the tag its first line was sent under
 
-It exits 1 when there is any cross-container record, missing line or duplicated line, and 0 otherwise.
+It exits 1 when there is any cross-container record, missing line, duplicated line or wrong tag, and 0 otherwise.
 
-`score.py --self-test` builds a clean input, which must pass, and the README's shape (a jaeger record holding kafka's banner lines), which must fail. Both verdicts came out as expected. On the full manifest, a simulated grouping in arrival order per tag gives 1,536 cross-container records and exit 1. A simulated grouping per container gives 0 and exit 0.
+`score.py --self-test` builds three inputs. A clean input must pass. The README's shape (a jaeger record holding kafka's banner lines) must fail, and so must a record returned under the wrong tag. All three verdicts came out as expected. On the full manifest, a simulated grouping in arrival order per tag gives 1,536 cross-container records and exit 1. A simulated grouping per container gives 0 and exit 0.
 
 ## Running
 
@@ -51,13 +52,16 @@ Docker must have no other rig running: `run.sh up` refuses to start when any con
 ./run.sh all                       # 1.1.150 as shipped, results in results/shipped-1.1.150/
 ./run.sh extract /path/to/e103-fix # the image's own config and modules, to patch
 E103_CONFIG_DIR=/path/to/e103-fix/config E103_MODULES_DIR=/path/to/e103-fix/modules E103_LABEL=fix ./run.sh all
+E103_IMAGE=local/edge-10x:e103 E103_JAVA_HEAP=320M E103_LABEL=fix-1.1.151 ./run.sh all   # another image
 ```
+
+`E103_JAVA_HEAP` sets `TENX_JAVA_HEAP` for an image that runs the engine jar on a JVM, so the heap fits the 512 MB limit.
 
 `run.sh all` starts the containers with `docker run -d --name e103-*`, sends, waits for the returned records, saves logs and Fluent Bit's counters, scores, gzips the data and removes the containers and the network (`docker rm -f -v`).
 
 ## Result on 1.1.150
 
-Run 2026-10-25 from 22:50 to 22:55 UTC. Results are in `results/shipped-1.1.150/`: `run.json` holds the image ID and launch, and `data/` holds the lines sent, the records Fluent Bit received and returned, and `score.json`.
+Run 2026-10-25 from 22:50 to 22:55 UTC. Fluent Bit did not yet store the returned tag, so this run has no tag check. Results are in `results/shipped-1.1.150/`: `run.json` holds the image ID and launch, and `data/` holds the lines sent, the records Fluent Bit received and returned, and `score.json`.
 
 **Verdict: FAIL, with 1,533 cross-container records.** Fluent Bit took in 22,557 records, forwarded 22,557 to the Receiver and wrote 5,836 returned records. One of those is the Receiver's own connect message.
 
@@ -75,3 +79,29 @@ In cases a and c, every episode produced one cross-container record, paused or n
 **Example from case b, the hot-tier shape.** The record with seq 4429 is filed under b-jaeger. It holds seq 4429 (b-jaeger, the JSON line) and seq 4430 to 4433 (b-kafka: `===> User`, `uid=1000(appuser) ...`, `===> Setting default values ...` and `===> Configuring ...`). All five lines were sent under the tag `app.replay`.
 
 Six stack traces in cases d and e came back split, three in each case. All six were in episodes paused 5 or 6 s after the head, and each came back as 4 to 7 records.
+
+## Result with the E103 fix
+
+Run 2026-10-25 from 23:38 to 23:43 UTC. Results are in `results/fix-1.1.151/`.
+
+The fix is engine commit `bc9ff152dad46a78b16ef2fdfe8864a3c82725c6` (log-10x/engine, branch `fix/e103-sequence-key`: "Key an input's open group by its source and sequence values"). It ships with modules commit `a35b44a94bb80f3ce1a9d49260d5424f14423f8e` (log-10x/modules, branch `fix/e103-sequence-key`: "Forwarder inputs group by container and stream within a tag"). The image `local/edge-10x:e103` (`sha256:70b27f0700f35c1a5382b02411174b99b77f2e02f0bef4882768ea2033d8d7ca`) is the 1.1.150 image with the engine jar from that commit and those modules at `/opt/tenx-edge/lib/app/modules`. Its modules match the modules commit file for file. The jar runs on a JVM, so the Receiver had `TENX_JAVA_HEAP=320M`. The arguments, other environment and limits are the same as the 1.1.150 run.
+
+**Verdict: PASS.** Fluent Bit took in 22,557 records, forwarded 22,557 and wrote 5,869 returned records, one of them the Receiver's connect message. All 5,868 records holding sent lines came back under `tenx.` followed by their sent tag: 4,674 under `tenx.app.replay` and 1,194 under `tenx.docker.<id12>`.
+
+| Case | Lines sent | Records (1.1.150) | Records (fix) | Lines returned | Cross-container records | Lines missing | Lines duplicated | Wrong tag | Stack traces whole (1.1.150) | Stack traces whole (fix) |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| a | 4,428 | 1,554 | 1,566 | 4,428 | 0 | 0 | 0 | 0 | 0 of 512 | 508 of 512 |
+| b | 3,072 | 1,036 | 1,044 | 3,072 | 0 | 0 | 0 | 0 | none sent | none sent |
+| c | 6,602 | 1,024 | 1,037 | 6,602 | 0 | 0 | 0 | 0 | 0 of 1,024 | 1,021 of 1,024 |
+| d | 3,781 | 1,027 | 1,027 | 3,781 | 0 | 0 | 0 | 0 | 509 of 512 | 509 of 512 |
+| e | 4,674 | 1,194 | 1,194 | 4,674 | 0 | 0 | 0 | 0 | 508 of 511 | 508 of 511 |
+| Total | 22,557 | 5,836 | 5,869 | 22,557 | 0 | 0 | 0 | 0 | 1,017 | 2,546 |
+
+Every stack trace returned whole on 1.1.150 is returned whole with the fix. Cases d and e split the same six traces on both runs, all in episodes paused 5 or 6 s.
+
+In cases a and c, no trace was whole on 1.1.150, so these splits have nothing to compare against. Four of the seven splits there were in episodes paused 5 or 6 s. The lines sent before the pause came back together, and each continuation line sent after it came back as a one-line record. The other three were in case a episodes with no pause:
+
+- Record seq 1033 (a-orders, episode 120) also holds seq 1557. That line is the last frame of a-orders' trace in episode 179, sent 2.2 s later. The rest of episode 179's trace is in a record of its own.
+- Episode 508's frames, seq 4397 to 4401, came back as five one-line records. All five were returned before the record holding their head, seq 4394.
+
+These three keep lines within one container, but not in that container's order.

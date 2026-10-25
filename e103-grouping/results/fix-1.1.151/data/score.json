@@ -1,0 +1,55 @@
+{
+ "verdict": "PASS",
+ "records_in_returned_file": 5869,
+ "fluent_bit_in_records": 22557,
+ "cases": {
+  "a": {
+   "records": 1566,
+   "lines_returned": 4428,
+   "lines_sent": 4428,
+   "trace_events": 512,
+   "trace_events_whole": 508,
+   "cross_container_by_pause_s": {}
+  },
+  "b": {
+   "records": 1044,
+   "lines_returned": 3072,
+   "lines_sent": 3072,
+   "cross_container_by_pause_s": {}
+  },
+  "c": {
+   "records": 1037,
+   "lines_returned": 6602,
+   "lines_sent": 6602,
+   "trace_events": 1024,
+   "trace_events_whole": 1021,
+   "cross_container_by_pause_s": {}
+  },
+  "d": {
+   "records": 1027,
+   "lines_returned": 3781,
+   "lines_sent": 3781,
+   "trace_events": 512,
+   "trace_events_whole": 509,
+   "cross_container_by_pause_s": {}
+  },
+  "e": {
+   "records": 1194,
+   "lines_returned": 4674,
+   "lines_sent": 4674,
+   "trace_events": 511,
+   "trace_events_whole": 508,
+   "cross_container_by_pause_s": {}
+  }
+ },
+ "total": {
+  "records": 5869,
+  "lines_returned": 22557,
+  "lines_sent": 22557,
+  "trace_events": 2559,
+  "trace_events_whole": 2546,
+  "records_without_log": 1,
+  "tag_checked": 5868
+ },
+ "cross_container_examples": []
+}
