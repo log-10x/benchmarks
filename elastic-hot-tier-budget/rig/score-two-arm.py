@@ -29,6 +29,8 @@ final_seq = ev.get('feed_stop', {}).get('final_seq')
 mp = os.path.join(R, 'meter.jsonl')
 meter = [json.loads(l) for l in (open(mp) if os.path.exists(mp) else gzip.open(mp + '.gz', 'rt')) if l.strip()]
 meter = [m for m in meter if 'summary' in m]
+unreadable = [m['at'] for m in meter if any(m['summary'][a]['hot_node_store'] is None for a in ('a', 'b'))]
+meter = [m for m in meter if m['at'] not in unreadable]
 
 
 def arm(m, a):
@@ -40,7 +42,7 @@ def streams_hot(streams):
     return sum(v['hot_store'] for v in streams.values())
 
 
-out = {'S': S, 'M': M, 'step_epoch': step, 'hold_end_epoch': hold_end, 'bind': ev.get('s_binds')}
+out = {'S': S, 'M': M, 'step_epoch': step, 'hold_end_epoch': hold_end, 'bind': ev.get('s_binds'), 'unreadable_readings': unreadable}
 # 1
 w1 = [m for m in meter if step + 20 * M <= m['epoch'] <= hold_end]
 a1 = [arm(m, 'a')[0] for m in w1]

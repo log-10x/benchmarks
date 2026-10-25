@@ -1,0 +1,2 @@
+{"event":"first_attempt","note":"smoke only: a first attempt at 05:01 stopped at size_unreadable (dry run 2 s into the feed at M=6 with no DRY_AT_S); this attempt ran with DRY_AT_S=300"}
+{"event":"second_meter","note":"smoke only: the first attempt's meter kept running into this attempt and read the same clusters, so meter.jsonl.gz holds two readings per 100 s; its one reading with no cluster up (05:06:27) is skipped by the scorer"}

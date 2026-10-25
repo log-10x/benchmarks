@@ -1,0 +1,225 @@
+{
+ "S": 56000000.0,
+ "M": 6,
+ "step_epoch": 1792905775,
+ "hold_end_epoch": 1792906140,
+ "bind": {
+  "event": "s_binds",
+  "at": "2026-10-25T05:18:54Z",
+  "epoch": 1792905534,
+  "rule": "R after the first applied run",
+  "hot_store": 9139668,
+  "S": 56000000
+ },
+ "unreadable_readings": [
+  "2026-10-25T05:06:27Z"
+ ],
+ "criterion_1": {
+  "readings": 4,
+  "max_of_S": 0.172,
+  "mean_of_S": 0.144,
+  "over_1_10": 0,
+  "pass": true,
+  "streams_max_of_S": 0.17
+ },
+ "criterion_2": {
+  "pre_step_readings": 2,
+  "pre_step_level": 5556571.0,
+  "pre_step_max": 5754251,
+  "hold_readings": 7,
+  "hold_max": 10350703,
+  "hold_max_of_pre": 1.863,
+  "pass": true,
+  "pass_against_pre_step_max": true,
+  "late_hold_max_of_pre": 1.863,
+  "no_differentiator": false
+ },
+ "a_pre_step_level_of_S": 0.143,
+ "table": [
+  {
+   "at": "2026-10-25T05:22:24Z",
+   "min_from_step": -5.2,
+   "a_node": 6210386,
+   "a_kept": 6139112,
+   "a_tier_down": 0,
+   "b_node": 5754251,
+   "b_normal": 5694000,
+   "b_overflow": 0,
+   "a_warm_node": 6722764,
+   "a_tier_down_warm": 6722764,
+   "b_warm_node": 3869434,
+   "b_overflow_warm": 3869434
+  },
+  {
+   "at": "2026-10-25T05:25:44Z",
+   "min_from_step": 28.2,
+   "a_node": 6951690,
+   "a_kept": 6824846,
+   "a_tier_down": 0,
+   "b_node": 8591185,
+   "b_normal": 8466170,
+   "b_overflow": 0,
+   "a_warm_node": 7143074,
+   "a_tier_down_warm": 7143074,
+   "b_warm_node": 2507559,
+   "b_overflow_warm": 2507559
+  },
+  {
+   "at": "2026-10-25T05:27:24Z",
+   "min_from_step": 44.8,
+   "a_node": 6582906,
+   "a_kept": 6456062,
+   "a_tier_down": 0,
+   "b_node": 10135372,
+   "b_normal": 10010357,
+   "b_overflow": 0,
+   "a_warm_node": 10248366,
+   "a_tier_down_warm": 10248366,
+   "b_warm_node": 3436255,
+   "b_overflow_warm": 3436255
+  },
+  {
+   "at": "2026-10-25T05:28:07Z",
+   "min_from_step": 52.0,
+   "a_node": 9648384,
+   "a_kept": 9521540,
+   "a_tier_down": 0,
+   "b_node": 10350703,
+   "b_normal": 10225688,
+   "b_overflow": 0,
+   "a_warm_node": 20943827,
+   "a_tier_down_warm": 20943827,
+   "b_warm_node": 3577501,
+   "b_overflow_warm": 3577501
+  }
+ ],
+ "peak_hold": {
+  "a_node": 9648384,
+  "b_node": 10350703
+ },
+ "peak_run": {
+  "a_node": 10243661,
+  "b_node": 11560058
+ },
+ "frozen_last_reading": {
+  "a": {
+   "tenx-tierdown": {
+    "frozen_indices": 1,
+    "frozen_docs": 13030,
+    "hot_indices": 0
+   },
+   "tenx-app": {
+    "frozen_indices": 0,
+    "frozen_docs": 0,
+    "hot_indices": 3
+   }
+  },
+  "b": {
+   "native-overflow": {
+    "frozen_indices": 1,
+    "frozen_docs": 18966,
+    "hot_indices": 0
+   },
+   "native-app": {
+    "frozen_indices": 0,
+    "frozen_docs": 0,
+    "hot_indices": 3
+   }
+  }
+ },
+ "frozen_last_reading_at": "2026-10-25T05:30:44Z",
+ "warm": {
+  "a": {
+   "pre_step_mean": {
+    "hot_node": 8016878.0,
+    "warm_node": 8068831.5
+   },
+   "hot_peak_in_hold": {
+    "at": "2026-10-25T05:28:07Z",
+    "hot_node": 9648384,
+    "hot_of_S": 0.172,
+    "warm_node": 20943827,
+    "moved_on_warm": 20943827
+   },
+   "warm_peak_in_hold": {
+    "at": "2026-10-25T05:28:07Z",
+    "hot_node": 9648384,
+    "hot_of_S": 0.172,
+    "warm_node": 20943827,
+    "moved_on_warm": 20943827
+   },
+   "end_of_hold": {
+    "at": "2026-10-25T05:28:07Z",
+    "hot_node": 9648384,
+    "hot_of_S": 0.172,
+    "warm_node": 20943827,
+    "moved_on_warm": 20943827
+   },
+   "readings_with_moved_on_hot": 0,
+   "readings": 29
+  },
+  "b": {
+   "pre_step_mean": {
+    "hot_node": 5556571.0,
+    "warm_node": 3748286.5
+   },
+   "hot_peak_in_hold": {
+    "at": "2026-10-25T05:28:07Z",
+    "hot_node": 10350703,
+    "hot_of_S": 0.185,
+    "warm_node": 3577501,
+    "moved_on_warm": 3577501
+   },
+   "warm_peak_in_hold": {
+    "at": "2026-10-25T05:24:47Z",
+    "hot_node": 7672160,
+    "hot_of_S": 0.137,
+    "warm_node": 4482641,
+    "moved_on_warm": 4482641
+   },
+   "end_of_hold": {
+    "at": "2026-10-25T05:28:07Z",
+    "hot_node": 10350703,
+    "hot_of_S": 0.185,
+    "warm_node": 3577501,
+    "moved_on_warm": 3577501
+   },
+   "readings_with_moved_on_hot": 0,
+   "readings": 29
+  }
+ },
+ "criterion_3": {
+  "feed_final_seq": 102734,
+  "fluent_bit_lines_in": 102734,
+  "b": {
+   "documents": 102734,
+   "unnumbered": 0,
+   "missing": 0,
+   "duplicated": 0,
+   "outside_feed": 0,
+   "wrong_container": 0,
+   "wrong_stream": 0,
+   "on_frozen": 18966,
+   "on_hot": 83768,
+   "pass": true
+  },
+  "a": {
+   "records": 80049,
+   "unnumbered": 0,
+   "receiver_own_messages": 1,
+   "duplicated_seq": 0,
+   "records_outside_feed_or_container": 0,
+   "runs_mismatched": 0,
+   "nonblank_lines_before_first_record": 0,
+   "nonblank_lines_sent": 102708,
+   "nonblank_lines_returned": 102708,
+   "blank_lines_sent": 26,
+   "records_spanning_containers": 11,
+   "on_frozen": 13030,
+   "on_hot": 67019,
+   "tier_down_records": 61458,
+   "mismatch_sample": [],
+   "pass": true
+  }
+ }
+}
