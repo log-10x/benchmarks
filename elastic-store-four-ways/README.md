@@ -55,7 +55,7 @@ the amendment at its end.
 
 ### The licence
 
-`pattern_text` is an Enterprise feature, and the basic licence accepts it with templating off.
+`pattern_text` is a subscription feature, and the basic licence accepts it with templating off.
 On the default basic licence, before the trial, creating a logsdb index with `message` as
 `pattern_text` returned 200 and a document indexed (201), and the mapping came back as `{"type": "pattern_text", "disable_templating": true}` and the source mode as
 `STORED`: templating off and no synthetic source. On the trial, (c)'s mapping is plain
