@@ -1,0 +1,470 @@
+{
+ "es": {
+  "number": "9.5.5",
+  "build_hash": "48acba663b09e70b115dd879329141506c377890",
+  "lucene_version": "10.5.1"
+ },
+ "es_image": "docker.elastic.co/elasticsearch/elasticsearch@sha256:13b4a40bb095774f5fda635e45fd5677cc6a26565e42b24997b0c72b88e75984",
+ "licence": {
+  "type": "trial",
+  "status": "active",
+  "issuer": "elasticsearch",
+  "max_nodes": 1000,
+  "issue_date": "2026-10-25T10:08:33.466Z",
+  "expiry_date": "2026-11-24T10:08:33.466Z"
+ },
+ "engine_image": "ghcr.io/log-10x/edge-10x@sha256:3e755bbc14780a27e643e09b76dfd7ec9616cab67833f70daf9420eff646d350",
+ "compact_form": {
+  "compact_bytes": 77422413,
+  "reduction_before_codec_pct": 64.0,
+  "roundtrip": "BYTE-IDENTICAL",
+  "encodes_identical": true
+ },
+ "events": 157228,
+ "templates": 3030,
+ "sample": {
+  "bytes": 215039161,
+  "lines": 197430,
+  "sha256": "aa79b9349a4123d88936fd064f5eccd9fd84f45a1fd03cff3f64c259715c2432"
+ },
+ "store_bytes": {
+  "raw": [
+   20108998,
+   20106803
+  ],
+  "logsdb": [
+   12003158,
+   11997590
+  ],
+  "pattern": [
+   6977160,
+   6972360
+  ],
+  "compact": [
+   14909550,
+   14901237
+  ],
+  "compact_logsdb": [
+   10721205,
+   10718972
+  ],
+  "compact_logsdb_sorted": [
+   8875307,
+   8872791
+  ]
+ },
+ "store_bytes_mean": {
+  "raw": 20107900.5,
+  "logsdb": 12000374.0,
+  "pattern": 6974760.0,
+  "compact": 14905393.5,
+  "compact_logsdb": 10720088.5,
+  "compact_logsdb_sorted": 8874049.0
+ },
+ "rep_spread": {
+  "raw": 0.0001091610732806242,
+  "logsdb": 0.0004639855391173642,
+  "pattern": 0.0006881957228635824,
+  "compact": 0.0005577175805523014,
+  "compact_logsdb": 0.00020830051916082595,
+  "compact_logsdb_sorted": 0.0002835233386698676
+ },
+ "ratios": {
+  "of_raw": {
+   "raw": 1.0,
+   "logsdb": 0.5967989547193154,
+   "pattern": 0.3468666457743811,
+   "compact": 0.7412705021093574,
+   "compact_logsdb": 0.5331281851131101,
+   "compact_logsdb_sorted": 0.4413215094236218
+  },
+  "of_logsdb": {
+   "raw": 1.675606151941598,
+   "logsdb": 1.0,
+   "pattern": 0.5812118855628999,
+   "compact": 1.2420774135872765,
+   "compact_logsdb": 0.8933128667489864,
+   "compact_logsdb_sorted": 0.7394810361743726
+  },
+  "headline": {
+   "compact": "compact_logsdb",
+   "against": "pattern",
+   "saving_pct": -53.69831363373076,
+   "times_smaller": 0.6506252257152542
+  },
+  "compact_against": {
+   "raw": {
+    "saving_pct": 25.872949789064258,
+    "times_smaller": 1.3490351999093482
+   },
+   "logsdb": {
+    "saving_pct": -24.207741358727652,
+    "times_smaller": 0.8051027971854617
+   },
+   "pattern": {
+    "saving_pct": -113.70475113122174,
+    "times_smaller": 0.46793531482412726
+   }
+  },
+  "compact_logsdb_against": {
+   "raw": {
+    "saving_pct": 46.68718148868899,
+    "times_smaller": 1.875721501739468
+   },
+   "logsdb": {
+    "saving_pct": 10.668713325101365,
+    "times_smaller": 1.1194286315826592
+   },
+   "pattern": {
+    "saving_pct": -53.69831363373076,
+    "times_smaller": 0.6506252257152542
+   }
+  },
+  "compact_logsdb_sorted_against": {
+   "raw": {
+    "saving_pct": 55.86784905763782,
+    "times_smaller": 2.265921734261328
+   },
+   "logsdb": {
+    "saving_pct": 26.051896382562745,
+    "times_smaller": 1.3522997224829387
+   },
+   "pattern": {
+    "saving_pct": -27.230886797538556,
+    "times_smaller": 0.7859726715504951
+   }
+  }
+ },
+ "checks": [
+  {
+   "check": "trial licence active",
+   "pass": true,
+   "detail": "trial active"
+  },
+  {
+   "check": "rep 1 es4-raw: documents equal the input",
+   "pass": true,
+   "detail": "197,430 indexed, 197,430 expected"
+  },
+  {
+   "check": "rep 1 es4-raw: one segment",
+   "pass": true,
+   "detail": "1"
+  },
+  {
+   "check": "rep 1 es4-raw: best_compression",
+   "pass": true,
+   "detail": "best_compression"
+  },
+  {
+   "check": "rep 1 es4-logsdb: documents equal the input",
+   "pass": true,
+   "detail": "197,430 indexed, 197,430 expected"
+  },
+  {
+   "check": "rep 1 es4-logsdb: one segment",
+   "pass": true,
+   "detail": "1"
+  },
+  {
+   "check": "rep 1 es4-logsdb: best_compression",
+   "pass": true,
+   "detail": "best_compression"
+  },
+  {
+   "check": "rep 1 es4-logsdb: synthetic source",
+   "pass": true,
+   "detail": "_source stored 0 B, mode setting SYNTHETIC"
+  },
+  {
+   "check": "rep 1 es4-logsdb: no _recovery_source left",
+   "pass": true,
+   "detail": "0 B"
+  },
+  {
+   "check": "rep 1 es4-pattern: documents equal the input",
+   "pass": true,
+   "detail": "197,430 indexed, 197,430 expected"
+  },
+  {
+   "check": "rep 1 es4-pattern: one segment",
+   "pass": true,
+   "detail": "1"
+  },
+  {
+   "check": "rep 1 es4-pattern: best_compression",
+   "pass": true,
+   "detail": "best_compression"
+  },
+  {
+   "check": "rep 1 es4-pattern: segments sorted on message.template_id first",
+   "pass": true,
+   "detail": "sort message.template_id, @timestamp"
+  },
+  {
+   "check": "rep 1 es4-pattern: synthetic source",
+   "pass": true,
+   "detail": "_source stored 0 B, mode setting SYNTHETIC"
+  },
+  {
+   "check": "rep 1 es4-pattern: no _recovery_source left",
+   "pass": true,
+   "detail": "0 B"
+  },
+  {
+   "check": "rep 1 es4-compact: documents equal the input",
+   "pass": true,
+   "detail": "157,228 indexed, 157,228 expected"
+  },
+  {
+   "check": "rep 1 es4-compact: one segment",
+   "pass": true,
+   "detail": "1"
+  },
+  {
+   "check": "rep 1 es4-compact: best_compression",
+   "pass": true,
+   "detail": "best_compression"
+  },
+  {
+   "check": "rep 1 es4-compact-dict: documents equal the input",
+   "pass": true,
+   "detail": "3,030 indexed, 3,030 expected"
+  },
+  {
+   "check": "rep 1 es4-compact-dict: one segment",
+   "pass": true,
+   "detail": "1"
+  },
+  {
+   "check": "rep 1 es4-compact-dict: best_compression",
+   "pass": true,
+   "detail": "best_compression"
+  },
+  {
+   "check": "rep 1 es4-compact-logsdb: documents equal the input",
+   "pass": true,
+   "detail": "157,228 indexed, 157,228 expected"
+  },
+  {
+   "check": "rep 1 es4-compact-logsdb: one segment",
+   "pass": true,
+   "detail": "1"
+  },
+  {
+   "check": "rep 1 es4-compact-logsdb: best_compression",
+   "pass": true,
+   "detail": "best_compression"
+  },
+  {
+   "check": "rep 1 es4-compact-logsdb: synthetic source",
+   "pass": true,
+   "detail": "_source stored 0 B, mode setting SYNTHETIC"
+  },
+  {
+   "check": "rep 1 es4-compact-logsdb: no _recovery_source left",
+   "pass": true,
+   "detail": "0 B"
+  },
+  {
+   "check": "rep 1 es4-compact-logsdb-sorted: documents equal the input",
+   "pass": true,
+   "detail": "157,228 indexed, 157,228 expected"
+  },
+  {
+   "check": "rep 1 es4-compact-logsdb-sorted: one segment",
+   "pass": true,
+   "detail": "1"
+  },
+  {
+   "check": "rep 1 es4-compact-logsdb-sorted: best_compression",
+   "pass": true,
+   "detail": "best_compression"
+  },
+  {
+   "check": "rep 1 es4-compact-logsdb-sorted: segments sorted on l1x_tid first",
+   "pass": true,
+   "detail": "sort l1x_tid, @timestamp"
+  },
+  {
+   "check": "rep 1 es4-compact-logsdb-sorted: synthetic source",
+   "pass": true,
+   "detail": "_source stored 0 B, mode setting SYNTHETIC"
+  },
+  {
+   "check": "rep 1 es4-compact-logsdb-sorted: no _recovery_source left",
+   "pass": true,
+   "detail": "0 B"
+  },
+  {
+   "check": "rep 2 es4-raw: documents equal the input",
+   "pass": true,
+   "detail": "197,430 indexed, 197,430 expected"
+  },
+  {
+   "check": "rep 2 es4-raw: one segment",
+   "pass": true,
+   "detail": "1"
+  },
+  {
+   "check": "rep 2 es4-raw: best_compression",
+   "pass": true,
+   "detail": "best_compression"
+  },
+  {
+   "check": "rep 2 es4-logsdb: documents equal the input",
+   "pass": true,
+   "detail": "197,430 indexed, 197,430 expected"
+  },
+  {
+   "check": "rep 2 es4-logsdb: one segment",
+   "pass": true,
+   "detail": "1"
+  },
+  {
+   "check": "rep 2 es4-logsdb: best_compression",
+   "pass": true,
+   "detail": "best_compression"
+  },
+  {
+   "check": "rep 2 es4-logsdb: synthetic source",
+   "pass": true,
+   "detail": "_source stored 0 B, mode setting SYNTHETIC"
+  },
+  {
+   "check": "rep 2 es4-logsdb: no _recovery_source left",
+   "pass": true,
+   "detail": "0 B"
+  },
+  {
+   "check": "rep 2 es4-pattern: documents equal the input",
+   "pass": true,
+   "detail": "197,430 indexed, 197,430 expected"
+  },
+  {
+   "check": "rep 2 es4-pattern: one segment",
+   "pass": true,
+   "detail": "1"
+  },
+  {
+   "check": "rep 2 es4-pattern: best_compression",
+   "pass": true,
+   "detail": "best_compression"
+  },
+  {
+   "check": "rep 2 es4-pattern: segments sorted on message.template_id first",
+   "pass": true,
+   "detail": "sort message.template_id, @timestamp"
+  },
+  {
+   "check": "rep 2 es4-pattern: synthetic source",
+   "pass": true,
+   "detail": "_source stored 0 B, mode setting SYNTHETIC"
+  },
+  {
+   "check": "rep 2 es4-pattern: no _recovery_source left",
+   "pass": true,
+   "detail": "0 B"
+  },
+  {
+   "check": "rep 2 es4-compact: documents equal the input",
+   "pass": true,
+   "detail": "157,228 indexed, 157,228 expected"
+  },
+  {
+   "check": "rep 2 es4-compact: one segment",
+   "pass": true,
+   "detail": "1"
+  },
+  {
+   "check": "rep 2 es4-compact: best_compression",
+   "pass": true,
+   "detail": "best_compression"
+  },
+  {
+   "check": "rep 2 es4-compact-dict: documents equal the input",
+   "pass": true,
+   "detail": "3,030 indexed, 3,030 expected"
+  },
+  {
+   "check": "rep 2 es4-compact-dict: one segment",
+   "pass": true,
+   "detail": "1"
+  },
+  {
+   "check": "rep 2 es4-compact-dict: best_compression",
+   "pass": true,
+   "detail": "best_compression"
+  },
+  {
+   "check": "rep 2 es4-compact-logsdb: documents equal the input",
+   "pass": true,
+   "detail": "157,228 indexed, 157,228 expected"
+  },
+  {
+   "check": "rep 2 es4-compact-logsdb: one segment",
+   "pass": true,
+   "detail": "1"
+  },
+  {
+   "check": "rep 2 es4-compact-logsdb: best_compression",
+   "pass": true,
+   "detail": "best_compression"
+  },
+  {
+   "check": "rep 2 es4-compact-logsdb: synthetic source",
+   "pass": true,
+   "detail": "_source stored 0 B, mode setting SYNTHETIC"
+  },
+  {
+   "check": "rep 2 es4-compact-logsdb: no _recovery_source left",
+   "pass": true,
+   "detail": "0 B"
+  },
+  {
+   "check": "rep 2 es4-compact-logsdb-sorted: documents equal the input",
+   "pass": true,
+   "detail": "157,228 indexed, 157,228 expected"
+  },
+  {
+   "check": "rep 2 es4-compact-logsdb-sorted: one segment",
+   "pass": true,
+   "detail": "1"
+  },
+  {
+   "check": "rep 2 es4-compact-logsdb-sorted: best_compression",
+   "pass": true,
+   "detail": "best_compression"
+  },
+  {
+   "check": "rep 2 es4-compact-logsdb-sorted: segments sorted on l1x_tid first",
+   "pass": true,
+   "detail": "sort l1x_tid, @timestamp"
+  },
+  {
+   "check": "rep 2 es4-compact-logsdb-sorted: synthetic source",
+   "pass": true,
+   "detail": "_source stored 0 B, mode setting SYNTHETIC"
+  },
+  {
+   "check": "rep 2 es4-compact-logsdb-sorted: no _recovery_source left",
+   "pass": true,
+   "detail": "0 B"
+  },
+  {
+   "check": "two encodes byte-identical",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "compact form decodes to the sample byte for byte",
+   "pass": true,
+   "detail": "BYTE-IDENTICAL"
+  },
+  {
+   "check": "repetitions agree within 1%",
+   "pass": true,
+   "detail": "raw 0.01%, logsdb 0.05%, pattern 0.07%, compact 0.06%, compact_logsdb 0.02%, compact_logsdb_sorted 0.03%"
+  }
+ ]
+}

@@ -1,0 +1,31 @@
+{
+ "engine_image": "ghcr.io/log-10x/edge-10x@sha256:3e755bbc14780a27e643e09b76dfd7ec9616cab67833f70daf9420eff646d350",
+ "encode_config_sha256": "6a296895dd1be56d190a74499740109e71a251149343e64c5ad32cbc4e657e51",
+ "decode_config_sha256": "33bec15575c8c0e9e97959891a4940d1a0b65418fc930cc8819e9b20821f0fa6",
+ "sample_bytes": 215039161,
+ "sample_lines": 197430,
+ "sample_sha256": "aa79b9349a4123d88936fd064f5eccd9fd84f45a1fd03cff3f64c259715c2432",
+ "encode1": {
+  "events": 157228,
+  "encoded_bytes": 74140583,
+  "templates": 3030,
+  "templates_bytes": 3281830,
+  "sha256_encoded": "50f4528c8174fa77bdb72cb97a23c0cd14a0d115576594b6aa7ea8220146c897",
+  "sha256_templates": "2c33f2c2e6485fa3ce60022306fcf6a0072091dc6c27329e46b9a34eccda0ce2"
+ },
+ "encode2": {
+  "events": 157228,
+  "encoded_bytes": 74140583,
+  "templates": 3030,
+  "templates_bytes": 3281830,
+  "sha256_encoded": "50f4528c8174fa77bdb72cb97a23c0cd14a0d115576594b6aa7ea8220146c897",
+  "sha256_templates": "2c33f2c2e6485fa3ce60022306fcf6a0072091dc6c27329e46b9a34eccda0ce2"
+ },
+ "encodes_identical": true,
+ "compact_bytes": 77422413,
+ "reduction_before_codec_pct": 64.0,
+ "decoded_bytes": 215039161,
+ "decoded_lines": 197430,
+ "sha256_decoded": "aa79b9349a4123d88936fd064f5eccd9fd84f45a1fd03cff3f64c259715c2432",
+ "roundtrip": "BYTE-IDENTICAL"
+}

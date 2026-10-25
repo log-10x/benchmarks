@@ -1,0 +1,12 @@
+{
+ "es4-compact-dict": {
+  "mappings": {
+   "dynamic": "false",
+   "properties": {
+    "pattern": {
+     "type": "text"
+    }
+   }
+  }
+ }
+}

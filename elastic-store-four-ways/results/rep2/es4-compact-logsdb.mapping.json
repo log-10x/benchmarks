@@ -1,0 +1,22 @@
+{
+ "es4-compact-logsdb": {
+  "mappings": {
+   "dynamic": "strict",
+   "_data_stream_timestamp": {
+    "enabled": true
+   },
+   "properties": {
+    "@timestamp": {
+     "type": "date",
+     "ignore_malformed": false
+    },
+    "l1x_tid": {
+     "type": "keyword"
+    },
+    "message": {
+     "type": "text"
+    }
+   }
+  }
+ }
+}
