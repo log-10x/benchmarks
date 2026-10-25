@@ -330,6 +330,9 @@ def cmd_measure(a):
         r['docs'] = reads[-1]['docs']
         segs = ok('GET', f'/_cat/segments/{ix}?format=json&bytes=b')
         r['segments'] = len(segs)
+        # The sort Lucene applied, as each segment records it (index.sort.field can show only a default).
+        shard = ok('GET', f'/{ix}/_segments')['indices'][ix]['shards']['0'][0]['segments']
+        r['segment_sort'] = [sg.get('sort', []) for sg in shard.values()]
         r['settings'] = effective_settings(ix)
         dump(out_dir / f'{ix}.mapping.json', ok('GET', f'/{ix}/_mapping'))
         du = ok('POST', f'/{ix}/_disk_usage?run_expensive_tasks=true', timeout=3600)
@@ -381,6 +384,10 @@ def cmd_report(a):
             check(f"rep {r['rep']} {ix}: one segment", x['segments'] == 1, str(x['segments']))
             check(f"rep {r['rep']} {ix}: best_compression", x['settings']['index.codec'] == 'best_compression',
                   str(x['settings']['index.codec']))
+            if ix == 'es4-pattern':
+                fields = [f.get('field') for sort in x.get('segment_sort', []) for f in sort]
+                check(f"rep {r['rep']} {ix}: segments sorted on message.template_id", 'message.template_id' in fields,
+                      'sort ' + ', '.join(str(f) for f in fields))
             if x['settings']['index.mode'] == 'logsdb':
                 check(f"rep {r['rep']} {ix}: synthetic source", x['source_stored_bytes'] == 0,
                       f"_source stored {x['source_stored_bytes']:,} B, mode setting {x['settings']['index.mapping.source.mode']}")
@@ -437,14 +444,17 @@ def cmd_report(a):
                   ' | '.join(f'{s:,} B' for s in store[v]) + f' | {mean[v]:,.0f} B | {of[0]} | {of[1]} |')
     if 'headline' in ratios:
         h = ratios['headline']
+        more_less = f"{abs(h['saving_pct']):.1f}% {'less' if h['saving_pct'] >= 0 else 'more'} store"
         md += ['', f"**{h['compact']} against {h['against']}:** {mean[h['compact']]:,.0f} B against "
-               f"{mean[h['against']]:,.0f} B, {h['saving_pct']:.1f}% less store ({h['times_smaller']:.2f}x smaller)."]
+               f"{mean[h['against']]:,.0f} B, {more_less} ({mean[h['compact']] / mean[h['against']] * 100:.1f}% of it)."]
     for c in ('compact', 'compact_logsdb'):
         if f'{c}_against' in ratios:
             md += ['', f'The {c} variant against each native one (mean of the repetitions):', '',
-                   '| Against | Its store | Compact store | Compact saves | Times smaller |', '|---|---:|---:|---:|---:|']
+                   '| Against | Its store | Compact store | Compact as a share of it | Difference |', '|---|---:|---:|---:|---:|']
             for v, x in ratios[f'{c}_against'].items():
-                md.append(f"| {v} | {mean[v]:,.0f} B | {mean[c]:,.0f} B | {x['saving_pct']:.1f}% | {x['times_smaller']:.2f}x |")
+                d = x['saving_pct']
+                md.append(f"| {v} | {mean[v]:,.0f} B | {mean[c]:,.0f} B | {mean[c] / mean[v] * 100:.1f}% | "
+                          f"{abs(d):.1f}% {'smaller' if d >= 0 else 'larger'} |")
     md += ['', '## Checks', '']
     md += [f"- {'pass' if c['pass'] else 'FAIL'}: {c['check']}" + (f" ({c['detail']})" if c['detail'] else '') for c in checks]
     md += ['', 'Per-index detail (settings, leases before the merge, per-field bytes) is in `rep<N>.json`; '
