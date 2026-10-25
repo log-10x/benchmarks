@@ -2,8 +2,8 @@
 # records to tenx-app / tenx-tierdown on cluster A. Arm B: a copy of every line, before the Receiver, to
 # cluster B by a rule fixed before the run (render-fb-two-arm.py fills @TOP_HALF@): the services that made
 # the top half of bytes in the first 20 minutes go to native-overflow, every other service to native-app.
-# Slim variant for the compressed rerun: no raw copy (lines in = Fluent Bit's input counter), and the
-# local copies of returned records keep only container, times, hash, route, utf8Size, level, name, lines.
+# No raw copy (lines in = Fluent Bit's input counter); the local copies of returned records keep only
+# container, times, hash, route, utf8Size, level, name, lines.
 # Rig Fluent Bit pipeline (Elastic hot-tier run).
 #   replay (Forward, tag app.replay) -> Receiver (tenx:24224)
 #   Receiver (:24225, Tag_Prefix tenx.) -> split by routeState -> pass / offload / tier_down / other

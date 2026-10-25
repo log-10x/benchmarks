@@ -144,5 +144,5 @@ f=[json.loads(l)['final_seq'] for l in sys.stdin if l.startswith('{') and 'final
     docker network rm elastic-budget >/dev/null 2>&1 || true
     mark clean "\"volumes_removed\":\"$(echo $vols)\""
     ;;
-  *) sed -n '2,12p' "$0"; exit 2;;
+  *) sed -n '2,16p' "$0"; exit 2;;
 esac
