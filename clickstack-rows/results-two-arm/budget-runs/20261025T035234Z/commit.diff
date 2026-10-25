@@ -1,0 +1,125 @@
+diff --git a/log10x/policy/caps.csv b/log10x/policy/caps.csv
+index 29341ad..fc5ba41 100644
+--- a/log10x/policy/caps.csv
++++ b/log10x/policy/caps.csv
+@@ -1,15 +1,15 @@
+ container,cap
+-ad,72::budget run
+-cart,72::budget run
+-fluentd-10x,72::budget run
+-frontend,72::budget run
+-grafana,72::budget run
+-inventory,72::budget run
+-kafka,72::budget run
+-kube-proxy,72::budget run
+-opensearch,72::budget run
+-opentelemetry-collector,72::budget run
+-prometheus-server,72::budget run
+-recommendation,72::budget run
+-valkey-cart,72::budget run
+-*,72::budget run
++ad,70::budget run
++cart,70::budget run
++fluentd-10x,70::budget run
++frontend,70::budget run
++grafana,70::budget run
++inventory,70::budget run
++kafka,70::budget run
++kube-proxy,70::budget run
++opensearch,70::budget run
++opentelemetry-collector,70::budget run
++prometheus-server,70::budget run
++recommendation,70::budget run
++valkey-cart,70::budget run
++*,70::budget run
+diff --git a/log10x/policy/config-generation.csv b/log10x/policy/config-generation.csv
+index 03605bd..2a60f89 100644
+--- a/log10x/policy/config-generation.csv
++++ b/log10x/policy/config-generation.csv
+@@ -1,2 +1,2 @@
+ key,value
+-generation,949f5811503c
++generation,eb9b7e773e96
+diff --git a/log10x/policy/totals.csv b/log10x/policy/totals.csv
+index 4b19d11..904037f 100644
+--- a/log10x/policy/totals.csv
++++ b/log10x/policy/totals.csv
+@@ -1,15 +1,15 @@
+ container,total
+-ad,165::budget run
+-cart,199::budget run
+-fluentd-10x,44::budget run
+-frontend,109::budget run
+-grafana,103::budget run
+-inventory,72::budget run
+-kafka,913::budget run
++ad,158::budget run
++cart,192::budget run
++fluentd-10x,48::budget run
++frontend,128::budget run
++grafana,104::budget run
++inventory,70::budget run
++kafka,915::budget run
+ kube-proxy,2::budget run
+-opensearch,8::budget run
+-opentelemetry-collector,290::budget run
+-prometheus-server,2::budget run
+-recommendation,72::budget run
++opensearch,9::budget run
++opentelemetry-collector,280::budget run
++prometheus-server,4::budget run
++recommendation,70::budget run
+ valkey-cart,22::budget run
+-*,72::budget run
++*,70::budget run
+diff --git a/reports/latest.md b/reports/latest.md
+index 8ff03fb..bfae701 100644
+--- a/reports/latest.md
++++ b/reports/latest.md
+@@ -1,27 +1,27 @@
+-# Rows run: 2026-10-25T03:42:34.000Z
++# Rows run: 2026-10-25T03:52:34.000Z
+ 
+-Rows written: 31k of 30k an hour last hour (30k rows an hour set in the policy; part_log on default.otel_logs); at these limits the table takes about 30k an hour, with 86k an hour of lines to the account's bucket.
++Rows written: 32k of 30k an hour last hour (30k rows an hour set in the policy; part_log on default.otel_logs); at these limits the table takes about 30k an hour, with 103k an hour of lines to the account's bucket.
+ 
+-- Outside the Receiver: 0 rows an hour (outside_rows_per_hour). The Receiver's counters read 31k pass lines an hour against 31k rows the meter puts on it, so each statement's rate is scaled by 1.00. The table holds 64k active rows.
+-- The Receiver's statements send 116k lines an hour; 30k an hour fits the rate, so each statement keeps up to 1088 an hour and the noisiest give way first.
+-- The always-pass sample (5 lines a statement a window on every node, 50 more for an error statement over its limit) keeps about 5785 lines an hour whatever the limits; the rate holds down to that floor.
++- Outside the Receiver: 0 rows an hour (outside_rows_per_hour). The Receiver's counters read 31k pass lines an hour against 32k rows the meter puts on it, so each statement's rate is scaled by 1.01. The table holds 69k active rows.
++- The Receiver's statements send 133k lines an hour; 30k an hour fits the rate, so each statement keeps up to 1053 an hour and the noisiest give way first.
++- The always-pass sample (5 lines a statement a window on every node, 50 more for an error statement over its limit) keeps about 5941 lines an hour whatever the limits; the rate holds down to that floor.
+ - The meter read above the rate last hour; the limits below hold the next hour at the rate, and each node's totals bind inside every window.
+ 
+ | Service | Destination | Nodes | Sent an hour | Kept an hour | Limit per statement | Total |
+ |---|---|---|---|---|---|---|
+-| ad | the account's bucket | 1 | 4037 | 2477 | 72 | 165 |
+-| cart | the account's bucket | 1 | 11k | 2993 | 72 | 199 |
+-| fluentd-10x | the account's bucket | 1 | 661 | 661 | 72 | 44 |
+-| frontend | the account's bucket | 1 | 1826 | 1647 | 72 | 109 |
+-| grafana | the account's bucket | 1 | 26k | 1557 | 72 | 103 |
+-| inventory | the account's bucket | 1 | 7174 | 1088 | 72 | 72 |
+-| kafka | the account's bucket | 1 | 15k | 14k | 72 | 913 |
+-| kube-proxy | the account's bucket | 1 | 36 | 36 | 72 | 2 |
+-| opensearch | the account's bucket | 1 | 132 | 132 | 72 | 8 |
+-| opentelemetry-collector | the account's bucket | 1 | 47k | 4352 | 72 | 290 |
+-| prometheus-server | the account's bucket | 1 | 42 | 42 | 72 | 2 |
+-| recommendation | the account's bucket | 1 | 1808 | 1088 | 72 | 72 |
+-| valkey-cart | the account's bucket | 1 | 330 | 330 | 72 | 22 |
+-| `*` (any other service) | the account's bucket | 1 | | 1088 | 72 | 72 |
++| ad | the account's bucket | 1 | 3768 | 2378 | 70 | 158 |
++| cart | the account's bucket | 1 | 12k | 2880 | 70 | 192 |
++| fluentd-10x | the account's bucket | 1 | 727 | 727 | 70 | 48 |
++| frontend | the account's bucket | 1 | 2217 | 1931 | 70 | 128 |
++| grafana | the account's bucket | 1 | 37k | 1567 | 70 | 104 |
++| inventory | the account's bucket | 1 | 7269 | 1053 | 70 | 70 |
++| kafka | the account's bucket | 1 | 16k | 14k | 70 | 915 |
++| kube-proxy | the account's bucket | 1 | 36 | 36 | 70 | 2 |
++| opensearch | the account's bucket | 1 | 139 | 139 | 70 | 9 |
++| opentelemetry-collector | the account's bucket | 1 | 51k | 4210 | 70 | 280 |
++| prometheus-server | the account's bucket | 1 | 67 | 67 | 70 | 4 |
++| recommendation | the account's bucket | 1 | 2072 | 1053 | 70 | 70 |
++| valkey-cart | the account's bucket | 1 | 333 | 333 | 70 | 22 |
++| `*` (any other service) | the account's bucket | 1 | | 1053 | 70 | 70 |
+ 
+ Limits and totals are lines per 4-minute window per node. Error lines pass 50 over a limit per statement per node per window. The meter is `system.part_log` NewPart rows on default.otel_logs, read by the event's own time.

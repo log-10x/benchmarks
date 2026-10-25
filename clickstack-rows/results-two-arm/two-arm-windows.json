@@ -1,0 +1,937 @@
+{
+ "at": 1792904002,
+ "bucket": {
+  "otel_logs": {
+   "1792895553": 1959,
+   "1792896153": 2365,
+   "1792896753": 3932,
+   "1792897353": 4798,
+   "1792897953": 7729,
+   "1792898553": 8479,
+   "1792899153": 16152,
+   "1792899753": 17297,
+   "1792900353": 13096,
+   "1792900953": 14011,
+   "1792901553": 12996,
+   "1792902153": 13004,
+   "1792902753": 57
+  },
+  "otel_logs_rule": {
+   "1792893153": 2883,
+   "1792893753": 6143,
+   "1792894353": 5751,
+   "1792894953": 5758,
+   "1792895553": 5708,
+   "1792896153": 5713,
+   "1792896753": 7813,
+   "1792897353": 7775,
+   "1792897953": 9740,
+   "1792898553": 9803,
+   "1792899153": 12232,
+   "1792899753": 12352,
+   "1792900353": 14273,
+   "1792900953": 14275,
+   "1792901553": 13004,
+   "1792902153": 14051,
+   "1792902753": 53
+  }
+ },
+ "node_us": {
+  "1792893153": 245225492,
+  "1792893753": 170353930,
+  "1792894353": 113846136,
+  "1792894953": 197183644,
+  "1792895553": 250375891,
+  "1792896153": 223497972,
+  "1792896753": 259827372,
+  "1792897353": 319445367,
+  "1792897953": 381712602,
+  "1792898553": 453339334,
+  "1792899153": 265416375,
+  "1792899753": 170941395,
+  "1792900353": 285234564,
+  "1792900953": 148363485,
+  "1792901553": 276749874,
+  "1792902153": 121077728,
+  "1792902753": 39817372,
+  "1792903353": 45704926,
+  "1792903953": 16660983
+ },
+ "origin": 1792893153,
+ "other_inserts": {
+  "1792893153": {
+   "flushes": 77,
+   "insert_us": 8682401,
+   "inserts": 77
+  },
+  "1792893753": {
+   "flushes": 83,
+   "insert_us": 1511563,
+   "inserts": 83
+  },
+  "1792894353": {
+   "flushes": 72,
+   "insert_us": 1156728,
+   "inserts": 72
+  },
+  "1792894953": {
+   "flushes": 60,
+   "insert_us": 984714,
+   "inserts": 60
+  },
+  "1792895553": {
+   "flushes": 75,
+   "insert_us": 1337880,
+   "inserts": 75
+  },
+  "1792896153": {
+   "flushes": 80,
+   "insert_us": 1213808,
+   "inserts": 80
+  },
+  "1792896753": {
+   "flushes": 80,
+   "insert_us": 1148950,
+   "inserts": 80
+  },
+  "1792897353": {
+   "flushes": 80,
+   "insert_us": 1189590,
+   "inserts": 80
+  },
+  "1792897953": {
+   "flushes": 80,
+   "insert_us": 1285341,
+   "inserts": 80
+  },
+  "1792898553": {
+   "flushes": 80,
+   "insert_us": 1416037,
+   "inserts": 80
+  },
+  "1792899153": {
+   "flushes": 80,
+   "insert_us": 1239388,
+   "inserts": 80
+  },
+  "1792899753": {
+   "flushes": 80,
+   "insert_us": 1489246,
+   "inserts": 80
+  },
+  "1792900353": {
+   "flushes": 80,
+   "insert_us": 1328652,
+   "inserts": 80
+  },
+  "1792900953": {
+   "flushes": 80,
+   "insert_us": 1225245,
+   "inserts": 80
+  },
+  "1792901553": {
+   "flushes": 74,
+   "insert_us": 1181547,
+   "inserts": 74
+  },
+  "1792902153": {
+   "flushes": 60,
+   "insert_us": 955725,
+   "inserts": 60
+  },
+  "1792902753": {
+   "flushes": 60,
+   "insert_us": 972621,
+   "inserts": 60
+  },
+  "1792903353": {
+   "flushes": 60,
+   "insert_us": 1041968,
+   "inserts": 60
+  },
+  "1792903953": {
+   "flushes": 3,
+   "insert_us": 6993923,
+   "inserts": 4
+  }
+ },
+ "tables": {
+  "counts_by_type": {
+   "1792893153": {
+    "failed_inserts": 19,
+    "flushes": 108,
+    "insert_us": 39644541,
+    "inserts": 108,
+    "merge_us": 3275485,
+    "merges": 22,
+    "parts": 112,
+    "rows": 4760,
+    "written_rows": 19527
+   },
+   "1792893753": {
+    "failed_inserts": 1,
+    "flushes": 125,
+    "insert_us": 20329936,
+    "inserts": 125,
+    "merge_us": 662295,
+    "merges": 28,
+    "parts": 124,
+    "rows": 2940,
+    "written_rows": 20561
+   },
+   "1792894353": {
+    "failed_inserts": 0,
+    "flushes": 120,
+    "insert_us": 10845028,
+    "inserts": 120,
+    "merge_us": 519720,
+    "merges": 24,
+    "parts": 120,
+    "rows": 2129,
+    "written_rows": 18971
+   },
+   "1792894953": {
+    "failed_inserts": 0,
+    "flushes": 120,
+    "insert_us": 11737191,
+    "inserts": 120,
+    "merge_us": 620619,
+    "merges": 25,
+    "parts": 120,
+    "rows": 2218,
+    "written_rows": 19158
+   },
+   "1792895553": {
+    "failed_inserts": 0,
+    "flushes": 120,
+    "insert_us": 12534166,
+    "inserts": 120,
+    "merge_us": 543176,
+    "merges": 24,
+    "parts": 120,
+    "rows": 1962,
+    "written_rows": 14795
+   },
+   "1792896153": {
+    "failed_inserts": 0,
+    "flushes": 120,
+    "insert_us": 11817232,
+    "inserts": 120,
+    "merge_us": 586886,
+    "merges": 24,
+    "parts": 120,
+    "rows": 2042,
+    "written_rows": 14076
+   },
+   "1792896753": {
+    "failed_inserts": 0,
+    "flushes": 120,
+    "insert_us": 10975229,
+    "inserts": 120,
+    "merge_us": 806836,
+    "merges": 32,
+    "parts": 120,
+    "rows": 1979,
+    "written_rows": 15538
+   },
+   "1792897353": {
+    "failed_inserts": 0,
+    "flushes": 120,
+    "insert_us": 11659350,
+    "inserts": 120,
+    "merge_us": 690055,
+    "merges": 24,
+    "parts": 120,
+    "rows": 2013,
+    "written_rows": 13886
+   },
+   "1792897953": {
+    "failed_inserts": 0,
+    "flushes": 120,
+    "insert_us": 12378855,
+    "inserts": 120,
+    "merge_us": 1069557,
+    "merges": 36,
+    "parts": 120,
+    "rows": 2070,
+    "written_rows": 15644
+   },
+   "1792898553": {
+    "failed_inserts": 0,
+    "flushes": 119,
+    "insert_us": 16498536,
+    "inserts": 119,
+    "merge_us": 942063,
+    "merges": 25,
+    "parts": 120,
+    "rows": 2029,
+    "written_rows": 13688
+   },
+   "1792899153": {
+    "failed_inserts": 0,
+    "flushes": 120,
+    "insert_us": 11979391,
+    "inserts": 120,
+    "merge_us": 935447,
+    "merges": 31,
+    "parts": 119,
+    "rows": 2006,
+    "written_rows": 15984
+   },
+   "1792899753": {
+    "failed_inserts": 0,
+    "flushes": 120,
+    "insert_us": 11648871,
+    "inserts": 120,
+    "merge_us": 826300,
+    "merges": 27,
+    "parts": 120,
+    "rows": 1945,
+    "written_rows": 14073
+   },
+   "1792900353": {
+    "failed_inserts": 0,
+    "flushes": 120,
+    "insert_us": 13441193,
+    "inserts": 120,
+    "merge_us": 1190465,
+    "merges": 36,
+    "parts": 120,
+    "rows": 2072,
+    "written_rows": 15430
+   },
+   "1792900953": {
+    "failed_inserts": 0,
+    "flushes": 120,
+    "insert_us": 11078654,
+    "inserts": 120,
+    "merge_us": 1251035,
+    "merges": 38,
+    "parts": 120,
+    "rows": 1879,
+    "written_rows": 13606
+   },
+   "1792901553": {
+    "failed_inserts": 0,
+    "flushes": 115,
+    "insert_us": 12149485,
+    "inserts": 115,
+    "merge_us": 1701280,
+    "merges": 34,
+    "parts": 115,
+    "rows": 2112,
+    "written_rows": 15490
+   },
+   "1792902153": {
+    "failed_inserts": 0,
+    "flushes": 118,
+    "insert_us": 10901786,
+    "inserts": 118,
+    "merge_us": 2255529,
+    "merges": 61,
+    "parts": 118,
+    "rows": 2414,
+    "written_rows": 14738
+   },
+   "1792902753": {
+    "failed_inserts": 0,
+    "flushes": 2,
+    "insert_us": 280959,
+    "inserts": 2,
+    "merge_us": 245787,
+    "merges": 3,
+    "parts": 2,
+    "rows": 7,
+    "written_rows": 60
+   },
+   "1792903953": {
+    "failed_inserts": 0,
+    "flushes": 0,
+    "insert_us": 6945082,
+    "inserts": 1,
+    "merge_us": 0,
+    "merges": 0,
+    "parts": 1,
+    "rows": 3245,
+    "written_rows": 3245
+   }
+  },
+  "counts_by_type_rule": {
+   "1792893153": {
+    "failed_inserts": 14,
+    "flushes": 396,
+    "insert_us": 48396955,
+    "inserts": 396,
+    "merge_us": 1021156,
+    "merges": 79,
+    "parts": 396,
+    "rows": 424,
+    "written_rows": 8932
+   },
+   "1792893753": {
+    "failed_inserts": 3,
+    "flushes": 427,
+    "insert_us": 32031812,
+    "inserts": 427,
+    "merge_us": 746396,
+    "merges": 85,
+    "parts": 427,
+    "rows": 626,
+    "written_rows": 5140
+   },
+   "1792894353": {
+    "failed_inserts": 0,
+    "flushes": 516,
+    "insert_us": 18614855,
+    "inserts": 516,
+    "merge_us": 894798,
+    "merges": 103,
+    "parts": 516,
+    "rows": 800,
+    "written_rows": 6094
+   },
+   "1792894953": {
+    "failed_inserts": 0,
+    "flushes": 524,
+    "insert_us": 20073109,
+    "inserts": 524,
+    "merge_us": 1070317,
+    "merges": 105,
+    "parts": 524,
+    "rows": 821,
+    "written_rows": 6127
+   },
+   "1792895553": {
+    "failed_inserts": 1,
+    "flushes": 516,
+    "insert_us": 22401440,
+    "inserts": 516,
+    "merge_us": 1127252,
+    "merges": 103,
+    "parts": 516,
+    "rows": 808,
+    "written_rows": 6232
+   },
+   "1792896153": {
+    "failed_inserts": 0,
+    "flushes": 509,
+    "insert_us": 18623065,
+    "inserts": 509,
+    "merge_us": 1045940,
+    "merges": 102,
+    "parts": 509,
+    "rows": 801,
+    "written_rows": 6173
+   },
+   "1792896753": {
+    "failed_inserts": 0,
+    "flushes": 560,
+    "insert_us": 20234541,
+    "inserts": 560,
+    "merge_us": 926565,
+    "merges": 112,
+    "parts": 560,
+    "rows": 1007,
+    "written_rows": 8151
+   },
+   "1792897353": {
+    "failed_inserts": 0,
+    "flushes": 559,
+    "insert_us": 20901729,
+    "inserts": 559,
+    "merge_us": 910672,
+    "merges": 112,
+    "parts": 559,
+    "rows": 995,
+    "written_rows": 8257
+   },
+   "1792897953": {
+    "failed_inserts": 0,
+    "flushes": 899,
+    "insert_us": 34649951,
+    "inserts": 899,
+    "merge_us": 1555860,
+    "merges": 180,
+    "parts": 899,
+    "rows": 1794,
+    "written_rows": 13510
+   },
+   "1792898553": {
+    "failed_inserts": 0,
+    "flushes": 881,
+    "insert_us": 45603970,
+    "inserts": 881,
+    "merge_us": 2258184,
+    "merges": 176,
+    "parts": 881,
+    "rows": 1782,
+    "written_rows": 13304
+   },
+   "1792899153": {
+    "failed_inserts": 0,
+    "flushes": 1049,
+    "insert_us": 40842012,
+    "inserts": 1049,
+    "merge_us": 2397675,
+    "merges": 210,
+    "parts": 1049,
+    "rows": 2553,
+    "written_rows": 28307
+   },
+   "1792899753": {
+    "failed_inserts": 0,
+    "flushes": 1039,
+    "insert_us": 39851896,
+    "inserts": 1039,
+    "merge_us": 2149740,
+    "merges": 208,
+    "parts": 1039,
+    "rows": 2559,
+    "written_rows": 28267
+   },
+   "1792900353": {
+    "failed_inserts": 0,
+    "flushes": 910,
+    "insert_us": 38421716,
+    "inserts": 910,
+    "merge_us": 1976357,
+    "merges": 182,
+    "parts": 910,
+    "rows": 2189,
+    "written_rows": 18115
+   },
+   "1792900953": {
+    "failed_inserts": 0,
+    "flushes": 914,
+    "insert_us": 32928068,
+    "inserts": 914,
+    "merge_us": 1580473,
+    "merges": 182,
+    "parts": 914,
+    "rows": 2155,
+    "written_rows": 18019
+   },
+   "1792901553": {
+    "failed_inserts": 0,
+    "flushes": 912,
+    "insert_us": 37997744,
+    "inserts": 912,
+    "merge_us": 2296067,
+    "merges": 183,
+    "parts": 912,
+    "rows": 2045,
+    "written_rows": 20403
+   },
+   "1792902153": {
+    "failed_inserts": 0,
+    "flushes": 864,
+    "insert_us": 30686139,
+    "inserts": 864,
+    "merge_us": 1436351,
+    "merges": 173,
+    "parts": 864,
+    "rows": 1763,
+    "written_rows": 18047
+   },
+   "1792902753": {
+    "failed_inserts": 0,
+    "flushes": 5,
+    "insert_us": 164773,
+    "inserts": 5,
+    "merge_us": 8328,
+    "merges": 1,
+    "parts": 5,
+    "rows": 9,
+    "written_rows": 125
+   }
+  },
+  "otel_logs": {
+   "1792893153": {
+    "failed_inserts": 19,
+    "flushes": 108,
+    "insert_us": 39644541,
+    "inserts": 108,
+    "merge_us": 15094696,
+    "merges": 21,
+    "parts": 114,
+    "rows": 6939,
+    "written_rows": 19527
+   },
+   "1792893753": {
+    "failed_inserts": 1,
+    "flushes": 125,
+    "insert_us": 20329936,
+    "inserts": 125,
+    "merge_us": 19052976,
+    "merges": 25,
+    "parts": 123,
+    "rows": 7405,
+    "written_rows": 20561
+   },
+   "1792894353": {
+    "failed_inserts": 0,
+    "flushes": 120,
+    "insert_us": 10845028,
+    "inserts": 120,
+    "merge_us": 7881307,
+    "merges": 21,
+    "parts": 120,
+    "rows": 7102,
+    "written_rows": 18971
+   },
+   "1792894953": {
+    "failed_inserts": 0,
+    "flushes": 120,
+    "insert_us": 11737191,
+    "inserts": 120,
+    "merge_us": 4444514,
+    "merges": 23,
+    "parts": 120,
+    "rows": 7143,
+    "written_rows": 19158
+   },
+   "1792895553": {
+    "failed_inserts": 0,
+    "flushes": 120,
+    "insert_us": 12534166,
+    "inserts": 120,
+    "merge_us": 6829338,
+    "merges": 24,
+    "parts": 120,
+    "rows": 5131,
+    "written_rows": 14795
+   },
+   "1792896153": {
+    "failed_inserts": 0,
+    "flushes": 120,
+    "insert_us": 11817232,
+    "inserts": 120,
+    "merge_us": 5310859,
+    "merges": 25,
+    "parts": 120,
+    "rows": 4697,
+    "written_rows": 14076
+   },
+   "1792896753": {
+    "failed_inserts": 0,
+    "flushes": 120,
+    "insert_us": 10975229,
+    "inserts": 120,
+    "merge_us": 4920166,
+    "merges": 24,
+    "parts": 120,
+    "rows": 5492,
+    "written_rows": 15538
+   },
+   "1792897353": {
+    "failed_inserts": 0,
+    "flushes": 120,
+    "insert_us": 11659350,
+    "inserts": 120,
+    "merge_us": 6693058,
+    "merges": 24,
+    "parts": 120,
+    "rows": 4627,
+    "written_rows": 13886
+   },
+   "1792897953": {
+    "failed_inserts": 0,
+    "flushes": 120,
+    "insert_us": 12378855,
+    "inserts": 120,
+    "merge_us": 6232467,
+    "merges": 21,
+    "parts": 120,
+    "rows": 5471,
+    "written_rows": 15644
+   },
+   "1792898553": {
+    "failed_inserts": 0,
+    "flushes": 119,
+    "insert_us": 16498536,
+    "inserts": 119,
+    "merge_us": 4707668,
+    "merges": 23,
+    "parts": 120,
+    "rows": 4543,
+    "written_rows": 13688
+   },
+   "1792899153": {
+    "failed_inserts": 0,
+    "flushes": 120,
+    "insert_us": 11979391,
+    "inserts": 120,
+    "merge_us": 4524110,
+    "merges": 24,
+    "parts": 119,
+    "rows": 5671,
+    "written_rows": 15984
+   },
+   "1792899753": {
+    "failed_inserts": 0,
+    "flushes": 120,
+    "insert_us": 11648871,
+    "inserts": 120,
+    "merge_us": 4045177,
+    "merges": 24,
+    "parts": 120,
+    "rows": 4788,
+    "written_rows": 14073
+   },
+   "1792900353": {
+    "failed_inserts": 0,
+    "flushes": 120,
+    "insert_us": 13441193,
+    "inserts": 120,
+    "merge_us": 7427598,
+    "merges": 25,
+    "parts": 120,
+    "rows": 5377,
+    "written_rows": 15430
+   },
+   "1792900953": {
+    "failed_inserts": 0,
+    "flushes": 120,
+    "insert_us": 11078654,
+    "inserts": 120,
+    "merge_us": 3770357,
+    "merges": 24,
+    "parts": 120,
+    "rows": 4581,
+    "written_rows": 13606
+   },
+   "1792901553": {
+    "failed_inserts": 0,
+    "flushes": 115,
+    "insert_us": 12149485,
+    "inserts": 115,
+    "merge_us": 6713861,
+    "merges": 25,
+    "parts": 115,
+    "rows": 5443,
+    "written_rows": 15490
+   },
+   "1792902153": {
+    "failed_inserts": 0,
+    "flushes": 118,
+    "insert_us": 10901786,
+    "inserts": 118,
+    "merge_us": 4248149,
+    "merges": 22,
+    "parts": 118,
+    "rows": 5052,
+    "written_rows": 14738
+   },
+   "1792902753": {
+    "failed_inserts": 0,
+    "flushes": 2,
+    "insert_us": 280959,
+    "inserts": 2,
+    "merge_us": 55500,
+    "merges": 1,
+    "parts": 2,
+    "rows": 9,
+    "written_rows": 60
+   }
+  },
+  "otel_logs_rule": {
+   "1792893153": {
+    "failed_inserts": 14,
+    "flushes": 396,
+    "insert_us": 48396955,
+    "inserts": 396,
+    "merge_us": 17537963,
+    "merges": 78,
+    "parts": 398,
+    "rows": 4257,
+    "written_rows": 8932
+   },
+   "1792893753": {
+    "failed_inserts": 3,
+    "flushes": 427,
+    "insert_us": 32031812,
+    "inserts": 427,
+    "merge_us": 21404174,
+    "merges": 86,
+    "parts": 426,
+    "rows": 2256,
+    "written_rows": 5140
+   },
+   "1792894353": {
+    "failed_inserts": 0,
+    "flushes": 516,
+    "insert_us": 18614855,
+    "inserts": 516,
+    "merge_us": 27614547,
+    "merges": 180,
+    "parts": 516,
+    "rows": 2647,
+    "written_rows": 6094
+   },
+   "1792894953": {
+    "failed_inserts": 0,
+    "flushes": 524,
+    "insert_us": 20073109,
+    "inserts": 524,
+    "merge_us": 91091018,
+    "merges": 469,
+    "parts": 524,
+    "rows": 2653,
+    "written_rows": 6127
+   },
+   "1792895553": {
+    "failed_inserts": 1,
+    "flushes": 516,
+    "insert_us": 22401440,
+    "inserts": 516,
+    "merge_us": 121810861,
+    "merges": 504,
+    "parts": 516,
+    "rows": 2712,
+    "written_rows": 6232
+   },
+   "1792896153": {
+    "failed_inserts": 0,
+    "flushes": 509,
+    "insert_us": 18623065,
+    "inserts": 509,
+    "merge_us": 103877290,
+    "merges": 438,
+    "parts": 509,
+    "rows": 2686,
+    "written_rows": 6173
+   },
+   "1792896753": {
+    "failed_inserts": 0,
+    "flushes": 560,
+    "insert_us": 20234541,
+    "inserts": 560,
+    "merge_us": 9029907,
+    "merges": 113,
+    "parts": 560,
+    "rows": 3572,
+    "written_rows": 8151
+   },
+   "1792897353": {
+    "failed_inserts": 0,
+    "flushes": 559,
+    "insert_us": 20901729,
+    "inserts": 559,
+    "merge_us": 11747026,
+    "merges": 112,
+    "parts": 559,
+    "rows": 3631,
+    "written_rows": 8257
+   },
+   "1792897953": {
+    "failed_inserts": 0,
+    "flushes": 899,
+    "insert_us": 34649951,
+    "inserts": 899,
+    "merge_us": 28233500,
+    "merges": 187,
+    "parts": 899,
+    "rows": 5858,
+    "written_rows": 13510
+   },
+   "1792898553": {
+    "failed_inserts": 0,
+    "flushes": 881,
+    "insert_us": 45603970,
+    "inserts": 881,
+    "merge_us": 98600102,
+    "merges": 428,
+    "parts": 881,
+    "rows": 5761,
+    "written_rows": 13304
+   },
+   "1792899153": {
+    "failed_inserts": 0,
+    "flushes": 1049,
+    "insert_us": 40842012,
+    "inserts": 1049,
+    "merge_us": 144054819,
+    "merges": 644,
+    "parts": 1049,
+    "rows": 12877,
+    "written_rows": 28307
+   },
+   "1792899753": {
+    "failed_inserts": 0,
+    "flushes": 1039,
+    "insert_us": 39851896,
+    "inserts": 1039,
+    "merge_us": 65045668,
+    "merges": 274,
+    "parts": 1039,
+    "rows": 12854,
+    "written_rows": 28267
+   },
+   "1792900353": {
+    "failed_inserts": 0,
+    "flushes": 910,
+    "insert_us": 38421716,
+    "inserts": 910,
+    "merge_us": 159303787,
+    "merges": 629,
+    "parts": 910,
+    "rows": 7963,
+    "written_rows": 18115
+   },
+   "1792900953": {
+    "failed_inserts": 0,
+    "flushes": 914,
+    "insert_us": 32928068,
+    "inserts": 914,
+    "merge_us": 31744376,
+    "merges": 200,
+    "parts": 914,
+    "rows": 7932,
+    "written_rows": 18019
+   },
+   "1792901553": {
+    "failed_inserts": 0,
+    "flushes": 912,
+    "insert_us": 37997744,
+    "inserts": 912,
+    "merge_us": 141891175,
+    "merges": 609,
+    "parts": 912,
+    "rows": 9179,
+    "written_rows": 20403
+   },
+   "1792902153": {
+    "failed_inserts": 0,
+    "flushes": 864,
+    "insert_us": 30686139,
+    "inserts": 864,
+    "merge_us": 17861743,
+    "merges": 173,
+    "parts": 864,
+    "rows": 8142,
+    "written_rows": 18047
+   },
+   "1792902753": {
+    "failed_inserts": 0,
+    "flushes": 5,
+    "insert_us": 164773,
+    "inserts": 5,
+    "merge_us": 198064,
+    "merges": 1,
+    "parts": 5,
+    "rows": 58,
+    "written_rows": 125
+   }
+  }
+ },
+ "totals": {
+  "cold_rows": 115875,
+  "feed_lines": 242324,
+  "hot_rows": 89471,
+  "part_log_rows": 89471,
+  "rule_cold_rows": 147327,
+  "rule_part_log_rows": 95038,
+  "rule_rows": 95038
+ },
+ "window_s": 600
+}
