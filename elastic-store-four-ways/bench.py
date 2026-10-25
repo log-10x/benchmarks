@@ -222,7 +222,16 @@ def cmd_licence(a):
     log['version'] = {'number': v['version']['number'], 'build_hash': v['version'].get('build_hash'),
                       'lucene_version': v['version'].get('lucene_version')}
     lic_keys = ('type', 'status', 'issuer', 'max_nodes', 'issue_date', 'expiry_date')
-    log['licence_before'] = {k: ok('GET', '/_license')['license'].get(k) for k in lic_keys}
+    # A new node answers 404 here until it has installed its self-generated basic licence.
+    deadline = time.time() + 120
+    while True:
+        st, resp = call('GET', '/_license')
+        if st == 200 or time.time() > deadline:
+            break
+        time.sleep(2)
+    if st != 200:
+        raise SystemExit(f'GET /_license -> {st}: {json.dumps(resp)[:400]}')
+    log['licence_before'] = {k: resp['license'].get(k) for k in lic_keys}
     # pattern_text under the licence a new self-managed cluster starts on, before the trial
     probe = 'es4-probe-basic'
     call('DELETE', f'/{probe}')
