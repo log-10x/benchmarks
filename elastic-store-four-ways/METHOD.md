@@ -2,7 +2,9 @@
 
 One question: on Elasticsearch 9.5.5, how much index store does the engine's compact form save over
 (a) a raw index, (b) logsdb index mode and (c) logsdb with `message` mapped as `pattern_text`, on
-the same sample?
+the same sample? The compact form is indexed twice, (d) in standard mode as on 8.17.0 and (e) in
+logsdb mode, the 9.x default for logs, so the run has five variants. The comparison that decides is
+(e) against (c): compact on logsdb against logsdb with `pattern_text`.
 
 The earlier figure this replaces as the Elastic comparison: on 8.17.0 the compact form (encoded
 index plus template index, 13.8 MB) took 51.7% less store than a raw index holding each whole line
@@ -57,16 +59,18 @@ Elastic's docs, read 2026-10-25:
   index mode, indices are sorted by the fields `host.name` and `@timestamp` by default"; "By
   default, logsdb index mode uses the `best_compression` codec".
 
-## The four variants
+## The five variants
 
 Every index: one primary shard, no replica, `index.codec: best_compression` set explicitly,
 refresh off while loading, documents sent in file order in bulk requests of 2,000 with
 generated `_id`s, from one client.
 
-(a), (b) and (c) index the same document per line: the record as captured with `log` renamed
-`message`, plus `@timestamp` (line i at 2025-10-02T00:00:00Z + i/7 s, the pace the Elastic rigs
-replay this capture at). All three map every other string as `keyword` (`ignore_above: 1024`) by
-one dynamic template. Each step changes one thing:
+(a), (b) and (c) index the same document per line: the parsed record as captured, with `log`
+renamed `message`, plus `@timestamp` (line i at 2025-10-02T00:00:00Z + i/7 s, the pace the Elastic
+rigs replay this capture at). All three map every other string as `keyword` (`ignore_above: 1024`)
+by one dynamic template. (a) is therefore not the 8.17.0 raw index, which held each whole line as one
+`message` text field; it is the record a shipper sends, parsed into fields, in standard mode. Each
+step changes one thing:
 
 | | Index | Index settings beyond the common ones | `message` |
 |---|---|---|---|
@@ -74,6 +78,7 @@ one dynamic template. Each step changes one thing:
 | (b) logsdb | `es4-logsdb` | `index.mode: logsdb` | `text` |
 | (c) logsdb + `pattern_text` | `es4-pattern` | `index.mode: logsdb`, `index.logsdb.default_sort_on_message_template: true` | `pattern_text`, defaults |
 | (d) compact | `es4-compact` + `es4-compact-dict` | none (standard mode) | the encoded event, `text` |
+| (e) compact on logsdb | `es4-compact-logsdb` + `es4-compact-dict` | `index.mode: logsdb` | the encoded event, `text` |
 
 (d) is the shape the compact form was measured in on 8.17.0 and that the l1es plugin documents:
 `es4-compact` holds one document per encoded event, `{"@timestamp", "message": <encoded line>,
@@ -81,10 +86,14 @@ one dynamic template. Each step changes one thing:
 spread over the same span as the lines'; `es4-compact-dict` holds the template dictionary as the
 plugin's own `l1es_dml` index does, `_id` = template hash, `{"pattern": <template>}`, mapping
 `{"dynamic": false, "properties": {"pattern": {"type": "text"}}}`. Its store is the two indexes
-added together. The metadata is inside each encoded event, not in fields.
+added together. The metadata is inside each encoded event, not in fields. (e) loads the same
+documents with the same mapping into a logsdb index; the dictionary index is shared and counted in
+both.
 
-`run.sh` also knows `compact_logsdb` (the same documents in logsdb mode, same dictionary); it is not
-in the default run.
+Document counts differ by design. (a), (b) and (c) hold one document per line (197,430). The engine
+folds a multi-line event (a stack trace, say) into one encoded event, so (d) and (e) hold one
+document per event plus one per template. No index is compared with another's count; each is
+checked against its own input.
 
 ## Measurement
 
@@ -102,9 +111,9 @@ their mean.
 A failed check is reported in `results/results.md`, not hidden.
 
 1. The trial licence is active.
-2. Every index's document count equals its input: 197,430 for (a), (b) and (c); the encoded
-   event count for `es4-compact`; the distinct template hashes for `es4-compact-dict`. The same
-   in both repetitions.
+2. Every index's document count equals its own input: 197,430 for (a), (b) and (c); the encoded
+   event count for `es4-compact` and `es4-compact-logsdb`; the distinct template hashes for
+   `es4-compact-dict`. The same in both repetitions.
 3. One segment per index after the merge.
 4. `best_compression` on every index.
 5. On the logsdb indexes, `_disk_usage` shows no stored `_source` (synthetic source is on) and no
@@ -112,13 +121,23 @@ A failed check is reported in `results/results.md`, not hidden.
 6. The two encodes are byte-identical, and the compact form decodes to the sample byte for byte.
 7. The two repetitions agree within 1% per variant.
 
+## Recorded in results/
+
+- `licence.json`: the version, the response to creating a `pattern_text` index on the default
+  licence before the trial (status and body, and the index's settings and mapping if it was
+  created), the `start_trial` response, and the licence after it.
+- `compact.json`: for each of the two encodes, the events, templates, bytes and sha256 of
+  `encoded.log` and `templates.json`, whether the two are identical, the sha256 of the decoded
+  output and whether it equals the sample byte for byte.
+- `rep<N>.json` and `rep<N>/`: per index, the store reads, documents, segments, effective settings,
+  retention leases before the merge, mapping and `_disk_usage`.
+
 ## Reading, fixed before the run
 
-The headline is (d)'s saving over (c), 1 - (d)/(c), on the mean of the repetitions, with its
-savings over (a) and (b) beside it. Whether the native pair alone already takes 51.7% off a raw
-index is (c)/(a): at or under 0.483 it does. The 8.17.0 raw index held each whole line in one
-field and (a) here holds the parsed record, so the two raws are not the same index; both
-figures are stated with that difference.
+The headline is (e)'s saving over (c), 1 - (e)/(c), on the mean of the repetitions. Every variant
+is also stated as a fraction of (a) and of (b). Whether the native pair alone already takes 51.7%
+off a raw index is (c)/(a): at or under 0.483 it does, with the difference that the 8.17.0 raw index
+held whole lines and (a) holds the parsed record.
 
 ## Not claimed
 

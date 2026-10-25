@@ -60,9 +60,10 @@ VARIANTS = {
     'logsdb': (['es4-logsdb'], 'records'),
     'pattern': (['es4-pattern'], 'records'),
     'compact': (['es4-compact', 'es4-compact-dict'], 'compact'),
-    'compact_logsdb': (['es4-compact-logsdb', 'es4-compact-dict'], 'compact'),   # not in the default run
+    'compact_logsdb': (['es4-compact-logsdb', 'es4-compact-dict'], 'compact'),
 }
-DEFAULT_VARIANTS = ['raw', 'logsdb', 'pattern', 'compact']
+DEFAULT_VARIANTS = ['raw', 'logsdb', 'pattern', 'compact', 'compact_logsdb']
+HEADLINE = ('compact_logsdb', 'pattern')   # the comparison METHOD.md fixes as the result
 SETTING_KEYS = ['index.mode', 'index.codec', 'index.mapping.source.mode', 'index.sort.field', 'index.sort.order',
                 'index.logsdb.default_sort_on_message_template', 'index.recovery.use_synthetic_source',
                 'index.number_of_shards', 'index.number_of_replicas']
@@ -206,7 +207,7 @@ def cmd_compact_record(a):
     r['compact_bytes'] = e1['encoded_bytes'] + e1['templates_bytes']
     r['reduction_before_codec_pct'] = round((1 - r['compact_bytes'] / sample_bytes) * 100, 2)
     dl, db = lines_and_bytes(a.decoded)
-    r['decoded_bytes'], r['decoded_lines'] = db, dl
+    r['decoded_bytes'], r['decoded_lines'], r['sha256_decoded'] = db, dl, sha256(a.decoded)
     r['roundtrip'] = 'BYTE-IDENTICAL' if filecmp.cmp(a.sample, a.decoded, shallow=False) else 'DIFFERS'
     dump(a.out, r)
     print(f"compact form: {e1['events']:,} events, {e1['templates']:,} templates, {r['compact_bytes']:,} B "
@@ -382,8 +383,13 @@ def cmd_report(a):
           ', '.join(f'{v} {s * 100:.2f}%' for v, s in spread.items()))
 
     ratios = {}
-    if 'raw' in mean:
-        ratios['of_raw'] = {v: mean[v] / mean['raw'] for v in variants}
+    for base in ('raw', 'logsdb'):
+        if base in mean:
+            ratios[f'of_{base}'] = {v: mean[v] / mean[base] for v in variants}
+    if all(v in mean for v in HEADLINE):
+        c, n = HEADLINE
+        ratios['headline'] = {'compact': c, 'against': n, 'saving_pct': (1 - mean[c] / mean[n]) * 100,
+                              'times_smaller': mean[n] / mean[c]}
     for c in ('compact', 'compact_logsdb'):
         if c in mean:
             ratios[f'{c}_against'] = {v: {'saving_pct': (1 - mean[c] / mean[v]) * 100, 'times_smaller': mean[v] / mean[c]}
@@ -410,13 +416,20 @@ def cmd_report(a):
           f"{compact['encode1']['encoded_bytes']:,} B encoded + {compact['encode1']['templates_bytes']:,} B dictionary = "
           f"{compact['compact_bytes']:,} B, {compact['reduction_before_codec_pct']}% under the sample before any codec; "
           f"decode {compact['roundtrip']}", '',
-          '| Variant | Index mode | `message` | Documents | ' + ' | '.join(f'Store, rep {r["rep"]}' for r in reps) + ' | Of raw |',
-          '|---|---|---|---:|' + '---:|' * len(reps) + '---:|']
+          'Documents differ by design: (a), (b) and (c) hold one per line, the compact variants one per event '
+          '(multi-line events fold into one) plus one per template. Each index is checked against its own input.', '',
+          '| Variant | Index mode | `message` | Documents | ' + ' | '.join(f'Store, rep {r["rep"]}' for r in reps) +
+          ' | Mean | Of (a) raw | Of (b) logsdb |',
+          '|---|---|---|---:|' + '---:|' * len(reps) + '---:|---:|---:|']
     for v in variants:
         docs = ' + '.join(f"{idx0[ix]['docs']:,}" for ix in VARIANTS[v][0])
-        of_raw = f"{ratios['of_raw'][v] * 100:.1f}%" if 'of_raw' in ratios else ''
+        of = [f"{ratios[k][v] * 100:.1f}%" if k in ratios else '' for k in ('of_raw', 'of_logsdb')]
         md.append(f'| {v} | {label[v][0]} | {label[v][1]} | {docs} | ' +
-                  ' | '.join(f'{s:,} B' for s in store[v]) + f' | {of_raw} |')
+                  ' | '.join(f'{s:,} B' for s in store[v]) + f' | {mean[v]:,.0f} B | {of[0]} | {of[1]} |')
+    if 'headline' in ratios:
+        h = ratios['headline']
+        md += ['', f"**{h['compact']} against {h['against']}:** {mean[h['compact']]:,.0f} B against "
+               f"{mean[h['against']]:,.0f} B, {h['saving_pct']:.1f}% less store ({h['times_smaller']:.2f}x smaller)."]
     for c in ('compact', 'compact_logsdb'):
         if f'{c}_against' in ratios:
             md += ['', f'The {c} variant against each native one (mean of the repetitions):', '',

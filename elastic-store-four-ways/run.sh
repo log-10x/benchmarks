@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
-# Elasticsearch 9.5.5 store size, four ways, on the published OpenTelemetry demo sample: a raw
-# index, logsdb, logsdb with message as pattern_text, and the engine's compact form. METHOD.md is
-# the plan, written before the run.
+# Elasticsearch 9.5.5 store size on the published OpenTelemetry demo sample: a raw index, logsdb,
+# logsdb with message as pattern_text, and the engine's compact form in standard and in logsdb
+# mode. METHOD.md is the plan, written before the run.
 #
 #   ./run.sh           encode the sample twice and decode it once with the engine, start one
 #                      Elasticsearch node on a trial licence, index and measure the variants
@@ -17,7 +17,7 @@
 #   ES4_PORT      port on 127.0.0.1 for Elasticsearch (default 9205)
 #   ES4_HEAP      Elasticsearch heap (default 1g); ES4_MEM the container limit (default 2g)
 #   ES4_REPS      repetitions (default 2)
-#   ES4_VARIANTS  comma-separated (default raw,logsdb,pattern,compact; compact_logsdb also exists)
+#   ES4_VARIANTS  comma-separated (default raw,logsdb,pattern,compact,compact_logsdb)
 #   ES4_KEEP=1    leave Elasticsearch up and keep data/out
 #
 # Containers are started detached under fixed names and removed with `docker rm -f -v`, on exit too.
@@ -34,7 +34,7 @@ PORT="${ES4_PORT:-9205}"
 HEAP="${ES4_HEAP:-1g}"
 MEM="${ES4_MEM:-2g}"
 REPS="${ES4_REPS:-2}"
-VARIANTS="${ES4_VARIANTS:-raw,logsdb,pattern,compact}"
+VARIANTS="${ES4_VARIANTS:-raw,logsdb,pattern,compact,compact_logsdb}"
 export ES4_URL="http://127.0.0.1:$PORT"
 ES_NAME=es4-es
 ENGINE_NAME=es4-engine

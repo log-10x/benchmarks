@@ -3,7 +3,14 @@
 One benchmark in the [log10x benchmarks](../) repository. It answers one question: on
 Elasticsearch 9.5.5, how much index store does the engine's compact form save over a raw index,
 over logsdb index mode, and over logsdb with `message` mapped as `pattern_text`, on the same
-sample?
+sample? The compact form is indexed in standard mode and in logsdb mode, so there are five
+variants; the comparison that decides is compact on logsdb against logsdb with `pattern_text`.
+
+Two things to know before reading the table. The raw index holds the parsed record (one field per
+key of the shipped JSON, the message in `message`), not each whole line as one field the way the
+8.17.0 measurement did. And document counts differ by design: the three native indexes hold one
+document per line, while the engine folds a multi-line event into one, so the compact indexes hold
+one per event plus one per template. Each index is checked against its own input.
 
 ## The result
 
@@ -12,12 +19,12 @@ Not run yet. `results/results.md` will carry the table.
 ## Method
 
 [`METHOD.md`](METHOD.md), written before the run: the sample, how the compact form is made, the
-four index definitions, the measurement, and the checks.
+five index definitions, the measurement, and the checks.
 
 ## Reproduce
 
 ```
-./run.sh             # encode, decode check, one Elasticsearch node, two repetitions, report
+./run.sh             # encode twice, decode check, one Elasticsearch node, five variants twice, report
 ./run.sh report      # re-render results/results.md from results/
 ```
 
@@ -41,8 +48,8 @@ with `docker rm -f -v`, on exit too.
 | `METHOD.md` | the plan, written before the run |
 | `run.sh` | the whole run |
 | `bench.py` | the Elasticsearch side: licence, index definitions, loading, measurement, report |
-| `results/compact.json` | the compact form: counts, hashes, the two encodes compared, the decode |
-| `results/licence.json` | the version, `pattern_text` on the default licence, the trial |
+| `results/compact.json` | the compact form: counts and sha256 of both encodes, whether they match, the decoded output's sha256 and the byte comparison with the sample |
+| `results/licence.json` | the version, the response to creating a `pattern_text` index on the default licence, the trial |
 | `results/rep<N>.json` | each repetition: per index store, documents, settings, leases, per-field bytes |
 | `results/rep<N>/` | each index's mapping and `_disk_usage` output |
 | `results/results.json`, `results/results.md` | the table, the ratios and the checks |
