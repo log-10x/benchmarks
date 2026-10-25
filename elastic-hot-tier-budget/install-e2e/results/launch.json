@@ -1,0 +1,60 @@
+{
+ "mcp_version": "1.30.90",
+ "image": "ghcr.io/log-10x/edge-10x:1.1.150",
+ "image_rendered": "log10x/edge-10x:1.1.147@sha256:a043ccd828742c4eccee09abb654ce6a7357b6123f73300ed04f8605e874b8c4",
+ "args_from_values": [
+  "@run/input/forwarder/fluentbit",
+  "@apps/receiver",
+  "symbolMessageHashField",
+  "tenx_hash",
+  "outputEncodeField",
+  "fullText(\"tenx_hash\",\"routeState\",\"message_pattern\",\"severity_level\",\"utf8Size\")"
+ ],
+ "env_applied": [
+  "TENX_AIRGAPPED",
+  "K8S_ENABLED",
+  "CAP_LOOKUP_FILE",
+  "ACTION_LOOKUP_FILE",
+  "TOTAL_LOOKUP_FILE"
+ ],
+ "env_substituted": [
+  {
+   "name": "K8S_ENABLED",
+   "rendered": "true",
+   "rig": "false"
+  },
+  {
+   "name": "CAP_LOOKUP_FILE",
+   "rendered": "/tmp/tenx/kubernetes/$(K8S_NAMESPACE)/log10x-action-intent/caps.csv",
+   "rig": "/policy/caps.csv"
+  },
+  {
+   "name": "ACTION_LOOKUP_FILE",
+   "rendered": "/tmp/tenx/kubernetes/$(K8S_NAMESPACE)/log10x-action-intent/actions.csv",
+   "rig": "/policy/actions.csv"
+  },
+  {
+   "name": "TOTAL_LOOKUP_FILE",
+   "rendered": "/tmp/tenx/kubernetes/$(K8S_NAMESPACE)/log10x-action-intent/totals.csv",
+   "rig": "/policy/totals.csv"
+  }
+ ],
+ "env_left_out": [
+  "K8S_NAMESPACE",
+  "K8S_CONFIGMAP",
+  "CONFIG_GENERATION_FILE"
+ ],
+ "rig_env": [
+  "TENX_FLUENTBIT_OUTPUT_HOST=fluent-bit"
+ ],
+ "resources_limits": {
+  "cpus": "0.5",
+  "memory": "512M"
+ },
+ "policy_seed_from_configmap": [
+  "caps.csv",
+  "actions.csv",
+  "totals.csv",
+  "regulator-unit"
+ ]
+}
