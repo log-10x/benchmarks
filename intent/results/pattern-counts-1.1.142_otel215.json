@@ -1,0 +1,151 @@
+{
+ "capture": "otel215",
+ "events": 157228,
+ "labelled_events": 156563,
+ "unlabelled_events": 665,
+ "unlabelled_multiline_events": 39,
+ "events_named_differently_by_the_two_runs": 0,
+ "patterns_every_event": 2687,
+ "patterns_labelled_events": 2277,
+ "patterns_unlabelled_events": 411,
+ "patterns_in_both": 1,
+ "patterns_only_in_unlabelled_events": 410,
+ "events_in_unlabelled_only_patterns": 663,
+ "unlabelled_only_patterns_by_container": {
+  "frontend-proxy": {
+   "unlabelled_events": 114,
+   "patterns": 114
+  },
+  "opensearch": {
+   "unlabelled_events": 102,
+   "patterns": 83
+  },
+  "jaeger": {
+   "unlabelled_events": 87,
+   "patterns": 58
+  },
+  "prometheus-server": {
+   "unlabelled_events": 152,
+   "patterns": 38
+  },
+  "postgresql": {
+   "unlabelled_events": 33,
+   "patterns": 24
+  },
+  "metrics-server": {
+   "unlabelled_events": 35,
+   "patterns": 15
+  },
+  "grafana-sc-dashboard": {
+   "unlabelled_events": 14,
+   "patterns": 13
+  },
+  "init-config": {
+   "unlabelled_events": 14,
+   "patterns": 10
+  },
+  "grafana-sc-alerts": {
+   "unlabelled_events": 10,
+   "patterns": 10
+  },
+  "grafana-sc-datasources": {
+   "unlabelled_events": 10,
+   "patterns": 10
+  },
+  "flagd": {
+   "unlabelled_events": 9,
+   "patterns": 9
+  },
+  "image-provider": {
+   "unlabelled_events": 9,
+   "patterns": 9
+  },
+  "aws-vpc-cni-init": {
+   "unlabelled_events": 7,
+   "patterns": 7
+  },
+  "cart": {
+   "unlabelled_events": 7,
+   "patterns": 7
+  },
+  "coredns": {
+   "unlabelled_events": 43,
+   "patterns": 6
+  },
+  "aws-node": {
+   "unlabelled_events": 4,
+   "patterns": 4
+  },
+  "email": {
+   "unlabelled_events": 3,
+   "patterns": 3
+  },
+  "flagd-ui": {
+   "unlabelled_events": 3,
+   "patterns": 3
+  },
+  "fluentd-10x": {
+   "unlabelled_events": 2,
+   "patterns": 2
+  },
+  "load-generator": {
+   "unlabelled_events": 5,
+   "patterns": 1
+  },
+  "aws-eks-nodeagent": {
+   "unlabelled_events": 1,
+   "patterns": 1
+  },
+  "currency": {
+   "unlabelled_events": 1,
+   "patterns": 1
+  }
+ },
+ "unlabelled_only_patterns_in_more_than_one_container": {
+  "Config_for_cluster_api_at_https_loaded": {
+   "grafana-sc-alerts": 1,
+   "grafana-sc-dashboard": 1,
+   "grafana-sc-datasources": 1
+  },
+  "Loading_incluster_config": {
+   "grafana-sc-alerts": 1,
+   "grafana-sc-dashboard": 1,
+   "grafana-sc-datasources": 1
+  },
+  "No_folder_annotation_was_provided_defaulting_to": {
+   "grafana-sc-alerts": 1,
+   "grafana-sc-dashboard": 1,
+   "grafana-sc-datasources": 1
+  },
+  "None_sent_to_http_localhost_Response_OK": {
+   "grafana-sc-alerts": 1,
+   "grafana-sc-dashboard": 2,
+   "grafana-sc-datasources": 1
+  },
+  "Starting_collector": {
+   "grafana-sc-alerts": 1,
+   "grafana-sc-dashboard": 1,
+   "grafana-sc-datasources": 1
+  },
+  "Unique_filenames_will_not_be_enforced": {
+   "grafana-sc-alerts": 1,
+   "grafana-sc-dashboard": 1,
+   "grafana-sc-datasources": 1
+  },
+  "response_content_will_not_be_enabled": {
+   "grafana-sc-alerts": 1,
+   "grafana-sc-dashboard": 1,
+   "grafana-sc-datasources": 1
+  },
+  "stream_stdout_log_docker": {
+   "flagd": 1,
+   "image-provider": 1
+  },
+  "template_9ae16a3b2f90404f": {
+   "flagd": 1,
+   "image-provider": 1,
+   "opensearch": 1,
+   "postgresql": 6
+  }
+ }
+}

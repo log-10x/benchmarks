@@ -1,0 +1,59 @@
+{
+ "capture": "rec1155",
+ "events": 41573,
+ "labelled_events": 41333,
+ "unlabelled_events": 240,
+ "unlabelled_multiline_events": 29,
+ "events_named_differently_by_the_two_runs": 0,
+ "patterns_every_event": 582,
+ "patterns_labelled_events": 406,
+ "patterns_unlabelled_events": 176,
+ "patterns_in_both": 0,
+ "patterns_only_in_unlabelled_events": 176,
+ "events_in_unlabelled_only_patterns": 240,
+ "unlabelled_only_patterns_by_container": {
+  "frontend-proxy": {
+   "unlabelled_events": 115,
+   "patterns": 115
+  },
+  "postgresql": {
+   "unlabelled_events": 83,
+   "patterns": 23
+  },
+  "flagd": {
+   "unlabelled_events": 14,
+   "patterns": 13
+  },
+  "cart": {
+   "unlabelled_events": 10,
+   "patterns": 10
+  },
+  "image-provider": {
+   "unlabelled_events": 9,
+   "patterns": 9
+  },
+  "flagd-ui": {
+   "unlabelled_events": 5,
+   "patterns": 5
+  },
+  "init-config": {
+   "unlabelled_events": 2,
+   "patterns": 1
+  },
+  "accounting": {
+   "unlabelled_events": 1,
+   "patterns": 1
+  },
+  "email": {
+   "unlabelled_events": 1,
+   "patterns": 1
+  }
+ },
+ "unlabelled_only_patterns_in_more_than_one_container": {
+  "stream_stdout_docker": {
+   "flagd": 2,
+   "image-provider": 1,
+   "postgresql": 2
+  }
+ }
+}

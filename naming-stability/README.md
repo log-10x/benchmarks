@@ -26,9 +26,19 @@ changed its pattern name, its pattern hash (`tenx_hash`, the hash of the name) o
 hash, so no pattern is listed as changed ([`results/results.md`](results/results.md)).
 
 These pattern counts take every event: 2,687 on otel215 and 582 on rec1155 for 1.1.142.
-[`../intent`](../intent) counts the patterns of labelled events only and reports 2,277 on otel215
-and 406 on rec1155 for the same 1.1.142 image. The counts differ by 410 on otel215 and 176 on
-rec1155; the difference is not reconciled here.
+[`../intent`](../intent) counts the patterns of labelled events only and reports 2,277 on
+otel215 and 406 on rec1155 for the same 1.1.142 image. The counts differ by 410 on otel215 and
+176 on rec1155. The difference is the patterns that only unlabelled events take. The two runs
+cut each capture into the same events and give every event the same pattern name. On otel215
+the 665 unlabelled events take 411 patterns, and one of them, `Starting`, also names a labelled
+event, so they add 410. On rec1155 the 240 unlabelled events take 176 patterns that no labelled
+event shares, so they add 176. In frontend-proxy, which has no labelled events, each unlabelled
+event takes a pattern of its own: 114 on otel215 and 115 on rec1155, most of them lines of
+Envoy's startup listing. The next largest are opensearch with 83 patterns, jaeger 58 and
+prometheus-server 38 on otel215, and postgresql 23 and flagd 13 on rec1155.
+[`../intent/bench/pattern_counts.py`](../intent/bench/pattern_counts.py) computes these numbers
+from the two runs' events ([otel215](../intent/results/pattern-counts-1.1.142_otel215.json),
+[rec1155](../intent/results/pattern-counts-1.1.142_rec1155.json)).
 
 ## What changed in each release, and what these captures exercise
 
