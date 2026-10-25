@@ -145,3 +145,23 @@ Query or ingest cost; search-time decoding (the l1es plugin is built for 8.17.0,
 Cloud Hosted pricing; replicas, several shards, data streams, routing on sort fields; `match_only_text`;
 `logsdb_columnar` (preview in 9.5); `pattern_text` with `index_options: positions`; a compact form
 of the message text alone with the metadata kept as fields.
+
+## Amendment after the first full run (2026-10-25, before the run in `results/`)
+
+The first full run, kept in `results-setting-only/`, created (c) with
+`index.logsdb.default_sort_on_message_template: true` as written above. The sort each segment
+records (`GET <index>/_segments`) read `@timestamp` only, in both repetitions, for (c) as for (b):
+on this 9.5.5 node, with documents that carry no `host.name`, the setting did not sort on
+`message.template_id`. Elastic's page says that sort "can significantly improve" what
+`pattern_text` compresses, so (c) without it is not the configuration the docs describe.
+
+Changes, and nothing else:
+
+- (c) sets the sort explicitly, as the doc's "Custom sorting" example does for a `pattern_text`
+  field: `index.sort.field: ["message.template_id", "@timestamp"]`, `index.sort.order: ["asc",
+  "desc"]`, in logsdb mode. A check requires the segments to carry `message.template_id` first.
+- (f) `compact_logsdb_sorted`: the compact documents of (e), logsdb mode, sorted the same way on
+  their own template id, `index.sort.field: ["l1x_tid", "@timestamp"]`, with the same check on
+  `l1x_tid`. Giving the template sort to (c) alone would favour it.
+- The headline stays (e) against (c). (f) against (c) is reported beside it, and every variant
+  against (a) and (b).

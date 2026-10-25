@@ -47,11 +47,18 @@ DICT_MAPPING = {'dynamic': False, 'properties': {'pattern': {'type': 'text'}}}
 INDEXES = {
     'es4-raw': {'settings': {'index': COMMON}, 'mappings': record_mapping('text')},
     'es4-logsdb': {'settings': {'index': {**COMMON, 'mode': 'logsdb'}}, 'mappings': record_mapping('text')},
+    # Elastic's "Custom sorting" example for pattern_text. index.logsdb.default_sort_on_message_template
+    # alone left the segments sorted on @timestamp only on 9.5.5 (results-setting-only/).
     'es4-pattern': {'settings': {'index': {**COMMON, 'mode': 'logsdb',
-                                           'logsdb.default_sort_on_message_template': True}},
+                                           'sort.field': ['message.template_id', '@timestamp'],
+                                           'sort.order': ['asc', 'desc']}},
                     'mappings': record_mapping('pattern_text')},
     'es4-compact': {'settings': {'index': COMMON}, 'mappings': COMPACT_MAPPING},
     'es4-compact-logsdb': {'settings': {'index': {**COMMON, 'mode': 'logsdb'}}, 'mappings': COMPACT_MAPPING},
+    # The same sort applied to the compact form: its template id, then time.
+    'es4-compact-logsdb-sorted': {'settings': {'index': {**COMMON, 'mode': 'logsdb', 'sort.field': ['l1x_tid', '@timestamp'],
+                                                         'sort.order': ['asc', 'desc']}},
+                                  'mappings': COMPACT_MAPPING},
     'es4-compact-dict': {'settings': {'index': COMMON}, 'mappings': DICT_MAPPING},
 }
 # variant -> (indexes whose store adds up to it, what is loaded into the first)
@@ -61,8 +68,9 @@ VARIANTS = {
     'pattern': (['es4-pattern'], 'records'),
     'compact': (['es4-compact', 'es4-compact-dict'], 'compact'),
     'compact_logsdb': (['es4-compact-logsdb', 'es4-compact-dict'], 'compact'),
+    'compact_logsdb_sorted': (['es4-compact-logsdb-sorted', 'es4-compact-dict'], 'compact'),
 }
-DEFAULT_VARIANTS = ['raw', 'logsdb', 'pattern', 'compact', 'compact_logsdb']
+DEFAULT_VARIANTS = ['raw', 'logsdb', 'pattern', 'compact', 'compact_logsdb', 'compact_logsdb_sorted']
 HEADLINE = ('compact_logsdb', 'pattern')   # the comparison METHOD.md fixes as the result
 SETTING_KEYS = ['index.mode', 'index.codec', 'index.mapping.source.mode', 'index.sort.field', 'index.sort.order',
                 'index.logsdb.default_sort_on_message_template', 'index.recovery.use_synthetic_source',
@@ -282,7 +290,7 @@ def cmd_measure(a):
     hashes = [h for h, _ in dict_docs(compact_dir / 'templates.json')]
     n_templates = len(set(hashes))   # one document per hash: _id is the hash
     expected = {'es4-raw': n_lines, 'es4-logsdb': n_lines, 'es4-pattern': n_lines, 'es4-compact': n_events,
-                'es4-compact-logsdb': n_events, 'es4-compact-dict': n_templates}
+                'es4-compact-logsdb': n_events, 'es4-compact-logsdb-sorted': n_events, 'es4-compact-dict': n_templates}
 
     rep = {'rep': a.rep, 'es_url': ES, 'variants': variants, 'indexes': {},
            'inputs': {'lines': n_lines, 'events': n_events, 'template_lines': len(hashes), 'template_hashes': n_templates}}
@@ -384,9 +392,10 @@ def cmd_report(a):
             check(f"rep {r['rep']} {ix}: one segment", x['segments'] == 1, str(x['segments']))
             check(f"rep {r['rep']} {ix}: best_compression", x['settings']['index.codec'] == 'best_compression',
                   str(x['settings']['index.codec']))
-            if ix == 'es4-pattern':
+            lead = {'es4-pattern': 'message.template_id', 'es4-compact-logsdb-sorted': 'l1x_tid'}.get(ix)
+            if lead:
                 fields = [f.get('field') for sort in x.get('segment_sort', []) for f in sort]
-                check(f"rep {r['rep']} {ix}: segments sorted on message.template_id", 'message.template_id' in fields,
+                check(f"rep {r['rep']} {ix}: segments sorted on {lead} first", fields[:1] == [lead],
                       'sort ' + ', '.join(str(f) for f in fields))
             if x['settings']['index.mode'] == 'logsdb':
                 check(f"rep {r['rep']} {ix}: synthetic source", x['source_stored_bytes'] == 0,
@@ -406,7 +415,7 @@ def cmd_report(a):
         c, n = HEADLINE
         ratios['headline'] = {'compact': c, 'against': n, 'saving_pct': (1 - mean[c] / mean[n]) * 100,
                               'times_smaller': mean[n] / mean[c]}
-    for c in ('compact', 'compact_logsdb'):
+    for c in ('compact', 'compact_logsdb', 'compact_logsdb_sorted'):
         if c in mean:
             ratios[f'{c}_against'] = {v: {'saving_pct': (1 - mean[c] / mean[v]) * 100, 'times_smaller': mean[v] / mean[c]}
                                       for v in variants if not v.startswith('compact')}
@@ -421,7 +430,8 @@ def cmd_report(a):
     label = {'raw': ('standard', '`text`'), 'logsdb': ('logsdb', '`text`'),
              'pattern': ('logsdb, sorted on `message.template_id`', '`pattern_text`'),
              'compact': ('standard', 'encoded event, `text`, plus `l1x_tid` and the dictionary index'),
-             'compact_logsdb': ('logsdb', 'encoded event, `text`, plus `l1x_tid` and the dictionary index')}
+             'compact_logsdb': ('logsdb', 'encoded event, `text`, plus `l1x_tid` and the dictionary index'),
+             'compact_logsdb_sorted': ('logsdb, sorted on `l1x_tid`', 'encoded event, `text`, plus `l1x_tid` and the dictionary index')}
     md = ['# Elasticsearch store, four ways: results', '',
           f"- Elasticsearch {lic['version']['number']} (Lucene {lic['version']['lucene_version']}), `{lic['es_image']}`, "
           f"licence `{lic['licence_after']['type']}` `{lic['licence_after']['status']}`",
@@ -447,7 +457,7 @@ def cmd_report(a):
         more_less = f"{abs(h['saving_pct']):.1f}% {'less' if h['saving_pct'] >= 0 else 'more'} store"
         md += ['', f"**{h['compact']} against {h['against']}:** {mean[h['compact']]:,.0f} B against "
                f"{mean[h['against']]:,.0f} B, {more_less} ({mean[h['compact']] / mean[h['against']] * 100:.1f}% of it)."]
-    for c in ('compact', 'compact_logsdb'):
+    for c in ('compact', 'compact_logsdb', 'compact_logsdb_sorted'):
         if f'{c}_against' in ratios:
             md += ['', f'The {c} variant against each native one (mean of the repetitions):', '',
                    '| Against | Its store | Compact store | Compact as a share of it | Difference |', '|---|---:|---:|---:|---:|']

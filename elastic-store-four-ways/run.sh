@@ -17,7 +17,7 @@
 #   ES4_PORT      port on 127.0.0.1 for Elasticsearch (default 9205)
 #   ES4_HEAP      Elasticsearch heap (default 1g); ES4_MEM the container limit (default 2g)
 #   ES4_REPS      repetitions (default 2)
-#   ES4_VARIANTS  comma-separated (default raw,logsdb,pattern,compact,compact_logsdb)
+#   ES4_VARIANTS  comma-separated (default raw,logsdb,pattern,compact,compact_logsdb,compact_logsdb_sorted)
 #   ES4_KEEP=1    leave Elasticsearch up and keep data/out
 #
 # Containers are started detached under fixed names and removed with `docker rm -f -v`, on exit too.
@@ -34,7 +34,7 @@ PORT="${ES4_PORT:-9205}"
 HEAP="${ES4_HEAP:-1g}"
 MEM="${ES4_MEM:-2g}"
 REPS="${ES4_REPS:-2}"
-VARIANTS="${ES4_VARIANTS:-raw,logsdb,pattern,compact,compact_logsdb}"
+VARIANTS="${ES4_VARIANTS:-raw,logsdb,pattern,compact,compact_logsdb,compact_logsdb_sorted}"
 export ES4_URL="http://127.0.0.1:$PORT"
 ES_NAME=es4-es
 ENGINE_NAME=es4-engine

@@ -1,0 +1,185 @@
+{
+ "es4-raw": {
+  "mappings": {
+   "dynamic_templates": [
+    {
+     "strings_as_keyword": {
+      "match_mapping_type": "string",
+      "mapping": {
+       "ignore_above": 1024,
+       "type": "keyword"
+      }
+     }
+    }
+   ],
+   "properties": {
+    "@timestamp": {
+     "type": "date"
+    },
+    "docker": {
+     "properties": {
+      "container_id": {
+       "type": "keyword",
+       "ignore_above": 1024
+      }
+     }
+    },
+    "kubernetes": {
+     "properties": {
+      "container_image": {
+       "type": "keyword",
+       "ignore_above": 1024
+      },
+      "container_image_id": {
+       "type": "keyword",
+       "ignore_above": 1024
+      },
+      "container_name": {
+       "type": "keyword",
+       "ignore_above": 1024
+      },
+      "host": {
+       "type": "keyword",
+       "ignore_above": 1024
+      },
+      "labels": {
+       "properties": {
+        "app": {
+         "properties": {
+          "kubernetes": {
+           "properties": {
+            "io/component": {
+             "type": "keyword",
+             "ignore_above": 1024
+            },
+            "io/instance": {
+             "type": "keyword",
+             "ignore_above": 1024
+            },
+            "io/managed-by": {
+             "type": "keyword",
+             "ignore_above": 1024
+            },
+            "io/name": {
+             "type": "keyword",
+             "ignore_above": 1024
+            },
+            "io/part-of": {
+             "type": "keyword",
+             "ignore_above": 1024
+            },
+            "io/version": {
+             "type": "keyword",
+             "ignore_above": 1024
+            }
+           }
+          }
+         }
+        },
+        "apps": {
+         "properties": {
+          "kubernetes": {
+           "properties": {
+            "io/pod-index": {
+             "type": "keyword",
+             "ignore_above": 1024
+            }
+           }
+          }
+         }
+        },
+        "component": {
+         "type": "keyword",
+         "ignore_above": 1024
+        },
+        "controller-revision-hash": {
+         "type": "keyword",
+         "ignore_above": 1024
+        },
+        "eks": {
+         "properties": {
+          "amazonaws": {
+           "properties": {
+            "com/component": {
+             "type": "keyword",
+             "ignore_above": 1024
+            }
+           }
+          }
+         }
+        },
+        "helm": {
+         "properties": {
+          "sh/chart": {
+           "type": "keyword",
+           "ignore_above": 1024
+          }
+         }
+        },
+        "k8s-app": {
+         "type": "keyword",
+         "ignore_above": 1024
+        },
+        "opentelemetry": {
+         "properties": {
+          "io/name": {
+           "type": "keyword",
+           "ignore_above": 1024
+          }
+         }
+        },
+        "pod-template-generation": {
+         "type": "keyword",
+         "ignore_above": 1024
+        },
+        "pod-template-hash": {
+         "type": "keyword",
+         "ignore_above": 1024
+        },
+        "statefulset": {
+         "properties": {
+          "kubernetes": {
+           "properties": {
+            "io/pod-name": {
+             "type": "keyword",
+             "ignore_above": 1024
+            }
+           }
+          }
+         }
+        }
+       }
+      },
+      "namespace_name": {
+       "type": "keyword",
+       "ignore_above": 1024
+      },
+      "pod_id": {
+       "type": "keyword",
+       "ignore_above": 1024
+      },
+      "pod_ip": {
+       "type": "keyword",
+       "ignore_above": 1024
+      },
+      "pod_name": {
+       "type": "keyword",
+       "ignore_above": 1024
+      }
+     }
+    },
+    "message": {
+     "type": "text"
+    },
+    "stream": {
+     "type": "keyword",
+     "ignore_above": 1024
+    },
+    "tenx_tag": {
+     "type": "keyword",
+     "ignore_above": 1024
+    }
+   }
+  }
+ }
+}

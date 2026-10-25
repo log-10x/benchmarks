@@ -1,0 +1,100 @@
+{
+ "es_image": "docker.elastic.co/elasticsearch/elasticsearch@sha256:13b4a40bb095774f5fda635e45fd5677cc6a26565e42b24997b0c72b88e75984",
+ "version": {
+  "number": "9.5.5",
+  "build_hash": "48acba663b09e70b115dd879329141506c377890",
+  "lucene_version": "10.5.1"
+ },
+ "licence_before": {
+  "type": "basic",
+  "status": "active",
+  "issuer": "elasticsearch",
+  "max_nodes": 1000,
+  "issue_date": "2026-10-25T10:00:06.250Z",
+  "expiry_date": null
+ },
+ "pattern_text_before_trial": {
+  "create_status": 200,
+  "create_response": {
+   "acknowledged": true,
+   "shards_acknowledged": true,
+   "index": "es4-probe-basic"
+  },
+  "index_status": 201,
+  "index_response": {
+   "_index": "es4-probe-basic",
+   "_id": "AaFygAADqctwrgnR3D0N",
+   "_version": 1,
+   "result": "created",
+   "forced_refresh": true,
+   "_shards": {
+    "total": 1,
+    "successful": 1,
+    "failed": 0
+   },
+   "_seq_no": 0,
+   "_primary_term": 1
+  },
+  "settings": {
+   "index.mode": "logsdb",
+   "index.codec": "best_compression",
+   "index.mapping.source.mode": "STORED",
+   "index.sort.field": [
+    "@timestamp"
+   ],
+   "index.sort.order": [
+    "desc"
+   ],
+   "index.logsdb.default_sort_on_message_template": "false",
+   "index.recovery.use_synthetic_source": "false",
+   "index.number_of_shards": "1",
+   "index.number_of_replicas": "0"
+  },
+  "mapping": {
+   "es4-probe-basic": {
+    "mappings": {
+     "_data_stream_timestamp": {
+      "enabled": true
+     },
+     "dynamic_templates": [
+      {
+       "strings_as_keyword": {
+        "match_mapping_type": "string",
+        "mapping": {
+         "ignore_above": 1024,
+         "type": "keyword"
+        }
+       }
+      }
+     ],
+     "properties": {
+      "@timestamp": {
+       "type": "date",
+       "ignore_malformed": false
+      },
+      "message": {
+       "type": "pattern_text",
+       "disable_templating": true
+      }
+     }
+    }
+   }
+  }
+ },
+ "start_trial": [
+  200,
+  {
+   "acknowledged": true,
+   "trial_was_started": true,
+   "type": "trial"
+  }
+ ],
+ "licence_after": {
+  "type": "trial",
+  "status": "active",
+  "issuer": "elasticsearch",
+  "max_nodes": 1000,
+  "issue_date": "2026-10-25T10:00:07.524Z",
+  "expiry_date": "2026-11-24T10:00:07.524Z"
+ }
+}
