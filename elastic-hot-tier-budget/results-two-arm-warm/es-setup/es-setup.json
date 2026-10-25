@@ -1,0 +1,111 @@
+{
+ "es": "http://127.0.0.1:9200",
+ "requests": 6,
+ "td_placement": "warm",
+ "placement": [
+  {
+   "index": "tenx-tierdown-000001",
+   "shard": "0",
+   "prirep": "p",
+   "state": "STARTED",
+   "node": "es-warm-frozen",
+   "roles": [
+    "data_frozen",
+    "data_warm"
+   ]
+  },
+  {
+   "index": "tenx-app-000001",
+   "shard": "0",
+   "prirep": "p",
+   "state": "STARTED",
+   "node": "es-hot",
+   "roles": [
+    "data_content",
+    "data_hot",
+    "ingest",
+    "master"
+   ]
+  }
+ ],
+ "log": [
+  {
+   "method": "POST",
+   "path": "/_license/start_trial?acknowledge=true",
+   "status": 200,
+   "body": "{\"acknowledged\":true,\"trial_was_started\":true,\"type\":\"trial\"}"
+  },
+  {
+   "method": "GET",
+   "path": "/_license",
+   "status": 200,
+   "body": "{\n  \"license\" : {\n    \"status\" : \"active\",\n    \"uid\" : \"d5f823fc-cb07-44af-8def-92b50cbd360e\",\n    \"type\" : \"trial\",\n    \"issue_date\" : \"2026-10-25T05:34:37.430Z\",\n    \"issue_date_in_millis\" : 1792906477430,\n    \"expiry_date\" : \"2026-11-24T05:34:37.430Z\",\n    \"expiry_date_in_millis\" : 1795498477430,\n    \"max_nodes\" : 1000,\n    \"max_resource_units\" : null,\n    \"issued_to\" : \"tenx-rig\",\n    \"issuer\" : \"elasticsearch\",\n    \"start_date_in_millis\" : -1\n  }\n}\n"
+  },
+  {
+   "method": "PUT",
+   "path": "/_snapshot/rig-snapshots",
+   "status": 200,
+   "body": "{\"acknowledged\":true}"
+  },
+  {
+   "method": "PUT",
+   "path": "_ilm/policy/tenx-tier-down",
+   "status": 200,
+   "body": "{\"acknowledged\":true}"
+  },
+  {
+   "method": "PUT",
+   "path": "_ilm/policy/tenx-keep",
+   "status": 200,
+   "body": "{\"acknowledged\":true}"
+  },
+  {
+   "method": "PUT",
+   "path": "_index_template/tenx-tierdown-tpl",
+   "status": 200,
+   "body": "{\"acknowledged\":true}"
+  },
+  {
+   "method": "PUT",
+   "path": "_index_template/tenx-app-tpl",
+   "status": 200,
+   "body": "{\"acknowledged\":true}"
+  },
+  {
+   "method": "PUT",
+   "path": "tenx-tierdown-000001",
+   "status": 200,
+   "body": "{\"acknowledged\":true,\"shards_acknowledged\":true,\"index\":\"tenx-tierdown-000001\"}"
+  },
+  {
+   "method": "PUT",
+   "path": "tenx-app-000001",
+   "status": 200,
+   "body": "{\"acknowledged\":true,\"shards_acknowledged\":true,\"index\":\"tenx-app-000001\"}"
+  },
+  {
+   "method": "PUT",
+   "path": "/_ilm/policy/tenx-keep",
+   "status": 200,
+   "body": "{\"acknowledged\":true}"
+  },
+  {
+   "method": "PUT",
+   "path": "/_ilm/policy/tenx-tier-down",
+   "status": 200,
+   "body": "{\"acknowledged\":true}"
+  },
+  {
+   "method": "PUT",
+   "path": "/_cluster/settings",
+   "status": 200,
+   "body": "{\"acknowledged\":true,\"persistent\":{\"indices\":{\"lifecycle\":{\"poll_interval\":\"100s\"}}},\"transient\":{}}"
+  },
+  {
+   "method": "GET",
+   "path": "/_cluster/health/tenx-*?wait_for_status=green&timeout=60s",
+   "status": 200,
+   "body": "{\"cluster_name\":\"tenx-rig\",\"status\":\"green\",\"timed_out\":false,\"number_of_nodes\":2,\"number_of_data_nodes\":2,\"active_primary_shards\":2,\"active_shards\":2,\"relocating_shards\":0,\"initializing_shards\":0,\"unassigned_shards\":0,\"unassigned_primary_shards\":0,\"delayed_unassigned_shards\":0,\"number_of_pending_tasks\":0,\"number_of_in_flight_fetch\":0,\"task_max_waiting_in_queue_millis\":0,\"active_shards_percent_as_number\":100.0}"
+  }
+ ]
+}

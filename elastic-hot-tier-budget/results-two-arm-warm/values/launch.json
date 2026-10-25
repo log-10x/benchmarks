@@ -1,0 +1,54 @@
+{
+ "mcp_version": "1.30.85",
+ "cap_bytes_per_window_per_node": null,
+ "image": "ghcr.io/log-10x/edge-10x:1.1.150",
+ "image_rendered": "log10x/edge-10x:1.1.147@sha256:a043ccd828742c4eccee09abb654ce6a7357b6123f73300ed04f8605e874b8c4",
+ "args_from_values": [
+  "@run/input/forwarder/fluentbit",
+  "@apps/receiver",
+  "symbolMessageHashField",
+  "tenx_hash",
+  "outputEncodeField",
+  "fullText(\"tenx_hash\",\"routeState\",\"message_pattern\",\"severity_level\",\"utf8Size\")"
+ ],
+ "env_applied": [
+  {
+   "name": "TENX_AIRGAPPED",
+   "value": "true"
+  },
+  {
+   "name": "GH_ENABLED",
+   "value": "true"
+  },
+  {
+   "name": "GH_REPO",
+   "value": "log-10x/config"
+  },
+  {
+   "name": "GH_BRANCH",
+   "value": "test/elastic-hot-tier-policy"
+  }
+ ],
+ "env_substituted": [],
+ "env_left_out": [],
+ "env_from_shell_by_name": [
+  "GH_TOKEN"
+ ],
+ "policy_git": {
+  "repo": "log-10x/config",
+  "branch": "test/elastic-hot-tier-policy",
+  "tokenSecretName": "log10x-policy-git"
+ },
+ "rig_env": [
+  [
+   "TENX_FLUENTBIT_OUTPUT_HOST",
+   "fluent-bit"
+  ]
+ ],
+ "measurement_args": [],
+ "resources_limits": {
+  "cpus": "0.5",
+  "memory": "512M"
+ },
+ "notes": []
+}

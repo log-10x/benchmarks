@@ -1,0 +1,52 @@
+{
+ "images": {
+  "docker.elastic.co/elasticsearch/elasticsearch:9.5.5": {
+   "id": "sha256:13b4a40bb095774f5fda635e45fd5677cc6a26565e42b24997b0c72b88e75984",
+   "repo_digests": [
+    "docker.elastic.co/elasticsearch/elasticsearch@sha256:13b4a40bb095774f5fda635e45fd5677cc6a26565e42b24997b0c72b88e75984"
+   ],
+   "created": "2026-09-30T22:20:56.268968505Z"
+  },
+  "fluent/fluent-bit:4.2": {
+   "id": "sha256:6806769c10acf11b41d14083b3101a24433b4ca113a1ab7a6b1a1b7cad86a7e8",
+   "repo_digests": [
+    "fluent/fluent-bit@sha256:6806769c10acf11b41d14083b3101a24433b4ca113a1ab7a6b1a1b7cad86a7e8"
+   ],
+   "created": "2026-08-04T04:31:13.800466265Z"
+  },
+  "ghcr.io/log-10x/edge-10x:1.1.150": {
+   "id": "sha256:3e755bbc14780a27e643e09b76dfd7ec9616cab67833f70daf9420eff646d350",
+   "repo_digests": [
+    "ghcr.io/log-10x/edge-10x@sha256:3e755bbc14780a27e643e09b76dfd7ec9616cab67833f70daf9420eff646d350"
+   ],
+   "created": "2026-10-24T13:12:43.29881691Z"
+  },
+  "python:3.12-slim": {
+   "id": "sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1",
+   "repo_digests": [
+    "python@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1"
+   ],
+   "created": "2026-10-06T02:04:40.915617827Z"
+  },
+  "alpine:latest": {
+   "id": "sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6",
+   "repo_digests": [
+    "alpine@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6"
+   ],
+   "created": "2026-09-17T20:37:20.889221879Z"
+  }
+ },
+ "log10x_mcp": {
+  "path": "/Users/talweiss/git/l1x-co/wt-mcp-warm",
+  "commit": "c1b456abcce205ef8098f9c59082d63fa7580681",
+  "branch": "feat/elastic-tierdown-warm",
+  "describe": "c1b456a Hot-tier run counts tier_down in flight only on hot; recipe places tier_down on warm; 1.30.85",
+  "version": "1.30.85",
+  "dirty": false
+ },
+ "benchmarks": {
+  "commit": "fc1e4e450a0127508570c1c9a1db3bc06c06fc1d",
+  "branch": "bench/elastic-two-arm-warm",
+  "rig_changes_uncommitted": []
+ }
+}

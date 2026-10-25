@@ -1,0 +1,20 @@
+{
+ "options": [
+  [
+   "symbolMessageHashField",
+   "tenx_hash"
+  ],
+  [
+   "outputEncodeField",
+   "fullText(\"tenx_hash\",\"routeState\",\"message_pattern\",\"severity_level\",\"utf8Size\")"
+  ]
+ ],
+ "env": [],
+ "fleetDefaultWritten": false,
+ "teamLabelWritten": false,
+ "regulatorValuesWritten": false,
+ "keepCountsWritten": false,
+ "eventsUnitWritten": false,
+ "engineVersion": "1.1.147",
+ "notes": []
+}

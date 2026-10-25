@@ -1,0 +1,224 @@
+{
+ "S": 63000000.0,
+ "M": 60,
+ "step_epoch": 1792915791,
+ "hold_end_epoch": 1792919399,
+ "bind": {
+  "event": "s_binds",
+  "at": "2026-10-25T07:29:53Z",
+  "epoch": 1792913393,
+  "rule": "meter reading at or above 0.95 S",
+  "reading_epoch": 1792913391,
+  "hot_store": 60642308,
+  "S": 63000000
+ },
+ "unreadable_readings": [],
+ "criterion_1": {
+  "readings": 25,
+  "max_of_S": 1.043,
+  "mean_of_S": 0.998,
+  "over_1_10": 0,
+  "pass": true,
+  "streams_max_of_S": 1.027
+ },
+ "criterion_2": {
+  "pre_step_readings": 12,
+  "pre_step_level": 47444754.416666664,
+  "pre_step_max": 48811942,
+  "hold_readings": 37,
+  "hold_max": 78658388,
+  "hold_max_of_pre": 1.658,
+  "pass": true,
+  "pass_against_pre_step_max": true,
+  "late_hold_max_of_pre": 1.658,
+  "no_differentiator": false
+ },
+ "a_pre_step_level_of_S": 0.978,
+ "table": [
+  {
+   "at": "2026-10-25T08:08:11Z",
+   "min_from_step": -1.7,
+   "a_node": 61872413,
+   "a_kept": 61048979,
+   "a_tier_down": 0,
+   "b_node": 47147756,
+   "b_normal": 46166727,
+   "b_overflow": 0,
+   "a_warm_node": 6427278,
+   "a_tier_down_warm": 6427278,
+   "b_warm_node": 3437866,
+   "b_overflow_warm": 3437866
+  },
+  {
+   "at": "2026-10-25T08:29:51Z",
+   "min_from_step": 20.0,
+   "a_node": 62171537,
+   "a_kept": 60637291,
+   "a_tier_down": 0,
+   "b_node": 57000268,
+   "b_normal": 55615581,
+   "b_overflow": 0,
+   "a_warm_node": 14741330,
+   "a_tier_down_warm": 14741330,
+   "b_warm_node": 6259839,
+   "b_overflow_warm": 6259839
+  },
+  {
+   "at": "2026-10-25T08:49:51Z",
+   "min_from_step": 40.0,
+   "a_node": 65690853,
+   "a_kept": 64701750,
+   "a_tier_down": 0,
+   "b_node": 69685217,
+   "b_normal": 68315901,
+   "b_overflow": 0,
+   "a_warm_node": 10419952,
+   "a_tier_down_warm": 10419952,
+   "b_warm_node": 4591506,
+   "b_overflow_warm": 4591506
+  },
+  {
+   "at": "2026-10-25T09:09:51Z",
+   "min_from_step": 60.0,
+   "a_node": 65197890,
+   "a_kept": 63954951,
+   "a_tier_down": 0,
+   "b_node": 78658388,
+   "b_normal": 77608328,
+   "b_overflow": 0,
+   "a_warm_node": 7904890,
+   "a_tier_down_warm": 7904890,
+   "b_warm_node": 3712907,
+   "b_overflow_warm": 3712907
+  }
+ ],
+ "peak_hold": {
+  "a_node": 65690853,
+  "b_node": 78658388
+ },
+ "peak_run": {
+  "a_node": 65690853,
+  "b_node": 78739599
+ },
+ "frozen_last_reading": {
+  "a": {
+   "tenx-app": {
+    "frozen_indices": 10,
+    "frozen_docs": 174651,
+    "hot_indices": 10
+   },
+   "tenx-tierdown": {
+    "frozen_indices": 19,
+    "frozen_docs": 501544,
+    "hot_indices": 0
+   }
+  },
+  "b": {
+   "native-app": {
+    "frozen_indices": 10,
+    "frozen_docs": 205214,
+    "hot_indices": 10
+   },
+   "native-overflow": {
+    "frozen_indices": 19,
+    "frozen_docs": 488158,
+    "hot_indices": 0
+   }
+  }
+ },
+ "frozen_last_reading_at": "2026-10-25T09:33:12Z",
+ "warm": {
+  "a": {
+   "pre_step_mean": {
+    "hot_node": 61582567.666666664,
+    "warm_node": 3756268.5833333335
+   },
+   "hot_peak_in_hold": {
+    "at": "2026-10-25T08:49:51Z",
+    "hot_node": 65690853,
+    "hot_of_S": 1.043,
+    "warm_node": 10419952,
+    "moved_on_warm": 10419952
+   },
+   "warm_peak_in_hold": {
+    "at": "2026-10-25T08:34:51Z",
+    "hot_node": 62921473,
+    "hot_of_S": 0.999,
+    "warm_node": 20730330,
+    "moved_on_warm": 20730330
+   },
+   "end_of_hold": {
+    "at": "2026-10-25T09:09:51Z",
+    "hot_node": 65197890,
+    "hot_of_S": 1.035,
+    "warm_node": 7904890,
+    "moved_on_warm": 7904890
+   },
+   "readings_with_moved_on_hot": 0,
+   "readings": 144
+  },
+  "b": {
+   "pre_step_mean": {
+    "hot_node": 47444754.416666664,
+    "warm_node": 2721014.5833333335
+   },
+   "hot_peak_in_hold": {
+    "at": "2026-10-25T09:09:51Z",
+    "hot_node": 78658388,
+    "hot_of_S": 1.249,
+    "warm_node": 3712907,
+    "moved_on_warm": 3712907
+   },
+   "warm_peak_in_hold": {
+    "at": "2026-10-25T08:33:11Z",
+    "hot_node": 61198237,
+    "hot_of_S": 0.971,
+    "warm_node": 9065214,
+    "moved_on_warm": 9065214
+   },
+   "end_of_hold": {
+    "at": "2026-10-25T09:09:51Z",
+    "hot_node": 78658388,
+    "hot_of_S": 1.249,
+    "warm_node": 3712907,
+    "moved_on_warm": 3712907
+   },
+   "readings_with_moved_on_hot": 0,
+   "readings": 144
+  }
+ },
+ "criterion_3": {
+  "feed_final_seq": 1025170,
+  "fluent_bit_lines_in": 1025170,
+  "b": {
+   "documents": 1025170,
+   "unnumbered": 0,
+   "missing": 0,
+   "duplicated": 0,
+   "outside_feed": 0,
+   "wrong_container": 0,
+   "wrong_stream": 0,
+   "on_frozen": 693372,
+   "on_hot": 331798,
+   "pass": true
+  },
+  "a": {
+   "records": 811618,
+   "unnumbered": 0,
+   "receiver_own_messages": 1,
+   "duplicated_seq": 0,
+   "records_outside_feed_or_container": 0,
+   "runs_mismatched": 0,
+   "nonblank_lines_before_first_record": 0,
+   "nonblank_lines_sent": 1025014,
+   "nonblank_lines_returned": 1025014,
+   "blank_lines_sent": 156,
+   "records_spanning_containers": 71,
+   "on_frozen": 676195,
+   "on_hot": 135423,
+   "tier_down_records": 501544,
+   "mismatch_sample": [],
+   "pass": true
+  }
+ }
+}

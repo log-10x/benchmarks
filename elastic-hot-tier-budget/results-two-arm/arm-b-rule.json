@@ -1,0 +1,232 @@
+{
+ "source": "results-two-arm/replay/source.jsonl",
+ "speed": 8.0,
+ "minutes": 20.0,
+ "source_seconds": 9600.0,
+ "lines": 67200,
+ "bytes": 13282731,
+ "top_half": [
+  "opentelemetry-collector"
+ ],
+ "top_half_bytes": 9149163,
+ "top_half_share": 0.6888,
+ "regex": "^(opentelemetry-collector)$",
+ "services": [
+  {
+   "service": "opentelemetry-collector",
+   "bytes": 9149163,
+   "lines": 32427,
+   "share": 0.6888
+  },
+  {
+   "service": "kafka",
+   "bytes": 1891441,
+   "lines": 10216,
+   "share": 0.1424
+  },
+  {
+   "service": "cart",
+   "bytes": 718696,
+   "lines": 12130,
+   "share": 0.0541
+  },
+  {
+   "service": "ad",
+   "bytes": 353362,
+   "lines": 2180,
+   "share": 0.0266
+  },
+  {
+   "service": "recommendation",
+   "bytes": 317242,
+   "lines": 1034,
+   "share": 0.0239
+  },
+  {
+   "service": "frontend",
+   "bytes": 292949,
+   "lines": 4934,
+   "share": 0.0221
+  },
+  {
+   "service": "grafana",
+   "bytes": 292610,
+   "lines": 1861,
+   "share": 0.022
+  },
+  {
+   "service": "fluentd-10x",
+   "bytes": 85930,
+   "lines": 641,
+   "share": 0.0065
+  },
+  {
+   "service": "opensearch",
+   "bytes": 49164,
+   "lines": 363,
+   "share": 0.0037
+  },
+  {
+   "service": "kube-proxy",
+   "bytes": 28157,
+   "lines": 245,
+   "share": 0.0021
+  },
+  {
+   "service": "frontend-proxy",
+   "bytes": 27512,
+   "lines": 121,
+   "share": 0.0021
+  },
+  {
+   "service": "jaeger",
+   "bytes": 17627,
+   "lines": 87,
+   "share": 0.0013
+  },
+  {
+   "service": "valkey-cart",
+   "bytes": 13212,
+   "lines": 192,
+   "share": 0.001
+  },
+  {
+   "service": "prometheus-server",
+   "bytes": 10711,
+   "lines": 67,
+   "share": 0.0008
+  },
+  {
+   "service": "metrics-server",
+   "bytes": 5148,
+   "lines": 35,
+   "share": 0.0004
+  },
+  {
+   "service": "coredns",
+   "bytes": 4099,
+   "lines": 49,
+   "share": 0.0003
+  },
+  {
+   "service": "accounting",
+   "bytes": 3653,
+   "lines": 76,
+   "share": 0.0003
+  },
+  {
+   "service": "postgresql",
+   "bytes": 3543,
+   "lines": 64,
+   "share": 0.0003
+  },
+  {
+   "service": "load-generator",
+   "bytes": 2640,
+   "lines": 45,
+   "share": 0.0002
+  },
+  {
+   "service": "wait-for-kafka",
+   "bytes": 2592,
+   "lines": 150,
+   "share": 0.0002
+  },
+  {
+   "service": "init-config",
+   "bytes": 2565,
+   "lines": 110,
+   "share": 0.0002
+  },
+  {
+   "service": "grafana-sc-dashboard",
+   "bytes": 1862,
+   "lines": 14,
+   "share": 0.0001
+  },
+  {
+   "service": "grafana-sc-alerts",
+   "bytes": 1327,
+   "lines": 10,
+   "share": 0.0001
+  },
+  {
+   "service": "flagd",
+   "bytes": 1322,
+   "lines": 16,
+   "share": 0.0001
+  },
+  {
+   "service": "grafana-sc-datasources",
+   "bytes": 1322,
+   "lines": 10,
+   "share": 0.0001
+  },
+  {
+   "service": "payment",
+   "bytes": 1104,
+   "lines": 34,
+   "share": 0.0001
+  },
+  {
+   "service": "email",
+   "bytes": 766,
+   "lines": 13,
+   "share": 0.0001
+  },
+  {
+   "service": "image-provider",
+   "bytes": 650,
+   "lines": 40,
+   "share": 0.0
+  },
+  {
+   "service": "aws-vpc-cni-init",
+   "bytes": 556,
+   "lines": 7,
+   "share": 0.0
+  },
+  {
+   "service": "fraud-detection",
+   "bytes": 543,
+   "lines": 6,
+   "share": 0.0
+  },
+  {
+   "service": "aws-node",
+   "bytes": 388,
+   "lines": 6,
+   "share": 0.0
+  },
+  {
+   "service": "wait-for-valkey-cart",
+   "bytes": 268,
+   "lines": 11,
+   "share": 0.0
+  },
+  {
+   "service": "currency",
+   "bytes": 265,
+   "lines": 1,
+   "share": 0.0
+  },
+  {
+   "service": "flagd-ui",
+   "bytes": 194,
+   "lines": 3,
+   "share": 0.0
+  },
+  {
+   "service": "aws-eks-nodeagent",
+   "bytes": 122,
+   "lines": 1,
+   "share": 0.0
+  },
+  {
+   "service": "quote",
+   "bytes": 26,
+   "lines": 1,
+   "share": 0.0
+  }
+ ]
+}

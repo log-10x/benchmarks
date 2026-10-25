@@ -1,0 +1,63 @@
+# Arm B of the two-arm run: its own Elasticsearch 9.5.5 cluster (one hot node, one frozen node, its own
+# filesystem snapshot repository), the same node settings as arm A's in compose.yaml, on 127.0.0.1:9201.
+# A cluster of its own because the hot-tier run counts every index on the hot nodes it reads.
+#   docker compose -f compose.yaml -f <values dir>/compose.receiver.yaml -f compose.arm-b.yaml ...
+
+volumes:
+  es-hot-b-data: {}
+  es-frozen-b-data: {}
+  es-snapshots-b: {}
+
+services:
+
+  es-hot-b:
+    image: docker.elastic.co/elasticsearch/elasticsearch:9.5.5
+    container_name: hb-es-hot-b
+    ulimits:
+      memlock: { soft: -1, hard: -1 }
+      nofile: { soft: 65536, hard: 65536 }
+    restart: unless-stopped
+    environment:
+      - node.name=es-hot-b
+      - cluster.name=native-rig
+      - node.roles=master,data_hot,data_content,ingest
+      - cluster.initial_master_nodes=es-hot-b
+      - discovery.seed_hosts=es-hot-b
+      - path.repo=/snapshots
+      - xpack.security.enabled=false
+      - xpack.ml.enabled=false
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+    volumes:
+      - es-hot-b-data:/usr/share/elasticsearch/data
+      - es-snapshots-b:/snapshots
+    ports:
+      - "127.0.0.1:9201:9200"
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
+  es-frozen-b:
+    image: docker.elastic.co/elasticsearch/elasticsearch:9.5.5
+    container_name: hb-es-frozen-b
+    ulimits:
+      memlock: { soft: -1, hard: -1 }
+      nofile: { soft: 65536, hard: 65536 }
+    restart: unless-stopped
+    environment:
+      - node.name=es-frozen-b
+      - cluster.name=native-rig
+      - node.roles=data_frozen
+      - discovery.seed_hosts=es-hot-b
+      - path.repo=/snapshots
+      - xpack.security.enabled=false
+      - xpack.ml.enabled=false
+      - xpack.searchable.snapshot.shared_cache.size=${FROZEN_CACHE:-512mb}
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    volumes:
+      - es-frozen-b-data:/usr/share/elasticsearch/data
+      - es-snapshots-b:/snapshots
+    deploy:
+      resources:
+        limits:
+          memory: 1200M

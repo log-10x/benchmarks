@@ -1,0 +1,51 @@
+# Hot-tier run: 2026-10-24T20:57:18.000Z
+
+Hot tier: 11 MB of 74 MB (0.0742 GB set in the policy) on 1 hot node; at these limits it settles at about 104 MB within 2 hours, with 1.3 GB a day of counted lines moved to the frozen tier.
+
+- Outside the Receiver: 0 MB on hot. The Receiver's kept lines: 3 MB in 2 indices; its tier_down lines not yet moved: 7 MB in 2.
+- A kept line stays on hot 2 hours (ILM policy tenx-keep (rollover max_age 10m + frozen min_age 110m)); a tier_down index 2 hours (default (no tier_down index has been moved yet)).
+- Each counted byte takes 1.19 bytes of store kept, 0.72 as tier_down (measured on the indices on hot).
+- The Receiver's statements send 1.6 GB a day; 0 MB a day fits the size, so each statement keeps up to 0 MB a day and the noisiest give way first.
+- The always-pass sample (5 lines a statement a window on every node, 50 more for an error statement over its limit) keeps about 224 MB a day on hot whatever the limits; the size holds down to that floor.
+- Warning: 1 documents on hot carry no utf8Size, so their statements count as 0 bytes. The Receiver writes it when installed for the hot-tier run.
+- Warning: The always-pass sample (5 lines a statement a window on every node, 50 more for an error statement over its limit) alone keeps about 224 MB a day on hot, more than the 0 MB a day that fits, so hot settles above 74 MB at about 104 MB. Raise the size, move the noisiest services to offload, or lower the sample.
+- Warning: Lines outside the Receiver and the tier_down lines waiting to move already fill 74 MB, so the Receiver's services keep nothing beyond the always-pass sample of 5 lines a statement a window.
+
+| Service | Destination | Nodes | Sent a day | Kept a day | Limit per statement | Total |
+|---|---|---|---|---|---|---|
+| accounting | the frozen tier | 1 | 2 MB | 2 MB | 1 | 5928 |
+| ad | the frozen tier | 1 | 48 MB | 2 MB | 1 | 5726 |
+| aws-eks-nodeagent | the frozen tier | 1 | 0 MB | 0 MB | 1 | 131 |
+| aws-node | the frozen tier | 1 | 0 MB | 0 MB | 1 | 357 |
+| aws-vpc-cni-init | the frozen tier | 1 | 0 MB | 0 MB | 1 | 647 |
+| cart | the frozen tier | 1 | 112 MB | 1 MB | 1 | 3844 |
+| coredns | the frozen tier | 1 | 1 MB | 1 MB | 1 | 3788 |
+| currency | the frozen tier | 1 | 0 MB | 0 MB | 1 | 152 |
+| email | the frozen tier | 1 | 0 MB | 0 MB | 1 | 575 |
+| flagd | the frozen tier | 1 | 0 MB | 0 MB | 1 | 750 |
+| flagd-ui | the frozen tier | 1 | 0 MB | 0 MB | 1 | 254 |
+| fluentd-10x | the frozen tier | 1 | 14 MB | 5 MB | 1 | 13031 |
+| fraud-detection | the frozen tier | 1 | 0 MB | 0 MB | 1 | 654 |
+| frontend | the frozen tier | 1 | 25 MB | 12 MB | 1 | 33666 |
+| frontend-proxy | the frozen tier | 1 | 6 MB | 6 MB | 1 | 16728 |
+| grafana | the frozen tier | 1 | 71 MB | 68 MB | 1 | 188364 |
+| grafana-sc-alerts | the frozen tier | 1 | 0 MB | 0 MB | 1 | 1111 |
+| grafana-sc-dashboard | the frozen tier | 1 | 1 MB | 1 MB | 1 | 1572 |
+| grafana-sc-datasources | the frozen tier | 1 | 0 MB | 0 MB | 1 | 1347 |
+| init-config | the frozen tier | 1 | 0 MB | 0 MB | 1 | 961 |
+| jaeger | the frozen tier | 1 | 4 MB | 4 MB | 1 | 11470 |
+| kafka | the frozen tier | 1 | 240 MB | 24 MB | 1 | 65584 |
+| kube-proxy | the frozen tier | 1 | 9 MB | 5 MB | 1 | 13953 |
+| load-generator | the frozen tier | 1 | 0 MB | 0 MB | 1 | 1179 |
+| metrics-server | the frozen tier | 1 | 1 MB | 1 MB | 1 | 4089 |
+| opensearch | the frozen tier | 1 | 12 MB | 12 MB | 1 | 33609 |
+| opentelemetry-collector | the frozen tier | 1 | 983 MB | 71 MB | 1 | 196016 |
+| payment | the frozen tier | 1 | 0 MB | 0 MB | 1 | 698 |
+| postgresql | the frozen tier | 1 | 1 MB | 1 MB | 1 | 2216 |
+| prometheus-server | the frozen tier | 1 | 2 MB | 2 MB | 1 | 4802 |
+| quote | the frozen tier | 1 | 0 MB | 0 MB | 1 | 70 |
+| recommendation | the frozen tier | 1 | 35 MB | 1 MB | 1 | 2771 |
+| valkey-cart | the frozen tier | 1 | 3 MB | 3 MB | 1 | 7105 |
+| `*` (any other service) | the frozen tier | 1 | | 1 MB | 1 | 2771 |
+
+Limits and totals are bytes per 4-minute window per node, counted the way the Receiver counts them (utf8Size). Error lines pass 50 over a limit per statement per node per window.

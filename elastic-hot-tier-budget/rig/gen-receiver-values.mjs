@@ -2,7 +2,8 @@
 // through the functions log10x_advise_install calls (receiverFleetValues, then the Fluent
 // Bit overlay's renderValues with destination elasticsearch), and a compose overlay that
 // launches rig-tenx with them.
-//   MCP=<log10x-mcp package> [BACKENDS=elastic] node gen-receiver-values.mjs <out dir> [cap bytes per window per node]
+//   MCP=<log10x-mcp package> [BACKENDS=elastic] [ENGINE_IMAGE=<image>] node gen-receiver-values.mjs <out dir> [cap bytes per window per node]
+// ENGINE_IMAGE, when set, replaces the image the MCP renders; launch.json records both.
 // Without a cap: the install as it ships, nothing held (baseline).
 // With a cap: the fleet default, that cap in bytes for every container and tier_down as the
 // action for every held line (rateReceiverAbsoluteCap, rateReceiverDefaultAction, outputOffload).
@@ -50,7 +51,8 @@ writeFileSync(join(out, 'values.yaml'), yaml);
 if (policyGit) writeFileSync(join(out, 'seed.sh'), renderPolicyGitSeedCommands(policyGit, 'bytes') + '\n');
 
 const block = yaml.slice(yaml.indexOf('  - name: log10x'));
-const image = /\n\s+image: (\S+)/.exec(block)[1];
+const renderedImage = /\n\s+image: (\S+)/.exec(block)[1];
+const image = process.env.ENGINE_IMAGE || renderedImage;
 const argsText = block.split('\n    args:\n')[1].split('\n    env:\n')[0];
 const args = argsText.split('\n').map((l) => /^\s+- "(.*)"$/.exec(l)).filter(Boolean).map((m) => m[1]);
 const envText = (block.split('\n    env:\n')[1] ?? '').split(/\n    [a-zA-Z]/)[0];
@@ -119,7 +121,7 @@ writeFileSync(join(out, 'compose.receiver.yaml'), lines.join('\n'));
 writeFileSync(
   join(out, 'launch.json'),
   JSON.stringify(
-    { mcp_version: mcpVersion, cap_bytes_per_window_per_node: cap ?? null, image, args_from_values: args, env_applied: applied, env_substituted: substituted, env_left_out: left.map((e) => e.name), env_from_shell_by_name: fromShell.map((e) => e.name), policy_git: policyGit ?? null, rig_env: rigEnv, measurement_args: measure, resources_limits: { cpus: cpu, memory: mem }, notes: values.notes },
+    { mcp_version: mcpVersion, cap_bytes_per_window_per_node: cap ?? null, image, image_rendered: renderedImage, args_from_values: args, env_applied: applied, env_substituted: substituted, env_left_out: left.map((e) => e.name), env_from_shell_by_name: fromShell.map((e) => e.name), policy_git: policyGit ?? null, rig_env: rigEnv, measurement_args: measure, resources_limits: { cpus: cpu, memory: mem }, notes: values.notes },
     null,
     1,
   ) + '\n',

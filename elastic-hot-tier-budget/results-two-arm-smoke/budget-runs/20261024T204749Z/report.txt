@@ -1,0 +1,51 @@
+[tenx-recur] policy loaded: target=30% services=all lookback=24h min_delta=2pp [DRY RUN]
+[tenx-recur] Hot tier: 2 MB of 1000 GB (1000 GB set in the policy) on 1 hot node; at these limits it settles at about 106 MB within 2 hours, with 0 MB a day of counted lines moved to the frozen tier.
+[tenx-recur] Outside the Receiver: 0 MB on hot. The Receiver's kept lines: 2 MB in 1 indices; its tier_down lines not yet moved: 0 MB in 1.
+[tenx-recur] A kept line stays on hot 2 hours (ILM policy tenx-keep (rollover max_age 10m + frozen min_age 110m)); a tier_down index 2 hours (default (no tier_down index has been moved yet)).
+[tenx-recur] Each counted byte takes 1.34 bytes of store kept, 1.34 as tier_down (measured on the indices on hot).
+[tenx-recur] The Receiver's statements send 952 MB a day, under the 8956 GB a day that fits the size; every statement keeps its lines, with room to grow 2.0 times.
+[tenx-recur] The always-pass sample (5 lines a statement a window on every node, 50 more for an error statement over its limit) keeps about 720 MB a day on hot whatever the limits; the size holds down to that floor.
+# Hot-tier run: 2026-10-24T20:47:49.000Z
+
+Hot tier: 2 MB of 1000 GB (1000 GB set in the policy) on 1 hot node; at these limits it settles at about 106 MB within 2 hours, with 0 MB a day of counted lines moved to the frozen tier.
+
+- Outside the Receiver: 0 MB on hot. The Receiver's kept lines: 2 MB in 1 indices; its tier_down lines not yet moved: 0 MB in 1.
+- A kept line stays on hot 2 hours (ILM policy tenx-keep (rollover max_age 10m + frozen min_age 110m)); a tier_down index 2 hours (default (no tier_down index has been moved yet)).
+- Each counted byte takes 1.34 bytes of store kept, 1.34 as tier_down (measured on the indices on hot).
+- The Receiver's statements send 952 MB a day, under the 8956 GB a day that fits the size; every statement keeps its lines, with room to grow 2.0 times.
+- The always-pass sample (5 lines a statement a window on every node, 50 more for an error statement over its limit) keeps about 720 MB a day on hot whatever the limits; the size holds down to that floor.
+- Warning: 1 documents on hot carry no utf8Size, so their statements count as 0 bytes. The Receiver writes it when installed for the hot-tier run.
+
+| Service | Destination | Nodes | Sent a day | Kept a day | Limit per statement | Total |
+|---|---|---|---|---|---|---|
+| accounting | the frozen tier | 1 | 11 MB | 22 MB | 5989 | 60638 |
+| ad | the frozen tier | 1 | 13 MB | 26 MB | 33413 | 73531 |
+| aws-eks-nodeagent | the frozen tier | 1 | 0 MB | 0 MB | 1350 | 1350 |
+| aws-node | the frozen tier | 1 | 1 MB | 1 MB | 985 | 3661 |
+| aws-vpc-cni-init | the frozen tier | 1 | 1 MB | 2 MB | 1002 | 6618 |
+| cart | the frozen tier | 1 | 25 MB | 51 MB | 87198 | 140563 |
+| coredns | the frozen tier | 1 | 8 MB | 15 MB | 16179 | 41683 |
+| currency | the frozen tier | 1 | 0 MB | 1 MB | 1561 | 1561 |
+| email | the frozen tier | 1 | 1 MB | 2 MB | 3581 | 5889 |
+| flagd | the frozen tier | 1 | 1 MB | 3 MB | 1176 | 7673 |
+| flagd-ui | the frozen tier | 1 | 0 MB | 1 MB | 930 | 2599 |
+| fraud-detection | the frozen tier | 1 | 1 MB | 2 MB | 5580 | 6694 |
+| frontend | the frozen tier | 1 | 6 MB | 12 MB | 27114 | 32285 |
+| frontend-proxy | the frozen tier | 1 | 31 MB | 61 MB | 8707 | 170030 |
+| grafana | the frozen tier | 1 | 331 MB | 662 MB | 7985 | 1837747 |
+| grafana-sc-alerts | the frozen tier | 1 | 2 MB | 4 MB | 1391 | 11372 |
+| grafana-sc-dashboard | the frozen tier | 1 | 3 MB | 6 MB | 2831 | 16082 |
+| grafana-sc-datasources | the frozen tier | 1 | 2 MB | 5 MB | 3685 | 13784 |
+| init-config | the frozen tier | 1 | 2 MB | 4 MB | 9831 | 9831 |
+| jaeger | the frozen tier | 1 | 18 MB | 36 MB | 6573 | 101024 |
+| kafka | the frozen tier | 1 | 164 MB | 329 MB | 78008 | 913509 |
+| kube-proxy | the frozen tier | 1 | 43 MB | 86 MB | 58067 | 238252 |
+| load-generator | the frozen tier | 1 | 2 MB | 4 MB | 12059 | 12059 |
+| metrics-server | the frozen tier | 1 | 8 MB | 15 MB | 5927 | 41822 |
+| opensearch | the frozen tier | 1 | 56 MB | 112 MB | 15280 | 310993 |
+| opentelemetry-collector | the frozen tier | 1 | 221 MB | 442 MB | 542370 | 1227973 |
+| `*` (any other service) | the frozen tier | 1 | | 8955 GB | 24875082566 | 24875082566 |
+
+Limits and totals are bytes per 4-minute window per node, counted the way the Receiver counts them (utf8Size). Error lines pass 50 over a limit per statement per node per window.
+
+[tenx-recur] actions: 

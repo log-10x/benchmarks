@@ -1,0 +1,16 @@
+# Warm placement: each arm's frozen node also carries data_warm, so the tier_down index (arm A) and the
+# overflow stream (arm B), whose template prefers data_warm, are written on it and mount on frozen from it.
+# Heap and memory limit stay as in compose.yaml and compose.arm-b.yaml.
+#   docker compose -f compose.yaml -f <values dir>/compose.receiver.yaml -f compose.arm-b.yaml -f compose.warm.yaml ...
+
+services:
+
+  es-frozen:
+    environment:
+      node.name: es-warm-frozen
+      node.roles: data_warm,data_frozen
+
+  es-frozen-b:
+    environment:
+      node.name: es-warm-frozen-b
+      node.roles: data_warm,data_frozen

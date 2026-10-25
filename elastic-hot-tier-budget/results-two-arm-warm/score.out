@@ -1,0 +1,121 @@
+{
+ "criterion_1": {
+  "readings": 25,
+  "max_of_S": 1.043,
+  "mean_of_S": 0.998,
+  "over_1_10": 0,
+  "pass": true,
+  "streams_max_of_S": 1.027
+ },
+ "criterion_2": {
+  "pre_step_readings": 12,
+  "pre_step_level": 47444754.416666664,
+  "pre_step_max": 48811942,
+  "hold_readings": 37,
+  "hold_max": 78658388,
+  "hold_max_of_pre": 1.658,
+  "pass": true,
+  "pass_against_pre_step_max": true,
+  "late_hold_max_of_pre": 1.658,
+  "no_differentiator": false
+ },
+ "criterion_3": {
+  "feed_final_seq": 1025170,
+  "fluent_bit_lines_in": 1025170,
+  "b": {
+   "documents": 1025170,
+   "unnumbered": 0,
+   "missing": 0,
+   "duplicated": 0,
+   "outside_feed": 0,
+   "wrong_container": 0,
+   "wrong_stream": 0,
+   "on_frozen": 693372,
+   "on_hot": 331798,
+   "pass": true
+  },
+  "a": {
+   "records": 811618,
+   "unnumbered": 0,
+   "receiver_own_messages": 1,
+   "duplicated_seq": 0,
+   "records_outside_feed_or_container": 0,
+   "runs_mismatched": 0,
+   "nonblank_lines_before_first_record": 0,
+   "nonblank_lines_sent": 1025014,
+   "nonblank_lines_returned": 1025014,
+   "blank_lines_sent": 156,
+   "records_spanning_containers": 71,
+   "on_frozen": 676195,
+   "on_hot": 135423,
+   "tier_down_records": 501544,
+   "mismatch_sample": [],
+   "pass": true
+  }
+ },
+ "warm": {
+  "a": {
+   "pre_step_mean": {
+    "hot_node": 61582567.666666664,
+    "warm_node": 3756268.5833333335
+   },
+   "hot_peak_in_hold": {
+    "at": "2026-10-25T08:49:51Z",
+    "hot_node": 65690853,
+    "hot_of_S": 1.043,
+    "warm_node": 10419952,
+    "moved_on_warm": 10419952
+   },
+   "warm_peak_in_hold": {
+    "at": "2026-10-25T08:34:51Z",
+    "hot_node": 62921473,
+    "hot_of_S": 0.999,
+    "warm_node": 20730330,
+    "moved_on_warm": 20730330
+   },
+   "end_of_hold": {
+    "at": "2026-10-25T09:09:51Z",
+    "hot_node": 65197890,
+    "hot_of_S": 1.035,
+    "warm_node": 7904890,
+    "moved_on_warm": 7904890
+   },
+   "readings_with_moved_on_hot": 0,
+   "readings": 144
+  },
+  "b": {
+   "pre_step_mean": {
+    "hot_node": 47444754.416666664,
+    "warm_node": 2721014.5833333335
+   },
+   "hot_peak_in_hold": {
+    "at": "2026-10-25T09:09:51Z",
+    "hot_node": 78658388,
+    "hot_of_S": 1.249,
+    "warm_node": 3712907,
+    "moved_on_warm": 3712907
+   },
+   "warm_peak_in_hold": {
+    "at": "2026-10-25T08:33:11Z",
+    "hot_node": 61198237,
+    "hot_of_S": 0.971,
+    "warm_node": 9065214,
+    "moved_on_warm": 9065214
+   },
+   "end_of_hold": {
+    "at": "2026-10-25T09:09:51Z",
+    "hot_node": 78658388,
+    "hot_of_S": 1.249,
+    "warm_node": 3712907,
+    "moved_on_warm": 3712907
+   },
+   "readings_with_moved_on_hot": 0,
+   "readings": 144
+  }
+ }
+}
+| UTC | min from step | A hot node | A kept | A tier_down on hot | A warm node | A tier_down on warm | B hot node | B normal | B overflow on hot | B warm node | B overflow on warm |
+| 08:08 | -1.7 | 61.9 MB | 61.0 | 0.0 | 6.4 MB | 6.4 | 47.1 MB | 46.2 | 0.0 | 3.4 MB | 3.4 |
+| 08:29 | 20.0 | 62.2 MB | 60.6 | 0.0 | 14.7 MB | 14.7 | 57.0 MB | 55.6 | 0.0 | 6.3 MB | 6.3 |
+| 08:49 | 40.0 | 65.7 MB | 64.7 | 0.0 | 10.4 MB | 10.4 | 69.7 MB | 68.3 | 0.0 | 4.6 MB | 4.6 |
+| 09:09 | 60.0 | 65.2 MB | 64.0 | 0.0 | 7.9 MB | 7.9 | 78.7 MB | 77.6 | 0.0 | 3.7 MB | 3.7 |

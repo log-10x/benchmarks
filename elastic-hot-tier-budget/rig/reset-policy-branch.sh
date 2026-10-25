@@ -17,6 +17,6 @@ printf 'key,value\ngeneration,seed\n' > log10x/policy/config-generation.csv
 printf 'bytes\n' > log10x/policy/regulator-unit
 rm -f reports/latest.md
 git add -A log10x/policy reports 2>/dev/null || git add -A log10x/policy
-git -c user.name=log10x-install -c user.email=install@log10x.com commit -q -m "rig: reset the policy files to the install seed" || true
+git -c user.name=log10x-install -c user.email=install@log10x.com commit -q -m "rig: reset the policy files to the install seed" > /dev/null || true
 git push -q origin "$BRANCH"
 git rev-parse HEAD

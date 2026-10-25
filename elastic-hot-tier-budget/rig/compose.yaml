@@ -62,7 +62,7 @@ services:
       - path.repo=/snapshots
       - xpack.security.enabled=false
       - xpack.ml.enabled=false
-      - xpack.searchable.snapshot.shared_cache.size=512mb
+      - xpack.searchable.snapshot.shared_cache.size=${FROZEN_CACHE:-512mb}
       - ES_JAVA_OPTS=-Xms512m -Xmx512m
     volumes:
       - es-frozen-data:/usr/share/elasticsearch/data
