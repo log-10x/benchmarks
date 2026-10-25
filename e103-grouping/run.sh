@@ -30,7 +30,10 @@ ARGS=(@run/input/forwarder/fluentbit @apps/receiver symbolMessageHashField tenx_
       'fullText("tenx_hash","routeState","message_pattern","severity_level","utf8Size")')
 ENVS=(-e TENX_AIRGAPPED=true -e TENX_FLUENTBIT_OUTPUT_HOST=fluent-bit)
 
-foreign() { docker ps --format '{{.Names}}' | grep -v '^e103-' || true; }
+# census-ch (another session's ClickHouse, host port 8124) may run alongside; this rig publishes no host port
+# grep without -q reads all of docker logs, so pipefail does not see a SIGPIPE
+listening() { docker logs e103-tenx 2>&1 | grep 'Forward protocol server listening' >/dev/null; }
+foreign() { docker ps --format '{{.Names}}' | grep -v -e '^e103-' -e '^census-ch$' || true; }
 
 up() {
   [ -z "$(foreign)" ] || { echo "other containers are running, not starting:"; foreign; exit 3; }
@@ -46,11 +49,11 @@ up() {
   docker run -d --name e103-tenx --network "$NET" --network-alias tenx --cpus 0.5 --memory 512m --tmpfs /tmp \
     "${ENVS[@]}" ${MOUNTS[@]+"${MOUNTS[@]}"} "$IMAGE" "${ARGS[@]}" >/dev/null
   for _ in $(seq 1 60); do
-    docker logs e103-tenx 2>&1 | grep -q 'Forward protocol server listening' && break
+    listening && break
     [ "$(docker inspect -f '{{.State.Running}}' e103-tenx)" = true ] || break
     sleep 2
   done
-  docker logs e103-tenx 2>&1 | grep -q 'Forward protocol server listening' || { echo "the Receiver did not start"; docker logs --tail 30 e103-tenx; exit 1; }
+  listening || { echo "the Receiver did not start"; docker logs --tail 30 e103-tenx; exit 1; }
   sleep 3
   commit() { git -C "$1" rev-parse HEAD 2>/dev/null || echo "not a git checkout"; }
   python3 - "$RES/run.json" "$IMAGE" "$(docker inspect -f '{{.Image}}' e103-tenx)" "${E103_CONFIG_DIR:-}" "${E103_MODULES_DIR:-}" \
@@ -84,7 +87,15 @@ want = sum(1 for _ in open(os.path.join(d, 'sent.jsonl')))
 tok = re.compile(r'e103id\W{1,3}(\d+)')
 def back():
     p = os.path.join(d, 'returned.jsonl')
-    return len(tok.findall(open(p).read())) if os.path.exists(p) else 0
+    n = 0
+    if os.path.exists(p):
+        for l in open(p):
+            try:
+                m = json.loads(l).get('log')
+            except ValueError:
+                continue
+            n += len(tok.findall(m)) if isinstance(m, str) else 0
+    return n
 t0 = last_t = time.time(); last = -1
 while time.time() - t0 < 180:
     n = back()

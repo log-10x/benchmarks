@@ -45,7 +45,7 @@ It exits 1 when there is any cross-container record, missing line or duplicated 
 
 ## Running
 
-Docker must have no other rig running: `run.sh up` refuses to start when any container not named `e103-*` is up. A run takes about 6 minutes.
+Docker must have no other rig running: `run.sh up` refuses to start when any container is up other than `e103-*` and `census-ch`. The rig publishes no host port. A run takes about 5 minutes.
 
 ```
 ./run.sh all                       # 1.1.150 as shipped, results in results/shipped-1.1.150/
@@ -57,4 +57,21 @@ E103_CONFIG_DIR=/path/to/e103-fix/config E103_MODULES_DIR=/path/to/e103-fix/modu
 
 ## Result on 1.1.150
 
-Run pending.
+Run 2026-10-25 from 22:50 to 22:55 UTC. Results are in `results/shipped-1.1.150/`: `run.json` holds the image ID and launch, and `data/` holds the lines sent, the records Fluent Bit received and returned, and `score.json`.
+
+**Verdict: FAIL, with 1,533 cross-container records.** Fluent Bit took in 22,557 records, forwarded 22,557 to the Receiver and wrote 5,836 returned records. One of those is the Receiver's own connect message.
+
+| Case | Lines sent | Records | Lines returned | Cross-container records | Lines missing | Lines duplicated | Stack traces whole |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| a | 4,428 | 1,554 | 4,428 | 512 | 0 | 0 | 0 of 512 |
+| b | 3,072 | 1,036 | 3,072 | 509 | 0 | 0 | none sent |
+| c | 6,602 | 1,024 | 6,602 | 512 | 0 | 0 | 0 of 1,024 |
+| d | 3,781 | 1,027 | 3,781 | 0 | 0 | 0 | 509 of 512 |
+| e | 4,674 | 1,194 | 4,674 | 0 | 0 | 0 | 508 of 511 |
+| Total | 22,557 | 5,836 | 22,557 | 1,533 | 0 | 0 | |
+
+In cases a and c, every episode produced one cross-container record, paused or not. In case b, 509 of 512 episodes did. The three that did not were the two 6 s pauses and one 5 s pause, where the jaeger record was sealed before kafka's lines arrived. Case e sends the same three patterns with one tag per container and returns no cross-container record, so the cross-container records follow the shared tag.
+
+**Example from case b, the hot-tier shape.** The record with seq 4429 is filed under b-jaeger. It holds seq 4429 (b-jaeger, the JSON line) and seq 4430 to 4433 (b-kafka: `===> User`, `uid=1000(appuser) ...`, `===> Setting default values ...` and `===> Configuring ...`). All five lines were sent under the tag `app.replay`.
+
+Six stack traces in cases d and e came back split, three in each case. All six were in episodes paused 5 or 6 s after the head, and each came back as 4 to 7 records.

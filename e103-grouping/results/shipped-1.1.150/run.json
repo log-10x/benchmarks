@@ -1,0 +1,25 @@
+{
+ "started_utc": "2026-10-25T22:50:24Z",
+ "image": "ghcr.io/log-10x/edge-10x:1.1.150@sha256:3e755bbc14780a27e643e09b76dfd7ec9616cab67833f70daf9420eff646d350",
+ "image_id": "sha256:3e755bbc14780a27e643e09b76dfd7ec9616cab67833f70daf9420eff646d350",
+ "args": [
+  "@run/input/forwarder/fluentbit",
+  "@apps/receiver",
+  "symbolMessageHashField",
+  "tenx_hash",
+  "outputEncodeField",
+  "fullText(\"tenx_hash\",\"routeState\",\"message_pattern\",\"severity_level\",\"utf8Size\")"
+ ],
+ "env": [
+  "TENX_AIRGAPPED=true",
+  "TENX_FLUENTBIT_OUTPUT_HOST=fluent-bit"
+ ],
+ "cpus": 0.5,
+ "memory": "512m",
+ "config_dir": null,
+ "config_commit": null,
+ "modules_dir": null,
+ "modules_commit": null,
+ "fluent_bit_image": "fluent/fluent-bit:4.2",
+ "fluent_bit_image_id": "sha256:6806769c10acf11b41d14083b3101a24433b4ca113a1ab7a6b1a1b7cad86a7e8"
+}
