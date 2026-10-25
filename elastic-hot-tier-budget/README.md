@@ -2,7 +2,7 @@
 
 One benchmark in the [log10x benchmarks](../) repository. It asks whether log10x-mcp's hourly hot-tier run, driving the Receiver, holds an Elasticsearch hot tier under a size S while load grows 2.5 times, as the hot node's own stats count it.
 
-**Result: holds at steady state; under a 2.5x step it holds within its bound with the tier-down index placed on warm, and overshoots to 1.43 S with that index on hot.** Two runs. The first held the mean but not the bound; the second, with every time constant divided by 6, held hot at 0.97 to 0.98 of S under steady load and overshot to 1.23 S during a 2.5x step-up compressed into an hour. Both fail the pre-registered bound on the hot store. Results of the first run in `results/`, of the second in `results-r2/` (section below). A third run put a native reroute by service beside the hold under one 2.5x step (`results-two-arm/`): the hold peaked at 1.43 S, over its bound, and the reroute tracked load, rising to 1.72 times its level before the step. A fourth wrote moved lines on warm (`results-two-arm-warm/`): the hold kept hot at 0.94 to 1.04 S through the step, within its bound, and the reroute rose to 1.25 S and kept rising.
+**Result: holds at steady state; under a 2.5x step it holds within its bound with the tier-down index placed on warm, and overshoots to 1.43 S with that index on hot.** Four runs. The first held the mean but not the bound; the second, with every time constant divided by 6, held hot at 0.97 to 0.98 of S under steady load and overshot to 1.23 S during a 2.5x step-up compressed into an hour. The first two fail the pre-registered bound on the hot store. Results of the first run in `results/`, of the second in `results-r2/` (section below). A third run put a native reroute by service beside the hold under one 2.5x step (`results-two-arm/`): the hold peaked at 1.43 S, over its bound, and the reroute tracked load, rising to 1.72 times its level before the step. A fourth wrote moved lines on warm (`results-two-arm-warm/`): the hold kept hot at 0.94 to 1.04 S through the step, within its bound, and the reroute rose to 1.25 S and kept rising.
 
 Self-managed Elasticsearch 9.5.5 (one hot node, one frozen node, filesystem snapshot repository, trial licence), engine `log10x/edge-10x:1.1.147`, log10x-mcp branch `feat/elastic-hot-tier-budget` at 6af0226, the published OpenTelemetry demo sample replayed, 2026-10-22 19:59 to 2026-10-23 09:59 UTC. `results/` holds the timeline, every hourly run's report and files, the cluster readings and slim captures (no log text).
 
@@ -47,7 +47,7 @@ S = 44.8 MB, set at run hour 1 as 0.7 of where the run's own dry run said hot wo
 
 ## Not shown
 
-A bill; Cloud Hosted; production retention lengths; a hot tier held under growth.
+A bill; Cloud Hosted; production retention lengths; 300 nodes; a step in load larger than 2.5x; a hold over days.
 
 ## The rerun (`results-r2/`), 2026-10-23 11:25 to 15:55 UTC
 
@@ -59,7 +59,7 @@ log10x-mcp `feat/elastic-hot-tier-budget` at 0b45d4a. Every time constant divide
 | 2 | Run minutes 130 to 250: hot at or under 1.10 S every reading, mean at or under S | **Fail.** Mean 1.095 S, peak 1.23 S, 30 of 72 readings over 1.10 S. Before growth (minutes 111 to 131) 0.97 to 0.98 S. |
 | 3 | Rolled tier_down indices mounted at 0 bytes | **Pass.** 73 of 73. |
 | 4 | Hash queries on frozen equal local, ten largest moved statements | **Pass.** 10 of 10. |
-| 5 | Delivery | **Every returned record is in Elasticsearch. Lines in against lines back: 1,301,174 in, 1,300,992 back; 171 of the 182 not returned are the sample's blank lines, 11 are unaccounted for.** |
+| 5 | Lines in equal non-blank lines returned; returned records equal Elasticsearch's counts | **Fail.** Every returned record is in Elasticsearch. 1,301,174 lines in, 1,300,992 back; 171 of the 182 not returned are the sample's blank lines, and 11 lines are unaccounted for. |
 | 6 | Storm kept per window at most limit + 50 | **Pass.** On the regulator's own windows (rolling at 14:12:14 and 14:16:14): 121 and 165 kept, each within its limit plus 50 and the 5-line sample; the rest of the second window kept none, as its allowance was spent, and the storm ended before the next one. |
 
 **Why growth overshoots.** The run steers what new lines do; it cannot move lines already on hot. When load rose 2.5 times within an hour, the moved lines waiting to mount grew from 3 MB to 10 to 19 MB at once (the run's own estimate of that slice was right), while the kept lines already on hot leave only as their indices age out, over 2 hours here. The run tightened its allowance to 86 to 90% and projected 51 to 55 MB, but hot stayed above 1.1 S until the window closed. Relative to the time a line stays on hot, this step-up was about 50 times faster than a year of 2.5x growth against days of retention, but the run does not show what a slower ramp does.
