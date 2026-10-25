@@ -121,8 +121,8 @@ decode exceeds the cap, the post-fix decode runs in hundreds of milliseconds at 
 
 `corpus/sample-500.jsonl` is 500 compacted OpenTelemetry-demo Kubernetes log events (the fluentd
 JSON envelope, with the log line replaced by `~<templateHash>,<values>`), and
-`corpus/templates.json` is the 378 templates they decode against. Both are the sample published in
-[log-10x/clickhouse-app](https://github.com/log-10x/clickhouse-app) under `demo/sample/`, produced
+`corpus/templates.json` is the 378 templates they decode against. Both are the sample from
+log-10x/clickhouse-app under `demo/sample/`, produced
 by the 10x engine from the OpenTelemetry demo's container logs. Checksums in `corpus/SHA256SUMS`.
 
 `run.sh` cycles that sample to **137,418 rows**, the row count of the table in the post. Cycling
