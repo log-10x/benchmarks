@@ -2,9 +2,9 @@
 
 Question: under a 2.5x step-up, does the rows run hold rows written at R where a collector rule by service and severity does not? The gaps run compared the two at one load (2.7 s against 8.1 s of insert plus merge CPU); no run compared them under growth.
 
-## Arms, one ClickStack 2.38.0 node, same capture, same pace, the regulator bound in force (1.1.150 image)
-- **A, the rows run:** clickstack-rows rig as rerun on 10-24 (results-sample-bound), on the ghcr.io/log-10x/edge-10x:1.1.150 image (no overlay), rows_per_hour R from the dry run, a run every 10 minutes.
-- **B, the collector rule:** the same lines through the routing collector alone: the two chattiest services' INFO and DEBUG lines to the bucket (the gap6 policy), the rest to otel_logs. Fixed at the start. No Receiver.
+## Arms, one ClickStack 2.38.0 node, same capture, same pace, the regulator bound in force
+- **A, the rows run:** the clickstack-rows rig as in `results-sample-bound`, on the `ghcr.io/log-10x/edge-10x:1.1.150` image (no overlay), rows_per_hour R from the dry run, a run every 10 minutes.
+- **B, the collector rule:** the same lines through the routing collector alone: the two chattiest services' INFO and DEBUG lines to the bucket (the gap6 policy), the rest to `otel_logs_rule`. Fixed at the start. No Receiver.
 Both arms write to their own table (`otel_logs` and `otel_logs_rule`) on the same node, so `system.part_log` meters each.
 
 ## Load

@@ -15,7 +15,7 @@
 #
 # ARMS=two adds arm B beside the rows run: a second routing collector on the same feed
 # with the gap6 collector rule (RULE_TOP1 and RULE_TOP2's INFO and DEBUG to the coldrule
-# bucket, the rest into default.otel_logs_rule), no Receiver, on the 1.1.150 image.
+# bucket, the rest into default.otel_logs_rule), with no Receiver.
 #
 # Names stay the e2e ones (cse-*): rig/router.yaml and clickstack-e2e/conf/schema_cold.sql
 # address them. Memory: ClickStack 3g, Receiver 2g, collector 1g, RustFS 512m, Prometheus 512m.

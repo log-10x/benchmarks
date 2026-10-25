@@ -96,20 +96,21 @@ a 200-statement burst under a 50-line total passes 400 of 400 lines; with the bo
 
 ## Two-arm run: the rows run against a collector rule, under the same growth
 
-The method was written before the run: [`METHOD_TWO_ARM.md`](METHOD_TWO_ARM.md).
+The method, written before the run, is [`METHOD_TWO_ARM.md`](METHOD_TWO_ARM.md).
 `ARMS=two rig/phases.sh` runs the rows run as above (arm A, `default.otel_logs`, on the
-1.1.150 image with its own configuration) and, on the same node and the same feed, a second
+engine image's own configuration) and, on the same node and the same feed, a second
 routing collector with the collector-only rule from `clickstack-e2e-gaps` gap 6 (arm B,
 [`rig/router-rule.yaml`](rig/router-rule.yaml)): the two chattiest services' INFO and DEBUG
 lines go to a second bucket and the rest into `default.otel_logs_rule`, a copy of the logs
-table with the same counts view. Arm B has no Receiver. The two services are the capture's
-chattiest by lines, counted before the run: `opentelemetry-collector` (93,875 lines) and
-`cart` (39,292) of 197,430, with `kafka` third at 31,029. Arm B inserts through the
-OpenTelemetry Collector's ClickHouse exporter straight into its table, without ClickStack's
-own collector and its processing, so each arm's figures against its own pre-step window
-compare like for like and the CPU figures of one arm against the other's do not. The meter reads, per table and per
-window of ten rig minutes counted from the start, NewPart rows from `system.part_log`, merge
-CPU from its MergeParts ProfileEvents and insert CPU from `system.query_log`.
+table with the same counts view and without ClickStack's `otel_logs_kv_rollup_15m` view. Arm B
+has no Receiver. The two services are the capture's chattiest by lines, counted before the run:
+`opentelemetry-collector` (93,875 lines) and `cart` (39,292) of 197,430, with `kafka` third at
+31,029. Arm B inserts through the OpenTelemetry Collector's ClickHouse exporter straight into
+its table, without ClickStack's own collector and its processing, so each arm's figures against
+its own pre-step window compare like for like and the CPU figures of one arm against the
+other's do not. The meter reads, per table and per window of ten rig minutes counted from the
+start, NewPart rows from `system.part_log`, merge CPU from its MergeParts ProfileEvents and
+insert CPU from `system.query_log`.
 `rig/score.py <results> --arms two` scores the three criteria and writes the comparison
 table. Results go to `results-two-arm/`.
 
@@ -119,9 +120,13 @@ ARMS=two MCP=<log10x-mcp checkout with build/> GH_TOKEN=$(gh auth token) rig/pha
 
 ### Result, 2026-10-25: rows separate the arms, CPU does not; FAIL as registered on criteria 1 and 3
 
-The engine was `ghcr.io/log-10x/edge-10x:1.1.150`, on ClickStack 2.38.0 (ClickHouse 26.5.7.64),
-with the capture, pace steps, storm and injected service of the rows run. The dry run measured
-43,000 rows an hour, so R = 30,099 (5,016 rows a window). Results in `results-two-arm/`.
+The engine image is `ghcr.io/log-10x/edge-10x:1.1.150`, on ClickStack 2.38.0 (ClickHouse
+26.5.7.64), with the capture, pace steps, storm and injected service of the rows run. From
+minute 40, before the pre-step window, `old_parts_lifetime` is 60 s (ClickHouse's default is
+480 s) on the 15 tables holding the most merged-away parts, both arms' logs tables among them;
+the setting governs only when merged-away parts leave the disk (`timeline.jsonl`,
+`old_parts_lifetime_60`). The dry run measured 43,000 rows an hour, so R = 30,099 (5,016 rows
+a window). Results in `results-two-arm/`.
 
 | | Criterion | Result |
 |---|---|---|
@@ -146,14 +151,6 @@ against 240), it ran 5,125 merges against arm A's 376, and its merge CPU swung b
 the scheduler ran inside each window.
 
 **Run notes.**
-- At minute 40, the parts ClickHouse keeps for 480 s after a merge were filling the disk (the
-  store reached 1 GB, almost all of it merged-away parts). `old_parts_lifetime` was set to 60 s on
-  the 15 tables with the most of them, both arms' among them, at minute 40.0, before the pre-step
-  window. It changes when files are deleted, not inserts or merges; `timeline.jsonl` records it.
-- Arm B's table is a copy of `otel_logs` without ClickStack's own `otel_logs_kv_rollup_15m`
-  view, and its inserts come from the Collector's ClickHouse exporter rather than ClickStack's
-  collector: each arm against its own pre-step window compares like for like, and one arm's CPU
-  against the other's does not.
 - Delivery: arm B, 242,324 lines written and 242,365 rows in its table and bucket (41 over).
   Arm A, 204,399 records returned (the Receiver folds multi-line events) and 205,346 in its table
   and bucket (933 over in the table, 14 in the bucket). The tables logged 20 and 18 failed inserts,

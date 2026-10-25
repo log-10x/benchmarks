@@ -1,4 +1,4 @@
--- Arm B's table, a copy of otel_logs, with the same counts view so an insert does the same work per row on both.
+-- Arm B's table, a copy of otel_logs, with a copy of its counts view.
 CREATE TABLE IF NOT EXISTS default.otel_logs_rule AS default.otel_logs;
 
 CREATE TABLE IF NOT EXISTS default.counts_by_type_rule AS default.counts_by_type;
