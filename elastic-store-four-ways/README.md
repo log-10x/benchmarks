@@ -7,9 +7,8 @@ sample? The compact form is indexed in standard mode, in logsdb mode, and in log
 on its template id; the comparison that decides is compact on logsdb against logsdb with
 `pattern_text`.
 
-Two things to know before reading the table. The raw index holds the parsed record (one field per
-key of the shipped JSON, the message in `message`), not each whole line as one field the way the
-8.17.0 measurement did. And document counts differ by design: the three native indexes hold one
+Two things to know before reading the table. The raw index holds the parsed record: one field per
+key of the shipped JSON, the message in `message`. And document counts differ by design: the three native indexes hold one
 document per line (197,430), while the engine folds a multi-line event into one, so the compact
 indexes hold one per event (157,228) plus one per template (3,030). Each index is checked
 against its own input.
@@ -35,8 +34,7 @@ The compact variants' store includes the template dictionary index (537,262 B).
 **Logsdb with `pattern_text`, sorted on its template id, takes less store than the compact form
 in every mode.** Compact on logsdb (e) is 153.7% of (c), 53.7% larger; sorted the same
 way on its own template id (f), 127.2% of (c), 27.2% larger. The native pair alone holds
-this sample in 34.7% of the raw index's store, 65.3% less; on 8.17.0 the compact form took
-51.7% off a raw index. Over (a) and (b) the compact form still saves: (e) is 53.3% of (a) and
+this sample in 34.7% of the raw index's store, 65.3% less. Over (a) and (b) the compact form still saves: (e) is 53.3% of (a) and
 89.3% of (b).
 
 Where the difference sits, from `_disk_usage` (repetition 1): the stored compact text in (f),
@@ -45,27 +43,27 @@ Where the difference sits, from `_disk_usage` (repetition 1): the stored compact
 encoded `message`, which indexes every variable value as a term, the container, pod and image
 ids folded into each event included. In (c) those values sit in `keyword` doc values instead.
 
-### The pattern_text sort, and the first run
+### Amendment, 2026-10-25
 
-`METHOD.md` first set `index.logsdb.default_sort_on_message_template: true` on (c), the setting
-Elastic's `pattern_text` page names for a logsdb `message` field. On this node, with documents that
-carry no `host.name`, the segments it produced were sorted on `@timestamp` only, and (c) measured
-10,649,904 B (52.9% of (a)). That run is kept in
-[`results-setting-only/`](results-setting-only/); its sort check fails, as it should. The run in
-`results/` sets the sort explicitly, as the page's "Custom sorting" example does, and gives the
-compact form the same sort as (f). The amendment is at the end of `METHOD.md`.
+The sort setting alone did not reach Lucene: with `index.logsdb.default_sort_on_message_template:
+true` and documents that carry no `host.name`, the segments of (c) carried a sort on `@timestamp`
+only, and (c) measured 10,649,904 B, 52.9% of (a). That run is in
+[`results-setting-only/`](results-setting-only/), where the sort check fails. (c) sets
+`index.sort.field` explicitly, as Elastic's `pattern_text` page shows in its "Custom sorting"
+example, and (f) gives the compact form the same sort on its own template id. `METHOD.md` records
+the amendment at its end.
 
 ### The licence
 
-`pattern_text` is an Enterprise feature. On the default basic licence, before the trial, creating
-a logsdb index with `message` as `pattern_text` returned 200 and a document indexed (201),
-but the mapping came back as `{"type": "pattern_text", "disable_templating": true}` and the source mode as
+`pattern_text` is an Enterprise feature, and the basic licence accepts it with templating off.
+On the default basic licence, before the trial, creating a logsdb index with `message` as
+`pattern_text` returned 200 and a document indexed (201), and the mapping came back as `{"type": "pattern_text", "disable_templating": true}` and the source mode as
 `STORED`: templating off and no synthetic source. On the trial, (c)'s mapping is plain
 `{"type": "pattern_text"}`. Both are in `results/licence.json`.
 
 ### The compact form
 
-The two encodes of the sample were byte-identical: 157,228 events and
+The two encodes of the sample are byte-identical: 157,228 events and
 3,030 templates, 74,140,583 B encoded plus 3,281,830 B dictionary,
 64.0% under the sample before any codec. The dictionary followed by the events decodes to the
 sample byte for byte (decoded output sha256 `aa79b9349a4123d88936fd064f5eccd9fd84f45a1fd03cff3f64c259715c2432`). Hashes of both
@@ -94,7 +92,7 @@ with `docker rm -f -v`, on exit too. The whole run takes about 10 minutes.
 
 - Primary store size after a force merge to one segment, per variant, on this sample, with these
   images and a trial licence.
-- Not query or ingest cost, not search-time decoding (the l1es plugin is built for 8.17.0), not
+- Not query or ingest cost, not search-time decoding with the l1es plugin, not
   Elastic Cloud pricing, not a compact form of the message text alone with the metadata kept as
   fields. `METHOD.md` lists the rest.
 
@@ -110,4 +108,4 @@ with `docker rm -f -v`, on exit too. The whole run takes about 10 minutes.
 | `results/rep<N>.json` | each repetition: per index store, documents, segments and their sort, settings, leases, per-field bytes |
 | `results/rep<N>/` | each index's mapping and `_disk_usage` output |
 | `results/results.json`, `results/results.md` | the table, the ratios and the checks |
-| `results-setting-only/` | the first full run, (c) with `default_sort_on_message_template` only |
+| `results-setting-only/` | the run before the amendment, (c) with `default_sort_on_message_template` alone |

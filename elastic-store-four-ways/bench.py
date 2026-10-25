@@ -47,8 +47,7 @@ DICT_MAPPING = {'dynamic': False, 'properties': {'pattern': {'type': 'text'}}}
 INDEXES = {
     'es4-raw': {'settings': {'index': COMMON}, 'mappings': record_mapping('text')},
     'es4-logsdb': {'settings': {'index': {**COMMON, 'mode': 'logsdb'}}, 'mappings': record_mapping('text')},
-    # Elastic's "Custom sorting" example for pattern_text. index.logsdb.default_sort_on_message_template
-    # alone left the segments sorted on @timestamp only on 9.5.5 (results-setting-only/).
+    # Sorted as in Elastic's "Custom sorting" example for pattern_text.
     'es4-pattern': {'settings': {'index': {**COMMON, 'mode': 'logsdb',
                                            'sort.field': ['message.template_id', '@timestamp'],
                                            'sort.order': ['asc', 'desc']}},
@@ -311,8 +310,7 @@ def cmd_measure(a):
     for ix in indexes:
         ok('POST', f'/{ix}/_refresh')
         ok('POST', f'/{ix}/_flush')
-    # Synthetic-source indexes keep _recovery_source for operations a retention lease still covers, and a
-    # merge keeps what it covers. Wait until every lease has moved past the last operation before merging.
+    # Wait until every retention lease is past the last operation, so the merge keeps no _recovery_source.
     deadline = time.time() + LEASE_WAIT_S
     while True:
         states = {ix: leases_caught_up(ix) for ix in indexes}
