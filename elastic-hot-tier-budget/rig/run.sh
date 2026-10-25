@@ -12,7 +12,7 @@
 #   down                  stop the load, snapshot logs, docker compose down (volumes kept)
 #   clean                 remove the rig's containers (docker rm -f -v), its elastic-budget_* volumes and network
 # ARM_B=1 adds arm B's cluster (compose.arm-b.yaml, 127.0.0.1:9201), set up by es-setup-b.mjs after arm A's.
-# WARM=1 adds compose.warm.yaml (each frozen node also data_warm); TD_TIER_PREFERENCE reaches es-setup.mjs.
+# WARM=1 adds compose.warm.yaml (each frozen node also data_warm); TD_PLACEMENT reaches es-setup.mjs.
 # GH_TOKEN (gh auth token) reaches the Receiver from the shell by name; nothing writes it to a file.
 set -euo pipefail
 HERE=$(cd "$(dirname "$0")" && pwd)

@@ -4,7 +4,8 @@
 // 2. Registers the filesystem snapshot repository `rig-snapshots` at /snapshots (Elastic
 //    Cloud provides `found-snapshots`; a self-managed cluster registers its own).
 // 3. Sends every request in elasticFrozenTierRecipe({ repository: 'rig-snapshots' }).body,
-//    in order, and writes the recipe and each response to <out dir>.
+//    in order, and writes the recipe and each response to <out dir>. TD_PLACEMENT=warm passes
+//    tierDownPlacement: 'warm', and the run checks the tier_down bootstrap index sits on a warm node.
 import { writeFileSync, mkdirSync } from 'fs';
 import { join, resolve } from 'path';
 
@@ -34,7 +35,8 @@ log.push(await call('POST', '/_license/start_trial?acknowledge=true'));
 log.push(await call('GET', '/_license'));
 log.push(await call('PUT', '/_snapshot/rig-snapshots', { type: 'fs', settings: { location: '/snapshots' } }));
 
-const recipe = elasticFrozenTierRecipe({ repository: 'rig-snapshots' });
+const tdPlacement = process.env.TD_PLACEMENT;
+const recipe = elasticFrozenTierRecipe({ repository: 'rig-snapshots', ...(tdPlacement ? { tierDownPlacement: tdPlacement } : {}) });
 writeFileSync(join(out, 'recipe.txt'), recipe.body + '\n\nNOTE: ' + recipe.note + '\n');
 
 // The body is comment lines, then "PUT <path>" and an optional JSON object, per request.
@@ -72,21 +74,11 @@ log.push(await call('PUT', '/_ilm/policy/tenx-tier-down', { policy: { phases: {
   frozen: { min_age: '1m', actions: { searchable_snapshot: { snapshot_repository: 'rig-snapshots' } } },
 } } }));
 if (process.env.ILM_POLL) log.push(await call('PUT', '/_cluster/settings', { persistent: { 'indices.lifecycle.poll_interval': process.env.ILM_POLL } }));
-// TD_TIER_PREFERENCE (e.g. data_warm,data_hot) places the tier_down indices: on the template for every
-// index rollover creates, and on the bootstrap index the recipe has already created.
-const tdTier = process.env.TD_TIER_PREFERENCE;
 let placement;
-if (tdTier) {
-  const got = await json('/_index_template/tenx-tierdown-tpl');
-  const read = got.index_templates[0].index_template;
-  const t = Object.fromEntries(['index_patterns', 'template', 'composed_of', 'priority', 'version', '_meta'].filter((k) => k in read).map((k) => [k, read[k]]));
-  const idx = (t.template.settings.index ??= {});
-  idx.routing = { ...(idx.routing ?? {}), allocation: { ...(idx.routing?.allocation ?? {}), include: { ...(idx.routing?.allocation?.include ?? {}), _tier_preference: tdTier } } };
-  log.push(await call('PUT', '/_index_template/tenx-tierdown-tpl', t));
-  log.push(await call('PUT', '/tenx-tierdown-000001/_settings', { 'index.routing.allocation.include._tier_preference': tdTier }));
+if (tdPlacement) {
+  const want = `data_${tdPlacement}`;
   const roles = await json('/_nodes?filter_path=nodes.*.name,nodes.*.roles');
   const rolesOf = Object.fromEntries(Object.values(roles.nodes).map((n) => [n.name, n.roles]));
-  const want = tdTier.split(',')[0];
   let wrong = [];
   for (let i = 0; i < 60; i++) {
     const shards = await json('/_cat/shards/tenx-*?format=json&h=index,shard,prirep,state,node');
@@ -98,7 +90,7 @@ if (tdTier) {
   log.push(await call('GET', '/_cluster/health/tenx-*?wait_for_status=green&timeout=60s'));
   if (wrong.length) log.push({ method: 'CHECK', path: 'tier_down placement', status: 500, body: `not on ${want}: ${JSON.stringify(wrong)}` });
 }
-writeFileSync(join(out, 'es-setup.json'), JSON.stringify({ es: ES, requests: requests.length, td_tier_preference: tdTier ?? null, placement, log }, null, 1) + '\n');
+writeFileSync(join(out, 'es-setup.json'), JSON.stringify({ es: ES, requests: requests.length, td_placement: tdPlacement ?? null, placement, log }, null, 1) + '\n');
 const bad = log.filter((x) => x.status >= 300 && !(x.path.includes('start_trial') && x.status === 403));
 for (const x of log) console.log(x.status, x.method, x.path);
 if (bad.length) { console.error('FAILED:', bad.map((x) => `${x.status} ${x.method} ${x.path} ${x.body.slice(0, 300)}`).join('\n')); process.exit(1); }

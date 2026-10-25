@@ -18,7 +18,7 @@ for i in filter(None, images):
     d = json.loads(sh('docker', 'image', 'inspect', i) or '[{}]')[0]
     out['images'][i] = {'id': d.get('Id'), 'repo_digests': d.get('RepoDigests'), 'created': d.get('Created')}
 mcp = os.environ['MCP']
-out['log10x_mcp'] = {'path': mcp, 'commit': sh('git', '-C', mcp, 'rev-parse', 'HEAD'), 'describe': sh('git', '-C', mcp, 'log', '-1', '--format=%h %s'),
+out['log10x_mcp'] = {'path': mcp, 'commit': sh('git', '-C', mcp, 'rev-parse', 'HEAD'), 'branch': sh('git', '-C', mcp, 'rev-parse', '--abbrev-ref', 'HEAD'), 'describe': sh('git', '-C', mcp, 'log', '-1', '--format=%h %s'),
                      'version': json.load(open(os.path.join(mcp, 'package.json')))['version'], 'dirty': bool(sh('git', '-C', mcp, 'status', '--porcelain', '--untracked-files=no'))}
 out['benchmarks'] = {'commit': sh('git', '-C', HERE, 'rev-parse', 'HEAD'), 'branch': sh('git', '-C', HERE, 'rev-parse', '--abbrev-ref', 'HEAD'),
                      'rig_changes_uncommitted': sh('git', '-C', HERE, 'status', '--porcelain', '--', '.').splitlines()}

@@ -39,8 +39,9 @@ for (const [from, stream] of [['tenx-tierdown-tpl', 'native-overflow'], ['tenx-a
 }
 // The overflow template carries arm A's tier_down placement, if any; the check reads where each bootstrap index sits.
 let placement;
-const tdTier = process.env.TD_TIER_PREFERENCE;
-if (tdTier) {
+const tdPlacement = process.env.TD_PLACEMENT;
+if (tdPlacement) {
+  const tdTier = tdPlacement === 'warm' ? 'data_warm,data_hot' : undefined;
   push(await call(B, 'GET', '/_cluster/health/native-*?wait_for_status=green&wait_for_no_relocating_shards=true&timeout=120s'));
   const shards = (await call(B, 'GET', '/_cat/shards/native-*?format=json&h=index,shard,prirep,state,node')).json ?? [];
   const nodes = (await call(B, 'GET', '/_nodes?filter_path=nodes.*.name,nodes.*.roles')).json?.nodes ?? {};
@@ -48,9 +49,9 @@ if (tdTier) {
   const pref = (await call(B, 'GET', '/native-overflow-000001/_settings/index.routing.allocation.include._tier_preference?flat_settings=true')).json;
   placement = { overflow_tier_preference: pref?.['native-overflow-000001']?.settings?.['index.routing.allocation.include._tier_preference'] ?? null,
     shards: shards.map((x) => ({ ...x, roles: rolesOf[x.node] ?? null })) };
-  const want = tdTier.split(',')[0];
+  const want = `data_${tdPlacement}`;
   const wrong = placement.shards.filter((x) => x.index.startsWith('native-overflow-') !== (rolesOf[x.node] ?? []).includes(want));
-  if (placement.overflow_tier_preference !== tdTier || wrong.length) log.push({ cluster: 'B', method: 'CHECK', path: 'overflow placement', status: 500, body: JSON.stringify(placement) });
+  if ((placement.overflow_tier_preference ?? undefined) !== tdTier || wrong.length) log.push({ cluster: 'B', method: 'CHECK', path: 'overflow placement', status: 500, body: JSON.stringify(placement) });
 }
 const check = {};
 for (const base of [A, B]) {
