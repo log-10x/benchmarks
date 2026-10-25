@@ -47,7 +47,7 @@ Two tools are scored on the same events:
 | Drain3, factory defaults | 3.34% (1,381) | 10.34% | 26.19% | 57.75% of 213 | 393 |
 | Drain3, strong arm, per record | 1.78% (734) | 10.35% | 79.79% | 65.26% of 213 | 377 |
 
-The patterns column counts the patterns of labelled events only (`distinct_patterns` in `bench/score.py`): 2,277 on otel215 and 406 on rec1155 for 1.1.142. [`../naming-stability`](../naming-stability) counts the patterns of every event, with the same 1.1.142 image on the same captures: 2,687 on otel215 and 582 on rec1155. The counts differ by 410 on otel215 and 176 on rec1155; the difference is not reconciled here.
+The patterns column counts the patterns of labelled events only (`distinct_patterns` in `bench/score.py`): 2,277 on otel215 and 406 on rec1155 for 1.1.142. [`../naming-stability`](../naming-stability) counts the patterns of every event, with the same 1.1.142 image on the same captures: 2,687 on otel215 and 582 on rec1155. The counts differ by 410 on otel215 and 176 on rec1155. The difference is the patterns that only unlabelled events take. The two runs cut each capture into the same events and give every event the same pattern name. On otel215 the 665 unlabelled events take 411 patterns, and one of them, `Starting`, also names a labelled event, so they add 410. On rec1155 the 240 unlabelled events take 176 patterns that no labelled event shares, so they add 176. In frontend-proxy, which has no labelled events, each unlabelled event takes a pattern of its own: 114 on otel215 and 115 on rec1155, most of them lines of Envoy's startup listing. The next largest are opensearch with 83 patterns, jaeger 58 and prometheus-server 38 on otel215, and postgresql 23 and flagd 13 on rec1155. [`bench/pattern_counts.py`](bench/pattern_counts.py) computes these numbers from the two runs' events ([otel215](results/pattern-counts-1.1.142_otel215.json), [rec1155](results/pattern-counts-1.1.142_rec1155.json)).
 
 Without the opentelemetry-collector container (57% of otel215's events, 46% of rec1155's):
 
@@ -194,4 +194,5 @@ python3 bench/score.py otel215 out/events.jsonl
 - `bench/drain_arm.py`: the Drain3 arms.
 - `bench/score.py`: the scorer.
 - `bench/summarize.py`: writes `results/results.md`.
-- `results/`: the committed output of `run.sh`.
+- `bench/pattern_counts.py`: compares this benchmark's pattern count with `../naming-stability`'s, from one run of each on the same capture, and writes `results/pattern-counts-1.1.142_<capture>.json`.
+- `results/`: the committed output of `run.sh` and of `bench/pattern_counts.py`.

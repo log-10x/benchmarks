@@ -99,8 +99,8 @@ events.
 | otel215 | 157,228 | 156,563 (99.58%) | 665 (0.42%) | 299 | 289 / 10 |
 
 Unlabelled events, by container:
-- **rec1155:** frontend-proxy 115, postgresql 83, flagd 14, image-provider 9, flagd-ui 5, init-config 2, and single events in cart, accounting and email.
-- **otel215:** prometheus-server 152, frontend-proxy 114, opensearch 102 (single events outside its 20 labelled statements), jaeger 87, coredns 43, metrics-server 35, Grafana sidecars 34, postgresql 33, init-config 14, and 13 smaller containers.
+- **rec1155:** frontend-proxy 115, postgresql 83, flagd 14, cart 10, image-provider 9, flagd-ui 5, init-config 2, and single events in accounting and email.
+- **otel215:** prometheus-server 152, frontend-proxy 114, opensearch 102 (single events outside its 20 labelled statements), jaeger 87, coredns 43, metrics-server 35, Grafana sidecars 34, postgresql 33, init-config 14, and 11 smaller containers.
 
 Labelled events and statements, by container:
 - **rec1155:**
