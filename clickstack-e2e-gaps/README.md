@@ -41,6 +41,15 @@ capture comes back unmarked, which would have decided most of these questions
 before they were asked. Both fixes are released as 1.1.79, and
 `../clickstack-e2e/results/clickstack-e2e-2026-09-15.md` is that image's own run.
 
+The receiver each results file ran:
+
+| Results | Receiver |
+|---|---|
+| `clickstack-e2e-gaps-2026-09-15.md`, `gap1.json` to `gap6.json` | the run-cloud shadow jar on `eclipse-temurin:23-jre`, through `PATCHED_JAR` |
+| `clickstack-e2e-close-2026-09-15.md`, `gap1-agg.json`, `gap2b.json`, `gap4-router-owners.json`, `gap4-router-persist.json`, `gap7.json`, `gap8.json`, `gap9.json` | `ghcr.io/log-10x/edge-10x:1.1.79`, the `lib.sh` pin |
+| `gap4-custody-before-edge-1.1.147.json` | `ghcr.io/log-10x/edge-10x:1.1.147`, through `CSE_ENGINE_IMAGE` |
+| `gap4-custody-after-1.1.150-run1.json`, `gap4-custody-after-1.1.150-run2.json` | the engine 1.1.150 run-cloud jar on `eclipse-temurin:23-jre`, through `PATCHED_JAR` |
+
 A host needs about 7 GB of Docker memory and 3 GB of free disk per run, and
 nothing else may be running a second ClickStack: two of them on one Docker
 daemon starve each other and the first symptom is a container that dies mid-feed

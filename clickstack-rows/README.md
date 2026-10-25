@@ -159,6 +159,29 @@ the scheduler ran inside each window.
   0.72, arm B 0.63.
 - The run's disk peaked at 1.21 GB.
 
+## Rows the rule kept that the rows run moved, from the two-arm run
+
+The two-arm run's wire tap carries every record arm A returned with its service, statement
+hash and route. Arm B's rule is deterministic (lines from `opentelemetry-collector` and `cart`
+at INFO or DEBUG to the bucket, the rest to the table), so applying it to the same records
+gives the rule's table within 23 rows of what arm B measured (58,970 against 58,947 for
+minutes 100 to 160). The question it answers: what did the rows run remove that a static rule
+left in place?
+
+| Window | Records the rule keeps | Of those, the rows run sent to the bucket | Share | Records the rule sends out that the rows run kept |
+|---|---:|---:|---:|---:|
+| Minutes 100 to 160 (storm and hold) | 50,378 | 27,155 | 53.9% | 7,691 |
+| Minutes 120 to 160 (hold) | 27,361 | 11,814 | 43.2% | |
+| Whole run | 80,105 | 30,955 | 38.6% | |
+
+With the planted storm and the injected service left out, the rows run still moved 30.6% of
+what the rule kept. The ten largest moved statements make up 84% of the moved records:
+recommendation's `ListRecommendations`, two ad statements and kafka housekeeping lines among
+them, all in services the rule keeps whole. The 7,691 records the rule would have sent out
+and the rows run kept are its sample and error floors; 1,628 of them are an upload-failure
+statement the engine labels ERROR and the rule's severity regex reads as INFO. The tap has
+no severity field, so the floor split uses the same capture's labels from the Elastic run.
+
 ## Files
 
 | Path | What |
