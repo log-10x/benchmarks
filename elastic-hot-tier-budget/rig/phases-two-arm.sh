@@ -12,7 +12,8 @@ set -euo pipefail
 HERE=$(cd "$(dirname "$0")" && pwd)
 RESULTS=${RESULTS:?results dir}
 RUN="$HERE/run.sh"
-export ARM_B=1 ES_URL_B=http://127.0.0.1:9201
+# ARM_A_ONLY=1 runs arm A alone: no cluster B and no copy to it; Fluent Bit also keeps each returned record whole
+if [ -z "${ARM_A_ONLY:-}" ]; then export ARM_B=1 ES_URL_B=http://127.0.0.1:9201; fi
 export POLICY_BRANCH=${POLICY_BRANCH:-test/elastic-hot-tier-policy}
 export FB_DIR=$RESULTS/fluent-bit KEEP_ROLLOVER=10m KEEP_FROZEN_AFTER=110m TD_ROLLOVER=10m ILM_POLL=100s METER_S=${METER_S:-100}
 export FROZEN_CACHE=${FROZEN_CACHE:-128mb}
@@ -88,12 +89,12 @@ while :; do
 done
 
 "$RUN" logs
-curl -s -m 30 -X POST http://127.0.0.1:9200/_ilm/stop > /dev/null; curl -s -m 30 -X POST http://127.0.0.1:9201/_ilm/stop > /dev/null
+curl -s -m 30 -X POST http://127.0.0.1:9200/_ilm/stop > /dev/null; [ -z "${ARM_B:-}" ] || curl -s -m 30 -X POST http://127.0.0.1:9201/_ilm/stop > /dev/null
 "$RUN" mark ilm_stopped
 mkdir -p "$RESULTS/delivery"
 python3 "$HERE/dump-seq.py" http://127.0.0.1:9200 tenx-app,tenx-tierdown "$RESULTS/delivery/a.tsv.gz" > "$RESULTS/delivery/a.json" || true
-python3 "$HERE/dump-seq.py" http://127.0.0.1:9201 native-app,native-overflow "$RESULTS/delivery/b.tsv.gz" > "$RESULTS/delivery/b.json" || true
-for p in 9200 9201; do
+[ -z "${ARM_B:-}" ] || python3 "$HERE/dump-seq.py" http://127.0.0.1:9201 native-app,native-overflow "$RESULTS/delivery/b.tsv.gz" > "$RESULTS/delivery/b.json" || true
+for p in 9200 ${ARM_B:+9201}; do
   curl -s -m 60 "http://127.0.0.1:$p/_cat/indices?format=json&bytes=b&expand_wildcards=all&h=index,health,status,docs.count,store.size,creation.date" > "$RESULTS/delivery/cat-indices-$p.json" || true
   curl -s -m 60 "http://127.0.0.1:$p/_alias?filter_path=*.aliases" > "$RESULTS/delivery/aliases-$p.json" || true
 done

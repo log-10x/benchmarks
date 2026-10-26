@@ -88,6 +88,8 @@ for (const e of env) {
   else left.push(e);
 }
 const rigEnv = [['TENX_FLUENTBIT_OUTPUT_HOST', 'fluent-bit']];
+// An engine image that runs its jar on a JVM: TENX_JAVA_HEAP keeps the heap inside the memory limit.
+if (process.env.TENX_JAVA_HEAP) rigEnv.push(['TENX_JAVA_HEAP', process.env.TENX_JAVA_HEAP]);
 // The MCP renders symbolMessageHashField and the utf8Size field list itself (elasticHotTier), so nothing is added.
 const measure = [];
 
