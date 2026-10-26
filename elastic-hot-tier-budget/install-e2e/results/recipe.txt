@@ -1,0 +1,89 @@
+# 1) Policy for the tier_down slice: roll over hourly, then mount the rolled
+#    index as a PARTIALLY-MOUNTED searchable snapshot in the frozen tier as soon
+#    as ILM sees it. The template in 3) writes the slice on warm, so it waits
+#    there for its mount and takes no room on hot. With the default 10-minute
+#    poll: rollover at the first poll past the hour, the snapshot and mount
+#    three polls later.
+PUT _ilm/policy/tenx-tier-down
+{
+  "policy": { "phases": {
+    "hot":    { "min_age": "0ms", "actions": { "rollover": { "max_primary_shard_size": "50gb", "max_age": "1h" } } },
+    "frozen": { "min_age": "1m", "actions": { "searchable_snapshot": { "snapshot_repository": "found-snapshots" } } }
+  }}
+}
+
+# 2) Policy for everything we keep: roll over daily, then mount the rolled index
+#    on the frozen tier in the same repository. The frozen min_age, counted from
+#    rollover, is how long kept lines stay on hot: 6 days after the daily
+#    rollover, 7 days at most. The hot-tier run (log10x_setup_recurring
+#    hot_tier_gb) reads it, max_age plus min_age, as a kept line's hours on hot.
+#    No delete phase: applying the recipe removes no data. Still the control:
+#    tier_down lines reach frozen within about two hours of arriving, kept lines
+#    only after this retention, so "the slice moved" stays distinct from
+#    "everything moved".
+PUT _ilm/policy/tenx-keep
+{
+  "policy": { "phases": {
+    "hot":    { "min_age": "0ms", "actions": { "rollover": { "max_primary_shard_size": "50gb", "max_age": "1d" } } },
+    "frozen": { "min_age": "6d", "actions": { "searchable_snapshot": { "snapshot_repository": "found-snapshots" } } }
+  }}
+}
+
+# 3) Templates. The marker decides WHICH INDEX an event lands in; the index
+#    decides which policy governs it. tenx_hash and routeState are mapped as
+#    keyword so both survive as queryable fields in frozen (verified).
+PUT _index_template/tenx-tierdown-tpl
+{
+  "index_patterns": ["tenx-tierdown-*"],
+  "template": {
+    "settings": {
+      "index.lifecycle.name": "tenx-tier-down",
+      "index.lifecycle.rollover_alias": "tenx-tierdown",
+      "index.routing.allocation.include._tier_preference": "data_warm,data_hot",
+      "number_of_replicas": 0
+    },
+    "mappings": { "properties": {
+      "tenx_hash":  { "type": "keyword" },
+      "routeState": { "type": "keyword" },
+      "@timestamp": { "type": "date" }
+    }}
+  }
+}
+
+PUT _index_template/tenx-app-tpl
+{
+  "index_patterns": ["tenx-app-*"],
+  "template": {
+    "settings": {
+      "index.lifecycle.name": "tenx-keep",
+      "index.lifecycle.rollover_alias": "tenx-app",
+      "number_of_replicas": 0
+    },
+    "mappings": { "properties": {
+      "tenx_hash":  { "type": "keyword" },
+      "routeState": { "type": "keyword" },
+      "@timestamp": { "type": "date" }
+    }}
+  }
+}
+
+# 4) Bootstrap the write indices. Both policies use rollover, so each alias
+#    needs an initial backing index flagged is_write_index. Skipping this is the
+#    usual reason ILM sits in check-rollover-ready forever.
+PUT tenx-tierdown-000001
+{ "aliases": { "tenx-tierdown": { "is_write_index": true } } }
+
+PUT tenx-app-000001
+{ "aliases": { "tenx-app": { "is_write_index": true } } }
+
+# 5) Verify, once data has rolled over and aged past min_age. The frozen index
+#    is RENAMED with a partial- prefix, which is how you know it mounted:
+#
+#   GET _cat/indices/*tenx-tierdown*?h=index,docs.count,store.size
+#     partial-tenx-tierdown-000001   <docs>   0b     <- data now in found-snapshots
+#
+#   GET tenx-tierdown-000001/_ilm/explain        -> phase: frozen, step: complete
+#   POST partial-tenx-tierdown-000001/_search
+#     { "query": { "term": { "tenx_hash": "<a hash you indexed>" } } }
+#   ...must still return the documents. If it does not, STOP: the slice is
+#   cheap but unretrievable and the down-tier is not worth doing.

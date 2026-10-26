@@ -1,0 +1,74 @@
+# E100/E101 install proof: one hot node and one warm+frozen node (Elasticsearch 9.5.5, the
+# same images, heaps and limits as ../rig/compose.yaml with ../rig/compose.warm.yaml), Fluent Bit
+# with ../rig/fluent-bit, and the Receiver from compose.receiver.yaml (written by render.mjs from
+# log10x_advise_install's elasticsearch values). Compose project e100, containers e100-*.
+#   docker compose -p e100 -f compose.yaml -f results/compose.receiver.yaml ...
+
+volumes:
+  es-hot-data: {}
+  es-wf-data: {}
+  es-snapshots: {}
+
+x-es-common: &es-common
+  image: docker.elastic.co/elasticsearch/elasticsearch:9.5.5
+  ulimits:
+    memlock: { soft: -1, hard: -1 }
+    nofile: { soft: 65536, hard: 65536 }
+
+services:
+
+  es-hot:
+    <<: *es-common
+    container_name: e100-es-hot
+    environment:
+      - node.name=es-hot
+      - cluster.name=e100
+      - node.roles=master,data_hot,data_content,ingest
+      - cluster.initial_master_nodes=es-hot
+      - discovery.seed_hosts=es-hot
+      - path.repo=/snapshots
+      - xpack.security.enabled=false
+      - xpack.ml.enabled=false
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+    volumes:
+      - es-hot-data:/usr/share/elasticsearch/data
+      - es-snapshots:/snapshots
+    ports:
+      - "127.0.0.1:9200:9200"
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
+  es-warm-frozen:
+    <<: *es-common
+    container_name: e100-es-warm-frozen
+    environment:
+      - node.name=es-warm-frozen
+      - cluster.name=e100
+      - node.roles=data_warm,data_frozen
+      - discovery.seed_hosts=es-hot
+      - path.repo=/snapshots
+      - xpack.security.enabled=false
+      - xpack.ml.enabled=false
+      - xpack.searchable.snapshot.shared_cache.size=512mb
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    volumes:
+      - es-wf-data:/usr/share/elasticsearch/data
+      - es-snapshots:/snapshots
+    deploy:
+      resources:
+        limits:
+          memory: 1200M
+
+  fluent-bit:
+    image: fluent/fluent-bit:4.2
+    container_name: e100-fluent-bit
+    command: ["/fluent-bit/bin/fluent-bit", "-c", "/fluent-bit/etc/rig/fluent-bit.conf"]
+    volumes:
+      - ${RIG_DIR}/fluent-bit:/fluent-bit/etc/rig:ro
+      - ${RIG_DATA}:/data
+    deploy:
+      resources:
+        limits:
+          memory: 300M

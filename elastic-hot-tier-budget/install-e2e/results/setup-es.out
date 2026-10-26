@@ -1,0 +1,9 @@
+200 POST /_license/start_trial?acknowledge=true
+200 PUT /_snapshot/found-snapshots
+200 PUT /_ilm/policy/tenx-tier-down
+200 PUT /_ilm/policy/tenx-keep
+200 PUT /_index_template/tenx-tierdown-tpl
+200 PUT /_index_template/tenx-app-tpl
+200 PUT /tenx-tierdown-000001
+200 PUT /tenx-app-000001
+placement ["tenx-tierdown-000001@es-warm-frozen(data_frozen+data_warm)","tenx-app-000001@es-hot(data_content+data_hot+ingest+master)"]

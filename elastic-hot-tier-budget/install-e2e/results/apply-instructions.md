@@ -1,0 +1,9 @@
+### Apply instructions: hot-tier run, GitHub Actions (gitops pull)
+
+1. Install (or re-install) the Receiver with `log10x_advise_install` and `log_destination: "elasticsearch"`: it counts bytes, the default, stamps `utf8Size` (the size the limits count) and `tenx_hash` on every record it returns, and records `bytes` in the policy files (`regulator-unit`). The run writes limits in bytes and refuses, writing nothing, a Receiver recorded as counting events. Pass `policy_git: { repo: "<owner/name>" }` so the Receiver pulls `log10x/policy/*.csv` from the `log10x-policy` branch (GH_ENABLED, GH_REPO, GH_BRANCH, GH_TOKEN).
+2. Apply the Elasticsearch frozen-tier recipe (`log10x_advise_retriever` with `destination: "elasticsearch"`): kept lines go to the `tenx-app` alias and `routeState: tier_down` lines to `tenx-tierdown`, which ILM mounts on the frozen tier within hours. Its `tenx-keep` policy rolls kept lines over daily and mounts them on frozen 6 days later, 7 days on hot at most, and the run reads that from the ILM policy on `tenx-app`: its rollover `max_age` plus the `min_age` of the first phase after hot. A policy of the account's own on `tenx-app` needs a phase after hot at the age a kept line leaves hot (`warm`, `cold`, `frozen` or `delete`), or `hot_retention_hours` in policy.yaml.
+3. **Commit `policy.yaml`** to the root of the repo, with `nodes_by_container` set for every service.
+4. **Commit `log10x-recurring.yml`** to `.github/workflows/`.
+5. **Add the secrets** `LOG10X_ES_URL` and `LOG10X_ES_API_KEY` (an encoded API key). The run reads the cluster (node stats, ILM and the Receiver's indices) and writes nothing to it.
+6. Each run commits `log10x/policy/{caps,actions,totals,config-generation}.csv` and `reports/latest.md` directly to the `log10x-policy` branch (schedule `0 * * * *` UTC).
+7. Hourly is about 720 runs a month on the repo's Actions minutes; for fewer, pass `schedule: "every-6h"` or a cron expression such as `"0 */3 * * *"`.

@@ -1,0 +1,54 @@
+Fluent Bit v4.2.8
+* Copyright (C) 2015-2026 The Fluent Bit Authors
+* Fluent Bit is a CNCF graduated project under the Fluent organization
+* https://fluentbit.io
+
+______ _                  _    ______ _ _             ___   _____ 
+|  ___| |                | |   | ___ (_) |           /   | / __  \
+| |_  | |_   _  ___ _ __ | |_  | |_/ /_| |_  __   __/ /| | `' / /'
+|  _| | | | | |/ _ \ '_ \| __| | ___ \ | __| \ \ / / /_| |   / /  
+| |   | | |_| |  __/ | | | |_  | |_/ / | |_   \ V /\___  |_./ /___
+\_|   |_|\__,_|\___|_| |_|\__| \____/|_|\__|   \_/     |_(_)_____/
+                                                                  
+             Fluent Bit v4.2 – Direct Routes Ahead
+         Celebrating 10 Years of Open, Fluent Innovation!
+
+[2026/10/25 23:47:10.188821716] [ info] [fluent bit] version=4.2.8, commit=419540c428, pid=1
+[2026/10/25 23:47:10.189095330] [ info] [storage] ver=1.5.4, type=memory, sync=normal, checksum=off, max_chunks_up=128
+[2026/10/25 23:47:10.189105784] [ info] [simd    ] SSE2
+[2026/10/25 23:47:10.189110220] [ info] [cmetrics] version=1.0.6
+[2026/10/25 23:47:10.189114485] [ info] [ctraces ] version=0.6.6
+[2026/10/25 23:47:10.189191711] [ info] [input:forward:forward.0] initializing
+[2026/10/25 23:47:10.189200045] [ info] [input:forward:forward.0] storage_strategy='memory' (memory only)
+[2026/10/25 23:47:10.189329271] [ info] [input:forward:forward.0] listening on 0.0.0.0:24224
+[2026/10/25 23:47:10.189685830] [ info] [input:forward:forward.1] initializing
+[2026/10/25 23:47:10.189694791] [ info] [input:forward:forward.1] storage_strategy='memory' (memory only)
+[2026/10/25 23:47:10.189731812] [ info] [input:forward:forward.1] listening on 0.0.0.0:24225
+[2026/10/25 23:47:10.209294707] [ info] [input:emitter:emitter_for_rewrite_tag.2] initializing
+[2026/10/25 23:47:10.209340989] [ info] [input:emitter:emitter_for_rewrite_tag.2] storage_strategy='memory' (memory only)
+[2026/10/25 23:47:10.237837035] [ info] [output:file:file.0] worker #0 started
+[2026/10/25 23:47:10.238042512] [ info] [output:forward:forward.1] worker #0 started
+[2026/10/25 23:47:10.246788622] [ info] [output:file:file.2] worker #0 started
+[2026/10/25 23:47:10.247577068] [ info] [http_server] listen iface=0.0.0.0 tcp_port=2020
+[2026/10/25 23:47:10.247594857] [ info] [sp] stream processor started
+[2026/10/25 23:47:10.247660017] [ info] [engine] Shutdown Grace Period=10, Shutdown Input Grace Period=5
+[2026/10/25 23:47:10.257011267] [ info] [output:file:file.3] worker #0 started
+[2026/10/25 23:47:10.265855564] [ info] [output:file:file.5] worker #0 started
+[2026/10/25 23:47:10.266474245] [ info] [output:file:file.4] worker #0 started
+[2026/10/25 23:47:10.266936627] [ info] [output:es:es.6] worker #0 started
+[2026/10/25 23:47:10.275794059] [ info] [output:es:es.6] worker #1 started
+[2026/10/25 23:47:10.281459214] [ info] [output:es:es.7] worker #0 started
+[2026/10/25 23:47:10.287652752] [ info] [output:es:es.7] worker #1 started
+[2026/10/25 23:50:30.861083466] [error] [output:forward:forward.1] no upstream connections available
+[2026/10/25 23:50:30.864087798] [ warn] [engine] failed to flush chunk '1-1792972229.856755232.flb', retry in 11 seconds: task_id=0, input=forward.0 > output=forward.1 (out_id=1)
+[2026/10/25 23:50:32.855732054] [error] [output:forward:forward.1] no upstream connections available
+[2026/10/25 23:50:32.856255716] [ warn] [engine] failed to flush chunk '1-1792972231.856495373.flb', retry in 6 seconds: task_id=2, input=forward.0 > output=forward.1 (out_id=1)
+[2026/10/25 23:50:32.879883567] [error] [net] TCP connection failed: tenx:24224 (Connection refused)
+[2026/10/25 23:50:32.879980966] [error] [output:forward:forward.1] no upstream connections available
+[2026/10/25 23:50:32.880271193] [ warn] [engine] failed to flush chunk '1-1792972230.856470537.flb', retry in 11 seconds: task_id=1, input=forward.0 > output=forward.1 (out_id=1)
+[2026/10/25 23:50:33.857053996] [error] [output:forward:forward.1] no upstream connections available
+[2026/10/25 23:50:33.857219193] [ warn] [engine] failed to flush chunk '1-1792972232.856170193.flb', retry in 6 seconds: task_id=3, input=forward.0 > output=forward.1 (out_id=1)
+[2026/10/25 23:50:38.868537750] [ info] [engine] flush chunk '1-1792972231.856495373.flb' succeeded at retry 1: task_id=2, input=forward.0 > output=forward.1 (out_id=1)
+[2026/10/25 23:50:39.857913747] [ info] [engine] flush chunk '1-1792972232.856170193.flb' succeeded at retry 1: task_id=3, input=forward.0 > output=forward.1 (out_id=1)
+[2026/10/25 23:50:41.855386356] [ info] [engine] flush chunk '1-1792972229.856755232.flb' succeeded at retry 1: task_id=0, input=forward.0 > output=forward.1 (out_id=1)
+[2026/10/25 23:50:43.855471680] [ info] [engine] flush chunk '1-1792972230.856470537.flb' succeeded at retry 1: task_id=1, input=forward.0 > output=forward.1 (out_id=1)

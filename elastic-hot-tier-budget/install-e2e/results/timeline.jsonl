@@ -1,0 +1,13 @@
+{"event":"rendered","at":"2026-10-25T23:46:21Z","epoch":1792971981,"hot_tier_gb":"0.002"}
+{"event":"policy_init","at":"2026-10-25T23:46:21Z","epoch":1792971981}
+{"event":"es_ready","at":"2026-10-25T23:47:05Z","epoch":1792972025,"version":"9.5.5"}
+{"event":"es_setup_done","at":"2026-10-25T23:47:09Z","epoch":1792972029}
+{"event":"receiver_ready","at":"2026-10-25T23:47:13Z","epoch":1792972033}
+{"event":"feed_start","at":"2026-10-25T23:47:31Z","epoch":1792972051,"speed":8,"lines_per_s":56}
+{"event":"tick","at":"2026-10-25T23:50:22Z","epoch":1792972222,"dir":"ticks/20261025T235021Z","exit":0,"dry_run":true}
+{"event":"tick","at":"2026-10-25T23:50:30Z","epoch":1792972230,"dir":"ticks/20261025T235028Z","exit":0,"dry_run":false}
+{"event":"policy_synced","at":"2026-10-25T23:50:35Z","epoch":1792972235,"commit":"22756de"}
+{"event":"tick","at":"2026-10-25T23:53:20Z","epoch":1792972400,"dir":"ticks/20261025T235318Z","exit":0,"dry_run":true}
+{"event":"tick","at":"2026-10-25T23:53:22Z","epoch":1792972402,"dir":"ticks/20261025T235320Z","exit":0,"dry_run":false}
+{"event":"feed_stop","at":"2026-10-25T23:53:28Z","epoch":1792972408}
+{"event":"down","at":"2026-10-25T23:53:32Z","epoch":1792972412}
