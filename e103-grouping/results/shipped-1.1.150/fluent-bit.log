@@ -1,0 +1,32 @@
+Fluent Bit v4.2.8
+* Copyright (C) 2015-2026 The Fluent Bit Authors
+* Fluent Bit is a CNCF graduated project under the Fluent organization
+* https://fluentbit.io
+
+______ _                  _    ______ _ _             ___   _____ 
+|  ___| |                | |   | ___ (_) |           /   | / __  \
+| |_  | |_   _  ___ _ __ | |_  | |_/ /_| |_  __   __/ /| | `' / /'
+|  _| | | | | |/ _ \ '_ \| __| | ___ \ | __| \ \ / / /_| |   / /  
+| |   | | |_| |  __/ | | | |_  | |_/ / | |_   \ V /\___  |_./ /___
+\_|   |_|\__,_|\___|_| |_|\__| \____/|_|\__|   \_/     |_(_)_____/
+                                                                  
+             Fluent Bit v4.2 – Direct Routes Ahead
+         Celebrating 10 Years of Open, Fluent Innovation!
+
+[2026/10/25 22:50:15.493487865] [ info] [fluent bit] version=4.2.8, commit=419540c428, pid=1
+[2026/10/25 22:50:15.493764436] [ info] [storage] ver=1.5.4, type=memory, sync=normal, checksum=off, max_chunks_up=128
+[2026/10/25 22:50:15.493886486] [ info] [simd    ] SSE2
+[2026/10/25 22:50:15.493898412] [ info] [cmetrics] version=1.0.6
+[2026/10/25 22:50:15.493942381] [ info] [ctraces ] version=0.6.6
+[2026/10/25 22:50:15.494256436] [ info] [input:forward:forward.0] initializing
+[2026/10/25 22:50:15.494265193] [ info] [input:forward:forward.0] storage_strategy='memory' (memory only)
+[2026/10/25 22:50:15.494399992] [ info] [input:forward:forward.0] listening on 0.0.0.0:24224
+[2026/10/25 22:50:15.494451273] [ info] [input:forward:forward.1] initializing
+[2026/10/25 22:50:15.494458422] [ info] [input:forward:forward.1] storage_strategy='memory' (memory only)
+[2026/10/25 22:50:15.494494314] [ info] [input:forward:forward.1] listening on 0.0.0.0:24225
+[2026/10/25 22:50:15.520015224] [ info] [output:forward:forward.1] worker #0 started
+[2026/10/25 22:50:15.520960583] [ info] [output:file:file.0] worker #0 started
+[2026/10/25 22:50:15.521373823] [ info] [output:file:file.2] worker #0 started
+[2026/10/25 22:50:15.528724960] [ info] [http_server] listen iface=0.0.0.0 tcp_port=2020
+[2026/10/25 22:50:15.528824532] [ info] [sp] stream processor started
+[2026/10/25 22:50:15.528883735] [ info] [engine] Shutdown Grace Period=10, Shutdown Input Grace Period=5

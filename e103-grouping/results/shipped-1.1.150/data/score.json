@@ -1,0 +1,886 @@
+{
+ "verdict": "FAIL",
+ "records_in_returned_file": 5836,
+ "fluent_bit_in_records": 22557,
+ "cases": {
+  "a": {
+   "records": 1554,
+   "lines_returned": 4428,
+   "cross_container_records": 512,
+   "lines_in_cross_container_records": 3386,
+   "lines_sent": 4428,
+   "trace_events": 512,
+   "trace_events_whole": 0,
+   "cross_container_by_pause_s": {
+    "0": 500,
+    "1": 2,
+    "2": 2,
+    "3": 2,
+    "4": 2,
+    "5": 2,
+    "6": 2
+   }
+  },
+  "b": {
+   "records": 1036,
+   "lines_returned": 3072,
+   "cross_container_records": 509,
+   "lines_in_cross_container_records": 2545,
+   "lines_sent": 3072,
+   "cross_container_by_pause_s": {
+    "0": 500,
+    "1": 2,
+    "2": 2,
+    "3": 2,
+    "4": 2,
+    "5": 1
+   }
+  },
+  "c": {
+   "records": 1024,
+   "lines_returned": 6602,
+   "cross_container_records": 512,
+   "lines_in_cross_container_records": 5066,
+   "lines_sent": 6602,
+   "trace_events": 1024,
+   "trace_events_whole": 0,
+   "cross_container_by_pause_s": {
+    "0": 500,
+    "1": 2,
+    "2": 2,
+    "3": 2,
+    "4": 2,
+    "5": 2,
+    "6": 2
+   }
+  },
+  "d": {
+   "records": 1027,
+   "lines_returned": 3781,
+   "lines_sent": 3781,
+   "trace_events": 512,
+   "trace_events_whole": 509,
+   "cross_container_by_pause_s": {}
+  },
+  "e": {
+   "records": 1194,
+   "lines_returned": 4674,
+   "lines_sent": 4674,
+   "trace_events": 511,
+   "trace_events_whole": 508,
+   "cross_container_by_pause_s": {}
+  }
+ },
+ "total": {
+  "records": 5836,
+  "lines_returned": 22557,
+  "cross_container_records": 1533,
+  "lines_in_cross_container_records": 10997,
+  "lines_sent": 22557,
+  "trace_events": 2559,
+  "trace_events_whole": 1017,
+  "records_without_log": 1
+ },
+ "cross_container_examples": [
+  {
+   "case": "a",
+   "filed_under": "a-billing",
+   "record_seq": 2,
+   "lines": [
+    {
+     "seq": 2,
+     "container": "a-billing",
+     "line": "2026-10-25T22:50:25.511Z INFO [scheduling-1] c.e.billing.InvoiceJob - Posted invoice INV-736685 amount=540.47 e103id=2"
+    },
+    {
+     "seq": 3,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderService.place(OrderService.java:87) e103id=3"
+    },
+    {
+     "seq": 4,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceController.handle(OrderServiceController.java:76) e103id=4"
+    },
+    {
+     "seq": 5,
+     "container": "a-orders",
+     "line": "\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:874) e103id=5"
+    },
+    {
+     "seq": 6,
+     "container": "a-orders",
+     "line": "\tat jakarta.servlet.http.HttpServlet.service(HttpServlet.java:506) e103id=6"
+    },
+    {
+     "seq": 7,
+     "container": "a-orders",
+     "line": "Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms. e103id=7"
+    },
+    {
+     "seq": 8,
+     "container": "a-orders",
+     "line": "\tat com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:152) e103id=8"
+    },
+    {
+     "seq": 9,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceRepository.load(OrderServiceRepository.java:44) e103id=9"
+    },
+    {
+     "seq": 10,
+     "container": "a-orders",
+     "line": "\t... 26 more e103id=10"
+    }
+   ]
+  },
+  {
+   "case": "a",
+   "filed_under": "a-billing",
+   "record_seq": 12,
+   "lines": [
+    {
+     "seq": 12,
+     "container": "a-billing",
+     "line": "2026-10-25T22:50:25.515Z INFO [scheduling-1] c.e.billing.InvoiceJob - Posted invoice INV-190252 amount=382.35 e103id=12"
+    },
+    {
+     "seq": 13,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderService.place(OrderService.java:395) e103id=13"
+    },
+    {
+     "seq": 14,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceController.handle(OrderServiceController.java:168) e103id=14"
+    },
+    {
+     "seq": 15,
+     "container": "a-orders",
+     "line": "\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:892) e103id=15"
+    },
+    {
+     "seq": 16,
+     "container": "a-orders",
+     "line": "\tat jakarta.servlet.http.HttpServlet.service(HttpServlet.java:672) e103id=16"
+    },
+    {
+     "seq": 17,
+     "container": "a-orders",
+     "line": "Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms. e103id=17"
+    },
+    {
+     "seq": 18,
+     "container": "a-orders",
+     "line": "\tat com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:176) e103id=18"
+    },
+    {
+     "seq": 19,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceRepository.load(OrderServiceRepository.java:44) e103id=19"
+    }
+   ]
+  },
+  {
+   "case": "a",
+   "filed_under": "a-billing",
+   "record_seq": 23,
+   "lines": [
+    {
+     "seq": 23,
+     "container": "a-billing",
+     "line": "2026-10-25T22:50:25.518Z INFO [scheduling-1] c.e.billing.InvoiceJob - Posted invoice INV-410891 amount=47.71 e103id=23"
+    },
+    {
+     "seq": 24,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderService.place(OrderService.java:374) e103id=24"
+    },
+    {
+     "seq": 25,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceController.handle(OrderServiceController.java:178) e103id=25"
+    },
+    {
+     "seq": 26,
+     "container": "a-orders",
+     "line": "\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:865) e103id=26"
+    },
+    {
+     "seq": 27,
+     "container": "a-orders",
+     "line": "\tat jakarta.servlet.http.HttpServlet.service(HttpServlet.java:621) e103id=27"
+    }
+   ]
+  },
+  {
+   "case": "a",
+   "filed_under": "a-billing",
+   "record_seq": 31,
+   "lines": [
+    {
+     "seq": 31,
+     "container": "a-billing",
+     "line": "2026-10-25T22:50:25.522Z INFO [scheduling-1] c.e.billing.InvoiceJob - Posted invoice INV-230269 amount=581.22 e103id=31"
+    },
+    {
+     "seq": 32,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderService.place(OrderService.java:235) e103id=32"
+    },
+    {
+     "seq": 33,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceController.handle(OrderServiceController.java:151) e103id=33"
+    },
+    {
+     "seq": 34,
+     "container": "a-orders",
+     "line": "\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:832) e103id=34"
+    }
+   ]
+  },
+  {
+   "case": "a",
+   "filed_under": "a-billing",
+   "record_seq": 37,
+   "lines": [
+    {
+     "seq": 37,
+     "container": "a-billing",
+     "line": "2026-10-25T22:50:25.524Z INFO [scheduling-1] c.e.billing.InvoiceJob - Posted invoice INV-285128 amount=460.15 e103id=37"
+    },
+    {
+     "seq": 38,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderService.place(OrderService.java:30) e103id=38"
+    },
+    {
+     "seq": 39,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceController.handle(OrderServiceController.java:160) e103id=39"
+    },
+    {
+     "seq": 40,
+     "container": "a-orders",
+     "line": "\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:861) e103id=40"
+    },
+    {
+     "seq": 41,
+     "container": "a-orders",
+     "line": "\tat jakarta.servlet.http.HttpServlet.service(HttpServlet.java:652) e103id=41"
+    },
+    {
+     "seq": 42,
+     "container": "a-orders",
+     "line": "Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms. e103id=42"
+    },
+    {
+     "seq": 43,
+     "container": "a-orders",
+     "line": "\tat com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:189) e103id=43"
+    },
+    {
+     "seq": 44,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceRepository.load(OrderServiceRepository.java:55) e103id=44"
+    },
+    {
+     "seq": 45,
+     "container": "a-orders",
+     "line": "\t... 44 more e103id=45"
+    }
+   ]
+  },
+  {
+   "case": "a",
+   "filed_under": "a-billing",
+   "record_seq": 48,
+   "lines": [
+    {
+     "seq": 48,
+     "container": "a-billing",
+     "line": "2026-10-25T22:50:25.527Z INFO [scheduling-1] c.e.billing.InvoiceJob - Posted invoice INV-777675 amount=691.58 e103id=48"
+    },
+    {
+     "seq": 49,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderService.place(OrderService.java:25) e103id=49"
+    },
+    {
+     "seq": 50,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceController.handle(OrderServiceController.java:159) e103id=50"
+    },
+    {
+     "seq": 51,
+     "container": "a-orders",
+     "line": "\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:830) e103id=51"
+    },
+    {
+     "seq": 52,
+     "container": "a-orders",
+     "line": "\tat jakarta.servlet.http.HttpServlet.service(HttpServlet.java:644) e103id=52"
+    }
+   ]
+  },
+  {
+   "case": "a",
+   "filed_under": "a-billing",
+   "record_seq": 55,
+   "lines": [
+    {
+     "seq": 55,
+     "container": "a-billing",
+     "line": "2026-10-25T22:50:25.530Z INFO [scheduling-1] c.e.billing.InvoiceJob - Posted invoice INV-662496 amount=102.68 e103id=55"
+    },
+    {
+     "seq": 56,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderService.place(OrderService.java:252) e103id=56"
+    },
+    {
+     "seq": 57,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceController.handle(OrderServiceController.java:104) e103id=57"
+    },
+    {
+     "seq": 58,
+     "container": "a-orders",
+     "line": "\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:811) e103id=58"
+    },
+    {
+     "seq": 59,
+     "container": "a-orders",
+     "line": "\tat jakarta.servlet.http.HttpServlet.service(HttpServlet.java:641) e103id=59"
+    },
+    {
+     "seq": 60,
+     "container": "a-orders",
+     "line": "Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms. e103id=60"
+    }
+   ]
+  },
+  {
+   "case": "a",
+   "filed_under": "a-billing",
+   "record_seq": 64,
+   "lines": [
+    {
+     "seq": 64,
+     "container": "a-billing",
+     "line": "2026-10-25T22:50:25.533Z INFO [scheduling-1] c.e.billing.InvoiceJob - Posted invoice INV-462345 amount=141.52 e103id=64"
+    },
+    {
+     "seq": 65,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderService.place(OrderService.java:112) e103id=65"
+    },
+    {
+     "seq": 66,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceController.handle(OrderServiceController.java:66) e103id=66"
+    },
+    {
+     "seq": 67,
+     "container": "a-orders",
+     "line": "\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:834) e103id=67"
+    }
+   ]
+  },
+  {
+   "case": "a",
+   "filed_under": "a-billing",
+   "record_seq": 70,
+   "lines": [
+    {
+     "seq": 70,
+     "container": "a-billing",
+     "line": "2026-10-25T22:50:25.536Z INFO [scheduling-1] c.e.billing.InvoiceJob - Posted invoice INV-726134 amount=746.79 e103id=70"
+    },
+    {
+     "seq": 71,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderService.place(OrderService.java:34) e103id=71"
+    },
+    {
+     "seq": 72,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceController.handle(OrderServiceController.java:179) e103id=72"
+    },
+    {
+     "seq": 73,
+     "container": "a-orders",
+     "line": "\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:849) e103id=73"
+    },
+    {
+     "seq": 74,
+     "container": "a-orders",
+     "line": "\tat jakarta.servlet.http.HttpServlet.service(HttpServlet.java:660) e103id=74"
+    },
+    {
+     "seq": 75,
+     "container": "a-orders",
+     "line": "Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms. e103id=75"
+    },
+    {
+     "seq": 76,
+     "container": "a-orders",
+     "line": "\tat com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:196) e103id=76"
+    }
+   ]
+  },
+  {
+   "case": "a",
+   "filed_under": "a-billing",
+   "record_seq": 79,
+   "lines": [
+    {
+     "seq": 79,
+     "container": "a-billing",
+     "line": "2026-10-25T22:50:25.539Z INFO [scheduling-1] c.e.billing.InvoiceJob - Posted invoice INV-248160 amount=144.68 e103id=79"
+    },
+    {
+     "seq": 80,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderService.place(OrderService.java:149) e103id=80"
+    },
+    {
+     "seq": 81,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceController.handle(OrderServiceController.java:88) e103id=81"
+    },
+    {
+     "seq": 82,
+     "container": "a-orders",
+     "line": "\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:866) e103id=82"
+    },
+    {
+     "seq": 83,
+     "container": "a-orders",
+     "line": "\tat jakarta.servlet.http.HttpServlet.service(HttpServlet.java:508) e103id=83"
+    },
+    {
+     "seq": 84,
+     "container": "a-orders",
+     "line": "Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms. e103id=84"
+    },
+    {
+     "seq": 85,
+     "container": "a-orders",
+     "line": "\tat com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:175) e103id=85"
+    }
+   ]
+  },
+  {
+   "case": "a",
+   "filed_under": "a-billing",
+   "record_seq": 88,
+   "lines": [
+    {
+     "seq": 88,
+     "container": "a-billing",
+     "line": "2026-10-25T22:50:25.542Z INFO [scheduling-1] c.e.billing.InvoiceJob - Posted invoice INV-583794 amount=729.96 e103id=88"
+    },
+    {
+     "seq": 89,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderService.place(OrderService.java:299) e103id=89"
+    },
+    {
+     "seq": 90,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceController.handle(OrderServiceController.java:189) e103id=90"
+    },
+    {
+     "seq": 91,
+     "container": "a-orders",
+     "line": "\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:897) e103id=91"
+    }
+   ]
+  },
+  {
+   "case": "a",
+   "filed_under": "a-billing",
+   "record_seq": 93,
+   "lines": [
+    {
+     "seq": 93,
+     "container": "a-billing",
+     "line": "2026-10-25T22:50:25.545Z INFO [scheduling-1] c.e.billing.InvoiceJob - Posted invoice INV-744702 amount=58.27 e103id=93"
+    },
+    {
+     "seq": 94,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderService.place(OrderService.java:153) e103id=94"
+    },
+    {
+     "seq": 95,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceController.handle(OrderServiceController.java:193) e103id=95"
+    },
+    {
+     "seq": 96,
+     "container": "a-orders",
+     "line": "\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:801) e103id=96"
+    },
+    {
+     "seq": 97,
+     "container": "a-orders",
+     "line": "\tat jakarta.servlet.http.HttpServlet.service(HttpServlet.java:666) e103id=97"
+    },
+    {
+     "seq": 98,
+     "container": "a-orders",
+     "line": "Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms. e103id=98"
+    },
+    {
+     "seq": 99,
+     "container": "a-orders",
+     "line": "\tat com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:188) e103id=99"
+    },
+    {
+     "seq": 100,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceRepository.load(OrderServiceRepository.java:80) e103id=100"
+    }
+   ]
+  },
+  {
+   "case": "a",
+   "filed_under": "a-billing",
+   "record_seq": 103,
+   "lines": [
+    {
+     "seq": 103,
+     "container": "a-billing",
+     "line": "2026-10-25T22:50:25.548Z INFO [scheduling-1] c.e.billing.InvoiceJob - Posted invoice INV-894242 amount=394.84 e103id=103"
+    },
+    {
+     "seq": 104,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderService.place(OrderService.java:199) e103id=104"
+    },
+    {
+     "seq": 105,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceController.handle(OrderServiceController.java:32) e103id=105"
+    },
+    {
+     "seq": 106,
+     "container": "a-orders",
+     "line": "\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:896) e103id=106"
+    },
+    {
+     "seq": 107,
+     "container": "a-orders",
+     "line": "\tat jakarta.servlet.http.HttpServlet.service(HttpServlet.java:643) e103id=107"
+    },
+    {
+     "seq": 108,
+     "container": "a-orders",
+     "line": "Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms. e103id=108"
+    }
+   ]
+  },
+  {
+   "case": "a",
+   "filed_under": "a-billing",
+   "record_seq": 112,
+   "lines": [
+    {
+     "seq": 112,
+     "container": "a-billing",
+     "line": "2026-10-25T22:50:25.551Z INFO [scheduling-1] c.e.billing.InvoiceJob - Posted invoice INV-742757 amount=711.75 e103id=112"
+    },
+    {
+     "seq": 113,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderService.place(OrderService.java:119) e103id=113"
+    },
+    {
+     "seq": 114,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceController.handle(OrderServiceController.java:125) e103id=114"
+    },
+    {
+     "seq": 115,
+     "container": "a-orders",
+     "line": "\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) e103id=115"
+    },
+    {
+     "seq": 116,
+     "container": "a-orders",
+     "line": "\tat jakarta.servlet.http.HttpServlet.service(HttpServlet.java:667) e103id=116"
+    },
+    {
+     "seq": 117,
+     "container": "a-orders",
+     "line": "Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms. e103id=117"
+    },
+    {
+     "seq": 118,
+     "container": "a-orders",
+     "line": "\tat com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:186) e103id=118"
+    },
+    {
+     "seq": 119,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceRepository.load(OrderServiceRepository.java:62) e103id=119"
+    },
+    {
+     "seq": 120,
+     "container": "a-orders",
+     "line": "\t... 49 more e103id=120"
+    }
+   ]
+  },
+  {
+   "case": "a",
+   "filed_under": "a-billing",
+   "record_seq": 122,
+   "lines": [
+    {
+     "seq": 122,
+     "container": "a-billing",
+     "line": "2026-10-25T22:50:25.555Z INFO [scheduling-1] c.e.billing.InvoiceJob - Posted invoice INV-240940 amount=815.32 e103id=122"
+    },
+    {
+     "seq": 123,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderService.place(OrderService.java:260) e103id=123"
+    },
+    {
+     "seq": 124,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceController.handle(OrderServiceController.java:137) e103id=124"
+    },
+    {
+     "seq": 125,
+     "container": "a-orders",
+     "line": "\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:851) e103id=125"
+    },
+    {
+     "seq": 126,
+     "container": "a-orders",
+     "line": "\tat jakarta.servlet.http.HttpServlet.service(HttpServlet.java:695) e103id=126"
+    },
+    {
+     "seq": 127,
+     "container": "a-orders",
+     "line": "Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms. e103id=127"
+    },
+    {
+     "seq": 128,
+     "container": "a-orders",
+     "line": "\tat com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:195) e103id=128"
+    }
+   ]
+  },
+  {
+   "case": "a",
+   "filed_under": "a-billing",
+   "record_seq": 130,
+   "lines": [
+    {
+     "seq": 130,
+     "container": "a-billing",
+     "line": "2026-10-25T22:50:25.558Z INFO [scheduling-1] c.e.billing.InvoiceJob - Posted invoice INV-230984 amount=115.18 e103id=130"
+    },
+    {
+     "seq": 131,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderService.place(OrderService.java:330) e103id=131"
+    },
+    {
+     "seq": 132,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceController.handle(OrderServiceController.java:81) e103id=132"
+    },
+    {
+     "seq": 133,
+     "container": "a-orders",
+     "line": "\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:841) e103id=133"
+    },
+    {
+     "seq": 134,
+     "container": "a-orders",
+     "line": "\tat jakarta.servlet.http.HttpServlet.service(HttpServlet.java:574) e103id=134"
+    },
+    {
+     "seq": 135,
+     "container": "a-orders",
+     "line": "Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms. e103id=135"
+    }
+   ]
+  },
+  {
+   "case": "a",
+   "filed_under": "a-billing",
+   "record_seq": 139,
+   "lines": [
+    {
+     "seq": 139,
+     "container": "a-billing",
+     "line": "2026-10-25T22:50:25.561Z INFO [scheduling-1] c.e.billing.InvoiceJob - Posted invoice INV-414795 amount=691.48 e103id=139"
+    },
+    {
+     "seq": 140,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderService.place(OrderService.java:252) e103id=140"
+    },
+    {
+     "seq": 141,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceController.handle(OrderServiceController.java:90) e103id=141"
+    },
+    {
+     "seq": 142,
+     "container": "a-orders",
+     "line": "\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:818) e103id=142"
+    },
+    {
+     "seq": 143,
+     "container": "a-orders",
+     "line": "\tat jakarta.servlet.http.HttpServlet.service(HttpServlet.java:612) e103id=143"
+    },
+    {
+     "seq": 144,
+     "container": "a-orders",
+     "line": "Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms. e103id=144"
+    },
+    {
+     "seq": 145,
+     "container": "a-orders",
+     "line": "\tat com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:170) e103id=145"
+    },
+    {
+     "seq": 146,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceRepository.load(OrderServiceRepository.java:86) e103id=146"
+    },
+    {
+     "seq": 147,
+     "container": "a-orders",
+     "line": "\t... 40 more e103id=147"
+    }
+   ]
+  },
+  {
+   "case": "a",
+   "filed_under": "a-billing",
+   "record_seq": 151,
+   "lines": [
+    {
+     "seq": 151,
+     "container": "a-billing",
+     "line": "2026-10-25T22:50:25.566Z INFO [scheduling-1] c.e.billing.InvoiceJob - Posted invoice INV-887396 amount=169.62 e103id=151"
+    },
+    {
+     "seq": 152,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderService.place(OrderService.java:191) e103id=152"
+    },
+    {
+     "seq": 153,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceController.handle(OrderServiceController.java:189) e103id=153"
+    },
+    {
+     "seq": 154,
+     "container": "a-orders",
+     "line": "\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:895) e103id=154"
+    },
+    {
+     "seq": 155,
+     "container": "a-orders",
+     "line": "\tat jakarta.servlet.http.HttpServlet.service(HttpServlet.java:634) e103id=155"
+    },
+    {
+     "seq": 156,
+     "container": "a-orders",
+     "line": "Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms. e103id=156"
+    },
+    {
+     "seq": 157,
+     "container": "a-orders",
+     "line": "\tat com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:170) e103id=157"
+    },
+    {
+     "seq": 158,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceRepository.load(OrderServiceRepository.java:82) e103id=158"
+    },
+    {
+     "seq": 159,
+     "container": "a-orders",
+     "line": "\t... 48 more e103id=159"
+    }
+   ]
+  },
+  {
+   "case": "a",
+   "filed_under": "a-billing",
+   "record_seq": 161,
+   "lines": [
+    {
+     "seq": 161,
+     "container": "a-billing",
+     "line": "2026-10-25T22:50:25.569Z INFO [scheduling-1] c.e.billing.InvoiceJob - Posted invoice INV-855326 amount=263.98 e103id=161"
+    },
+    {
+     "seq": 162,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderService.place(OrderService.java:345) e103id=162"
+    },
+    {
+     "seq": 163,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceController.handle(OrderServiceController.java:183) e103id=163"
+    },
+    {
+     "seq": 164,
+     "container": "a-orders",
+     "line": "\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:884) e103id=164"
+    },
+    {
+     "seq": 165,
+     "container": "a-orders",
+     "line": "\tat jakarta.servlet.http.HttpServlet.service(HttpServlet.java:589) e103id=165"
+    },
+    {
+     "seq": 166,
+     "container": "a-orders",
+     "line": "Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms. e103id=166"
+    }
+   ]
+  },
+  {
+   "case": "a",
+   "filed_under": "a-billing",
+   "record_seq": 169,
+   "lines": [
+    {
+     "seq": 169,
+     "container": "a-billing",
+     "line": "2026-10-25T22:50:25.572Z INFO [scheduling-1] c.e.billing.InvoiceJob - Posted invoice INV-860571 amount=12.88 e103id=169"
+    },
+    {
+     "seq": 170,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderService.place(OrderService.java:364) e103id=170"
+    },
+    {
+     "seq": 171,
+     "container": "a-orders",
+     "line": "\tat com.example.orders.OrderServiceController.handle(OrderServiceController.java:27) e103id=171"
+    },
+    {
+     "seq": 172,
+     "container": "a-orders",
+     "line": "\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:858) e103id=172"
+    }
+   ]
+  }
+ ]
+}
