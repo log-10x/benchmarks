@@ -1,0 +1,20 @@
+{
+ "feed_final_seq": 101663,
+ "records": 79415,
+ "receiver_own_messages": 1,
+ "cross_container_records": 0,
+ "nonblank_lines_sent": 101637,
+ "lines_matched": 101637,
+ "lines_missing": 0,
+ "lines_unmatched": 0,
+ "records_out_of_feed_order": 0,
+ "readme_run_based_count": 0,
+ "readme_runs_mismatched": 2,
+ "elasticsearch": {
+  "documents": 79416,
+  "numbered_documents": 79415,
+  "summed_lines": 101637
+ },
+ "examples": [],
+ "verdict": "PASS"
+}

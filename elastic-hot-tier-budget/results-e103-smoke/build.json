@@ -1,0 +1,52 @@
+{
+ "images": {
+  "docker.elastic.co/elasticsearch/elasticsearch:9.5.5": {
+   "id": "sha256:13b4a40bb095774f5fda635e45fd5677cc6a26565e42b24997b0c72b88e75984",
+   "repo_digests": [
+    "docker.elastic.co/elasticsearch/elasticsearch@sha256:13b4a40bb095774f5fda635e45fd5677cc6a26565e42b24997b0c72b88e75984"
+   ],
+   "created": "2026-09-30T22:20:56.268968505Z"
+  },
+  "fluent/fluent-bit:4.2": {
+   "id": "sha256:6806769c10acf11b41d14083b3101a24433b4ca113a1ab7a6b1a1b7cad86a7e8",
+   "repo_digests": [
+    "fluent/fluent-bit@sha256:6806769c10acf11b41d14083b3101a24433b4ca113a1ab7a6b1a1b7cad86a7e8"
+   ],
+   "created": "2026-08-04T04:31:13.800466265Z"
+  },
+  "local/edge-10x:e103": {
+   "id": "sha256:8f74b8bbec2ef115fb83eb365172872afa5aec2cea4ae5fd065b49c1d77fe361",
+   "repo_digests": [
+    "local/edge-10x@sha256:8f74b8bbec2ef115fb83eb365172872afa5aec2cea4ae5fd065b49c1d77fe361"
+   ],
+   "created": "2026-10-25T23:56:14.606292327Z"
+  },
+  "python:3.12-slim": {
+   "id": "sha256:a0f57064cbdcd6285fa45f51237ab0b35ea8ebaed06a1f5973e89e19dfb86704",
+   "repo_digests": [
+    "python@sha256:a0f57064cbdcd6285fa45f51237ab0b35ea8ebaed06a1f5973e89e19dfb86704"
+   ],
+   "created": "2026-10-21T01:10:54.051521261Z"
+  },
+  "alpine:latest": {
+   "id": "sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6",
+   "repo_digests": [
+    "alpine@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6"
+   ],
+   "created": "2026-09-17T20:37:20.889221879Z"
+  }
+ },
+ "log10x_mcp": {
+  "path": "/Users/talweiss/git/l1x-co/wt-mcp-main2",
+  "commit": "d6fa2b1129a4b780db3338b7f327186864ce0907",
+  "branch": "HEAD",
+  "describe": "d6fa2b1 Doctor reads the config generation from its own series; 1.30.84 (#297)",
+  "version": "1.30.84",
+  "dirty": false
+ },
+ "benchmarks": {
+  "commit": "61ce4dfa98d4f3dc419fef67be583f3390dc68a7",
+  "branch": "bench/e103-hot-tier-smoke",
+  "rig_changes_uncommitted": []
+ }
+}

@@ -1,0 +1,181 @@
+diff --git a/log10x/policy/totals.csv b/log10x/policy/totals.csv
+index 78afeeb..57a56b7 100644
+--- a/log10x/policy/totals.csv
++++ b/log10x/policy/totals.csv
+@@ -1,38 +1,38 @@
+ container,total
+-accounting,4261::budget run
+-ad,5681::budget run
+-aws-eks-nodeagent,81::budget run
+-aws-node,387::budget run
+-aws-vpc-cni-init,493::budget run
+-cart,3661::budget run
+-coredns,3105::budget run
+-currency,116::budget run
+-email,339::budget run
+-flagd,1094::budget run
+-flagd-ui,193::budget run
+-fluentd-10x,11315::budget run
+-fraud-detection,289::budget run
+-frontend,33879::budget run
+-frontend-proxy,12749::budget run
+-grafana,145931::budget run
+-grafana-sc-alerts,847::budget run
+-grafana-sc-dashboard,1198::budget run
+-grafana-sc-datasources,859::budget run
+-image-provider,2154::budget run
+-init-config,711::budget run
+-jaeger,8701::budget run
+-kafka,59424::budget run
+-kube-proxy,11656::budget run
+-load-generator,980::budget run
+-metrics-server,3068::budget run
+-opensearch,26762::budget run
+-opentelemetry-collector,157724::budget run
+-payment,333::budget run
+-postgresql,3103::budget run
+-prometheus-server,4101::budget run
+-quote,54::budget run
+-recommendation,2707::budget run
+-valkey-cart,6950::budget run
+-wait-for-kafka,1211::budget run
+-wait-for-valkey-cart,629::budget run
+-*,2430::budget run
++accounting,4010::budget run
++ad,5656::budget run
++aws-eks-nodeagent,76::budget run
++aws-node,364::budget run
++aws-vpc-cni-init,464::budget run
++cart,3627::budget run
++coredns,2923::budget run
++currency,109::budget run
++email,319::budget run
++flagd,1030::budget run
++flagd-ui,182::budget run
++fluentd-10x,10989::budget run
++fraud-detection,272::budget run
++frontend,33837::budget run
++frontend-proxy,11999::budget run
++grafana,138583::budget run
++grafana-sc-alerts,797::budget run
++grafana-sc-dashboard,1127::budget run
++grafana-sc-datasources,808::budget run
++image-provider,2027::budget run
++init-config,670::budget run
++jaeger,8189::budget run
++kafka,58207::budget run
++kube-proxy,11250::budget run
++load-generator,922::budget run
++metrics-server,2888::budget run
++opensearch,25520::budget run
++opentelemetry-collector,150509::budget run
++payment,313::budget run
++postgresql,2921::budget run
++prometheus-server,3988::budget run
++quote,50::budget run
++recommendation,2695::budget run
++valkey-cart,6921::budget run
++wait-for-kafka,1201::budget run
++wait-for-valkey-cart,592::budget run
++*,2361::budget run
+diff --git a/reports/latest.md b/reports/latest.md
+index 0419425..c72568e 100644
+--- a/reports/latest.md
++++ b/reports/latest.md
+@@ -1,54 +1,54 @@
+-# Hot-tier run: 2026-10-26T00:27:13.000Z
++# Hot-tier run: 2026-10-26T00:28:11.000Z
+ 
+-Hot tier: 12 MB of 41 MB (0.0406 GB set in the policy) on 1 hot node; at these limits it settles at about 89 MB within 2 hours, with 1.4 GB a day of counted lines moved to the frozen tier.
++Hot tier: 13 MB of 41 MB (0.0406 GB set in the policy) on 1 hot node; at these limits it settles at about 89 MB within 2 hours, with 1.5 GB a day of counted lines moved to the frozen tier.
+ 
+ - Outside the Receiver: 0 MB on hot. The Receiver's kept lines: 3 MB in 2 indices; its tier_down lines not yet moved: 9 MB in 2.
+ - A kept line stays on hot 2 hours (ILM policy tenx-keep (rollover max_age 10m + frozen min_age 110m)); a tier_down index 2 hours (default (no tier_down index has been moved yet)).
+-- Each counted byte takes 1.29 bytes of store kept, 0.60 as tier_down (measured on the indices on hot).
++- Each counted byte takes 1.45 bytes of store kept, 0.55 as tier_down (measured on the indices on hot).
+ - The Receiver's statements send 1.6 GB a day; 0 MB a day fits the size, so each statement keeps up to 0 MB a day and the noisiest give way first.
+-- The always-pass sample (5 lines a statement a window on every node, 50 more for an error statement over its limit) keeps about 186 MB a day on hot whatever the limits; the size holds down to that floor.
++- The always-pass sample (5 lines a statement a window on every node, 50 more for an error statement over its limit) keeps about 179 MB a day on hot whatever the limits; the size holds down to that floor.
+ - Warning: 1 documents on hot carry no utf8Size, so their statements count as 0 bytes. The Receiver writes it when installed for the hot-tier run.
+-- Warning: The always-pass sample (5 lines a statement a window on every node, 50 more for an error statement over its limit) alone keeps about 186 MB a day on hot, more than the 0 MB a day that fits, so hot settles above 41 MB at about 89 MB. Raise the size, move the noisiest services to offload, or lower the sample.
++- Warning: The always-pass sample (5 lines a statement a window on every node, 50 more for an error statement over its limit) alone keeps about 179 MB a day on hot, more than the 0 MB a day that fits, so hot settles above 41 MB at about 89 MB. Raise the size, move the noisiest services to offload, or lower the sample.
+ - Warning: Lines outside the Receiver and the tier_down lines waiting to move already fill 41 MB, so the Receiver's services keep nothing beyond the always-pass sample of 5 lines a statement a window.
+ 
+ | Service | Destination | Nodes | Sent a day | Kept a day | Limit per statement | Total |
+ |---|---|---|---|---|---|---|
+-| accounting | the frozen tier | 1 | 2 MB | 2 MB | 1 | 4261 |
+-| ad | the frozen tier | 1 | 49 MB | 2 MB | 1 | 5681 |
+-| aws-eks-nodeagent | the frozen tier | 1 | 0 MB | 0 MB | 1 | 81 |
+-| aws-node | the frozen tier | 1 | 0 MB | 0 MB | 1 | 387 |
+-| aws-vpc-cni-init | the frozen tier | 1 | 0 MB | 0 MB | 1 | 493 |
+-| cart | the frozen tier | 1 | 115 MB | 1 MB | 1 | 3661 |
+-| coredns | the frozen tier | 1 | 1 MB | 1 MB | 1 | 3105 |
+-| currency | the frozen tier | 1 | 0 MB | 0 MB | 1 | 116 |
+-| email | the frozen tier | 1 | 0 MB | 0 MB | 1 | 339 |
+-| flagd | the frozen tier | 1 | 0 MB | 0 MB | 1 | 1094 |
+-| flagd-ui | the frozen tier | 1 | 0 MB | 0 MB | 1 | 193 |
+-| fluentd-10x | the frozen tier | 1 | 13 MB | 4 MB | 1 | 11315 |
+-| fraud-detection | the frozen tier | 1 | 0 MB | 0 MB | 1 | 289 |
+-| frontend | the frozen tier | 1 | 27 MB | 12 MB | 1 | 33879 |
+-| frontend-proxy | the frozen tier | 1 | 5 MB | 5 MB | 1 | 12749 |
+-| grafana | the frozen tier | 1 | 56 MB | 53 MB | 1 | 145931 |
+-| grafana-sc-alerts | the frozen tier | 1 | 0 MB | 0 MB | 1 | 847 |
+-| grafana-sc-dashboard | the frozen tier | 1 | 0 MB | 0 MB | 1 | 1198 |
+-| grafana-sc-datasources | the frozen tier | 1 | 0 MB | 0 MB | 1 | 859 |
+-| image-provider | the frozen tier | 1 | 1 MB | 1 MB | 1 | 2154 |
+-| init-config | the frozen tier | 1 | 0 MB | 0 MB | 1 | 711 |
+-| jaeger | the frozen tier | 1 | 3 MB | 3 MB | 1 | 8701 |
+-| kafka | the frozen tier | 1 | 239 MB | 21 MB | 1 | 59424 |
+-| kube-proxy | the frozen tier | 1 | 7 MB | 4 MB | 1 | 11656 |
+-| load-generator | the frozen tier | 1 | 0 MB | 0 MB | 1 | 980 |
+-| metrics-server | the frozen tier | 1 | 1 MB | 1 MB | 1 | 3068 |
+-| opensearch | the frozen tier | 1 | 10 MB | 10 MB | 1 | 26762 |
+-| opentelemetry-collector | the frozen tier | 1 | 986 MB | 57 MB | 1 | 157724 |
+-| payment | the frozen tier | 1 | 0 MB | 0 MB | 1 | 333 |
+-| postgresql | the frozen tier | 1 | 1 MB | 1 MB | 1 | 3103 |
+-| prometheus-server | the frozen tier | 1 | 1 MB | 1 MB | 1 | 4101 |
+-| quote | the frozen tier | 1 | 0 MB | 0 MB | 1 | 54 |
+-| recommendation | the frozen tier | 1 | 35 MB | 1 MB | 1 | 2707 |
+-| valkey-cart | the frozen tier | 1 | 3 MB | 3 MB | 1 | 6950 |
+-| wait-for-kafka | the frozen tier | 1 | 3 MB | 0 MB | 1 | 1211 |
+-| wait-for-valkey-cart | the frozen tier | 1 | 0 MB | 0 MB | 1 | 629 |
+-| `*` (any other service) | the frozen tier | 1 | | 1 MB | 1 | 2430 |
++| accounting | the frozen tier | 1 | 1 MB | 1 MB | 1 | 4010 |
++| ad | the frozen tier | 1 | 51 MB | 2 MB | 1 | 5656 |
++| aws-eks-nodeagent | the frozen tier | 1 | 0 MB | 0 MB | 1 | 76 |
++| aws-node | the frozen tier | 1 | 0 MB | 0 MB | 1 | 364 |
++| aws-vpc-cni-init | the frozen tier | 1 | 0 MB | 0 MB | 1 | 464 |
++| cart | the frozen tier | 1 | 125 MB | 1 MB | 1 | 3627 |
++| coredns | the frozen tier | 1 | 1 MB | 1 MB | 1 | 2923 |
++| currency | the frozen tier | 1 | 0 MB | 0 MB | 1 | 109 |
++| email | the frozen tier | 1 | 0 MB | 0 MB | 1 | 319 |
++| flagd | the frozen tier | 1 | 0 MB | 0 MB | 1 | 1030 |
++| flagd-ui | the frozen tier | 1 | 0 MB | 0 MB | 1 | 182 |
++| fluentd-10x | the frozen tier | 1 | 13 MB | 4 MB | 1 | 10989 |
++| fraud-detection | the frozen tier | 1 | 0 MB | 0 MB | 1 | 272 |
++| frontend | the frozen tier | 1 | 29 MB | 12 MB | 1 | 33837 |
++| frontend-proxy | the frozen tier | 1 | 4 MB | 4 MB | 1 | 11999 |
++| grafana | the frozen tier | 1 | 54 MB | 50 MB | 1 | 138583 |
++| grafana-sc-alerts | the frozen tier | 1 | 0 MB | 0 MB | 1 | 797 |
++| grafana-sc-dashboard | the frozen tier | 1 | 0 MB | 0 MB | 1 | 1127 |
++| grafana-sc-datasources | the frozen tier | 1 | 0 MB | 0 MB | 1 | 808 |
++| image-provider | the frozen tier | 1 | 1 MB | 1 MB | 1 | 2027 |
++| init-config | the frozen tier | 1 | 0 MB | 0 MB | 1 | 670 |
++| jaeger | the frozen tier | 1 | 3 MB | 3 MB | 1 | 8189 |
++| kafka | the frozen tier | 1 | 254 MB | 21 MB | 1 | 58207 |
++| kube-proxy | the frozen tier | 1 | 6 MB | 4 MB | 1 | 11250 |
++| load-generator | the frozen tier | 1 | 0 MB | 0 MB | 1 | 922 |
++| metrics-server | the frozen tier | 1 | 1 MB | 1 MB | 1 | 2888 |
++| opensearch | the frozen tier | 1 | 9 MB | 9 MB | 1 | 25520 |
++| opentelemetry-collector | the frozen tier | 1 | 1 GB | 54 MB | 1 | 150509 |
++| payment | the frozen tier | 1 | 0 MB | 0 MB | 1 | 313 |
++| postgresql | the frozen tier | 1 | 1 MB | 1 MB | 1 | 2921 |
++| prometheus-server | the frozen tier | 1 | 1 MB | 1 MB | 1 | 3988 |
++| quote | the frozen tier | 1 | 0 MB | 0 MB | 1 | 50 |
++| recommendation | the frozen tier | 1 | 37 MB | 1 MB | 1 | 2695 |
++| valkey-cart | the frozen tier | 1 | 3 MB | 2 MB | 1 | 6921 |
++| wait-for-kafka | the frozen tier | 1 | 3 MB | 0 MB | 1 | 1201 |
++| wait-for-valkey-cart | the frozen tier | 1 | 0 MB | 0 MB | 1 | 592 |
++| `*` (any other service) | the frozen tier | 1 | | 1 MB | 1 | 2361 |
+ 
+ Limits and totals are bytes per 4-minute window per node, counted the way the Receiver counts them (utf8Size). Error lines pass 50 over a limit per statement per node per window.

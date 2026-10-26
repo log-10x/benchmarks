@@ -160,3 +160,28 @@ Warm peaked at 20.7 MB in arm A (08:34:51) and 9.1 MB in arm B (08:33:11). Each 
 **Rig additions.** `compose.warm.yaml`, `phases-two-arm-warm.sh` (the 2026-10-24 schedule with warm placement; containers and volumes removed before and after), `es-setup.mjs` and `es-setup-b.mjs` (`TD_PLACEMENT=warm` renders the recipe with the option and checks each bootstrap index sits on a warm node), `meter.py` (each shard's node from `_cat/shards`: per stream, store on hot and on warm; per arm, the warm node's store), `score-two-arm.py` (the warm lines beside the unchanged criteria), `run.sh clean`.
 
 Not shown: the cost of a warm tier, a measured Elastic Cloud bill, 300 nodes, compact, autoscaling, or a hold longer than the hot retention.
+
+## Grouping across containers on the E103 fix, arm A, 2026-10-26
+
+The question: on the rig where the defect was found, does the E103 fix return any record holding lines from more than one container? The two-arm smoke's schedule (every phase at a tenth of its length, the dry run at 240 seconds) ran for arm A alone from 00:10 to 00:36 UTC. Results are in `results-e103-smoke/`.
+
+The engine is commit `0cd458f0f` (log-10x/engine, branch `fix/e103-sequence-key`) with modules commit `6c69d90a` (log-10x/modules, same branch). They ran in the image `local/edge-10x:e103` (sha256:8f74b8bbec2e…), which runs the engine jar on a JVM, so the Receiver had `TENX_JAVA_HEAP=320M` inside its rendered 512 MB limit. Everything else is the 2026-10-24 smoke: the same feed (sha256 24e02233a797…), log10x-mcp 1.30.84 (d6fa2b1), the same ILM policies and the same policy branch.
+
+**Result: no cross-container record, and delivery is exact.**
+
+| Count | Value |
+|---|---:|
+| Lines fed, by seq | 101,663 |
+| Non-blank lines fed | 101,637 |
+| Records returned | 79,415, plus the Receiver's connect message |
+| Records holding lines from more than one container | 0 |
+| Non-blank lines missing (sent, in no record) | 0 |
+| Lines duplicated or unmatched (returned, no unused sent line) | 0 |
+| Records with lines out of feed order | 0 |
+| Elasticsearch documents (`tenx-app`, `tenx-tierdown`) | 79,416, with line counts summing to 101,637 |
+
+**How the count is made.** Fluent Bit keeps every returned record whole in this run. `score-e103.py` matches each record's lines to the lines sent and counts the records whose lines came from more than one container. The 2026-10-24 count (71 of 848,190, and 11 of 78,852 in that day's smoke) treated each record as the run of seqs up to the next record's seq. That holds only while lines are grouped in arrival order. Here it reads 0, with 2 records whose runs do not match their line counts. The scorer's self-test groups the run's feed with one head rule both ways. In arrival order it finds 4,333 cross-container records by lines and the same 4,333 by the run-based count. Per container it finds none by lines, while the run-based count reports 4,322.
+
+In this run, kafka's four startup lines (seq 2751 to 2754) came back as four kafka records, one line each. The jaeger record at seq 2750 holds only its own line.
+
+**Rig additions.** `ARM_A_ONLY=1` in `phases-two-arm.sh` runs arm A alone: no cluster B, no copy to it, and every returned record written whole to `data/returned.jsonl`. `gen-receiver-values.mjs` passes `TENX_JAVA_HEAP` to the Receiver. `score-e103.py` makes the count above.

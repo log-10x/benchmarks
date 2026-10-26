@@ -12,8 +12,9 @@ the next record's, spanning containers), which assumes lines are grouped in arri
 in Elasticsearch (delivery/a.tsv.gz) with their summed line counts. Exit 1 on any cross-container record,
 missing or unmatched line.
   score-e103.py <results dir>
-  score-e103.py --self-test <results dir>   regroups the same lines in arrival order at the same record seqs;
-                                            the count must equal the run-based count and be above 0"""
+  score-e103.py --self-test <results dir>   groups the run's feed with one head rule, in arrival order and per
+                                            container: the first must show cross-container records (by lines as
+                                            many as by the run-based count), the second none"""
 import bisect, collections, gzip, json, os, re, sys
 
 NB = re.compile(r'[^ \t\n\v\f\r]')
@@ -141,24 +142,38 @@ def main():
     N = final or max(s for s, *_ in recs)
     ent = sent_lines(src, N)
     if self_test:
-        # the same record seqs, each holding every sent line from its seq to the next record's seq
-        heads = sorted({s for s, *_ in recs})
-        by_seq = collections.defaultdict(list)
-        for s, t, c in ent:
-            by_seq[s].append(t)
+        # both groupings built from the feed with one head rule: in arrival order across containers (the
+        # defect) and per container (the fix); the first must show cross-container records, counted alike by
+        # lines and by the run-based method, the second none
+        head = re.compile(r'^(\{|\[|\d|[A-Z]{4,5}\b|level=|time=|ts=|[IWEF]\d{4})')
         n = len(src)
-        fake = []
-        for k, s in enumerate(heads):
-            nxt = heads[k + 1] if k + 1 < len(heads) else N + 1
-            lines = [t for x in range(s, nxt) for t in by_seq.get(x, [])]
-            fake.append((s, src[(s - 1) % n]['container_name'].lstrip('/'), '\n'.join(lines), len(lines)))
-        cross, unmatched, ooo, ex, used = score(ent, fake, src, N)
-        spanning, mism = run_based(fake, src, N)
-        before = sum(1 for s, *_ in ent if s < heads[0])
-        missing = len(ent) - sum(used)
-        ok = cross == spanning and cross > 0 and unmatched == 0 and missing == before
-        print(json.dumps({'self_test': 'PASS' if ok else 'FAIL', 'arrival_order_records': len(fake), 'cross_container_by_lines': cross,
-                          'run_based_count': spanning, 'unmatched': unmatched, 'missing': missing, 'lines_before_first_record': before}))
+        def group(key):
+            out, cur = [], {}
+            for s in range(1, N + 1):
+                r = src[(s - 1) % n]
+                if not NB.search(r['log']):
+                    continue
+                c = r['container_name'].lstrip('/')
+                k = key(c)
+                if head.match(r['log']) or k not in cur:
+                    if k in cur:
+                        out.append(cur.pop(k))
+                    cur[k] = [s, c, [], 0]
+                cur[k][2].append(r['log'])
+                cur[k][3] += sum(1 for t in r['log'].split('\n') if NB.search(t))
+            out += cur.values()
+            return [(s, c, '\n'.join(lines), ln) for s, c, lines, ln in out]
+        res = {}
+        for name, key in (('arrival_order', lambda c: 0), ('per_container', lambda c: c)):
+            fake = group(key)
+            cross, unmatched, ooo, ex, used = score(ent, fake, src, N)
+            spanning, mism = run_based(fake, src, N)
+            res[name] = {'records': len(fake), 'cross_container_by_lines': cross, 'run_based_count': spanning,
+                         'unmatched': unmatched, 'missing': len(ent) - sum(used)}
+        a, b = res['arrival_order'], res['per_container']
+        ok = (a['cross_container_by_lines'] > 0 and a['cross_container_by_lines'] == a['run_based_count'] and b['cross_container_by_lines'] == 0
+              and not (a['unmatched'] or a['missing'] or b['unmatched'] or b['missing']))
+        print(json.dumps({'self_test': 'PASS' if ok else 'FAIL', **res}))
         sys.exit(0 if ok else 1)
     cross, unmatched, ooo, examples, used = score(ent, recs, src, N)
     spanning, mism = run_based(recs, src, N)
