@@ -117,10 +117,11 @@ between the 1st and 99th percentile timestamp, 36 containers. The same asset the
 ### One line differs from the copy the blog post measured
 
 The post's manifest reports 215,039,166 input bytes for this dataset; the published asset is
-215,039,161. The difference is a single line, 9731, whose message names an engine config path:
-the released asset reads `@apps/regulator` and the copy behind the manifest reads
-`@apps/edge/optimizer`, an older name for the same app. One token, five bytes, in one line of
-197,430.
+215,039,161. The difference is a single line, 9731, whose message names an engine config path.
+The copy behind the manifest, published February 2026, reads `@apps/edge/optimizer`, an earlier
+name for the same app. The released asset, published July 2026, reads `@apps/regulator`, the
+current name, so the released asset carries one token changed after the capture was taken. One
+token, five bytes, in one line of 197,430.
 
 Every figure in this benchmark is measured on the published asset with the pinned engine, so a
 reader who downloads it reproduces this table rather than the manifest's byte counts.
