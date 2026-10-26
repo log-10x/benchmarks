@@ -4,15 +4,15 @@
  "fluent_bit_in_records": 22557,
  "cases": {
   "a": {
-   "records": 1566,
+   "records": 1570,
    "lines_returned": 4428,
    "lines_sent": 4428,
    "trace_events": 512,
-   "trace_events_whole": 508,
+   "trace_events_whole": 509,
    "cross_container_by_pause_s": {}
   },
   "b": {
-   "records": 1044,
+   "records": 1040,
    "lines_returned": 3072,
    "lines_sent": 3072,
    "cross_container_by_pause_s": {}
@@ -47,7 +47,7 @@
   "lines_returned": 22557,
   "lines_sent": 22557,
   "trace_events": 2559,
-  "trace_events_whole": 2546,
+  "trace_events_whole": 2547,
   "records_without_log": 1,
   "tag_checked": 5868
  },

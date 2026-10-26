@@ -82,26 +82,19 @@ Six stack traces in cases d and e came back split, three in each case. All six w
 
 ## Result with the E103 fix
 
-Run 2026-10-25 from 23:38 to 23:43 UTC. Results are in `results/fix-1.1.151/`.
+Run 2026-10-26 from 00:00 to 00:04 UTC. Results are in `results/fix2-1.1.151/`.
 
-The fix is engine commit `bc9ff152dad46a78b16ef2fdfe8864a3c82725c6` (log-10x/engine, branch `fix/e103-sequence-key`: "Key an input's open group by its source and sequence values"). It ships with modules commit `a35b44a94bb80f3ce1a9d49260d5424f14423f8e` (log-10x/modules, branch `fix/e103-sequence-key`: "Forwarder inputs group by container and stream within a tag"). The image `local/edge-10x:e103` (`sha256:70b27f0700f35c1a5382b02411174b99b77f2e02f0bef4882768ea2033d8d7ca`) is the 1.1.150 image with the engine jar from that commit and those modules at `/opt/tenx-edge/lib/app/modules`. Its modules match the modules commit file for file. The jar runs on a JVM, so the Receiver had `TENX_JAVA_HEAP=320M`. The arguments, other environment and limits are the same as the 1.1.150 run.
+The fix is engine commit `0cd458f0f133daab281bfc9d067e38c1410ce050` (log-10x/engine, branch `fix/e103-sequence-key`: "Key a line's sequence values in any field order"). It ships with modules commit `6c69d90a015adaffc2163e927682d5f6304e504d` (log-10x/modules, branch `fix/e103-sequence-key`: "Sequence patterns capture the field name with its value"). The image `local/edge-10x:e103` (`sha256:8f74b8bbec2ef115fb83eb365172872afa5aec2cea4ae5fd065b49c1d77fe361`) is the 1.1.150 image with the engine jar from that commit and those modules at `/opt/tenx-edge/lib/app/modules`. Its modules match the modules commit file for file. The jar runs on a JVM, so the Receiver had `TENX_JAVA_HEAP=320M`. The arguments, other environment and limits are the same as the 1.1.150 run.
 
 **Verdict: PASS.** Fluent Bit took in 22,557 records, forwarded 22,557 and wrote 5,869 returned records, one of them the Receiver's connect message. All 5,868 records holding sent lines came back under `tenx.` followed by their sent tag: 4,674 under `tenx.app.replay` and 1,194 under `tenx.docker.<id12>`.
 
 | Case | Lines sent | Records (1.1.150) | Records (fix) | Lines returned | Cross-container records | Lines missing | Lines duplicated | Wrong tag | Stack traces whole (1.1.150) | Stack traces whole (fix) |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| a | 4,428 | 1,554 | 1,566 | 4,428 | 0 | 0 | 0 | 0 | 0 of 512 | 508 of 512 |
-| b | 3,072 | 1,036 | 1,044 | 3,072 | 0 | 0 | 0 | 0 | none sent | none sent |
+| a | 4,428 | 1,554 | 1,570 | 4,428 | 0 | 0 | 0 | 0 | 0 of 512 | 509 of 512 |
+| b | 3,072 | 1,036 | 1,040 | 3,072 | 0 | 0 | 0 | 0 | none sent | none sent |
 | c | 6,602 | 1,024 | 1,037 | 6,602 | 0 | 0 | 0 | 0 | 0 of 1,024 | 1,021 of 1,024 |
 | d | 3,781 | 1,027 | 1,027 | 3,781 | 0 | 0 | 0 | 0 | 509 of 512 | 509 of 512 |
 | e | 4,674 | 1,194 | 1,194 | 4,674 | 0 | 0 | 0 | 0 | 508 of 511 | 508 of 511 |
-| Total | 22,557 | 5,836 | 5,869 | 22,557 | 0 | 0 | 0 | 0 | 1,017 | 2,546 |
+| Total | 22,557 | 5,836 | 5,869 | 22,557 | 0 | 0 | 0 | 0 | 1,017 | 2,547 |
 
-Every stack trace returned whole on 1.1.150 is returned whole with the fix. Cases d and e split the same six traces on both runs, all in episodes paused 5 or 6 s.
-
-In cases a and c, no trace was whole on 1.1.150, so these splits have nothing to compare against. Four of the seven splits there were in episodes paused 5 or 6 s. The lines sent before the pause came back together, and each continuation line sent after it came back as a one-line record. The other three were in case a episodes with no pause:
-
-- Record seq 1033 (a-orders, episode 120) also holds seq 1557. That line is the last frame of a-orders' trace in episode 179, sent 2.2 s later. The rest of episode 179's trace is in a record of its own.
-- Episode 508's frames, seq 4397 to 4401, came back as five one-line records. All five were returned before the record holding their head, seq 4394.
-
-These three keep lines within one container, but not in that container's order.
+Every stack trace returned whole on 1.1.150 is returned whole with the fix. All twelve traces that came back split, three in each of cases a, c, d and e, were in episodes paused 5 or 6 s. Cases d and e split the same six on both runs. No returned record holds stack trace lines from more than one episode.

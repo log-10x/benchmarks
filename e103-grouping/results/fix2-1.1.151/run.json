@@ -1,7 +1,7 @@
 {
- "started_utc": "2026-10-25T23:38:13Z",
+ "started_utc": "2026-10-26T00:00:14Z",
  "image": "local/edge-10x:e103",
- "image_id": "sha256:70b27f0700f35c1a5382b02411174b99b77f2e02f0bef4882768ea2033d8d7ca",
+ "image_id": "sha256:8f74b8bbec2ef115fb83eb365172872afa5aec2cea4ae5fd065b49c1d77fe361",
  "args": [
   "@run/input/forwarder/fluentbit",
   "@apps/receiver",
