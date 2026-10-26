@@ -48,7 +48,7 @@ The run writes `results/clickstack-e2e-<date>.md` and `results/results.json`.
                                           +--> Merge table over both <--+
 ```
 
-The receiver reads two files: `conf/caps.csv` gives a byte cap per service, and
+The receiver reads two files: `conf/caps.csv` gives a byte cap per service (this run counted bytes; the rows run counts events), and
 `conf/actions.csv` gives that service's disposition for the excess. Both must
 exist and neither may be empty, and a service with no row in the cap file is not
 regulated at all, which is what makes an uncapped service a control.
