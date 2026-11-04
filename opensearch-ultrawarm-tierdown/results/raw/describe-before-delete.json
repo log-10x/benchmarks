@@ -1,0 +1,109 @@
+{
+    "DomainStatus": {
+        "DomainId": "<account-id>/tenx-uw-tierdown",
+        "DomainName": "tenx-uw-tierdown",
+        "ARN": "arn:aws:es:us-east-1:<account-id>:domain/tenx-uw-tierdown",
+        "Created": true,
+        "Deleted": false,
+        "Endpoint": "search-tenx-uw-tierdown-3dofey6o5sotuc5pcye4lep5ri.us-east-1.es.amazonaws.com",
+        "Processing": false,
+        "UpgradeProcessing": false,
+        "EngineVersion": "OpenSearch_2.19",
+        "ClusterConfig": {
+            "InstanceType": "m7g.medium.search",
+            "InstanceCount": 2,
+            "DedicatedMasterEnabled": true,
+            "ZoneAwarenessEnabled": false,
+            "DedicatedMasterType": "m7g.medium.search",
+            "DedicatedMasterCount": 3,
+            "WarmEnabled": true,
+            "WarmType": "ultrawarm1.medium.search",
+            "WarmCount": 2,
+            "ColdStorageOptions": {
+                "Enabled": false
+            },
+            "MultiAZWithStandbyEnabled": false
+        },
+        "EBSOptions": {
+            "EBSEnabled": true,
+            "VolumeType": "gp3",
+            "VolumeSize": 10,
+            "Iops": 3000,
+            "Throughput": 125
+        },
+        "AccessPolicies": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"arn:aws:iam::<account-id>:role/aws-reserved/sso.amazonaws.com/<sso-role>\"},\"Action\":\"es:ESHttp*\",\"Resource\":\"arn:aws:es:us-east-1:<account-id>:domain/tenx-uw-tierdown/*\",\"Condition\":{\"IpAddress\":{\"aws:SourceIp\":\"<runner-ip>/32\"}}}]}",
+        "IPAddressType": "ipv4",
+        "SnapshotOptions": {
+            "AutomatedSnapshotStartHour": 0
+        },
+        "CognitoOptions": {
+            "Enabled": false
+        },
+        "EncryptionAtRestOptions": {
+            "Enabled": true,
+            "KmsKeyId": "arn:aws:kms:us-east-1:<account-id>:key/e0a965f2-1b53-49d1-89fe-b647a33d5b1e"
+        },
+        "NodeToNodeEncryptionOptions": {
+            "Enabled": true
+        },
+        "AdvancedOptions": {
+            "override_main_response_version": "false",
+            "rest.action.multi.allow_explicit_index": "true"
+        },
+        "ServiceSoftwareOptions": {
+            "CurrentVersion": "OpenSearch_2_19_R20261023",
+            "NewVersion": "",
+            "UpdateAvailable": false,
+            "Cancellable": false,
+            "UpdateStatus": "COMPLETED",
+            "Description": "There is no software update available for this domain.",
+            "AutomatedUpdateDate": "1969-12-31T19:00:00-05:00",
+            "OptionalDeployment": true
+        },
+        "DomainEndpointOptions": {
+            "EnforceHTTPS": true,
+            "TLSSecurityPolicy": "Policy-Min-TLS-1-2-2019-07",
+            "CustomEndpointEnabled": false
+        },
+        "AdvancedSecurityOptions": {
+            "Enabled": false,
+            "InternalUserDatabaseEnabled": false,
+            "AnonymousAuthEnabled": false
+        },
+        "IdentityCenterOptions": {},
+        "AutoTuneOptions": {
+            "State": "ENABLED",
+            "UseOffPeakWindow": false
+        },
+        "ChangeProgressDetails": {
+            "ChangeId": "b363a3df-98db-4a38-8357-22cc601f3394",
+            "ConfigChangeStatus": "Completed",
+            "InitiatedBy": "CUSTOMER",
+            "StartTime": "2026-11-04T13:48:21.741000-05:00",
+            "LastUpdatedTime": "2026-11-04T14:02:11.738000-05:00"
+        },
+        "OffPeakWindowOptions": {
+            "Enabled": true,
+            "OffPeakWindow": {
+                "WindowStartTime": {
+                    "Hours": 3,
+                    "Minutes": 0
+                }
+            }
+        },
+        "SoftwareUpdateOptions": {
+            "AutoSoftwareUpdateEnabled": false
+        },
+        "DomainProcessingStatus": "Active",
+        "ModifyingProperties": [],
+        "AIMLOptions": {
+            "NaturalLanguageQueryGenerationOptions": {
+                "DesiredState": "DISABLED",
+                "CurrentState": "NOT_ENABLED"
+            },
+            "S3VectorsEngine": {
+                "Enabled": false
+            }
+        }
+    }
+}

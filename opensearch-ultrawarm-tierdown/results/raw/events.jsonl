@@ -1,0 +1,114 @@
+{"t":"2026-11-04T18:48:19Z","event":"create_domain_call","rc":0,"source_ip":"<runner-ip>"}
+{"t": "2026-11-04T19:02:03Z", "event": "domain_active", "endpoint_set": true, "processing_status": "Creating"}
+{"t": "2026-11-04T19:02:07Z", "event": "warm_api_ok"}
+{"t": "2026-11-04T19:02:13Z", "event": "warm_migration_accepted"}
+{"t":"2026-11-04T19:02:31Z","event":"note","text":"domain_active at 19:02:03 was the first poll with Processing=false and an Endpoint; DomainProcessingStatus still read Creating. A separate poll records when it reads Active (event processing_status_active)."}
+{"t":"2026-11-04T19:02:38Z","event":"processing_status_active"}
+{"t": "2026-11-04T19:03:22Z", "event": "warm_usable", "hours_after_active": 0.022}
+{"t":"2026-11-04T19:04:23Z","event":"bulk_loaded"}
+{"t": "2026-11-04T19:17:38Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:18:38Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:19:38Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:20:39Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:21:39Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:22:39Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:23:40Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:24:41Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:25:41Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:26:41Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:27:41Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:28:42Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:29:42Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:30:42Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:31:44Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:32:44Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:33:45Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:34:45Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:35:45Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:36:45Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:37:46Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:38:46Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:39:46Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:40:47Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:41:48Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:42:48Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:43:49Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:44:49Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:45:49Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:46:51Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:47:51Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:48:52Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:49:52Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:50:52Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:51:52Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:52:53Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:53:53Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:54:54Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:55:54Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:56:55Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:57:55Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t":"2026-11-04T19:58:28Z","event":"note","text":"SSO token refresh failed in botocore from ~19:06 (intermittent) and continuously from ~19:17; watcher restarted with the CLI-cached role credentials exported to the environment (valid to 23:18Z). Readings 19:17-19:58 missing; ISM explain start_time fields cover the gap."}
+{"t": "2026-11-04T19:58:55Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T19:59:56Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:00:56Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t":"2026-11-04T19:04:03Z","event":"from_ism_history","what":"tenx-tierdown-000001 index_creation_date (ISM explain)"}
+{"t":"2026-11-04T19:16:24Z","event":"from_ism_history","what":"ISM initialized policy tenx-tier-down on tenx-tierdown-000001 (state hot start_time)"}
+{"t":"2026-11-04T19:19:21Z","event":"from_ism_history","what":"rollover action start, attempt_rollover completed; history_timestamp 19:19:28; tenx-tierdown-000002 created 19:19:23"}
+{"t":"2026-11-04T19:26:24Z","event":"from_ism_history","what":"Transitioning to warm (history_timestamp)"}
+{"t":"2026-11-04T19:30:51Z","event":"from_ism_history","what":"state warm and action warm_migration start_time; attempt_call_warm_migration completed, history_timestamp 19:30:55"}
+{"t":"2026-11-04T19:30:53Z","event":"from_cs_ultrawarm_snapshot","what":"snapshot tenx-tierdown-000001 start 19:30:53.823, end 19:30:54.623, 800 ms"}
+{"t":"2026-11-04T19:31:00Z","event":"from_cloudwatch","what":"HotToWarmMigrationSuccessCount 1 in the 19:31 minute (ProcessingLatency 7147 ms, SuccessLatency 8458 ms; ForceMergeLatency 320 ms and SnapshotLatency 2932 ms in the 19:30 minute)"}
+{"t":"2026-11-04T19:36:29Z","event":"from_ism_history","what":"wait_for_warm_migration step start_time with status completed: Successfully completed Warm migration; history_timestamp 19:36:31"}
+{"t":"2026-11-04T19:42:04Z","event":"from_ism_history","what":"policy completed (last history row)"}
+{"t": "2026-11-04T20:01:56Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:02:57Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:03:57Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:04:57Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:05:58Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:06:58Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:07:58Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:08:59Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:09:59Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:10:59Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:12:00Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:13:00Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:14:00Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:15:01Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:16:01Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:17:01Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:18:01Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:19:02Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:20:02Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:21:02Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:22:03Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:23:03Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:24:03Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:25:04Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:26:05Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:27:05Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:28:05Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:29:05Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:30:06Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:31:06Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:32:06Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:33:08Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:34:08Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:35:09Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:36:10Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:37:10Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t":"2026-11-04T20:37:58Z","event":"delete_domain_call","rc":0}
+{"t": "2026-11-04T20:38:10Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:39:11Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:40:11Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:41:11Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:42:12Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:43:12Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:44:12Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:45:14Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:46:14Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:47:14Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:48:15Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:49:15Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:50:15Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t": "2026-11-04T20:51:16Z", "event": "watch_error", "error": "TokenRetrievalError('Error when retrieving token from sso: Token has expired and refresh failed')"}
+{"t":"2026-11-04T20:51:40Z","event":"domain_gone","describe_error":"An error occurred (ResourceNotFoundException) when calling the DescribeDomain operation: Domain not found: tenx-uw-tierdown"}

@@ -1,0 +1,169 @@
+{
+ "label": "hour-after-move",
+ "hot": [
+  ".kibana_1",
+  ".opendistro-ism-config",
+  ".opendistro-ism-managed-index-history-2026.11.04-1",
+  ".opendistro-job-scheduler-lock",
+  ".opensearch-observability",
+  ".opensearch-sap-log-types-config",
+  ".plugins-ml-config",
+  "tenx-app-000001",
+  "tenx-tierdown-000002"
+ ],
+ "warm": [
+  "tenx-tierdown-000001",
+  "uw-canary"
+ ],
+ "held": {
+  "index": "tenx-tierdown-000001",
+  "status": 200,
+  "queries": 400,
+  "responses": 400,
+  "hashes_with_exactly_1_hit": 400,
+  "hashes_with_0_hits": 0,
+  "source_intact": 400,
+  "errors": 0,
+  "routeState_agg": {
+   "total": {
+    "value": 400,
+    "relation": "eq"
+   },
+   "buckets": [
+    {
+     "key": "offload",
+     "doc_count": 400
+    }
+   ]
+  }
+ },
+ "kept": {
+  "index": "tenx-app-000001",
+  "status": 200,
+  "queries": 200,
+  "responses": 200,
+  "hashes_with_exactly_1_hit": 200,
+  "hashes_with_0_hits": 0,
+  "source_intact": 200,
+  "errors": 0,
+  "routeState_agg": {
+   "total": {
+    "value": 200,
+    "relation": "eq"
+   },
+   "buckets": [
+    {
+     "key": "pass",
+     "doc_count": 200
+    }
+   ]
+  }
+ },
+ "index_pattern": {
+  "saved_object": {
+   "status": 200,
+   "id": "tenx-all",
+   "attributes": {
+    "title": "tenx-app-*,tenx-tierdown-*",
+    "timeFieldName": "@timestamp"
+   }
+  },
+  "search_on_title": {
+   "status": 200,
+   "total": {
+    "value": 600,
+    "relation": "eq"
+   },
+   "by_index": [
+    {
+     "key": "tenx-tierdown-000001",
+     "doc_count": 400,
+     "routeState": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+       {
+        "key": "offload",
+        "doc_count": 400
+       }
+      ]
+     }
+    },
+    {
+     "key": "tenx-app-000001",
+     "doc_count": 200,
+     "routeState": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+       {
+        "key": "pass",
+        "doc_count": 200
+       }
+      ]
+     }
+    }
+   ],
+   "shards": {
+    "total": 3,
+    "successful": 3,
+    "skipped": 0,
+    "failed": 0
+   }
+  },
+  "fields_for_wildcard": {
+   "status": 200,
+   "fields": [
+    "@timestamp",
+    "k8s_container",
+    "k8s_container.keyword",
+    "k8s_namespace",
+    "k8s_namespace.keyword",
+    "k8s_pod",
+    "k8s_pod.keyword",
+    "message",
+    "message.keyword",
+    "message_pattern",
+    "message_pattern.keyword",
+    "routeState",
+    "source_pos",
+    "tenx_hash"
+   ]
+  },
+  "dashboards_internal_search": {
+   "status": 200,
+   "total": 600,
+   "by_index": [
+    {
+     "key": "tenx-tierdown-000001",
+     "doc_count": 400,
+     "routeState": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+       {
+        "key": "offload",
+        "doc_count": 400
+       }
+      ]
+     }
+    },
+    {
+     "key": "tenx-app-000001",
+     "doc_count": 200,
+     "routeState": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+       {
+        "key": "pass",
+        "doc_count": 200
+       }
+      ]
+     }
+    }
+   ],
+   "raw_if_error": null
+  }
+ }
+}
