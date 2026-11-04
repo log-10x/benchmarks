@@ -1,0 +1,23 @@
+{
+  "DomainName": "tenx-uw-tierdown",
+  "EngineVersion": "OpenSearch_2.19",
+  "ClusterConfig": {
+    "InstanceType": "m7g.medium.search",
+    "InstanceCount": 2,
+    "DedicatedMasterEnabled": true,
+    "DedicatedMasterType": "m7g.medium.search",
+    "DedicatedMasterCount": 3,
+    "ZoneAwarenessEnabled": false,
+    "WarmEnabled": true,
+    "WarmType": "ultrawarm1.medium.search",
+    "WarmCount": 2,
+    "MultiAZWithStandbyEnabled": false
+  },
+  "EBSOptions": { "EBSEnabled": true, "VolumeType": "gp3", "VolumeSize": 10 },
+  "EncryptionAtRestOptions": { "Enabled": true },
+  "NodeToNodeEncryptionOptions": { "Enabled": true },
+  "DomainEndpointOptions": { "EnforceHTTPS": true, "TLSSecurityPolicy": "Policy-Min-TLS-1-2-2019-07" },
+  "AdvancedSecurityOptions": { "Enabled": false },
+  "AccessPolicies": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"arn:aws:iam::<account-id>:role/aws-reserved/sso.amazonaws.com/<sso-role>\"},\"Action\":\"es:ESHttp*\",\"Resource\":\"arn:aws:es:us-east-1:<account-id>:domain/tenx-uw-tierdown/*\",\"Condition\":{\"IpAddress\":{\"aws:SourceIp\":\"__SOURCE_IP__/32\"}}}]}",
+  "TagList": [ { "Key": "purpose", "Value": "bench-opensearch-ultrawarm-tierdown" }, { "Key": "delete-by", "Value": "2026-11-05" } ]
+}

@@ -1,0 +1,14 @@
+{
+  "policy": {
+    "description": "Control: kept lines stay hot. Rollover alone, daily, as the Elastic recipe's tenx-keep hot phase.",
+    "default_state": "hot",
+    "states": [
+      {
+        "name": "hot",
+        "actions": [ { "rollover": { "min_index_age": "1d" } } ],
+        "transitions": []
+      }
+    ],
+    "ism_template": { "index_patterns": ["tenx-app-*"], "priority": 100 }
+  }
+}

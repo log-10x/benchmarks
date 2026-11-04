@@ -1,0 +1,19 @@
+{
+  "policy": {
+    "description": "tier_down slice: roll over once the slice is in, then migrate the rolled index to UltraWarm.",
+    "default_state": "hot",
+    "states": [
+      {
+        "name": "hot",
+        "actions": [ { "rollover": { "min_doc_count": 400 } } ],
+        "transitions": [ { "state_name": "warm" } ]
+      },
+      {
+        "name": "warm",
+        "actions": [ { "warm_migration": {}, "retry": { "count": 5, "delay": "10m" } } ],
+        "transitions": []
+      }
+    ],
+    "ism_template": { "index_patterns": ["tenx-tierdown-*"], "priority": 100 }
+  }
+}

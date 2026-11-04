@@ -1,0 +1,278 @@
+200
+{
+ "took": 106,
+ "timed_out": false,
+ "_shards": {
+  "total": 1,
+  "successful": 1,
+  "skipped": 0,
+  "failed": 0
+ },
+ "hits": {
+  "total": {
+   "value": 8,
+   "relation": "eq"
+  },
+  "max_score": 1.0,
+  "hits": [
+   {
+    "_index": ".opendistro-ism-managed-index-history-2026.11.04-1",
+    "_id": "wVP3p6EBDfFzkwE6kupJ",
+    "_score": 1.0,
+    "_source": {
+     "managed_index_meta_data": {
+      "index": "tenx-app-000001",
+      "index_uuid": "6ssy3UvfRc6hGE3YlInoZg",
+      "policy_id": "tenx-keep",
+      "policy_seq_no": 0,
+      "policy_primary_term": 1,
+      "index_creation_date": 1793819046968,
+      "state": {
+       "name": "hot",
+       "start_time": 1793819379765
+      },
+      "retry_info": {
+       "failed": false,
+       "consumed_retries": 0
+      },
+      "info": {
+       "message": "Successfully initialized policy: tenx-keep"
+      },
+      "history_timestamp": 1793819382338
+     }
+    }
+   },
+   {
+    "_index": ".opendistro-ism-managed-index-history-2026.11.04-1",
+    "_id": "wlP9p6EBDfFzkwE6uuph",
+    "_score": 1.0,
+    "_source": {
+     "managed_index_meta_data": {
+      "index": "tenx-tierdown-000001",
+      "index_uuid": "Htlb63OATnqULOZ2WVuBNg",
+      "policy_id": "tenx-tier-down",
+      "policy_seq_no": 0,
+      "policy_primary_term": 1,
+      "index_creation_date": 1793819043856,
+      "state": {
+       "name": "hot",
+       "start_time": 1793819784748
+      },
+      "retry_info": {
+       "failed": false,
+       "consumed_retries": 0
+      },
+      "info": {
+       "message": "Successfully initialized policy: tenx-tier-down"
+      },
+      "history_timestamp": 1793819785820
+     }
+    }
+   },
+   {
+    "_index": ".opendistro-ism-managed-index-history-2026.11.04-1",
+    "_id": "w1MAqKEBDfFzkwE6heoA",
+    "_score": 1.0,
+    "_source": {
+     "managed_index_meta_data": {
+      "index": "tenx-tierdown-000001",
+      "index_uuid": "Htlb63OATnqULOZ2WVuBNg",
+      "policy_id": "tenx-tier-down",
+      "policy_seq_no": 0,
+      "policy_primary_term": 1,
+      "rolled_over": true,
+      "rolled_over_index_name": "tenx-tierdown-000002",
+      "index_creation_date": 1793819043856,
+      "state": {
+       "name": "hot",
+       "start_time": 1793819784748
+      },
+      "action": {
+       "name": "rollover",
+       "start_time": 1793819961978,
+       "index": 0,
+       "failed": false,
+       "consumed_retries": 0,
+       "last_retry_time": 0
+      },
+      "step": {
+       "name": "attempt_rollover",
+       "start_time": 1793819961978,
+       "step_status": "completed"
+      },
+      "retry_info": {
+       "failed": false,
+       "consumed_retries": 0
+      },
+      "info": {
+       "message": "Successfully rolled over index [index=tenx-tierdown-000001]",
+       "conditions": {
+        "min_doc_count": {
+         "condition": 400,
+         "current": 400
+        }
+       }
+      },
+      "history_timestamp": 1793819968768
+     }
+    }
+   },
+   {
+    "_index": ".opendistro-ism-managed-index-history-2026.11.04-1",
+    "_id": "xFMGqKEBDfFzkwE63Op6",
+    "_score": 1.0,
+    "_source": {
+     "managed_index_meta_data": {
+      "index": "tenx-tierdown-000001",
+      "index_uuid": "Htlb63OATnqULOZ2WVuBNg",
+      "policy_id": "tenx-tier-down",
+      "policy_seq_no": 0,
+      "policy_primary_term": 1,
+      "rolled_over": true,
+      "rolled_over_index_name": "tenx-tierdown-000002",
+      "index_creation_date": 1793819043856,
+      "transition_to": "warm",
+      "retry_info": {
+       "failed": false,
+       "consumed_retries": 0
+      },
+      "info": {
+       "message": "Transitioning to warm [index=tenx-tierdown-000001]"
+      },
+      "history_timestamp": 1793820384374
+     }
+    }
+   },
+   {
+    "_index": ".opendistro-ism-managed-index-history-2026.11.04-1",
+    "_id": "xVMHqKEBDfFzkwE6y-qm",
+    "_score": 1.0,
+    "_source": {
+     "managed_index_meta_data": {
+      "index": "tenx-tierdown-000002",
+      "index_uuid": "vo-DmJ5zSu-WfdK2ATd4vw",
+      "policy_id": "tenx-tier-down",
+      "policy_seq_no": 0,
+      "policy_primary_term": 1,
+      "index_creation_date": 1793819963788,
+      "state": {
+       "name": "hot",
+       "start_time": 1793820444999
+      },
+      "retry_info": {
+       "failed": false,
+       "consumed_retries": 0
+      },
+      "info": {
+       "message": "Successfully initialized policy: tenx-tier-down"
+      },
+      "history_timestamp": 1793820445605
+     }
+    }
+   },
+   {
+    "_index": ".opendistro-ism-managed-index-history-2026.11.04-1",
+    "_id": "xlMKqKEBDfFzkwE6_-pN",
+    "_score": 1.0,
+    "_source": {
+     "managed_index_meta_data": {
+      "index": "tenx-tierdown-000001",
+      "index_uuid": "Htlb63OATnqULOZ2WVuBNg",
+      "policy_id": "tenx-tier-down",
+      "policy_seq_no": 0,
+      "policy_primary_term": 1,
+      "rolled_over": true,
+      "rolled_over_index_name": "tenx-tierdown-000002",
+      "index_creation_date": 1793819043856,
+      "state": {
+       "name": "warm",
+       "start_time": 1793820651299
+      },
+      "action": {
+       "name": "warm_migration",
+       "start_time": 1793820651299,
+       "index": 0,
+       "failed": false,
+       "consumed_retries": 0,
+       "last_retry_time": 0
+      },
+      "step": {
+       "name": "attempt_call_warm_migration",
+       "start_time": 1793820651299,
+       "step_status": "completed"
+      },
+      "retry_info": {
+       "failed": false,
+       "consumed_retries": 0
+      },
+      "info": {
+       "message": "Successfully started warm migration [index=tenx-tierdown-000001]"
+      },
+      "history_timestamp": 1793820655434
+     }
+    }
+   },
+   {
+    "_index": ".opendistro-ism-managed-index-history-2026.11.04-1",
+    "_id": "x1MQqKEBDfFzkwE6Hurp",
+    "_score": 1.0,
+    "_source": {
+     "managed_index_meta_data": {
+      "index": "tenx-tierdown-000001",
+      "index_uuid": "Htlb63OATnqULOZ2WVuBNg",
+      "policy_id": "tenx-tier-down",
+      "policy_seq_no": 0,
+      "policy_primary_term": 1,
+      "rolled_over": true,
+      "rolled_over_index_name": "tenx-tierdown-000002",
+      "index_creation_date": 1793819043856,
+      "state": {
+       "name": "warm",
+       "start_time": 1793820651299
+      },
+      "action": {
+       "name": "warm_migration",
+       "start_time": 1793820651299,
+       "index": 0,
+       "failed": false,
+       "consumed_retries": 0,
+       "last_retry_time": 0
+      },
+      "step": {
+       "name": "wait_for_warm_migration",
+       "start_time": 1793820989534,
+       "step_status": "completed"
+      },
+      "retry_info": {
+       "failed": false,
+       "consumed_retries": 0
+      },
+      "info": {
+       "message": "Successfully completed Warm migration [index=tenx-tierdown-000001]"
+      },
+      "history_timestamp": 1793820991208
+     }
+    }
+   },
+   {
+    "_index": ".opendistro-ism-managed-index-history-2026.11.04-1",
+    "_id": "yFMVqKEBDfFzkwE6NeqI",
+    "_score": 1.0,
+    "_source": {
+     "managed_index_meta_data": {
+      "index": "tenx-tierdown-000001",
+      "index_uuid": "Htlb63OATnqULOZ2WVuBNg",
+      "policy_id": "tenx-tier-down",
+      "policy_seq_no": 0,
+      "policy_primary_term": 1,
+      "rolled_over": true,
+      "rolled_over_index_name": "tenx-tierdown-000002",
+      "index_creation_date": 1793819043856,
+      "policy_completed": true,
+      "history_timestamp": 1793821324676
+     }
+    }
+   }
+  ]
+ }
+}

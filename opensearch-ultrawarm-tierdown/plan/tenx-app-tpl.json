@@ -1,0 +1,15 @@
+{
+  "index_patterns": ["tenx-app-*"],
+  "template": {
+    "settings": {
+      "plugins.index_state_management.rollover_alias": "tenx-app",
+      "number_of_shards": 1,
+      "number_of_replicas": 0
+    },
+    "mappings": { "properties": {
+      "tenx_hash":  { "type": "keyword" },
+      "routeState": { "type": "keyword" },
+      "@timestamp": { "type": "date" }
+    }}
+  }
+}
