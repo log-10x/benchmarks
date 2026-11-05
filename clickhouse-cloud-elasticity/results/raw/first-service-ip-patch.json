@@ -1,0 +1,33 @@
+{
+ "service": "91c0847e-fa91-48f4-a817-508fcad0c60f",
+ "name": "My first service",
+ "before": [
+  {
+   "source": "0.0.0.0/0",
+   "description": "Anywhere"
+  }
+ ],
+ "request": {
+  "ipAccessList": {
+   "remove": [
+    {
+     "source": "0.0.0.0/0"
+    }
+   ],
+   "add": [
+    {
+     "source": "<runner-ip>/32",
+     "description": "bench runner"
+    }
+   ]
+  }
+ },
+ "status": 200,
+ "after": [
+  {
+   "source": "<runner-ip>/32",
+   "description": "bench runner"
+  }
+ ],
+ "state_after": "idle"
+}

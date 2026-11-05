@@ -1,0 +1,12 @@
+{"phase": "B1", "arm": "B", "rows_per_s": 45716.0, "stage": "bench.stage_b"}
+{"phase": "A2", "arm": "A", "rows_per_s": 70000.0}
+{"phase": "B2", "arm": "B", "rows_per_s": 45716.0, "stage": "bench.stage_b"}
+{"phase": "idle", "arm": "-", "rows_per_s": 0.0}
+{"phase": "A3", "arm": "A", "rows_per_s": 70000.0}
+{"phase": "B3", "arm": "B", "rows_per_s": 45716.0, "stage": "bench.stage_b"}
+{"phase": "A4", "arm": "A", "rows_per_s": 70000.0}
+{"phase": "B4", "arm": "B", "rows_per_s": 45716.0, "stage": "bench.stage_b"}
+{"phase": "cal-readA", "arm": "A", "rows_per_s": 70000.0, "mode": "read"}
+{"phase": "cal-readB", "arm": "B", "rows_per_s": 45716.0, "mode": "read", "stage": "bench.stage_b"}
+{"phase": "cal-readBfilter", "arm": "B", "rows_per_s": 70000.0, "mode": "read"}
+{"phase": "stop"}

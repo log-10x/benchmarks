@@ -1,0 +1,52 @@
+# The split hop: the released capture into the Receiver, and every record the
+# Receiver returns written to a file, unrouted. The filelog receiver is the
+# clickstack-rows rig's, line for line. Nothing goes to ClickHouse from here;
+# the arm files are built from the wire file afterwards.
+
+receivers:
+  filelog:
+    include: [ /data/feed.log ]
+    start_at: beginning
+    poll_interval: 500ms
+    max_log_size: 4MiB
+    operators:
+      - type: json_parser
+        parse_from: body
+      - type: move
+        from: attributes.log
+        to: body
+      - type: copy
+        from: attributes.kubernetes.container_name
+        to: attributes.k8s_container
+      - type: copy
+        from: attributes.kubernetes.namespace_name
+        to: attributes.k8s_namespace
+      - type: copy
+        from: attributes.kubernetes.container_name
+        to: resource["service.name"]
+
+  otlp/back:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:24225
+        max_recv_msg_size_mib: 32
+
+exporters:
+  otlp/engine:
+    endpoint: chce-engine:4317
+    tls:
+      insecure: true
+  file/wire:
+    path: /wire/returned.json
+
+service:
+  telemetry:
+    logs:
+      level: warn
+  pipelines:
+    logs/in:
+      receivers: [ filelog ]
+      exporters: [ otlp/engine ]
+    logs/wire:
+      receivers: [ otlp/back ]
+      exporters: [ file/wire ]

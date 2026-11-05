@@ -1,0 +1,35 @@
+{
+ "what": "first split, pacer on the macOS host appending to the bind-mounted feed; NOT used for the arms",
+ "engine": "log10x/edge-10x:1.1.153",
+ "pace_lines_per_s": 14,
+ "lines": 197430,
+ "t0": 1793630111,
+ "t1": 1793644318,
+ "records": 157868,
+ "kept": 9224,
+ "kept_share": 0.0584,
+ "returned_by_minute_after_t0": {
+  "59": 36913,
+  "60": 1596,
+  "119": 40915,
+  "179": 40820,
+  "235": 37624
+ },
+ "first_burst_pass_equals_total": {
+  "ad": {
+   "pass_first_three_windows": 124,
+   "total": 124
+  },
+  "cart": {
+   "pass_first_three_windows": 337,
+   "total": 336
+  }
+ },
+ "diagnosis": [
+  "records carry one of four engine stamps (t0+3596..3600 s, +7197, +10796, +14104): the Receiver got the feed in four bursts",
+  "test 18:41-18:42Z: 1,616 host-written lines in the feed, collector otelcol_receiver_accepted_log_records{filelog} absent (0), exporter queue 0",
+  "touching the feed from inside a container at 18:42:08Z: filelog accepted 1,828 at once, file/wire got 1,480 records within 3 s",
+  "plain reopen (wc -c) and held-open tail -f in an alpine container both saw host appends within 1 s, so the stall is specific to the collector's reader",
+  "fix: pacer runs in python:3.12-slim (as clickstack-rows/rig/run.sh does); smoke 560 lines: every record returned 1.6-2.0 s after its line"
+ ]
+}

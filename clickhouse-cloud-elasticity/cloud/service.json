@@ -1,0 +1,13 @@
+{
+  "name": "chce-elasticity",
+  "provider": "aws",
+  "region": "us-east-1",
+  "numReplicas": 2,
+  "minReplicaMemoryGb": 8,
+  "maxReplicaMemoryGb": 32,
+  "autoscalingMode": "vertical",
+  "idleScaling": true,
+  "idleTimeoutMinutes": 5,
+  "releaseChannel": "default",
+  "ipAccessList": [{"source": "<runner-ip>/32", "description": "bench runner"}]
+}
