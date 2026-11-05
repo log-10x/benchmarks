@@ -1,0 +1,4 @@
+{"metric":"CGroupMemoryTotal","description":"The total amount of memory in cgroup, in bytes. If stated zero, the limit is the same as OSMemoryTotal."}
+{"metric":"CGroupUserTime","description":"The ratio of time the CPU core was running userspace code. This includes also the time when the CPU was under-utilized due to the reasons internal to the CPU (memory loads, pipeline stalls, branch mispredictions, running another SMT core)."}
+{"metric":"CGroupSystemTime","description":"The ratio of time the CPU core was running OS kernel (system) code."}
+{"metric":"CGroupMaxCPU","description":"The maximum number of CPU cores according to CGroups."}

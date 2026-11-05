@@ -1,0 +1,135 @@
+{
+  "records": 43691,
+  "by_route": {
+    "pass": 25996,
+    "offload": 17695
+  },
+  "kept": 25996,
+  "held": 17695,
+  "kept_share": 0.595,
+  "by_service": {
+    "opentelemetry-collector": {
+      "pass": 10164,
+      "offload": 13541
+    },
+    "kafka": {
+      "pass": 6530,
+      "offload": 501
+    },
+    "cart": {
+      "pass": 4169,
+      "offload": 569
+    },
+    "frontend": {
+      "pass": 1173,
+      "offload": 831
+    },
+    "grafana": {
+      "pass": 257,
+      "offload": 1519
+    },
+    "ad": {
+      "pass": 1460,
+      "offload": 80
+    },
+    "recommendation": {
+      "pass": 737,
+      "offload": 6
+    },
+    "fluentd-10x": {
+      "pass": 321,
+      "offload": 201
+    },
+    "opensearch": {
+      "pass": 107,
+      "offload": 235
+    },
+    "kube-proxy": {
+      "pass": 117,
+      "offload": 122
+    },
+    "wait-for-kafka": {
+      "pass": 95,
+      "offload": 55
+    },
+    "valkey-cart": {
+      "pass": 132
+    },
+    "frontend-proxy": {
+      "pass": 97,
+      "offload": 23
+    },
+    "init-config": {
+      "pass": 102,
+      "offload": 7
+    },
+    "jaeger": {
+      "pass": 87
+    },
+    "accounting": {
+      "pass": 71,
+      "offload": 4
+    },
+    "postgresql": {
+      "pass": 54,
+      "offload": 1
+    },
+    "prometheus-server": {
+      "pass": 46
+    },
+    "coredns": {
+      "pass": 45
+    },
+    "image-provider": {
+      "pass": 40
+    },
+    "metrics-server": {
+      "pass": 35
+    },
+    "payment": {
+      "pass": 34
+    },
+    "load-generator": {
+      "pass": 28
+    },
+    "flagd": {
+      "pass": 16
+    },
+    "grafana-sc-dashboard": {
+      "pass": 14
+    },
+    "wait-for-valkey-cart": {
+      "pass": 11
+    },
+    "email": {
+      "pass": 10
+    },
+    "grafana-sc-alerts": {
+      "pass": 10
+    },
+    "grafana-sc-datasources": {
+      "pass": 10
+    },
+    "aws-vpc-cni-init": {
+      "pass": 7
+    },
+    "aws-node": {
+      "pass": 6
+    },
+    "fraud-detection": {
+      "pass": 5
+    },
+    "flagd-ui": {
+      "pass": 3
+    },
+    "aws-eks-nodeagent": {
+      "pass": 1
+    },
+    "currency": {
+      "pass": 1
+    },
+    "quote": {
+      "pass": 1
+    }
+  }
+}

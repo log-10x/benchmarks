@@ -1,0 +1,6 @@
+41:  resetIntervalMs: $=parseDuration("4m")
+47:  unit: events
+121:  warmupMs: 0
+126:  baselineCount: 5
+133:  baselineMaxOverTotal: 50
+140:  keepMaxOverTotal: 500

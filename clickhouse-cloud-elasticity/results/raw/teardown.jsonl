@@ -1,0 +1,8 @@
+{"t": 1793848839.1, "at": "2026-11-05T03:20:39Z", "event": "key_loaded", "note": "key held in this process's memory for the teardown"}
+{"t": 1793850255.5, "at": "2026-11-05T03:44:15Z", "event": "before_stop", "httpStatus": 200, "id": "f74c0b26-5ab5-4ffe-a398-e18d48f43bd0", "name": "chce-elasticity", "state": "running", "minReplicaMemoryGb": 8, "maxReplicaMemoryGb": 32, "numReplicas": 2}
+{"t": 1793850255.8, "at": "2026-11-05T03:44:15Z", "event": "stop_command", "request": {"command": "stop"}, "httpStatus": 200, "id": "f74c0b26-5ab5-4ffe-a398-e18d48f43bd0", "name": "chce-elasticity", "state": "stopping", "minReplicaMemoryGb": 8, "maxReplicaMemoryGb": 32, "numReplicas": 2}
+{"t": 1793850417.3, "at": "2026-11-05T03:46:57Z", "event": "stopped", "httpStatus": 200, "id": "f74c0b26-5ab5-4ffe-a398-e18d48f43bd0", "name": "chce-elasticity", "state": "stopped", "minReplicaMemoryGb": 8, "maxReplicaMemoryGb": 32, "numReplicas": 2}
+{"t": 1793850417.7, "at": "2026-11-05T03:46:57Z", "event": "delete", "httpStatus": 200}
+{"t": 1793850417.9, "at": "2026-11-05T03:46:57Z", "event": "after_delete_get", "httpStatus": 404, "error": "NOT_FOUND: f74c0b26-5ab5-4ffe-a398-e18d48f43bd0"}
+{"t": 1793850418.1, "at": "2026-11-05T03:46:58Z", "event": "services_after_delete", "services": [{"id": "91c0847e-fa91-48f4-a817-508fcad0c60f", "name": "My first service", "state": "idle"}], "deleted_listed": false, "kept_listed": true}
+{"t": 1793850418.2, "at": "2026-11-05T03:46:58Z", "event": "credit_after_delete", "amountSpent": 42.15}

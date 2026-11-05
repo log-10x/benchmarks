@@ -1,0 +1,56 @@
+{
+  "records": 42527,
+  "by_route": {
+    "pass": 28647,
+    "offload": 13880
+  },
+  "kept": 28647,
+  "held": 13880,
+  "kept_share": 0.6736,
+  "by_service": {
+    "opentelemetry-collector": {
+      "pass": 11462,
+      "offload": 11628
+    },
+    "kafka": {
+      "pass": 7341,
+      "offload": 43
+    },
+    "cart": {
+      "pass": 4963,
+      "offload": 1051
+    },
+    "frontend": {
+      "pass": 1453,
+      "offload": 1050
+    },
+    "ad": {
+      "pass": 1712,
+      "offload": 68
+    },
+    "recommendation": {
+      "pass": 900,
+      "offload": 35
+    },
+    "fluentd-10x": {
+      "pass": 319,
+      "offload": 4
+    },
+    "grafana": {
+      "pass": 231,
+      "offload": 1
+    },
+    "valkey-cart": {
+      "pass": 160
+    },
+    "opensearch": {
+      "pass": 63
+    },
+    "prometheus-server": {
+      "pass": 28
+    },
+    "kube-proxy": {
+      "pass": 15
+    }
+  }
+}

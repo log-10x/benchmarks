@@ -1,0 +1,63 @@
+{
+  "result": {
+    "service": {
+      "id": "f74c0b26-5ab5-4ffe-a398-e18d48f43bd0",
+      "name": "chce-elasticity",
+      "provider": "aws",
+      "region": "us-east-1",
+      "state": "provisioning",
+      "endpoints": [
+        {
+          "protocol": "nativesecure",
+          "host": "s5hbjhxf6w.us-east-1.aws.clickhouse.cloud",
+          "port": 9440
+        },
+        {
+          "protocol": "https",
+          "host": "s5hbjhxf6w.us-east-1.aws.clickhouse.cloud",
+          "port": 8443
+        }
+      ],
+      "idleScaling": true,
+      "idleTimeoutMinutes": 5,
+      "minReplicaMemoryGb": 8,
+      "maxReplicaMemoryGb": 32,
+      "minTotalMemoryGb": 24,
+      "maxTotalMemoryGb": 96,
+      "numReplicas": 2,
+      "autoscalingMode": "vertical",
+      "ipAccessList": [
+        {
+          "source": "<runner-ip>/32",
+          "description": "bench runner"
+        }
+      ],
+      "createdAt": "2026-11-02T14:38:37Z",
+      "clickhouseVersion": "26.6",
+      "iamRole": "arn:aws:iam::530310463518:role/CH-S3-caramelaws-as-33-ue1-42-Role",
+      "privateEndpointIds": [],
+      "availablePrivateEndpointIds": [],
+      "dataWarehouseId": "47d9e161-827d-4d81-bb4f-373a3ebd4423",
+      "isPrimary": true,
+      "isReadonly": false,
+      "profile": "v1-default",
+      "releaseChannel": "default",
+      "hasTransparentDataEncryption": false,
+      "tags": [],
+      "enableCoreDumps": true,
+      "currentScaling": {
+        "effectiveAutoscalingMode": "vertical",
+        "effectiveMinReplicaMemoryGb": 8,
+        "effectiveMaxReplicaMemoryGb": 32,
+        "effectiveMinReplicas": 2,
+        "effectiveMaxReplicas": 2,
+        "effectiveIdleScaling": true,
+        "effectiveIdleTimeoutMinutes": 5
+      },
+      "mcpEnabled": false
+    },
+    "password": "<written to /Users/talweiss/git/l1x-co/.claude-tmp/chce-secrets/service.json>"
+  },
+  "requestId": "2a5ddc38-cd24-43c0-8890-1b3cf76fcf5f",
+  "status": 200
+}
