@@ -39,15 +39,16 @@ first. In pair 2, arm A's 3-unit size was where pair 1 left the service. In pair
 size was set by config (`minReplicaMemoryGb` 16) and released to 8 at each arm B cut, so arm A's
 size came from config and every step down was the autoscaler's own.
 
-Dollars give the same ratio as units, read two ways:
+Dollars give the same ratio as units, read two ways, the billed postings first:
 
 - **usageCost computeCHC** (`results/raw/usage.jsonl`, 10-minute poll of
   `/organizations/{org}/usageCost`). It posts in 15-minute steps: 0.298 to 0.299 at 4 units, and
   0.223 to 0.224 at 3 units, in each of pairs 1, 3 and 4. That is $1.196/h against $0.896/h,
   ratio 0.749.
-- **Unit-hours x $0.2993.** The rate is derived from the billing overview's Scale example
-  (2 x 8 GiB at $436.95/month, 730 h); it is not a published per-unit rate. That gives $1.197/h
-  against $0.898/h, ratio 0.750.
+- **Unit-hours x $0.2985**, the published Scale compute rate per unit-hour in AWS N. Virginia
+  (us-east-1), where one compute unit is 8 GiB of RAM and 2 vCPUs (clickhouse.com/pricing, read
+  2026-11-05, `results/raw/pricing-quotes.md`). That gives $1.194/h against $0.8955/h, ratio
+  0.750. The postings match the rate: a quarter-hour is 0.2985 at 4 units and 0.2239 at 3.
 
 The other figures, each from a section below:
 
@@ -56,7 +57,7 @@ The other figures, each from a section below:
 - **Write share W**, (insert + merge) / (insert + merge + select) cores, mean over replicas: 0.65
   to 0.67 in both arms. On the busiest replica 0.47 to 0.51 in arm A and 0.54 to 0.55 in arm B.
 - **Memory.** About 2 GiB used per replica, of 12 to 16 GiB, in every arm.
-- **Floor.** 2 units, $0.60/h at $0.2993. Both arms cost the floor below the load that lifts arm A
+- **Floor.** 2 units, $0.60/h at $0.2985. Both arms cost the floor below the load that lifts arm A
   off 2 units, which lies between 50,000 and 70,000 rows/s.
 - **Credit.** $42.61 of the $300 credit spent, against the run's $200 cap. chce-elasticity was
   deleted at the end.
@@ -118,30 +119,30 @@ The other figures, each from a section below:
 From `cloud/arms_report.py --raw results/raw --lag-min 30`. Busiest and mean are utilisation;
 cores are the busiest replica's median minute.
 
-| Phase | Window (UTC) | Rows/s | Size | Busiest median | Busiest peak minute | Mean | Busiest cores: insert / select / merge | Unit-hours | $ at 0.2993 |
+| Phase | Window (UTC) | Rows/s | Size | Busiest median | Busiest peak minute | Mean | Busiest cores: insert / select / merge | Unit-hours | $ at 0.2985 |
 |---|---|---|---|---|---|---|---|---|---|
-| A1 | 11-02 21:40:16 to 11-03 00:55:25 | 70,000 | 2 x 16 GiB | 0.455 | 0.688 | 0.358 | 0.214 / 0.774 / 0.481 | 12.93 | 3.87 |
-| B1 before the step | 00:55:25 to 05:08:35 | 45,716 | 2 x 16 GiB | 0.340 | 0.509 | 0.255 | 0.155 / 0.510 / 0.469 | 16.83 | 5.04 |
+| A1 | 11-02 21:40:16 to 11-03 00:55:25 | 70,000 | 2 x 16 GiB | 0.455 | 0.688 | 0.358 | 0.214 / 0.774 / 0.481 | 12.93 | 3.86 |
+| B1 before the step | 00:55:25 to 05:08:35 | 45,716 | 2 x 16 GiB | 0.340 | 0.509 | 0.255 | 0.155 / 0.510 / 0.469 | 16.83 | 5.02 |
 | B1 after the step | 05:15:35 to 06:15:38 | 45,716 | 2 x 12 GiB | 0.427 | 0.593 | 0.336 | | 2.89 | 0.86 |
 | A2 | 06:15:38 to 07:45:42 | 70,000 | 2 x 12 GiB | 0.637 | 0.844 | 0.549 | 0.220 / 0.729 / 0.534 | 4.45 | 1.33 |
-| B2 (4.5 h hold) | 07:45:42 to 12:15:51 | 45,716 | 2 x 12 GiB | 0.455 | 0.682 | 0.349 | 0.161 / 0.512 / 0.459 | 13.44 | 4.02 |
-| B2 continued, waiting for SSO | 12:15:51 to 18:00:25 | 45,459 (load.jsonl) | 2 x 12 GiB | 0.457 | 0.754 | 0.354 | 0.157 / 0.506 / 0.460 | 17.20 | 5.15 |
-| A3, pinned at 16 GiB from 11:18:06 | 11-04 11:25:37 to 14:33:23 | 70,000 | 2 x 16 GiB | 0.440 | 0.657 | 0.349 | 0.226 / 0.768 / 0.504 | 12.43 | 3.72 |
-| B3 before the step | 14:33:23 to 18:38:35 | 45,716 | 2 x 16 GiB | 0.337 | 0.539 | 0.258 | | 16.28 | 4.87 |
+| B2 (4.5 h hold) | 07:45:42 to 12:15:51 | 45,716 | 2 x 12 GiB | 0.455 | 0.682 | 0.349 | 0.161 / 0.512 / 0.459 | 13.44 | 4.01 |
+| B2 continued, waiting for SSO | 12:15:51 to 18:00:25 | 45,459 (load.jsonl) | 2 x 12 GiB | 0.457 | 0.754 | 0.354 | 0.157 / 0.506 / 0.460 | 17.20 | 5.13 |
+| A3, pinned at 16 GiB from 11:18:06 | 11-04 11:25:37 to 14:33:23 | 70,000 | 2 x 16 GiB | 0.440 | 0.657 | 0.349 | 0.226 / 0.768 / 0.504 | 12.43 | 3.71 |
+| B3 before the step | 14:33:23 to 18:38:35 | 45,716 | 2 x 16 GiB | 0.337 | 0.539 | 0.258 | | 16.28 | 4.86 |
 | B3 after the step | 18:45:46 to 19:45:51 | 45,716 | 2 x 12 GiB | 0.505 | 0.740 | 0.447 | | 2.89 | 0.86 |
-| A4, pinned at 16 GiB from 19:45:52 | 19:53:53 to 23:01:11 | 70,000 | 2 x 16 GiB | 0.486 | 0.687 | 0.392 | 0.232 / 0.803 / 0.565 | 12.37 | 3.70 |
-| B4 before the step | 23:01:11 to 11-05 01:48:37 | 45,716 | 2 x 16 GiB | 0.351 | 0.541 | 0.273 | | 11.20 | 3.35 |
-| B4 after the step | 01:56:03 to 02:56:09 | 45,716 | 2 x 12 GiB | 0.450 | 0.741 | 0.354 | | 2.76 | 0.83 |
+| A4, pinned at 16 GiB from 19:45:52 | 19:53:53 to 23:01:11 | 70,000 | 2 x 16 GiB | 0.486 | 0.687 | 0.392 | 0.232 / 0.803 / 0.565 | 12.37 | 3.69 |
+| B4 before the step | 23:01:11 to 11-05 01:48:37 | 45,716 | 2 x 16 GiB | 0.351 | 0.541 | 0.273 | | 11.20 | 3.34 |
+| B4 after the step | 01:56:03 to 02:56:09 | 45,716 | 2 x 12 GiB | 0.450 | 0.741 | 0.348 | | 2.86 | 0.85 |
 
-- **B1 as a whole** (5.34 h): 20.38 unit-hours, $6.10. usageCost over the same window, shifted
+- **B1 as a whole** (5.34 h): 20.38 unit-hours, $6.08. usageCost over the same window, shifted
   30 minutes, reads 6.123.
-- **A1 as a whole:** usageCost reads 4.218 against $3.87. Suspicion: the window's first reading
+- **A1 as a whole:** usageCost reads 4.218 against $3.86. Suspicion: the window's first reading
   straddles the probe's last postings, which include the 6-unit overlap of its step up.
 - **A3:** utilisation and unit-hours are the 2 x 16 GiB segment. The core split is the whole
   phase's, whose 194 meter minutes include the 2 x 16 GiB segment's 185.
-- **B3 as a whole** (5.21 h): 19.83 unit-hours, $5.94; busiest cores 0.158 / 0.510 / 0.446.
-  usageCost shifted 30 minutes reads 6.123, and A3's reads 3.641 against $3.92. The two sum to
-  9.764 against $9.86. Suspicion: the 10-minute poll of 15-minute postings put one 4-unit
+- **B3 as a whole** (5.21 h): 19.83 unit-hours, $5.92; busiest cores 0.158 / 0.510 / 0.446.
+  usageCost shifted 30 minutes reads 6.123, and A3's reads 3.641 against $3.91. The two sum to
+  9.764 against $9.83. Suspicion: the 10-minute poll of 15-minute postings put one 4-unit
   quarter (0.298) on B3's side of the boundary.
 - **B3 after the step** reads above B1 after the step (0.505 and 0.447 against 0.427 and
   0.336), as read. Suspicion, not measured: the new replicas' first hour.
@@ -247,7 +248,7 @@ arm A start and back at each arm B cut (`results/raw/scaling-patches.jsonl`, all
 The service woke 91 s into A3 already mid-step, two 12 GiB and two 16 GiB replicas at
 11:19:32Z, and held 2 x 16 GiB from 11:25:37Z (`step_up_started`, `step_up_done`, 452 s after
 the phase start). A3 as a whole, including the wake and the overlap: 3.26 h, 13.10 unit-hours,
-$3.92. Every step down after a cut is the autoscaler's own.
+$3.91. Every step down after a cut is the autoscaler's own.
 
 **Step down, pair 3**, from 2 x 16 GiB after the release to 8 (`events.jsonl`,
 `size.jsonl` `uptime`):
@@ -305,7 +306,7 @@ On 2 x 8 GiB (2 units, the configured minimum), the probe raised arm A in 10-min
 - **Where the arms cost the same.** The service held 2 units through 50,000 rows/s and stepped
   up at 70,000. Below the load that lifts arm A off 2 units, both arms cost the floor. Read over
   10-minute steps, that load lies between 50,000 and 70,000 rows/s.
-- **Floor cost.** 2 units is $0.60/h, $14.4 a day at $0.2993. An idle service bills no compute.
+- **Floor cost.** 2 units is $0.60/h, $14.3 a day at $0.2985. An idle service bills no compute.
 - **Memory** was not binding: about 2 GiB resident of 8 during the probe.
 
 ### Memory per arm
@@ -328,7 +329,7 @@ using the most.
 | B3 at 3 units | 1.00 | 12 | 2.076 | 2.654 | 2.400 |
 | A4 at 4 units | 3.12 | 16 | 2.090 | 2.700 | 2.154 |
 | B4 at 4 units | 2.80 | 16 | 2.045 | 2.687 | 2.096 |
-| B4 at 3 units | 1.00 | 12 | 1.786 | 2.338 | 1.840 |
+| B4 at 3 units | 1.00 | 12 | 1.786 | 2.338 | 1.838 |
 
 At every size, each arm used about 2 GiB of 12 to 16 GiB, under a fifth. The band quoted in
 `results/raw/autoscaler-doc-quotes.md` is on CPU alone, and a unit fixes memory to CPU at
@@ -349,9 +350,9 @@ tables show. The run starts from the 8 GiB wake.
 
 - **First stretch.** usageCost 11-02 for `chce-elasticity`, before the run, read computeCHC 0.398
   for the two stretches at 4 units.
-  - Against the activity log's running-to-idle span, 1.130 unit-hours, it is $0.338 at $0.2993.
+  - Against the activity log's running-to-idle span, 1.130 unit-hours, it is $0.337 at $0.2985.
     The read is 18% above.
-  - Against the replicas' own first-to-last log samples, 1.428 unit-hours, it is $0.428. The
+  - Against the replicas' own first-to-last log samples, 1.428 unit-hours, it is $0.426. The
     read is 7% below.
   - Suspicion: metering covers part of the roughly 2 minutes each replica ran past
     `service_idle`. No rate is inferred from it.
@@ -446,7 +447,7 @@ mean, or how "maximum usage" is aggregated.
   4.288, 18.196, 14.878 and 4.318 on 11-02 to 11-05, each day's last reading in
   `results/raw/usage.jsonl`. Its last change landed by the 04:25:02Z poll.
 - **Unit-hours.** 137.15 by the meter (from 11-02 19:48Z, when it started) and 138.56 by the
-  sampler (from 14:51Z), $41.05 and $41.47 at $0.2993.
+  sampler (from 14:51Z), $40.94 and $41.36 at $0.2985.
 - **The rest.** amountSpent is $0.90 above the service's totalCHC. usageCost `grandTotalCHC` read
   0.17 to 0.53 CHC above the service's own rows in each poll's window; the poller kept only the
   service's rows, so which entity billed the difference is not measured.
@@ -465,3 +466,4 @@ mean, or how "maximum usage" is aggregated.
 - `results/raw/`: every raw log the scripts wrote. `meter`, `load`, `size`, `queries` and
   `replica-memory-all` are committed as `.jsonl.gz`; `arms_report.py` and `curve.py` read them as
   they are. `teardown.jsonl` holds the stop, the deletion and the service list after it.
+  `autoscaler-doc-quotes.md` and `pricing-quotes.md` quote the docs and the pricing page as read.

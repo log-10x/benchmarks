@@ -10,8 +10,8 @@ Two meters, read independently:
   size    the sampler's Prometheus scrape every 60 s (size.jsonl), units x the gap to
           the next sample, gaps over 180 s not counted
 
-Dollars are unit-hours x --price (0.2993, derived from the billing overview's Scale
-example at 730 h, not a published rate) and, separately, the change in usageCost
+Dollars are unit-hours x --price (0.2985, the published Scale compute rate per unit-hour
+in AWS us-east-1, results/raw/pricing-quotes.md) and, separately, the change in usageCost
 computeCHC between the poller's readings, shifted by --lag-min (the posting lag read
 off the usage series; 0 prints the unshifted change), left out until the poller
 has a reading past the phase's end plus that lag.
@@ -28,7 +28,7 @@ across an idle): the units ratio and the fall in units against the fall in rows 
 and bytes (0.612). meter.jsonl and size.jsonl are read as committed, gzipped, when the
 plain file is absent.
 
-  arms_report.py --raw results/raw [--price 0.2993] [--lag-min 0] [--tail 30]
+  arms_report.py --raw results/raw [--price 0.2985] [--lag-min 0] [--tail 30]
 """
 import argparse
 import collections
@@ -122,7 +122,7 @@ def at(pts, t):
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--raw", required=True)
-    ap.add_argument("--price", type=float, default=0.2993)
+    ap.add_argument("--price", type=float, default=0.2985)
     ap.add_argument("--lag-min", type=float, default=0)
     ap.add_argument("--tail", type=float, default=30)
     args = ap.parse_args()
