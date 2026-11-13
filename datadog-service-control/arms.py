@@ -2,7 +2,7 @@
 The arms on one service, computed from the kept class rows (classes.py), which equal the
 tallies count.py checked against the engine's own aggregators.
 
-Selection rule (README, "Selection rule"): per target, the fewest logger classes, largest by
+Selection rule (RECORD.md, "Selection rule"): per target, the fewest logger classes, largest by
 events first, whose events reach at least the events the engine marked tier_down under the
 plan on capture A; the overshoot is reported, not trimmed. The filter for a class is
 `service:kafka @logger.name:<class>`. Events with no logger class cannot be named by such a

@@ -1,148 +1,44 @@
-# log10x vs Drain3 — pattern stability and lossless reduction benchmark
+# log10x vs Drain3: pattern stability and lossless reduction
 
-Reproducible harness behind the Log10x blog post *"The pattern ID you can plot: stability
-and reversibility measured on 16 real datasets"*.
+Does a log line keep the same pattern ID whatever order the lines arrive in, and can the original line be rebuilt byte for byte? This benchmark gives the same lines to log10x and to Drain3, the open-source template miner, on 16 public loghub datasets. log10x kept every ID stable on all 16 and rebuilt 99.98% of lines exactly, against 66.48% for Drain3. Drain3 found fewer templates, closer to the hand-labelled count.
 
-It feeds the **same raw log lines** to both tools across the 16
-[loghub](https://github.com/logpai/loghub) 2k datasets (~32,000 lines) and measures:
+## Result
 
-1. **Pattern stability** — does a line get the same pattern ID regardless of file / order?
-2. **Losslessness (reversibility)** — can you reconstruct the exact original bytes from the
-   reduced form?
+Figures over the 16 loghub samples of 2,000 lines each.
 
-Representation size / compression is out of scope: this benchmark is about stability and
-reversibility, not storage cost. The compaction measurement on the 14 full LogHub datasets,
-with this folder's encode config, is in [`loghub-compaction/`](../loghub-compaction/).
+| Measure | log10x | Drain3 |
+|---|---:|---:|
+| Same ID in both orders (worst) | 100% | 83.4% (Zookeeper) |
+| Same ID alone and combined (worst) | 100% | 0.8% (Windows) |
+| Lines rebuilt byte for byte (mean) | 99.98% | 66.48% |
+| Datasets rebuilt byte for byte | 14 of 16 | 5 of 16 |
+| Templates found | 4,367 | 1,761 |
 
-Reference results are committed in [`bench/facts.json`](bench/facts.json) (canonical roll-up)
-and [`bench/results.json`](bench/results.json) (per-dataset). Rerunning should reproduce them.
+The second row compares the ID a line gets when its half is read alone with its ID in the whole file. loghub's hand labels list 1,363 templates.
 
-### Where the stability numbers live
+- Drain3's patterns depend on reading order. The same 2,000 Mac lines in two orders gave 37 templates found only in one order and 40 only in the other. log10x found the same set in both orders on every dataset.
+- log10x missed exact rebuild on BGL (99.75%) and Thunderbird (99.9%). On the full BGL file of 4,747,963 lines it rebuilt 99.73%. Of the 12,648 lines that differ, 11,904 quote a date with a zone name and come back as the same instant written in another zone. The rest trace to two other defects listed in the record.
 
-Every per-dataset stability figure is under `datasets.<Dataset>.stability` in
-[`bench/facts.json`](bench/facts.json), for both tools:
+## How it was measured
 
-| field | meaning |
-|---|---|
-| `order_pct` | % of lines given the same pattern ID in `A+B` and `B+A` |
-| `ctxA_pct` / `ctxB_pct` | % of lines given the same pattern ID alone (`A`) as in context (`A+B`) |
-| `templates_AB` / `templates_BA` | distinct patterns mined from the same 2,000 lines, in each order |
-| `set_stable` | whether the two orders produce the *same* set of patterns |
-| `set_AB_minus_BA` / `set_BA_minus_AB` | how many patterns exist in one order but not the other |
+Both tools read identical bytes, with line endings converted to LF. The 10x engine ran in Docker as a codec: one pass encodes, a second decodes, and the output is compared with the input. Drain3 ran with default settings and has no decoder, so the harness rebuilds each line from its template by token position, which joins tokens with single spaces. Drain3 therefore misses exactly the lines with a tab, a run of spaces or a leading or trailing space. For stability, each dataset is split into halves A and B, and both tools run on A, B, A+B and B+A.
 
-The two set-difference fields are what "the two orders produce different template sets"
-means concretely. Mac, Drain3: `templates_AB` = 308, `templates_BA` = 311,
-`set_AB_minus_BA` = 37, `set_BA_minus_AB` = 40 — i.e. 37 patterns are mined only when A is
-read first and 40 only when B is read first, from the identical 2,000 lines. log10x is
-`0`/`0` on every dataset. These are stable run to run (Drain3's mining is deterministic for
-a fixed input order).
+## Limits
 
-## Prerequisites
+- The data is public research logs, plus one full BGL file.
+- Storage size is out of scope. Compaction on the full loghub datasets is in [loghub-compaction](../loghub-compaction/).
+- Every Mac and Windows line has whitespace that the token-position rebuild cannot restore, so Drain3 scores 0% there.
+- For a short template list close to the hand labels, Drain3 is the better fit. log10x found more templates on 14 of 16 datasets, and 136,461 against Drain3's 842 on the full BGL file.
 
-- **Python 3.9+** with Drain3 pinned: `pip install -r requirements.txt` (Drain3 0.9.11).
-- **Docker**, to run the log10x engine image `log10x/pipeline-10x:1.1.136` (pinned by digest in the scripts).
-  No API key is needed — local file I/O runs under the image's built-in limited license.
-- The 16 loghub datasets (see Setup).
+## Run it
 
-## Setup
-
-Clone loghub into this folder and normalize line endings to LF (loghub's committed files
-are CRLF; both tools must see identical bytes):
-
-```bash
-cd drain3-vs-log10x
-git clone --depth 1 https://github.com/logpai/loghub.git
-python - <<'PY'
-import glob
-for f in glob.glob("loghub/*/*_2k.log"):
-    d = open(f, "rb").read()
-    open(f, "wb").write(d.replace(b"\r\n", b"\n").replace(b"\r", b"\n"))
-PY
+```
+pip install -r requirements.txt
+python smoke_test.py      # Drain3 whitespace check, no Docker or data
+cd bench                  # full rerun, needs the loghub setup
+python bench.py && python stability.py all && python facts.py
 ```
 
-Paths are resolved relative to this folder (the parent of `bench/`). To point the scripts
-at data elsewhere, set `BENCH_DIR=/path/to/base` (expects `loghub/` and writes `bench/out/`
-under it).
+A full rerun needs Docker, the engine image `log10x/pipeline-10x:1.1.136`, Drain3 0.9.11 and the loghub clone in [RECORD.md](RECORD.md#setup). Reference numbers are in [bench/facts.json](bench/facts.json).
 
-## Run
-
-```bash
-cd bench
-python bench.py         # runs Drain3 (default+masked) and log10x on all 16 -> results.json
-python stability.py Mac # A / B / A+B / B+A pattern-stability test on one dataset
-python stability.py all # ... on all 16 -> bench/stability/stability_<Dataset>.json
-python facts.py       # consolidate -> facts.json (the canonical numbers)
-python analyze.py     # print the aggregate comparison table
-```
-
-Independent verification (recompute from primary files, not from the summary JSON):
-
-```bash
-python verify_lossless.py   # fresh byte-exact recheck of log10x + whitespace-run counts
-python rederive.py          # recompute every aggregate from raw + outputs + a fresh Drain3
-```
-
-## Full-dataset run (optional)
-
-The 2k samples measure losslessness and stability; `bench/bigfile.py` measures how the
-fixed template-dictionary cost amortizes at full scale, on one big loghub dataset,
-streaming and memory-bounded. The full datasets are hosted on
-[Zenodo (record 8196385)](https://zenodo.org/records/8196385):
-
-```bash
-cd drain3-vs-log10x
-mkdir -p bigfile && cd bigfile
-curl -L -o BGL.zip "https://zenodo.org/records/8196385/files/BGL.zip?download=1"   # ~57 MB zip
-unzip BGL.zip        # -> BGL.log (743,185,031 bytes, 4,747,963 lines, LF endings)
-cd ../bench
-python bigfile.py BGL ../bigfile/BGL.log
-```
-
-Reference results for BGL:
-
-- log10x (engine 1.1.136, measured 2026-10-07): **4,735,315 of 4,747,963 lines come back
-  identical (99.73%)**; 136,461 cold templates; encode about 2 minutes. Of the 12,648 lines that
-  do not: 11,904 quote a date with a zone name (`Fri Jun 17 07:25:00 PDT 2005`), which keeps its
-  instant and decodes in another zone; 737 are the events of 13 templates whose hash is eight
-  characters or fewer, which the decoder skips; and 7 follow from the 4 events of one template
-  whose encoded record ends early, folding the next event into it, so 3 come back changed and 4
-  do not come back. (Decode is a separate pass and is slow
-  here: loading 136,461 templates before expanding 4.7M records is the cost of the cold,
-  over-segmented dictionary. The figure above used the image's own jar outside Docker, because
-  writing 700 MB through a macOS bind mount is slower still.)
-- Drain3 (0.9.11, measured 2026-07-07): 842 templates; 100% lossless on the sampled first 200,000
-  lines (BGL has no collapsible whitespace, so token-aligned reconstruction is byte-exact); mine
-  ~194 s.
-
-## What each script does
-
-| script | role |
-|---|---|
-| `bench.py` | drives Drain3 (mine + reconstruct by token alignment) and log10x (docker) on every dataset; writes `results.json` and the per-dataset log10x output tree under `bench/out/` |
-| `stability.py` | splits a dataset in half and runs both tools on A, B, A+B, B+A; measures order- and context-invariance of pattern IDs, and the per-order template-set differences (uses `tenx-stability.config.yaml`, grouping disabled for 1:1 line↔event) |
-| `facts.py` | rolls `results.json` + stability outputs into `facts.json` (incl. the `stability` block above) |
-| `analyze.py` | prints the aggregate table |
-| `verify_lossless.py` | independent byte-exact reconstruction check + per-dataset whitespace-line counts (the lines drain3 cannot reproduce byte-for-byte) |
-| `rederive.py` | independent aggregate recomputation from raw files + log10x outputs + a fresh Drain3 run |
-| `bigfile.py` | full-dataset run (streaming): losslessness on every line + template count + timings on a big loghub dataset |
-| `smoke_test.py` | self-contained check (no Docker/loghub) of the Drain3 whitespace-collapse mechanism; run in CI |
-
-## The log10x pipeline configs
-
-The engine is a codec, run in two passes:
-
-- `tenx-encode.config.yaml` — **encode**: read a raw log file, write the template
-  dictionary (`templates.json`) and the encoded stream (`encoded.log`).
-- `tenx-decode.config.yaml` — **decode**: read a compact file (`cat templates.json
-  encoded.log > compact.log`); the engine auto-loads the templates, recognizes the
-  `~`-prefixed encoded records, and writes their original text (`decoded.log`).
-- `tenx-stability.config.yaml` — encode with multi-line grouping disabled (1:1 line↔event),
-  used by `stability.py` to read one content-addressed hash per line.
-
-`bench.py` runs both passes per dataset and diffs `decoded.log` against the input.
-
-`results-artifact.html` is a self-contained visual summary of the results.
-
-## Versions
-
-Drain3 0.9.11 · log10x engine 1.1.136 (`log10x/pipeline-10x:1.1.136@sha256:fccff37a6a41e52eb4df8a108d042b0176210842b7ed25f08b1419df3a37904f`) · loghub 2k samples.
+[RECORD.md](RECORD.md) has the field definitions, setup, the full BGL run and what each script does.

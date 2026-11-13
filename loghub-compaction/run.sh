@@ -6,7 +6,7 @@
 #
 #   ./run.sh                   every corpus in corpora.tsv
 #   ./run.sh Apache Linux      some corpora
-#   ./run.sh report            render results.json, results.md and the README table
+#   ./run.sh report            render results.json, results.md and the RECORD.md table
 #
 # Environment:
 #   LC_DATA_DIR   tarball cache and scratch (default: <dir>/data); about 4.5 GB free at peak (Spark)

@@ -1,108 +1,48 @@
 # clickstack-e2e
 
-The whole ClickHouse route, end to end, in containers, in one command: a
-released log capture read by an OpenTelemetry Collector, regulated by the 10x
-receiver, split by the mark the receiver puts on each record, and read back out
-of ClickHouse as one table over the rows that stayed and the rows that left.
+Can the rows a capped service sends over its cap go to an object store and still be queried with the rows ClickStack kept, as one ClickHouse table, with none lost? In this run they could. Of the 37,536 records the 10x engine returned, 13,010 went into ClickStack's table and 24,526 went to S3-compatible storage, and counting both sides back gave 37,536 with a gap of 0.
 
-Everything a ClickHouse surface claims should be traceable to a run of this
-harness. The numbers live in `results/`, not in this file.
+Three services had a byte cap, and the engine marked every record it returned with a route, and the records over a cap were marked offload. A stock OpenTelemetry Collector writes the offload records to the object store under a service and day path and sends the rest to ClickStack. ClickHouse reads the objects in place, and a Merge table reads both sides under one name.
+
+## Result
+
+Count queries from the 2026-09-15 run, each on a cold cache. The service filter is opentelemetry-collector.
+
+| Query | Rows read | S3 GETs | ms |
+|---|---:|---:|---:|
+| Hot table only, last hour | 12,012 | 0 | 8 |
+| Merge, one service, last hour | 25,793 | 6 | 77 |
+| Merge, one service, one day | 25,793 | 6 | 43 |
+| Merge, time only (HyperDX's shape) | 37,536 | 14 | 118 |
+| Merge, text search | 37,536 | 14 | 99 |
+| Merge, one pattern hash | 37,536 | 14 | 123 |
+| Counts table, by service | 2,539 | 0 | 6 |
+
+The time-only filter that HyperDX sends read every row and made one GET per offloaded object. A service filter cut that to the 6 objects under that service. The hot table and the counts table made no object-store request.
+
+- Only the capped services had offloaded rows: 16,856 from opentelemetry-collector, 4,522 from kafka and 3,148 from cart.
+- The same 2,495 distinct pattern hashes were on the wire and in storage. Only 37,486 of the 37,536 returned records carried a hash, and a record without one is stored but not counted per type.
+- ClickStack's own collector has no S3 exporter, so a second, stock collector does the routing. The harness also adds a day column to ClickStack's `otel_logs` table.
+
+## How it was measured
+
+The input is the first 50,000 lines of the released capture otel-sample-200mb.log. One host runs ClickStack 2.38.0 on ClickHouse 26.5.7.64, the 10x engine, a stock OpenTelemetry Collector 0.160.0 and MinIO. The lossless check counts every record the engine returned against the stored rows, in total and per pattern hash. Query figures come from ClickHouse's own query log, with caches dropped first.
+
+## Limits
+
+- One run, with MinIO in place of S3. The times say nothing about real S3, throughput or ClickHouse Cloud cost.
+- No alert is defined or fired, and the queries were written for this test.
+- Every object carries one day in its path, because the path records the write time. Pruning across thirty days is measured in [clickstack-e2e-gaps](../clickstack-e2e-gaps/).
+- The lossless check is a total, so a lost line and a duplicated one would cancel. The gaps benchmark counts per line.
 
 ## Run it
 
-```bash
-./run.sh              # everything
-KEEP=1 ./run.sh       # leave the containers up afterwards
-LINES=20000 ./run.sh  # feed a smaller slice of the capture
+```
+cd clickstack-e2e
+./run.sh              # everything, about fifteen minutes
+LINES=20000 ./run.sh  # a smaller slice of the capture
 ```
 
-Needs Docker with about 8 GB of memory, a few GB of free disk, and roughly
-fifteen minutes. The capture is fetched into `data/` on the first run and its
-sha256 is checked on every run. Every container is torn down at the end unless
-`KEEP=1`.
+A run needs Docker with about 8 GB of memory and downloads the capture on first use.
 
-The run writes `results/clickstack-e2e-<date>.md` and `results/results.json`.
-
-## The shape
-
-```
-  slice of the released capture
-            |
-            |  filelog receiver, JSON envelope parsed, `log` value as the body
-            v
-  collector  --OTLP-->  10x receiver  --OTLP-->  collector
-                        (cap + action)              |
-                                                    |  routing connector on routeState
-                                          +---------+---------+
-                                          |                   |
-                                   routeState=offload      everything else
-                                          |                   |
-                                    awss3 exporter        ClickStack's own
-                                    -> MinIO, the         OTLP endpoint
-                                       service and the       |
-                                       day in the path       v
-                                          |            ClickStack's ClickHouse
-                                          v            exporter -> otel_logs
-                                    S3 engine table
-                                          |
-                                          +--> Merge table over both <--+
-```
-
-The receiver reads two files: `conf/caps.csv` gives a byte cap per service (this run counted bytes; the rows run counts events), and
-`conf/actions.csv` gives that service's disposition for the excess. Both must
-exist and neither may be empty, and a service with no row in the cap file is not
-regulated at all, which is what makes an uncapped service a control.
-
-## What a run proves
-
-- That the marks the regulator puts on a record survive an OTLP round trip
-  through the receiver and arrive on the returned record as attributes a
-  collector can route on. The results file lists every field that arrived and
-  keeps one returned record verbatim.
-- That a stock routing connector splits the returned stream on that mark, that
-  the marked slice lands in an object store with the service and the day in the
-  object path, and that the rest is inserted by ClickStack's own exporter into
-  ClickStack's own table.
-- That ClickHouse reads the offloaded objects in place through an S3 engine
-  table, and reads them together with the hot table through a Merge table, with
-  `_table` naming which side each row came from.
-- That a counts-per-type table answers a dashboard question over both sides
-  after the split.
-- What each query shape costs over the Merge table, in rows read, object-store
-  requests and time, against the same query over the hot table alone.
-- That what the receiver returned reconciles against what is stored, counted in
-  total and per pattern hash. This is a total, not a per-line identity: a lost
-  line and a duplicated one cancel in it. `clickstack-e2e-gaps` counts per line
-  through a sequence number inside the body, and under a restart finds both.
-
-## What a run does not prove
-
-- Nothing about ClickHouse Cloud. There is no compute term, no bill and no
-  autoscaler here; the run measures requests and rows, not money.
-- Nothing about alerts. No alert is defined, fired or compared.
-- Nothing about a real estate's query mix. The query list is written here, not
-  taken from a customer's `system.query_log`.
-- Nothing about multi-day pruning. The objects are written during the run, so
-  they carry one day in the path. `clickstack-e2e-gaps/gap1_multiday_pruning.sh`
-  measures it over thirty days of objects.
-- Nothing about the Retriever. Value-level fetch-back is a different door and
-  is not exercised.
-- Nothing about scale. The default slice is a few tens of thousands of records,
-  enough to exercise every hop and too small to say anything about throughput.
-
-## Files
-
-| File | What it is |
-|---|---|
-| `run.sh` | the whole run: containers, feed, schema, measurement, teardown |
-| `conf/router.yaml` | the collector config, both pipelines, as it ran |
-| `conf/caps.csv`, `conf/actions.csv` | the per-service policy the receiver loads |
-| `conf/schema_hot.sql` | the counts table and its view, created before any data flows |
-| `conf/schema_cold.sql` | the S3 engine table, the rename view, the Merge table |
-| `patch_engine_config.py` | the edits the harness makes to the engine's shipped config, each asserted |
-| `report.py` | the wire census, the timed queries, the lossless check, the results file |
-| `results/` | committed results of the last run |
-
-`patch_engine_config.py` is the file to read first if a run comes back with no
-marks on the wire: it names the four edits and fails loudly if the shipped
-config has moved under it.
+[RECORD.md](RECORD.md) describes the pipeline and what a run does and does not prove, and [the results file](results/clickstack-e2e-2026-09-15.md) has every number and config from this run.
