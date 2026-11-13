@@ -1,37 +1,44 @@
 # ClickHouse Cloud elasticity
 
-One benchmark in the [log10x benchmarks](../) repository. It asks how far a ClickHouse Cloud service's compute falls, in units and in billed dollars, when the rows written into its logs table fall, above the smallest size, and how long the autoscaler takes to lower it.
+When a ClickHouse Cloud service is sent fewer log rows, how far does its compute bill fall, and how soon? In three of four paired runs, writing 65.3% of the rows took the service from 4 units to 3, and billed compute settled at 0.749 of the full feed's rate. The step came 2.9 to 4.3 hours after the cut, and until then both arms paid for 4 units. In the other, which started at 3 units, the same cut changed nothing in 10.25 hours.
 
-**Result: from a 4-unit start, writing 0.653 of the rows took the service from 4 units to 3, a ratio of 0.75, and billed compute to 0.749, in each of three pairs; the step down was done 2.9 to 4.3 hours after the cut. From a 3-unit start the same cut read no change in 10.25 hours.** At 3 units both arms sit inside the autoscaler's no-action band; at 4 units arm B sits below it. Every figure, with the file and field it was read from, is in [RESULT.md](RESULT.md).
+The autoscaler's documented rule explains the difference: between 37.5% and 75% CPU it takes no action. On 4 units the busiest replica ran at a median 0.440 to 0.486 of its CPU with every row and 0.337 to 0.351 with the kept rows, below the band. On 3 units both arms stayed inside the band.
 
-ClickHouse Cloud, AWS us-east-1, Scale tier, ClickHouse 26.6, 2 replicas, vertical autoscaling 8 to 32 GiB per replica, idle after 5 minutes. The ClickStack `otel_logs` schema under seven queries a minute. Arm A writes every record of the 215 MB OTel replay at 70,000 rows/s; arm B writes the 65.3% the Receiver (`log10x/edge-10x:1.1.153`) kept, at 45,716 rows/s. 2026-11-02 19:48 to 2026-11-05 03:47 UTC. The service was deleted at the end (`results/raw/teardown.jsonl`).
+## Result
 
-| Pair | Arm A's size | Units, A to B | Ratio | usageCost computeCHC per 15 minutes, A to B | Cut to step down done |
-|---|---|---|---|---|---|
-| 1 | the autoscaler's | 4.0 to 2.997 | 0.749 | 0.298 to 0.224 | 4.33 h |
-| 2 | the autoscaler's, where pair 1 left it | 3.0 to 3.0 | 1.0 | 0.224 to 0.224 | no step in 10.25 h |
-| 3 | 16 GiB by config, released at the cut | 4.0 to 3.0 | 0.750 | 0.298 to 0.224 | 4.21 h |
-| 4 | 16 GiB by config, released at the cut | 4.0 to 3.0 | 0.750 | 0.298 to 0.224 | 2.91 h |
+One unit is 8 GiB and 2 vCPU. Arm A writes every row, arm B the 65.3% the 10x engine kept.
 
-## Rerun
+| Pair | Arm A's size set by | Settled units, A to B | Billed $ per 15 min, A to B | Hours from cut to step down |
+|---|---|---:|---:|---:|
+| 1 | the autoscaler | 4.0 to 2.997 | 0.298 to 0.224 | 4.33 |
+| 2 | the autoscaler, after pair 1 | 3.0 to 3.0 | 0.224 to 0.224 | no step in 10.25 |
+| 3 | config, released at the cut | 4.0 to 3.0 | 0.298 to 0.224 | 4.21 |
+| 4 | config, released at the cut | 4.0 to 3.0 | 0.298 to 0.224 | 2.91 |
 
-Needs a ClickHouse Cloud organization and API key, Docker, Python 3.12 or later and a `clickhouse` client binary (26.8 here). `cloud_api.py` reads the key from SSM or from `CHC_KEY_ID` and `CHC_KEY_SECRET` and never prints it. The scripts keep the service password and client config under `~/git/l1x-co/.claude-tmp/chce-secrets/` by default; `CHC_SECRET_FILE`, `CLIENT` and `CONF` move them.
+The billed rate is $1.196 an hour at 4 units against $0.896 at 3. Size fell to 0.75 while rows fell to 0.653, because the service made one step, from 16 GiB to 12 GiB per replica.
 
-1. **Split.** `split/run_slices.sh` replays the `otel-sample-200mb.log` asset from `log-10x/config` tag `otel-sample-v1` (checked by sha256) through four Receivers side by side and joins what they returned into `split/build/wire/returned.json`, in about an hour.
-2. **Service.** Put the runner's address in `cloud/service.json`, then run `CHC_SECRET_FILE=<file> python3 cloud_api.py create cloud/service.json`. The service password goes to that file (mode 600), not to the terminal.
-3. **Tables.** Apply `cloud/schema.sql` with the client, then `cloud/stage.sh` and `cloud/stage_b.sh`.
-4. **Meters**, left running, each with `--service <id>` and an `--out` under `results/raw/`: `cloud/sample.py`, `cloud/meter.py --every 60 --lag 30` and `cloud/usage_poll.py`.
-5. **Feed and queries**, left running: `cloud/load.py` and `cloud/queries.py --overlap 3`. Both follow `results/raw/control.json`, which `cloud/phase.py` writes.
-6. **Probe.** `cloud/probe.py` with steps of 2,000 to 70,000 rows/s, 10 minutes each.
-7. **Arms.** `cloud/arms.py`. Its docstring gives both forms this run used: `--pairs` for the natural pairs, `--forced` for the pairs with arm A's size set by config, then the read calibration.
-8. **Report.** `cloud/arms_report.py --raw results/raw --lag-min 30` for every phase, segment and pair; `cloud/curve.py` for the probe. Both read the committed `.jsonl.gz` files as they are.
+- The autoscaler's documented scale-down window is 3 hours. Why pair 4 stepped 1.3 hours sooner than pairs 1 and 3 was not measured.
+- Below the load that lifts the full feed off the 2-unit minimum, between 50,000 and 70,000 rows a second, both arms cost $0.60 an hour.
 
-## Files
+## How it was measured
 
-| Path | What |
-|---|---|
-| `RESULT.md` | Every figure, the file and field it came from, and what was not measured |
-| `split/` | The engine split |
-| `cloud/` | The service request, schema, stage, feed, queries, meters, driver and reports |
-| `results/` | The split and stage readings, the service creation response |
-| `results/raw/` | Every log the scripts wrote: `events.jsonl` (phases and size changes), `scaling-patches.jsonl`, `usage.jsonl`, `teardown.jsonl`, and the meter, feed, sampler and query logs gzipped |
+The service ran on the Scale tier in AWS us-east-1, ClickHouse 26.6, with 2 replicas autoscaling from 8 to 32 GiB each. Both arms wrote into the ClickStack `otel_logs` schema under seven queries a minute. Arm A replayed all 171,807 records of a 215 MB OpenTelemetry sample at 70,000 rows a second, arm B the 112,205 kept rows at 45,716. In pairs 3 and 4, config pinned arm A at 16 GiB per replica until the cut, so each step down was the autoscaler's own. Size and CPU were read every 60 seconds, dollars from the usageCost API every 10 minutes.
+
+## Limits
+
+- One service shape in one region, with seven queries a minute instead of a production mix.
+- Both arms inserted from staged tables, so neither the engine nor the parsing of network inserts ran live.
+- Which replica the autoscaler reads, and how often it decides, was not measured.
+
+## Run it
+
+The pair ratios recompute from committed logs:
+
+```
+cd clickhouse-cloud-elasticity
+python3 cloud/arms_report.py --raw results/raw --lag-min 30
+```
+
+A full rerun needs a ClickHouse Cloud API key, Docker and a `clickhouse` client, and this run spent $42.61 of credit. The steps are in [RECORD.md](RECORD.md#rerun).
+
+[RECORD.md](RECORD.md) has the run summary and rerun steps, and [RESULT.md](RESULT.md) every figure with the file it came from.

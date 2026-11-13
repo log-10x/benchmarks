@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Render results/results.json, results/results.md and the README's table from the per-corpus
+Render results/results.json, results/results.md and the RECORD.md table from the per-corpus
 records (results/<corpus>.json) and set each against the compaction ledger (ledger.json).
 
-`--check` renders them again and fails if the committed results.json or the README's
+`--check` renders them again and fails if the committed results.json or the RECORD.md
 generated table differ, so a figure edited without a rerun is caught in CI.
 """
 import argparse
@@ -14,7 +14,7 @@ import re
 
 HERE = pathlib.Path(__file__).resolve().parent
 
-# README blocks: the text between `<!-- generated:NAME -->` and `<!-- /generated:NAME -->` is
+# RECORD.md blocks: the text between `<!-- generated:NAME -->` and `<!-- /generated:NAME -->` is
 # written from the results and compared by --check.
 BLOCK = re.compile(r'<!-- generated:([a-z0-9-]+) -->\n(.*?)<!-- /generated:\1 -->', re.S)
 
@@ -22,7 +22,7 @@ BLOCK = re.compile(r'<!-- generated:([a-z0-9-]+) -->\n(.*?)<!-- /generated:\1 --
 def apply_blocks(text: str, blocks: dict) -> str:
     missing = sorted(set(blocks) - {m.group(1) for m in BLOCK.finditer(text)})
     if missing:
-        raise SystemExit(f'README.md has no generated block for: {", ".join(missing)}')
+        raise SystemExit(f'RECORD.md has no generated block for: {", ".join(missing)}')
     return BLOCK.sub(lambda m: f'<!-- generated:{m.group(1)} -->\n{blocks[m.group(1)].rstrip()}\n<!-- /generated:{m.group(1)} -->'
                      if m.group(1) in blocks else m.group(0), text)
 
@@ -126,18 +126,18 @@ def main() -> int:
         committed = json.load(open(HERE / 'results' / 'results.json'))
         if committed != r:
             raise SystemExit('results.json does not follow from the per-corpus records')
-        stale = differing_blocks((HERE / 'README.md').read_text(), blocks)
+        stale = differing_blocks((HERE / 'RECORD.md').read_text(), blocks)
         if stale:
-            raise SystemExit(f'README.md differs from the results in: {", ".join(stale)}; run report.py to rewrite them')
+            raise SystemExit(f'RECORD.md differs from the results in: {", ".join(stale)}; run report.py to rewrite them')
         print(f'the committed figures follow from the per-corpus records: {r["aggregate"]["events"]:,} events, '
               f'byte-weighted reduction {pct(r["aggregate"]["reduction_pct"])}')
         return 0
     json.dump(r, open(HERE / 'results' / 'results.json', 'w'), indent=1)
     (HERE / 'results' / 'results.md').write_text(render(r))
-    readme = HERE / 'README.md'
+    readme = HERE / 'RECORD.md'
     if readme.exists():
         readme.write_text(apply_blocks(readme.read_text(), blocks))
-    print('wrote results/results.json, results/results.md and the README table')
+    print('wrote results/results.json, results/results.md and the RECORD.md table')
     return 0
 
 

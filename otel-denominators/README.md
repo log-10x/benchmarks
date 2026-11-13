@@ -1,126 +1,41 @@
 # OTel sample on three denominators
 
-One benchmark in the [log10x benchmarks](../) repository. It answers one question:
-when a reduction figure is quoted for a Kubernetes log stream, what was in the denominator,
-and how much does the answer move when you change it.
+How much does a log reduction figure depend on what was in the input? On one public capture from a Kubernetes cluster running the OpenTelemetry demo, the 10x engine's figure is 64.00% on the file as captured, 62.46% with the debug output and an added field removed, and 72.35% on the application messages alone. Taking away the Kubernetes metadata around each message raised the figure.
 
-## The question
+The capture wraps each container's stdout line in a Fluentd envelope of Kubernetes and Docker metadata. Two objections follow from that. One says the file is padded by a `tenx_tag` field the log10x forwarder adds and by the demo collector's debug exporter. The other says OTLP has no such envelope, so the figure should collapse without it.
 
-The capture as published compacts by **64.00%**. The capture is a Fluentd envelope around
-each container's stdout line, so most of its bytes are Kubernetes and Docker metadata rather
-than the application's message. Two objections follow, and they point in opposite directions.
+## Result
 
-- *You are measuring your own metadata.* The capture carries a `tenx_tag` field this project
-  injects, and about half its bytes are the demo collector's debug exporter printing every
-  telemetry batch it handles.
-- *You are measuring an envelope, not logs.* An OpenTelemetry practitioner compares this
-  against OTLP, which carries no per-record Fluentd envelope, and expects the figure to
-  collapse once the envelope is removed.
+| Input | Input bytes | Lines | Compact bytes | Reduction |
+|---|---:|---:|---:|---:|
+| (a) as captured | 215,039,161 | 197,430 | 77,421,244 | 64.00% |
+| (b) tag and debug lines removed | 88,975,911 | 111,691 | 33,401,403 | 62.46% |
+| (c) message only | 40,551,755 | 197,430 | 11,212,254 | 72.35% |
 
-Rather than argue either one, this benchmark builds all three denominators from the same
-public file and measures them with the same engine, the same configs and the same round-trip
-check.
+On the message text alone the reduction is 8.35 points higher than on the file as captured, because repeated text is a larger share of an application message than of the metadata around it. Removing the added field and 85,739 collector debug lines took 58.6% of the bytes off the input and moved the figure down by 1.54 points.
 
-## The result
+- Every case decoded back to its own input byte for byte.
+- An OTLP record carries more than a bare message and much less than this envelope, so (b) and (c) bracket it at 62.46% to 72.35%.
 
-| Case | Input bytes | Lines | Encoded | Templates bytes | Compact | Reduction | Templates | Round trip |
-|---|---:|---:|---:|---:|---:|---:|---:|---|
-| (a) as captured | 215,039,161 | 197,430 | 74,142,102 | 3,279,142 | 77,421,244 | **64.00%** | 3,028 | byte-identical |
-| (b) tag and debug lines removed | 88,975,911 | 111,691 | 30,452,359 | 2,949,044 | 33,401,403 | **62.46%** | 2,978 | byte-identical |
-| (c) message only | 40,551,755 | 197,430 | 10,610,578 | 601,676 | 11,212,254 | **72.35%** | 2,625 | byte-identical |
+## How it was measured
 
-Reduction is the compact form, the encoded events plus the template dictionary needed to
-expand them, against the input, with no gzip or ZSTD on either side. Each row decodes back to
-its own input and is compared with `cmp`, so no row borrows another row's round trip.
+The input is `otel-sample-200mb.log` from the public [otel-sample-v1](https://github.com/log-10x/config/releases/tag/otel-sample-v1) release, captured through Fluentd from 36 containers over about ten hours. Input (b) removes the added field and the collector's debug exporter lines, and keeps the envelope because a log platform bills it. Input (c) is the message value of each record, one per line. All three ran through the same engine and configs, and each decode was compared with its own input. Compact bytes are the encoded events plus the template dictionary, with no gzip or ZSTD on either side.
 
-**The second objection does not survive the measurement.** On the message text alone, with the
-whole envelope gone, the reduction is 8.35 points **higher** than the figure as captured, not
-lower. Repeated text is a larger share of an application message than of the Kubernetes
-metadata around it, so removing the envelope removes the harder part of the file.
+## Limits
 
-**The first objection moves the figure by 1.54 points.** Removing the injected field and
-dropping 85,739 collector debug lines, which together take 126,063,250 bytes off the input,
-58.6% of it, moves 64.00% to 62.46%.
+- One capture from one small demo cluster at roughly 5 lines per second.
+- No OTLP capture was measured. The OTLP range above is inferred from two measured points.
+- Nothing here says what a particular platform bills.
+- Input (b) removes two unrelated things at once and serves as a sensitivity check. Neither removal is a property of the engine.
 
-An OTLP log record carries more than a bare message, since it has a timestamp, severity, body,
-attributes and trace ids, and much less than this Fluentd envelope. Rows (b) and (c) therefore
-bracket it at **62.46% to 72.35%**. No figure for an OTLP wire is measured here, and none is
-claimed. Measuring one needs a capture of OTLP records, which this is not.
+## Run it
 
-## What each denominator is
-
-- **(a) as captured** is the release asset, untouched: one JSON record per line with `log`,
-  `stream`, `docker` and `kubernetes` keys, plus the `tenx_tag` field the forwarder adds.
-- **(b) tag and debug lines removed** removes `tenx_tag` and drops the collector's debug-exporter lines,
-  keeping the Kubernetes and Docker envelope, because a log platform bills that envelope. A
-  line is dropped only when its container is `opentelemetry-collector` **and** its message
-  matches zap's tab-separated debug prefix `<ts>\tinfo\t(Traces|Logs|Metrics)\t`. Ordinary
-  collector error logs are kept, including the 3,745 lines reading `failed to upload metrics`:
-  those are a misconfiguration in the captured cluster, and a platform bills them.
-- **(c) message only** is the `log` value alone, one message per line, envelope discarded. No
-  record's `log` value contains a newline, 0 of 197,430, so the line count is unambiguous.
-
-(b) and (c) differ in line count on purpose. (c) keeps every message including the collector's;
-only (b) drops them.
-
-## What is not claimed
-
-- **No figure for the OpenTelemetry wire.** Both this capture and the numbers above are Fluentd
-  envelopes. The bracket in the result section is arithmetic on two measured points, not a
-  measurement.
-- **No claim about what a particular platform bills.** Metering rules differ per product and
-  per contract.
-- **One capture, one cluster, about ten hours.** 36 containers from one small demo cluster at
-  roughly 5 lines per second. A shape that occurs once at 5 lines per second is a different
-  population from a shape that occurs once at 100,000.
-- **(b) is a sensitivity check, not a production configuration.** It removes two unrelated
-  things at once. The forwarder that produced this capture adds `tenx_tag`; the demo enables
-  the debug exporter. Neither is a property of the engine being measured.
-
-## Reproduce
-
-```sh
-./run.sh
+```
+cd otel-denominators
+python3 report.py --csv results/results.csv --out /tmp/results.md   # recompute the table from the committed counts
+./run.sh                                                            # full rerun of all three cases
 ```
 
-Needs Docker and about 1.2 GB of free disk. The script fetches the public capture once (8.4 MB
-gzipped), checks its sha256 against the one this table was measured on, builds the two derived
-inputs and checks their byte and line counts against the committed run, then encodes and
-decodes all three cases. It writes `results/results.csv` and `results/results.md`, and deletes
-the bulky per-case output unless `OTD_KEEP=1`.
+The recompute needs only Python. The full rerun needs Docker and about 1.2 GB of free disk, and runs engine image `log10x/pipeline-10x:1.1.136`, pinned by digest in the script.
 
-`./run.sh c_msg` runs one case. `OTD_DATA_DIR`, `OTD_IMAGE` and `OTD_KEEP` override the cache
-location, the engine image and the output retention.
-
-| File | What it is |
-|---|---|
-| `run.sh` | fetch, build, encode, decode, compare, report |
-| `build_inputs.py` | derives (b) and (c) from (a), and fails if the counts move |
-| `report.py` | renders `results/results.md` from the CSV, recomputing the percentage from the byte counts |
-| `results/results.csv` | the committed run, one row per case |
-| `results/results.md` | the same run as a table, with the image digest and the input sha256 |
-
-Pinned: engine image `log10x/pipeline-10x@sha256:fccff37a6a41e52eb4df8a108d042b0176210842b7ed25f08b1419df3a37904f`
-(`log10x/pipeline-10x:1.1.136`), and the two round-trip configs in
-[`../drain3-vs-log10x/`](../drain3-vs-log10x/), which are the configs the compaction post
-publishes.
-
-## Data
-
-`otel-sample-200mb.log` from [otel-sample-v1](https://github.com/log-10x/config/releases/tag/otel-sample-v1),
-215,039,161 bytes, 197,430 lines, sha256
-`aa79b9349a4123d88936fd064f5eccd9fd84f45a1fd03cff3f64c259715c2432`. Kubernetes container output
-captured through Fluentd from a cluster running the OpenTelemetry demo 2.1.3, about ten hours
-between the 1st and 99th percentile timestamp, 36 containers. The same asset the
-[`pattern-identity/`](../pattern-identity/) benchmark runs on.
-
-### One line differs from the copy the blog post measured
-
-The post's manifest reports 215,039,166 input bytes for this dataset; the published asset is
-215,039,161. The difference is a single line, 9731, whose message names an engine config path:
-the released asset reads `@apps/regulator` and the copy behind the manifest reads
-`@apps/edge/optimizer`, an older name for the same app. One token, five bytes, in one line of
-197,430.
-
-Every figure in this benchmark is measured on the published asset with the pinned engine, so a
-reader who downloads it reproduces this table rather than the manifest's byte counts.
+The complete record is in [RECORD.md](RECORD.md): how each input is built, the full table with template counts, the image digest and the data's sha256.

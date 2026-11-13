@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Renders results/results.md, results/results.json and the README's generated blocks from the
+Renders results/results.md, results/results.json and RECORD.md's generated blocks from the
 kept class rows, tallies, plans and policy files. `--check` recomputes them and fails if the
-committed results.json or README differ, so a figure edited without a rerun is caught in CI.
+committed results.json or RECORD.md differ, so a figure edited without a rerun is caught in CI.
 """
 import argparse
 import json
@@ -457,9 +457,9 @@ def main() -> int:
     blocks = readme_blocks(r)
     if a.check:
         committed = json.load(open(results / 'results.json'))
-        stale = README.differing((HERE / 'README.md').read_text(), blocks)
+        stale = README.differing((HERE / 'RECORD.md').read_text(), blocks)
         if stale:
-            raise SystemExit(f'README.md differs from the results in: {", ".join(stale)}; run report.py to rewrite them')
+            raise SystemExit(f'RECORD.md differs from the results in: {", ".join(stale)}; run report.py to rewrite them')
         if committed != json.loads(json.dumps(r)):
             raise SystemExit('results.json does not follow from the kept outputs')
         if (results / 'results.md').read_text() != render(r):
@@ -470,9 +470,9 @@ def main() -> int:
         return 0
     json.dump(r, open(results / 'results.json', 'w'), indent=1)
     (results / 'results.md').write_text(render(r))
-    readme = HERE / 'README.md'
+    readme = HERE / 'RECORD.md'
     readme.write_text(README.apply(readme.read_text(), blocks))
-    print(f'wrote {results / "results.md"}, results.json and the README\'s generated blocks')
+    print(f'wrote {results / "results.md"}, results.json and the generated blocks in RECORD.md')
     return 0
 
 

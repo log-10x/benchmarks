@@ -107,7 +107,7 @@ def compute(results: pathlib.Path, prices: dict, targets: list, window_hours: fl
 
 
 def readme_blocks(r: dict, prices: dict) -> dict:
-    """Every figure the README quotes from this run, rendered from results.json and prices.json."""
+    """Every figure RECORD.md quotes from this run, rendered from results.json and prices.json."""
     c, cap = r['control'], r['capture']
     pr = lambda k: prices[k]['price']
     B = {}
@@ -299,9 +299,9 @@ def main() -> int:
     r = compute(results, prices, run['targets'], run['window_hours'], run)
     if a.check:
         committed = json.load(open(results / 'results.json'))
-        stale = README.differing(open(here / 'README.md').read(), readme_blocks(r, prices))
+        stale = README.differing(open(here / 'RECORD.md').read(), readme_blocks(r, prices))
         if stale:
-            raise SystemExit(f'README.md differs from the results in: {", ".join(stale)}; run report.py to rewrite them')
+            raise SystemExit(f'RECORD.md differs from the results in: {", ".join(stale)}; run report.py to rewrite them')
         if committed != r:
             for k in r:
                 if committed.get(k) != r[k]:
@@ -312,9 +312,9 @@ def main() -> int:
         return 0
     json.dump(r, open(results / 'results.json', 'w'), indent=1)
     open(results / 'results.md', 'w').write(render(r, prices))
-    readme = here / 'README.md'
+    readme = here / 'RECORD.md'
     readme.write_text(README.apply(readme.read_text(), readme_blocks(r, prices)))
-    print(f'wrote {results / "results.md"} and the README\'s generated blocks')
+    print(f'wrote {results / "results.md"} and the generated blocks in RECORD.md')
     return 0
 
 

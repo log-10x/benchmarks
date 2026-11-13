@@ -1,100 +1,48 @@
-# E103: multi-line grouping across containers
+# Multi-line grouping across containers
 
-A minimal reproduction of engine ask E103 on the shipped engine image. In the `elastic-hot-tier-budget` run, 71 of 848,190 returned records held lines from more than one container: kafka's four startup lines (seq 2751 to 2754) joined the jaeger record at seq 2750 and were filed under jaeger. This rig sends the same record shape over the same path and counts such records.
+When several containers send to the 10x engine through Fluent Bit under one tag, does each container's multi-line event come back in its own record? On the shipped 1.1.150 image it did not: 1,533 of 5,836 returned records mixed lines from more than one container. A build with a grouping fix returned no mixed records, and neither build lost or duplicated a line.
 
-## What runs
+The shipped Fluent Bit input takes an event's source from the Forward tag, and the step that joins multi-line events counts its flush timeout per source. In the [Elasticsearch hot-tier benchmark](../elastic-hot-tier-budget/) every container shared the tag `app.replay`, and 71 of 848,190 returned records were mixed. This rig repeats that record shape and path without Elasticsearch.
 
-The path is the hot-tier rig's, with Elasticsearch dropped. A sender writes Fluent Forward records to Fluent Bit on 24224. Fluent Bit moves the container into a `kubernetes` map (`fluent-bit/prep.lua`, the rig's `prep`), copies every record to `in.jsonl`, and forwards to the Receiver on `tenx:24224` with one worker and one connection. The Receiver returns records to Fluent Bit's second forward input on 24225, which writes them to `returned.jsonl`.
+## Result
 
-The Receiver is started the way `gen-receiver-values.mjs` rendered it for the two-arm runs (`elastic-hot-tier-budget/results-two-arm*/values/compose.receiver.yaml`):
+A stack trace counts as whole when its head and all its continuation lines came back alone in one record.
 
-- image `ghcr.io/log-10x/edge-10x:1.1.150@sha256:3e755bbc14780a27e643e09b76dfd7ec9616cab67833f70daf9420eff646d350`
-- arguments `@run/input/forwarder/fluentbit @apps/receiver symbolMessageHashField tenx_hash outputEncodeField fullText("tenx_hash","routeState","message_pattern","severity_level","utf8Size")`
-- environment `TENX_AIRGAPPED=true` and `TENX_FLUENTBIT_OUTPUT_HOST=fluent-bit`
-- 0.5 CPU, 512 MB, tmpfs on `/tmp`
+| Case | Mixed, shipped | Mixed, fix | Traces whole, shipped | Traces whole, fix |
+|---|---:|---:|---:|---:|
+| a: other container inside a trace | 512 | 0 | 0 of 512 | 509 of 512 |
+| b: kafka startup lines after jaeger | 509 | 0 | none sent | none sent |
+| c: two traces interleaved | 512 | 0 | 0 of 1,024 | 1,021 of 1,024 |
+| d: one container (control) | 0 | 0 | 509 of 512 | 509 of 512 |
+| e: a, b, c, one tag each | 0 | 0 | 508 of 511 | 508 of 511 |
+| Total | 1,533 | 0 | 1,017 of 2,559 | 2,547 of 2,559 |
 
-The rendered `GH_*` variables (the policy branch) are left out, so no cap is set and nothing is held. The image keeps its config at `/etc/tenx/config` (`TENX_CONFIG`) and its modules at `/opt/tenx-edge/lib/app/modules` (`TENX_MODULES`). `E103_CONFIG_DIR` and `E103_MODULES_DIR` mount host directories read-only over them, so a candidate fix can be tested on the same image. `run.json` records the image ID and each directory's git commit.
+On the shipped image, cases a and c produced a mixed record in every episode. Case e sends the same patterns with one tag per container and returned none, so the mixing follows the shared tag. With the fix, all 5,868 records containing sent lines came back under the tag they were sent with.
 
-In the shipped modules, the Fluent Bit input takes the event's source from the Forward tag (`pipelines/run/modules/input/forwarder/fluentbit/stream.yaml`, `sourcePattern: \"tag\":\"(.*?)\"`). The group step's flush timeout counts per source (`pipelines/run/units/transform/group/unit.yaml`). The hot-tier sender gave every container the tag `app.replay`.
+- Both builds returned all 22,557 lines sent, each exactly once.
+- The fix build still split 12 traces, all in episodes paused 5 or 6 s against a 5 s group flush timeout. The six in cases d and e also split on the shipped image.
 
-## Cases
+## How it was measured
 
-`send.py` uses `pack` and `Sender` from `elastic-hot-tier-budget/rig/forward_send.py`. Every record carries `container_name`, `container_id`, `source`, `log` and `seq`. Every line ends with the token `e103id=<seq>`, which sits inside the JSON on the jaeger line. Each case has its own container names, and cases are 10 s apart. Cases a to d send every container under the tag `app.replay`, the way the hot-tier sender did.
+A Python sender writes Fluent Forward records to Fluent Bit 4.2, which forwards them to the 10x engine over one connection and writes what comes back to a file. `score.py` matches each returned line to the line sent through a sequence token at the end of every line. Each case sends 500 episodes back to back and 12 more paused between 1 and 6 s, 22,557 lines in all. The engine ran with 0.5 CPU, 512 MB and no budget set.
 
-- **a.** orders logs an ERROR head. Then billing's timestamped INFO lines (1 to 3) arrive, and then orders' stack trace (3 to 8 lines of `\tat ...`, `Caused by: ...` and `\t... N more`).
-- **b.** jaeger logs its JSON line. kafka's four startup lines from the hot-tier run follow (no timestamp, no level), then kafka's own timestamped INFO line.
-- **c.** orders and payments are both partway through a stack trace. orders' head and two frames go out, then payments' head, then the remaining frames of both, alternating.
-- **d.** Control with one container. orders sends a head and its stack trace, then 0 to 2 INFO lines.
-- **e.** Cases a, b and c in rotation, with one tag per container (`docker.<id12>`, the fluentd driver's default tag).
+## Limits
 
-Each case sends 500 episodes back to back. Lines within an episode go out with no sleep between them, and episodes are 1 ms apart. Twelve paused episodes are spread through each case, with pauses of 1, 2, 3, 4, 5 and 6 s, twice each. The pause comes right after the first container's head, and in case c after orders' second frame. The full run sends 22,557 lines in 6,461 events. `groupFlushTimeout` is 5 s, and on a forwarder input a batch reaches the group step up to about 2 s after its line.
+- One run per build of about five minutes, on lines from a sender script. Real container logs were not tested.
+- The fix build is a local image of 1.1.150 with the engine jar and modules from the fix commits.
+- The shipped run did not record the tag each record came back under, so the tag check covers the fix run only.
 
-## Scoring
+## Run it
 
-`score.py <results>/data` splits each returned record's `log` on `"\n"` and matches every line to the line sent by its token. It reports the following, per case and in total:
-
-- records returned and lines returned
-- cross-container records: records whose lines came from more than one sender container
-- lines missing and lines duplicated
-- stack-trace events returned whole: the head and every continuation line in one record that holds nothing else
-- cross-container records by the pause in their episode
-- records returned under the wrong tag: Fluent Bit stores the tag a record came back under as `_fb_tag`, and the scorer checks it equals `tenx.` followed by the tag its first line was sent under
-
-It exits 1 when there is any cross-container record, missing line, duplicated line or wrong tag, and 0 otherwise.
-
-`score.py --self-test` builds three inputs. A clean input must pass. The README's shape (a jaeger record holding kafka's banner lines) must fail, and so must a record returned under the wrong tag. All three verdicts came out as expected. On the full manifest, a simulated grouping in arrival order per tag gives 1,536 cross-container records and exit 1. A simulated grouping per container gives 0 and exit 0.
-
-## Running
-
-Docker must have no other rig running: `run.sh up` refuses to start when any container is up other than `e103-*` and `census-ch`. The rig publishes no host port. A run takes about 5 minutes.
+Scoring recomputes from the committed results, in this directory:
 
 ```
-./run.sh all                       # 1.1.150 as shipped, results in results/shipped-1.1.150/
-./run.sh extract /path/to/e103-fix # the image's own config and modules, to patch
-E103_CONFIG_DIR=/path/to/e103-fix/config E103_MODULES_DIR=/path/to/e103-fix/modules E103_LABEL=fix ./run.sh all
-E103_IMAGE=local/edge-10x:e103 E103_JAVA_HEAP=320M E103_LABEL=fix-1.1.151 ./run.sh all   # another image
+python3 score.py --self-test
+python3 score.py results/shipped-1.1.150/data   # exits 1: mixed records
+python3 score.py results/fix2-1.1.151/data      # exits 0
+./run.sh all                                    # full rerun of 1.1.150
 ```
 
-`E103_JAVA_HEAP` sets `TENX_JAVA_HEAP` for an image that runs the engine jar on a JVM, so the heap fits the 512 MB limit.
+Scoring needs only Python 3. A full rerun needs Docker with no other rig running and takes about five minutes. Running a fix build is in [RECORD.md](RECORD.md#running).
 
-`run.sh all` starts the containers with `docker run -d --name e103-*`, sends, waits for the returned records, saves logs and Fluent Bit's counters, scores, gzips the data and removes the containers and the network (`docker rm -f -v`).
-
-## Result on 1.1.150
-
-Run 2026-10-25 from 22:50 to 22:55 UTC. Fluent Bit did not yet store the returned tag, so this run has no tag check. Results are in `results/shipped-1.1.150/`: `run.json` holds the image ID and launch, and `data/` holds the lines sent, the records Fluent Bit received and returned, and `score.json`.
-
-**Verdict: FAIL, with 1,533 cross-container records.** Fluent Bit took in 22,557 records, forwarded 22,557 to the Receiver and wrote 5,836 returned records. One of those is the Receiver's own connect message.
-
-| Case | Lines sent | Records | Lines returned | Cross-container records | Lines missing | Lines duplicated | Stack traces whole |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| a | 4,428 | 1,554 | 4,428 | 512 | 0 | 0 | 0 of 512 |
-| b | 3,072 | 1,036 | 3,072 | 509 | 0 | 0 | none sent |
-| c | 6,602 | 1,024 | 6,602 | 512 | 0 | 0 | 0 of 1,024 |
-| d | 3,781 | 1,027 | 3,781 | 0 | 0 | 0 | 509 of 512 |
-| e | 4,674 | 1,194 | 4,674 | 0 | 0 | 0 | 508 of 511 |
-| Total | 22,557 | 5,836 | 22,557 | 1,533 | 0 | 0 | |
-
-In cases a and c, every episode produced one cross-container record, paused or not. In case b, 509 of 512 episodes did. The three that did not were the two 6 s pauses and one 5 s pause, where the jaeger record was sealed before kafka's lines arrived. Case e sends the same three patterns with one tag per container and returns no cross-container record, so the cross-container records follow the shared tag.
-
-**Example from case b, the hot-tier shape.** The record with seq 4429 is filed under b-jaeger. It holds seq 4429 (b-jaeger, the JSON line) and seq 4430 to 4433 (b-kafka: `===> User`, `uid=1000(appuser) ...`, `===> Setting default values ...` and `===> Configuring ...`). All five lines were sent under the tag `app.replay`.
-
-Six stack traces in cases d and e came back split, three in each case. All six were in episodes paused 5 or 6 s after the head, and each came back as 4 to 7 records.
-
-## Result with the E103 fix
-
-Run 2026-10-26 from 00:00 to 00:04 UTC. Results are in `results/fix2-1.1.151/`.
-
-The fix is engine commit `0cd458f0f133daab281bfc9d067e38c1410ce050` (log-10x/engine, branch `fix/e103-sequence-key`: "Key a line's sequence values in any field order"). It ships with modules commit `6c69d90a015adaffc2163e927682d5f6304e504d` (log-10x/modules, branch `fix/e103-sequence-key`: "Sequence patterns capture the field name with its value"). The image `local/edge-10x:e103` (`sha256:8f74b8bbec2ef115fb83eb365172872afa5aec2cea4ae5fd065b49c1d77fe361`) is the 1.1.150 image with the engine jar from that commit and those modules at `/opt/tenx-edge/lib/app/modules`. Its modules match the modules commit file for file. The jar runs on a JVM, so the Receiver had `TENX_JAVA_HEAP=320M`. The arguments, other environment and limits are the same as the 1.1.150 run.
-
-**Verdict: PASS.** Fluent Bit took in 22,557 records, forwarded 22,557 and wrote 5,869 returned records, one of them the Receiver's connect message. All 5,868 records holding sent lines came back under `tenx.` followed by their sent tag: 4,674 under `tenx.app.replay` and 1,194 under `tenx.docker.<id12>`.
-
-| Case | Lines sent | Records (1.1.150) | Records (fix) | Lines returned | Cross-container records | Lines missing | Lines duplicated | Wrong tag | Stack traces whole (1.1.150) | Stack traces whole (fix) |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| a | 4,428 | 1,554 | 1,570 | 4,428 | 0 | 0 | 0 | 0 | 0 of 512 | 509 of 512 |
-| b | 3,072 | 1,036 | 1,040 | 3,072 | 0 | 0 | 0 | 0 | none sent | none sent |
-| c | 6,602 | 1,024 | 1,037 | 6,602 | 0 | 0 | 0 | 0 | 0 of 1,024 | 1,021 of 1,024 |
-| d | 3,781 | 1,027 | 1,027 | 3,781 | 0 | 0 | 0 | 0 | 509 of 512 | 509 of 512 |
-| e | 4,674 | 1,194 | 1,194 | 4,674 | 0 | 0 | 0 | 0 | 508 of 511 | 508 of 511 |
-| Total | 22,557 | 5,836 | 5,869 | 22,557 | 0 | 0 | 0 | 0 | 1,017 | 2,547 |
-
-Every stack trace returned whole on 1.1.150 is returned whole with the fix. All twelve traces that came back split, three in each of cases a, c, d and e, were in episodes paused 5 or 6 s. Cases d and e split the same six on both runs. No returned record holds stack trace lines from more than one episode.
+The complete record is in [RECORD.md](RECORD.md): the engine arguments, every case's line sequence, the scoring rules and each build's image and commits.

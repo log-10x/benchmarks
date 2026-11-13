@@ -16,7 +16,7 @@ def apply(text: str, blocks: dict) -> str:
     found = {m.group(1) for m in BLOCK.finditer(text)}
     missing = sorted(set(blocks) - found)
     if missing:
-        raise SystemExit(f'README.md has no generated block for: {", ".join(missing)}')
+        raise SystemExit(f'RECORD.md has no generated block for: {", ".join(missing)}')
     return BLOCK.sub(lambda m: f'<!-- generated:{m.group(1)} -->\n{blocks[m.group(1)].rstrip()}\n<!-- /generated:{m.group(1)} -->'
                      if m.group(1) in blocks else m.group(0), text)
 
