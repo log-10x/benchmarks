@@ -1,40 +1,39 @@
 # LogHub compaction
 
-How much smaller than the original logs is the 10x engine's compact form, on the 14 full public LogHub datasets? Across all 14 the compact form came to 44.7% fewer bytes, weighted by size. Per dataset the reduction ran from 58.4% on Hadoop down to 4.7% on HealthApp.
+A log platform meters ingest by the byte, and most bytes in a log line are repetitive text. 10x stores each line's repeated text once as a template, and ships each line as that template's hash plus the line's values. The 14 LogHub datasets measured here hold 52,276,250 events and 5,732,535,052 bytes of input. Weighted by input bytes, they reduce 44.7%, and the spread across them is wide.
 
-The compact form is the encoded events plus the template dictionary needed to expand them back. Both are counted before any codec, so the figure stacks with whatever codec the storage layer applies after, such as gzip or ZSTD.
+Reduction means the bytes of the compact form, the encoded events plus the template dictionary needed to expand them, against the bytes of the original file, with no gzip or ZSTD on either side.
 
-## Result
-
-The table shows the four datasets over 100 MB, the highest and lowest of the other ten, and the total.
+## What the runs measured
 
 | Dataset | Events | Input bytes | Compact bytes | Reduction |
 |---|---:|---:|---:|---:|
 | Hadoop | 186,697 | 48,595,595 | 20,212,363 | 58.4% |
 | Spark | 32,952,127 | 2,941,224,304 | 1,248,606,093 | 57.5% |
-| BGL | 4,728,216 | 743,185,031 | 482,351,424 | 35.1% |
+| Apache | 52,004 | 5,135,876 | 2,295,929 | 55.3% |
+| OpenStack | 207,820 | 61,442,082 | 42,663,820 | 30.6% |
 | HDFS | 11,175,629 | 1,577,982,906 | 1,118,008,927 | 29.1% |
 | Android | 1,555,005 | 192,270,829 | 153,830,847 | 20% |
 | HealthApp | 204,648 | 23,529,930 | 22,432,794 | 4.7% |
 | All 14 | 52,276,250 | 5,732,535,052 | 3,167,463,894 | 44.7% |
 
-The four over 100 MB together came to 44.9%. The spread is wide, and HealthApp saves little. All 14 rows, with template counts, are in [results/results.md](results/results.md).
+The reduction tracks how much of each line is repeated text and how many lines share each template. HealthApp and Android, at 4.7% and 20%, are the floor. Both are mobile logs whose component names and tags ship as values, beside the timestamps and IDs, so little of each line is repeated text.
 
-- Ten of the 14 match, byte for byte, the figures in the log10x post [Log compaction, measured](https://www.log10x.com/blog/log-compaction-measured/), and every reduction matches to the decimal place.
-- Hadoop, Spark and OpenStack differ slightly. Each is many files read in directory order, and that order differs between the macOS file system of the post's run and the Linux container here.
-- Linux differs because its template count changes from run to run. A two-digit day matches both the MMM d and the MMM dd date formats, and the format is chosen per event. Its reduction stays the same.
+- HDFS and OpenStack sit at the low end of the middle because their lines are mostly values: block IDs, PIDs, and byte counts, with little fixed text between them, and the values ship on every event regardless.
+- Hadoop, Spark, and Apache sit at the high end because they write more repeated message text around their values.
+- All 14 rows, with template counts, are in [results/results.md](results/results.md).
 
-## How it was measured
+## Inputs and method
 
-The inputs are the full LogHub datasets from Zenodo record 3227177, not the 2,000-line excerpts, each checked against the md5 Zenodo publishes. The released engine image ran in a Linux container with its default symbol library, one encode config and no per-dataset compile. Each dataset started with an empty template cache, so its whole dictionary is charged to it. The reduction is one minus the size of the two output files (`encoded.log` for the events, `templates.json` for the dictionary) over the input bytes the engine read. Both outputs are hashed so a rerun can be compared byte for byte.
+Each run is one pass of the engine over one dataset: the original file goes in, and two files come out, the encoded events and the template dictionary. The LogHub datasets are the full files from the project's [Zenodo record](https://zenodo.org/records/3227177) rather than its 2,000-line benchmark excerpts. Every dataset went through the default symbol library that ships in the image. A library can be compiled from a specific codebase, and none of these runs did that.
 
 ## Limits
 
-- Storage on disk after gzip or ZSTD is not measured. A codec compresses both the original and the compact form.
+- A general-purpose compressor can beat these ratios on log text. A self-managed store also compresses what it holds, so the reduction does not carry to disk as-is.
+- The two LogHub sets left out, Thunderbird and Windows, are the collection's largest, so the 44.7% weighted figure covers the 14 included sets and is not a LogHub-wide number.
 - Query cost and a comparison with another tool's output are not measured.
-- The figures are for these 14 datasets. HDFS is the HDFS_1 set, and the Thunderbird and Windows datasets were not measured.
 
-## Run it
+## Reproducing a row
 
 ```
 cd loghub-compaction
@@ -46,3 +45,5 @@ python3 report.py --check   # recompute every figure from results/ (no Docker)
 A full run needs Docker, Python 3 and about 5 GB of free disk at the peak (Spark). The script downloads the archives from Zenodo and pins the engine image log10x/pipeline-10x:1.1.133 by digest.
 
 The full record is in [RECORD.md](RECORD.md): every dataset's events, bytes, ratio and template count set against the post's figures, the full method and the file list.
+
+The same measurement, with more context: https://www.log10x.com/blog/log-compaction-measured/

@@ -1,8 +1,8 @@
 # Pattern identity benchmark
 
-Does a log line get the same pattern name in two places, and keep it over time? Sampling and suppression rules key on that name. Two Drain3 instances, each mining one half of the same stream, gave a line whose shape occurs 2 to 10 times the same template 0.6022 of the time. Two 10x engine instances fed the same halves gave the same pattern name to 299,997 of 300,000 probe lines.
+A saved search or an alert points at a log pattern group by its stored text. Drain3, the open-source implementation of the Drain algorithm, rewrites that text as new lines arrive. Two copies fed random halves of one log set disagree on the stored text for many repeated shapes, and two 10x engine instances fed the same halves gave the same pattern name to 299,997 of 300,000 probe lines.
 
-A Drain3 template is the running intersection of every line in its cluster, so the template changes when a sibling line arrives. In one process, the same bytes replayed after two siblings got a new template, and Drain3 reported no cluster change. The 10x engine takes names from a compiled symbol library instead of mining them.
+Drain decides which words in a log line stay the same and which change by comparing each new line against the text it already stored for that group. Every spot where the two lines differ is blanked out. The 10x engine's compiler takes the source, or the binaries and container images the application ships as, and links the message text and names into a symbol library that is settled before the first log line arrives.
 
 ## Result
 
@@ -17,22 +17,19 @@ Share of probe lines both instances named the same, mean of 10 trials.
 | over 1,000 times | 28,152 | 1.0000 | 0.0646 | 1.0000 |
 | all probes | 30,000 | 0.9949 | 0.0609 | 1.0000 |
 
-A line seen once agrees because neither Drain3 instance can generalize from one example. The divergence starts when Drain3 generalizes, and the all-probes row hides it because shapes seen over 1,000 times are 94% of probes.
+A reference pass over the same stream resolved it into 1,481 distinct shapes, 921 of them seen once. On those same test log lines the two copies rarely pick the same group number.
 
-- Fed the same 60,000 lines in two orders, two Drain3 runs agreed on the template 0.9860 of the time and on `cluster_id`, an arrival counter, 0.0001.
-- The 3 engine probes that differed were indented lines joined to each half's last event, and the two halves ended differently.
-- A second engine identifier, the template hash, differed on 44 probes of one Grafana statement, because for those events it depends on what the instance read before.
+- Three consecutive Grafana provisioning log lines were fed to one copy (0.9.11) in order, then the first one again, and the text stored for that group changed between the first call and the fourth. On the fourth call the tool reports `change_type='none'`, and the group number held across all four calls too.
+- An alert check looks a log line up rather than feeding it in, and asked that way a log line seen once almost never has a group in one of the two copies.
 
 ## How it was measured
 
-The data is 197,430 Fluentd/Kubernetes lines from the OpenTelemetry demo ([otel-sample-v1](https://github.com/log-10x/config/releases/tag/otel-sample-v1)), covering 10.3 hours. Each trial splits the stream into random disjoint halves, like two forwarders that never share state, and after its half each instance names the same 30,000 probe lines. Both ingest every probe, so their states converge, which on net favors Drain3. Drain3 0.9.11 runs its strongest tested configuration against engine 1.1.142, and the fork drain3-improved 0.10.0 gave identical numbers.
+The log set is the public [otel-sample-v1](https://github.com/log-10x/config/releases/tag/otel-sample-v1) capture of the OpenTelemetry demo. The log set's 197,430 lines were shuffled, then split down the middle, one random half to each copy, so neither saw the other's. The benchmark calls that random split the friendliest division available to Drain. After its half each instance names the same 30,000 probe lines. Drain3 0.9.11 runs its strongest tested configuration against engine 1.1.142.
 
 ## Limits
 
-- The data is one small demo cluster, and the magnitudes belong to this stream.
-- A central miner, such as a SIEM that mines at query time, has no second instance to disagree, but the replay result still applies. Drain3 needs no build step and is the right default when the emitting code is out of reach.
-- The demo's source is in the engine's default symbol library. On invented words the engine returned an all-variable template named by a hash.
-- Of the engine's templates here, 82.8% carry deployment values such as image tags, and agreement across redeploys is unmeasured.
+- The price is running that compiler over the code that prints the logs, which watching traffic never asks for.
+- When no word in a line is in the library, 10x gives the line a pattern from its shape: `template_` followed by a hash of its punctuation and of where its values sit.
 
 ## Run it
 
@@ -45,3 +42,5 @@ PIB_QUICK=1 ./run.sh     # identity experiment at 60,000 lines and 3 trials
 The script needs Python 3.13 and downloads the sample. The Drain3 split takes about 19 minutes, and the engine split takes about 35 and needs Docker.
 
 [RECORD.md](RECORD.md) has every experiment and the tests that could prove log10x wrong, two of which fired against it.
+
+The same measurement, with more context: https://www.log10x.com/blog/drain-pattern-groups-change/

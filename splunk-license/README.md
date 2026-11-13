@@ -1,38 +1,36 @@
 # Splunk license-metered volume, with and without 10x in front
 
-Splunk bills on what its license meter counts, which is neither the file size on disk nor what the forwarder sent. This test sends the same capture to Splunk twice, once as it is and once after the 10x engine has turned it into compact events, and reads the meter for each. The compact arm metered 63.91% fewer bytes, and every compact event read back as its original text.
+An ingest-based Splunk Enterprise license is measured in daily indexing volume, the uncompressed data indexed each day. 10x stores the text each log statement repeats once, in a dictionary, and sends every event as its values. The 10x app for Splunk expands each event to its original text at search time. For one public Kubernetes log capture sent through a Universal Forwarder, Splunk's license meter counted 63.91% fewer bytes in compact form, dictionary included.
 
-Compact events cannot be read without their template dictionary, so the dictionary goes to Splunk too and its metered bytes count against the compact arm. The 10x Splunk app expands each compact event back to its original text at search time.
+## What the license meter counted
 
-## Result
+| Reading on Splunk's license meter | Value |
+|---|---|
+| Capture sent as is | 214,841,731 bytes |
+| Compact events | 74,338,244 bytes |
+| Template dictionary | 3,194,224 bytes |
+| Compact form in total | 77,532,468 bytes |
+| Reduction | 63.91% |
+| Lowest container (`ad`) | 57.86% |
+| Highest container (`opensearch`) | 69.27% |
 
-License-metered bytes for the run on 2026-10-10, from Splunk's own license usage log.
+The meter counts the text of each event. The capture is 215,039,161 bytes on disk and 214,841,731 on the meter, and the difference is its 197,430 line breaks. Each compact event was metered at the length of its own text, with event time set from the line.
 
-| Arm | What Splunk ingested | Metered bytes | GB/day |
-|---|---|---:|---:|
-| Baseline | the capture as it is | 214,841,731 | 0.200087 |
-| Compact | compact events | 74,338,244 | 0.069233 |
-| Compact | template dictionary | 3,194,224 | 0.002975 |
-| Compact | total | 77,532,468 | 0.072208 |
+- The template dictionary is counted like any other data, and its 3,194,224 bytes are inside the compact total.
+- The two container rows cover events only, because the dictionary is not split by container, and containers with fewer than 100 events are not ranked.
+- Through the app's own macro, 157,228 of 157,228 compact events expanded byte-identical, with the search head set to UTC and again to Etc/GMT-2.
 
-The compact total is 63.91% below the baseline. Measured as files on disk, the same two arms give 63.87%. The gap is line breaks, which the meter does not count and which make up more of the smaller compact arm (0.21% against 0.09%).
+## How the meter was read
 
-- All 157,228 compact events came back byte-identical to the text that went in, with the search head in UTC and in the instance's own timezone.
-- Per Kubernetes container with at least 100 events, the reduction ran from 57.86% for ad to 69.27% for opensearch. These figures leave the dictionary out, which makes each one slightly better than in a deployment.
-
-## How it was measured
-
-The data is a 215,039,161 byte capture of 197,430 lines from 36 Kubernetes containers in a small demo cluster, each line in a Fluentd envelope. Both arms went through the same Universal Forwarder to one Splunk Enterprise 10.4.3 instance on the download trial license, into separate indexes on the same license day. On this version the daily `type=RolloverSummary` line carries only the day's total, so the split by index comes from the per-minute `type=Usage` records, as the Monitoring Console does. The per-index bytes add up to the rollup's daily total of 292,374,199 bytes exactly.
+[The capture](https://github.com/log-10x/config/releases/tag/otel-sample-v2) is 215,039,161 bytes and 197,430 lines of output from 36 Kubernetes containers in an OpenTelemetry demo cluster. The engine joins the lines of a multi-line event into one event, so the 197,430 lines are 157,228 events, and the run stops if any line is left unassigned. Both forms went through the same Universal Forwarder into the same Splunk Enterprise 10.4.3 instance on the same license day. The 10x engine writes the compact form of the capture as two files, the compact events and the template dictionary, and the forwarder sends each to an index of its own. Splunk Enterprise runs in a container on the download trial license, which allows 500 MB a day, and both arms fit in one license day. Splunk's license usage log reports usage per index, and the per-index entries add up to the day's rollup total to the byte: 292,374,199.
 
 ## Limits
 
-- One capture from one demo cluster on one license day. A production estate has its own data, sourcetypes and forwarder topology.
+- The 63.91% belongs to this capture.
 - The figure is ingest only. Indexed storage, search speed and retention were not measured.
-- Splunk Cloud, which meters by a different path, was not tested.
+- The meter reading here is from Splunk Enterprise, and Splunk Cloud, workload pricing included, is outside this benchmark.
 
-## Run it
-
-The license figures can be recomputed from the saved rollup lines without Splunk or Docker:
+## Rerunning the benchmark
 
 ```sh
 # from the repository root
@@ -43,6 +41,6 @@ python3 splunk-license/report.py --dir splunk-license --data splunk-license/data
 splunk-license/run.sh
 ```
 
-A full run needs Docker, about 10 GB of free disk and roughly two hours, most of it waiting for the license day to end. The run touches no existing Splunk.
+The repository's CI recomputes the license figures from the kept rollup lines, so an edited results table fails. The run needs Docker and about 10 GB of disk and takes about two hours, most of it waiting for the license day to end.
 
 The full record, with every Splunk setting, the encode settings the app needs and all the results tables, is in [RECORD.md](RECORD.md).
