@@ -1,12 +1,10 @@
 # Elastic hot tier
 
-When lines over a per-statement budget go to an Elasticsearch index that rolls over hourly and moves to frozen, how long do they stay on hot? Each moved line left hot 30 to about 110 minutes after it was written, and all 159,536 moved records reached frozen. A fixed budget moved 59% to 73% of message bytes off hot, but the bytes sent to hot still grew with the load.
+The size of an Elasticsearch cluster follows how much data sits in its hot tier, because hot nodes carry the local SSD and the memory that keep that data searchable. Elasticsearch tiers by index, so lines over a log statement's byte budget, marked by the 10x engine, go to an index that ILM rolls over hourly and moves to frozen. On a self-managed 9.5.5 cluster, one fixed budget moved 59% of the message bytes to that index, and 65% to 73% at 2.5 times the load. Each moved line left hot 30 to about 110 minutes after it was written.
 
-The 10x engine gives each log statement a byte budget per 4-minute window. Fluent Bit sends lines over it to the `tenx-tierdown` alias, whose hourly indices are mounted on frozen as searchable snapshots at 0 bytes of local store.
+## What the budget moved, hour by hour
 
-## Result
-
-Message bytes per hour, 2026-10-22 UTC, with a budget of 22,148 bytes per statement per 4-minute window.
+The budget was 22,148 bytes per statement per 4-minute window on each node. Message bytes an hour on 2026-10-22 (UTC), from Fluent Bit's copy of the engine's output:
 
 | Hour | Phase | Bytes sent to hot | Bytes moved | Share moved |
 |---|---|---:|---:|---:|
@@ -19,24 +17,26 @@ Message bytes per hour, 2026-10-22 UTC, with a budget of 22,148 bytes per statem
 | 06:15 | budget on, 2.5x load | 4,174,512 | 11,471,373 | 73% |
 | 07:15 | budget on, 2.5x load | 4,050,664 | 9,484,012 | 70% |
 
-With the budget on, no statement kept more than its budget on hot in any window, beyond a 5-line sample and 50 extra error lines for the storming statement. At 2.5 times the load hot still took about 4.3 MB an hour, because the statements under budget grew too.
+No statement kept more than the budget on hot in any window, beyond a 5-line sample and up to 50 extra error lines. The budget is per statement, so growth in statements under it still reached hot.
 
-- Six of the eight hourly indices of moved lines spent 100 to 110 minutes on hot.
-- All 372,783 non-blank lines sent reached Elasticsearch. Term queries on `tenx_hash` for the ten largest moved patterns matched the local counts on frozen.
-- Of the moved bytes, 86% came from three OpenTelemetry Collector statements that no rule named.
+## How long moved lines stayed on hot
 
-## How it was measured
+At ILM's default 10-minute poll, indices 2 to 7 each rolled over 70 minutes after creation and entered the frozen phase 10 minutes later. The searchable snapshot action then took three more polls, so each index left hot 30 to 40 minutes after rollover, mounted at 0 bytes of local store. Index 1 sat empty until the budget took effect, and index 8 received no line.
 
-Elasticsearch 9.5.5 ran self-managed with one hot node, one frozen node and a trial license. The load was the published OpenTelemetry demo sample at 7 lines a second, then 2.5 times that for 3 hours plus a new service and a 20-minute error storm. The budget was set from the second baseline hour so that half of its message bytes were over it. The table counts bytes in Fluent Bit's local copy of what the engine returned. Index sizes and ILM state came from the cluster's own APIs every 10 minutes.
+For the ten largest moved patterns, a term query on `tenx_hash`, the engine's pattern hash, returned the local count from frozen. All 372,783 non-blank lines sent reached Elasticsearch, and all 159,536 moved records ended on frozen.
 
-## Limits
+## How the cluster was read
 
-- Hot-node bytes say nothing about a bill, since Elastic Cloud Hosted bills the configured size.
-- The budget stayed fixed, so the run does not show hot kept at a set size under growth.
-- No comparison was made with Elastic's own tools or logsdb.
-- The budget aimed at 50% of the baseline message bytes and moved 59%. The storm statement's kept count fits the engine sizing the whole forwarded record, which the run leaves open.
+The cluster had one hot node and one frozen node, and its APIs were read every 10 minutes. The published [OpenTelemetry demo sample](https://github.com/log-10x/config/releases/tag/otel-sample-v1) was replayed into Fluent Bit at 7 lines a second for 6 hours, then 17.5 a second for 3 hours with an injected service and an error storm.
 
-## Run it
+## What this run does not show
+
+- With the budget fixed, the run does not show a hot tier kept at a set size as load grows.
+- The budget was set so half of the second baseline hour's message bytes exceeded it, and 59% moved. The storm line's kept count fits the engine sizing the whole forwarded record rather than the message, which the run leaves open.
+- The run shows nothing about a bill, since Elastic Cloud Hosted bills the configured size.
+- Elastic's own tools and logsdb were not measured.
+
+## Rerunning the benchmark
 
 ```
 cd elastic-hot-tier/rig
@@ -47,6 +47,6 @@ RIG_DIR=$PWD RIG_DATA=$PWD/../results/data docker compose -p elastic-rig -f comp
 python3 analyze.py
 ```
 
-A rerun takes about 11 hours and needs Docker with about 5 GB free memory, Node 20, Python 3, a built log10x-mcp checkout and otel-sample-200mb.log from release otel-sample-v1. This run used engine 1.1.147 and log10x-mcp 1.30.77.
+A rerun takes 11 hours and needs Docker with about 5 GB of memory free, Node 20, Python 3 and a built log10x-mcp checkout (1.30.77, engine 1.1.147).
 
-[RECORD.md](RECORD.md) has every check, the cluster's hourly readings and the rig.
+[RECORD.md](RECORD.md) has every check, each index's ILM timeline, the hourly readings and the rig.

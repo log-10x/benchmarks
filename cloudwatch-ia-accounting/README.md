@@ -1,12 +1,10 @@
 # CloudWatch Logs Infrequent Access accounting
 
-When a log10x plan moves CloudWatch events out of a Standard log group, to Infrequent Access or to S3, how many bytes move and what do they cost? On a ten-hour OpenTelemetry demo capture, the plan for a 30% target moved 69.7% of the bytes to Infrequent Access, where ingest costs $0.25 a GB instead of $0.50. The figures are the 10x engine's counts, priced at us-east-1 list rates.
+The expensive line on a CloudWatch Logs bill is ingestion, the charge for each GB ingested, with storage after it costing far less. The Infrequent Access log class ingests at half the Standard rate, $0.25 a GB against $0.50 in us-east-1, and an event offloaded to S3 pays no CloudWatch ingestion. Under a log10x plan to cut the bill 30%, the 10x engine moved 69.7% of the bytes of a ten-hour OpenTelemetry demo capture to Infrequent Access.
 
-Infrequent Access halves the ingest rate and keeps the $0.03 per GB-month storage price, so a bill cut made by moving bytes there takes about twice that share of the bytes.
+A log group's class is fixed at creation, so the forwarder sends the events the engine marks to a second log group in the Infrequent Access class. The classes differ in ingestion cost only, so a cut made there takes about twice its share of the bill in bytes.
 
-## Result
-
-Where the engine sent the capture's 0.215 GB at each target.
+## What left the Standard log class
 
 | Target | Bill share the plan states | GB to Infrequent Access | GB to S3 | Share of bytes moved |
 |---:|---:|---:|---:|---:|
@@ -14,21 +12,21 @@ Where the engine sent the capture's 0.215 GB at each target.
 | 50% | 56.9% | 0.067 | 0.099 | 77.4% |
 | 70% | 70.6% | 0.002 | 0.165 | 77.7% |
 
-At 50% and 70% the plan also sends whole containers to S3, where a GB costs nothing to ingest and $0.023 a month to store. At 70% nearly all moved bytes went there.
+At 50% and 70% the plans also send whole containers to S3, at $0.023 per GB-month to store. Both left 0.048 GB in Standard.
 
-- The 30% target moved no errors or warnings. At 50% and 70%, 53 and 51 error events went to S3 with their container, since the engine keeps only half of the error events over a cap.
-- At 30% the engine moved 0.150 GB to Infrequent Access where the plan states 0.136 GB, because the plan works from a 12,000-line sample and the engine counts the whole capture.
+- The 30% plan moved no errors or warnings. At 50% and 70%, 53 and 51 ERROR events went to S3 with their containers, since the engine keeps half the ERROR events over a cap.
+- The plan works from a 12,000-line sample, so at 30% the engine moved 0.150 GB to Infrequent Access against the plan's 0.136 GB. At 70% the plan states 0.030 GB and the engine marked 0.002 GB, because offload acts on the whole container, including patterns the plan lists for Infrequent Access.
 
-## How it was measured
+## How the event message bytes were counted
 
-The data is a public capture of Kubernetes container output from the OpenTelemetry demo, 197,430 lines from 36 containers. For each target, the log10x planning tool sampled it and wrote a byte cap and destination per container, and the engine replayed the whole capture against them. Bytes are the UTF-8 size of each emitted record, which the forwarder sends as the event message CloudWatch bills. Every count was taken from the emitted records and from the engine's aggregators, and the run fails if they differ.
+The capture is 0.215 GB, 197,430 lines of output from 36 Kubernetes containers in a cluster running the OpenTelemetry demo. For each target, the log10x planning tool wrote a byte cap and an action per container, and the engine replayed the whole capture, moving each pattern's bytes over its cap. Caps apply per 240-second window and the replay fits inside one, so each cap was multiplied by 15 for the hour the plan covers. Bytes are the UTF-8 size of each emitted record, which the forwarder sends as the event message CloudWatch bills.
 
 ## Limits
 
-- No AWS bill or usage meter was read. Dollars use list prices read on 2026-10-11.
-- The dollar figures are small because the capture comes from one small demo cluster. The share of bytes moved depends on how its logs spread across patterns.
-- An Infrequent Access log group lacks metric filters, subscription filters, Live Tail, Anomaly Detection and more, so logs that feed one of these lose it when moved. Logs Insights queries still run, apart from four commands.
-- The kept share of each severity is drawn at random per event, so a rerun gives slightly different counts.
+- No AWS bill or usage meter was read. Dollars are list prices read on 2026-10-11.
+- The GB figures come from one small demo cluster, and only the per-GB rates carry to another account.
+- AWS's log class table lists metric filters, subscription filters, Live Tail and Anomaly Detection among the features Infrequent Access lacks.
+- Each severity's kept share is drawn at random per event, so reruns differ slightly.
 
 ## Run it
 
@@ -40,4 +38,4 @@ python3 report.py --check   # recompute every figure from the committed counts
 
 The check needs only Python 3. The full run needs Docker, Node 18 or later and about 1 GB of disk, takes under ten minutes and needs no AWS account.
 
-[RECORD.md](RECORD.md) has the full record: planned against moved bytes per container, every feature Infrequent Access lacks, and the counting rules.
+[RECORD.md](RECORD.md) has each plan's actions by container, a month at this volume, and every feature Infrequent Access lacks.

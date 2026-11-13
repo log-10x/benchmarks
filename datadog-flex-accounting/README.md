@@ -1,38 +1,41 @@
 # Datadog Flex Logs accounting
 
-When the 10x engine moves Datadog log events from Standard indexing to Flex Logs, does the move save money at list price? On a 10-hour OpenTelemetry demo capture of 157,228 events, plans targeting 30%, 50% and 70% of the volume moved 67,505 to 119,833 events, none of them errors or warnings. At this volume every move lands in Flex Starter, which saves money against 30-day Standard indexing and costs more than 15-day indexing.
+Datadog prices indexing per million events and ingestion per GB, and a pattern routed to Flex Logs stops paying the standard index rate. The 10x engine replayed a 10-hour OpenTelemetry demo capture under plans moving whole patterns to Flex at 30%, 50% and 70% targets. At annual list prices and this capture's volume, every move fell in Flex Starter, where it saves $3.40 to $6.04 a month against 30-day Standard indexing and costs $0.49 to $0.86 more than 15-day indexing.
 
-On annual pricing, Standard indexing lists at $1.70 per million events for 15-day retention and $2.50 for 30-day. Flex Starter lists at $0.60 per million stored per month for at least 3 months, so a moved event costs at least $1.80 per million. That sits between the two indexing prices.
+Standard indexing lists at $1.70 per million events for 15-day retention and $2.50 for 30-day. Flex Starter bills storage and compute together at $0.60 per million stored per month for at least 3 months, so a moved event costs at least $1.80 per million. Ingestion is billed as before.
 
-## Result
+## Net per month against Standard indexing
 
-Net is the Standard indexing avoided minus what Flex Starter adds, per month at this capture's volume, and a minus means the move costs more than it saves.
+Net is the indexing avoided less what Flex Starter adds, with the capture's 10 hours scaled to a 720-hour month.
 
-| Target | Events moved to Flex | Share of bytes moved | Net vs 15-day | Net vs 30-day |
+| Target | Events moved in 10 hours | Share of bytes moved | Net vs 15-day | Net vs 30-day |
 |---:|---:|---:|---:|---:|
 | 30% | 67,505 | 39.9% | -$0.49 | +$3.40 |
 | 50% | 90,555 | 56.1% | -$0.66 | +$4.56 |
 | 70% | 119,833 | 71.2% | -$0.86 | +$6.04 |
 
-The dollars are small because the demo cluster is small.
+Datadog's Flex docs give the 3-month minimum. At 6 months, the shortest retention on Datadog's price list, Starter costs $17.50 to $31.06 a month, more than the indexing avoided at either retention.
 
-Against Datadog's own index filters, one per service and matched on events:
+Each target lands on the first set of whole patterns reaching it, three at 30% and 55 at 70%. None of the moved events was an error or a warning.
 
-- At 30%, one filter on `service:opentelemetry-collector` with `-status:(error OR warn)` does nearly the same job. Of the 18,281 extra events it moves, 47 come from patterns the plan leaves entirely in Standard.
-- At 50% and 70%, the filters leave 23,161 and 11,181 events in Standard that the plan moves.
-- Without the status clause, every filter set moves 3,953 to 3,955 errors and warnings to Flex.
+## One Datadog index filter per service, at equal events
 
-## How it was measured
+Each target is compared with the fewest `service:<container>` index filters reaching the events the plan moves.
 
-The capture is Kubernetes output from 36 OpenTelemetry demo containers, 197,430 lines (157,228 events after multi-line grouping) and 0.215 GB. For each target, `log10x-mcp` sampled 12,000 lines and wrote a plan that moves whole log patterns. The released 10x engine replayed the full capture under that plan, counting every event from its output records and its own aggregators, and the run fails if the two differ. Dollars are those counts at Datadog list prices read on 2026-10-13. Datadog metered nothing.
+- At 30%, one filter on `service:opentelemetry-collector` with `-status:(error OR warn)` moves every event the plan moves plus 18,281 more. All but 47 are the part of the three moved patterns that the plan leaves in Standard.
+- At 50% and 70%, the filters leave in Standard 23,161 and 11,181 events the plan moves.
+- Without the status clause, the filters move 3,953 to 3,955 errors and warnings to Flex, where Datadog runs no log monitors.
 
-## Limits
+## How the events were counted and priced
 
-- One small demo capture, replayed rather than sent to Datadog. Monthly dollars scale its 10 hours to a 720-hour month.
-- Only Flex Starter is priced. Above 2 billion events a month, Datadog prices Flex compute on request.
-- Datadog's price list gives Starter retention as 6, 12 or 15 months, and its Flex docs add the 3 the table uses. At 6 months Starter costs $17.50, $23.47 and $31.06 a month, more than the indexing avoided at either retention.
+The capture is [otel-sample-v1](https://github.com/log-10x/config/releases/tag/otel-sample-v1), 197,430 lines of Kubernetes output from 36 containers, which the engine groups into 157,228 events. The log10x planning tool wrote each plan as a byte cap per container from a 12,000-line sample. The engine replayed the capture in one 240-second window, each cap multiplied by 15 to cover the plan's hour. Events were counted from the output records and the engine's aggregators, and the run fails if they differ.
 
-## Run it
+## What the accounting leaves out
+
+- Datadog metered nothing. The dollars are the engine's counts at list prices read on 2026-10-13.
+- The volume is one small demo cluster's. Above 2 billion events a month Datadog prices Flex compute on request, so only Starter is priced.
+
+## Rerunning the accounting
 
 ```
 # from the repository root: recompute every figure from the committed counts and prices
@@ -42,6 +45,6 @@ python3 datadog-flex-accounting/report.py --check
 cd datadog-flex-accounting && ./run.sh
 ```
 
-The full rerun needs Docker, Node 18 or later and about 1 GB of disk. A run takes under ten minutes and needs no Datadog account.
+The full rerun takes under ten minutes and needs Docker, Node 18 or later, about 1 GB of disk and no Datadog account.
 
-[RECORD.md](RECORD.md) has every price source, the plan and engine files per target, the full filter comparison and the counting conditions.
+[RECORD.md](RECORD.md) has every rate, the plans, the filter comparison and the counting conditions.
