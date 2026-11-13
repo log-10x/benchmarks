@@ -1,46 +1,47 @@
 # Datadog service control
 
-Inside one Datadog service, can the index filters a user writes move as many events out of Standard as a per-pattern plan? On the OpenTelemetry demo's Kafka logs they can. At the 70% target, eight logger-name filters moved 24,440 of 29,043 events and the plan moved 23,854, and neither moved an error or warning. On this data the control can be built in house, with eight rules against the plan's one.
+Datadog bills Standard indexing per million events. Inside one service a service filter cannot split that volume, so the control there is an index filter on the logger name Datadog's Kafka pipeline parses, `service:kafka @logger.name:<class>`. In a replay of kafka's records from a public OpenTelemetry demo capture, eight such filters moved 24,440 of 29,043 events out of Standard and a per-pattern plan moved 23,854. Neither moved an error or warning, and on this data the control can be built in house.
 
-The plan is one cap row, a byte limit per log pattern on the kafka container, and events the 10x engine marks over it go to Flex through an index filter. Datadog's Kafka pipeline parses each logger into `logger.name`, so the native rule is `service:kafka @logger.name:<class>`.
+The plan is one cap row, a byte limit per pattern per 240-second window, and the 10x engine marks events over it for a Flex index.
 
-## Result
+## Events moved out of Standard in the kafka service
 
-Events moved out of Standard at the 70% target. B got A's rules unchanged, beside a plan written on B.
+The plan was asked to move 70% of the volume, and capture B, a later demo version, got A's rules unchanged.
 
 | Capture | Rule set | Rules | Events moved | Lifecycle events moved, of 317 |
 |---|---|---:|---:|---:|
 | A, 29,043 events | per-pattern plan | 1 cap row | 23,854 | n/a |
 | A | logger-name filters | 8 | 24,440 | n/a |
-| B, 6,226 events | plan rewritten on B | 1 cap row | 3,321 | 0 |
+| B, 6,226 events | plan written on B | 1 cap row | 3,321 | 0 |
 | B | A's cap, unchanged | 1 cap row | 3,493 | 95 |
 | B | A's logger-name filters | 8 | 4,658 | 0 |
 
-On A the filters leave in Standard 3,046 events the plan moves, from two logger classes they do not name. On B, A's filters moved none of the 317 lifecycle events (patterns B has and A lacks), while A's cap moved 95.
+On A the filters leave in Standard 3,046 events the plan moves, from two classes they do not name. All of A's filters still matched on B. Of B's 317 lifecycle events, from patterns A lacks, A's cap moved 95 and the filters none.
 
-Across all services of both captures, after a buyer's usual filters (`-status:(error OR warn)` service filters on three services, DEBUG and TRACE dropped):
+## What the plan moves after service and level filters
 
-- The plan moved 5,539 events beyond those filters on A (3.5% of the capture) and 4,882 on B (11.7%).
-- On B, six more service filters cut that to 48 events but also move 4,085 events the plan keeps.
-- A phrase of each pattern's own words selects it, which takes 13 index filters on A and 22 on B. One phrase on A also catches 2 kept events.
+Of the events left in Standard on both whole captures after `-status:(error OR warn)` filters on three services and DEBUG and TRACE dropped, the plan at 70% moved 5,539 on A, 3.5% of the capture, and 4,882 on B, 11.7%. An index filter on a quoted phrase of each pattern's constant words selects it, 13 filters on A and 22 on B, and one also selects 2 events the plan keeps. A condition fixed before the run called for a trial of the plan only if most of those events needed the pattern ID, and none do.
 
-## How it was measured
+On B, six more service filters leave 48 of those events and also move 4,085 the plan keeps, nearly all of them statements split into one pattern per value or short statements the byte cap keeps.
 
-The data is the kafka records of two public OpenTelemetry demo captures on Kafka 3.9.1. A covers ten hours through Fluentd and B two hours through Fluent Bit. The plan was written on A at targets from 30 to 90% and moved 23,836 to 23,905 events at each. The filters follow a rule fixed before the run: the fewest logger classes, largest first, whose events reach the plan's. Each count is read from the emitted records and the engine's own counters, and the run fails if they differ.
+## How the events were counted
+
+Capture A is ten hours through Fluentd and B two hours through Fluent Bit, on Kafka 3.9.1. On A the plan moved 23,836 to 23,905 events at targets from 30 to 90%. The filters follow a rule fixed before the run, the fewest logger classes, largest first, whose events reach the plan's, so the totals on A are close by construction. Each count is read twice from the 10x engine's replay, and the run fails if the two differ.
 
 ## Limits
 
-- Only two demo captures were tested. A production stream can have more events that only the pattern ID selects.
-- Nothing was sent to Datadog, so no Datadog meter was read.
+- Only two demo captures were tested.
+- Nothing was sent to Datadog, so no usage metric was read.
 - The rule counts leave out the work of finding each pattern first.
 
 ## Run it
 
 ```
+cd datadog-service-control
 python3 report.py --check   # recompute every table from the committed files
 ./run.sh                    # the full run
 ```
 
-The check needs only Python. The full run needs Docker, Node 18 or later, about 2 GB of disk and under twenty minutes, and no Datadog account.
+The full run needs Docker, Node 18 or later, about 2 GB of disk and under twenty minutes.
 
-[RECORD.md](RECORD.md) has every target and variant, the all-services analysis and the predictions written before the run.
+[RECORD.md](RECORD.md) has every target, the all-services analysis and the predictions written before the run.

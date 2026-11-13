@@ -1,39 +1,34 @@
 # ClickHouse rows gate
 
-When the 10x engine limits how many lines a service sends into ClickStack, which ClickHouse system table counts the rows written into the logs table exactly? The NewPart rows in `system.part_log` matched the table's own count of 22,367 rows to the row, in both runs. The insert entries in `system.query_log` did not, so they serve as a cross-check at most.
+Two ClickHouse system tables record inserts: `system.query_log` has an entry per insert with the rows it wrote, and `system.part_log` has a NewPart entry per new data part with its row count. Both were read against the row count of ClickStack's logs table while the 10x engine limited three services to a set total per window. The NewPart rows equaled the table's count in both runs. In the second run the query log's insert entries were 1,948 rows over or 7,519 under, depending on the entry kind.
 
-ClickStack's exporter inserts asynchronously, and each insert statement lists three tables in the query log (the logs table, a counts table and a 15-minute rollup), so a filter on the logs table cannot pick out its rows. Which of the two insert entry kinds carried the extra rows also changed between runs.
+ClickStack's exporter inserts asynchronously, and each insert statement lists three tables in the query log (the logs table, a counts table and a 15-minute rollup), so a filter on the logs table cannot pick out its rows.
 
-## Result
+## What the system tables counted
 
-The table shows the second run, on 2026-10-23. Hot means the logs table, where the lines the engine passed land.
-
-| Count | Rows | Against the logs table |
+| Count, second run, 2026-10-23 | Rows | Against the logs table |
 |---|---:|---|
 | `count()` on `default.otel_logs` | 22,367 | the count to match |
-| Lines the engine routed to hot | 22,367 | equal |
+| Events the engine passed | 22,367 | equal |
 | `system.parts`, active rows | 22,367 | equal |
 | `system.part_log`, NewPart rows | 22,367 | equal |
 | `system.query_log`, kind Insert | 24,315 | off by +1,948 |
 | `system.query_log`, kind AsyncInsertFlush | 14,848 | off by -7,519 |
 
-The part log matched in both runs, so it is the count to use. In the first run the Insert entries happened to equal the hot count and the AsyncInsertFlush entries ran over by the materialized view's rows.
+The part log also matched in the first run, where the Insert entries happened to equal the table's count and the AsyncInsertFlush entries ran over by a materialized view's rows. Which entry kind carries the other tables' rows changes between runs, so the query log is a cross-check at most. Rows in the table and the store add up to the 157,087 records the engine returned (22,367 + 134,720).
 
-The run also checked the limits:
+- In the second run, kafka put 1,000 rows in the table against its total of 1,000, cart 400 against 400 and opentelemetry-collector 2,050 against 2,000. The extra 50 are the error lines the engine keeps for one storming error statement.
+- Rewriting the totals file in place 4 seconds into the feed did not reset the window counts, and no limited service added another row.
+- Scraped 5 seconds after the collector stopped, the engine's Prometheus counters still lagged, at 16,255 passed events against 22,367, so a scheduled run reads the last complete hour.
 
-- With the limit counted in lines, kafka kept 1,000 lines against a total of 1,000 and cart kept 400 against 400. The opentelemetry-collector service kept 2,050 against 2,000, and the 50 extra lines are the engine's error keep count for one storming error statement.
-- Rewriting the totals file in place 4 seconds into the feed did not reset the window counts, and no limited service passed another line in that window.
-- Hot plus cold equalled the records the engine returned: 22,367 + 134,720 = 157,087.
+## The ClickStack rig and the feed
 
-## How it was measured
+The rig is the one in [clickstack-e2e](../clickstack-e2e/): ClickStack 2.38.0 on ClickHouse 26.5.7.64, the 10x engine and an S3-compatible store. An OpenTelemetry collector reads the 197,430-line capture and sends its events to the engine, which returns them marked pass or offload. Passed events go into the logs table and offloaded ones to the store, which a ClickHouse view reads back. Every count was read after flushing the system logs, and the [results file](results/clickstack-rows-gate-2026-10-23.md) lists each query and its answer.
 
-The rig is the one in [clickstack-e2e](../clickstack-e2e/): ClickStack 2.38.0 on ClickHouse 26.5.7.64, the 10x engine in front of it, and an S3-compatible store for the cold side. The whole 197,430-line capture was fed in about 216 seconds. Three services had a line total for the window, and their lines over it went to S3, which a ClickHouse view reads back. The results file lists every query with its answer.
+## What the run does not cover
 
-## Limits
-
-- The feed is one limit window long, so the test says nothing about money, ClickHouse Cloud or a rate kept over hours. The hourly test that uses this count is [clickstack-rows](../clickstack-rows/).
-- Both runs used one ClickStack version, and only the second run's figures are committed.
-- The engine's Prometheus counters, scraped 5 seconds after the collector stopped, still lagged the lines sent (16,255 passed against 22,367). A reading of them should use the last complete hour.
+- The feed is one limit window long, so the run says nothing about money, ClickHouse Cloud or a rate kept over hours, which [clickstack-rows](../clickstack-rows/) measures from the part log.
+- Both runs used one ClickStack version and its exporter's asynchronous inserts, and only the second run's figures are committed.
 
 ## Run it
 
@@ -42,6 +37,6 @@ The rig is the one in [clickstack-e2e](../clickstack-e2e/): ClickStack 2.38.0 on
 CSE_DATA_DIR=../clickstack-e2e/data ./run.sh
 ```
 
-A run needs Docker and the capture from clickstack-e2e. The engine image is `ghcr.io/log-10x/edge-10x:1.1.147`. Results land in [results/](results/).
+A run needs Docker and the capture from clickstack-e2e, uses the engine image `ghcr.io/log-10x/edge-10x:1.1.147` and writes to [results/](results/).
 
-[RECORD.md](RECORD.md) has the full record, including the engine counters, their labels and the config patches.
+[RECORD.md](RECORD.md) has the full record, with the engine's counters, config patches and store setup.
